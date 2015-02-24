@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2011 Team XBMC
+ *      Copyright (C) 2005-2015 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -16,14 +16,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with XBMC; see the file COPYING.  If not, write to
  *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1301  USA
+ *  MA 02110-1335, USA.
  *  http://www.gnu.org/copyleft/gpl.html
  *
  */
 
-#include "libXBMC_addon.h"
-#include "libXBMC_pvr.h"
-#include "libXBMC_gui.h"
+#include "kodi/libXBMC_addon.h"
+#include "kodi/libXBMC_pvr.h"
+#include "kodi/libXBMC_gui.h"
 
 #define DEFAULT_HOST             "127.0.0.1"
 #define DEFAULT_CONNECT_TIMEOUT  30

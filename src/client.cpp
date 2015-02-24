@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2011 Team XBMC
+ *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with XBMC; see the file COPYING.  If not, write to
  *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1301  USA
+ *  MA 02110-1335, USA.
  *  http://www.gnu.org/copyleft/gpl.html
  *
  */
 
 #include "client.h"
-#include "xbmc_pvr_dll.h"
+#include "kodi/xbmc_pvr_dll.h"
 #include <stdlib.h>
 #include "VuData.h"
-#include "platform/util/util.h"
+#include "kodi/util/util.h"
 
 using namespace std;
 using namespace ADDON;
