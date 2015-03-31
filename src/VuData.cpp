@@ -803,6 +803,12 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
       broadcast.endTime             = entry.endTime;
       broadcast.strPlotOutline      = entry.strPlotOutline.c_str();
       broadcast.strPlot             = entry.strPlot.c_str();
+      broadcast.strOriginalTitle    = NULL; // unused
+      broadcast.strCast             = NULL; // unused
+      broadcast.strDirector         = NULL; // unused
+      broadcast.strWriter           = NULL; // unused
+      broadcast.iYear               = 0;    // unused
+      broadcast.strIMDBNumber       = NULL; // unused
       broadcast.strIconPath         = ""; // unused
       broadcast.iGenreType          = 0; // unused
       broadcast.iGenreSubType       = 0; // unused
@@ -958,6 +964,12 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     broadcast.endTime             = entry.endTime;
     broadcast.strPlotOutline      = entry.strPlotOutline.c_str();
     broadcast.strPlot             = entry.strPlot.c_str();
+    broadcast.strOriginalTitle    = NULL; // unused
+    broadcast.strCast             = NULL; // unused
+    broadcast.strDirector         = NULL; // unused
+    broadcast.strWriter           = NULL; // unused
+    broadcast.iYear               = 0;    // unused
+    broadcast.strIMDBNumber       = NULL; // unused
     broadcast.strIconPath         = ""; // unused
     broadcast.iGenreType          = 0; // unused
     broadcast.iGenreSubType       = 0; // unused
@@ -1594,6 +1606,7 @@ PVR_ERROR Vu::GetChannelGroups(ADDON_HANDLE handle)
     memset(&tag, 0 , sizeof(PVR_CHANNEL_GROUP));
 
     tag.bIsRadio     = false;
+    tag.iPosition = 0; // groups default order, unused
     strncpy(tag.strGroupName, m_groups[iTagPtr].strGroupName.c_str(), sizeof(tag.strGroupName));
 
     PVR->TransferChannelGroup(handle, &tag);
