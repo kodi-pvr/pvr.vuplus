@@ -21,9 +21,9 @@
  *
  */
 
-#include "kodi/util/StdString.h"
+#include "platform/util/StdString.h"
 #include "client.h"
-#include "kodi/threads/threads.h"
+#include "platform/threads/threads.h"
 #include "tinyxml.h"
     
 #define CHANNELDATAVERSION  2
