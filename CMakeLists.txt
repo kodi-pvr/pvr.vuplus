@@ -19,7 +19,8 @@ include_directories(${kodiplatform_INCLUDE_DIRS}
 set(VUPLUS_SOURCES src/client.cpp
                    src/VuData.cpp)
 
-set(DEPLIBS ${platform_LIBRARIES}
+set(DEPLIBS ${kodiplatform_LIBRARIES}
+            ${platform_LIBRARIES}
             ${TINYXML_LIBRARIES})
 
 build_addon(pvr.vuplus VUPLUS DEPLIBS)
