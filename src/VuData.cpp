@@ -145,7 +145,6 @@ void Vu::TimerUpdates()
           m_timers[i].iChannelId = newtimer[j].iChannelId;
           m_timers[i].startTime = newtimer[j].startTime;
           m_timers[i].endTime = newtimer[j].endTime;
-          m_timers[i].bRepeating = newtimer[j].bRepeating;
           m_timers[i].iWeekdays = newtimer[j].iWeekdays;
           m_timers[i].iEpgID = newtimer[j].iEpgID;
 
@@ -1031,6 +1030,10 @@ PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
     XBMC->Log(LOG_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.strTitle.c_str(), timer.iClientIndex);
     PVR_TIMER tag;
     memset(&tag, 0, sizeof(PVR_TIMER));
+
+    /* TODO: Implement own timer types to get support for the timer features introduced with PVR API 1.9.7 */
+    tag.iTimerType = PVR_TIMER_TYPE_NONE;
+
     tag.iClientChannelUid = timer.iChannelId;
     tag.startTime         = timer.startTime;
     tag.endTime           = timer.endTime;
@@ -1040,7 +1043,6 @@ PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
     tag.state             = timer.state;
     tag.iPriority         = 0;     // unused
     tag.iLifetime         = 0;     // unused
-    tag.bIsRepeating      = timer.bRepeating;
     tag.firstDay          = 0;     // unused
     tag.iWeekdays         = timer.iWeekdays;
     tag.iEpgUid           = timer.iEpgID;
@@ -1137,11 +1139,6 @@ std::vector<VuTimer> Vu::LoadTimers()
     else 
       timer.iWeekdays = 0;
 
-    if (timer.iWeekdays != 0)
-      timer.bRepeating      = true; 
-    else
-      timer.bRepeating = false;
-    
     if (XMLUtils::GetInt(pNode, "e2eit", iTmp))
       timer.iEpgID = iTmp;
     else 
