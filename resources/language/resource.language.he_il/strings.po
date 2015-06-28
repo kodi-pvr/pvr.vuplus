@@ -1,0 +1,125 @@
+# Kodi Media Center language file
+# Addon Name: VU+ / Enigma2 Client
+# Addon id: pvr.vuplus
+# Addon Provider: Joerg Dembski
+msgid ""
+msgstr ""
+"Project-Id-Version: KODI Main\n"
+"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/kodi-main/language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "VU+ hostname or IP address"
+msgstr "שם מארח או כתובת IP"
+
+msgctxt "#30002"
+msgid "Streaming Port"
+msgstr "פורט הזרמה"
+
+msgctxt "#30003"
+msgid "Username"
+msgstr "שם משתמש"
+
+msgctxt "#30004"
+msgid "Password"
+msgstr "סיסמה"
+
+msgctxt "#30007"
+msgid "Response timeout in seconds"
+msgstr "זמן המתנה מירבי לתגובה בשניות"
+
+msgctxt "#30008"
+msgid "Icon Path"
+msgstr "נתיב סמלי ערוצים"
+
+msgctxt "#30010"
+msgid "Update Interval in minutes"
+msgstr "מרווח זמני עדכונים בדקות"
+
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "ניקוי רשימת תזמונים אוטומטית"
+
+msgctxt "#30012"
+msgid "Webinterface Port"
+msgstr "פורט ממשק רשת"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "העבר ערוץ במכשיר לפני העברה ב־Kodi (מכשיר בעל מקלט בודד)"
+
+msgctxt "#30014"
+msgid "Folder for channeldata"
+msgstr "תיקיית נתוני ערוצים"
+
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "חיפוש עדכוני סל ערוצים"
+
+msgctxt "#30016"
+msgid "Check for channel updates"
+msgstr "חיפוש עדכוני ערוץ"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "שימוש בנתיב הקלטה נוכחי של מכשיר ה־DVB בלבד"
+
+msgctxt "#30018"
+msgid "General"
+msgstr "כללי"
+
+msgctxt "#30019"
+msgid "Channels"
+msgstr "ערוצים"
+
+msgctxt "#30020"
+msgid "Advanced"
+msgstr "מתקדם"
+
+msgctxt "#30021"
+msgid "HTTP"
+msgstr "HTTP"
+
+msgctxt "#30022"
+msgid "Recordings / Timer"
+msgstr "הקלטות / תזמון"
+
+msgctxt "#30023"
+msgid "Recording folder on the receiver"
+msgstr "תיקיית הקלטות בשרת אחורי"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "שלח פקודת שינה עמוקה"
+
+msgctxt "#30025"
+msgid "Fetch only one TV bouquet"
+msgstr "משוך סל ערוצים יחיד בלבד"
+
+msgctxt "#30026"
+msgid "TV-Bouquet"
+msgstr "סל ערוצים"
+
+msgctxt "#30027"
+msgid "Fetch picons from webinterface"
+msgstr "משוך סמלי ערוצים מממשק הדפדפן"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "השתמש ב־HTTP מאובטח (https)"
+
+msgctxt "#30500"
+msgid "Disconnected from '%s'"
+msgstr "נותק מ־'%s'"
+
+msgctxt "#30501"
+msgid "Reconnected to '%s'"
+msgstr "חובר חזרה ל־'%s'"
