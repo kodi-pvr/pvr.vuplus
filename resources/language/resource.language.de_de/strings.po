@@ -1,0 +1,125 @@
+# Kodi Media Center language file
+# Addon Name: VU+ / Enigma2 Client
+# Addon id: pvr.vuplus
+# Addon Provider: Joerg Dembski
+msgid ""
+msgstr ""
+"Project-Id-Version: KODI Main\n"
+"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/kodi-main/language/de_DE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "VU+ hostname or IP address"
+msgstr "VU+ Hostname oder IP-Adresse"
+
+msgctxt "#30002"
+msgid "Streaming Port"
+msgstr "Streaming Port"
+
+msgctxt "#30003"
+msgid "Username"
+msgstr "Benutzername"
+
+msgctxt "#30004"
+msgid "Password"
+msgstr "Passwort"
+
+msgctxt "#30007"
+msgid "Response timeout in seconds"
+msgstr "Antwortzeitüberschreitung in Sekunden"
+
+msgctxt "#30008"
+msgid "Icon Path"
+msgstr "Icon-Pfad"
+
+msgctxt "#30010"
+msgid "Update Interval in minutes"
+msgstr "Aktualisierungsintervall in Minuten"
+
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Entferne abgeschlossene Timer automatisch"
+
+msgctxt "#30012"
+msgid "Webinterface Port"
+msgstr "Weboberfläche Port"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Umschalten auf Receiver (z.B. bei SingleTuner Receivern)"
+
+msgctxt "#30014"
+msgid "Folder for channeldata"
+msgstr "Speicherort für Kanaldaten"
+
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Überprüfe auf Bouquettaktualisierungen"
+
+msgctxt "#30016"
+msgid "Check for channel updates"
+msgstr "Überprüfe auf Kanalaktualisierungen"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Nur den aktuellen Box-Aufnahmenpfad nutzen"
+
+msgctxt "#30018"
+msgid "General"
+msgstr "Allgemein"
+
+msgctxt "#30019"
+msgid "Channels"
+msgstr "Sender"
+
+msgctxt "#30020"
+msgid "Advanced"
+msgstr "Erweitert"
+
+msgctxt "#30021"
+msgid "HTTP"
+msgstr "HTTP"
+
+msgctxt "#30022"
+msgid "Recordings / Timer"
+msgstr "Aufnahmen / Timer"
+
+msgctxt "#30023"
+msgid "Recording folder on the receiver"
+msgstr "Aufnahmeverzeichnis auf dem Receiver"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Sende DeepStandby-Befehl"
+
+msgctxt "#30025"
+msgid "Fetch only one TV bouquet"
+msgstr "Lade nur ein TV-Bouquet"
+
+msgctxt "#30026"
+msgid "TV-Bouquet"
+msgstr "TV-Bouquet"
+
+msgctxt "#30027"
+msgid "Fetch picons from webinterface"
+msgstr "Lade Picons aus der Weboberfläche"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Sicheres HTTP (https) verwenden"
+
+msgctxt "#30500"
+msgid "Disconnected from '%s'"
+msgstr "Verbindung zu '%s' unterbrochen"
+
+msgctxt "#30501"
+msgid "Reconnected to '%s'"
+msgstr "Verbindung zu '%s' wiederhergestellt"
