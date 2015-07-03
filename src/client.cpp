@@ -336,7 +336,6 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bSupportsRadio              = true;
   pCapabilities->bSupportsRecordings         = true;
   pCapabilities->bSupportsRecordingsUndelete = false;
-  pCapabilities->bSupportsRecordingFolders   = true;
   pCapabilities->bSupportsTimers             = true;
   pCapabilities->bSupportsChannelGroups      = true;
   pCapabilities->bSupportsChannelScan        = false;
@@ -433,6 +432,12 @@ PVR_ERROR RenameRecording(const PVR_RECORDING &recording)
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
+PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
+{
+  /* TODO: Implement this to get support for the timer features introduced with PVR API 1.9.7 */
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
 int GetTimersAmount(void)
 {
   if (!VuData || !VuData->IsConnected())
@@ -446,6 +451,7 @@ PVR_ERROR GetTimers(ADDON_HANDLE handle)
   if (!VuData || !VuData->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
+  /* TODO: Change implementation to get support for the timer features introduced with PVR API 1.9.7 */
   return VuData->GetTimers(handle);
 }
 
@@ -457,11 +463,12 @@ PVR_ERROR AddTimer(const PVR_TIMER &timer)
   return VuData->AddTimer(timer);
 }
 
-PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
+PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete, bool /*bDeleteScheduled*/)
 {
   if (!VuData || !VuData->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
+  /* TODO: Change implementation to support bDeleteScheduled (introduced with PVR API 1.9.7 */
   return VuData->DeleteTimer(timer);
 }
 

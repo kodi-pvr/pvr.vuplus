@@ -86,7 +86,6 @@ struct VuTimer
   int iChannelId;
   time_t startTime;
   time_t endTime;
-  bool bRepeating; 
   int iWeekdays;
   int iEpgID;
   PVR_TIMER_STATE state; 
@@ -104,7 +103,6 @@ struct VuTimer
     bChanged = bChanged && (startTime == right.startTime); 
     bChanged = bChanged && (endTime == right.endTime); 
     bChanged = bChanged && (iChannelId == right.iChannelId); 
-    bChanged = bChanged && (bRepeating == right.bRepeating); 
     bChanged = bChanged && (iWeekdays == right.iWeekdays); 
     bChanged = bChanged && (iEpgID == right.iEpgID); 
 
@@ -117,7 +115,6 @@ struct VuTimer
     bChanged = bChanged && (startTime == right.startTime); 
     bChanged = bChanged && (endTime == right.endTime); 
     bChanged = bChanged && (iChannelId == right.iChannelId); 
-    bChanged = bChanged && (bRepeating == right.bRepeating); 
     bChanged = bChanged && (iWeekdays == right.iWeekdays); 
     bChanged = bChanged && (iEpgID == right.iEpgID); 
     bChanged = bChanged && (state == right.state); 
