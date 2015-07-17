@@ -1,3 +1,7 @@
+v1.10.7
+- debian packaging: fix library install path
+- miscellaneous backend fixes
+
 v1.10.6
 - libplatform dependency update
 
