@@ -1,3 +1,7 @@
+1.11.2
+- Debian packaging: fix library install path
+- Miscellaneous backend fixes
+
 1.11.1
 - Updated to API v2.0.0
 
