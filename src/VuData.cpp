@@ -538,17 +538,8 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
     newChannel.strIconPath = strIcon;
 
-    strTmp.Format("");
-
-    if ((g_strUsername.length() > 0) && (g_strPassword.length() > 0))
-      strTmp.Format("%s:%s@", g_strUsername.c_str(), g_strPassword.c_str());
-    
-    if (!g_bUseSecureHTTP)
-      strTmp.Format("http://%s%s:%d/%s", strTmp.c_str(), g_strHostname, g_iPortStream, strTmp2.c_str());
-    else
-      strTmp.Format("https://%s%s:%d/%s", strTmp.c_str(), g_strHostname, g_iPortStream, strTmp2.c_str());
-    
-    newChannel.strStreamURL = strTmp;
+    strTmp.Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference.c_str()));
+    newChannel.strM3uURL = strTmp;
 
     if (g_bOnlinePicons == true)
     {
@@ -563,6 +554,22 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
   XBMC->Log(LOG_INFO, "%s Loaded %d Channels", __FUNCTION__, m_channels.size());
   return true;
+}
+
+std::string Vu::getStreamURL(std::string& strM3uURL)
+{
+    CStdString strTmp;
+    strTmp = strM3uURL;
+    std::string strM3U;
+    strM3U = GetHttpXML(strTmp);
+    std::istringstream streamM3U(strM3U);
+    std::string strURL;
+    while (std::getline(streamM3U, strURL))
+    {
+      if (strURL.compare(0, 3, "http", 3) == 0)
+        break;
+    };
+    return strURL;
 }
 
 bool Vu::IsConnected() 
@@ -1672,7 +1679,13 @@ const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
   SwitchChannel(channelinfo);
 
-  return m_channels.at(channelinfo.iUniqueId-1).strStreamURL.c_str();
+  // we need to download the M3U file that contains the URL for the stream...
+  // we do it here for 2 reasons:
+  //  1. This is faster than doing it during initialization
+  //  2. The URL can change, so this is more up-to-date.
+  std::string strStreamURL;
+  strStreamURL = getStreamURL(m_channels.at(channelinfo.iUniqueId-1).strM3uURL);
+  return strStreamURL.c_str();
 }
 
 bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
