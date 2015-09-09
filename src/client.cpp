@@ -463,12 +463,11 @@ PVR_ERROR AddTimer(const PVR_TIMER &timer)
   return VuData->AddTimer(timer);
 }
 
-PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete, bool /*bDeleteScheduled*/)
+PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
 {
   if (!VuData || !VuData->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  /* TODO: Change implementation to support bDeleteScheduled (introduced with PVR API 1.9.7 */
   return VuData->DeleteTimer(timer);
 }
 

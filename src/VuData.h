@@ -87,7 +87,7 @@ struct VuTimer
   time_t startTime;
   time_t endTime;
   int iWeekdays;
-  int iEpgID;
+  unsigned int iEpgID;
   PVR_TIMER_STATE state; 
   int iUpdateState;
   unsigned int iClientIndex;
