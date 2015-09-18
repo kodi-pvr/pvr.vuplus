@@ -75,7 +75,6 @@ struct VuChannel
   std::string strGroupName;
   std::string strChannelName;
   std::string strServiceReference;
-//  std::string strStreamURL;
   std::string strM3uURL;
   std::string strIconPath;
 };

@@ -556,6 +556,13 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
   return true;
 }
 
+/**
+ * getStreamURL() reads out a stream-URL from a M3U-file.
+ * 
+ * This method downloads a M3U-file from the address that is given by strM3uURL.
+ * It returns the first line that starts with "http".
+ * If no line starts with "http" the last line is returned.
+ */
 std::string Vu::getStreamURL(std::string& strM3uURL)
 {
     CStdString strTmp;
@@ -563,10 +570,10 @@ std::string Vu::getStreamURL(std::string& strM3uURL)
     std::string strM3U;
     strM3U = GetHttpXML(strTmp);
     std::istringstream streamM3U(strM3U);
-    std::string strURL;
+    std::string strURL = "";
     while (std::getline(streamM3U, strURL))
     {
-      if (strURL.compare(0, 3, "http", 3) == 0)
+      if (strURL.compare(0, 4, "http", 4) == 0)
         break;
     };
     return strURL;
