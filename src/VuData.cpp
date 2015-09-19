@@ -820,6 +820,7 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
       broadcast.iEpisodeNumber      = 0;  // unused
       broadcast.iEpisodePartNumber  = 0;  // unused
       broadcast.strEpisodeName      = ""; // unused
+      broadcast.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 
       PVR->TransferEpgEntry(handle, &broadcast);
     }
@@ -981,6 +982,7 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     broadcast.iEpisodeNumber      = 0;  // unused
     broadcast.iEpisodePartNumber  = 0;  // unused
     broadcast.strEpisodeName      = ""; // unused
+    broadcast.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 
     PVR->TransferEpgEntry(handle, &broadcast);
 
