@@ -75,7 +75,8 @@ struct VuChannel
   std::string strGroupName;
   std::string strChannelName;
   std::string strServiceReference;
-  std::string strStreamURL;
+//  std::string strStreamURL;
+  std::string strM3uURL;
   std::string strIconPath;
 };
 
@@ -186,6 +187,7 @@ private:
   void TimerUpdates();
   bool GetDeviceInfo();
   int GetRecordingIndex(CStdString);
+  std::string getStreamURL(std::string& strM3uURL);
 
   // helper functions
   static long TimeStringToSeconds(const CStdString &timeString);
