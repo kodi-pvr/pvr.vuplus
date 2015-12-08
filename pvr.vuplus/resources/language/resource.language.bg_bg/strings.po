@@ -74,7 +74,7 @@ msgstr "Ползвай само за запис на зададения в DVB �
 
 msgctxt "#30018"
 msgid "General"
-msgstr "General"
+msgstr "Основни"
 
 msgctxt "#30019"
 msgid "Channels"
@@ -94,7 +94,7 @@ msgstr "Записи / Брояч"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Папка за записите на ресивъра"
+msgstr "Папка за записите на приемника"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"

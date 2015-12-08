@@ -38,23 +38,39 @@ msgstr "Temps d'espera de la resposta en segons"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Ruta de l'icona"
+msgstr "Camí a la icona"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval d'actualització en minuts"
 
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Neteja automàtica de Timerlist"
+
 msgctxt "#30012"
 msgid "Webinterface Port"
 msgstr "Port de la interfície web"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Zap abans de canviar de canal (és a dir, per a les caixes de solament un sintonitzador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Carpeta pel canal de dades"
 
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Buscar actualitzacions de bouquett"
+
 msgctxt "#30016"
 msgid "Check for channel updates"
 msgstr "Comprova si hi ha actualitzacions dels canals"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Utilitzi només ruta d'enregistrament actual dels quadres DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -80,6 +96,10 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Grabant carpeta en el receptor"
 
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Enviar ordre DeepStandby"
+
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Obté només un TV bouquet"
@@ -91,6 +111,10 @@ msgstr "TV-Bouquet"
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
 msgstr "Obté els picons des de la interfície web"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Usar HTTP segur (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

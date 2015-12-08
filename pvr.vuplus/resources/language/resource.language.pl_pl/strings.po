@@ -38,7 +38,7 @@ msgstr "Limit czasu odpowiedzi w sekundach"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Folder logo"
+msgstr "Ścieżka do folderu z ikonami"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
@@ -58,7 +58,7 @@ msgstr "Przełączaj na dany kanał (np. dla dekoderów z jednym tunerem)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
-msgstr "Folder danych "
+msgstr "Folder danych kanałów"
 
 msgctxt "#30015"
 msgid "Check for bouquett updates"

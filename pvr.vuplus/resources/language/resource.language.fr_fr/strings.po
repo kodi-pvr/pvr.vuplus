@@ -22,7 +22,7 @@ msgstr "Nom d'hôte VU+ ou adresse IP"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Port du flux"
+msgstr "Port du flux de diffusion"
 
 msgctxt "#30003"
 msgid "Username"
@@ -46,15 +46,15 @@ msgstr "Intervalle de mise à jour en minutes"
 
 msgctxt "#30011"
 msgid "Automatic Timerlist Cleanup"
-msgstr "Nettoyage automatique de la liste de minuterie"
+msgstr "Nettoyage automatique de la liste de programmation"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
-msgstr "Port de l'interface web"
+msgstr "Port de l'interface internet"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Bip avant le changement de chaîne (par ex. pour les tuners uniques)"
+msgstr "Zapper avant le changement de chaîne (par ex. pour les dispositif à tuner unique)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -62,7 +62,7 @@ msgstr "Dossier des données de chaîne"
 
 msgctxt "#30015"
 msgid "Check for bouquett updates"
-msgstr "Mettre à jour les bouquets"
+msgstr "Vérifier les mises à jour des bouquets"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -70,7 +70,7 @@ msgstr "Mettre à jour les chaînes"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
-msgstr "Utiliser le dossier actuel d'enregistrement des périphériques DVB"
+msgstr "Utiliser seulement le chemin d'enregistrement des périphériques DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -90,7 +90,7 @@ msgstr "HTTP"
 
 msgctxt "#30022"
 msgid "Recordings / Timer"
-msgstr "Enregistrements / Minuteur"
+msgstr "Enregistrements / Programmation"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -98,7 +98,7 @@ msgstr "Dossier d'enregistrement du récepteur"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
-msgstr "Envoyer la commande MiseEnVeilleTotale"
+msgstr "Envoyer la commande de mise en veille profonde (DeepStandby)"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
@@ -110,7 +110,7 @@ msgstr "Bouquet TV"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
-msgstr "Récupérer les icônes de l'interface web "
+msgstr "Récupérer les icônes de l'interface internet "
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
@@ -118,8 +118,8 @@ msgstr "Utiliser le HTTP sécurisé (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
-msgstr "Déconnecté de '%s'"
+msgstr "Déconnecté de « %s »"
 
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
-msgstr "Reconnecté à '%s'"
+msgstr "Reconnecté à « %s »"

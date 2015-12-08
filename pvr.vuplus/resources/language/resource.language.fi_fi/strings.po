@@ -16,6 +16,14 @@ msgstr ""
 "Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "VU+ hostname or IP address"
+msgstr "VU+ isäntänimi tai IP osoite"
+
+msgctxt "#30002"
+msgid "Streaming Port"
+msgstr "Suoratoistoportti"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Käyttäjänimi"
@@ -36,9 +44,21 @@ msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Päivitysväli minuuteissa"
 
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Automaattinen ajastuslistan siivous"
+
 msgctxt "#30012"
 msgid "Webinterface Port"
 msgstr "Webbikäyttöliittymän portti"
+
+msgctxt "#30014"
+msgid "Folder for channeldata"
+msgstr "Kanavadatan kansio"
+
+msgctxt "#30016"
+msgid "Check for channel updates"
+msgstr "Tarkista kanavapäivitykset"
 
 msgctxt "#30018"
 msgid "General"
@@ -55,6 +75,10 @@ msgstr "Lisäasetukset"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30022"
+msgid "Recordings / Timer"
+msgstr "Tallenteet / Ajastin"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
