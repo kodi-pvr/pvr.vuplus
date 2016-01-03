@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="1.11.7"
+  version="1.11.8"
   name="VU+ / Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>
@@ -34,7 +34,7 @@
     <summary lang="gl_ES">Interface de Kodi para decodificadores equipados con VU+/Enigma2</summary>
     <summary lang="he_IL">לקוח טלוויזיה חיה עבור מכשירי VU+ או מבוססי Enigma2</summary>
     <summary lang="hr_HR">Kodi sučelje za VU+ / Enigma2 set-top box temeljene uređaje</summary>
-    <summary lang="hu_HU">Kodi VU+ és Enigma2 előtér-kiszolgáló settop boxokhoz </summary>
+    <summary lang="hu_HU">Kodi előtét a VU+ és Enigma2 settop boxokhoz</summary>
     <summary lang="id_ID">Frontend Kodi untuk settop boxes berbasis VU+ / Enigma2</summary>
     <summary lang="is_IS">XBMS framendi fyrir tengibox byggð á VU+ / Enigma2</summary>
     <summary lang="it_IT">Frontend con Kodi per i settop box basati su VU+ / Enigma2</summary>
@@ -54,6 +54,7 @@
     <summary lang="sk_SK">Rozhranie Kodi pre spoluprácu s prijímačmi VU+ / Enigma2</summary>
     <summary lang="sl_SI">Kodijev vmesnik za sprejemnike VU+ / Enigma2</summary>
     <summary lang="sq_AL">Frontend i Kodi'së për Aparate VU+ / Enigma2 </summary>
+    <summary lang="sr_RS">Kodi-јев интерфејс за VU+ / Enigma2 засноване settop кутије</summary>
     <summary lang="sr_RS@latin">Kodijev interfejs za VU+ / Enigma2 zasnovane settop kutije</summary>
     <summary lang="sv_SE">Kodi Frontend för VU+/Enigma2 baserade dekodrar</summary>
     <summary lang="tr_TR">VU+ / Enigma2 alıcı kutuları için Kodi ön ucu</summary>
@@ -79,11 +80,11 @@
     <description lang="et_EE">VU+ esi. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.</description>
     <description lang="fi_FI">VU+ frontend; tukee reaaliaikaisen television ja nauhoituksien streamausta, EPGtä ja nauhoituksien ajastusta.</description>
     <description lang="fr_CA">Frontal VU+, prenant en charge la lecture en transit des télés en direct &amp; les enregistrements, le GÉP et les minuteries.</description>
-    <description lang="fr_FR">Interface logicielle pour enregistreur VU+. Gère la diffusion de la TV et des enregistrements en direct, le guide électronique des programmes TV et les programmations.</description>
+    <description lang="fr_FR">Interface logicielle pour enregistreur VU+. Gère la diffusion et les enregistrements de la TV en direct, le guide électronique des programmes TV et les programmations.</description>
     <description lang="gl_ES">Interface VU+; soporta TV en directo, gravacións, Guía de programación e temporizadores.</description>
     <description lang="he_IL">לקוח טלוויזיה חיה של VU+. תומך בהזרמת שידורים חיים והקלטות, הצגת לוח שידורים ותזמון הקלטות.</description>
     <description lang="hr_HR">VU+ sučelje; podržava stremanje i snimanje TV programa, elektronski programski vodič (EPG)  i vremeski zadano snimanje.</description>
-    <description lang="hu_HU">VU+ előtér-kiszolgáló. Élő adások és felvételek sugárzásának támogatása EPG-vel és időzítéssel.</description>
+    <description lang="hu_HU">VU+ előtét. Élő adások és felvételek támogatása EPG-vel és időzítéssel.</description>
     <description lang="id_ID">Frontend VU+. Mendukung pengaliran TV dan Rekaman langsung, EPG dan Timer.</description>
     <description lang="is_IS">VU+ framendi; styður streymingu á Beinum útsendingum og upptökum, rafrænum dagskrárvísum (EPG) og tímatöku.</description>
     <description lang="it_IT">Frontend VU+; supporta EPG, i timer e lo streaming della TV dal vivo e delle registrazioni.</description>
@@ -103,6 +104,7 @@
     <description lang="sk_SK">VU+ rozhranie; je podporované streamovanie živého televízneho vysielania a nahrávok, EPG, časovačov.</description>
     <description lang="sl_SI">Vmesnik za VU+; podpira pretakanje televizije v živo in posnetkov, EPG, časovnike.</description>
     <description lang="sq_AL">VU+ frontend, përkrahën transmetimin e Live TV's &amp; Regjistrime, EPG, timer.</description>
+    <description lang="sr_RS">VU+ интерфејс; подржава стримовање ТВ Уживо &amp; Снимака, EPG, Тајмере</description>
     <description lang="sr_RS@latin">VU+ interfejs; podržava strimovanje TV Uživo &amp; Snimaka, EPG, Tajmere</description>
     <description lang="sv_SE">VU+ frontend; stödjer strömning av direktsänd TV &amp; inspelningar, EPG, timers.</description>
     <description lang="tr_TR">VU+ ön ucu; Canlı TV akışı ve kayıt yapabilme, EPG ve zamanlayıcıları destekler.</description>

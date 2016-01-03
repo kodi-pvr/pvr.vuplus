@@ -54,7 +54,7 @@ msgstr "Port de l'interface internet"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zapper avant le changement de chaîne (par ex. pour les dispositif à tuner unique)"
+msgstr "Zapper avant le changement de chaîne (par ex. pour les appareils à tuner unique)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"

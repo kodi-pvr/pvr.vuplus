@@ -34,7 +34,7 @@ msgstr "Mot de passe"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "Délai d'attente de réponse en secondes"
+msgstr "Temporisation de réponse en secondes"
 
 msgctxt "#30008"
 msgid "Icon Path"

@@ -102,11 +102,11 @@ msgstr "Pošalji Komandu Duboke Pripravnosti"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Preuzmi samo jedan TV buket"
+msgstr "Preuzmi samo jedan TV bouquet"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
-msgstr "TV-Buket"
+msgstr "TV-Bouquet"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
