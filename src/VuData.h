@@ -21,9 +21,9 @@
  *
  */
 
-#include "platform/util/StdString.h"
+#include "p8-platform/util/StdString.h"
 #include "client.h"
-#include "platform/threads/threads.h"
+#include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
     
 #define CHANNELDATAVERSION  2
@@ -140,7 +140,7 @@ struct VuRecording
   std::string strIconPath;
 };
  
-class Vu  : public PLATFORM::CThread
+class Vu  : public P8PLATFORM::CThread
 {
 private:
 
@@ -164,8 +164,8 @@ private:
   std::vector<std::string> m_locations;
   unsigned int m_iClientIndexCounter;
 
-  PLATFORM::CMutex m_mutex;
-  PLATFORM::CCondition<bool> m_started;
+  P8PLATFORM::CMutex m_mutex;
+  P8PLATFORM::CCondition<bool> m_started;
 
   bool m_bUpdating;
 

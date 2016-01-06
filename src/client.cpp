@@ -25,7 +25,7 @@
 #include "kodi/libKODI_guilib.h"
 #include <stdlib.h>
 #include "VuData.h"
-#include "platform/util/util.h"
+#include "p8-platform/util/util.h"
 
 using namespace std;
 using namespace ADDON;
