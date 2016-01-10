@@ -22,11 +22,11 @@ msgstr "Nome ou endereço IP do servidor VU+"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Porta de Transmissão"
+msgstr "Porta de transmissão"
 
 msgctxt "#30003"
 msgid "Username"
-msgstr "Utilizador"
+msgstr "Nome de utilizador"
 
 msgctxt "#30004"
 msgid "Password"
@@ -34,15 +34,15 @@ msgstr "Palavra-passe"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "Tempo limite para resposta em segundos"
+msgstr "Tempo limite para resposta (segundos)"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Localização do ícone"
+msgstr "Caminho do ícone"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
-msgstr "Intervalo de Actualização em minutos"
+msgstr "Intervalo de atualização (minutos)"
 
 msgctxt "#30011"
 msgid "Automatic Timerlist Cleanup"
@@ -50,19 +50,19 @@ msgstr "Limpeza automática da Timerlist"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
-msgstr "Porta da interface Web"
+msgstr "Porta da interface web"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap antes de mudar de canal (útil para boxes só com um sintonizador)"
+msgstr "Zap antes de mudar de canal (útil para caixas só com um sintonizador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
-msgstr "Pasta para dados dos canais"
+msgstr "Pasta para dados do canais"
 
 msgctxt "#30015"
 msgid "Check for bouquett updates"
-msgstr "Verificar actualizações do bouquett"
+msgstr "Procurar atualizações do bouquett"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -70,7 +70,7 @@ msgstr "Verificar actualizações de canais"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
-msgstr "Usar apenas a localização actual das gravações das boxes DVB"
+msgstr "Utilizar apenas o caminho de gravação atual da caixa DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -90,19 +90,19 @@ msgstr "HTTP"
 
 msgctxt "#30022"
 msgid "Recordings / Timer"
-msgstr "Gravações / Temporizador"
+msgstr "Gravações/Temporizador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Pasta de gravação no receptor"
+msgstr "Pasta de gravação no recetor"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
-msgstr "Enviar comando de Standby profundo"
+msgstr "Enviar comando de DeepStandby"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Obter somente um TV bouquet"
+msgstr "Obter apenas um TV bouquet"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
@@ -110,11 +110,11 @@ msgstr "TV-Bouquet"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
-msgstr "Obter picons da webinterface"
+msgstr "Obter ícones da interface web"
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
-msgstr "Usar HTTP Seguro (https)"
+msgstr "Utilizar HTTP seguro (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

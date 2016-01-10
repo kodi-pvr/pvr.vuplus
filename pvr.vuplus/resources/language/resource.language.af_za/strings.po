@@ -112,6 +112,10 @@ msgctxt "#30027"
 msgid "Fetch picons from webinterface"
 msgstr "Gaan haal picons vanaf webkoppelvlak"
 
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Gebruik Secure HTTP (HTTPS)"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Gediskonnekteer van '%s'"
