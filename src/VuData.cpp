@@ -29,7 +29,7 @@
 
 
 using namespace ADDON;
-using namespace PLATFORM;
+using namespace P8PLATFORM;
 
 bool CCurlFile::Get(const std::string &strURL, std::string &strResult)
 {
