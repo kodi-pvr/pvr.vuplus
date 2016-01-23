@@ -22,7 +22,7 @@ msgstr "Nom d'hôte ou adresse IP de VU+"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Port de lecture en transit"
+msgstr "Port de diffusion en continu"
 
 msgctxt "#30003"
 msgid "Username"
