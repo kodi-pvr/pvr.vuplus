@@ -1,0 +1,23 @@
+# build artifacts
+build/
+debian/changelog
+debian/files
+debian/kodi-pvr-vuplus-dbg.debhelper.log
+debian/kodi-pvr-vuplus-dbg.substvars
+debian/kodi-pvr-vuplus-dbg/
+debian/kodi-pvr-vuplus.debhelper.log
+debian/kodi-pvr-vuplus.postinst.debhelper
+debian/kodi-pvr-vuplus.postrm.debhelper
+debian/kodi-pvr-vuplus.substvars
+debian/kodi-pvr-vuplus/
+debian/tmp/
+obj-x86_64-linux-gnu/
+pvr.vuplus/addon.xml
+
+# clion
+.idea/
+
+# Eclipse/CDT
+.cproject
+.project
+.settings/
