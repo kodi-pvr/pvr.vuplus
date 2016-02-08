@@ -1663,11 +1663,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
   return PVR_ERROR_NO_ERROR;
 }
 
-int Vu::GetCurrentClientChannel(void) 
-{
-  return m_iCurrentChannel;
-}
-
 const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
   SwitchChannel(channelinfo);
