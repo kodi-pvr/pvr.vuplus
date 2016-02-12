@@ -1363,6 +1363,9 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     tag.recordingTime     = recording.startTime;
     tag.iDuration         = recording.iDuration;
 
+    /* TODO: PVR API 5.0.0: Implement this */
+    tag.iChannelUid = PVR_CHANNEL_INVALID_UID;
+
     PVR->TransferRecordingEntry(handle, &tag);
   }
 }
