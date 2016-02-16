@@ -208,7 +208,6 @@ public:
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
   PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
   bool GetInitialEPGForGroup(VuChannelGroup &group);
-  int GetCurrentClientChannel(void);
   int GetTimersAmount(void);
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
   PVR_ERROR AddTimer(const PVR_TIMER &timer);

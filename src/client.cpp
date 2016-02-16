@@ -22,7 +22,6 @@
 
 #include "client.h"
 #include "kodi/xbmc_pvr_dll.h"
-#include "kodi/libKODI_guilib.h"
 #include <stdlib.h>
 #include "VuData.h"
 #include "p8-platform/util/util.h"
@@ -321,12 +320,12 @@ const char* GetMininumPVRAPIVersion(void)
 
 const char* GetGUIAPIVersion(void)
 {
-  return KODI_GUILIB_API_VERSION;
+  return ""; // GUI API not used
 }
 
 const char* GetMininumGUIAPIVersion(void)
 {
-  return KODI_GUILIB_MIN_API_VERSION;
+  return ""; // GUI API not used
 }
 
 PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
@@ -479,14 +478,6 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
   return VuData->UpdateTimer(timer);
 }
 
-int GetCurrentClientChannel(void)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->GetCurrentClientChannel();
-}
-
 bool SwitchChannel(const PVR_CHANNEL &channel)
 {
   if (!VuData || !VuData->IsConnected())
@@ -591,6 +582,8 @@ bool IsTimeshifting(void) { return false; }
 time_t GetPlayingTime() { return 0; }
 time_t GetBufferTimeStart() { return 0; }
 time_t GetBufferTimeEnd() { return 0; }
+bool IsRealTimeStream() { return true; }
 PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR DeleteAllRecordingsFromTrash() { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 }

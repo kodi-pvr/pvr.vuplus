@@ -1363,6 +1363,9 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     tag.recordingTime     = recording.startTime;
     tag.iDuration         = recording.iDuration;
 
+    /* TODO: PVR API 5.0.0: Implement this */
+    tag.iChannelUid = PVR_CHANNEL_INVALID_UID;
+
     PVR->TransferRecordingEntry(handle, &tag);
   }
 }
@@ -1661,11 +1664,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
     }
   }
   return PVR_ERROR_NO_ERROR;
-}
-
-int Vu::GetCurrentClientChannel(void) 
-{
-  return m_iCurrentChannel;
 }
 
 const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
