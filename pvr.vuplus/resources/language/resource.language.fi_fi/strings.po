@@ -80,6 +80,18 @@ msgctxt "#30022"
 msgid "Recordings / Timer"
 msgstr "Tallenteet / Ajastin"
 
+msgctxt "#30023"
+msgid "Recording folder on the receiver"
+msgstr "Tallennuskansio vastaanottimessa"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Lähetä syväunikomento"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Käytä suojattua HTTP:tä (https)"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Yhteys katkaistu palvelimeen '%s'"
