@@ -1366,6 +1366,9 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     /* TODO: PVR API 5.0.0: Implement this */
     tag.iChannelUid = PVR_CHANNEL_INVALID_UID;
 
+    /* TODO: PVR API 5.1.0: Implement this */
+    tag.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
+
     PVR->TransferRecordingEntry(handle, &tag);
   }
 }
