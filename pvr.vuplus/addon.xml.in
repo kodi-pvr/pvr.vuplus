@@ -2,7 +2,7 @@
 <addon
   id="pvr.vuplus"
   version="2.2.1"
-  name="VU+ / Enigma2 Client"
+  name="Vu+ / Enigma2 PVR Client Addon"
   provider-name="Joerg Dembski">
   <requires>
     <c-pluff version="0.1"/>
