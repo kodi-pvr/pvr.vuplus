@@ -30,7 +30,7 @@ msgstr "Emër-përdoruesi"
 
 msgctxt "#30004"
 msgid "Password"
-msgstr "Fjalkalimi"
+msgstr "Fjalëkalimi"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"

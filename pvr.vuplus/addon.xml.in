@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="1.11.12"
+  version="1.11.13"
   name="VU+ / Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>
@@ -158,7 +158,7 @@
     <disclaimer lang="si_LK">මෙය අස්ථිර මෘදුකාංගයකි! මෙහි සිදුවන පටිගත කිරීම් අසාර්ථක වීම්, සාවද්‍ය මුහුර්තක, නාස්ති වූ කාලයන්, හෝ වෙනත් යමිකිසි නුසුදුසු බලපෑම් සඳහා කතෘ වග කියනු නොලැබේ.</disclaimer>
     <disclaimer lang="sk_SK">Tento softvér nie je stabilný! Autori nenesú žiadnu zodpovednosť za chybné nahrávky vysielania, nesprávne časovače alebo iné neželané udalosti spôsobené týmto softvérom..</disclaimer>
     <disclaimer lang="sl_SI">To je nestabilna programska oprema! Avtorji niso odgovorni za neuspela snemanja, nepravilne časovnike, zapravljen čas in katerikoli drug neželen učinek...</disclaimer>
-    <disclaimer lang="sq_AL">Ky program nuk është ende stabël! Autorët e këtij programi nuk janë në as një menyr përgjegjës për rregistrime të gabuara, timer të pasaktë, kohë të humbur ose efekte të tilla të padëshirueshme.</disclaimer>
+    <disclaimer lang="sq_AL">Ky program nuk është ende stabil! Autorët e këtij programi nuk janë në as një menyr përgjegjës për rregistrime të gabuara, timer të pasaktë, kohë të humbur ose efekte të tilla të padëshirueshme.</disclaimer>
     <disclaimer lang="sr_RS">Овај софтвер је нестабилан! Аутори ни на који начин нису одговорни за неуспела снимања, неисправне тајмере, изгубљене сате, или било које друге нежељене ефекте.</disclaimer>
     <disclaimer lang="sr_RS@latin">Ovaj softver je nestabilan! Autori ni na koji način nisu odgovorni za neuspela snimanja, neispravne tajmere, izgubljene sate, ili bilo koje druge neželjene efekte.</disclaimer>
     <disclaimer lang="sv_SE">Detta är ostabil mjukvara! Upphovsmännen är inte ansvariga för misslyckade inspelningar, inkorrekta timers, bortslösade timmar, eller några andra oönskade effekter..</disclaimer>
