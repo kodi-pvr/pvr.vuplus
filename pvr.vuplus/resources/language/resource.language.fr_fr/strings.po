@@ -50,7 +50,7 @@ msgstr "Nettoyage automatique de la liste de programmation"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
-msgstr "Port de l'interface internet"
+msgstr "Port de l'interface Web"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
@@ -110,7 +110,7 @@ msgstr "Bouquet TV"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
-msgstr "Récupérer les icônes de l'interface internet "
+msgstr "Récupérer les icônes de l'interface Web "
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"

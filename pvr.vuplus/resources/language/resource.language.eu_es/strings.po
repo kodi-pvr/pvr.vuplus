@@ -36,6 +36,10 @@ msgctxt "#30019"
 msgid "Channels"
 msgstr "Kateak"
 
+msgctxt "#30020"
+msgid "Advanced"
+msgstr "Aurreratua"
+
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
