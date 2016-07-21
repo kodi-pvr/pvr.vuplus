@@ -56,6 +56,10 @@ msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Kanavadatan kansio"
 
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Tarkista kanavanippujen päivitykset"
+
 msgctxt "#30016"
 msgid "Check for channel updates"
 msgstr "Tarkista kanavapäivitykset"
@@ -87,6 +91,18 @@ msgstr "Tallennuskansio vastaanottimessa"
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
 msgstr "Lähetä syväunikomento"
+
+msgctxt "#30025"
+msgid "Fetch only one TV bouquet"
+msgstr "Nouda vain yksi kanavanippu"
+
+msgctxt "#30026"
+msgid "TV-Bouquet"
+msgstr "Kanavanippu"
+
+msgctxt "#30027"
+msgid "Fetch picons from webinterface"
+msgstr "Nouda kanavalogot web-käyttöliittymästä"
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
