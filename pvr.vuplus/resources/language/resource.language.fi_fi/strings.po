@@ -50,7 +50,11 @@ msgstr "Automaattinen ajastuslistan siivous"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
-msgstr "Webbikäyttöliittymän portti"
+msgstr "Web-käyttöliittymän portti"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Lähetä vaihtokäsky ennen kanavan vaihtamista (yhden virittimen bokseille)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -63,6 +67,10 @@ msgstr "Tarkista kanavanippujen päivitykset"
 msgctxt "#30016"
 msgid "Check for channel updates"
 msgstr "Tarkista kanavapäivitykset"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Käytä ainoastaan digiboksin nykyistä tallennuspolkua"
 
 msgctxt "#30018"
 msgid "General"

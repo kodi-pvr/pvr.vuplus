@@ -54,7 +54,7 @@ msgstr "Port de la interfície web"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap abans de canviar de canal (és a dir, per a les caixes de solament un sintonitzador)"
+msgstr "Zap abans de canviar de canal (és a dir, per a les caixes amb solament un sintonitzador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -62,7 +62,7 @@ msgstr "Carpeta pel canal de dades"
 
 msgctxt "#30015"
 msgid "Check for bouquett updates"
-msgstr "Buscar actualitzacions de bouquett"
+msgstr "Comprova si hi ha actualitzacions del paquet de TV"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -94,7 +94,7 @@ msgstr "Enregistraments / Temporitzador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Grabant carpeta en el receptor"
+msgstr "Carpeta de gravació en el receptor"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
@@ -102,11 +102,11 @@ msgstr "Enviar ordre DeepStandby"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Obté només un TV bouquet"
+msgstr "Obté només un paquet de TV"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
+msgstr "Paquet TV"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="2.4.3"
+  version="2.4.4"
   name="VU+ / Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>
@@ -65,7 +65,7 @@
     <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.</description>
     <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="bg_BG">VU+ клиент. Поддържа поточна телевизия и записване, електронен програмен справочник и броячи.</description>
-    <description lang="ca_ES">Frontend VU+; suporta TV en viu, enregistraments, guia de programació (EPG) i temporitzadors.</description>
+    <description lang="ca_ES">Frontend VU+; suporta TV en directe, enregistraments, guia de programació (EPG) i temporitzadors.</description>
     <description lang="cs_CZ">Rozhraní WU+. Podporuje proudové vysílání živého vysílání a nahrávek, poslech kanálů rádia, EPG, a časovače.</description>
     <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
     <description lang="da_DK">VU+ frontend; understøtter streaming af TV og Optagelser, EPG og Timere.</description>
