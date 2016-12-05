@@ -1,3 +1,6 @@
+v3.0.0
+- Initial Kodi v18 version
+
 v2.4.4
 - updated language files from Transifex
 
