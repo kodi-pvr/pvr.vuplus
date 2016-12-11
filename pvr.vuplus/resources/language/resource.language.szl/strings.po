@@ -16,6 +16,14 @@ msgstr ""
 "Language: szl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+msgctxt "#30000"
+msgid "VU+ hostname or IP address"
+msgstr "Miano lebo adresa ôd serwera"
+
+msgctxt "#30002"
+msgid "Streaming Port"
+msgstr "Port szpricowaniŏ"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Miano ôd używŏcza"
@@ -27,6 +35,42 @@ msgstr "Hasło"
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Czas na ôdpowiydź w sekundach"
+
+msgctxt "#30008"
+msgid "Icon Path"
+msgstr "Cesta do folderu z ikōnami"
+
+msgctxt "#30010"
+msgid "Update Interval in minutes"
+msgstr "Frekwyncyjŏ aktualizacyje we minutach"
+
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Autōmatyczne pucowanie harmonogramu nagrań"
+
+msgctxt "#30012"
+msgid "Webinterface Port"
+msgstr "Port interfejsu necowygo"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Szaltruj na dany kanał (bp. dlŏ dekoderōw z jednym tunerym)"
+
+msgctxt "#30014"
+msgid "Folder for channeldata"
+msgstr "Folder datōw kanałōw"
+
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Wybaduj aktualizacyje puketōw"
+
+msgctxt "#30016"
+msgid "Check for channel updates"
+msgstr "Wybaduj aktualizacyje kanałōw"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Używej ino terŏźnygo folderu nagrowaniŏ dekodera"
 
 msgctxt "#30018"
 msgid "General"
@@ -43,3 +87,39 @@ msgstr "Zaawansowane"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30022"
+msgid "Recordings / Timer"
+msgstr "Nagrania / Harmonogram"
+
+msgctxt "#30023"
+msgid "Recording folder on the receiver"
+msgstr "Folder nagrowaniŏ na dekoderze"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Posyłej nakŏzanie głymbokigo wachowaniŏ"
+
+msgctxt "#30025"
+msgid "Fetch only one TV bouquet"
+msgstr "Sebiyrej ino jedyn puket"
+
+msgctxt "#30026"
+msgid "TV-Bouquet"
+msgstr "Puket"
+
+msgctxt "#30027"
+msgid "Fetch picons from webinterface"
+msgstr "Sebiyrej loga kanałōw bez interfejs necowy"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Używej bezpieczōnygo HTTP (HTTPS)"
+
+msgctxt "#30500"
+msgid "Disconnected from '%s'"
+msgstr "Cwajgniynto było ôd '%s'"
+
+msgctxt "#30501"
+msgid "Reconnected to '%s'"
+msgstr "Zaś skuplowano było z '%s'"

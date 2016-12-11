@@ -18,11 +18,11 @@ msgstr ""
 
 msgctxt "#30000"
 msgid "VU+ hostname or IP address"
-msgstr "Nom de màquina o IP del VU+"
+msgstr "Nom d'amfitrió o IP de VU+"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Port del flux de dades"
+msgstr "Port de la transmissió en línia"
 
 msgctxt "#30003"
 msgid "Username"
@@ -34,7 +34,7 @@ msgstr "Contrasenya"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "Temps d'espera de la resposta en segons"
+msgstr "Temps d'expiració de la resposta en segons"
 
 msgctxt "#30008"
 msgid "Icon Path"
@@ -70,7 +70,7 @@ msgstr "Comprova si hi ha actualitzacions dels canals"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
-msgstr "Utilitzi només ruta d'enregistrament actual dels quadres DVB"
+msgstr "Utilitza únicament el camí a l'enregistrament actual de l'aparell DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -94,7 +94,7 @@ msgstr "Enregistraments / Temporitzador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Carpeta de gravació en el receptor"
+msgstr "Carpeta d'enregistrament en el receptor"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
@@ -114,7 +114,7 @@ msgstr "Obté els picons des de la interfície web"
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
-msgstr "Usar HTTP segur (https)"
+msgstr "Utilitza HTTP segur (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
