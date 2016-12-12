@@ -22,7 +22,7 @@ msgstr "VU+主機名稱或IP位址"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "串流端口"
+msgstr "串流連接埠"
 
 msgctxt "#30003"
 msgid "Username"
@@ -34,7 +34,7 @@ msgstr "密碼"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "回應超時（秒）"
+msgstr "回應逾時 (秒)"
 
 msgctxt "#30008"
 msgid "Icon Path"
@@ -42,7 +42,7 @@ msgstr "圖示路徑"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
-msgstr "更新頻率（分）"
+msgstr "更新頻率 (分)"
 
 msgctxt "#30011"
 msgid "Automatic Timerlist Cleanup"

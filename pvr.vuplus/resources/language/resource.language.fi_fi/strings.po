@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt "#30000"
 msgid "VU+ hostname or IP address"
-msgstr "VU+ isäntänimi tai IP osoite"
+msgstr "VU+-isäntänimi tai ip-osoite"
 
 msgctxt "#30002"
 msgid "Streaming Port"
@@ -38,7 +38,7 @@ msgstr "Vastauksen aikakatkaisu sekunneissa"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Kuvakkeen polku"
+msgstr "Kanavalogojen polku"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
@@ -62,7 +62,7 @@ msgstr "Kanavadatan kansio"
 
 msgctxt "#30015"
 msgid "Check for bouquett updates"
-msgstr "Tarkista kanavanippujen päivitykset"
+msgstr "Tarkista kanavaryhmien päivitykset"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -94,7 +94,7 @@ msgstr "Tallenteet / Ajastin"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Tallennuskansio vastaanottimessa"
+msgstr "Vastaanottimen tallennuskansio"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
@@ -102,11 +102,11 @@ msgstr "Lähetä syväunikomento"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Nouda vain yksi kanavanippu"
+msgstr "Nouda vain yksi kanavaryhmä"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
-msgstr "Kanavanippu"
+msgstr "Kanavaryhmän nimi"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
