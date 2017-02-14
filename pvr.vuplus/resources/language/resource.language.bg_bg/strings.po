@@ -34,7 +34,7 @@ msgstr "Парола"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "Време на изчакване на отговор в секунди"
+msgstr "Време на изчакване на отговор (секунди)"
 
 msgctxt "#30008"
 msgid "Icon Path"

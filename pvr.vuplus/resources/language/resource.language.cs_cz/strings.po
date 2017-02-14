@@ -18,11 +18,11 @@ msgstr ""
 
 msgctxt "#30000"
 msgid "VU+ hostname or IP address"
-msgstr "Adresa, nebo IP adresa VU+ serveru"
+msgstr "Název hostitele nebo adresa IP VU+"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Port"
+msgstr "Port streamování"
 
 msgctxt "#30003"
 msgid "Username"
@@ -54,15 +54,15 @@ msgstr "Port webového rozhraní"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Přepnout zároveň kanál na VU+ při přepnutí kanálu v Kodi (typicky nutné pro jednotunerová zařízení)"
+msgstr "Přepnout před přepnutím kanálu (např. pro jednotunerové přijímače)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
-msgstr "Televizní kanály – pracovní adresář pro jejich data"
+msgstr "Složka pro data kanálů"
 
 msgctxt "#30015"
 msgid "Check for bouquett updates"
-msgstr "Kontrolovat aktualizace oblíbených skupin programů"
+msgstr "Kontrolovat aktualizace skupin oblíbených programů"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -70,7 +70,7 @@ msgstr "Kontrolovat aktualizace kanálů"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
-msgstr "Používat pouze současný adresář pro ukládání nahrávek daného DVB přijímače"
+msgstr "Používat pouze aktuální cestu nahrávání přijímače DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -82,7 +82,7 @@ msgstr "Kanály"
 
 msgctxt "#30020"
 msgid "Advanced"
-msgstr "Pokročilé"
+msgstr "Rozšířené"
 
 msgctxt "#30021"
 msgid "HTTP"
@@ -90,31 +90,31 @@ msgstr "HTTP"
 
 msgctxt "#30022"
 msgid "Recordings / Timer"
-msgstr "Nahrávky / časovač"
+msgstr "Nahrávky a časovač"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Adresář s nahrávkami na přijímači"
+msgstr "Složka s nahrávkami na přijímači"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
-msgstr "Odeslat příkaz uspání přijímače"
+msgstr "Odeslat příkaz úsporného uspání"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Získat pouze jednu skupinu oblíbených TV programů"
+msgstr "Načíst pouze jednu skupinu oblíbených programů"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
-msgstr "Oblíbená skupina TV programů"
+msgstr "Skupina oblíbených programů"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
-msgstr "Stáhnout pikony z webového rozhraní"
+msgstr "Načíst pikony z webového rozhraní"
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
-msgstr "Použít šifrované HTTP (https)"
+msgstr "Použít zabezpečené HTTP (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
