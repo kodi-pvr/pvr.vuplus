@@ -38,7 +38,7 @@ msgstr "Limit czasu odpowiedzi w sekundach"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Ścieżka do folderu z ikonami"
+msgstr "Folder z ikonami"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
