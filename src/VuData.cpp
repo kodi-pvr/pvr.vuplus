@@ -540,8 +540,8 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
     strTmp.Format("");
 
-    strTmp.Format("http://%s%s:%d/%s", strTmp.c_str(), g_strHostname, g_iPortStream, strTmp2.c_str());
-    
+    strTmp.Format("http://%s:%d/%s", g_strHostname, g_iPortStream, strTmp2.c_str());    
+
     newChannel.strStreamURL = strTmp;
 
     if (g_bOnlinePicons == true)
