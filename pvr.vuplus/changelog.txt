@@ -1,3 +1,9 @@
+v2.4.9
+- updated language files from Transifex
+
+v2.4.8 
+- updated language files from Transifex
+
 v2.4.7 
 - streaming always use anonymous http connection, regardless of the "Use https" setting
 
