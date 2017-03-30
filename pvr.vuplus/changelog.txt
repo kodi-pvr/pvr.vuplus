@@ -1,5 +1,16 @@
+<<<<<<< HEAD
 v3.0.0
 - Initial Kodi v18 version
+=======
+v2.4.7 
+- streaming always use anonymous http connection, regardless of the "Use https" setting
+
+v2.4.6
+- updated language files from Transifex
+
+v2.4.5
+- Updated to PVR addon API v5.2.1
+>>>>>>> Krypton
 
 v2.4.4
 - updated language files from Transifex
