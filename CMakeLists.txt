@@ -19,6 +19,9 @@ include_directories(${kodiplatform_INCLUDE_DIRS}
 set(VUPLUS_SOURCES src/client.cpp
                    src/VuData.cpp)
 
+set(VUPLUS_HEADERS src/client.h
+                   src/VuData.h)
+
 set(DEPLIBS ${kodiplatform_LIBRARIES}
             ${p8-platform_LIBRARIES}
             ${TINYXML_LIBRARIES})
