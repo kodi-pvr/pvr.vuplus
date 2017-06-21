@@ -22,7 +22,7 @@ msgstr "Nafn eða IP vistfang VU+ hýsingar"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Gátt straums"
+msgstr "Gátt streymis"
 
 msgctxt "#30003"
 msgid "Username"
@@ -46,7 +46,7 @@ msgstr "Uppfærslutími í mínútum"
 
 msgctxt "#30011"
 msgid "Automatic Timerlist Cleanup"
-msgstr "Sjálfvirk hreinsun á Tímatökulista"
+msgstr "Sjálfvirk hreinsun á tímatökulista"
 
 msgctxt "#30012"
 msgid "Webinterface Port"

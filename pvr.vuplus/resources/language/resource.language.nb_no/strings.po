@@ -46,7 +46,7 @@ msgstr "Oppdateringsinterval i minutter"
 
 msgctxt "#30011"
 msgid "Automatic Timerlist Cleanup"
-msgstr "Automatisk opprydding av timerliste"
+msgstr "Automatisk opprydding av tidsursliste"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
@@ -90,7 +90,7 @@ msgstr "HTTP"
 
 msgctxt "#30022"
 msgid "Recordings / Timer"
-msgstr "Opptaker / Timer"
+msgstr "Opptak / tidsur"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
