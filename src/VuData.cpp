@@ -25,11 +25,11 @@
 #include <iostream> 
 #include <fstream> 
 #include <string>
-#include "kodi/util/XMLUtils.h"
+#include "util/XMLUtils.h"
 
 
 using namespace ADDON;
-using namespace PLATFORM;
+using namespace P8PLATFORM;
 
 bool CCurlFile::Get(const std::string &strURL, std::string &strResult)
 {
@@ -540,6 +540,9 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
     strTmp.Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference.c_str()));
     newChannel.strM3uURL = strTmp;
+    
+    strTmp.Format("http://%s:%d/%s", g_strHostname, g_iPortStream, strTmp2.c_str());    
+    newChannel.strStreamURL = strTmp;
 
     if (g_bOnlinePicons == true)
     {
@@ -1377,6 +1380,12 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     tag.recordingTime     = recording.startTime;
     tag.iDuration         = recording.iDuration;
 
+    /* TODO: PVR API 5.0.0: Implement this */
+    tag.iChannelUid = PVR_CHANNEL_INVALID_UID;
+
+    /* TODO: PVR API 5.1.0: Implement this */
+    tag.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
+
     PVR->TransferRecordingEntry(handle, &tag);
   }
 }
@@ -1677,11 +1686,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
   return PVR_ERROR_NO_ERROR;
 }
 
-int Vu::GetCurrentClientChannel(void) 
-{
-  return m_iCurrentChannel;
-}
-
 const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
   SwitchChannel(channelinfo);
@@ -1693,6 +1697,7 @@ const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
   std::string strStreamURL;
   strStreamURL = getStreamURL(m_channels.at(channelinfo.iUniqueId-1).strM3uURL);
   return strStreamURL.c_str();
+  return m_channels.at(channelinfo.iUniqueId-1).strStreamURL.c_str();
 }
 
 bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)

@@ -21,8 +21,8 @@
  *
  */
 
-#include "kodi/libXBMC_addon.h"
-#include "kodi/libXBMC_pvr.h"
+#include "libXBMC_addon.h"
+#include "libXBMC_pvr.h"
 
 #define DEFAULT_HOST             "127.0.0.1"
 #define DEFAULT_CONNECT_TIMEOUT  30

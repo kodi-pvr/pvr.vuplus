@@ -28,6 +28,10 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "รหัสผ่าน"
 
+msgctxt "#30012"
+msgid "Webinterface Port"
+msgstr "พอร์ต Webinterface"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "ทั่วไป"

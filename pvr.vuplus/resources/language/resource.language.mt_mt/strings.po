@@ -24,6 +24,14 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Sigriet"
 
+msgctxt "#30007"
+msgid "Response timeout in seconds"
+msgstr "Kemm iddum tistenna riposta f'sekondi"
+
+msgctxt "#30012"
+msgid "Webinterface Port"
+msgstr "Port tal-webinterface"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "Ġenerali"
@@ -35,3 +43,7 @@ msgstr "Stazzjonijiet"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avvanzat"
+
+msgctxt "#30021"
+msgid "HTTP"
+msgstr "HTTP"

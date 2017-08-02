@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt "#30000"
 msgid "VU+ hostname or IP address"
-msgstr "VU+ のホスト名またはIPアドレス"
+msgstr "VU+ のホスト名または IPアドレス"
 
 msgctxt "#30002"
 msgid "Streaming Port"

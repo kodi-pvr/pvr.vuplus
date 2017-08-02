@@ -21,9 +21,9 @@
  *
  */
 
-#include "platform/util/StdString.h"
+#include "p8-platform/util/StdString.h"
 #include "client.h"
-#include "platform/threads/threads.h"
+#include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
     
 #define CHANNELDATAVERSION  2
@@ -75,6 +75,7 @@ struct VuChannel
   std::string strGroupName;
   std::string strChannelName;
   std::string strServiceReference;
+  std::string strStreamURL;
   std::string strM3uURL;
   std::string strIconPath;
 };
@@ -140,7 +141,7 @@ struct VuRecording
   std::string strIconPath;
 };
  
-class Vu  : public PLATFORM::CThread
+class Vu  : public P8PLATFORM::CThread
 {
 private:
 
@@ -164,8 +165,8 @@ private:
   std::vector<std::string> m_locations;
   unsigned int m_iClientIndexCounter;
 
-  PLATFORM::CMutex m_mutex;
-  PLATFORM::CCondition<bool> m_started;
+  P8PLATFORM::CMutex m_mutex;
+  P8PLATFORM::CCondition<bool> m_started;
 
   bool m_bUpdating;
 
@@ -209,7 +210,6 @@ public:
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
   PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
   bool GetInitialEPGForGroup(VuChannelGroup &group);
-  int GetCurrentClientChannel(void);
   int GetTimersAmount(void);
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
   PVR_ERROR AddTimer(const PVR_TIMER &timer);

@@ -1,3 +1,71 @@
+v3.1.0
+- Updated to PVR addon API v5.3.0
+
+v3.0.6
+- remove of never used addon interface function
+
+v3.0.5
+- update Debian package control
+- PVR addon callback way changes
+
+v3.0.4
+- removed old no more needed version functions
+
+v3.0.3
+- set dependency versions automatic during build
+- removed never used kodi to addon functions
+
+v3.0.2
+- streaming always use anonymous http connection, regardless of the "Use https" setting
+
+v3.0.1
+- updated language files from Transifex
+
+v3.0.0
+- Initial Kodi v18 version
+
+v2.4.4
+- updated language files from Transifex
+
+v2.4.3
+- updated language files from Transifex
+
+v2.4.2
+- updated language files from Transifex
+
+v2.4.1
+- updated language files from Transifex
+
+v2.4.0
+- Cmake: rename find_package kodi to Kodi
+
+v2.3.1
+- Fix includes
+
+v2.3.0
+- Updated to PVR addon API v5.2.0
+
+v2.2.0
+- Updated to PVR addon API v5.1.0
+
+v2.1.0
+- Updated to PVR addon API v5.0.0
+
+v2.0.1
+- updated language files from Transifex
+
+v2.0.0
+- Initial Kodi Krypton version.
+
+v1.11.9
+- updated language files from Transifex
+
+v1.11.8
+- updated language files from Transifex
+
+v1.11.7
+- updated language files from Transifex
+
 1.11.6
 - Updated to PVR API v4.1.0
 

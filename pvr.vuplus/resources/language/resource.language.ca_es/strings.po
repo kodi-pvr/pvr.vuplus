@@ -18,11 +18,11 @@ msgstr ""
 
 msgctxt "#30000"
 msgid "VU+ hostname or IP address"
-msgstr "Nom de màquina o IP del VU+"
+msgstr "Nom d'amfitrió o IP de VU+"
 
 msgctxt "#30002"
 msgid "Streaming Port"
-msgstr "Port del flux de dades"
+msgstr "Port de la transmissió en línia"
 
 msgctxt "#30003"
 msgid "Username"
@@ -34,27 +34,43 @@ msgstr "Contrasenya"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "Temps d'espera de la resposta en segons"
+msgstr "Temps d'expiració de la resposta en segons"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Ruta de l'icona"
+msgstr "Camí a la icona"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval d'actualització en minuts"
 
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Neteja automàtica de Timerlist"
+
 msgctxt "#30012"
 msgid "Webinterface Port"
 msgstr "Port de la interfície web"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Zap abans de canviar de canal (és a dir, per a les caixes amb solament un sintonitzador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Carpeta pel canal de dades"
 
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Comprova si hi ha actualitzacions del paquet de TV"
+
 msgctxt "#30016"
 msgid "Check for channel updates"
 msgstr "Comprova si hi ha actualitzacions dels canals"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Utilitza únicament el camí a l'enregistrament actual de l'aparell DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -78,19 +94,27 @@ msgstr "Enregistraments / Temporitzador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Grabant carpeta en el receptor"
+msgstr "Carpeta d'enregistrament en el receptor"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Enviar ordre DeepStandby"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Obté només un TV bouquet"
+msgstr "Obté només un paquet de TV"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
+msgstr "Paquet TV"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
 msgstr "Obté els picons des de la interfície web"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Utilitza HTTP segur (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

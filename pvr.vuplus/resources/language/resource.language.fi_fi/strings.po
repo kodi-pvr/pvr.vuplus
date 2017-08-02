@@ -16,6 +16,14 @@ msgstr ""
 "Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "VU+ hostname or IP address"
+msgstr "VU+-isäntänimi tai ip-osoite"
+
+msgctxt "#30002"
+msgid "Streaming Port"
+msgstr "Suoratoistoportti"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Käyttäjänimi"
@@ -30,15 +38,39 @@ msgstr "Vastauksen aikakatkaisu sekunneissa"
 
 msgctxt "#30008"
 msgid "Icon Path"
-msgstr "Kuvakkeen polku"
+msgstr "Kanavalogojen polku"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Päivitysväli minuuteissa"
 
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Automaattinen ajastuslistan siivous"
+
 msgctxt "#30012"
 msgid "Webinterface Port"
-msgstr "Webbikäyttöliittymän portti"
+msgstr "Web-käyttöliittymän portti"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Lähetä vaihtokäsky ennen kanavan vaihtamista (yhden virittimen bokseille)"
+
+msgctxt "#30014"
+msgid "Folder for channeldata"
+msgstr "Kanavadatan kansio"
+
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Tarkista kanavaryhmien päivitykset"
+
+msgctxt "#30016"
+msgid "Check for channel updates"
+msgstr "Tarkista kanavapäivitykset"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Käytä ainoastaan digiboksin nykyistä tallennuspolkua"
 
 msgctxt "#30018"
 msgid "General"
@@ -55,6 +87,34 @@ msgstr "Lisäasetukset"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30022"
+msgid "Recordings / Timer"
+msgstr "Tallenteet / Ajastin"
+
+msgctxt "#30023"
+msgid "Recording folder on the receiver"
+msgstr "Vastaanottimen tallennuskansio"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Lähetä syväunikomento"
+
+msgctxt "#30025"
+msgid "Fetch only one TV bouquet"
+msgstr "Nouda vain yksi kanavaryhmä"
+
+msgctxt "#30026"
+msgid "TV-Bouquet"
+msgstr "Kanavaryhmän nimi"
+
+msgctxt "#30027"
+msgid "Fetch picons from webinterface"
+msgstr "Nouda kanavalogot web-käyttöliittymästä"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Käytä suojattua HTTP:tä (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

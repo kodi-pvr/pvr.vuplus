@@ -46,7 +46,7 @@ msgstr "Intervalo de actualización en minutos"
 
 msgctxt "#30011"
 msgid "Automatic Timerlist Cleanup"
-msgstr "Limpieza automática de Timerlist"
+msgstr "Limpieza automática de temporizadores"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
@@ -66,11 +66,11 @@ msgstr "Buscar actualizaciones de bouquett"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
-msgstr "Comprobar actualización de canales"
+msgstr "Comprobar actualizaciones de canales"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
-msgstr "Utilice sólo ruta de grabación actual de los cuadros DVB"
+msgstr "Utilice sólo la ruta de grabación actual de los sintonizadores DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -102,11 +102,11 @@ msgstr "Enviar comando DeepStandby"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Buscar sólo TV bouquet"
+msgstr "Buscar sólo un bouquet de TV"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
+msgstr "Bouquet de TV"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"

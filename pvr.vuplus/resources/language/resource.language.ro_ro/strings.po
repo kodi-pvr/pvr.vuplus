@@ -34,7 +34,7 @@ msgstr "Parolă"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
-msgstr "Timeout de răspuns în secunde"
+msgstr "Expirare timp conexiune în secunde"
 
 msgctxt "#30008"
 msgid "Icon Path"

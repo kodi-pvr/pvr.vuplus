@@ -16,6 +16,14 @@ msgstr ""
 "Language: es_MX\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "VU+ hostname or IP address"
+msgstr "Nombre de host o dirección IP VU+"
+
+msgctxt "#30002"
+msgid "Streaming Port"
+msgstr "Puerto de transmisión"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Usuario"
@@ -23,6 +31,46 @@ msgstr "Usuario"
 msgctxt "#30004"
 msgid "Password"
 msgstr "Contraseña"
+
+msgctxt "#30007"
+msgid "Response timeout in seconds"
+msgstr "Tiempo de respuesta en segundos"
+
+msgctxt "#30008"
+msgid "Icon Path"
+msgstr "Ruta del icono"
+
+msgctxt "#30010"
+msgid "Update Interval in minutes"
+msgstr "Intervalo de actualización en minutos"
+
+msgctxt "#30011"
+msgid "Automatic Timerlist Cleanup"
+msgstr "Limpieza automática de la lista de temporizadores"
+
+msgctxt "#30012"
+msgid "Webinterface Port"
+msgstr "Puerto interface web"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgstr "Zap antes del conmutador de canales (ej., para las cajas de sintonizador simple)"
+
+msgctxt "#30014"
+msgid "Folder for channeldata"
+msgstr "Carpeta de datos de canal"
+
+msgctxt "#30015"
+msgid "Check for bouquett updates"
+msgstr "Revise las actualizaciones de bouquet"
+
+msgctxt "#30016"
+msgid "Check for channel updates"
+msgstr "Buscar actualizaciones de canal"
+
+msgctxt "#30017"
+msgid "Use only the DVB boxes' current recording path"
+msgstr "Use sólo la ruta de grabación actual de las cajas DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -39,6 +87,34 @@ msgstr "Avanzado"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30022"
+msgid "Recordings / Timer"
+msgstr "Grabaciones / Temporizador"
+
+msgctxt "#30023"
+msgid "Recording folder on the receiver"
+msgstr "Carpeta de grabación en el receptor"
+
+msgctxt "#30024"
+msgid "Send DeepStandby-Command"
+msgstr "Enviar comando DeepStandby"
+
+msgctxt "#30025"
+msgid "Fetch only one TV bouquet"
+msgstr "Obtener sólo un ramo de TV"
+
+msgctxt "#30026"
+msgid "TV-Bouquet"
+msgstr "TV-Bouquet"
+
+msgctxt "#30027"
+msgid "Fetch picons from webinterface"
+msgstr "Obtener iconos de la interfaz web"
+
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Use HTTP seguro (https)"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

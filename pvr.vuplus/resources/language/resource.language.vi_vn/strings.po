@@ -112,6 +112,10 @@ msgctxt "#30027"
 msgid "Fetch picons from webinterface"
 msgstr "Lấy các hình icon từ mạng"
 
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Sử dụng an toàn HTTP (https)"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Đã ngắt kết nối từ '%s'"
