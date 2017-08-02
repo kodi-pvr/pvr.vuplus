@@ -453,14 +453,6 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
   return VuData->UpdateTimer(timer);
 }
 
-bool SwitchChannel(const PVR_CHANNEL &channel)
-{
-  if (!VuData || !VuData->IsConnected())
-    return false;
-
-  return VuData->SwitchChannel(channel);
-}
-
 int GetChannelGroupsAmount(void)
 {
   if (!VuData || !VuData->IsConnected())
