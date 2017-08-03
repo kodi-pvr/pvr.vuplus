@@ -17,8 +17,8 @@
 
   <!-- Advanced -->
   <category label="30020">
-    <setting id="streamport" type="number" label="30002" default="8001" />
     <setting label="30029" type="bool" id="autoconfig" default="false" />
+    <setting id="streamport" type="number" label="30002" default="8001" enable="eq(-1,false)"/>
     <setting id="webport" type="number" label="30012" default="80" />
     <setting label="30028" type="bool" id="use_secure" default="false"/>
     <setting id="user" type="text" label="30003" default="" />
