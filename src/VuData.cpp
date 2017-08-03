@@ -1690,13 +1690,17 @@ const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
   SwitchChannel(channelinfo);
 
-  // we need to download the M3U file that contains the URL for the stream...
-  // we do it here for 2 reasons:
-  //  1. This is faster than doing it during initialization
-  //  2. The URL can change, so this is more up-to-date.
-  std::string strStreamURL;
-  strStreamURL = getStreamURL(m_channels.at(channelinfo.iUniqueId-1).strM3uURL);
-  return strStreamURL.c_str();
+  if (g_bAutoConfig)
+  {
+    // we need to download the M3U file that contains the URL for the stream...
+    // we do it here for 2 reasons:
+    //  1. This is faster than doing it during initialization
+    //  2. The URL can change, so this is more up-to-date.
+    static std::string strStreamURL;
+    strStreamURL = getStreamURL(m_channels.at(channelinfo.iUniqueId-1).strM3uURL);
+    return strStreamURL.c_str();
+  }
+
   return m_channels.at(channelinfo.iUniqueId-1).strStreamURL.c_str();
 }
 
