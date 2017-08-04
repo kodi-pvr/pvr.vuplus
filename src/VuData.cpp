@@ -656,7 +656,6 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
 
       CStdString strStream;
       strStream.Format("pvr://stream/tv/%i.ts", channel.iUniqueId);
-      strncpy(xbmcChannel.strStreamURL, strStream.c_str(), sizeof(xbmcChannel.strStreamURL)); 
 
       PVR->TransferChannelEntry(handle, &xbmcChannel);
     }

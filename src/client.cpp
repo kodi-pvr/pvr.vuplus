@@ -458,14 +458,6 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
   return VuData->UpdateTimer(timer);
 }
 
-bool SwitchChannel(const PVR_CHANNEL &channel)
-{
-  if (!VuData || !VuData->IsConnected())
-    return false;
-
-  return VuData->SwitchChannel(channel);
-}
-
 int GetChannelGroupsAmount(void)
 {
   if (!VuData || !VuData->IsConnected())
@@ -552,7 +544,6 @@ long long PositionLiveStream(void) { return -1; }
 long long LengthLiveStream(void) { return -1; }
 PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetRecordingEdl(const PVR_RECORDING&, PVR_EDL_ENTRY[], int*) { return PVR_ERROR_NOT_IMPLEMENTED; };
-unsigned int GetChannelSwitchDelay(void) { return 0; }
 void PauseStream(bool bPaused) {}
 bool CanPauseStream(void) { return false; }
 bool CanSeekStream(void) { return false; }
@@ -568,4 +559,5 @@ PVR_ERROR DeleteAllRecordingsFromTrash() { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 }
