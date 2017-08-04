@@ -1,3 +1,6 @@
+v3.3.1
+- added option to request the streaming-URL from openWebif and thus eliminating the need to configure the streaming port
+
 v3.3.0
 - Updated to PVR addon API v5.5.0
 
