@@ -538,10 +538,10 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
     newChannel.strIconPath = strIcon;
 
-    strTmp.Format("");
-
+    strTmp.Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference.c_str()));
+    newChannel.strM3uURL = strTmp;
+    
     strTmp.Format("http://%s:%d/%s", g_strHostname, g_iPortStream, strTmp2.c_str());    
-
     newChannel.strStreamURL = strTmp;
 
     if (g_bOnlinePicons == true)
@@ -557,6 +557,29 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
   XBMC->Log(LOG_INFO, "%s Loaded %d Channels", __FUNCTION__, m_channels.size());
   return true;
+}
+
+/**
+ * getStreamURL() reads out a stream-URL from a M3U-file.
+ * 
+ * This method downloads a M3U-file from the address that is given by strM3uURL.
+ * It returns the first line that starts with "http".
+ * If no line starts with "http" the last line is returned.
+ */
+std::string Vu::getStreamURL(std::string& strM3uURL)
+{
+    CStdString strTmp;
+    strTmp = strM3uURL;
+    std::string strM3U;
+    strM3U = GetHttpXML(strTmp);
+    std::istringstream streamM3U(strM3U);
+    std::string strURL = "";
+    while (std::getline(streamM3U, strURL))
+    {
+      if (strURL.compare(0, 4, "http", 4) == 0)
+        break;
+    };
+    return strURL;
 }
 
 bool Vu::IsConnected() 
@@ -1665,6 +1688,17 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
 const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
   SwitchChannel(channelinfo);
+
+  if (g_bAutoConfig)
+  {
+    // we need to download the M3U file that contains the URL for the stream...
+    // we do it here for 2 reasons:
+    //  1. This is faster than doing it during initialization
+    //  2. The URL can change, so this is more up-to-date.
+    static std::string strStreamURL;
+    strStreamURL = getStreamURL(m_channels.at(channelinfo.iUniqueId-1).strM3uURL);
+    return strStreamURL.c_str();
+  }
 
   return m_channels.at(channelinfo.iUniqueId-1).strStreamURL.c_str();
 }
