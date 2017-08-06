@@ -1,3 +1,6 @@
+v3.3.2
+- added option to keep the folder structure from STB
+
 v3.3.1
 - added option to request the streaming-URL from openWebif and thus eliminating the need to configure the streaming port
 
