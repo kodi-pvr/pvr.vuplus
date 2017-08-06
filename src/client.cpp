@@ -102,7 +102,7 @@ void ADDON_ReadSettings(void)
   if (!XBMC->GetSetting("use_secure", &g_bUseSecureHTTP))
     g_bUseSecureHTTP = false;
   
-  /* read setting "use_secure" from settings.xml */
+  /* read setting "autoconfig" from settings.xml */
   if (!XBMC->GetSetting("autoconfig", &g_bAutoConfig))
     g_bAutoConfig = false;
   
