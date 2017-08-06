@@ -46,6 +46,7 @@ extern bool			 g_bZap;
 extern bool                      g_bAutomaticTimerlistCleanup;
 extern bool                      g_bUseSecureHTTP;
 extern bool                      g_bAutoConfig;
+extern bool                      g_bKeepFolders;
 extern bool                      g_bOnlyCurrentLocation;
 extern bool			 g_bSetPowerstate;
 extern bool			 g_bOnlyOneGroup;
