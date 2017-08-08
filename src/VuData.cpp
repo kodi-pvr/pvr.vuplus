@@ -1369,12 +1369,16 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName));
     strncpy(tag.strIconPath, recording.strIconPath.c_str(), sizeof(tag.strIconPath));
 
-    if(IsInRecordingFolder(recording.strTitle))
-      strTmp.Format("/%s/", recording.strTitle.c_str());
-    else
-      strTmp.Format("/");
+    if (!g_bKeepFolders)
+    {
+      if(IsInRecordingFolder(recording.strTitle))
+        strTmp.Format("/%s/", recording.strTitle.c_str());
+      else
+        strTmp.Format("/");
 
-    recording.strDirectory = strTmp;
+      recording.strDirectory = strTmp;
+    }
+
     strncpy(tag.strDirectory, recording.strDirectory.c_str(), sizeof(tag.strDirectory));
     tag.recordingTime     = recording.startTime;
     tag.iDuration         = recording.iDuration;
@@ -1392,11 +1396,18 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
 bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
 {
   CStdString url;
+  CStdString directory;
 
   if (!strRecordingFolder.compare("default"))
+  {
     url.Format("%s%s", m_strURL.c_str(), "web/movielist"); 
+    directory.Format("/");
+  }
   else 
+  {
     url.Format("%s%s?dirname=%s", m_strURL.c_str(), "web/movielist", URLEncodeInline(strRecordingFolder.c_str())); 
+    directory = strRecordingFolder;
+  }
  
   CStdString strXML;
   strXML = GetHttpXML(url);
@@ -1438,6 +1449,8 @@ bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
     int iTmp;
 
     VuRecording recording;
+
+    recording.strDirectory = directory;
 
     recording.iLastPlayedPosition = 0;
     if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))

@@ -55,6 +55,7 @@ bool        g_bOnlyOneGroup           = false;
 bool        g_bOnlinePicons           = true;
 bool        g_bUseSecureHTTP          = false;
 bool        g_bAutoConfig             = false;
+bool        g_bKeepFolders            = false;
 std::string g_strOneGroup             = "";
 std::string g_szClientPath            = "";
 
@@ -101,7 +102,7 @@ void ADDON_ReadSettings(void)
   if (!XBMC->GetSetting("use_secure", &g_bUseSecureHTTP))
     g_bUseSecureHTTP = false;
   
-  /* read setting "use_secure" from settings.xml */
+  /* read setting "autoconfig" from settings.xml */
   if (!XBMC->GetSetting("autoconfig", &g_bAutoConfig))
     g_bAutoConfig = false;
   
@@ -124,6 +125,10 @@ void ADDON_ReadSettings(void)
   /* read setting "setpowerstate" from settings.xml */
   if (!XBMC->GetSetting("setpowerstate", &g_bSetPowerstate))
     g_bSetPowerstate = false;
+  
+  /* read setting "keepfolders" from settings.xml */
+  if (!XBMC->GetSetting("keepfolders", &g_bKeepFolders))
+    g_bKeepFolders = false;
   
   /* read setting "zap" from settings.xml */
   if (!XBMC->GetSetting("zap", &g_bZap))
