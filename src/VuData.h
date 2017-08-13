@@ -183,8 +183,6 @@ private:
   std::vector<VuTimer> LoadTimers();
   void TimerUpdates();
   bool GetDeviceInfo();
-  int GetRecordingIndex(CStdString);
-  std::string getStreamURL(std::string& strM3uURL);
 
   // helper functions
   static long TimeStringToSeconds(const CStdString &timeString);
@@ -218,11 +216,11 @@ public:
   bool GetRecordingFromLocation(CStdString strRecordingFolder);
   unsigned int GetRecordingsAmount();
   PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
+  std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
   unsigned int GetNumChannelGroups(void);
   PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
-  const char* GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
   void CloseLiveStream();
   void SendPowerstate();
