@@ -559,29 +559,6 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
   return true;
 }
 
-/**
- * getStreamURL() reads out a stream-URL from a M3U-file.
- * 
- * This method downloads a M3U-file from the address that is given by strM3uURL.
- * It returns the first line that starts with "http".
- * If no line starts with "http" the last line is returned.
- */
-std::string Vu::getStreamURL(std::string& strM3uURL)
-{
-    CStdString strTmp;
-    strTmp = strM3uURL;
-    std::string strM3U;
-    strM3U = GetHttpXML(strTmp);
-    std::istringstream streamM3U(strM3U);
-    std::string strURL = "";
-    while (std::getline(streamM3U, strURL))
-    {
-      if (strURL.compare(0, 4, "http", 4) == 0)
-        break;
-    };
-    return strURL;
-}
-
 bool Vu::IsConnected() 
 {
   return m_bIsConnected;
@@ -1363,7 +1340,6 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     memset(&tag, 0, sizeof(PVR_RECORDING));
     strncpy(tag.strRecordingId, recording.strRecordingId.c_str(), sizeof(tag.strRecordingId));
     strncpy(tag.strTitle, recording.strTitle.c_str(), sizeof(tag.strTitle));
-    strncpy(tag.strStreamURL, recording.strStreamURL.c_str(), sizeof(tag.strStreamURL));
     strncpy(tag.strPlotOutline, recording.strPlotOutline.c_str(), sizeof(tag.strPlotOutline));
     strncpy(tag.strPlot, recording.strPlot.c_str(), sizeof(tag.strPlot));
     strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName));
@@ -1391,6 +1367,16 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
 
     PVR->TransferRecordingEntry(handle, &tag);
   }
+}
+
+std::string Vu::GetRecordingURL(const PVR_RECORDING &recinfo)
+{
+  for (const auto& recording : m_recordings)
+  {
+    if (recinfo.strRecordingId == recording.strRecordingId)
+      return recording.strStreamURL;
+  }
+  return "";
 }
 
 bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
@@ -1698,24 +1684,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
   return PVR_ERROR_NO_ERROR;
 }
 
-const char* Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
-{
-  SwitchChannel(channelinfo);
-
-  if (g_bAutoConfig)
-  {
-    // we need to download the M3U file that contains the URL for the stream...
-    // we do it here for 2 reasons:
-    //  1. This is faster than doing it during initialization
-    //  2. The URL can change, so this is more up-to-date.
-    static std::string strStreamURL;
-    strStreamURL = getStreamURL(m_channels.at(channelinfo.iUniqueId-1).strM3uURL);
-    return strStreamURL.c_str();
-  }
-
-  return m_channels.at(channelinfo.iUniqueId-1).strStreamURL.c_str();
-}
-
 bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
 {
   XBMC->Log(LOG_INFO, "%s channel '%u'", __FUNCTION__, channelinfo.iUniqueId);
@@ -1909,15 +1877,5 @@ CStdString Vu::URLEncodeInline(const CStdString& sSrc)
   std::string sResult((char *)pStart, (char *)pEnd);
   delete [] pStart;
   return sResult;
-}
-
-int Vu::GetRecordingIndex(CStdString strStreamURL)  
-{
-  for (unsigned int i = 0;i<m_recordings.size();  i++) 
-  {
-    if (!strStreamURL.compare(m_recordings[i].strStreamURL))
-      return i;
-  }
-  return -1;
 }
 
