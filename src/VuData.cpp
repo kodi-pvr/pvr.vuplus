@@ -540,7 +540,7 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
     strTmp.Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference.c_str()));
     newChannel.strM3uURL = strTmp;
-    
+
     strTmp.Format("http://%s:%d/%s", g_strHostname, g_iPortStream, strTmp2.c_str());    
     newChannel.strStreamURL = strTmp;
 
@@ -564,7 +564,30 @@ bool Vu::IsConnected()
   return m_bIsConnected;
 }
 
-CStdString Vu::GetHttpXML(CStdString& url) 
+/**
+  * GetStreamURL() reads out a stream-URL from a M3U-file.
+  *
+  * This method downloads a M3U-file from the address that is given by strM3uURL.
+  * It returns the first line that starts with "http".
+  * If no line starts with "http" the last line is returned.
+  */
+std::string Vu::GetStreamURL(std::string& strM3uURL)
+{
+  CStdString strTmp;
+  strTmp = strM3uURL;
+  std::string strM3U;
+  strM3U = GetHttpXML(strTmp);
+  std::istringstream streamM3U(strM3U);
+  std::string strURL = "";
+  while (std::getline(streamM3U, strURL))
+  {
+    if (strURL.compare(0, 4, "http", 4) == 0)
+      break;
+  };
+  return strURL;
+}
+
+CStdString Vu::GetHttpXML(CStdString& url)
 {
 //  CLockObject lock(m_mutex);
 
@@ -631,14 +654,27 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
       xbmcChannel.bIsHidden         = false;
       strncpy(xbmcChannel.strIconPath, channel.strIconPath.c_str(), sizeof(xbmcChannel.strIconPath));
 
-      CStdString strStream;
-      strStream.Format("pvr://stream/tv/%i.ts", channel.iUniqueId);
-
       PVR->TransferChannelEntry(handle, &xbmcChannel);
     }
   }
 
   return PVR_ERROR_NO_ERROR;
+}
+
+std::string Vu::GetChannelURL(const PVR_CHANNEL &channelinfo)
+{
+  SwitchChannel(channelinfo);
+
+  if (g_bAutoConfig)
+  {
+    // we need to download the M3U file that contains the URL for the stream...
+    // we do it here for 2 reasons:
+    //  1. This is faster than doing it during initialization
+    //  2. The URL can change, so this is more up-to-date.
+    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
+  }
+
+  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
 }
 
 Vu::~Vu() 
@@ -1684,41 +1720,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
   return PVR_ERROR_NO_ERROR;
 }
 
-bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
-{
-  XBMC->Log(LOG_INFO, "%s channel '%u'", __FUNCTION__, channelinfo.iUniqueId);
-
-  if ((int)channelinfo.iUniqueId == m_iCurrentChannel)
-    return true;
-
-  return SwitchChannel(channelinfo);
-}
-
-void Vu::CloseLiveStream(void) 
-{
-  m_iCurrentChannel = -1;
-}
-
-int Vu::ReadLiveStream(unsigned char *pBuffer, unsigned int iBufferSize)
-{
-  return 0;
-}
-
-long long Vu::SeekLiveStream(long long iPosition, int iWhence /* = SEEK_SET */)
-{
-  return 0;
-}
-
-long long Vu::PositionLiveStream(void)
-{
-  return 0;
-}
-
-long long Vu::LengthLiveStream(void)
-{
-  return 0;
-}
-
 bool Vu::SwitchChannel(const PVR_CHANNEL &channel)
 {
   XBMC->Log(LOG_DEBUG, "%s Switching channels", __FUNCTION__);
@@ -1730,7 +1731,7 @@ bool Vu::SwitchChannel(const PVR_CHANNEL &channel)
 
   if (g_bZap)
   {
-    // Zapping is set to true, so send the zapping command to the PVR box 
+    // Zapping is set to true, so send the zapping command to the PVR box
     CStdString strServiceReference = m_channels.at(channel.iUniqueId-1).strServiceReference.c_str();
 
     CStdString strTmp;
@@ -1739,7 +1740,7 @@ bool Vu::SwitchChannel(const PVR_CHANNEL &channel)
     CStdString strResult;
     if(!SendSimpleCommand(strTmp, strResult))
       return false;
-  
+
   }
   return true;
 }

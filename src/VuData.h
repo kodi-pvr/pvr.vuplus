@@ -183,6 +183,7 @@ private:
   std::vector<VuTimer> LoadTimers();
   void TimerUpdates();
   bool GetDeviceInfo();
+  std::string GetStreamURL(std::string& strM3uURL);
 
   // helper functions
   static long TimeStringToSeconds(const CStdString &timeString);
@@ -205,6 +206,7 @@ public:
   bool IsConnected(); 
   int GetChannelsAmount(void);
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
+  std::string GetChannelURL(const PVR_CHANNEL &channelinfo);
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
   PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
   bool GetInitialEPGForGroup(VuChannelGroup &group);
@@ -221,16 +223,10 @@ public:
   unsigned int GetNumChannelGroups(void);
   PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
-  bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
-  void CloseLiveStream();
   void SendPowerstate();
   bool SwitchChannel(const PVR_CHANNEL &channel);
   bool Open();
   void Action();
-  int ReadLiveStream(unsigned char *pBuffer, unsigned int iBufferSize);
-  long long SeekLiveStream(long long iPosition, int iWhence /* = SEEK_SET */);
-  long long PositionLiveStream(void);
-  long long LengthLiveStream(void);
   bool m_bInitialEPG;
 };
 
