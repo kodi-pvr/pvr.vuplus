@@ -826,7 +826,7 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
 
       broadcast.iUniqueBroadcastId  = entry.iEventId;
       broadcast.strTitle            = entry.strTitle.c_str();
-      broadcast.iChannelNumber      = channel.iChannelNumber;
+      broadcast.iUniqueChannelId    = channel.iUniqueId;
       broadcast.startTime           = entry.startTime;
       broadcast.endTime             = entry.endTime;
       broadcast.strPlotOutline      = entry.strPlotOutline.c_str();
@@ -988,7 +988,7 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
 
     broadcast.iUniqueBroadcastId  = entry.iEventId;
     broadcast.strTitle            = entry.strTitle.c_str();
-    broadcast.iChannelNumber      = channel.iChannelNumber;
+    broadcast.iUniqueChannelId    = channel.iUniqueId;
     broadcast.startTime           = entry.startTime;
     broadcast.endTime             = entry.endTime;
     broadcast.strPlotOutline      = entry.strPlotOutline.c_str();
