@@ -1,3 +1,6 @@
+v3.5.0
+- Updated to PVR addon API v5.7.0
+
 v3.4.1
 - Removed incomplete implementation of channel playback via live input stream. Addon claimed to support it, but actually didn't.
 - Restored channel playback via stream URL. This is what the addon actually implements.
