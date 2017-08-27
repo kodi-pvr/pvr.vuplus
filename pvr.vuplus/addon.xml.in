@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.5.0"
+  version="3.5.1"
   name="VU+ / Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>@ADDON_DEPENDS@</requires>
@@ -13,7 +13,7 @@
     <summary lang="be_BY">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="bg_BG">Kodi клиент за тунери базирани на VU+ / Enigma2</summary>
     <summary lang="ca_ES">Frontal de Kodi per als descodificadors basats en VU+/Enigma2</summary>
-    <summary lang="cs_CZ">Rozhraní Kodi pro VU+ / přijímače založené na Enigma2</summary>
+    <summary lang="cs_CZ">Rozhraní Kodi pro přijímače založené na VU+ nebo Enigma2</summary>
     <summary lang="cy_GB">Blaen Kodi ar gyfer blychau teledu VU+ / Enigma2</summary>
     <summary lang="da_DK">Kodi's frontend til VU+ / Enigma2 baseret på settop bokse</summary>
     <summary lang="de_DE">Kodi Oberfläche für VU+ / Enigma2-basierte Settop-Boxen</summary>
@@ -25,7 +25,7 @@
     <summary lang="es_AR">Kodi frontend para decodificadores equipados con VU+/Enigma2</summary>
     <summary lang="es_ES">Frontend Kodi para decodificadores basados en VU+/Enigma2</summary>
     <summary lang="es_MX">Kodi frontend para cajas fijas basadas en VU + / Enigma2</summary>
-    <summary lang="et_EE">Kodi esi VU+ / Enigma2 põhistele digiboksidele</summary>
+    <summary lang="et_EE">Kodi liides VU+ / Enigma2 põhistele digiboksidele</summary>
     <summary lang="fi_FI">Kodin VU+/ Enigma2-asiakasohjelma</summary>
     <summary lang="fr_CA">Frontal Kodi pour les boîtiers décodeurs basés sur VU+ / Enigma 2</summary>
     <summary lang="fr_FR">Interface logicielle pour les enregistreurs VU+/Enigma2</summary>
@@ -42,7 +42,7 @@
     <summary lang="lv_LV">Kodi galasistēma VU+ / Enigma2 balstītām pierīcēm</summary>
     <summary lang="mk_MK">Kodi's интерфејс за VU+ / Enigma2 базирани звучници</summary>
     <summary lang="ms_MY">Bahagian hadapan Kodi untuk kotak settop berasaskan VU+/Enigma2</summary>
-    <summary lang="nb_NO">Kodi's frontend for VU+ / Enigma2-baserte set top bokser</summary>
+    <summary lang="nb_NO">Kodis grenseflate for VU+ / Enigma2-baserte TV-bokser</summary>
     <summary lang="nl_NL">Kodi's frontend voor op VU+ / Enigma2 gebaseerde settopboxen</summary>
     <summary lang="pl_PL">Klient telewizji dla dekoderów VU+ / Enigma2 </summary>
     <summary lang="pt_BR">Frontend do Kodi para conversores baseados em VU+/Enigma2</summary>
@@ -65,7 +65,7 @@
     <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="bg_BG">VU+ клиент. Поддържа поточна телевизия и записване, електронен програмен справочник и броячи.</description>
     <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors.</description>
-    <description lang="cs_CZ">Rozhraní WU+. Podporuje proudové vysílání živého vysílání a nahrávek, poslech kanálů rádia, EPG, a časovače.</description>
+    <description lang="cs_CZ">Rozhraní VU+; podporuje streamování živého vysílání a nahrávání, televizní program, časovače.</description>
     <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
     <description lang="da_DK">VU+ frontend; understøtter streaming af TV og Optagelser, EPG og Timere.</description>
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
@@ -77,7 +77,7 @@
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
     <description lang="es_ES">Frontend VU+; soporta TV en vivo, grabaciones, guía de programación (EPG) y temporizadores.</description>
     <description lang="es_MX">VU+ frontend; Soportando transmisión de TV en directo y grabaciones, EPG, Temporizadores.</description>
-    <description lang="et_EE">VU+ esi. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.</description>
+    <description lang="et_EE">VU+ liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.</description>
     <description lang="fi_FI">VU+-asiakasohjelma. Tukee suorien tv-lähetysten ja tallennusten katsomista, ohjelmaopasta ja ohjelmien ajastamista.</description>
     <description lang="fr_CA">Frontal VU+, prenant en charge la diffusion en continu des télés en direct &amp; les enregistrements, le GÉP et les minuteries.</description>
     <description lang="fr_FR">Interface logicielle pour enregistreur VU+. Gère la diffusion et les enregistrements de la TV en direct, le guide électronique des programmes TV et les programmations.</description>
@@ -86,7 +86,7 @@
     <description lang="hr_HR">VU+ sučelje; podržava stremanje i snimanje TV programa, elektronski programski vodič (EPG)  i vremeski zadano snimanje.</description>
     <description lang="hu_HU">VU+ előtét. Élő adások és felvételek támogatása EPG-vel és időzítéssel.</description>
     <description lang="id_ID">Frontend VU+. Mendukung pengaliran TV dan Rekaman langsung, EPG dan Timer.</description>
-    <description lang="is_IS">VU+ framendi; styður streymingu á Beinum útsendingum og upptökum, rafrænum dagskrárvísum (EPG) og tímatöku.</description>
+    <description lang="is_IS">VU+ framendi; styður streymingu á beinum útsendingum og upptökum, rafrænum dagskrárvísum (EPG) og tímatöku.</description>
     <description lang="it_IT">Frontend VU+; supporta EPG, i timer e lo streaming della TV dal vivo e delle registrazioni.</description>
     <description lang="ja_JP">VU+ フロントエンド。ライブテレビのストリーミングや録画、EPG、タイマーをサポート。</description>
     <description lang="ko_KR">VU+ 프론트엔드; TV 시청 &amp; 녹화, EPG, 타이머 지원</description>
@@ -94,7 +94,7 @@
     <description lang="lv_LV">VU+ galasistēma; atbalsta tiešraides TV &amp; ierakstu straumēšanu, EPG, taimerus.</description>
     <description lang="mk_MK">VU+ интерфејс;подржува стриминг на Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="ms_MY">Bahagian hadapan VU+; menyokong penstirman  Langsung &amp; Rakaman, EPG, Pemasa TV</description>
-    <description lang="nb_NO">VU+ frontend; støtte for Live TV  &amp; Opptak, EPG, Timere.</description>
+    <description lang="nb_NO">VU+grenseflate; støtter strømming av direkte-TV og opptak, EPG, tidsur.</description>
     <description lang="nl_NL">VU+ frontend; ondersteunt het streamen van LiveTV &amp; Opnames, EPG, Timers</description>
     <description lang="pl_PL">Klient telewizji dla VU+ obsługuje transmisję kanałów radiowych i telewizyjnych, nagrywanie i harmonogram nagrań oraz funkcje przewodnika telewizyjnego.</description>
     <description lang="pt_BR">VU+ frontend; suporta streaming de TV Ao Vivo e Gravações, EPG, agendamentos.</description>
@@ -117,7 +117,7 @@
     <disclaimer lang="be_BY">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
     <disclaimer lang="bg_BG">Тази програма е нестабилна! Авторите не носят отговорност за неуспешно записване, некоректни броячи, пропиляно време и други нежелани ефекти.</disclaimer>
     <disclaimer lang="ca_ES">Això és programari inestable! Els autors no són de cap manera responsables dels enregistraments que han fallat, temporitzadors incorrectes, hores perdudes, o qualssevol altres efectes no desitjats..</disclaimer>
-    <disclaimer lang="cs_CZ">Tento software není stabilní. Autoři nejsou žádným způsobem zodpovědní za selhání při nahrávání, neplatné časovače, ztracený čas, či jakékoliv jiné nežádoucí události...</disclaimer>
+    <disclaimer lang="cs_CZ">Tento software není stabilní! Autoři nejsou žádným způsobem zodpovědní za neúspěšná nahrávání, chybné časovače, ztracený čas nebo jakékoliv jiné nežádoucí výsledky...</disclaimer>
     <disclaimer lang="cy_GB">Mae hwn yn feddalwedd ansad! Nid yw'r awduron yn gyfrifol mewn unrhyw ffordd am fethu recordio, amseru gwallus, oriau wedi eu gwastraffu nac effeithiau anymunol eraill.</disclaimer>
     <disclaimer lang="da_DK">Dette er ustabil software! Ophavsmændene er på ingen måde ansvarlige for mislykkede optagelser, ukorrekte timere, spildte timer, eller andre uønskede konsekvenser..</disclaimer>
     <disclaimer lang="de_DE">Dies ist instabile Software! Die Autoren sind in keiner Weise verantwortlich für fehlgeschlagene Aufnahmen, falsche Timer, verschwendete Zeit oder andere ungewünschte Effekte.</disclaimer>
@@ -130,6 +130,7 @@
     <disclaimer lang="es_ES">¡Este es un software inestable! Los autores no son de ninguna manera responsables de las grabaciones fallidas o incorrectas, las temporizadores perdidas, ni otros efectos no deseables..</disclaimer>
     <disclaimer lang="es_MX">¡Esto es software inestable! Los autores no son de ninguna manera responsables por grabaciones fallidas, temporizadores incorrectos, horas perdidas o cualquier otro efecto no deseado...</disclaimer>
     <disclaimer lang="et_EE">See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nurjunud salvestiste, ebaõige aegrelee, raisatud tundide ega muude soovimatute asjade eest.</disclaimer>
+    <disclaimer lang="eu_ES">Software hau beta bertsioan dago! Egilea ez da arduratzen grabaketa erroretaz, kronometro erroreak, hordu galduak edo beste edozein ondorio ezerosotaz</disclaimer>
     <disclaimer lang="fi_FI">Tämä on epävakaa ohjelma! Sen tekijät eivät ole millään muotoa vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, haaskatusta ajasta, verenpaineen noususta tai mistään muusta epäsuotuisasta vaikutuksesta.</disclaimer>
     <disclaimer lang="fr_CA">Ce logiciel est instable! Les auteurs ne sont aucunement responsables des enregistrements défaillants, des minuteries erronées, des heures perdues ou tout autre effet indésirable.</disclaimer>
     <disclaimer lang="fr_FR">Logiciel en cours d'élaboration ! Les auteurs ne sont en aucun cas responsables de l'échec des enregistrements, programmations défectueuses, temps perdu ou autres effets indésirables.</disclaimer>
@@ -149,7 +150,7 @@
     <disclaimer lang="mn_MN">Тус програм нь гүйцэд хийгдэж дуусаагүй! Зохиогч нь алдаатай бичлэг, цагийн буруу хөтлөлт, алдагдсан цаг хугацаа эсвэл бусад ямар нэгэн хүсээгүй үр дүнд хариуцлага хүлээхгүй.</disclaimer>
     <disclaimer lang="ms_MY">Ini merupakan perisian tidak stabil! Pengarang tidak bertanggungjawab atas kegagalan rakaman, pemasa tidak betul, masa yang dibazirkan, atau apa jua kesan yang tidak dikehendaki..</disclaimer>
     <disclaimer lang="mt_MT">Dan il-programm mhuwiex stabbli! L-Awturi m'humiex responsabbli bl-ebda mod għal rekordings li ma jirnexxewx, arloġġi żbaljati, siegħat moħlija, jew kwalunkwe effett ieħor mhux mixtieq.</disclaimer>
-    <disclaimer lang="nb_NO">Dette er ustabil programvare! Skaperen har ikke på noen måte ansvar for feilede opptak, feile timere, bortkastede timer, eller andre uønskede effekter..</disclaimer>
+    <disclaimer lang="nb_NO">Dette er ustabil programvare! Skaperen har ikke på noen måte ansvar for feilede opptak, uriktige tidsur, bortkastede timer, eller andre uønskede effekter…</disclaimer>
     <disclaimer lang="nl_NL">Dit is onstabiele software! De auteurs zijn op geen enkele manier verantwoordelijk voor mislukte opnames, incorrecte timers, verspilde uren of andere ongewenste effecten.</disclaimer>
     <disclaimer lang="pl_PL">Oprogramowanie nadal jest w fazie rozwoju i jest niestabilne! Autorzy w żaden sposób nie są odpowiedzialni za nieudane nagrania, błędy w harmonogramie nagrań, zmarnowany czas ani jakiekolwiek inne niepożądane efekty.</disclaimer>
     <disclaimer lang="pt_BR">Este é um software instável! Os autores não são responsáveis por falhas nas gravações, agendamentos incorretos, horas dispendidas, ou quaisquer outros efeitos indesejáveis</disclaimer>
@@ -162,7 +163,7 @@
     <disclaimer lang="sq_AL">Ky program nuk është ende stabil! Autorët e këtij programi nuk janë në as një menyr përgjegjës për rregistrime të gabuara, timer të pasaktë, kohë të humbur ose efekte të tilla të padëshirueshme.</disclaimer>
     <disclaimer lang="sr_RS">Овај софтвер је нестабилан! Аутори ни на који начин нису одговорни за неуспела снимања, неисправне тајмере, изгубљене сате, или било које друге нежељене ефекте.</disclaimer>
     <disclaimer lang="sr_RS@latin">Ovaj softver je nestabilan! Autori ni na koji način nisu odgovorni za neuspela snimanja, neispravne tajmere, izgubljene sate, ili bilo koje druge neželjene efekte.</disclaimer>
-    <disclaimer lang="sv_SE">Detta är ostabil mjukvara! Upphovsmännen är inte ansvariga för misslyckade inspelningar, inkorrekta timers, bortslösade timmar, eller några andra oönskade effekter..</disclaimer>
+    <disclaimer lang="sv_SE">Detta är instabil mjukvara! Upphovsmännen är inte ansvariga för misslyckade inspelningar, inkorrekta timers, bortslösade timmar, eller några andra oönskade effekter..</disclaimer>
     <disclaimer lang="szl">To software je niysztabilne! Autory w żŏdyn knif niy ôdpadajōm za niypodarzōne nagrania, felery w harmōnogramie nagrań, potracōne godziny a tyż jake ino inksze niynazdane efekty.</disclaimer>
     <disclaimer lang="te_IN">ఇది అస్థిర సాఫ్ట్వేర్! విఫలమైన రికార్డింగ్లు, తప్పు టైమర్లు, వృధా గంటల, లేదా ఏ ఇతర అవాంఛనీయ ప్రభావాలకు ఏ విధంగా రచయితలు భాద్యుతులు కారు.</disclaimer>
     <disclaimer lang="tg_TJ">Ин нармафзори ноустувор аст! Муаллифон барои вайрониҳои сабт, вақтсанҷҳои нодуруст, соатҳои бефоида ва дигар таъсирҳои номатлуб ҷавобгар намебошанд.</disclaimer>
