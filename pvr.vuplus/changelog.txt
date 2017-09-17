@@ -1,5 +1,8 @@
+v3.5.2
+- Fixed timer recording margins
+
 v3.5.1
-- Fixed timer recording margins 
+- Updated language files from Transifex 
 
 v3.5.0
 - Updated to PVR addon API v5.7.0
