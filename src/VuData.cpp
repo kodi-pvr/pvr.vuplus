@@ -1252,10 +1252,14 @@ PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
   CStdString strTmp;
   CStdString strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
 
+  time_t startTime, endTime;
+  startTime = timer.startTime - (timer.iMarginStart * 60);
+  endTime = timer.endTime + (timer.iMarginEnd * 60);
+  
   if (!g_strRecordingPath.compare(""))
-    strTmp.Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&dirname=&s", URLEncodeInline(strServiceReference), timer.iWeekdays, timer.startTime, timer.endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary),timer.iEpgUid, URLEncodeInline(g_strRecordingPath));
+    strTmp.Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&dirname=&s", URLEncodeInline(strServiceReference), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary),timer.iEpgUid, URLEncodeInline(g_strRecordingPath));
   else
-    strTmp.Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d", URLEncodeInline(strServiceReference), timer.iWeekdays, timer.startTime, timer.endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary),timer.iEpgUid);
+    strTmp.Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d", URLEncodeInline(strServiceReference), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary),timer.iEpgUid);
 
   CStdString strResult;
   if(!SendSimpleCommand(strTmp, strResult)) 
@@ -1271,7 +1275,11 @@ PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer)
   CStdString strTmp;
   CStdString strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
 
-  strTmp.Format("web/timerdelete?sRef=%s&begin=%d&end=%d", URLEncodeInline(strServiceReference.c_str()), timer.startTime, timer.endTime);
+  time_t startTime, endTime;
+  startTime = timer.startTime - (timer.iMarginStart * 60);
+  endTime = timer.endTime + (timer.iMarginEnd * 60);
+  
+  strTmp.Format("web/timerdelete?sRef=%s&begin=%d&end=%d", URLEncodeInline(strServiceReference.c_str()), startTime, endTime);
 
   CStdString strResult;
   if(!SendSimpleCommand(strTmp, strResult)) 

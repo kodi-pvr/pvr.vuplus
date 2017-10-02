@@ -1,3 +1,6 @@
+v2.4.12
+- backport: Fixed timer recording margins to Krypton
+
 v2.4.9
 - updated language files from Transifex
 
