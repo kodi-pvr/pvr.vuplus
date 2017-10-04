@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Utiliser le HTTP sécurisé (https)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Activer la configuration automatique pour les flux en direct"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Conserver l'arborescence de dossiers pour les enregistrements"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Déconnecté de « %s »"

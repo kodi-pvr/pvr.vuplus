@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Nota öruggara HTTP (https)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Virkja sjálfvirka uppsetningu á beinu streymi"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Halda möppuskipulagi fyrir plötur"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Aftengdur frá '%s'"

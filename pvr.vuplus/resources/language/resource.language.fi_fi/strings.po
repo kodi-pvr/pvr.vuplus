@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Käytä suojattua HTTP:tä (https)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Käytä tv-lähetysten automaattiasetuksia"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Säilytä tallenteiden kansiorakenne"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Yhteys katkaistu palvelimeen '%s'"

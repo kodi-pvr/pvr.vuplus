@@ -116,10 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Używaj zabezpieczonego HTTP (HTTPS)"
 
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Zachowuj strukturę folderów nagrań"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Rozłączono od '%s'"
 
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
-msgstr "Ponownie połączono z '%s'"
+msgstr "Połączono ponownie z '%s'"

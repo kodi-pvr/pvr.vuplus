@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "השתמש ב־HTTP מאובטח (https)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "הפעל תצורה אוטומטית עבור הזרמת שידורים חיים"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "שמור על מבנה התיקיות עבור הרשומות"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "נותק מ־'%s'"

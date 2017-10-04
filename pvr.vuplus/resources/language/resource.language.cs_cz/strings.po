@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Použít zabezpečené HTTP (https)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Povolit automatickou konfiguraci pro živé datové proudy"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Zachovat strukturu složky pro nahrávky"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Odpojeno od '%s'"
