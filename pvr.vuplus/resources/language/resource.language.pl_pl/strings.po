@@ -116,6 +116,10 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Używaj zabezpieczonego HTTP (HTTPS)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Konfiguruj transmisje na żywo automatycznie"
+
 msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Zachowuj strukturę folderów nagrań"
