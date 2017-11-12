@@ -1,3 +1,6 @@
+v3.5.5
+- Remove StdString usage
+
 v3.5.2
 - Fixed timer recording margins
 
