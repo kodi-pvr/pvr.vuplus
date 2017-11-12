@@ -24,6 +24,7 @@
 #include "xbmc_pvr_dll.h"
 #include <stdlib.h>
 #include "VuData.h"
+#include <p8-platform/util/StringUtils.h>
 #include "p8-platform/util/util.h"
 
 using namespace std;
@@ -342,14 +343,14 @@ const char *GetBackendVersion(void)
   return strBackendVersion;
 }
 
-static CStdString strConnectionString;
+static std::string strConnectionString;
 
 const char *GetConnectionString(void)
 {
   if (VuData)
-    strConnectionString.Format("%s%s", g_strHostname.c_str(), VuData->IsConnected() ? "" : " (Not connected!)");
+    strConnectionString = StringUtils::Format("%s%s", g_strHostname.c_str(), VuData->IsConnected() ? "" : " (Not connected!)");
   else
-    strConnectionString.Format("%s (addon error!)", g_strHostname.c_str());
+    strConnectionString = StringUtils::Format("%s (addon error!)", g_strHostname.c_str());
   return strConnectionString.c_str();
 }
 

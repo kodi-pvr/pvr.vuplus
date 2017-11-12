@@ -21,7 +21,6 @@
  *
  */
 
-#include "p8-platform/util/StdString.h"
 #include "client.h"
 #include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
@@ -171,12 +170,12 @@ private:
   bool m_bUpdating;
 
   // functions
-  CStdString GetHttpXML(CStdString& url);
-  int GetChannelNumber(CStdString strServiceReference);
-  CStdString GetChannelIconPath(CStdString strChannelName);
-  bool SendSimpleCommand(const CStdString& strCommandURL, CStdString& strResult, bool bIgnoreResult = false);
-  CStdString GetGroupServiceReference(CStdString strGroupName);
-  bool LoadChannels(CStdString strServerReference, CStdString strGroupName);
+  std::string GetHttpXML(std::string& url);
+  int GetChannelNumber(std::string strServiceReference);
+  std::string GetChannelIconPath(std::string strChannelName);
+  bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
+  std::string GetGroupServiceReference(std::string strGroupName);
+  bool LoadChannels(std::string strServerReference, std::string strGroupName);
   bool LoadChannels();
   bool LoadChannelGroups();
   bool LoadLocations();
@@ -186,13 +185,13 @@ private:
   std::string GetStreamURL(std::string& strM3uURL);
 
   // helper functions
-  static long TimeStringToSeconds(const CStdString &timeString);
-  static int SplitString(const CStdString& input, const CStdString& delimiter, CStdStringArray &results, unsigned int iMaxStrings = 0);
+  static long TimeStringToSeconds(const std::string &timeString);
+  static int SplitString(const std::string& input, const std::string& delimiter, std::vector<std::string> &results, unsigned int iMaxStrings = 0);
   bool CheckForGroupUpdate();
   bool CheckForChannelUpdate();
   std::string& Escape(std::string &s, std::string from, std::string to);
-  CStdString URLEncodeInline(const CStdString& sSrc);
-  bool IsInRecordingFolder(CStdString);
+  std::string URLEncodeInline(const std::string& sSrc);
+  bool IsInRecordingFolder(std::string);
   void TransferRecordings(ADDON_HANDLE handle);
 
 protected:
@@ -215,7 +214,7 @@ public:
   PVR_ERROR AddTimer(const PVR_TIMER &timer);
   PVR_ERROR UpdateTimer(const PVR_TIMER &timer);
   PVR_ERROR DeleteTimer(const PVR_TIMER &timer);
-  bool GetRecordingFromLocation(CStdString strRecordingFolder);
+  bool GetRecordingFromLocation(std::string strRecordingFolder);
   unsigned int GetRecordingsAmount();
   PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
   std::string  GetRecordingURL(const PVR_RECORDING &recinfo);

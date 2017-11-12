@@ -25,7 +25,12 @@
 #include <iostream> 
 #include <fstream> 
 #include <string>
+#include <p8-platform/util/StringUtils.h>
 #include "util/XMLUtils.h"
+
+#if defined(_WIN32)
+#include <Bits.h>
+#endif
 
 
 using namespace ADDON;
@@ -56,13 +61,13 @@ std::string& Vu::Escape(std::string &s, std::string from, std::string to)
 
 bool Vu::LoadLocations() 
 {
-  CStdString url;
+  std::string url;
   if (g_bOnlyCurrentLocation)
-    url.Format("%s%s",  m_strURL.c_str(), "web/getcurrlocation"); 
+    url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getcurrlocation"); 
   else 
-    url.Format("%s%s",  m_strURL.c_str(), "web/getlocations"); 
+    url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getlocations"); 
  
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
 
   int iNumLocations = 0;
@@ -98,7 +103,7 @@ bool Vu::LoadLocations()
 
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2location"))
   {
-    CStdString strTmp;
+    std::string strTmp;
     strTmp = pNode->GetText();
 
     m_locations.push_back(strTmp);
@@ -194,18 +199,18 @@ Vu::Vu()
 {
   m_bIsConnected = false;
   m_strServerName = "Vu";
-  CStdString strURL = "";
+  std::string strURL = "";
 
   // simply add user@pass in front of the URL if username/password is set
   if ((g_strUsername.length() > 0) && (g_strPassword.length() > 0))
   {
-    strURL.Format("%s:%s@", g_strUsername.c_str(), g_strPassword.c_str());
+    strURL = StringUtils::Format("%s:%s@", g_strUsername.c_str(), g_strPassword.c_str());
   }
   
   if (!g_bUseSecureHTTP)
-    strURL.Format("http://%s%s:%u/", strURL.c_str(), g_strHostname.c_str(), g_iPortWeb);
+    strURL = StringUtils::Format("http://%s%s:%u/", strURL.c_str(), g_strHostname.c_str(), g_iPortWeb);
   else
-    strURL.Format("https://%s%s:%u/", strURL.c_str(), g_strHostname.c_str(), g_iPortWeb);
+    strURL = StringUtils::Format("https://%s%s:%u/", strURL.c_str(), g_strHostname.c_str(), g_iPortWeb);
   
   m_strURL = strURL.c_str();
 
@@ -327,9 +332,9 @@ void  *Vu::Process()
 
       if (g_bAutomaticTimerlistCleanup) 
       {
-        CStdString strTmp;
-        strTmp.Format("web/timercleanup?cleanup=true");
-        CStdString strResult;
+        std::string strTmp;
+        strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
+        std::string strResult;
         if(!SendSimpleCommand(strTmp, strResult))
           XBMC->Log(LOG_ERROR, "%s - AutomaticTimerlistCleanup failed!", __FUNCTION__);
       }
@@ -359,8 +364,8 @@ bool Vu::LoadChannels()
   }
 
   // Load the radio channels - continue if no channels are found 
-  CStdString strTmp;
-  strTmp.Format("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
+  std::string strTmp;
+  strTmp = StringUtils::Format("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
   LoadChannels(strTmp, "radio");
 
   return bOk;
@@ -368,11 +373,11 @@ bool Vu::LoadChannels()
 
 bool Vu::LoadChannelGroups() 
 {
-  CStdString strTmp; 
+  std::string strTmp; 
 
-  strTmp.Format("%sweb/getservices", m_strURL.c_str());
+  strTmp = StringUtils::Format("%sweb/getservices", m_strURL.c_str());
 
-  CStdString strXML = GetHttpXML(strTmp);  
+  std::string strXML = GetHttpXML(strTmp);  
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
@@ -408,7 +413,7 @@ bool Vu::LoadChannelGroups()
 
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2service"))
   {
-    CStdString strTmp;
+    std::string strTmp;
 
     if (!XMLUtils::GetString(pNode, "e2servicereference", strTmp))
       continue;
@@ -440,14 +445,14 @@ bool Vu::LoadChannelGroups()
   return true;
 }
 
-bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName) 
+bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName) 
 {
   XBMC->Log(LOG_INFO, "%s loading channel group: '%s'", __FUNCTION__, strGroupName.c_str());
 
-  CStdString strTmp;
-  strTmp.Format("%sweb/getservices?sRef=%s", m_strURL.c_str(), URLEncodeInline(strServiceReference.c_str()));
+  std::string strTmp;
+  strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", m_strURL.c_str(), URLEncodeInline(strServiceReference).c_str());
 
-  CStdString strXML = GetHttpXML(strTmp);  
+  std::string strXML = GetHttpXML(strTmp);  
   
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
@@ -484,7 +489,7 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
 
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2service"))
   {
-    CStdString strTmp;
+    std::string strTmp;
 
     if (!XMLUtils::GetString(pNode, "e2servicereference", strTmp))
       continue;
@@ -529,25 +534,25 @@ bool Vu::LoadChannels(CStdString strServiceReference, CStdString strGroupName)
       strIcon.erase(it);
     }
     
-    CStdString strTmp2;
+    std::string strTmp2;
 
-    strTmp2.Format("%s", strIcon.c_str());
+    strTmp2 = StringUtils::Format("%s", strIcon.c_str());
 
-    std::replace(strIcon.begin(), strIcon.end(), ':', '_');
+    strIcon.replace(strIcon.begin(), strIcon.end(), ':', '_');
     strIcon = g_strIconPath.c_str() + strIcon + ".png";
 
     newChannel.strIconPath = strIcon;
 
-    strTmp.Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference.c_str()));
+    strTmp = StringUtils::Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference).c_str());
     newChannel.strM3uURL = strTmp;
 
-    strTmp.Format("http://%s:%d/%s", g_strHostname, g_iPortStream, strTmp2.c_str());    
+    strTmp = StringUtils::Format("http://%s:%d/%s", g_strHostname.c_str(), g_iPortStream, strTmp2.c_str());
     newChannel.strStreamURL = strTmp;
 
     if (g_bOnlinePicons == true)
     {
-      std::replace(strTmp2.begin(), strTmp2.end(), ':', '_');
-      strTmp.Format("%spicon/%s.png", m_strURL.c_str(), strTmp2.c_str());
+      strTmp2.replace(strTmp2.begin(), strTmp2.end(), ':', '_');
+      strTmp = StringUtils::Format("%spicon/%s.png", m_strURL.c_str(), strTmp2.c_str());
       newChannel.strIconPath = strTmp;
     }
 
@@ -573,7 +578,7 @@ bool Vu::IsConnected()
   */
 std::string Vu::GetStreamURL(std::string& strM3uURL)
 {
-  CStdString strTmp;
+  std::string strTmp;
   strTmp = strM3uURL;
   std::string strM3U;
   strM3U = GetHttpXML(strTmp);
@@ -587,13 +592,13 @@ std::string Vu::GetStreamURL(std::string& strM3uURL)
   return strURL;
 }
 
-CStdString Vu::GetHttpXML(CStdString& url)
+std::string Vu::GetHttpXML(std::string& url)
 {
 //  CLockObject lock(m_mutex);
 
   XBMC->Log(LOG_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
 
-  CStdString strTmp;
+  std::string strTmp;
 
   CCurlFile http;
   if(!http.Get(url, strTmp))
@@ -707,10 +712,10 @@ bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
     iTimer++;
   }
 
-  CStdString url;
-  url.Format("%s%s%s",  m_strURL.c_str(), "web/epgnownext?bRef=",  URLEncodeInline(group.strServiceReference.c_str())); 
+  std::string url;
+  url = StringUtils::Format("%s%s%s",  m_strURL.c_str(), "web/epgnownext?bRef=",  URLEncodeInline(group.strServiceReference).c_str());
  
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
 
   int iNumEPG = 0;
@@ -748,7 +753,7 @@ bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
   
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2event"))
   {
-    CStdString strTmp;
+    std::string strTmp;
 
     int iTmpStart;
     int iTmp;
@@ -901,10 +906,10 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     return GetInitialEPGForChannel(handle, myChannel, iStart, iEnd);
   }
 
-  CStdString url;
-  url.Format("%s%s%s",  m_strURL.c_str(), "web/epgservice?sRef=",  URLEncodeInline(myChannel.strServiceReference.c_str())); 
+  std::string url;
+  url = StringUtils::Format("%s%s%s",  m_strURL.c_str(), "web/epgservice?sRef=",  URLEncodeInline(myChannel.strServiceReference).c_str());
  
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
 
   int iNumEPG = 0;
@@ -942,7 +947,7 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
   
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2event"))
   {
-    CStdString strTmp;
+    std::string strTmp;
 
     int iTmpStart;
     int iTmp;
@@ -1024,7 +1029,7 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
   return PVR_ERROR_NO_ERROR;
 }
 
-int Vu::GetChannelNumber(CStdString strServiceReference)  
+int Vu::GetChannelNumber(std::string strServiceReference)  
 {
   for (unsigned int i = 0;i<m_channels.size();  i++) 
   {
@@ -1034,7 +1039,7 @@ int Vu::GetChannelNumber(CStdString strServiceReference)
   return -1;
 }
 
-CStdString Vu::GetChannelIconPath(CStdString strChannelName)  
+std::string Vu::GetChannelIconPath(std::string strChannelName)  
 {
   for (unsigned int i = 0;i<m_channels.size();  i++) 
   {
@@ -1093,10 +1098,10 @@ std::vector<VuTimer> Vu::LoadTimers()
 {
   std::vector<VuTimer> timers;
 
-  CStdString url; 
-  url.Format("%s%s", m_strURL.c_str(), "web/timerlist"); 
+  std::string url; 
+  url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/timerlist"); 
 
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
@@ -1130,7 +1135,7 @@ std::vector<VuTimer> Vu::LoadTimers()
   
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2timer"))
   {
-    CStdString strTmp;
+    std::string strTmp;
 
     int iTmp;
     bool bTmp;
@@ -1227,12 +1232,12 @@ std::vector<VuTimer> Vu::LoadTimers()
   return timers; 
 }
 
-bool Vu::SendSimpleCommand(const CStdString& strCommandURL, CStdString& strResultText, bool bIgnoreResult)
+bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
 {
-  CStdString url; 
-  url.Format("%s%s", m_strURL.c_str(), strCommandURL.c_str()); 
+  std::string url; 
+  url = StringUtils::Format("%s%s", m_strURL.c_str(), strCommandURL.c_str()); 
 
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
   
   if (!bIgnoreResult)
@@ -1261,7 +1266,7 @@ bool Vu::SendSimpleCommand(const CStdString& strCommandURL, CStdString& strResul
     if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp)) 
     {
       XBMC->Log(LOG_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
-      strResultText.Format("Could not parse e2state!");
+      strResultText = StringUtils::Format("Could not parse e2state!");
       return false;
     }
 
@@ -1284,19 +1289,19 @@ PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
 {
   XBMC->Log(LOG_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
 
-  CStdString strTmp;
-  CStdString strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
+  std::string strTmp;
+  std::string strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
   if (!g_strRecordingPath.compare(""))
-    strTmp.Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&dirname=&s", URLEncodeInline(strServiceReference), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary),timer.iEpgUid, URLEncodeInline(g_strRecordingPath));
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&dirname=&s", URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle).c_str(), URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, URLEncodeInline(g_strRecordingPath).c_str());
   else
-    strTmp.Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d", URLEncodeInline(strServiceReference), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary),timer.iEpgUid);
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d", URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle).c_str(), URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid);
 
-  CStdString strResult;
+  std::string strResult;
   if(!SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
   
@@ -1307,16 +1312,16 @@ PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
 
 PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer) 
 {
-  CStdString strTmp;
-  CStdString strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
+  std::string strTmp;
+  std::string strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  strTmp.Format("web/timerdelete?sRef=%s&begin=%d&end=%d", URLEncodeInline(strServiceReference.c_str()), startTime, endTime);
+  strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
 
-  CStdString strResult;
+  std::string strResult;
   if(!SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
 
@@ -1354,7 +1359,7 @@ PVR_ERROR Vu::GetRecordings(ADDON_HANDLE handle)
   return PVR_ERROR_NO_ERROR;
 }
 
-bool Vu::IsInRecordingFolder(CStdString strRecordingFolder)
+bool Vu::IsInRecordingFolder(std::string strRecordingFolder)
 {
   int iMatches = 0;
   for (unsigned int i = 0; i < m_recordings.size(); i++)
@@ -1378,7 +1383,7 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
 {
   for (unsigned int i=0; i<m_recordings.size(); i++)
   {
-    CStdString strTmp;
+    std::string strTmp;
     VuRecording &recording = m_recordings.at(i);
     PVR_RECORDING tag;
     memset(&tag, 0, sizeof(PVR_RECORDING));
@@ -1392,9 +1397,9 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     if (!g_bKeepFolders)
     {
       if(IsInRecordingFolder(recording.strTitle))
-        strTmp.Format("/%s/", recording.strTitle.c_str());
+        strTmp = StringUtils::Format("/%s/", recording.strTitle.c_str());
       else
-        strTmp.Format("/");
+        strTmp = StringUtils::Format("/");
 
       recording.strDirectory = strTmp;
     }
@@ -1423,23 +1428,23 @@ std::string Vu::GetRecordingURL(const PVR_RECORDING &recinfo)
   return "";
 }
 
-bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
+bool Vu::GetRecordingFromLocation(std::string strRecordingFolder)
 {
-  CStdString url;
-  CStdString directory;
+  std::string url;
+  std::string directory;
 
   if (!strRecordingFolder.compare("default"))
   {
-    url.Format("%s%s", m_strURL.c_str(), "web/movielist"); 
-    directory.Format("/");
+    url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/movielist"); 
+    directory = StringUtils::Format("/");
   }
   else 
   {
-    url.Format("%s%s?dirname=%s", m_strURL.c_str(), "web/movielist", URLEncodeInline(strRecordingFolder.c_str())); 
+    url = StringUtils::Format("%s%s?dirname=%s", m_strURL.c_str(), "web/movielist", URLEncodeInline(strRecordingFolder).c_str()); 
     directory = strRecordingFolder;
   }
  
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
@@ -1475,7 +1480,7 @@ bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
   
   for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2movie"))
   {
-    CStdString strTmp;
+    std::string strTmp;
     int iTmp;
 
     VuRecording recording;
@@ -1513,7 +1518,7 @@ bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
 
     if (XMLUtils::GetString(pNode, "e2filename", strTmp)) 
     {
-      strTmp.Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp.c_str()));
+      strTmp = StringUtils::Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp).c_str());
       recording.strStreamURL = strTmp;
     }
 
@@ -1532,11 +1537,11 @@ bool Vu::GetRecordingFromLocation(CStdString strRecordingFolder)
 
 PVR_ERROR Vu::DeleteRecording(const PVR_RECORDING &recinfo) 
 {
-  CStdString strTmp;
+  std::string strTmp;
 
-  strTmp.Format("web/moviedelete?sRef=%s", URLEncodeInline(recinfo.strRecordingId));
+  strTmp = StringUtils::Format("web/moviedelete?sRef=%s", URLEncodeInline(recinfo.strRecordingId).c_str());
 
-  CStdString strResult;
+  std::string strResult;
   if(!SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_FAILED;
 
@@ -1550,8 +1555,8 @@ PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 
   XBMC->Log(LOG_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
 
-  CStdString strTmp;
-  CStdString strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();  
+  std::string strTmp;
+  std::string strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();  
 
   unsigned int i=0;
 
@@ -1564,16 +1569,16 @@ PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
   }
 
   VuTimer &oldTimer = m_timers.at(i);
-  CStdString strOldServiceReference = m_channels.at(oldTimer.iChannelId-1).strServiceReference.c_str();  
+  std::string strOldServiceReference = m_channels.at(oldTimer.iChannelId-1).strServiceReference.c_str();  
   XBMC->Log(LOG_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.iChannelId);
 
   int iDisabled = 0;
   if (timer.state == PVR_TIMER_STATE_CANCELLED)
     iDisabled = 1;
 
-  strTmp.Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", URLEncodeInline(strServiceReference.c_str()), timer.startTime, timer.endTime, URLEncodeInline(timer.strTitle), URLEncodeInline(timer.strSummary), iDisabled, timer.iWeekdays, URLEncodeInline(strOldServiceReference.c_str()), oldTimer.startTime, oldTimer.endTime  );
+  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, URLEncodeInline(timer.strTitle).c_str(), URLEncodeInline(timer.strSummary).c_str(), iDisabled, timer.iWeekdays, URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
   
-  CStdString strResult;
+  std::string strResult;
   if(!SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_SERVER_ERROR;
 
@@ -1582,32 +1587,32 @@ PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
   return PVR_ERROR_NO_ERROR;
 }
 
-long Vu::TimeStringToSeconds(const CStdString &timeString)
+long Vu::TimeStringToSeconds(const std::string &timeString)
 {
-  CStdStringArray secs;
+  std::vector<std::string> secs;
   SplitString(timeString, ":", secs);
   int timeInSecs = 0;
   for (unsigned int i = 0; i < secs.size(); i++)
   {
     timeInSecs *= 60;
-    timeInSecs += atoi(secs[i]);
+    timeInSecs += atoi(secs[i].c_str());
   }
   return timeInSecs;
 }
 
-int Vu::SplitString(const CStdString& input, const CStdString& delimiter, CStdStringArray &results, unsigned int iMaxStrings)
+int Vu::SplitString(const std::string& input, const std::string& delimiter, std::vector<std::string> &results, unsigned int iMaxStrings)
 {
-  int iPos = -1;
-  int newPos = -1;
-  int sizeS2 = delimiter.GetLength();
-  int isize = input.GetLength();
+  size_t iPos = -1;
+  size_t newPos = -1;
+  size_t sizeS2 = delimiter.length();
+  size_t isize = input.length();
 
   results.clear();
   std::vector<unsigned int> positions;
 
-  newPos = input.Find (delimiter, 0);
+  newPos = input.find (delimiter, 0);
 
-  if ( newPos < 0 )
+  if ( newPos == std::string::npos )
   {
     results.push_back(input);
     return 1;
@@ -1617,7 +1622,7 @@ int Vu::SplitString(const CStdString& input, const CStdString& delimiter, CStdSt
   {
     positions.push_back(newPos);
     iPos = newPos;
-    newPos = input.Find (delimiter, iPos + sizeS2);
+    newPos = input.find (delimiter, iPos + sizeS2);
   }
 
   // numFound is the number of delimeters which is one less
@@ -1628,13 +1633,13 @@ int Vu::SplitString(const CStdString& input, const CStdString& delimiter, CStdSt
 
   for ( unsigned int i = 0; i <= numFound; i++ )
   {
-    CStdString s;
+    std::string s;
     if ( i == 0 )
     {
       if ( i == numFound )
         s = input;
       else
-        s = input.Mid( i, positions[i] );
+        s = StringUtils::Mid(input, i, positions[i] );
     }
     else
     {
@@ -1642,9 +1647,9 @@ int Vu::SplitString(const CStdString& input, const CStdString& delimiter, CStdSt
       if ( offset < isize )
       {
         if ( i == numFound )
-          s = input.Mid(offset);
+          s = StringUtils::Mid(input, offset);
         else if ( i > 0 )
-          s = input.Mid( positions[i - 1] + sizeS2,
+          s = StringUtils::Mid(input, positions[i - 1] + sizeS2,
                          positions[i] - positions[i - 1] - sizeS2 );
       }
     }
@@ -1684,7 +1689,7 @@ unsigned int Vu::GetNumChannelGroups()
   return m_iNumChannelGroups;
 }
 
-CStdString Vu::GetGroupServiceReference(CStdString strGroupName)  
+std::string Vu::GetGroupServiceReference(std::string strGroupName)  
 {
   for (int i = 0;i<m_iNumChannelGroups;  i++) 
   {
@@ -1706,7 +1711,7 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
   }
 
   XBMC->Log(LOG_DEBUG, "%s - group '%s'", __FUNCTION__, group.strGroupName);
-  CStdString strTmp = group.strGroupName;
+  std::string strTmp = group.strGroupName;
   for (unsigned int i = 0;i<m_channels.size();  i++) 
   {
     VuChannel &myChannel = m_channels.at(i);
@@ -1740,12 +1745,12 @@ bool Vu::SwitchChannel(const PVR_CHANNEL &channel)
   if (g_bZap)
   {
     // Zapping is set to true, so send the zapping command to the PVR box
-    CStdString strServiceReference = m_channels.at(channel.iUniqueId-1).strServiceReference.c_str();
+    std::string strServiceReference = m_channels.at(channel.iUniqueId-1).strServiceReference.c_str();
 
-    CStdString strTmp;
-    strTmp.Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference));
+    std::string strTmp;
+    strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
 
-    CStdString strResult;
+    std::string strResult;
     if(!SendSimpleCommand(strTmp, strResult))
       return false;
 
@@ -1759,23 +1764,23 @@ void Vu::SendPowerstate()
     return;
   
   CLockObject lock(m_mutex);
-  CStdString strTmp;
-  strTmp.Format("web/powerstate?newstate=1");
+  std::string strTmp;
+  strTmp = StringUtils::Format("web/powerstate?newstate=1");
 
-  CStdString strResult;
+  std::string strResult;
   SendSimpleCommand(strTmp, strResult, true); 
 }
 
 bool Vu::GetDeviceInfo()
 {
-  CStdString url; 
-  url.Format("%s%s", m_strURL.c_str(), "web/deviceinfo"); 
+  std::string url; 
+  url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/deviceinfo"); 
 
-  CStdString strXML;
+  std::string strXML;
   strXML = GetHttpXML(url);
   
   TiXmlDocument xmlDoc;
-  if (!xmlDoc.Parse(strXML))
+  if (!xmlDoc.Parse(strXML.c_str()))
   {
     XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
@@ -1793,7 +1798,7 @@ bool Vu::GetDeviceInfo()
     return false;
   }
 
-  CStdString strTmp;;
+  std::string strTmp;;
 
   XBMC->Log(LOG_NOTICE, "%s - DeviceInfo", __FUNCTION__);
 
@@ -1861,7 +1866,7 @@ const char SAFE[256] =
 };
 
 
-CStdString Vu::URLEncodeInline(const CStdString& sSrc) 
+std::string Vu::URLEncodeInline(const std::string& sSrc) 
 {
   const char DEC2HEX[16 + 1] = "0123456789ABCDEF";
   const unsigned char * pSrc = (const unsigned char *)sSrc.c_str();
