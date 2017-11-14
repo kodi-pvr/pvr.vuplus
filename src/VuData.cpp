@@ -22,6 +22,8 @@
 
 #include "VuData.h"
 #include "client.h" 
+
+#include <algorithm>
 #include <iostream> 
 #include <fstream> 
 #include <string>
@@ -538,7 +540,7 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
 
     strTmp2 = StringUtils::Format("%s", strIcon.c_str());
 
-    strIcon.replace(strIcon.begin(), strIcon.end(), ':', '_');
+    std::replace(strIcon.begin(), strIcon.end(), ':', '_');
     strIcon = g_strIconPath.c_str() + strIcon + ".png";
 
     newChannel.strIconPath = strIcon;
@@ -551,7 +553,7 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
 
     if (g_bOnlinePicons == true)
     {
-      strTmp2.replace(strTmp2.begin(), strTmp2.end(), ':', '_');
+      std::replace(strTmp2.begin(), strTmp2.end(), ':', '_');
       strTmp = StringUtils::Format("%spicon/%s.png", m_strURL.c_str(), strTmp2.c_str());
       newChannel.strIconPath = strTmp;
     }
