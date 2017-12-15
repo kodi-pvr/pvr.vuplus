@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.5.6"
+  version="3.5.7"
   name="VU+ / Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>@ADDON_DEPENDS@</requires>
@@ -79,7 +79,7 @@
     <description lang="es_MX">VU+ frontend; Soportando transmisión de TV en directo y grabaciones, EPG, Temporizadores.</description>
     <description lang="et_EE">VU+ liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.</description>
     <description lang="fi_FI">VU+-asiakasohjelma. Tukee suorien tv-lähetysten ja tallennusten katsomista, ohjelmaopasta ja ohjelmien ajastamista.</description>
-    <description lang="fr_CA">Frontal VU+, prenant en charge la diffusion en continu des télés en direct &amp; les enregistrements, le GÉP et les minuteries.</description>
+    <description lang="fr_CA">Frontal VU+, prenant en charge la diffusion en continu des télés en direct et les enregistrements, le GÉP et les minuteries.</description>
     <description lang="fr_FR">Interface logicielle pour enregistreur VU+. Gère la diffusion et les enregistrements de la TV en direct, le guide électronique des programmes TV et les programmations.</description>
     <description lang="gl_ES">Interface VU+; soporta TV en directo, gravacións, Guía de programación e temporizadores.</description>
     <description lang="he_IL">לקוח טלוויזיה חיה של VU+. תומך בהזרמת שידורים חיים והקלטות, הצגת לוח שידורים ותזמון הקלטות.</description>
@@ -95,7 +95,7 @@
     <description lang="mk_MK">VU+ интерфејс;подржува стриминг на Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="ms_MY">Bahagian hadapan VU+; menyokong penstirman  Langsung &amp; Rakaman, EPG, Pemasa TV</description>
     <description lang="nb_NO">VU+grenseflate; støtter strømming av direkte-TV og opptak, EPG, tidsur.</description>
-    <description lang="nl_NL">VU+ frontend; ondersteunt het streamen van LiveTV &amp; Opnames, EPG, Timers</description>
+    <description lang="nl_NL">VU+ frontend; ondersteunt het streamen van Live-TV &amp; opnames, EPG, timers</description>
     <description lang="pl_PL">Klient telewizji dla VU+ obsługuje transmisję kanałów radiowych i telewizyjnych, nagrywanie i harmonogram nagrań oraz funkcje przewodnika telewizyjnego.</description>
     <description lang="pt_BR">VU+ frontend; suporta streaming de TV Ao Vivo e Gravações, EPG, agendamentos.</description>
     <description lang="pt_PT">Interface VU+ ; suporta transmissão e gravação de TV em direto, EPG e temporizadores.</description>

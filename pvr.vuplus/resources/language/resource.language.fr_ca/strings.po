@@ -18,7 +18,7 @@ msgstr ""
 
 msgctxt "#30000"
 msgid "VU+ hostname or IP address"
-msgstr "Nom d'hôte ou adresse IP de VU+"
+msgstr "Nom d’hôte ou adresse IP de VU+"
 
 msgctxt "#30002"
 msgid "Streaming Port"
@@ -26,7 +26,7 @@ msgstr "Port de diffusion en continu"
 
 msgctxt "#30003"
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Nom d’utilisateur"
 
 msgctxt "#30004"
 msgid "Password"
@@ -50,7 +50,7 @@ msgstr "Nettoyage automatique de la liste des minuteries"
 
 msgctxt "#30012"
 msgid "Webinterface Port"
-msgstr "Port de l'interface Web"
+msgstr "Port de l’interface Web"
 
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
@@ -70,7 +70,7 @@ msgstr "Vérifier les mises à jour de chaînes"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
-msgstr "Utiliser seulement le chemin d'enregistrement actuel du boîtier DVB"
+msgstr "Utiliser seulement le chemin d’enregistrement actuel du boîtier DVB"
 
 msgctxt "#30018"
 msgid "General"
@@ -94,7 +94,7 @@ msgstr " Enregistrements  / minuterie"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
-msgstr "Dossier d'enregistrement du récepteur"
+msgstr "Dossier d’enregistrement du récepteur"
 
 msgctxt "#30024"
 msgid "Send DeepStandby-Command"
@@ -102,7 +102,7 @@ msgstr "Envoyer la commande deepstandby"
 
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
-msgstr "Ne récupérer qu'un bouquet télé"
+msgstr "Ne récupérer qu’un bouquet télé"
 
 msgctxt "#30026"
 msgid "TV-Bouquet"
@@ -110,11 +110,19 @@ msgstr "Bouquet télé"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
-msgstr "Récupérer les icônes de l'interface Web"
+msgstr "Récupérer les icônes de l’interface Web"
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Utiliser le HTTP sécurisé (https)"
+
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Activer la configuration automatique des diffusions en direct"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Conserver la structure de dossier pour les enregistrements"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
