@@ -112,6 +112,18 @@ msgctxt "#30027"
 msgid "Fetch picons from webinterface"
 msgstr "Отримати пікони з веб-інтерфейсу"
 
+msgctxt "#30028"
+msgid "Use Secure HTTP (https)"
+msgstr "Використовувати Secure HTTP (https)"
+
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Увімкнути автоматичну конфігурацію для прямих трансляцій"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Зберігати структуру папок для записів"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Від’єднано від '%s'"

@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "使用安全连接（https）"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "启用直播流自动设置"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "保留录像文件夹结构"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "断开到“%s”的连接"
