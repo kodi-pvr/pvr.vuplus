@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Sicheres HTTP (https) verwenden"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Aktiviere die Autokonfiguration für Liveübertragungen"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Behalte die Ordnerstruktur für Einträge"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Verbindung zu '%s' unterbrochen"
