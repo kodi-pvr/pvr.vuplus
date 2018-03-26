@@ -182,6 +182,14 @@ private:
   std::vector<VuTimer> LoadTimers();
   void TimerUpdates();
   bool GetDeviceInfo();
+  struct
+  {
+    long long total, used;
+    //30 secs btw. refreshes is enough for PVR
+    const int INTERVAL = 30;
+    long lastrefresh;
+  } m_driveSpace;
+  void ParseDriveSpace(TiXmlElement* pNode);
   std::string GetStreamURL(std::string& strM3uURL);
 
   // helper functions
@@ -226,6 +234,7 @@ public:
   bool SwitchChannel(const PVR_CHANNEL &channel);
   bool Open();
   void Action();
+  bool GetDriveSpace(long long *iTotal, long long *iUsed);
   bool m_bInitialEPG;
 };
 

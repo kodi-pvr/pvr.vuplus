@@ -361,7 +361,10 @@ const char *GetBackendHostname(void)
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-  return PVR_ERROR_SERVER_ERROR;
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+  
+  return (VuData->GetDriveSpace(iTotal, iUsed) ? PVR_ERROR_NO_ERROR : PVR_ERROR_SERVER_ERROR);
 }
 
 PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
