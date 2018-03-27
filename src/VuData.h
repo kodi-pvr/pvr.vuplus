@@ -182,13 +182,13 @@ private:
   std::vector<VuTimer> LoadTimers();
   void TimerUpdates();
   bool GetDeviceInfo();
-	struct {
-		long long total, used;
-		//30 secs btw. refreshes is enough for PVR
-		const int interval = 30;
-		long lastrefresh;
-	} m_driveSpace;
-	void ParseDriveSpace(TiXmlElement* pNode);
+  struct {
+	  long long total, used;
+	  //30 secs btw. refreshes is enough for PVR
+	  const int interval = 30;
+	  long lastrefresh;
+  } m_driveSpace;
+  void ParseDriveSpace(TiXmlElement* pNode);
   std::string GetStreamURL(std::string& strM3uURL);
 
   // helper functions
