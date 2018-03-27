@@ -1925,7 +1925,7 @@ void Vu::ParseDriveSpace(TiXmlElement* pElem) {
 				}
 			} catch (...) {
 				XBMC->Log(LOG_ERROR, "%s - Conversion error: %s", __FUNCTION__,
-						strTmp);
+						strTmp.c_str());
 			}
 		}
 	}
