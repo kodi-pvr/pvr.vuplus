@@ -1841,104 +1841,102 @@ bool Vu::GetDeviceInfo()
   XBMC->Log(LOG_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, m_strServerName.c_str());
 
   m_driveSpace.total = m_driveSpace.used = m_driveSpace.lastrefresh = -1;
-	ParseDriveSpace(pElem->FirstChildElement("e2hdds"));
-	if (m_driveSpace.total > 0)
-	{
-		XBMC->Log(LOG_NOTICE, "%s - Hdd capacity: %d", __FUNCTION__,
-				m_driveSpace.total);
-	}
-	else
-	{
-		XBMC->Log(LOG_NOTICE, "%s - No hdd found", __FUNCTION__);
-	}
+  ParseDriveSpace(pElem->FirstChildElement("e2hdds"));
+  if (m_driveSpace.total > 0)
+  {
+    XBMC->Log(LOG_NOTICE, "%s - Hdd capacity: %d", __FUNCTION__,
+      m_driveSpace.total);
+  }
+  else
+  {
+    XBMC->Log(LOG_NOTICE, "%s - No hdd found", __FUNCTION__);
+  }
 
   return true;
 }
 
 bool Vu::GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-	//initial check has not found a hdd => break
-	if (m_driveSpace.total <= 0)
-		return false;
+  //initial check has not found a hdd => break
+  if (m_driveSpace.total <= 0)
+    return false;
 
-	//kodi calls GetDriveSpace() every 3sec => 30sec are enough for a PVR
-	if (difftime(time(NULL), m_driveSpace.lastrefresh) >= m_driveSpace.INTERVAL)
-	{
-		std::string url = StringUtils::Format("%sweb/deviceinfo", m_strURL.c_str());
-		std::string strXML = GetHttpXML(url);
+  //kodi calls GetDriveSpace() every 3sec => 30sec are enough for a PVR
+  if (difftime(time(NULL), m_driveSpace.lastrefresh) >= m_driveSpace.INTERVAL)
+  {
+    std::string url = StringUtils::Format("%sweb/deviceinfo", m_strURL.c_str());
+    std::string strXML = GetHttpXML(url);
 
-		TiXmlDocument xmlDoc;
-		if (!xmlDoc.Parse(strXML.c_str()))
-		{
-			XBMC->Log(LOG_ERROR, "Unable to parse XML: %s at line %d",
-					xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-			return false;
-		}
+    TiXmlDocument xmlDoc;
+    if (!xmlDoc.Parse(strXML.c_str()))
+    {
+      XBMC->Log(LOG_ERROR, "Unable to parse XML: %s at line %d",
+      		xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      	return false;
+    }
 
-		TiXmlHandle hDoc(&xmlDoc);
-		TiXmlElement* pElem =
-				hDoc.FirstChildElement("e2deviceinfo").FirstChildElement("e2hdds").Element();
-		if (!pElem)
-		{
-			XBMC->Log(LOG_ERROR, "%s Could not find <e2hdds> element", __FUNCTION__);
-			return false;
-		}
+    TiXmlHandle hDoc(&xmlDoc);
+    TiXmlElement* pElem =
+      hDoc.FirstChildElement("e2deviceinfo").FirstChildElement("e2hdds").Element();
+    if (!pElem)
+    {
+      XBMC->Log(LOG_ERROR, "%s Could not find <e2hdds> element", __FUNCTION__);
+      return false;
+    }
+    ParseDriveSpace(pElem);
+  }
 
-		ParseDriveSpace(pElem);
-	}
-
-	if (m_driveSpace.used < 0)
-	{
-		return false;
-	}
-	else
-	{
-		*iTotal = m_driveSpace.total;
-		*iUsed = m_driveSpace.used;
-	}
-	return true;
+  if (m_driveSpace.used < 0)
+  {
+    return false;
+  }
+  else
+  {
+    *iTotal = m_driveSpace.total;
+    *iUsed = m_driveSpace.used;
+  }
+  return true;
 }
 
 void Vu::ParseDriveSpace(TiXmlElement* pElem)
 {
-	if (pElem)
-	{
-		//some boxes use usb sticks for caching => multiple entries possible
-		for (TiXmlElement* hddElement = pElem->FirstChildElement("e2hdd");
-				hddElement != NULL;
-				hddElement = hddElement->NextSiblingElement("e2hdd"))
-		{
-			std::string strTmp;
-			try
-			{
-				if (!XMLUtils::GetString(hddElement, "e2capacity", strTmp))
-					continue;
+  if (pElem)
+  {
+    //some boxes use usb sticks for caching => multiple entries possible
+    for (TiXmlElement* hddElement = pElem->FirstChildElement("e2hdd");
+      hddElement != NULL;
+      hddElement = hddElement->NextSiblingElement("e2hdd"))
+    {
+      std::string strTmp;
+      try
+      {
+        if (!XMLUtils::GetString(hddElement, "e2capacity", strTmp))
+            continue;
 
-				long e2capacity = std::stod(strTmp.c_str()) * 1024 * 1024;
-
-				if (!XMLUtils::GetString(hddElement, "e2free", strTmp))
-					continue;
-
-				long e2free = std::stod(strTmp.c_str()) * 1024 * 1024;
-
-				//biggest capacity must be hdd
-				if (e2capacity > 0 && e2free >= 0 && e2capacity >= m_driveSpace.total)
-				{
-					m_driveSpace.total = e2capacity;
-					m_driveSpace.used = e2capacity - e2free;
-					m_driveSpace.lastrefresh = time(NULL);
-					XBMC->Log(LOG_DEBUG,
-							"%s - Drivespace refreshed capacity: %d free: %d", __FUNCTION__,
-							m_driveSpace.total, m_driveSpace.used);
-				}
-			}
-			catch (...)
-			{
-				XBMC->Log(LOG_ERROR, "%s - Conversion error: %s", __FUNCTION__,
-						strTmp.c_str());
-			}
-		}
-	}
+        long e2capacity = std::stod(strTmp.c_str()) * 1024 * 1024;
+        
+        if (!XMLUtils::GetString(hddElement, "e2free", strTmp))
+            continue;
+        
+        long e2free = std::stod(strTmp.c_str()) * 1024 * 1024;
+        
+        //biggest capacity must be hdd
+        if (e2capacity > 0 && e2free >= 0 && e2capacity >= m_driveSpace.total)
+        {
+        	m_driveSpace.total = e2capacity;
+        	m_driveSpace.used = e2capacity - e2free;
+        	m_driveSpace.lastrefresh = time(NULL);
+        	XBMC->Log(LOG_DEBUG, "%s - Drivespace refreshed capacity: %d free: %d", __FUNCTION__,
+        			m_driveSpace.total, m_driveSpace.used);
+        }
+      }  
+      catch (...)
+      {
+      	XBMC->Log(LOG_ERROR, "%s - Conversion error: %s", __FUNCTION__,
+      			strTmp.c_str());
+      }
+    }
+  }
 }
 
 const char SAFE[256] =
