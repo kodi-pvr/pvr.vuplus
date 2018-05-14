@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.6.3"
+  version="3.6.4"
   name="VU+ / Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>@ADDON_DEPENDS@</requires>
@@ -11,7 +11,7 @@
   <extension point="xbmc.addon.metadata">
     <summary lang="af_ZA">Kodi se voorprogram vir VU+ / Enigma2 gebasseerde 'set-top' bokse</summary>
     <summary lang="be_BY">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
-    <summary lang="bg_BG">Kodi клиент за тунери базирани на VU+ / Enigma2</summary>
+    <summary lang="bg_BG">Клиент за устройства, базирани на VU+ / Enigma2</summary>
     <summary lang="ca_ES">Frontal de Kodi per als descodificadors basats en VU+/Enigma2</summary>
     <summary lang="cs_CZ">Rozhraní Kodi pro přijímače založené na VU+ nebo Enigma2</summary>
     <summary lang="cy_GB">Blaen Kodi ar gyfer blychau teledu VU+ / Enigma2</summary>
@@ -63,7 +63,7 @@
     <summary lang="zh_TW">給以VU+ / Enigma2開發的機上盒所使用的Kodi前端</summary>
     <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.</description>
     <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="bg_BG">VU+ клиент. Поддържа поточна телевизия и записване, електронен програмен справочник и броячи.</description>
+    <description lang="bg_BG">Клиент за „VU+“. Поддържа телевизия на живо и записване, електронен програмен справочник и броячи.</description>
     <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors.</description>
     <description lang="cs_CZ">Rozhraní VU+; podporuje streamování živého vysílání a nahrávání, televizní program, časovače.</description>
     <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
