@@ -1844,8 +1844,7 @@ bool Vu::GetDeviceInfo()
   ParseDriveSpace(pElem->FirstChildElement("e2hdds"));
   if (m_driveSpace.total > 0)
   {
-    XBMC->Log(LOG_NOTICE, "%s - Hdd capacity: %d", __FUNCTION__,
-      m_driveSpace.total);
+    XBMC->Log(LOG_NOTICE, "%s - Hdd capacity: %d", __FUNCTION__, m_driveSpace.total);
   }
   else
   {
@@ -1870,14 +1869,12 @@ bool Vu::GetDriveSpace(long long *iTotal, long long *iUsed)
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      XBMC->Log(LOG_ERROR, "Unable to parse XML: %s at line %d",
-      		xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-      	return false;
+      XBMC->Log(LOG_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      return false;
     }
 
     TiXmlHandle hDoc(&xmlDoc);
-    TiXmlElement* pElem =
-      hDoc.FirstChildElement("e2deviceinfo").FirstChildElement("e2hdds").Element();
+    TiXmlElement* pElem = hDoc.FirstChildElement("e2deviceinfo").FirstChildElement("e2hdds").Element();
     if (!pElem)
     {
       XBMC->Log(LOG_ERROR, "%s Could not find <e2hdds> element", __FUNCTION__);
@@ -1904,36 +1901,33 @@ void Vu::ParseDriveSpace(TiXmlElement* pElem)
   {
     //some boxes use usb sticks for caching => multiple entries possible
     for (TiXmlElement* hddElement = pElem->FirstChildElement("e2hdd");
-      hddElement != NULL;
-      hddElement = hddElement->NextSiblingElement("e2hdd"))
+    hddElement != NULL; hddElement = hddElement->NextSiblingElement("e2hdd"))
     {
       std::string strTmp;
       try
       {
         if (!XMLUtils::GetString(hddElement, "e2capacity", strTmp))
-            continue;
+          continue;
 
         long e2capacity = std::stod(strTmp.c_str()) * 1024 * 1024;
         
         if (!XMLUtils::GetString(hddElement, "e2free", strTmp))
-            continue;
+          continue;
         
         long e2free = std::stod(strTmp.c_str()) * 1024 * 1024;
         
         //biggest capacity must be hdd
         if (e2capacity > 0 && e2free >= 0 && e2capacity >= m_driveSpace.total)
         {
-        	m_driveSpace.total = e2capacity;
-        	m_driveSpace.used = e2capacity - e2free;
-        	m_driveSpace.lastrefresh = time(NULL);
-        	XBMC->Log(LOG_DEBUG, "%s - Drivespace refreshed capacity: %d free: %d", __FUNCTION__,
-        			m_driveSpace.total, m_driveSpace.used);
+          m_driveSpace.total = e2capacity;
+          m_driveSpace.used = e2capacity - e2free;
+          m_driveSpace.lastrefresh = time(NULL);
+          XBMC->Log(LOG_DEBUG, "%s - Drivespace refreshed capacity: %d free: %d", __FUNCTION__, m_driveSpace.total, m_driveSpace.used);
         }
-      }  
+      }
       catch (...)
       {
-      	XBMC->Log(LOG_ERROR, "%s - Conversion error: %s", __FUNCTION__,
-      			strTmp.c_str());
+        XBMC->Log(LOG_ERROR, "%s - Conversion error: %s", __FUNCTION__, strTmp.c_str());
       }
     }
   }
