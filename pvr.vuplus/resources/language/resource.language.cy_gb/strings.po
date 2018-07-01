@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Defnyddiwch HTTP (https) Diogel"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Galluogi ffurfweddu awtomatig ar gyfer ffrydio'n fyw"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Cadw strwythur y ffolderi ar gyfer recordiadau"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Datgysylltwyd o '%s'"

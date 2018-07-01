@@ -110,7 +110,7 @@ msgstr "Skupina oblíbených programů"
 
 msgctxt "#30027"
 msgid "Fetch picons from webinterface"
-msgstr "Načíst pikony z webového rozhraní"
+msgstr "Načíst ikony kanálů z webového rozhraní"
 
 msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
