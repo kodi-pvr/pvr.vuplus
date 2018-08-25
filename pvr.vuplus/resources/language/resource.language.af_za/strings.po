@@ -116,6 +116,14 @@ msgctxt "#30028"
 msgid "Use Secure HTTP (https)"
 msgstr "Gebruik Secure HTTP (HTTPS)"
 
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Stel outomatiese konfigurasie in staat vir lewendige strome"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Behou gids struktuur vir rekords"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Gediskonnekteer van '%s'"
