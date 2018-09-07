@@ -659,8 +659,16 @@ void PauseStream(bool paused)
   }
 }
 
+PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
+{
+  // the RS api doesn't provide information about signal quality (yet)
+
+  PVR_STRCPY(signalStatus.strAdapterName, "VUPlus Media Server");
+  PVR_STRCPY(signalStatus.strAdapterStatus, "OK");
+  return PVR_ERROR_NO_ERROR;
+}
+
 /** UNUSED API FUNCTIONS */
-PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus) { return PVR_ERROR_NO_ERROR; }
 PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; } 
 PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxAbort(void) { return; }
