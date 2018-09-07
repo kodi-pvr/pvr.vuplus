@@ -38,6 +38,55 @@
 using namespace ADDON;
 using namespace P8PLATFORM;
 
+/***************************************************************************
+ * Livestream
+ **************************************************************************/
+bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
+{
+  XBMC->Log(LOG_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
+  CLockObject lock(m_mutex);
+
+  if (channelinfo.iUniqueId != m_iCurrentChannel)
+  {
+    m_iCurrentChannel = channelinfo.iUniqueId;
+
+    if (g_bZap)
+    {
+      // Zapping is set to true, so send the zapping command to the PVR box
+      std::string strServiceReference = m_channels.at(channelinfo.iUniqueId-1).strServiceReference.c_str();
+
+      std::string strTmp;
+      strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
+
+      std::string strResult;
+      if(!SendSimpleCommand(strTmp, strResult))
+        return false;
+
+    }
+  }
+  return true;
+}
+
+void Vu::CloseLiveStream(void)
+{
+  CLockObject lock(m_mutex);
+  m_iCurrentChannel = -1;
+}
+
+const std::string Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
+{
+  if (g_bAutoConfig)
+  {
+    // we need to download the M3U file that contains the URL for the stream...
+    // we do it here for 2 reasons:
+    //  1. This is faster than doing it during initialization
+    //  2. The URL can change, so this is more up-to-date.
+    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
+  }
+
+  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
+}
+
 bool CCurlFile::Get(const std::string &strURL, std::string &strResult)
 {
   void* fileHandle = XBMC->OpenFile(strURL.c_str(), 0);
@@ -277,7 +326,7 @@ bool Vu::Open()
 
   XBMC->Log(LOG_INFO, "%s Starting separate client update thread...", __FUNCTION__);
   CreateThread(); 
-  
+
   return IsRunning(); 
 }
 
@@ -666,22 +715,6 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
   }
 
   return PVR_ERROR_NO_ERROR;
-}
-
-std::string Vu::GetChannelURL(const PVR_CHANNEL &channelinfo)
-{
-  SwitchChannel(channelinfo);
-
-  if (g_bAutoConfig)
-  {
-    // we need to download the M3U file that contains the URL for the stream...
-    // we do it here for 2 reasons:
-    //  1. This is faster than doing it during initialization
-    //  2. The URL can change, so this is more up-to-date.
-    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
-  }
-
-  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
 }
 
 Vu::~Vu() 
@@ -1733,31 +1766,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
     }
   }
   return PVR_ERROR_NO_ERROR;
-}
-
-bool Vu::SwitchChannel(const PVR_CHANNEL &channel)
-{
-  XBMC->Log(LOG_DEBUG, "%s Switching channels", __FUNCTION__);
-
-  if ((int)channel.iUniqueId == m_iCurrentChannel)
-    return true;
-
-  m_iCurrentChannel = (int)channel.iUniqueId;
-
-  if (g_bZap)
-  {
-    // Zapping is set to true, so send the zapping command to the PVR box
-    std::string strServiceReference = m_channels.at(channel.iUniqueId-1).strServiceReference.c_str();
-
-    std::string strTmp;
-    strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
-
-    std::string strResult;
-    if(!SendSimpleCommand(strTmp, strResult))
-      return false;
-
-  }
-  return true;
 }
 
 void Vu::SendPowerstate()

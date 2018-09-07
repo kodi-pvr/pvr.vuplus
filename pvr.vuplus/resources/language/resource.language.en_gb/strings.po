@@ -142,3 +142,35 @@ msgstr ""
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr ""
+
+msgctxt "#30050"
+msgid "Custom Live TV timeout (0 to use default)"
+msgstr "Custom Live TV timeout (0 to use default)"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Timeshift"
+
+msgctxt "#30061"
+msgid "Enable Timeshift"
+msgstr "Enable Timeshift"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Timeshift buffer path"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Off"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "On playback"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "On pause"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Timeshift buffer path does not exist"
