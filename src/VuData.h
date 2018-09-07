@@ -186,7 +186,6 @@ private:
 
   // helper functions
   static long TimeStringToSeconds(const std::string &timeString);
-  static int SplitString(const std::string& input, const std::string& delimiter, std::vector<std::string> &results, unsigned int iMaxStrings = 0);
   bool CheckForGroupUpdate();
   bool CheckForChannelUpdate();
   std::string& Escape(std::string &s, std::string from, std::string to);

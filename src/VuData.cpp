@@ -1624,74 +1624,30 @@ PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 
 long Vu::TimeStringToSeconds(const std::string &timeString)
 {
-  std::vector<std::string> secs;
-  SplitString(timeString, ":", secs);
+  std::vector<std::string> tokens;
+
+  std::string s = timeString;
+  std::string delimiter = ":";
+
+  size_t pos = 0;
+  std::string token;
+  while ((pos = s.find(delimiter)) != std::string::npos) 
+  {
+    token = s.substr(0, pos);
+    tokens.push_back(token);
+    s.erase(0, pos + delimiter.length());
+  }
+  tokens.push_back(s);
+
   int timeInSecs = 0;
-  for (unsigned int i = 0; i < secs.size(); i++)
+
+  if (tokens.size() == 2)
   {
-    timeInSecs *= 60;
-    timeInSecs += atoi(secs[i].c_str());
+    timeInSecs += atoi(tokens[0].c_str()) * 60;
+    timeInSecs += atoi(tokens[1].c_str());
   }
+
   return timeInSecs;
-}
-
-int Vu::SplitString(const std::string& input, const std::string& delimiter, std::vector<std::string> &results, unsigned int iMaxStrings)
-{
-  size_t iPos = -1;
-  size_t newPos = -1;
-  size_t sizeS2 = delimiter.length();
-  size_t isize = input.length();
-
-  results.clear();
-  std::vector<unsigned int> positions;
-
-  newPos = input.find (delimiter, 0);
-
-  if ( newPos == std::string::npos )
-  {
-    results.push_back(input);
-    return 1;
-  }
-
-  while ( newPos > iPos )
-  {
-    positions.push_back(newPos);
-    iPos = newPos;
-    newPos = input.find (delimiter, iPos + sizeS2);
-  }
-
-  // numFound is the number of delimeters which is one less
-  // than the number of substrings
-  unsigned int numFound = positions.size();
-  if (iMaxStrings > 0 && numFound >= iMaxStrings)
-    numFound = iMaxStrings - 1;
-
-  for ( unsigned int i = 0; i <= numFound; i++ )
-  {
-    std::string s;
-    if ( i == 0 )
-    {
-      if ( i == numFound )
-        s = input;
-      else
-        s = StringUtils::Mid(input, i, positions[i] );
-    }
-    else
-    {
-      int offset = positions[i - 1] + sizeS2;
-      if ( offset < isize )
-      {
-        if ( i == numFound )
-          s = StringUtils::Mid(input, offset);
-        else if ( i > 0 )
-          s = StringUtils::Mid(input, positions[i - 1] + sizeS2,
-                         positions[i] - positions[i - 1] - sizeS2 );
-      }
-    }
-    results.push_back(s);
-  }
-  // return the number of substrings
-  return results.size();
 }
 
 PVR_ERROR Vu::GetChannelGroups(ADDON_HANDLE handle)
