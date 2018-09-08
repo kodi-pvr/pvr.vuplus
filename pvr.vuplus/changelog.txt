@@ -1,3 +1,14 @@
+v3.8.0
+- Added: timeshift support
+- Signal Status support
+- Fixed recording duration bug and cleaned up split string code
+
+v3.7.3
+- Translation update from Transifex
+
+v3.7.2
+- Translation update from Transifex
+
 v3.7.1
 - Updated to PVR addon API v5.10.1
 

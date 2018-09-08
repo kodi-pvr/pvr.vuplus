@@ -23,12 +23,17 @@
 
 #include "libXBMC_addon.h"
 #include "libXBMC_pvr.h"
+#include "IStreamReader.h"
 
 #define DEFAULT_HOST             "127.0.0.1"
 #define DEFAULT_CONNECT_TIMEOUT  30
 #define DEFAULT_STREAM_PORT      8001
 #define DEFAULT_WEB_PORT         80
 #define DEFAULT_UPDATE_INTERVAL  2
+#define DEFAULT_TSBUFFERPATH     "special://userdata/addon_data/pvr.vuplus"
+#define TIMESHIFT_OFF            0
+#define TIMESHIFT_ON_PLAYBACK    1
+#define TIMESHIFT_ON_PAUSE       2
 
 extern bool                      m_bCreated;
 extern std::string               g_strHostname;
@@ -53,6 +58,14 @@ extern bool                      g_bOnlinePicons;
 extern std::string               g_strOneGroup;
 extern std::string               g_szUserPath;
 extern std::string               g_szClientPath;
+extern int                       g_iEnableTimeshift;
+extern std::string               g_strTimeshiftBufferPath;
+extern int                       g_iReadTimeout;
 extern std::string               g_strChannelDataPath;
 extern ADDON::CHelper_libXBMC_addon *   XBMC;
 extern CHelper_libXBMC_pvr *     PVR;
+
+/*!
+ * @brief PVR macros for string exchange
+ */
+#define PVR_STRCPY(dest, source) do { strncpy(dest, source, sizeof(dest)-1); dest[sizeof(dest)-1] = '\0'; } while(0)

@@ -38,6 +38,55 @@
 using namespace ADDON;
 using namespace P8PLATFORM;
 
+/***************************************************************************
+ * Livestream
+ **************************************************************************/
+bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
+{
+  XBMC->Log(LOG_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
+  CLockObject lock(m_mutex);
+
+  if (channelinfo.iUniqueId != m_iCurrentChannel)
+  {
+    m_iCurrentChannel = channelinfo.iUniqueId;
+
+    if (g_bZap)
+    {
+      // Zapping is set to true, so send the zapping command to the PVR box
+      std::string strServiceReference = m_channels.at(channelinfo.iUniqueId-1).strServiceReference.c_str();
+
+      std::string strTmp;
+      strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
+
+      std::string strResult;
+      if(!SendSimpleCommand(strTmp, strResult))
+        return false;
+
+    }
+  }
+  return true;
+}
+
+void Vu::CloseLiveStream(void)
+{
+  CLockObject lock(m_mutex);
+  m_iCurrentChannel = -1;
+}
+
+const std::string Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
+{
+  if (g_bAutoConfig)
+  {
+    // we need to download the M3U file that contains the URL for the stream...
+    // we do it here for 2 reasons:
+    //  1. This is faster than doing it during initialization
+    //  2. The URL can change, so this is more up-to-date.
+    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
+  }
+
+  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
+}
+
 bool CCurlFile::Get(const std::string &strURL, std::string &strResult)
 {
   void* fileHandle = XBMC->OpenFile(strURL.c_str(), 0);
@@ -277,7 +326,7 @@ bool Vu::Open()
 
   XBMC->Log(LOG_INFO, "%s Starting separate client update thread...", __FUNCTION__);
   CreateThread(); 
-  
+
   return IsRunning(); 
 }
 
@@ -666,22 +715,6 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
   }
 
   return PVR_ERROR_NO_ERROR;
-}
-
-std::string Vu::GetChannelURL(const PVR_CHANNEL &channelinfo)
-{
-  SwitchChannel(channelinfo);
-
-  if (g_bAutoConfig)
-  {
-    // we need to download the M3U file that contains the URL for the stream...
-    // we do it here for 2 reasons:
-    //  1. This is faster than doing it during initialization
-    //  2. The URL can change, so this is more up-to-date.
-    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
-  }
-
-  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
 }
 
 Vu::~Vu() 
@@ -1591,74 +1624,30 @@ PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 
 long Vu::TimeStringToSeconds(const std::string &timeString)
 {
-  std::vector<std::string> secs;
-  SplitString(timeString, ":", secs);
+  std::vector<std::string> tokens;
+
+  std::string s = timeString;
+  std::string delimiter = ":";
+
+  size_t pos = 0;
+  std::string token;
+  while ((pos = s.find(delimiter)) != std::string::npos) 
+  {
+    token = s.substr(0, pos);
+    tokens.push_back(token);
+    s.erase(0, pos + delimiter.length());
+  }
+  tokens.push_back(s);
+
   int timeInSecs = 0;
-  for (unsigned int i = 0; i < secs.size(); i++)
+
+  if (tokens.size() == 2)
   {
-    timeInSecs *= 60;
-    timeInSecs += atoi(secs[i].c_str());
+    timeInSecs += atoi(tokens[0].c_str()) * 60;
+    timeInSecs += atoi(tokens[1].c_str());
   }
+
   return timeInSecs;
-}
-
-int Vu::SplitString(const std::string& input, const std::string& delimiter, std::vector<std::string> &results, unsigned int iMaxStrings)
-{
-  size_t iPos = -1;
-  size_t newPos = -1;
-  size_t sizeS2 = delimiter.length();
-  size_t isize = input.length();
-
-  results.clear();
-  std::vector<unsigned int> positions;
-
-  newPos = input.find (delimiter, 0);
-
-  if ( newPos == std::string::npos )
-  {
-    results.push_back(input);
-    return 1;
-  }
-
-  while ( newPos > iPos )
-  {
-    positions.push_back(newPos);
-    iPos = newPos;
-    newPos = input.find (delimiter, iPos + sizeS2);
-  }
-
-  // numFound is the number of delimeters which is one less
-  // than the number of substrings
-  unsigned int numFound = positions.size();
-  if (iMaxStrings > 0 && numFound >= iMaxStrings)
-    numFound = iMaxStrings - 1;
-
-  for ( unsigned int i = 0; i <= numFound; i++ )
-  {
-    std::string s;
-    if ( i == 0 )
-    {
-      if ( i == numFound )
-        s = input;
-      else
-        s = StringUtils::Mid(input, i, positions[i] );
-    }
-    else
-    {
-      int offset = positions[i - 1] + sizeS2;
-      if ( offset < isize )
-      {
-        if ( i == numFound )
-          s = StringUtils::Mid(input, offset);
-        else if ( i > 0 )
-          s = StringUtils::Mid(input, positions[i - 1] + sizeS2,
-                         positions[i] - positions[i - 1] - sizeS2 );
-      }
-    }
-    results.push_back(s);
-  }
-  // return the number of substrings
-  return results.size();
 }
 
 PVR_ERROR Vu::GetChannelGroups(ADDON_HANDLE handle)
@@ -1733,31 +1722,6 @@ PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROU
     }
   }
   return PVR_ERROR_NO_ERROR;
-}
-
-bool Vu::SwitchChannel(const PVR_CHANNEL &channel)
-{
-  XBMC->Log(LOG_DEBUG, "%s Switching channels", __FUNCTION__);
-
-  if ((int)channel.iUniqueId == m_iCurrentChannel)
-    return true;
-
-  m_iCurrentChannel = (int)channel.iUniqueId;
-
-  if (g_bZap)
-  {
-    // Zapping is set to true, so send the zapping command to the PVR box
-    std::string strServiceReference = m_channels.at(channel.iUniqueId-1).strServiceReference.c_str();
-
-    std::string strTmp;
-    strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
-
-    std::string strResult;
-    if(!SendSimpleCommand(strTmp, strResult))
-      return false;
-
-  }
-  return true;
 }
 
 void Vu::SendPowerstate()
