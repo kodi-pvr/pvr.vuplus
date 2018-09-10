@@ -22,6 +22,7 @@
 
 #include "VuData.h"
 #include "client.h" 
+#include "LocalizedString.h"
 
 #include <algorithm>
 #include <iostream> 
@@ -34,7 +35,7 @@
 #include <Bits.h>
 #endif
 
-
+using namespace vuplus;
 using namespace ADDON;
 using namespace P8PLATFORM;
 
@@ -168,84 +169,6 @@ bool Vu::LoadLocations()
   return true;
 }
 
-void Vu::TimerUpdates()
-{
-  std::vector<VuTimer> newtimer = LoadTimers();
-
-  for (unsigned int i=0; i<m_timers.size(); i++)
-  {
-    m_timers[i].iUpdateState = VU_UPDATE_STATE_NONE;
-  }
-
-  unsigned int iUpdated=0;
-  unsigned int iUnchanged=0; 
-
-  for (unsigned int j=0;j<newtimer.size(); j++) 
-  {
-    for (unsigned int i=0; i<m_timers.size(); i++) 
-    {
-      if (m_timers[i].like(newtimer[j]))
-      {
-        if(m_timers[i] == newtimer[j])
-        {
-          m_timers[i].iUpdateState = VU_UPDATE_STATE_FOUND;
-          newtimer[j].iUpdateState = VU_UPDATE_STATE_FOUND;
-          iUnchanged++;
-        }
-        else
-        {
-          newtimer[j].iUpdateState = VU_UPDATE_STATE_UPDATED;
-          m_timers[i].iUpdateState = VU_UPDATE_STATE_UPDATED;
-          m_timers[i].strTitle = newtimer[j].strTitle;
-          m_timers[i].strPlot = newtimer[j].strPlot;
-          m_timers[i].iChannelId = newtimer[j].iChannelId;
-          m_timers[i].startTime = newtimer[j].startTime;
-          m_timers[i].endTime = newtimer[j].endTime;
-          m_timers[i].iWeekdays = newtimer[j].iWeekdays;
-          m_timers[i].iEpgID = newtimer[j].iEpgID;
-
-          iUpdated++;
-        }
-      }
-    }
-  }
-
-  unsigned int iRemoved = 0;
-
-  for (unsigned int i=0; i<m_timers.size(); i++)
-  {
-    if (m_timers.at(i).iUpdateState == VU_UPDATE_STATE_NONE)
-    {
-      XBMC->Log(LOG_INFO, "%s Removed timer: '%s', ClientIndex: '%d'", __FUNCTION__, m_timers.at(i).strTitle.c_str(), m_timers.at(i).iClientIndex);
-      m_timers.erase(m_timers.begin()+i);
-      i=0;
-      iRemoved++;
-    }
-  }
-  unsigned int iNew=0;
-
-  for (unsigned int i=0; i<newtimer.size();i++)
-  { 
-    if(newtimer.at(i).iUpdateState == VU_UPDATE_STATE_NEW)
-    {  
-      VuTimer &timer = newtimer.at(i);
-      timer.iClientIndex = m_iClientIndexCounter;
-      XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, timer.strTitle.c_str(), m_iClientIndexCounter);
-      m_timers.push_back(timer);
-      m_iClientIndexCounter++;
-      iNew++;
-    } 
-  }
- 
-  XBMC->Log(LOG_INFO, "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew); 
-
-  if (iRemoved != 0 || iUpdated != 0 || iNew != 0) 
-  {
-    XBMC->Log(LOG_INFO, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
-    PVR->TriggerTimerUpdate();
-  }
-}
-
 Vu::Vu() 
 {
   m_bIsConnected = false;
@@ -268,7 +191,6 @@ Vu::Vu()
   m_iNumRecordings = 0;
   m_iNumChannelGroups = 0;
   m_iCurrentChannel = -1;
-  m_iClientIndexCounter = 1;
 
   m_bUpdating = false;
   m_iUpdateTimer = 0;
@@ -322,7 +244,7 @@ bool Vu::Open()
       return false;
 
   }
-  TimerUpdates();
+  my_timers.TimerUpdates();
 
   XBMC->Log(LOG_INFO, "%s Starting separate client update thread...", __FUNCTION__);
   CreateThread(); 
@@ -389,7 +311,7 @@ void  *Vu::Process()
         if(!SendSimpleCommand(strTmp, strResult))
           XBMC->Log(LOG_ERROR, "%s - AutomaticTimerlistCleanup failed!", __FUNCTION__);
       }
-      TimerUpdates();
+      my_timers.TimerUpdates();
       PVR->TriggerRecordingUpdate();
     }
 
@@ -643,6 +565,21 @@ std::string Vu::GetStreamURL(std::string& strM3uURL)
   return strURL;
 }
 
+std::vector<std::string> Vu::getLocations()
+{
+  return m_locations;
+}
+
+std::string Vu::getConnectionURL()
+{
+  return m_strURL;
+}
+
+std::vector<VuChannel> Vu::getChannels()
+{
+  return m_channels;
+}
+
 std::string Vu::GetHttpXML(std::string& url)
 {
 //  CLockObject lock(m_mutex);
@@ -676,7 +613,8 @@ int Vu::GetChannelsAmount()
 
 int Vu::GetTimersAmount()
 {
-  return m_timers.size();
+  CLockObject lock(m_mutex);
+  return my_timers.GetTimerCount();
 }
 
 unsigned int Vu::GetRecordingsAmount() {
@@ -727,7 +665,7 @@ Vu::~Vu()
   m_channels.clear();  
   
   XBMC->Log(LOG_DEBUG, "%s Removing internal timers list...", __FUNCTION__);
-  m_timers.clear();
+  my_timers.ClearTimers();
   
   XBMC->Log(LOG_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
   m_recordings.clear();
@@ -1084,6 +1022,24 @@ std::string Vu::GetChannelIconPath(std::string strChannelName)
   return "";
 }
 
+/***************************************************************************
+ * Timers
+ **************************************************************************/
+void Vu::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
+{
+  std::vector<PVR_TIMER_TYPE> timerTypes;
+  {
+    CLockObject lock(m_mutex);
+    my_timers.GetTimerTypes(timerTypes);
+  }
+
+  int i = 0;
+  for (auto &timerType : timerTypes)
+    types[i++] = timerType;
+  *size = timerTypes.size();
+  XBMC->Log(LOG_NOTICE, "Transfered %u timer types", *size);
+}
+
 PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
 {
   // is the addon is currently updating the channels, then delay the call
@@ -1093,178 +1049,29 @@ PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
     Sleep(1000);
     iTimer++;
   }
-
-  XBMC->Log(LOG_INFO, "%s - timers available '%d'", __FUNCTION__, m_timers.size());
-  for (unsigned int i=0; i<m_timers.size(); i++)
+  
+  std::vector<PVR_TIMER> timers;
   {
-    VuTimer &timer = m_timers.at(i);
-    XBMC->Log(LOG_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.strTitle.c_str(), timer.iClientIndex);
-    PVR_TIMER tag;
-    memset(&tag, 0, sizeof(PVR_TIMER));
-
-    /* TODO: Implement own timer types to get support for the timer features introduced with PVR API 1.9.7 */
-    tag.iTimerType = PVR_TIMER_TYPE_NONE;
-
-    tag.iClientChannelUid = timer.iChannelId;
-    tag.startTime         = timer.startTime;
-    tag.endTime           = timer.endTime;
-    strncpy(tag.strTitle, timer.strTitle.c_str(), sizeof(tag.strTitle));
-    strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory));   // unused
-    strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary));
-    tag.state             = timer.state;
-    tag.iPriority         = 0;     // unused
-    tag.iLifetime         = 0;     // unused
-    tag.firstDay          = 0;     // unused
-    tag.iWeekdays         = timer.iWeekdays;
-    tag.iEpgUid           = timer.iEpgID;
-    tag.iMarginStart      = 0;     // unused
-    tag.iMarginEnd        = 0;     // unused
-    tag.iGenreType        = 0;     // unused
-    tag.iGenreSubType     = 0;     // unused
-    tag.iClientIndex = timer.iClientIndex;
-
-    PVR->TransferTimerEntry(handle, &tag);
+    CLockObject lock(m_mutex);
+    my_timers.GetTimers(timers);
   }
+
+  XBMC->Log(LOG_DEBUG, "%s - timers available '%d'", __FUNCTION__, timers.size());
+
+  for (auto &timer : timers)
+    PVR->TransferTimerEntry(handle, &timer);
 
   return PVR_ERROR_NO_ERROR;
 }
 
-std::vector<VuTimer> Vu::LoadTimers()
+PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
 {
-  std::vector<VuTimer> timers;
+  return my_timers.AddTimer(timer);
+}
 
-  std::string url; 
-  url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/timerlist"); 
-
-  std::string strXML;
-  strXML = GetHttpXML(url);
-
-  TiXmlDocument xmlDoc;
-  if (!xmlDoc.Parse(strXML.c_str()))
-  {
-    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return timers;
-  }
-
-  TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
-
-  pElem = hDoc.FirstChildElement("e2timerlist").Element();
-
-  if (!pElem)
-  {
-    XBMC->Log(LOG_DEBUG, "%s Could not find <e2timerlist> element!", __FUNCTION__);
-    return timers;
-  }
-
-  hRoot=TiXmlHandle(pElem);
-
-  TiXmlElement* pNode = hRoot.FirstChildElement("e2timer").Element();
-
-  if (!pNode)
-  {
-    XBMC->Log(LOG_DEBUG, "Could not find <e2timer> element");
-    return timers;
-  }
-  
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2timer"))
-  {
-    std::string strTmp;
-
-    int iTmp;
-    bool bTmp;
-    int iDisabled;
-    
-    if (XMLUtils::GetString(pNode, "e2name", strTmp)) 
-      XBMC->Log(LOG_DEBUG, "%s Processing timer '%s'", __FUNCTION__, strTmp.c_str());
- 
-    if (!XMLUtils::GetInt(pNode, "e2state", iTmp)) 
-      continue;
-
-    if (!XMLUtils::GetInt(pNode, "e2disabled", iDisabled))
-      continue;
-
-    VuTimer timer;
-    
-    timer.strTitle          = strTmp;
-
-    if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
-      timer.iChannelId = GetChannelNumber(strTmp.c_str());
-
-    if (!XMLUtils::GetInt(pNode, "e2timebegin", iTmp)) 
-      continue; 
- 
-    timer.startTime         = iTmp;
-    
-    if (!XMLUtils::GetInt(pNode, "e2timeend", iTmp)) 
-      continue; 
- 
-    timer.endTime           = iTmp;
-    
-    if (XMLUtils::GetString(pNode, "e2description", strTmp))
-      timer.strPlot        = strTmp.c_str();
- 
-    if (XMLUtils::GetInt(pNode, "e2repeated", iTmp))
-      timer.iWeekdays         = iTmp;
-    else 
-      timer.iWeekdays = 0;
-
-    if (XMLUtils::GetInt(pNode, "e2eit", iTmp))
-      timer.iEpgID = iTmp;
-    else 
-      timer.iEpgID = 0;
-
-    timer.state = PVR_TIMER_STATE_NEW;
-
-    if (!XMLUtils::GetInt(pNode, "e2state", iTmp))
-      continue;
-
-    XBMC->Log(LOG_DEBUG, "%s e2state is: %d ", __FUNCTION__, iTmp);
-  
-    if (iTmp == 0) 
-    {
-      timer.state = PVR_TIMER_STATE_SCHEDULED;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: SCHEDULED", __FUNCTION__);
-    }
-    
-    if (iTmp == 2) 
-    {
-      timer.state = PVR_TIMER_STATE_RECORDING;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: RECORDING", __FUNCTION__);
-    }
-    
-    if (iTmp == 3 && iDisabled == 0) 
-    {
-      timer.state = PVR_TIMER_STATE_COMPLETED;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: COMPLETED", __FUNCTION__);
-    }
-
-    if (XMLUtils::GetBoolean(pNode, "e2cancled", bTmp)) 
-    {
-      if (bTmp)  
-      {
-        timer.state = PVR_TIMER_STATE_ABORTED;
-        XBMC->Log(LOG_DEBUG, "%s Timer state is: ABORTED", __FUNCTION__);
-      }
-    }
-
-    if (iDisabled == 1) 
-    {
-      timer.state = PVR_TIMER_STATE_CANCELLED;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: Cancelled", __FUNCTION__);
-    }
-
-    if (timer.state == PVR_TIMER_STATE_NEW)
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
-
-    timers.push_back(timer);
-
-    XBMC->Log(LOG_INFO, "%s fetched Timer entry '%s', begin '%d', end '%d'", __FUNCTION__, timer.strTitle.c_str(), timer.startTime, timer.endTime);
-  }
-
-  XBMC->Log(LOG_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
-  return timers; 
+PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer) 
+{
+  return my_timers.DeleteTimer(timer);
 }
 
 bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
@@ -1317,55 +1124,6 @@ bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strRes
     return bTmp;
   }
   return true;
-}
-
-
-PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
-{
-  XBMC->Log(LOG_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
-
-  std::string strTmp;
-  std::string strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
-
-  time_t startTime, endTime;
-  startTime = timer.startTime - (timer.iMarginStart * 60);
-  endTime = timer.endTime + (timer.iMarginEnd * 60);
-  
-  if (!g_strRecordingPath.compare(""))
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&dirname=&s", URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle).c_str(), URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, URLEncodeInline(g_strRecordingPath).c_str());
-  else
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d", URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, URLEncodeInline(timer.strTitle).c_str(), URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid);
-
-  std::string strResult;
-  if(!SendSimpleCommand(strTmp, strResult)) 
-    return PVR_ERROR_SERVER_ERROR;
-  
-  TimerUpdates();
-
-  return PVR_ERROR_NO_ERROR;
-}
-
-PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer) 
-{
-  std::string strTmp;
-  std::string strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();
-
-  time_t startTime, endTime;
-  startTime = timer.startTime - (timer.iMarginStart * 60);
-  endTime = timer.endTime + (timer.iMarginEnd * 60);
-  
-  strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
-
-  std::string strResult;
-  if(!SendSimpleCommand(strTmp, strResult)) 
-    return PVR_ERROR_SERVER_ERROR;
-
-  if (timer.state == PVR_TIMER_STATE_RECORDING)
-    PVR->TriggerRecordingUpdate();
-  
-  TimerUpdates();
-
-  return PVR_ERROR_NO_ERROR;
 }
 
 PVR_ERROR Vu::GetRecordings(ADDON_HANDLE handle)
@@ -1587,39 +1345,7 @@ PVR_ERROR Vu::DeleteRecording(const PVR_RECORDING &recinfo)
 
 PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 {
-
-  XBMC->Log(LOG_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
-
-  std::string strTmp;
-  std::string strServiceReference = m_channels.at(timer.iClientChannelUid-1).strServiceReference.c_str();  
-
-  unsigned int i=0;
-
-  while (i<m_timers.size())
-  {
-    if (m_timers.at(i).iClientIndex == timer.iClientIndex)
-      break;
-    else
-      i++;
-  }
-
-  VuTimer &oldTimer = m_timers.at(i);
-  std::string strOldServiceReference = m_channels.at(oldTimer.iChannelId-1).strServiceReference.c_str();  
-  XBMC->Log(LOG_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.iChannelId);
-
-  int iDisabled = 0;
-  if (timer.state == PVR_TIMER_STATE_CANCELLED)
-    iDisabled = 1;
-
-  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, URLEncodeInline(timer.strTitle).c_str(), URLEncodeInline(timer.strSummary).c_str(), iDisabled, timer.iWeekdays, URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
-  
-  std::string strResult;
-  if(!SendSimpleCommand(strTmp, strResult))
-    return PVR_ERROR_SERVER_ERROR;
-
-  TimerUpdates();
-
-  return PVR_ERROR_NO_ERROR;
+  return my_timers.UpdateTimer(timer);
 }
 
 long Vu::TimeStringToSeconds(const std::string &timeString)

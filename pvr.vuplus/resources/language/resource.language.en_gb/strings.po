@@ -171,6 +171,30 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "On pause"
 
+msgctxt "#30410"
+msgid "Automatic"
+msgstr ""
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr ""
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr ""
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr ""
+
+msgctxt "#30432"
+msgid "Record if EPG subtitle differs"
+msgstr ""
+
+msgctxt "#30433"
+msgid "Record if EPG title and subtitle differs"
+msgstr ""
+
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Timeshift buffer path does not exist"

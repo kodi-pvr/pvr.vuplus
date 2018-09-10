@@ -1,3 +1,6 @@
+v3.9.0
+- Added: Timer Types Support, now supports Manual Once, Manual Repeating and EPG Once
+
 v3.8.0
 - Added: timeshift support
 - Signal Status support
