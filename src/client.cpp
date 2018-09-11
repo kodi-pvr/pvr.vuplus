@@ -78,6 +78,10 @@ Vu                *VuData             = NULL;
 
 extern "C" {
 
+/***************************************************************************
+ * Addon Calls
+ **************************************************************************/
+
 void ADDON_ReadSettings(void)
 {
   /* read setting "host" from settings.xml */
@@ -402,147 +406,20 @@ PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
   return PVR_ERROR_SERVER_ERROR;
 }
 
-PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+
+PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 {
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
+  // the RS api doesn't provide information about signal quality (yet)
 
-  return VuData->GetEPGForChannel(handle, channel, iStart, iEnd);
-}
-
-int GetChannelsAmount(void)
-{
-  if (!VuData || !VuData->IsConnected())
-    return 0;
-
-  return VuData->GetChannelsAmount();
-}
-
-PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->GetChannels(handle, bRadio);
-}
-
-/***************************************************************************
- * Recordings
- **************************************************************************/
-
-int GetRecordingsAmount(bool deleted)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->GetRecordingsAmount();
-}
-
-PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->GetRecordings(handle);
-}
-
-PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->DeleteRecording(recording);
-}
-
-/***************************************************************************
- * Recording Streams
- **************************************************************************/
-
-bool OpenRecordedStream(const PVR_RECORDING &recording)
-{
-  if (recReader)
-    SAFE_DELETE(recReader);
-  recReader = VuData->OpenRecordedStream(recording);
-  return recReader->Start();
-}
-
-void CloseRecordedStream(void)
-{
-  if (recReader)
-    SAFE_DELETE(recReader);
-}
-
-int ReadRecordedStream(unsigned char *buffer, unsigned int size)
-{
-  if (!recReader)
-    return 0;
-
-  return recReader->ReadData(buffer, size);
-}
-
-long long SeekRecordedStream(long long position, int whence)
-{
-  if (!recReader)
-    return 0;
-
-  return recReader->Seek(position, whence);
-}
-
-long long LengthRecordedStream(void)
-{
-  if (!recReader)
-    return -1;
-
-  return recReader->Length();
-}
-
-PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
-{
-  *size = 0;
-  if (VuData && VuData->IsConnected())
-    VuData->GetTimerTypes(types, size);
+  PVR_STRCPY(signalStatus.strAdapterName, "VUPlus Media Server");
+  PVR_STRCPY(signalStatus.strAdapterStatus, "OK");
   return PVR_ERROR_NO_ERROR;
 }
 
-int GetTimersAmount(void)
-{
-  if (!VuData || !VuData->IsConnected())
-    return 0;
 
-  return VuData->GetTimersAmount();
-}
-
-PVR_ERROR GetTimers(ADDON_HANDLE handle)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->GetTimers(handle);
-}
-
-PVR_ERROR AddTimer(const PVR_TIMER &timer)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->AddTimer(timer);
-}
-
-PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->DeleteTimer(timer);
-}
-
-PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
-{
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  return VuData->UpdateTimer(timer);
-}
+/***************************************************************************
+ * ChannelGroups
+ **************************************************************************/
 
 int GetChannelGroupsAmount(void)
 {
@@ -573,6 +450,38 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &g
 
   return VuData->GetChannelGroupMembers(handle, group);
 }
+
+/***************************************************************************
+ * EPG and Channels
+ **************************************************************************/
+
+PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->GetEPGForChannel(handle, channel, iStart, iEnd);
+}
+
+int GetChannelsAmount(void)
+{
+  if (!VuData || !VuData->IsConnected())
+    return 0;
+
+  return VuData->GetChannelsAmount();
+}
+
+PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->GetChannels(handle, bRadio);
+}
+
+/***************************************************************************
+ * Live Streams
+ **************************************************************************/
 
 PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 {
@@ -686,13 +595,126 @@ void PauseStream(bool paused)
   }
 }
 
-PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
-{
-  // the RS api doesn't provide information about signal quality (yet)
+/***************************************************************************
+ * Recordings
+ **************************************************************************/
 
-  PVR_STRCPY(signalStatus.strAdapterName, "VUPlus Media Server");
-  PVR_STRCPY(signalStatus.strAdapterStatus, "OK");
+int GetRecordingsAmount(bool deleted)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->GetRecordingsAmount();
+}
+
+PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->GetRecordings(handle);
+}
+
+PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->DeleteRecording(recording);
+}
+
+/***************************************************************************
+ * Recording Streams
+ **************************************************************************/
+
+bool OpenRecordedStream(const PVR_RECORDING &recording)
+{
+  if (recReader)
+    SAFE_DELETE(recReader);
+  recReader = VuData->OpenRecordedStream(recording);
+  return recReader->Start();
+}
+
+void CloseRecordedStream(void)
+{
+  if (recReader)
+    SAFE_DELETE(recReader);
+}
+
+int ReadRecordedStream(unsigned char *buffer, unsigned int size)
+{
+  if (!recReader)
+    return 0;
+
+  return recReader->ReadData(buffer, size);
+}
+
+long long SeekRecordedStream(long long position, int whence)
+{
+  if (!recReader)
+    return 0;
+
+  return recReader->Seek(position, whence);
+}
+
+long long LengthRecordedStream(void)
+{
+  if (!recReader)
+    return -1;
+
+  return recReader->Length();
+}
+
+/***************************************************************************
+ * Timers
+ **************************************************************************/
+
+PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
+{
+  *size = 0;
+  if (VuData && VuData->IsConnected())
+    VuData->GetTimerTypes(types, size);
   return PVR_ERROR_NO_ERROR;
+}
+
+int GetTimersAmount(void)
+{
+  if (!VuData || !VuData->IsConnected())
+    return 0;
+
+  return VuData->GetTimersAmount();
+}
+
+PVR_ERROR GetTimers(ADDON_HANDLE handle)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->GetTimers(handle);
+}
+
+PVR_ERROR AddTimer(const PVR_TIMER &timer)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->AddTimer(timer);
+}
+
+PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->DeleteTimer(timer);
+}
+
+PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
+{
+  if (!VuData || !VuData->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return VuData->UpdateTimer(timer);
 }
 
 /** UNUSED API FUNCTIONS */

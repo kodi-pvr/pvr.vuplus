@@ -124,25 +124,21 @@ private:
   P8PLATFORM::CCondition<bool> m_started;
 
   bool m_bUpdating;
+  bool m_bInitialEPG;
 
   // functions
-
-  std::string GetChannelIconPath(std::string strChannelName);
-
+  bool GetDeviceInfo();
+  bool LoadChannelGroups();
   std::string GetGroupServiceReference(std::string strGroupName);
   bool LoadChannels(std::string strServerReference, std::string strGroupName);
   bool LoadChannels();
-  bool LoadChannelGroups();
+  std::string GetChannelIconPath(std::string strChannelName);
   bool LoadLocations();
-  bool GetDeviceInfo();
-  std::string GetStreamURL(std::string& strM3uURL);
 
   // helper functions
+  std::string GetStreamURL(std::string& strM3uURL);
   static long TimeStringToSeconds(const std::string &timeString);
-  bool CheckForGroupUpdate();
-  bool CheckForChannelUpdate();
   std::string& Escape(std::string &s, std::string from, std::string to);
-
   bool IsInRecordingFolder(std::string);
   void TransferRecordings(ADDON_HANDLE handle);
 
@@ -153,45 +149,45 @@ public:
   Vu(void);
   ~Vu();
 
-  //helper functions
-  int GetChannelNumber(std::string strServiceReference);
-  std::vector<VuChannel> getChannels();
+  //device and helper functions
+  bool Open();
+  void SendPowerstate();
+  const char * GetServerName();
+  bool IsConnected(); 
   std::string getConnectionURL();
   std::vector<std::string> getLocations();
   std::string GetHttpXML(std::string& url);
   bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
   std::string URLEncodeInline(const std::string& sSrc);
 
+  //groups, channels and EPG
+  unsigned int GetNumChannelGroups(void);
+  PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
+  PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
+  int GetChannelsAmount(void);
+  int GetChannelNumber(std::string strServiceReference);
+  std::vector<VuChannel> getChannels();
+  PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
+  bool GetInitialEPGForGroup(VuChannelGroup &group);
+  PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
+  PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
+
+  //live streams, recordings and Timers
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
   void CloseLiveStream();
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
-  const char * GetServerName();
-  bool IsConnected(); 
-  int GetChannelsAmount(void);
-  PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
-  std::string GetChannelURL(const PVR_CHANNEL &channelinfo);
-  PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
-  PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
-  bool GetInitialEPGForGroup(VuChannelGroup &group);
+  unsigned int GetRecordingsAmount();
+  PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
+  std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
+  PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
+  bool GetRecordingFromLocation(std::string strRecordingFolder);
+  RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
   PVR_ERROR AddTimer(const PVR_TIMER &timer);
   PVR_ERROR UpdateTimer(const PVR_TIMER &timer);
   PVR_ERROR DeleteTimer(const PVR_TIMER &timer);
-  bool GetRecordingFromLocation(std::string strRecordingFolder);
-  unsigned int GetRecordingsAmount();
-  PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
-  std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
-  PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
-  RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
-  unsigned int GetNumChannelGroups(void);
-  PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
-  PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
-  void SendPowerstate();
-  bool SwitchChannel(const PVR_CHANNEL &channel);
-  bool Open();
-  void Action();
-  bool m_bInitialEPG;
+
 };
 

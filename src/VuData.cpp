@@ -39,136 +39,6 @@ using namespace vuplus;
 using namespace ADDON;
 using namespace P8PLATFORM;
 
-/***************************************************************************
- * Livestream
- **************************************************************************/
-bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
-{
-  XBMC->Log(LOG_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
-  CLockObject lock(m_mutex);
-
-  if (channelinfo.iUniqueId != m_iCurrentChannel)
-  {
-    m_iCurrentChannel = channelinfo.iUniqueId;
-
-    if (g_bZap)
-    {
-      // Zapping is set to true, so send the zapping command to the PVR box
-      std::string strServiceReference = m_channels.at(channelinfo.iUniqueId-1).strServiceReference.c_str();
-
-      std::string strTmp;
-      strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
-
-      std::string strResult;
-      if(!SendSimpleCommand(strTmp, strResult))
-        return false;
-
-    }
-  }
-  return true;
-}
-
-void Vu::CloseLiveStream(void)
-{
-  CLockObject lock(m_mutex);
-  m_iCurrentChannel = -1;
-}
-
-const std::string Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
-{
-  if (g_bAutoConfig)
-  {
-    // we need to download the M3U file that contains the URL for the stream...
-    // we do it here for 2 reasons:
-    //  1. This is faster than doing it during initialization
-    //  2. The URL can change, so this is more up-to-date.
-    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
-  }
-
-  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
-}
-
-bool CCurlFile::Get(const std::string &strURL, std::string &strResult)
-{
-  void* fileHandle = XBMC->OpenFile(strURL.c_str(), 0);
-  if (fileHandle)
-  {
-    char buffer[1024];
-    while (XBMC->ReadFileString(fileHandle, buffer, 1024))
-      strResult.append(buffer);
-    XBMC->CloseFile(fileHandle);
-    return true;
-  }
-  return false;
-}
-
-std::string& Vu::Escape(std::string &s, std::string from, std::string to)
-{ 
-  std::string::size_type pos = -1;
-  while ( (pos = s.find(from, pos+1) ) != std::string::npos)         
-    s.erase(pos, from.length()).insert(pos, to);        
-
-  return s;     
-} 
-
-bool Vu::LoadLocations() 
-{
-  std::string url;
-  if (g_bOnlyCurrentLocation)
-    url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getcurrlocation"); 
-  else 
-    url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getlocations"); 
- 
-  std::string strXML;
-  strXML = GetHttpXML(url);
-
-  int iNumLocations = 0;
-
-  TiXmlDocument xmlDoc;
-  if (!xmlDoc.Parse(strXML.c_str()))
-  {
-    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return false;
-  }
-
-  TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
-
-  pElem = hDoc.FirstChildElement("e2locations").Element();
-
-  if (!pElem)
-  {
-    XBMC->Log(LOG_DEBUG, "Could not find <e2locations> element");
-    return false;
-  }
-
-  hRoot=TiXmlHandle(pElem);
-
-  TiXmlElement* pNode = hRoot.FirstChildElement("e2location").Element();
-
-  if (!pNode)
-  {
-    XBMC->Log(LOG_DEBUG, "Could not find <e2location> element");
-    return false;
-  }
-
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2location"))
-  {
-    std::string strTmp;
-    strTmp = pNode->GetText();
-
-    m_locations.push_back(strTmp);
-    iNumLocations++;
-
-    XBMC->Log(LOG_DEBUG, "%s Added '%s' as a recording location", __FUNCTION__, strTmp.c_str());
-  }
-
-  XBMC->Log(LOG_INFO, "%s Loded '%d' recording locations", __FUNCTION__, iNumLocations);
-
-  return true;
-}
-
 Vu::Vu() 
 {
   m_bIsConnected = false;
@@ -202,6 +72,30 @@ Vu::Vu()
   XBMC->CloseFile(m_writeHandle);
   
 }
+
+Vu::~Vu() 
+{
+  CLockObject lock(m_mutex);
+  XBMC->Log(LOG_DEBUG, "%s Stopping update thread...", __FUNCTION__);
+  StopThread();
+  
+  XBMC->Log(LOG_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
+  m_channels.clear();  
+  
+  XBMC->Log(LOG_DEBUG, "%s Removing internal timers list...", __FUNCTION__);
+  my_timers.ClearTimers();
+  
+  XBMC->Log(LOG_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
+  m_recordings.clear();
+  
+  XBMC->Log(LOG_DEBUG, "%s Removing internal group list...", __FUNCTION__);
+  m_groups.clear();
+  m_bIsConnected = false;
+}
+
+/***************************************************************************
+ * Device and helpers
+ **************************************************************************/
 
 bool Vu::Open()
 {
@@ -323,25 +217,247 @@ void  *Vu::Process()
   return NULL;
 }
 
-bool Vu::LoadChannels() 
-{    
-  bool bOk = false;
+void Vu::SendPowerstate()
+{
+  if (!g_bSetPowerstate)
+    return;
+  
+  CLockObject lock(m_mutex);
+  std::string strTmp;
+  strTmp = StringUtils::Format("web/powerstate?newstate=1");
 
-  m_channels.clear();
-  // Load Channels
-  for (int i = 0;i<m_iNumChannelGroups;  i++) 
+  std::string strResult;
+  SendSimpleCommand(strTmp, strResult, true); 
+}
+
+const char * Vu::GetServerName() 
+{
+  return m_strServerName.c_str();  
+}
+
+bool Vu::IsConnected() 
+{
+  return m_bIsConnected;
+}
+
+std::string Vu::getConnectionURL()
+{
+  return m_strURL;
+}
+
+std::vector<std::string> Vu::getLocations()
+{
+  return m_locations;
+}
+
+std::string Vu::GetHttpXML(std::string& url)
+{
+  //  CLockObject lock(m_mutex);
+  XBMC->Log(LOG_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+
+  std::string strTmp;
+
+  CCurlFile http;
+  if(!http.Get(url, strTmp))
   {
-    VuChannelGroup &myGroup = m_groups.at(i);
-    if (LoadChannels(myGroup.strServiceReference, myGroup.strGroupName))
-      bOk = true;
+    XBMC->Log(LOG_DEBUG, "%s - Could not open webAPI.", __FUNCTION__);
+    return "";
   }
 
-  // Load the radio channels - continue if no channels are found 
-  std::string strTmp;
-  strTmp = StringUtils::Format("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
-  LoadChannels(strTmp, "radio");
+  XBMC->Log(LOG_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
+  
+  return strTmp;
+}
 
-  return bOk;
+bool CCurlFile::Get(const std::string &strURL, std::string &strResult)
+{
+  void* fileHandle = XBMC->OpenFile(strURL.c_str(), 0);
+  if (fileHandle)
+  {
+    char buffer[1024];
+    while (XBMC->ReadFileString(fileHandle, buffer, 1024))
+      strResult.append(buffer);
+    XBMC->CloseFile(fileHandle);
+    return true;
+  }
+  return false;
+}
+
+bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
+{
+  std::string url; 
+  url = StringUtils::Format("%s%s", m_strURL.c_str(), strCommandURL.c_str()); 
+
+  std::string strXML;
+  strXML = GetHttpXML(url);
+  
+  if (!bIgnoreResult)
+  {
+    TiXmlDocument xmlDoc;
+    if (!xmlDoc.Parse(strXML.c_str()))
+    {
+      XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      return false;
+    }
+
+    TiXmlHandle hDoc(&xmlDoc);
+    TiXmlElement* pElem;
+    TiXmlHandle hRoot(0);
+
+    pElem = hDoc.FirstChildElement("e2simplexmlresult").Element();
+
+    if (!pElem)
+    {
+      XBMC->Log(LOG_DEBUG, "%s Could not find <e2simplexmlresult> element!", __FUNCTION__);
+      return false;
+    }
+
+    bool bTmp;
+
+    if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp)) 
+    {
+      XBMC->Log(LOG_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
+      strResultText = StringUtils::Format("Could not parse e2state!");
+      return false;
+    }
+
+    if (!XMLUtils::GetString(pElem, "e2statetext", strResultText)) 
+    {
+      XBMC->Log(LOG_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
+      return false;
+    }
+
+    if (!bTmp)
+      XBMC->Log(LOG_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
+
+    return bTmp;
+  }
+  return true;
+}
+
+const char SAFE[256] =
+{
+    /*      0 1 2 3  4 5 6 7  8 9 A B  C D E F */
+    /* 0 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* 1 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* 2 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* 3 */ 1,1,1,1, 1,1,1,1, 1,1,0,0, 0,0,0,0,
+
+    /* 4 */ 0,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1,
+    /* 5 */ 1,1,1,1, 1,1,1,1, 1,1,1,0, 0,0,0,0,
+    /* 6 */ 0,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1,
+    /* 7 */ 1,1,1,1, 1,1,1,1, 1,1,1,0, 0,0,0,0,
+
+    /* 8 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* 9 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* A */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* B */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+
+    /* C */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* D */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* E */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+    /* F */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
+};
+
+std::string Vu::URLEncodeInline(const std::string& sSrc) 
+{
+  const char DEC2HEX[16 + 1] = "0123456789ABCDEF";
+  const unsigned char * pSrc = (const unsigned char *)sSrc.c_str();
+  const int SRC_LEN = sSrc.length();
+  unsigned char * const pStart = new unsigned char[SRC_LEN * 3];
+  unsigned char * pEnd = pStart;
+  const unsigned char * const SRC_END = pSrc + SRC_LEN;
+
+  for (; pSrc < SRC_END; ++pSrc)
+  {
+    if (SAFE[*pSrc])
+      *pEnd++ = *pSrc;
+    else
+    {
+      // escape this char
+      *pEnd++ = '%';
+      *pEnd++ = DEC2HEX[*pSrc >> 4];
+      *pEnd++ = DEC2HEX[*pSrc & 0x0F];
+    }
+  }
+
+  std::string sResult((char *)pStart, (char *)pEnd);
+  delete [] pStart;
+  return sResult;
+}
+
+/***************************************************************************
+ * Private Functions
+ **************************************************************************/
+
+bool Vu::GetDeviceInfo()
+{
+  std::string url; 
+  url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/deviceinfo"); 
+
+  std::string strXML;
+  strXML = GetHttpXML(url);
+  
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+  TiXmlElement* pElem;
+  TiXmlHandle hRoot(0);
+
+  pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
+
+  if (!pElem)
+  {
+    XBMC->Log(LOG_ERROR, "%s Could not find <e2deviceinfo> element!", __FUNCTION__);
+    return false;
+  }
+
+  std::string strTmp;;
+
+  XBMC->Log(LOG_NOTICE, "%s - DeviceInfo", __FUNCTION__);
+
+  // Get EnigmaVersion
+  if (!XMLUtils::GetString(pElem, "e2enigmaversion", strTmp)) 
+  {
+    XBMC->Log(LOG_ERROR, "%s Could not parse e2enigmaversion from result!", __FUNCTION__);
+    return false;
+  }
+  m_strEnigmaVersion = strTmp.c_str();
+  XBMC->Log(LOG_NOTICE, "%s - E2EnigmaVersion: %s", __FUNCTION__, m_strEnigmaVersion.c_str());
+
+  // Get ImageVersion
+  if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp)) 
+  {
+    XBMC->Log(LOG_ERROR, "%s Could not parse e2imageversion from result!", __FUNCTION__);
+    return false;
+  }
+  m_strImageVersion = strTmp.c_str();
+  XBMC->Log(LOG_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, m_strImageVersion.c_str());
+
+  // Get WebIfVersion
+  if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp)) 
+  {
+    XBMC->Log(LOG_ERROR, "%s Could not parse e2webifversion from result!", __FUNCTION__);
+    return false;
+  }
+  m_strWebIfVersion = strTmp.c_str();
+  XBMC->Log(LOG_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, m_strWebIfVersion.c_str());
+
+  // Get DeviceName
+  if (!XMLUtils::GetString(pElem, "e2devicename", strTmp)) 
+  {
+    XBMC->Log(LOG_ERROR, "%s Could not parse e2devicename from result!", __FUNCTION__);
+    return false;
+  }
+  m_strServerName = strTmp.c_str();
+  XBMC->Log(LOG_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, m_strServerName.c_str());
+
+  return true;
 }
 
 bool Vu::LoadChannelGroups() 
@@ -416,6 +532,38 @@ bool Vu::LoadChannelGroups()
 
   XBMC->Log(LOG_INFO, "%s Loaded %d Channelsgroups", __FUNCTION__, m_iNumChannelGroups);
   return true;
+}
+
+std::string Vu::GetGroupServiceReference(std::string strGroupName)  
+{
+  for (int i = 0;i<m_iNumChannelGroups;  i++) 
+  {
+    VuChannelGroup &myGroup = m_groups.at(i);
+    if (!strGroupName.compare(myGroup.strGroupName))
+      return myGroup.strServiceReference;
+  }
+  return "error";
+}
+
+bool Vu::LoadChannels() 
+{    
+  bool bOk = false;
+
+  m_channels.clear();
+  // Load Channels
+  for (int i = 0;i<m_iNumChannelGroups;  i++) 
+  {
+    VuChannelGroup &myGroup = m_groups.at(i);
+    if (LoadChannels(myGroup.strServiceReference, myGroup.strGroupName))
+      bOk = true;
+  }
+
+  // Load the radio channels - continue if no channels are found 
+  std::string strTmp;
+  strTmp = StringUtils::Format("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
+  LoadChannels(strTmp, "radio");
+
+  return bOk;
 }
 
 bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName) 
@@ -537,9 +685,72 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
   return true;
 }
 
-bool Vu::IsConnected() 
+std::string Vu::GetChannelIconPath(std::string strChannelName)  
 {
-  return m_bIsConnected;
+  for (unsigned int i = 0;i<m_channels.size();  i++) 
+  {
+    if (!strChannelName.compare(m_channels[i].strChannelName))
+      return m_channels[i].strIconPath;
+  }
+  return "";
+}
+
+bool Vu::LoadLocations() 
+{
+  std::string url;
+  if (g_bOnlyCurrentLocation)
+    url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getcurrlocation"); 
+  else 
+    url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getlocations"); 
+ 
+  std::string strXML;
+  strXML = GetHttpXML(url);
+
+  int iNumLocations = 0;
+
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+  TiXmlElement* pElem;
+  TiXmlHandle hRoot(0);
+
+  pElem = hDoc.FirstChildElement("e2locations").Element();
+
+  if (!pElem)
+  {
+    XBMC->Log(LOG_DEBUG, "Could not find <e2locations> element");
+    return false;
+  }
+
+  hRoot=TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2location").Element();
+
+  if (!pNode)
+  {
+    XBMC->Log(LOG_DEBUG, "Could not find <e2location> element");
+    return false;
+  }
+
+  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2location"))
+  {
+    std::string strTmp;
+    strTmp = pNode->GetText();
+
+    m_locations.push_back(strTmp);
+    iNumLocations++;
+
+    XBMC->Log(LOG_DEBUG, "%s Added '%s' as a recording location", __FUNCTION__, strTmp.c_str());
+  }
+
+  XBMC->Log(LOG_INFO, "%s Loded '%d' recording locations", __FUNCTION__, iNumLocations);
+
+  return true;
 }
 
 /**
@@ -565,60 +776,191 @@ std::string Vu::GetStreamURL(std::string& strM3uURL)
   return strURL;
 }
 
-std::vector<std::string> Vu::getLocations()
+long Vu::TimeStringToSeconds(const std::string &timeString)
 {
-  return m_locations;
-}
+  std::vector<std::string> tokens;
 
-std::string Vu::getConnectionURL()
-{
-  return m_strURL;
-}
+  std::string s = timeString;
+  std::string delimiter = ":";
 
-std::vector<VuChannel> Vu::getChannels()
-{
-  return m_channels;
-}
-
-std::string Vu::GetHttpXML(std::string& url)
-{
-//  CLockObject lock(m_mutex);
-
-  XBMC->Log(LOG_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
-
-  std::string strTmp;
-
-  CCurlFile http;
-  if(!http.Get(url, strTmp))
+  size_t pos = 0;
+  std::string token;
+  while ((pos = s.find(delimiter)) != std::string::npos) 
   {
-    XBMC->Log(LOG_DEBUG, "%s - Could not open webAPI.", __FUNCTION__);
-    return "";
+    token = s.substr(0, pos);
+    tokens.push_back(token);
+    s.erase(0, pos + delimiter.length());
+  }
+  tokens.push_back(s);
+
+  int timeInSecs = 0;
+
+  if (tokens.size() == 2)
+  {
+    timeInSecs += atoi(tokens[0].c_str()) * 60;
+    timeInSecs += atoi(tokens[1].c_str());
   }
 
-  XBMC->Log(LOG_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
-  
-
-  return strTmp;
+  return timeInSecs;
 }
 
-const char * Vu::GetServerName() 
+std::string& Vu::Escape(std::string &s, std::string from, std::string to)
+{ 
+  std::string::size_type pos = -1;
+  while ( (pos = s.find(from, pos+1) ) != std::string::npos)         
+    s.erase(pos, from.length()).insert(pos, to);        
+
+  return s;     
+} 
+
+bool Vu::IsInRecordingFolder(std::string strRecordingFolder)
 {
-  return m_strServerName.c_str();  
+  int iMatches = 0;
+  for (unsigned int i = 0; i < m_recordings.size(); i++)
+  {
+    if (strRecordingFolder.compare(m_recordings.at(i).strTitle) == 0)
+    {
+      iMatches++;
+      XBMC->Log(LOG_DEBUG, "%s Found Recording title '%s' in recordings vector!", __FUNCTION__, strRecordingFolder.c_str());
+      if (iMatches > 1)
+      {
+        XBMC->Log(LOG_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __FUNCTION__, strRecordingFolder.c_str());
+        return true;    
+      }
+    }
+  }
+
+  return false;
 }
+
+void Vu::TransferRecordings(ADDON_HANDLE handle)
+{
+  for (unsigned int i=0; i<m_recordings.size(); i++)
+  {
+    std::string strTmp;
+    VuRecording &recording = m_recordings.at(i);
+    PVR_RECORDING tag;
+    memset(&tag, 0, sizeof(PVR_RECORDING));
+    strncpy(tag.strRecordingId, recording.strRecordingId.c_str(), sizeof(tag.strRecordingId));
+    strncpy(tag.strTitle, recording.strTitle.c_str(), sizeof(tag.strTitle));
+    strncpy(tag.strPlotOutline, recording.strPlotOutline.c_str(), sizeof(tag.strPlotOutline));
+    strncpy(tag.strPlot, recording.strPlot.c_str(), sizeof(tag.strPlot));
+    strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName));
+    strncpy(tag.strIconPath, recording.strIconPath.c_str(), sizeof(tag.strIconPath));
+
+    if (!g_bKeepFolders)
+    {
+      if(IsInRecordingFolder(recording.strTitle))
+        strTmp = StringUtils::Format("/%s/", recording.strTitle.c_str());
+      else
+        strTmp = StringUtils::Format("/");
+
+      recording.strDirectory = strTmp;
+    }
+
+    strncpy(tag.strDirectory, recording.strDirectory.c_str(), sizeof(tag.strDirectory));
+    tag.recordingTime     = recording.startTime;
+    tag.iDuration         = recording.iDuration;
+
+    /* TODO: PVR API 5.0.0: Implement this */
+    tag.iChannelUid = PVR_CHANNEL_INVALID_UID;
+
+    /* TODO: PVR API 5.1.0: Implement this */
+    tag.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
+
+    PVR->TransferRecordingEntry(handle, &tag);
+  }
+}
+
+/***************************************************************************
+ * Channel Groups
+ **************************************************************************/
+
+unsigned int Vu::GetNumChannelGroups() 
+{
+  return m_iNumChannelGroups;
+}
+
+PVR_ERROR Vu::GetChannelGroups(ADDON_HANDLE handle)
+{
+  // is the addon is currently updating the channels, then delay the call
+  unsigned int iTimer = 0;
+  while(m_bUpdating == true && iTimer < 120)
+  {
+    Sleep(1000);
+    iTimer++;
+  }
+
+  for(unsigned int iTagPtr = 0; iTagPtr < m_groups.size(); iTagPtr++)
+  {
+    PVR_CHANNEL_GROUP tag;
+    memset(&tag, 0 , sizeof(PVR_CHANNEL_GROUP));
+
+    tag.bIsRadio     = false;
+    tag.iPosition = 0; // groups default order, unused
+    strncpy(tag.strGroupName, m_groups[iTagPtr].strGroupName.c_str(), sizeof(tag.strGroupName));
+
+    PVR->TransferChannelGroup(handle, &tag);
+  }
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
+{
+  // is the addon is currently updating the channels, then delay the call
+  unsigned int iTimer = 0;
+  while(m_bUpdating == true && iTimer < 120)
+  {
+    Sleep(1000);
+    iTimer++;
+  }
+
+  XBMC->Log(LOG_DEBUG, "%s - group '%s'", __FUNCTION__, group.strGroupName);
+  std::string strTmp = group.strGroupName;
+  for (unsigned int i = 0;i<m_channels.size();  i++) 
+  {
+    VuChannel &myChannel = m_channels.at(i);
+    if (!strTmp.compare(myChannel.strGroupName)) 
+    {
+      PVR_CHANNEL_GROUP_MEMBER tag;
+      memset(&tag,0 , sizeof(PVR_CHANNEL_GROUP_MEMBER));
+
+      strncpy(tag.strGroupName, group.strGroupName, sizeof(tag.strGroupName));
+      tag.iChannelUniqueId = myChannel.iUniqueId;
+      tag.iChannelNumber   = myChannel.iChannelNumber;
+
+      XBMC->Log(LOG_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d",
+          __FUNCTION__, myChannel.strChannelName.c_str(), tag.iChannelUniqueId, group.strGroupName, myChannel.iChannelNumber);
+
+      PVR->TransferChannelGroupMember(handle, &tag);
+    }
+  }
+  return PVR_ERROR_NO_ERROR;
+}
+
+/***************************************************************************
+ * Channels
+ **************************************************************************/
 
 int Vu::GetChannelsAmount()
 {
   return m_channels.size();
 }
 
-int Vu::GetTimersAmount()
+int Vu::GetChannelNumber(std::string strServiceReference)  
 {
-  CLockObject lock(m_mutex);
-  return my_timers.GetTimerCount();
+  for (unsigned int i = 0;i<m_channels.size();  i++) 
+  {
+    if (!strServiceReference.compare(m_channels[i].strServiceReference))
+      return i+1;
+  }
+  return -1;
 }
 
-unsigned int Vu::GetRecordingsAmount() {
-  return m_iNumRecordings;
+std::vector<VuChannel> Vu::getChannels()
+{
+  return m_channels;
 }
 
 PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
@@ -655,25 +997,9 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
   return PVR_ERROR_NO_ERROR;
 }
 
-Vu::~Vu() 
-{
-  CLockObject lock(m_mutex);
-  XBMC->Log(LOG_DEBUG, "%s Stopping update thread...", __FUNCTION__);
-  StopThread();
-  
-  XBMC->Log(LOG_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
-  m_channels.clear();  
-  
-  XBMC->Log(LOG_DEBUG, "%s Removing internal timers list...", __FUNCTION__);
-  my_timers.ClearTimers();
-  
-  XBMC->Log(LOG_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
-  m_recordings.clear();
-  
-  XBMC->Log(LOG_DEBUG, "%s Removing internal group list...", __FUNCTION__);
-  m_groups.clear();
-  m_bIsConnected = false;
-}
+/***************************************************************************
+ * Channels
+ **************************************************************************/
 
 bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
 {
@@ -1002,128 +1328,61 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
   return PVR_ERROR_NO_ERROR;
 }
 
-int Vu::GetChannelNumber(std::string strServiceReference)  
+/***************************************************************************
+ * Livestream
+ **************************************************************************/
+bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
 {
-  for (unsigned int i = 0;i<m_channels.size();  i++) 
+  XBMC->Log(LOG_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
+  CLockObject lock(m_mutex);
+
+  if (channelinfo.iUniqueId != m_iCurrentChannel)
   {
-    if (!strServiceReference.compare(m_channels[i].strServiceReference))
-      return i+1;
+    m_iCurrentChannel = channelinfo.iUniqueId;
+
+    if (g_bZap)
+    {
+      // Zapping is set to true, so send the zapping command to the PVR box
+      std::string strServiceReference = m_channels.at(channelinfo.iUniqueId-1).strServiceReference.c_str();
+
+      std::string strTmp;
+      strTmp = StringUtils::Format("web/zap?sRef=%s", URLEncodeInline(strServiceReference).c_str());
+
+      std::string strResult;
+      if(!SendSimpleCommand(strTmp, strResult))
+        return false;
+
+    }
   }
-  return -1;
+  return true;
 }
 
-std::string Vu::GetChannelIconPath(std::string strChannelName)  
+void Vu::CloseLiveStream(void)
 {
-  for (unsigned int i = 0;i<m_channels.size();  i++) 
+  CLockObject lock(m_mutex);
+  m_iCurrentChannel = -1;
+}
+
+const std::string Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
+{
+  if (g_bAutoConfig)
   {
-    if (!strChannelName.compare(m_channels[i].strChannelName))
-      return m_channels[i].strIconPath;
+    // we need to download the M3U file that contains the URL for the stream...
+    // we do it here for 2 reasons:
+    //  1. This is faster than doing it during initialization
+    //  2. The URL can change, so this is more up-to-date.
+    return GetStreamURL(m_channels.at(channelinfo.iUniqueId - 1).strM3uURL);
   }
-  return "";
+
+  return m_channels.at(channelinfo.iUniqueId - 1).strStreamURL;
 }
 
 /***************************************************************************
- * Timers
+ * Recordings
  **************************************************************************/
-void Vu::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
-{
-  std::vector<PVR_TIMER_TYPE> timerTypes;
-  {
-    CLockObject lock(m_mutex);
-    my_timers.GetTimerTypes(timerTypes);
-  }
 
-  int i = 0;
-  for (auto &timerType : timerTypes)
-    types[i++] = timerType;
-  *size = timerTypes.size();
-  XBMC->Log(LOG_NOTICE, "Transfered %u timer types", *size);
-}
-
-PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
-{
-  // is the addon is currently updating the channels, then delay the call
-  unsigned int iTimer = 0;
-  while(m_bUpdating == true && iTimer < 120)
-  {
-    Sleep(1000);
-    iTimer++;
-  }
-  
-  std::vector<PVR_TIMER> timers;
-  {
-    CLockObject lock(m_mutex);
-    my_timers.GetTimers(timers);
-  }
-
-  XBMC->Log(LOG_DEBUG, "%s - timers available '%d'", __FUNCTION__, timers.size());
-
-  for (auto &timer : timers)
-    PVR->TransferTimerEntry(handle, &timer);
-
-  return PVR_ERROR_NO_ERROR;
-}
-
-PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
-{
-  return my_timers.AddTimer(timer);
-}
-
-PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer) 
-{
-  return my_timers.DeleteTimer(timer);
-}
-
-bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
-{
-  std::string url; 
-  url = StringUtils::Format("%s%s", m_strURL.c_str(), strCommandURL.c_str()); 
-
-  std::string strXML;
-  strXML = GetHttpXML(url);
-  
-  if (!bIgnoreResult)
-  {
-    TiXmlDocument xmlDoc;
-    if (!xmlDoc.Parse(strXML.c_str()))
-    {
-      XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-      return false;
-    }
-
-    TiXmlHandle hDoc(&xmlDoc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
-
-    pElem = hDoc.FirstChildElement("e2simplexmlresult").Element();
-
-    if (!pElem)
-    {
-      XBMC->Log(LOG_DEBUG, "%s Could not find <e2simplexmlresult> element!", __FUNCTION__);
-      return false;
-    }
-
-    bool bTmp;
-
-    if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp)) 
-    {
-      XBMC->Log(LOG_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
-      strResultText = StringUtils::Format("Could not parse e2state!");
-      return false;
-    }
-
-    if (!XMLUtils::GetString(pElem, "e2statetext", strResultText)) 
-    {
-      XBMC->Log(LOG_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
-      return false;
-    }
-
-    if (!bTmp)
-      XBMC->Log(LOG_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
-
-    return bTmp;
-  }
-  return true;
+unsigned int Vu::GetRecordingsAmount() {
+  return m_iNumRecordings;
 }
 
 PVR_ERROR Vu::GetRecordings(ADDON_HANDLE handle)
@@ -1150,75 +1409,6 @@ PVR_ERROR Vu::GetRecordings(ADDON_HANDLE handle)
   TransferRecordings(handle);
 
   return PVR_ERROR_NO_ERROR;
-}
-
-bool Vu::IsInRecordingFolder(std::string strRecordingFolder)
-{
-  int iMatches = 0;
-  for (unsigned int i = 0; i < m_recordings.size(); i++)
-  {
-    if (strRecordingFolder.compare(m_recordings.at(i).strTitle) == 0)
-    {
-      iMatches++;
-      XBMC->Log(LOG_DEBUG, "%s Found Recording title '%s' in recordings vector!", __FUNCTION__, strRecordingFolder.c_str());
-      if (iMatches > 1)
-      {
-        XBMC->Log(LOG_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __FUNCTION__, strRecordingFolder.c_str());
-        return true;    
-      }
-    }
-  }
-
-  return false;
-}
-
-void Vu::TransferRecordings(ADDON_HANDLE handle)
-{
-  for (unsigned int i=0; i<m_recordings.size(); i++)
-  {
-    std::string strTmp;
-    VuRecording &recording = m_recordings.at(i);
-    PVR_RECORDING tag;
-    memset(&tag, 0, sizeof(PVR_RECORDING));
-    strncpy(tag.strRecordingId, recording.strRecordingId.c_str(), sizeof(tag.strRecordingId));
-    strncpy(tag.strTitle, recording.strTitle.c_str(), sizeof(tag.strTitle));
-    strncpy(tag.strPlotOutline, recording.strPlotOutline.c_str(), sizeof(tag.strPlotOutline));
-    strncpy(tag.strPlot, recording.strPlot.c_str(), sizeof(tag.strPlot));
-    strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName));
-    strncpy(tag.strIconPath, recording.strIconPath.c_str(), sizeof(tag.strIconPath));
-
-    if (!g_bKeepFolders)
-    {
-      if(IsInRecordingFolder(recording.strTitle))
-        strTmp = StringUtils::Format("/%s/", recording.strTitle.c_str());
-      else
-        strTmp = StringUtils::Format("/");
-
-      recording.strDirectory = strTmp;
-    }
-
-    strncpy(tag.strDirectory, recording.strDirectory.c_str(), sizeof(tag.strDirectory));
-    tag.recordingTime     = recording.startTime;
-    tag.iDuration         = recording.iDuration;
-
-    /* TODO: PVR API 5.0.0: Implement this */
-    tag.iChannelUid = PVR_CHANNEL_INVALID_UID;
-
-    /* TODO: PVR API 5.1.0: Implement this */
-    tag.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
-
-    PVR->TransferRecordingEntry(handle, &tag);
-  }
-}
-
-std::string Vu::GetRecordingURL(const PVR_RECORDING &recinfo)
-{
-  for (const auto& recording : m_recordings)
-  {
-    if (recinfo.strRecordingId == recording.strRecordingId)
-      return recording.strStreamURL;
-  }
-  return "";
 }
 
 bool Vu::GetRecordingFromLocation(std::string strRecordingFolder)
@@ -1328,6 +1518,16 @@ bool Vu::GetRecordingFromLocation(std::string strRecordingFolder)
   return true;
 }
 
+std::string Vu::GetRecordingURL(const PVR_RECORDING &recinfo)
+{
+  for (const auto& recording : m_recordings)
+  {
+    if (recinfo.strRecordingId == recording.strRecordingId)
+      return recording.strStreamURL;
+  }
+  return "";
+}
+
 PVR_ERROR Vu::DeleteRecording(const PVR_RECORDING &recinfo) 
 {
   std::string strTmp;
@@ -1358,245 +1558,65 @@ RecordingReader *Vu::OpenRecordedStream(const PVR_RECORDING &recinfo)
   return new RecordingReader(GetRecordingURL(recinfo).c_str(), end);
 }
 
+/***************************************************************************
+ * Timers
+ **************************************************************************/
+void Vu::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
+{
+  std::vector<PVR_TIMER_TYPE> timerTypes;
+  {
+    CLockObject lock(m_mutex);
+    my_timers.GetTimerTypes(timerTypes);
+  }
+
+  int i = 0;
+  for (auto &timerType : timerTypes)
+    types[i++] = timerType;
+  *size = timerTypes.size();
+  XBMC->Log(LOG_NOTICE, "Transfered %u timer types", *size);
+}
+
+int Vu::GetTimersAmount()
+{
+  CLockObject lock(m_mutex);
+  return my_timers.GetTimerCount();
+}
+
+PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
+{
+  // is the addon is currently updating the channels, then delay the call
+  unsigned int iTimer = 0;
+  while(m_bUpdating == true && iTimer < 120)
+  {
+    Sleep(1000);
+    iTimer++;
+  }
+  
+  std::vector<PVR_TIMER> timers;
+  {
+    CLockObject lock(m_mutex);
+    my_timers.GetTimers(timers);
+  }
+
+  XBMC->Log(LOG_DEBUG, "%s - timers available '%d'", __FUNCTION__, timers.size());
+
+  for (auto &timer : timers)
+    PVR->TransferTimerEntry(handle, &timer);
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Vu::AddTimer(const PVR_TIMER &timer)
+{
+  return my_timers.AddTimer(timer);
+}
+
 PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 {
   return my_timers.UpdateTimer(timer);
 }
 
-long Vu::TimeStringToSeconds(const std::string &timeString)
+PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer) 
 {
-  std::vector<std::string> tokens;
-
-  std::string s = timeString;
-  std::string delimiter = ":";
-
-  size_t pos = 0;
-  std::string token;
-  while ((pos = s.find(delimiter)) != std::string::npos) 
-  {
-    token = s.substr(0, pos);
-    tokens.push_back(token);
-    s.erase(0, pos + delimiter.length());
-  }
-  tokens.push_back(s);
-
-  int timeInSecs = 0;
-
-  if (tokens.size() == 2)
-  {
-    timeInSecs += atoi(tokens[0].c_str()) * 60;
-    timeInSecs += atoi(tokens[1].c_str());
-  }
-
-  return timeInSecs;
+  return my_timers.DeleteTimer(timer);
 }
-
-PVR_ERROR Vu::GetChannelGroups(ADDON_HANDLE handle)
-{
-  // is the addon is currently updating the channels, then delay the call
-  unsigned int iTimer = 0;
-  while(m_bUpdating == true && iTimer < 120)
-  {
-    Sleep(1000);
-    iTimer++;
-  }
-
-  for(unsigned int iTagPtr = 0; iTagPtr < m_groups.size(); iTagPtr++)
-  {
-    PVR_CHANNEL_GROUP tag;
-    memset(&tag, 0 , sizeof(PVR_CHANNEL_GROUP));
-
-    tag.bIsRadio     = false;
-    tag.iPosition = 0; // groups default order, unused
-    strncpy(tag.strGroupName, m_groups[iTagPtr].strGroupName.c_str(), sizeof(tag.strGroupName));
-
-    PVR->TransferChannelGroup(handle, &tag);
-  }
-
-  return PVR_ERROR_NO_ERROR;
-}
-
-unsigned int Vu::GetNumChannelGroups() 
-{
-  return m_iNumChannelGroups;
-}
-
-std::string Vu::GetGroupServiceReference(std::string strGroupName)  
-{
-  for (int i = 0;i<m_iNumChannelGroups;  i++) 
-  {
-    VuChannelGroup &myGroup = m_groups.at(i);
-    if (!strGroupName.compare(myGroup.strGroupName))
-      return myGroup.strServiceReference;
-  }
-  return "error";
-}
-
-PVR_ERROR Vu::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
-{
-  // is the addon is currently updating the channels, then delay the call
-  unsigned int iTimer = 0;
-  while(m_bUpdating == true && iTimer < 120)
-  {
-    Sleep(1000);
-    iTimer++;
-  }
-
-  XBMC->Log(LOG_DEBUG, "%s - group '%s'", __FUNCTION__, group.strGroupName);
-  std::string strTmp = group.strGroupName;
-  for (unsigned int i = 0;i<m_channels.size();  i++) 
-  {
-    VuChannel &myChannel = m_channels.at(i);
-    if (!strTmp.compare(myChannel.strGroupName)) 
-    {
-      PVR_CHANNEL_GROUP_MEMBER tag;
-      memset(&tag,0 , sizeof(PVR_CHANNEL_GROUP_MEMBER));
-
-      strncpy(tag.strGroupName, group.strGroupName, sizeof(tag.strGroupName));
-      tag.iChannelUniqueId = myChannel.iUniqueId;
-      tag.iChannelNumber   = myChannel.iChannelNumber;
-
-      XBMC->Log(LOG_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d",
-          __FUNCTION__, myChannel.strChannelName.c_str(), tag.iChannelUniqueId, group.strGroupName, myChannel.iChannelNumber);
-
-      PVR->TransferChannelGroupMember(handle, &tag);
-    }
-  }
-  return PVR_ERROR_NO_ERROR;
-}
-
-void Vu::SendPowerstate()
-{
-  if (!g_bSetPowerstate)
-    return;
-  
-  CLockObject lock(m_mutex);
-  std::string strTmp;
-  strTmp = StringUtils::Format("web/powerstate?newstate=1");
-
-  std::string strResult;
-  SendSimpleCommand(strTmp, strResult, true); 
-}
-
-bool Vu::GetDeviceInfo()
-{
-  std::string url; 
-  url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/deviceinfo"); 
-
-  std::string strXML;
-  strXML = GetHttpXML(url);
-  
-  TiXmlDocument xmlDoc;
-  if (!xmlDoc.Parse(strXML.c_str()))
-  {
-    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return false;
-  }
-
-  TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
-
-  pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
-
-  if (!pElem)
-  {
-    XBMC->Log(LOG_ERROR, "%s Could not find <e2deviceinfo> element!", __FUNCTION__);
-    return false;
-  }
-
-  std::string strTmp;;
-
-  XBMC->Log(LOG_NOTICE, "%s - DeviceInfo", __FUNCTION__);
-
-  // Get EnigmaVersion
-  if (!XMLUtils::GetString(pElem, "e2enigmaversion", strTmp)) 
-  {
-    XBMC->Log(LOG_ERROR, "%s Could not parse e2enigmaversion from result!", __FUNCTION__);
-    return false;
-  }
-  m_strEnigmaVersion = strTmp.c_str();
-  XBMC->Log(LOG_NOTICE, "%s - E2EnigmaVersion: %s", __FUNCTION__, m_strEnigmaVersion.c_str());
-
-  // Get ImageVersion
-  if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp)) 
-  {
-    XBMC->Log(LOG_ERROR, "%s Could not parse e2imageversion from result!", __FUNCTION__);
-    return false;
-  }
-  m_strImageVersion = strTmp.c_str();
-  XBMC->Log(LOG_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, m_strImageVersion.c_str());
-
-  // Get WebIfVersion
-  if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp)) 
-  {
-    XBMC->Log(LOG_ERROR, "%s Could not parse e2webifversion from result!", __FUNCTION__);
-    return false;
-  }
-  m_strWebIfVersion = strTmp.c_str();
-  XBMC->Log(LOG_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, m_strWebIfVersion.c_str());
-
-  // Get DeviceName
-  if (!XMLUtils::GetString(pElem, "e2devicename", strTmp)) 
-  {
-    XBMC->Log(LOG_ERROR, "%s Could not parse e2devicename from result!", __FUNCTION__);
-    return false;
-  }
-  m_strServerName = strTmp.c_str();
-  XBMC->Log(LOG_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, m_strServerName.c_str());
-
-  return true;
-}
-
-const char SAFE[256] =
-{
-    /*      0 1 2 3  4 5 6 7  8 9 A B  C D E F */
-    /* 0 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* 1 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* 2 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* 3 */ 1,1,1,1, 1,1,1,1, 1,1,0,0, 0,0,0,0,
-
-    /* 4 */ 0,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1,
-    /* 5 */ 1,1,1,1, 1,1,1,1, 1,1,1,0, 0,0,0,0,
-    /* 6 */ 0,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1,
-    /* 7 */ 1,1,1,1, 1,1,1,1, 1,1,1,0, 0,0,0,0,
-
-    /* 8 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* 9 */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* A */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* B */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-
-    /* C */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* D */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* E */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
-    /* F */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
-};
-
-
-std::string Vu::URLEncodeInline(const std::string& sSrc) 
-{
-  const char DEC2HEX[16 + 1] = "0123456789ABCDEF";
-  const unsigned char * pSrc = (const unsigned char *)sSrc.c_str();
-  const int SRC_LEN = sSrc.length();
-  unsigned char * const pStart = new unsigned char[SRC_LEN * 3];
-  unsigned char * pEnd = pStart;
-  const unsigned char * const SRC_END = pSrc + SRC_LEN;
-
-  for (; pSrc < SRC_END; ++pSrc)
-  {
-    if (SAFE[*pSrc])
-      *pEnd++ = *pSrc;
-    else
-    {
-      // escape this char
-      *pEnd++ = '%';
-      *pEnd++ = DEC2HEX[*pSrc >> 4];
-      *pEnd++ = DEC2HEX[*pSrc & 0x0F];
-    }
-  }
-
-  std::string sResult((char *)pStart, (char *)pEnd);
-  delete [] pStart;
-  return sResult;
-}
-
