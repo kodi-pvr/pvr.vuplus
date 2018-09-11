@@ -22,6 +22,7 @@
  */
 
 #include "client.h"
+#include "Timers.h"
 #include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
 
@@ -79,52 +80,6 @@ struct VuChannel
   std::string strIconPath;
 };
 
-struct VuTimer
-{
-  std::string strTitle;
-  std::string strPlot;
-  int iChannelId;
-  time_t startTime;
-  time_t endTime;
-  int iWeekdays;
-  unsigned int iEpgID;
-  PVR_TIMER_STATE state; 
-  int iUpdateState;
-  unsigned int iClientIndex;
-
-  VuTimer()
-  {
-    iUpdateState = VU_UPDATE_STATE_NEW;
-  }
-  
-  bool like(const VuTimer &right) const
-  {
-    bool bChanged = true;
-    bChanged = bChanged && (startTime == right.startTime); 
-    bChanged = bChanged && (endTime == right.endTime); 
-    bChanged = bChanged && (iChannelId == right.iChannelId); 
-    bChanged = bChanged && (iWeekdays == right.iWeekdays); 
-    bChanged = bChanged && (iEpgID == right.iEpgID); 
-
-    return bChanged;
-  }
-  
-  bool operator==(const VuTimer &right) const
-  {
-    bool bChanged = true;
-    bChanged = bChanged && (startTime == right.startTime); 
-    bChanged = bChanged && (endTime == right.endTime); 
-    bChanged = bChanged && (iChannelId == right.iChannelId); 
-    bChanged = bChanged && (iWeekdays == right.iWeekdays); 
-    bChanged = bChanged && (iEpgID == right.iEpgID); 
-    bChanged = bChanged && (state == right.state); 
-    bChanged = bChanged && (! strTitle.compare(right.strTitle));
-    bChanged = bChanged && (! strPlot.compare(right.strPlot));
-
-    return bChanged;
-  }
-};
-
 struct VuRecording
 {
   std::string strRecordingId;
@@ -158,11 +113,11 @@ private:
   int m_iCurrentChannel;
   unsigned int m_iUpdateTimer;
   std::vector<VuChannel> m_channels;
-  std::vector<VuTimer> m_timers;
   std::vector<VuRecording> m_recordings;
   std::vector<VuChannelGroup> m_groups;
   std::vector<std::string> m_locations;
-  unsigned int m_iClientIndexCounter;
+
+  vuplus::Timers my_timers = vuplus::Timers(*this);
 
   P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;
@@ -170,17 +125,14 @@ private:
   bool m_bUpdating;
 
   // functions
-  std::string GetHttpXML(std::string& url);
-  int GetChannelNumber(std::string strServiceReference);
+
   std::string GetChannelIconPath(std::string strChannelName);
-  bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
+
   std::string GetGroupServiceReference(std::string strGroupName);
   bool LoadChannels(std::string strServerReference, std::string strGroupName);
   bool LoadChannels();
   bool LoadChannelGroups();
   bool LoadLocations();
-  std::vector<VuTimer> LoadTimers();
-  void TimerUpdates();
   bool GetDeviceInfo();
   std::string GetStreamURL(std::string& strM3uURL);
 
@@ -189,7 +141,7 @@ private:
   bool CheckForGroupUpdate();
   bool CheckForChannelUpdate();
   std::string& Escape(std::string &s, std::string from, std::string to);
-  std::string URLEncodeInline(const std::string& sSrc);
+
   bool IsInRecordingFolder(std::string);
   void TransferRecordings(ADDON_HANDLE handle);
 
@@ -199,6 +151,15 @@ protected:
 public:
   Vu(void);
   ~Vu();
+
+  //helper functions
+  int GetChannelNumber(std::string strServiceReference);
+  std::vector<VuChannel> getChannels();
+  std::string getConnectionURL();
+  std::vector<std::string> getLocations();
+  std::string GetHttpXML(std::string& url);
+  bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
+  std::string URLEncodeInline(const std::string& sSrc);
 
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
   void CloseLiveStream();
@@ -211,6 +172,7 @@ public:
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
   PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
   bool GetInitialEPGForGroup(VuChannelGroup &group);
+  void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
   PVR_ERROR AddTimer(const PVR_TIMER &timer);
