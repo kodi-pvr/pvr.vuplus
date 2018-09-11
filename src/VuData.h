@@ -23,6 +23,7 @@
 
 #include "client.h"
 #include "Timers.h"
+#include "RecordingReader.h"
 #include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
 
@@ -183,6 +184,7 @@ public:
   PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
   std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
+  RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   unsigned int GetNumChannelGroups(void);
   PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);

@@ -29,6 +29,7 @@
 #include "StreamReader.h"
 #include "TimeshiftBuffer.h"
 #include "LocalizedString.h"
+#include "RecordingReader.h"
 
 #include <stdlib.h>
 
@@ -36,11 +37,11 @@ using namespace std;
 using namespace vuplus;
 using namespace ADDON;
 
-bool         m_bCreated  = false;
-ADDON_STATUS m_CurStatus = ADDON_STATUS_UNKNOWN;
+bool            m_bCreated  = false;
+ADDON_STATUS    m_CurStatus = ADDON_STATUS_UNKNOWN;
 IStreamReader   *strReader  = nullptr;
-int            m_streamReadChunkSize = 64;
-//int          g_iClientId = -1;
+int             m_streamReadChunkSize = 64;
+RecordingReader *recReader  = nullptr;
 
 /* User adjustable settings are saved here.
  * Default values are defined inside client.h
@@ -425,6 +426,10 @@ PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
   return VuData->GetChannels(handle, bRadio);
 }
 
+/***************************************************************************
+ * Recordings
+ **************************************************************************/
+
 int GetRecordingsAmount(bool deleted)
 {
   if (!VuData || !VuData->IsConnected())
@@ -441,33 +446,54 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
   return VuData->GetRecordings(handle);
 }
 
-PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
-{
-  if (!recording || !properties || !iPropertiesCount)
-    return PVR_ERROR_SERVER_ERROR;
-
-  if (*iPropertiesCount < 1)
-    return PVR_ERROR_INVALID_PARAMETERS;
-
-  if (!VuData || !VuData->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
-
-  std::string strStreamURL = VuData->GetRecordingURL(*recording);
-  if (strStreamURL.empty())
-    return PVR_ERROR_SERVER_ERROR;
-
-  strncpy(properties[0].strName, PVR_STREAM_PROPERTY_STREAMURL, sizeof(properties[0].strName) - 1);
-  strncpy(properties[0].strValue, strStreamURL.c_str(), sizeof(properties[0].strValue) - 1);
-  *iPropertiesCount = 1;
-  return PVR_ERROR_NO_ERROR;
-}
-
 PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
 {
   if (!VuData || !VuData->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
   return VuData->DeleteRecording(recording);
+}
+
+/***************************************************************************
+ * Recording Streams
+ **************************************************************************/
+
+bool OpenRecordedStream(const PVR_RECORDING &recording)
+{
+  if (recReader)
+    SAFE_DELETE(recReader);
+  recReader = VuData->OpenRecordedStream(recording);
+  return recReader->Start();
+}
+
+void CloseRecordedStream(void)
+{
+  if (recReader)
+    SAFE_DELETE(recReader);
+}
+
+int ReadRecordedStream(unsigned char *buffer, unsigned int size)
+{
+  if (!recReader)
+    return 0;
+
+  return recReader->ReadData(buffer, size);
+}
+
+long long SeekRecordedStream(long long position, int whence)
+{
+  if (!recReader)
+    return 0;
+
+  return recReader->Seek(position, whence);
+}
+
+long long LengthRecordedStream(void)
+{
+  if (!recReader)
+    return -1;
+
+  return recReader->Length();
 }
 
 PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
@@ -680,11 +706,7 @@ PVR_ERROR DeleteChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLE
 PVR_ERROR RenameChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR OpenDialogChannelSettings(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
-bool OpenRecordedStream(const PVR_RECORDING &recording) { return false; }
-void CloseRecordedStream(void) {}
-int ReadRecordedStream(unsigned char *pBuffer, unsigned int iBufferSize) { return 0; }
-long long SeekRecordedStream(long long iPosition, int iWhence /* = SEEK_SET */) { return 0; }
-long long LengthRecordedStream(void) { return 0; }
+PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxReset(void) {}
 void DemuxFlush(void) {}
 PVR_ERROR RenameRecording(const PVR_RECORDING &recording) { return PVR_ERROR_NOT_IMPLEMENTED; }

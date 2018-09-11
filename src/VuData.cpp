@@ -1343,6 +1343,21 @@ PVR_ERROR Vu::DeleteRecording(const PVR_RECORDING &recinfo)
   return PVR_ERROR_NO_ERROR;
 }
 
+RecordingReader *Vu::OpenRecordedStream(const PVR_RECORDING &recinfo)
+{
+  CLockObject lock(m_mutex);
+  std::time_t now = std::time(nullptr), end = 0;
+  std::string channelName = recinfo.strChannelName;
+  auto timer = my_timers.GetTimer([&](const Timer &timer)
+      {
+        return timer.isRunning(&now, &channelName);
+      });
+  if (timer)
+    end = timer->endTime;
+
+  return new RecordingReader(GetRecordingURL(recinfo).c_str(), end);
+}
+
 PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 {
   return my_timers.UpdateTimer(timer);
