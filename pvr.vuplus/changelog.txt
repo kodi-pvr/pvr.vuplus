@@ -1,3 +1,8 @@
+v3.10.0
+- Added: Recorded Streams support
+- Added: PVR API 5.0.0: iChannelUid in recordings
+- Added: PVR API 5.1.0: Support channel type in recordings
+
 v3.9.0
 - Added: Timer Types Support, now supports Manual Once, Manual Repeating and EPG Once
 

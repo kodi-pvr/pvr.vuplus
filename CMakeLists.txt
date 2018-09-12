@@ -20,7 +20,8 @@ set(VUPLUS_SOURCES src/client.cpp
                    src/VuData.cpp
                    src/StreamReader.cpp
                    src/TimeshiftBuffer.cpp
-                   src/Timers.cpp)
+                   src/Timers.cpp
+                   src/RecordingReader.cpp)
 
 set(VUPLUS_HEADERS src/client.h
                    src/VuData.h
@@ -28,6 +29,7 @@ set(VUPLUS_HEADERS src/client.h
                    src/StreamReader.h
                    src/TimeshiftBuffer.h
                    src/Timers.h
+                   src/RecordingReader.h
                    src/LocalizedString.h)
 
 set(DEPLIBS ${kodiplatform_LIBRARIES}
