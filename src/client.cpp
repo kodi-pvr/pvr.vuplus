@@ -109,83 +109,65 @@ void ADDON_ReadSettings(void)
     g_strRecordingPath = "";
   buffer[0] = 0; /* Set the end of string */
 
-  /* read setting "pass" from settings.xml */
   if (XBMC->GetSetting("pass", buffer))
     g_strPassword = buffer;
   else
     g_strPassword = "";
   
-  /* read setting "use_secure" from settings.xml */
   if (!XBMC->GetSetting("use_secure", &g_bUseSecureHTTP))
     g_bUseSecureHTTP = false;
   
-  /* read setting "autoconfig" from settings.xml */
   if (!XBMC->GetSetting("autoconfig", &g_bAutoConfig))
     g_bAutoConfig = false;
   
-  /* read setting "streamport" from settings.xml */
   if (!XBMC->GetSetting("streamport", &g_iPortStream))
     g_iPortStream = DEFAULT_STREAM_PORT;
   
-  /* read setting "webport" from settings.xml */
   if (!XBMC->GetSetting("webport", &g_iPortWeb))
     g_iPortWeb = DEFAULT_WEB_PORT;
   
-  /* read setting "onlinepicons" from settings.xml */
   if (!XBMC->GetSetting("onlinepicons", &g_bOnlinePicons))
     g_bOnlinePicons = true;
   
-  /* read setting "onlycurrent" from settings.xml */
   if (!XBMC->GetSetting("onlycurrent", &g_bOnlyCurrentLocation))
     g_bOnlyCurrentLocation = false;
   
-  /* read setting "setpowerstate" from settings.xml */
   if (!XBMC->GetSetting("setpowerstate", &g_bSetPowerstate))
     g_bSetPowerstate = false;
   
-  /* read setting "keepfolders" from settings.xml */
   if (!XBMC->GetSetting("keepfolders", &g_bKeepFolders))
     g_bKeepFolders = false;
   
-  /* read setting "zap" from settings.xml */
   if (!XBMC->GetSetting("zap", &g_bZap))
     g_bZap = false;
 
-  /* read setting "onlyonegroup" from settings.xml */
   if (!XBMC->GetSetting("onlyonegroup", &g_bOnlyOneGroup))
     g_bOnlyOneGroup = false;
   
-  /* read setting "onegroup" from settings.xml */
   if (XBMC->GetSetting("onegroup", buffer))
     g_strOneGroup = buffer;
   else
     g_strOneGroup = "";
 
-  /* read setting "timerlistcleanup" from settings.xml */
   if (!XBMC->GetSetting("timerlistcleanup", &g_bAutomaticTimerlistCleanup))
     g_bAutomaticTimerlistCleanup = false;
 
-  /* read setting "updateint" from settings.xml */
   if (!XBMC->GetSetting("updateint", &g_iUpdateInterval))
     g_iConnectTimeout = DEFAULT_UPDATE_INTERVAL;
 
-  /* read setting "iconpath" from settings.xml */
   if (XBMC->GetSetting("iconpath", buffer))
     g_strIconPath = buffer;
   else
     g_strIconPath = "";
 
-  // read setting "enabletimeshift" from settings.xml 
   if (!XBMC->GetSetting("enabletimeshift", &g_iEnableTimeshift))
     g_iEnableTimeshift = TIMESHIFT_OFF;
 
-    // read setting "timeshiftbufferpath" from settings.xml 
   if (XBMC->GetSetting("timeshiftbufferpath", buffer) && !std::string(buffer).empty())
     g_strTimeshiftBufferPath = buffer;
   else
     g_strTimeshiftBufferPath = DEFAULT_TSBUFFERPATH;
 
-  // read setting "readtimeout" from settings.xml 
   if (!XBMC->GetSetting("readtimeout", &g_iReadTimeout))
     g_iReadTimeout = 0;
 

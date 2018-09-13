@@ -104,7 +104,7 @@ private:
 
   // functions
   std::vector<Timer> LoadTimers();
-  bool findTagInTimerTags(std::string tag, std::string tags);
+  static bool FindTagInTimerTags(std::string tag, std::string tags);
 
 public:
 

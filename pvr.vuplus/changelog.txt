@@ -1,3 +1,7 @@
+v3.10.1
+- Cleaned up settings screen
+- Fix: Timer tags no longer removed on timer update
+
 v3.10.0
 - Added: Recorded Streams support
 - Added: PVR API 5.0.0: iChannelUid in recordings

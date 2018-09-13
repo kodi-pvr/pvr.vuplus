@@ -155,7 +155,7 @@ public:
   const char * GetServerName();
   bool IsConnected(); 
   std::string getConnectionURL();
-  std::vector<std::string> getLocations();
+  std::vector<std::string> GetLocations();
   std::string GetHttpXML(std::string& url);
   bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
   std::string URLEncodeInline(const std::string& sSrc);
@@ -166,7 +166,7 @@ public:
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
   int GetChannelsAmount(void);
   int GetChannelNumber(std::string strServiceReference);
-  std::vector<VuChannel> getChannels();
+  std::vector<VuChannel> GetChannels();
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
   bool GetInitialEPGForGroup(VuChannelGroup &group);
   PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
@@ -178,9 +178,9 @@ public:
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount();
   PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
-  bool GetRecordingFromLocation(std::string strRecordingFolder);
   std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
+  bool GetRecordingFromLocation(std::string strRecordingFolder);
   RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);

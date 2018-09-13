@@ -245,7 +245,7 @@ std::string Vu::getConnectionURL()
   return m_strURL;
 }
 
-std::vector<std::string> Vu::getLocations()
+std::vector<std::string> Vu::GetLocations()
 {
   return m_locations;
 }
@@ -971,7 +971,7 @@ int Vu::GetChannelNumber(std::string strServiceReference)
   return -1;
 }
 
-std::vector<VuChannel> Vu::getChannels()
+std::vector<VuChannel> Vu::GetChannels()
 {
   return m_channels;
 }
