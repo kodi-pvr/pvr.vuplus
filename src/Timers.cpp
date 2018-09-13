@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <ctime>
+#include <regex>
 
 #include "inttypes.h"
 #include "util/XMLUtils.h"
@@ -173,20 +174,45 @@ std::vector<Timer> Timers::LoadTimers()
     if (timer.state == PVR_TIMER_STATE_NEW)
       XBMC->Log(LOG_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
 
-    std::string tags = "Blank";
+    timer.tags = "";
     if (XMLUtils::GetString(pNode, "e2tags", strTmp))
-      tags        = strTmp.c_str();
+      timer.tags        = strTmp.c_str();
 
-    if (tags == "Manual")
+    if (findTagInTimerTags("Manual", timer.tags))
     {
-      if (timer.iWeekdays)
-        timer.type = Timer::MANUAL_REPEATING;
-      else
-        timer.type =  Timer::MANUAL_ONCE;
+        XBMC->Log(LOG_NOTICE, "RNL Yes, %s %s", timer.strTitle.c_str(), timer.tags.c_str());
     }
     else
-    { //Default to EPG
-      timer.type = Timer::EPG_ONCE;
+    {
+        XBMC->Log(LOG_NOTICE, "RNL No, %s %s", timer.strTitle.c_str(), timer.tags.c_str());
+    }
+
+    if (findTagInTimerTags("Manual", timer.tags))
+    {
+      //We create a Manual tag on Manual timers created from Kodi, this allows us to set the Timer Type correctly
+      if (timer.iWeekdays != PVR_WEEKDAY_NONE)
+      {
+          XBMC->Log(LOG_NOTICE, "RNL MAN REPEAT");
+        timer.type = Timer::MANUAL_REPEATING;
+      }
+      else
+      {
+          XBMC->Log(LOG_NOTICE, "RNL MAN ONCE");
+        timer.type =  Timer::MANUAL_ONCE;
+      }
+    }
+    else
+    { //Default to EPG for all other standard timers
+      if (timer.iWeekdays != PVR_WEEKDAY_NONE)
+      {
+          XBMC->Log(LOG_NOTICE, "RNL EPG REPEAT");
+          timer.type = Timer::EPG_REPEATING;
+      }
+      else
+      {
+          XBMC->Log(LOG_NOTICE, "RNL EPG ONCE");
+        timer.type =  Timer::EPG_ONCE;
+      }
     }
 
     timers.push_back(timer);
@@ -196,6 +222,13 @@ std::vector<Timer> Timers::LoadTimers()
 
   XBMC->Log(LOG_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
   return timers; 
+}
+
+bool Timers::findTagInTimerTags(std::string tag, std::string tags)
+{
+    std::regex regex ("^.* ?" + tag + " ?.*$");
+
+    return (regex_match(tags, regex));
 }
 
 void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
@@ -275,6 +308,20 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
       PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
       ""); /* Let Kodi generate the description */
   types.push_back(*t);
+
+   /* Repeating epg based */
+  t = new TimerType(
+      Timer::Type::EPG_REPEATING,
+      PVR_TIMER_TYPE_IS_REPEATING              |
+      PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN,
+      ""); /* Let Kodi generate the description */
+    types.push_back(*t);
 }
 
 int Timers::GetTimerCount()
@@ -373,7 +420,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   if (timer.state == PVR_TIMER_STATE_CANCELLED)
     iDisabled = 1;
 
-  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
+  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), vuData.URLEncodeInline(oldTimer.tags).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
   
   std::string strResult;
   if(!vuData.SendSimpleCommand(strTmp, strResult))
