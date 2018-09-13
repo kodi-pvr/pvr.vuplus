@@ -178,9 +178,9 @@ public:
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount();
   PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
+  bool GetRecordingFromLocation(std::string strRecordingFolder);
   std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
-  bool GetRecordingFromLocation(std::string strRecordingFolder);
   RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);

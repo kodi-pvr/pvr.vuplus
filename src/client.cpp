@@ -185,7 +185,7 @@ void ADDON_ReadSettings(void)
   else
     g_strTimeshiftBufferPath = DEFAULT_TSBUFFERPATH;
 
-  // read setting "enabletimeshift" from settings.xml 
+  // read setting "readtimeout" from settings.xml 
   if (!XBMC->GetSetting("readtimeout", &g_iReadTimeout))
     g_iReadTimeout = 0;
 
