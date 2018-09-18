@@ -32,8 +32,9 @@ struct Timer
     MANUAL_ONCE      = PVR_TIMER_TYPE_NONE + 1,
     MANUAL_REPEATING = PVR_TIMER_TYPE_NONE + 2,
     EPG_ONCE         = PVR_TIMER_TYPE_NONE + 3,
-    EPG_AUTO_SEARCH  = PVR_TIMER_TYPE_NONE + 4, //Not supporterd yet
-    EPG_AUTO_ONCE    = PVR_TIMER_TYPE_NONE + 5, //Not supporterd yet
+    EPG_REPEATING    = PVR_TIMER_TYPE_NONE + 4, //Can't be created on Kodi, only on the engima2 box
+    EPG_AUTO_SEARCH  = PVR_TIMER_TYPE_NONE + 5, //Not supporterd yet
+    EPG_AUTO_ONCE    = PVR_TIMER_TYPE_NONE + 6, //Not supporterd yet
   };
 
   Type type = Type::MANUAL_ONCE; 
@@ -48,6 +49,7 @@ struct Timer
   PVR_TIMER_STATE state; 
   int iUpdateState;
   unsigned int iClientIndex;  
+  std::string tags;
 
   Timer()
   {
@@ -102,6 +104,7 @@ private:
 
   // functions
   std::vector<Timer> LoadTimers();
+  static bool FindTagInTimerTags(std::string tag, std::string tags);
 
 public:
 

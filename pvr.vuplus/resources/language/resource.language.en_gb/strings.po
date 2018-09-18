@@ -36,7 +36,13 @@ msgctxt "#30004"
 msgid "Password"
 msgstr ""
 
-#empty strings from id 30005 to 30006
+msgctxt "#30005"
+msgid "Connection Details"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr ""
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
@@ -46,7 +52,9 @@ msgctxt "#30008"
 msgid "Icon Path"
 msgstr ""
 
-#empty string with id 30009
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr ""
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
@@ -147,6 +155,14 @@ msgctxt "#30050"
 msgid "Custom Live TV timeout (0 to use default)"
 msgstr "Custom Live TV timeout (0 to use default)"
 
+msgctxt "#30051"
+msgid "Login"
+msgstr "Login"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Misc"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -170,6 +186,14 @@ msgstr "On playback"
 msgctxt "#30065"
 msgid "On pause"
 msgstr "On pause"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Recordings & Timers"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Recordings"
 
 msgctxt "#30410"
 msgid "Automatic"

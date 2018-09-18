@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <ctime>
+#include <regex>
 
 #include "inttypes.h"
 #include "util/XMLUtils.h"
@@ -105,7 +106,7 @@ std::vector<Timer> Timers::LoadTimers()
     if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
       timer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
 
-    timer.strChannelName = vuData.getChannels().at(timer.iChannelId-1).strChannelName;  
+    timer.strChannelName = vuData.GetChannels().at(timer.iChannelId-1).strChannelName;  
 
     if (!XMLUtils::GetInt(pNode, "e2timebegin", iTmp)) 
       continue; 
@@ -173,20 +174,24 @@ std::vector<Timer> Timers::LoadTimers()
     if (timer.state == PVR_TIMER_STATE_NEW)
       XBMC->Log(LOG_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
 
-    std::string tags = "Blank";
+    timer.tags = "";
     if (XMLUtils::GetString(pNode, "e2tags", strTmp))
-      tags        = strTmp.c_str();
+      timer.tags        = strTmp.c_str();
 
-    if (tags == "Manual")
+    if (Timers::FindTagInTimerTags("Manual", timer.tags))
     {
-      if (timer.iWeekdays)
+      //We create a Manual tag on Manual timers created from Kodi, this allows us to set the Timer Type correctly
+      if (timer.iWeekdays != PVR_WEEKDAY_NONE)
         timer.type = Timer::MANUAL_REPEATING;
       else
         timer.type =  Timer::MANUAL_ONCE;
     }
     else
-    { //Default to EPG
-      timer.type = Timer::EPG_ONCE;
+    { //Default to EPG for all other standard timers
+      if (timer.iWeekdays != PVR_WEEKDAY_NONE)
+          timer.type = Timer::EPG_REPEATING;
+      else
+        timer.type =  Timer::EPG_ONCE;
     }
 
     timers.push_back(timer);
@@ -196,6 +201,13 @@ std::vector<Timer> Timers::LoadTimers()
 
   XBMC->Log(LOG_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
   return timers; 
+}
+
+bool Timers::FindTagInTimerTags(std::string tag, std::string tags)
+{
+    std::regex regex ("^.* ?" + tag + " ?.*$");
+
+    return (regex_match(tags, regex));
 }
 
 void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
@@ -231,7 +243,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
   std::vector< std::pair<int, std::string> > groupValues = {
     { 0, LocalizedString(30410) }, //automatic
   };
-  for (auto &recf : vuData.getLocations())
+  for (auto &recf : vuData.GetLocations())
     groupValues.emplace_back(groupValues.size(), recf);
 
   /* One-shot manual (time and channel based) */
@@ -275,6 +287,20 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
       PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
       ""); /* Let Kodi generate the description */
   types.push_back(*t);
+
+   /* Repeating epg based */
+  t = new TimerType(
+      Timer::Type::EPG_REPEATING,
+      PVR_TIMER_TYPE_IS_REPEATING              |
+      PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN,
+      ""); /* Let Kodi generate the description */
+    types.push_back(*t);
 }
 
 int Timers::GetTimerCount()
@@ -328,7 +354,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     tags = "Manual";
 
   std::string strTmp;
-  std::string strServiceReference = vuData.getChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
+  std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
@@ -353,7 +379,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   XBMC->Log(LOG_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
 
   std::string strTmp;
-  std::string strServiceReference = vuData.getChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();  
+  std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();  
 
   unsigned int i=0;
 
@@ -366,14 +392,14 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   }
 
   Timer &oldTimer = m_timers.at(i);
-  std::string strOldServiceReference = vuData.getChannels().at(oldTimer.iChannelId-1).strServiceReference.c_str();  
+  std::string strOldServiceReference = vuData.GetChannels().at(oldTimer.iChannelId-1).strServiceReference.c_str();  
   XBMC->Log(LOG_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.iChannelId);
 
   int iDisabled = 0;
   if (timer.state == PVR_TIMER_STATE_CANCELLED)
     iDisabled = 1;
 
-  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
+  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), vuData.URLEncodeInline(oldTimer.tags).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
   
   std::string strResult;
   if(!vuData.SendSimpleCommand(strTmp, strResult))
@@ -387,7 +413,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
 PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
 {
   std::string strTmp;
-  std::string strServiceReference = vuData.getChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
+  std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
@@ -474,7 +500,7 @@ void Timers::TimerUpdates()
     {  
       Timer &timer = newtimers.at(i);
       timer.iClientIndex = m_iClientIndexCounter;
-      timer.strChannelName = vuData.getChannels().at(timer.iChannelId-1).strChannelName;
+      timer.strChannelName = vuData.GetChannels().at(timer.iChannelId-1).strChannelName;
       XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, timer.strTitle.c_str(), m_iClientIndexCounter);
       m_timers.push_back(timer);
       m_iClientIndexCounter++;
