@@ -1,3 +1,8 @@
+v3.11.0
+- Added: Autotimer support
+- Added: Generate ReadOnly Timers for Repeating Timer Rules
+- Added: GetDriveSpace
+
 v3.10.1
 - Cleaned up settings screen
 - Fix: Timer tags no longer removed on timer update
