@@ -389,7 +389,7 @@ const char *GetBackendHostname(void)
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-  return PVR_ERROR_SERVER_ERROR;
+  return VuData->GetDriveSpace(iTotal, iUsed);
 }
 
 

@@ -29,6 +29,7 @@
 #include <fstream> 
 #include <string>
 #include <regex>
+#include <stdlib.h>
 
 #include <p8-platform/util/StringUtils.h>
 #include "util/XMLUtils.h"
@@ -1690,4 +1691,109 @@ PVR_ERROR Vu::UpdateTimer(const PVR_TIMER &timer)
 PVR_ERROR Vu::DeleteTimer(const PVR_TIMER &timer) 
 {
   return my_timers.DeleteTimer(timer);
+}
+
+PVR_ERROR Vu::GetDriveSpace(long long *iTotal, long long *iUsed)
+{
+  long long total = 0;
+  long long used = 0;
+
+  std::string url; 
+  url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/deviceinfo"); 
+
+  std::string strXML;
+  strXML = GetHttpXML(url);
+  
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+  TiXmlElement* pElem;
+  TiXmlHandle hRoot(0);
+
+  pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
+
+  if (!pElem)
+  {
+    XBMC->Log(LOG_ERROR, "%s Could not find <e2deviceinfo> element!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  hRoot=TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2hdds").Element();
+
+  if (!pNode)
+  {
+    XBMC->Log(LOG_DEBUG, "Could not find <e2hdds> element");
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  TiXmlElement* hddNode = pNode->FirstChildElement("e2hdd");
+
+  if (!hddNode)
+  {
+    XBMC->Log(LOG_DEBUG, "Could not find <e2hdd> element");
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  for (; hddNode != NULL; hddNode = hddNode->NextSiblingElement("e2hdd"))
+  {
+    std::string capacity;
+    std::string freeSpace;
+
+    XMLUtils::GetString(hddNode, "e2capacity", capacity);
+    XMLUtils::GetString(hddNode, "e2free", freeSpace);
+
+    std::regex regexGB ("^.* GB");
+    std::regex regexMB ("^.* MB");
+    std::regex regexReplaceGB (" GB");
+    std::regex regexReplaceMB (" MB");
+    std::string replaceWith = "";
+
+    if (regex_match(capacity, regexGB))
+    {
+      //It's GB
+      double gigabytesSize = atof(regex_replace(capacity, regexReplaceGB, replaceWith).c_str());
+
+      total += (long long)(gigabytesSize * 1024 * 1024);
+    }
+    else
+    {
+      //It's MB
+      if (regex_match(capacity, regexMB))
+      {
+        double megabytesSize = atof(regex_replace(capacity, regexReplaceMB, replaceWith).c_str());
+
+        total += (long long)(megabytesSize * 1024);
+      }
+    }
+
+    if (regex_match(freeSpace, regexGB))
+    {
+      double gigabytesSize = atof(regex_replace(freeSpace, regexReplaceGB, replaceWith).c_str());
+
+      used += (long long)(gigabytesSize * 1024 * 1024);
+    }
+    else
+    {
+      if (regex_match(freeSpace, regexMB))
+      {
+        double megabytesSize = atof(regex_replace(freeSpace, regexReplaceMB, replaceWith).c_str());
+
+        used += (long long)(megabytesSize * 1024);
+      }
+    }
+  }
+
+  *iTotal = total;
+  *iUsed = used;
+
+  XBMC->Log(LOG_INFO, "GetDriveSpace Total: %u, Free %u", *iTotal, *iUsed);
+
+  return PVR_ERROR_NO_ERROR;
 }

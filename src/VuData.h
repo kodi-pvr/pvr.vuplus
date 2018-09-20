@@ -164,6 +164,7 @@ public:
   bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
   std::string URLEncodeInline(const std::string& sSrc);
   int GetNumGenRepeatTimers();
+
   
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void);
@@ -193,6 +194,6 @@ public:
   PVR_ERROR AddTimer(const PVR_TIMER &timer);
   PVR_ERROR UpdateTimer(const PVR_TIMER &timer);
   PVR_ERROR DeleteTimer(const PVR_TIMER &timer);
-
+  PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed);
 };
 
