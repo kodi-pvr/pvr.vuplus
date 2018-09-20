@@ -9,6 +9,30 @@
 #include <ctime>
 #include <type_traits>
 
+#define AUTOTIMER_SEARCH_CASE_SENSITIVE "sensitive"
+#define AUTOTIMER_SEARCH_CASE_INSENITIVE ""
+
+#define AUTOTIMER_ENABLED_YES "yes"
+#define AUTOTIMER_ENABLED_NO "no"
+
+#define AUTOTIMER_ENCODING "UTF-8"
+
+#define AUTOTIMER_SEARCH_TYPE_EXACT "exact"
+#define AUTOTIMER_SEARCH_TYPE_DESCRIPTION "description"
+#define AUTOTIMER_SEARCH_TYPE_START "start"
+#define AUTOTIMER_SEARCH_TYPE_PARTIAL ""
+
+#define AUTOTIMER_AVOID_DUPLICATE_DISABLED ""                       //Require Description to be unique - No 
+#define AUTOTIMER_AVOID_DUPLICATE_SAME_SERVICE "1"                  //Require Description to be unique - On same service
+#define AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE "2"                   //Require Description to be unique - On any service
+#define AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING "3"      //Require Description to be unique - On any service/recording
+
+#define AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE "0"                 //Check for uniqueness in - Title
+#define AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC "1"  //Check for uniqueness in - Title and Short description
+#define AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS ""    //Check for uniqueness in - Title and all descpritions
+
+#define AUTOTIMER_DEFAULT ""
+#define AUTOTIMER_DEFAULT_OMIT(a) (a == AUTOTIMER_DEFAULT)
 
 /* forward declaration */
 class Vu;
@@ -49,11 +73,13 @@ struct Timer
   PVR_TIMER_STATE state; 
   int iUpdateState;
   unsigned int iClientIndex;  
+  unsigned int iParentClientIndex;  
   std::string tags;
 
   Timer()
   {
     iUpdateState = VU_UPDATE_STATE_NEW;
+    iParentClientIndex = PVR_TIMER_NO_PARENT;
   }
 
   bool isScheduled() const;
@@ -87,6 +113,63 @@ struct Timer
   }
 };
 
+struct AutoTimer
+  : public Timer
+{
+public:
+  enum DeDup
+    : unsigned int  // same type as PVR_TIMER_TYPE.iPreventDuplicateEpisodes
+  {
+    DISABLED                         = 0,
+    CHECK_TITLE                      = 1,
+    CHECK_TITLE_AND_SHORT_DESC       = 2,
+    //Below is unsupported currently due to bug in the OpenWebIf API, the value cannot be unset if it's currently has a value other than disabled
+    //Workaround is to disable, hit ok and then select this
+    CHECK_TITLE_AND_ALL_DESCS        = 3
+  };
+
+public:
+  AutoTimer() = default;
+
+  bool like(const AutoTimer &right) const
+  {
+    return backendId == right.backendId;;
+  }
+
+  bool operator==(const AutoTimer &right) const
+  {
+    bool bChanged = true;
+    bChanged = bChanged && (searchPhrase == right.searchPhrase); 
+    bChanged = bChanged && (searchType == right.searchType); 
+    bChanged = bChanged && (searchCase == right.searchCase); 
+    bChanged = bChanged && (startTime == right.startTime); 
+    bChanged = bChanged && (endTime == right.endTime); 
+    bChanged = bChanged && (iChannelId == right.iChannelId); 
+    bChanged = bChanged && (iWeekdays == right.iWeekdays); 
+    bChanged = bChanged && (state == right.state); 
+    bChanged = bChanged && (searchFulltext == right.searchFulltext); 
+    bChanged = bChanged && (startAnyTime == right.startAnyTime); 
+    bChanged = bChanged && (endAnyTime == right.endAnyTime); 
+    bChanged = bChanged && (anyChannel == right.anyChannel); 
+    bChanged = bChanged && (deDup == right.deDup); 
+    bChanged = bChanged && (!strTitle.compare(right.strTitle));
+
+    return bChanged;
+  }
+
+public:
+  std::string searchPhrase;
+  std::string encoding;
+  std::string searchCase;
+  std::string searchType;
+  unsigned int backendId;
+  bool searchFulltext = false;
+  bool startAnyTime = false;
+  bool endAnyTime   = false;
+  bool anyChannel = false;
+  std::underlying_type<DeDup>::type deDup = DeDup::DISABLED;
+};
+
 class Timers
 {
 private:
@@ -95,6 +178,7 @@ private:
   unsigned int m_iUpdateTimer;
   unsigned int m_iClientIndexCounter;
   std::vector<Timer> m_timers;
+  std::vector<AutoTimer> m_autotimers;
   Vu &vuData;
 
   //templates
@@ -105,6 +189,14 @@ private:
   // functions
   std::vector<Timer> LoadTimers();
   static bool FindTagInTimerTags(std::string tag, std::string tags);
+  static std::string ConvertToAutoTimerTag(std::string tag);
+  std::vector<AutoTimer> LoadAutoTimers();
+  bool CanAutoTimers() const;
+  bool IsAutoTimer(const PVR_TIMER &timer);
+  bool TimerUpdatesRegular();
+  bool TimerUpdatesAuto();
+  void ParseTime(const std::string &time, std::tm &timeinfo);
+  bool SendClearSearchForDuplicateValues(int backendId);
 
 public:
 
@@ -115,14 +207,24 @@ public:
   };
   
   void GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types);
+
   int GetTimerCount();
+  int GetAutoTimerCount();
+
   void GetTimers(std::vector<PVR_TIMER> &timers);
+  void GetAutoTimers(std::vector<PVR_TIMER> &timers);
 
   Timer *GetTimer(std::function<bool (const Timer&)> func);
+  AutoTimer *GetAutoTimer(std::function<bool (const AutoTimer&)> func);
 
   PVR_ERROR AddTimer(const PVR_TIMER &timer);
+  PVR_ERROR AddAutoTimer(const PVR_TIMER &timer);
+
   PVR_ERROR UpdateTimer(const PVR_TIMER &timer);
+  PVR_ERROR UpdateAutoTimer(const PVR_TIMER &timer);
+
   PVR_ERROR DeleteTimer(const PVR_TIMER &timer);
+  PVR_ERROR DeleteAutoTimer(const PVR_TIMER &timer);
 
   void ClearTimers();
   void TimerUpdates();

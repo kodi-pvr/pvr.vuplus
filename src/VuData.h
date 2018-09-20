@@ -27,7 +27,8 @@
 #include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
 
-#define CHANNELDATAVERSION  2
+#define CHANNELDATAVERSION 2
+#define WEBIF_VERSION_NUM(a, b, c) (a << 16 | b << 8 | c)
 
 class CCurlFile
 {
@@ -106,6 +107,7 @@ private:
   std::string m_strEnigmaVersion;
   std::string m_strImageVersion;
   std::string m_strWebIfVersion;
+  unsigned int m_iWebIfVersion;
   bool  m_bIsConnected;
   std::string m_strServerName;
   std::string m_strURL;
@@ -128,6 +130,7 @@ private:
 
   // functions
   bool GetDeviceInfo();
+  static unsigned int GetWebIfVersion(std::string versionString);
   bool LoadChannelGroups();
   std::string GetGroupServiceReference(std::string strGroupName);
   bool LoadChannels(std::string strServerReference, std::string strGroupName);
@@ -153,13 +156,14 @@ public:
   bool Open();
   void SendPowerstate();
   const char * GetServerName();
+  unsigned int GetWebIfVersion();
   bool IsConnected(); 
   std::string getConnectionURL();
   std::vector<std::string> GetLocations();
   std::string GetHttpXML(std::string& url);
   bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
   std::string URLEncodeInline(const std::string& sSrc);
-
+  
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void);
   PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);

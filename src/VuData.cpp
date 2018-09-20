@@ -28,6 +28,8 @@
 #include <iostream> 
 #include <fstream> 
 #include <string>
+#include <regex>
+
 #include <p8-platform/util/StringUtils.h>
 #include "util/XMLUtils.h"
 
@@ -235,6 +237,11 @@ const char * Vu::GetServerName()
   return m_strServerName.c_str();  
 }
 
+unsigned int Vu::GetWebIfVersion()
+{
+  return m_iWebIfVersion;
+}
+
 bool Vu::IsConnected() 
 {
   return m_bIsConnected;
@@ -293,6 +300,11 @@ bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strRes
   
   if (!bIgnoreResult)
   {
+    // If there is no newline add it as it not being there will cause a parse error
+    // TODO: Remove once bug is fixed in Open WebIf
+    if (strXML.back() != '\n')
+      strXML += "\n";
+
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
@@ -445,8 +457,13 @@ bool Vu::GetDeviceInfo()
     XBMC->Log(LOG_ERROR, "%s Could not parse e2webifversion from result!", __FUNCTION__);
     return false;
   }
-  m_strWebIfVersion = strTmp.c_str();
-  XBMC->Log(LOG_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, m_strWebIfVersion.c_str());
+  else
+  {
+    m_strWebIfVersion = strTmp.c_str();
+    XBMC->Log(LOG_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, m_strWebIfVersion.c_str());
+
+    m_iWebIfVersion = GetWebIfVersion(m_strWebIfVersion);
+  }
 
   // Get DeviceName
   if (!XMLUtils::GetString(pElem, "e2devicename", strTmp)) 
@@ -458,6 +475,41 @@ bool Vu::GetDeviceInfo()
   XBMC->Log(LOG_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, m_strServerName.c_str());
 
   return true;
+}
+
+unsigned int Vu::GetWebIfVersion(std::string versionString)
+{
+  unsigned int webIfVersion = 0;
+
+  std::regex regex ("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
+  if (regex_match(versionString, regex))
+  {
+    int count = 0;
+    unsigned int versionPart = 0;
+    std::regex pattern("([0-9]+)");
+    for (auto i = std::sregex_iterator(versionString.begin(), versionString.end(), pattern); i != std::sregex_iterator(); ++i) 
+    {
+        switch (count)
+        {
+          case 0:
+            versionPart = atoi(i->str().c_str());
+            webIfVersion = versionPart << 16;
+            break;
+          case 1:
+              versionPart = atoi(i->str().c_str());
+              webIfVersion |= versionPart << 8;
+            break;     
+          case 2:
+              versionPart = atoi(i->str().c_str());
+              webIfVersion |= versionPart;
+            break;      
+        }      
+
+        count++;
+    }
+  }
+
+  return webIfVersion;
 }
 
 bool Vu::LoadChannelGroups() 
@@ -1609,6 +1661,7 @@ PVR_ERROR Vu::GetTimers(ADDON_HANDLE handle)
   {
     CLockObject lock(m_mutex);
     my_timers.GetTimers(timers);
+    my_timers.GetAutoTimers(timers);
   }
 
   XBMC->Log(LOG_DEBUG, "%s - timers available '%d'", __FUNCTION__, timers.size());

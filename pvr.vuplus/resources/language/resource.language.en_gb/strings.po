@@ -203,6 +203,10 @@ msgctxt "#30420"
 msgid "One time (Scheduled by guide-based timer rule)"
 msgstr ""
 
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr ""
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr ""
@@ -212,11 +216,11 @@ msgid "Record if EPG title differs"
 msgstr ""
 
 msgctxt "#30432"
-msgid "Record if EPG subtitle differs"
+msgid "Record if EPG title and short description differs"
 msgstr ""
 
 msgctxt "#30433"
-msgid "Record if EPG title and subtitle differs"
+msgid "Record if EPG title and all descriptions differ"
 msgstr ""
 
 msgctxt "#30514"
