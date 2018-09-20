@@ -398,6 +398,11 @@ std::string Vu::URLEncodeInline(const std::string& sSrc)
   return sResult;
 }
 
+int Vu::GetNumGenRepeatTimers()
+{
+  return g_iNumGenRepeatTimers;
+}
+
 /***************************************************************************
  * Private Functions
  **************************************************************************/

@@ -195,6 +195,14 @@ msgctxt "#30071"
 msgid "Recordings"
 msgstr "Recordings"
 
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Timers"
+
+msgctxt "#30073"
+msgid "Number of Repeat Timers to generate"
+msgstr "Number of Repeat Timers to generate"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr ""

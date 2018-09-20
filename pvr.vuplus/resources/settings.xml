@@ -27,6 +27,8 @@
     <setting id="recordingpath" type="text" label="30023" default="" />
     <setting label="30017" type="bool" id="onlycurrent" default="false"/>
     <setting label="30030" type="bool" id="keepfolders" default="false" />
+    <setting label="30072" type="lsep"/>
+    <setting label="30073" type="number" id="numgenrepeattimers" default="1"/>
   </category>
 
   <!-- Timeshift -->

@@ -53,12 +53,13 @@ struct Timer
   enum Type
     : unsigned int // same type as PVR_TIMER_TYPE.iId
   {
-    MANUAL_ONCE      = PVR_TIMER_TYPE_NONE + 1,
-    MANUAL_REPEATING = PVR_TIMER_TYPE_NONE + 2,
-    EPG_ONCE         = PVR_TIMER_TYPE_NONE + 3,
-    EPG_REPEATING    = PVR_TIMER_TYPE_NONE + 4, //Can't be created on Kodi, only on the engima2 box
-    EPG_AUTO_SEARCH  = PVR_TIMER_TYPE_NONE + 5, //Not supporterd yet
-    EPG_AUTO_ONCE    = PVR_TIMER_TYPE_NONE + 6, //Not supporterd yet
+    MANUAL_ONCE             = PVR_TIMER_TYPE_NONE + 1,
+    MANUAL_REPEATING        = PVR_TIMER_TYPE_NONE + 2,
+    READONLY_REPEATING_ONCE = PVR_TIMER_TYPE_NONE + 3,
+    EPG_ONCE                = PVR_TIMER_TYPE_NONE + 4,
+    EPG_REPEATING           = PVR_TIMER_TYPE_NONE + 5, //Can't be created on Kodi, only on the engima2 box
+    EPG_AUTO_SEARCH         = PVR_TIMER_TYPE_NONE + 6, 
+    EPG_AUTO_ONCE           = PVR_TIMER_TYPE_NONE + 7, 
   };
 
   Type type = Type::MANUAL_ONCE; 
@@ -84,6 +85,7 @@ struct Timer
 
   bool isScheduled() const;
   bool isRunning(std::time_t *now, std::string *channelName = nullptr) const;
+  bool isChildOfParent(Timer &parent);
 
   bool like(const Timer &right) const
   {
@@ -188,6 +190,7 @@ private:
 
   // functions
   std::vector<Timer> LoadTimers();
+  void GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer);
   static bool FindTagInTimerTags(std::string tag, std::string tags);
   static std::string ConvertToAutoTimerTag(std::string tag);
   std::vector<AutoTimer> LoadAutoTimers();
