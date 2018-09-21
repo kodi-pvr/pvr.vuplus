@@ -9,36 +9,37 @@
 #include <ctime>
 #include <type_traits>
 
-#define AUTOTIMER_SEARCH_CASE_SENSITIVE "sensitive"
-#define AUTOTIMER_SEARCH_CASE_INSENITIVE ""
-
-#define AUTOTIMER_ENABLED_YES "yes"
-#define AUTOTIMER_ENABLED_NO "no"
-
-#define AUTOTIMER_ENCODING "UTF-8"
-
-#define AUTOTIMER_SEARCH_TYPE_EXACT "exact"
-#define AUTOTIMER_SEARCH_TYPE_DESCRIPTION "description"
-#define AUTOTIMER_SEARCH_TYPE_START "start"
-#define AUTOTIMER_SEARCH_TYPE_PARTIAL ""
-
-#define AUTOTIMER_AVOID_DUPLICATE_DISABLED ""                       //Require Description to be unique - No 
-#define AUTOTIMER_AVOID_DUPLICATE_SAME_SERVICE "1"                  //Require Description to be unique - On same service
-#define AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE "2"                   //Require Description to be unique - On any service
-#define AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING "3"      //Require Description to be unique - On any service/recording
-
-#define AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE "0"                 //Check for uniqueness in - Title
-#define AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC "1"  //Check for uniqueness in - Title and Short description
-#define AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS ""    //Check for uniqueness in - Title and all descpritions
-
-#define AUTOTIMER_DEFAULT ""
-#define AUTOTIMER_DEFAULT_OMIT(a) (a == AUTOTIMER_DEFAULT)
-
 /* forward declaration */
 class Vu;
 
 namespace vuplus
 {
+
+static const std::string AUTOTIMER_SEARCH_CASE_SENSITIVE = "sensitive";
+static const std::string AUTOTIMER_SEARCH_CASE_INSENITIVE = "";
+
+static const std::string AUTOTIMER_ENABLED_YES = "yes";
+static const std::string AUTOTIMER_ENABLED_NO = "no";
+
+static const std::string AUTOTIMER_ENCODING = "UTF-8";
+
+static const std::string AUTOTIMER_SEARCH_TYPE_EXACT = "exact";
+static const std::string AUTOTIMER_SEARCH_TYPE_DESCRIPTION = "description";
+static const std::string AUTOTIMER_SEARCH_TYPE_START = "start";
+static const std::string AUTOTIMER_SEARCH_TYPE_PARTIAL = "";
+
+static const std::string AUTOTIMER_AVOID_DUPLICATE_DISABLED = "";                       //Require Description to be unique - No 
+static const std::string AUTOTIMER_AVOID_DUPLICATE_SAME_SERVICE = "1";                  //Require Description to be unique - On same service
+static const std::string AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE = "2";                   //Require Description to be unique - On any service
+static const std::string AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING = "3";      //Require Description to be unique - On any service/recording
+
+static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE = "0";                 //Check for uniqueness in - Title
+static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC = "1";  //Check for uniqueness in - Title and Short description
+static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS = "";    //Check for uniqueness in - Title and all descpritions
+
+static const std::string AUTOTIMER_DEFAULT = "";
+
+static const int DAYS_IN_WEEK = 7;
 
 typedef enum VU_UPDATE_STATE
 {
@@ -85,7 +86,7 @@ struct Timer
 
   bool isScheduled() const;
   bool isRunning(std::time_t *now, std::string *channelName = nullptr) const;
-  bool isChildOfParent(Timer &parent);
+  bool isChildOfParent(const Timer &parent) const;
 
   bool like(const Timer &right) const
   {
@@ -108,8 +109,8 @@ struct Timer
     bChanged = bChanged && (iWeekdays == right.iWeekdays); 
     bChanged = bChanged && (iEpgID == right.iEpgID); 
     bChanged = bChanged && (state == right.state); 
-    bChanged = bChanged && (! strTitle.compare(right.strTitle));
-    bChanged = bChanged && (! strPlot.compare(right.strPlot));
+    bChanged = bChanged && (!strTitle.compare(right.strTitle));
+    bChanged = bChanged && (!strPlot.compare(right.strPlot));
 
     return bChanged;
   }
@@ -118,7 +119,6 @@ struct Timer
 struct AutoTimer
   : public Timer
 {
-public:
   enum DeDup
     : unsigned int  // same type as PVR_TIMER_TYPE.iPreventDuplicateEpisodes
   {
@@ -130,7 +130,17 @@ public:
     CHECK_TITLE_AND_ALL_DESCS        = 3
   };
 
-public:
+  std::string searchPhrase;
+  std::string encoding;
+  std::string searchCase;
+  std::string searchType;
+  unsigned int backendId;
+  bool searchFulltext = false;
+  bool startAnyTime = false;
+  bool endAnyTime   = false;
+  bool anyChannel = false;
+  std::underlying_type<DeDup>::type deDup = DeDup::DISABLED;
+
   AutoTimer() = default;
 
   bool like(const AutoTimer &right) const
@@ -158,18 +168,6 @@ public:
 
     return bChanged;
   }
-
-public:
-  std::string searchPhrase;
-  std::string encoding;
-  std::string searchCase;
-  std::string searchType;
-  unsigned int backendId;
-  bool searchFulltext = false;
-  bool startAnyTime = false;
-  bool endAnyTime   = false;
-  bool anyChannel = false;
-  std::underlying_type<DeDup>::type deDup = DeDup::DISABLED;
 };
 
 class Timers
@@ -189,17 +187,17 @@ private:
       std::vector<T> &timerlist);
 
   // functions
-  std::vector<Timer> LoadTimers();
-  void GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer);
+  std::vector<Timer> LoadTimers() const;
+  void GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer) const;
   static bool FindTagInTimerTags(std::string tag, std::string tags);
   static std::string ConvertToAutoTimerTag(std::string tag);
-  std::vector<AutoTimer> LoadAutoTimers();
+  std::vector<AutoTimer> LoadAutoTimers() const;
   bool CanAutoTimers() const;
-  bool IsAutoTimer(const PVR_TIMER &timer);
+  bool IsAutoTimer(const PVR_TIMER &timer) const;
   bool TimerUpdatesRegular();
   bool TimerUpdatesAuto();
-  void ParseTime(const std::string &time, std::tm &timeinfo);
-  bool SendClearSearchForDuplicateValues(int backendId);
+  void ParseTime(const std::string &time, std::tm &timeinfo) const;
+  static std::string BuildAddUpdateAutoTimerIncludeParams(int weekdays);
 
 public:
 
@@ -209,13 +207,13 @@ public:
       m_iClientIndexCounter = 1;
   };
   
-  void GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types);
+  void GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const;
 
-  int GetTimerCount();
-  int GetAutoTimerCount();
+  int GetTimerCount() const;
+  int GetAutoTimerCount() const;
 
-  void GetTimers(std::vector<PVR_TIMER> &timers);
-  void GetAutoTimers(std::vector<PVR_TIMER> &timers);
+  void GetTimers(std::vector<PVR_TIMER> &timers) const;
+  void GetAutoTimers(std::vector<PVR_TIMER> &timers) const;
 
   Timer *GetTimer(std::function<bool (const Timer&)> func);
   AutoTimer *GetAutoTimer(std::function<bool (const AutoTimer&)> func);

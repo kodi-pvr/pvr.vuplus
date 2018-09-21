@@ -31,7 +31,7 @@ bool Timer::isRunning(std::time_t *now, std::string *channelName) const
   return true;
 }
 
-bool Timer::isChildOfParent(Timer &parent)
+bool Timer::isChildOfParent(const Timer &parent) const
 {
   time_t time;
   std::tm timeinfo;
@@ -59,7 +59,7 @@ bool Timer::isChildOfParent(Timer &parent)
 
   bool isChild = true;
 
-  isChild = isChild && (! strTitle.compare(parent.strTitle));  
+  isChild = isChild && (!strTitle.compare(parent.strTitle));  
   isChild = isChild && (childStartTime == parentStartTime); 
   isChild = isChild && (childEndTime == parentEndTime); 
   isChild = isChild && (iChannelId == parent.iChannelId); 
@@ -80,15 +80,13 @@ T *Timers::GetTimer(std::function<bool (const T&)> func,
   return nullptr;
 }
 
-std::vector<Timer> Timers::LoadTimers()
+std::vector<Timer> Timers::LoadTimers() const
 {
   std::vector<Timer> timers;
 
-  std::string url; 
-  url = StringUtils::Format("%s%s", vuData.getConnectionURL().c_str(), "web/timerlist"); 
+  const std::string url = StringUtils::Format("%s%s", vuData.GetConnectionURL().c_str(), "web/timerlist"); 
 
-  std::string strXML;
-  strXML = vuData.GetHttpXML(url);
+  const std::string strXML = vuData.GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
@@ -119,7 +117,7 @@ std::vector<Timer> Timers::LoadTimers()
     return timers;
   }
   
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2timer"))
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2timer"))
   {
     std::string strTmp;
 
@@ -246,7 +244,7 @@ std::vector<Timer> Timers::LoadTimers()
       }
     }
 
-    timers.push_back(timer);
+    timers.emplace_back(timer);
 
     if ((timer.type == Timer::MANUAL_REPEATING || timer.type == Timer::EPG_REPEATING) && vuData.GetNumGenRepeatTimers() > 0)
     {
@@ -260,13 +258,13 @@ std::vector<Timer> Timers::LoadTimers()
   return timers; 
 }
 
-void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer)
+void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer) const
 {
   int genTimerCount = 0;
   int weekdays = timer->iWeekdays;
   const time_t ONE_DAY = 24 * 60 * 60 ;
 
-  if (vuData.GetNumGenRepeatTimers() && weekdays)
+  if (vuData.GetNumGenRepeatTimers() && weekdays != PVR_WEEKDAY_NONE)
   {
     time_t nextStartTime = timer->startTime;
     time_t nextEndTime = timer->endTime;
@@ -274,7 +272,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
     for (int i=0; i<vuData.GetNumGenRepeatTimers(); i++)
     {
       //Even if one day a week the max we can hit is 3 weeks
-      for (int i = 0; i < 7; i++)
+      for (int i = 0; i < DAYS_IN_WEEK; i++)
       {
         std::tm nextTimeInfo = *std::localtime(&nextStartTime);
 
@@ -306,7 +304,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
           else
             newTimer.state = PVR_TIMER_STATE_COMPLETED;
 
-          timers->push_back(newTimer);
+          timers->emplace_back(newTimer);
 
           genTimerCount++;
           
@@ -339,15 +337,13 @@ std::string Timers::ConvertToAutoTimerTag(std::string tag)
     return regex_replace(tag, regex, replaceWith);
 }
 
-std::vector<AutoTimer> Timers::LoadAutoTimers()
+std::vector<AutoTimer> Timers::LoadAutoTimers() const
 {
   std::vector<AutoTimer> autoTimers;
 
-  std::string url; 
-  url = StringUtils::Format("%s%s", vuData.getConnectionURL().c_str(), "autotimer"); 
+  const std::string url = StringUtils::Format("%s%s", vuData.GetConnectionURL().c_str(), "autotimer"); 
 
-  std::string strXML;
-  strXML = vuData.GetHttpXML(url);
+  const std::string strXML = vuData.GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
@@ -378,27 +374,25 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
     return autoTimers;
   }
 
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("timer"))
+  std::string strTmp;
+  int iTmp;
+  bool bTmp;
+  int iDisabled;
+
+  std::string name;
+  std::string match;
+  std::string enabled;
+  int id;
+  std::string from;
+  std::string to;
+  std::string encoding;
+  std::string searchType;
+  std::string searchCase;
+  std::string avoidDuplicateDescription;
+  std::string searchForDuplicateDescription;
+
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("timer"))
   {
-
-    std::string strTmp;
-
-    int iTmp;
-    bool bTmp;
-    int iDisabled;
-
-    std::string name;
-    std::string match;
-    std::string enabled;
-    int id;
-    std::string from;
-    std::string to;
-    std::string encoding;
-    std::string searchType;
-    std::string searchCase;
-    std::string avoidDuplicateDescription;
-    std::string searchForDuplicateDescription;
-
     AutoTimer autoTimer;
     autoTimer.type = Timer::EPG_AUTO_SEARCH;
 
@@ -478,7 +472,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
 
     if (includeNode)
     {
-      for (; includeNode != NULL; includeNode = includeNode->NextSiblingElement("include"))
+      for (; includeNode != nullptr; includeNode = includeNode->NextSiblingElement("include"))
       {
         std::string includeVal = includeNode->GetText();
 
@@ -493,13 +487,13 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
       }
     }
 
-    if (autoTimer.iWeekdays != 0)
+    if (autoTimer.iWeekdays != PVR_WEEKDAY_NONE)
     {
       std::time_t t = std::time(nullptr);
       std::tm timeinfo = *std::localtime(&t);
       timeinfo.tm_sec = 0;
       autoTimer.startTime = 0;
-      if (from != "")
+      if (!from.empty())
       {
         ParseTime(from, timeinfo);
         autoTimer.startTime = std::mktime(&timeinfo);
@@ -508,7 +502,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
       timeinfo = *std::localtime(&t);
       timeinfo.tm_sec = 0;
       autoTimer.endTime = 0;
-      if (to != "")
+      if (!to.empty())
       {
         ParseTime(to, timeinfo);
         autoTimer.endTime = std::mktime(&timeinfo);
@@ -516,7 +510,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
     }
     else
     {
-      for (int i = 0; i < 7; i++)
+      for (int i = 0; i < DAYS_IN_WEEK; i++)
       {
         autoTimer.iWeekdays |= (1 << i);
       }
@@ -524,7 +518,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
       autoTimer.endAnyTime = true;
     }
 
-    autoTimers.push_back(autoTimer);
+    autoTimers.emplace_back(autoTimer);
 
     XBMC->Log(LOG_INFO, "%s fetched AutoTimer entry '%s', begin '%d', end '%d'", __FUNCTION__, autoTimer.strTitle.c_str(), autoTimer.startTime, autoTimer.endTime);
   }
@@ -535,15 +529,15 @@ std::vector<AutoTimer> Timers::LoadAutoTimers()
 
 bool Timers::CanAutoTimers() const
 {
-  return vuData.GetWebIfVersion() >= WEBIF_VERSION_NUM(1, 2, 4);
+  return vuData.GetWebIfVersion() >= vuData.GenerateWebIfVersionNum(1, 2, 4);
 }
 
-bool Timers::IsAutoTimer(const PVR_TIMER &timer)
+bool Timers::IsAutoTimer(const PVR_TIMER &timer) const
 {
   return timer.iTimerType == Timer::Type::EPG_AUTO_SEARCH;
 }
 
-void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
+void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
 {
   struct TimerType
     : PVR_TIMER_TYPE
@@ -594,74 +588,74 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
 
   /* One-shot manual (time and channel based) */
   TimerType* t = new TimerType(
-      Timer::Type::MANUAL_ONCE,
-      PVR_TIMER_TYPE_IS_MANUAL                 |
-      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
-      PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-      "", /* Let Kodi generate the description */
-      groupValues);
-  types.push_back(*t);
+    Timer::Type::MANUAL_ONCE,
+    PVR_TIMER_TYPE_IS_MANUAL                 |
+    PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
+    PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
+    "", /* Let Kodi generate the description */
+    groupValues);
+  types.emplace_back(*t);
 
-    /* One-shot generated by manual repeating timer - note these are completely read only and cannot be edited */
-    types.emplace_back(TimerType(
-        Timer::Type::READONLY_REPEATING_ONCE,
-        PVR_TIMER_TYPE_IS_MANUAL                 |
-        PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
-        PVR_TIMER_TYPE_IS_READONLY               |
-        PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-        PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-        PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-        PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
-        PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-        LocalizedString(30421),
-        groupValues));
-    types.push_back(*t);
+  /* One-shot generated by manual repeating timer - note these are completely read only and cannot be edited */
+  types.emplace_back(TimerType(
+    Timer::Type::READONLY_REPEATING_ONCE,
+    PVR_TIMER_TYPE_IS_MANUAL                 |
+    PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+    PVR_TIMER_TYPE_IS_READONLY               |
+    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
+    PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
+    LocalizedString(30421),
+    groupValues));
+  types.emplace_back(*t);
 
   /* Repeating manual (time and channel based) */
   t = new TimerType(
-      Timer::Type::MANUAL_REPEATING,
-      PVR_TIMER_TYPE_IS_MANUAL                 |
-      PVR_TIMER_TYPE_IS_REPEATING              |
-      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
-      PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-      "", /* Let Kodi generate the description */
-      groupValues);
-  types.push_back(*t);
+    Timer::Type::MANUAL_REPEATING,
+    PVR_TIMER_TYPE_IS_MANUAL                 |
+    PVR_TIMER_TYPE_IS_REPEATING              |
+    PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+    PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
+    PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
+    "", /* Let Kodi generate the description */
+    groupValues);
+  types.emplace_back(*t);
 
   /* One-shot epg based */
   t = new TimerType(
-      Timer::Type::EPG_ONCE,
-      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
-      PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-      ""); /* Let Kodi generate the description */
-  types.push_back(*t);
+    Timer::Type::EPG_ONCE,
+    PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
+    PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
+    ""); /* Let Kodi generate the description */
+  types.emplace_back(*t);
 
   /* Repeating epg based */
   t = new TimerType(
-      Timer::Type::EPG_REPEATING,
-      PVR_TIMER_TYPE_IS_REPEATING              |
-      PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
-      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN,
-      ""); /* Let Kodi generate the description */
-  types.push_back(*t);
+    Timer::Type::EPG_REPEATING,
+    PVR_TIMER_TYPE_IS_REPEATING              |
+    PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+    PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+    PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN,
+    ""); /* Let Kodi generate the description */
+  types.emplace_back(*t);
 
   if (CanAutoTimers())
   {
@@ -676,60 +670,59 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types)
 
      /* epg auto search */
     t = new TimerType(
-        Timer::Type::EPG_AUTO_SEARCH,
-        PVR_TIMER_TYPE_IS_REPEATING                |
-        PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE     |
-        PVR_TIMER_TYPE_SUPPORTS_CHANNELS           |
-        PVR_TIMER_TYPE_SUPPORTS_ANY_CHANNEL        |
-        PVR_TIMER_TYPE_SUPPORTS_START_TIME         |
-        PVR_TIMER_TYPE_SUPPORTS_END_TIME           |
-        PVR_TIMER_TYPE_SUPPORTS_START_ANYTIME      |
-        PVR_TIMER_TYPE_SUPPORTS_END_ANYTIME        |
-        PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS           |
-        PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN   |
-        PVR_TIMER_TYPE_SUPPORTS_TITLE_EPG_MATCH    |
-        PVR_TIMER_TYPE_SUPPORTS_FULLTEXT_EPG_MATCH |
-        PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP    |
-        PVR_TIMER_TYPE_SUPPORTS_RECORD_ONLY_NEW_EPISODES,
-        "", /* Let Kodi generate the description */
-        groupValues, deDupValues);
-    types.push_back(*t);
+      Timer::Type::EPG_AUTO_SEARCH,
+      PVR_TIMER_TYPE_IS_REPEATING                |
+      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE     |
+      PVR_TIMER_TYPE_SUPPORTS_CHANNELS           |
+      PVR_TIMER_TYPE_SUPPORTS_ANY_CHANNEL        |
+      PVR_TIMER_TYPE_SUPPORTS_START_TIME         |
+      PVR_TIMER_TYPE_SUPPORTS_END_TIME           |
+      PVR_TIMER_TYPE_SUPPORTS_START_ANYTIME      |
+      PVR_TIMER_TYPE_SUPPORTS_END_ANYTIME        |
+      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS           |
+      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN   |
+      PVR_TIMER_TYPE_SUPPORTS_TITLE_EPG_MATCH    |
+      PVR_TIMER_TYPE_SUPPORTS_FULLTEXT_EPG_MATCH |
+      PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP    |
+      PVR_TIMER_TYPE_SUPPORTS_RECORD_ONLY_NEW_EPISODES,
+      "", /* Let Kodi generate the description */
+      groupValues, deDupValues);
+    types.emplace_back(*t);
     types.back().iPreventDuplicateEpisodesDefault =
         AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC;
 
     /* One-shot created by epg auto search */
     types.emplace_back(TimerType(
-        Timer::Type::EPG_AUTO_ONCE,
-        PVR_TIMER_TYPE_IS_MANUAL                 |
-        PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
-        PVR_TIMER_TYPE_IS_READONLY               |
-        PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-        PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-        PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-        PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-        PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
-        PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-        LocalizedString(30420),
-        groupValues));
-    types.push_back(*t);
+      Timer::Type::EPG_AUTO_ONCE,
+      PVR_TIMER_TYPE_IS_MANUAL                 |
+      PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+      PVR_TIMER_TYPE_IS_READONLY               |
+      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
+      PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
+      LocalizedString(30420),
+      groupValues));
+    types.emplace_back(*t);
   }
 }
 
-int Timers::GetTimerCount()
+int Timers::GetTimerCount() const
 {
   return m_timers.size();
 }
 
-int Timers::GetAutoTimerCount()
+int Timers::GetAutoTimerCount() const
 {
   return m_autotimers.size();
 }
 
-void Timers::GetTimers(std::vector<PVR_TIMER> &timers)
+void Timers::GetTimers(std::vector<PVR_TIMER> &timers) const
 {
-  for (unsigned int i=0; i<m_timers.size(); i++)
+  for (const auto& timer : m_timers)
   {
-    Timer &timer = m_timers.at(i);
     XBMC->Log(LOG_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.strTitle.c_str(), timer.iClientIndex);
     PVR_TIMER tag;
     memset(&tag, 0, sizeof(PVR_TIMER));
@@ -758,11 +751,10 @@ void Timers::GetTimers(std::vector<PVR_TIMER> &timers)
   }
 }
 
-void Timers::GetAutoTimers(std::vector<PVR_TIMER> &timers)
+void Timers::GetAutoTimers(std::vector<PVR_TIMER> &timers) const
 {
-  for (unsigned int i=0; i<m_autotimers.size(); i++)
+  for (const auto& autoTimer : m_autotimers)
   {
-    AutoTimer &autoTimer = m_autotimers.at(i);
     XBMC->Log(LOG_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.strTitle.c_str(), autoTimer.iClientIndex);
     PVR_TIMER tag;
     memset(&tag, 0, sizeof(PVR_TIMER));
@@ -832,7 +824,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s", vuData.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, vuData.URLEncodeInline(tags).c_str());
 
   std::string strResult;
-  if(!vuData.SendSimpleCommand(strTmp, strResult)) 
+  if (!vuData.SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
   
   TimerUpdates();
@@ -883,14 +875,14 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   }
   else
   {
-    strTmp += StringUtils::Format("&avoidDuplicateDescription=%s", AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING);
+    strTmp += StringUtils::Format("&avoidDuplicateDescription=%s", AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING.c_str());
     switch (deDup)
     {
       case AutoTimer::DeDup::CHECK_TITLE:
-        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE);
+        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE.c_str());
         break;
       case AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC:
-        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC);
+        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC.c_str());
         break;
       // For AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS we don't need to set a value as this is the default
     }
@@ -902,35 +894,10 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
     strTmp += StringUtils::Format("&services=%s", vuData.URLEncodeInline(vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference).c_str());
   }
 
-  bool everyday = true;
-  std::string includeParams;
-  if (timer.iWeekdays)
-  {
-      for (int i = 0; i < 7; i++)
-      {
-        if (1 & (timer.iWeekdays >> i))
-        {
-          includeParams += StringUtils::Format("&dayofweek=%d", i);
-        }
-        else
-        {
-          everyday = false;
-        }
-      }
-
-      if (everyday)
-        includeParams = "&dayofweek=";
-  }
-  else
-  {
-    includeParams = "&dayofweek=";
-  }
-  strTmp += includeParams;
-
-  //TODO Tags
+  strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
 
   std::string strResult;
-  if(!vuData.SendSimpleCommand(strTmp, strResult)) 
+  if (!vuData.SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
 
   if (timer.state == PVR_TIMER_STATE_RECORDING)
@@ -951,125 +918,140 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   std::string strTmp;
   std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();  
 
-  unsigned int i=0;
-
-  while (i<m_timers.size())
+  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
   {
-    if (m_timers.at(i).iClientIndex == timer.iClientIndex)
-      break;
-    else
-      i++;
+    return myTimer.iClientIndex == timer.iClientIndex;
+  });
+  
+  if (it != m_timers.cend())
+  {
+    Timer oldTimer = *it;
+    std::string strOldServiceReference = vuData.GetChannels().at(oldTimer.iChannelId-1).strServiceReference.c_str();  
+    XBMC->Log(LOG_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.iChannelId);
+
+    int iDisabled = 0;
+    if (timer.state == PVR_TIMER_STATE_CANCELLED)
+      iDisabled = 1;
+
+    strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), vuData.URLEncodeInline(oldTimer.tags).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
+    
+    std::string strResult;
+    if (!vuData.SendSimpleCommand(strTmp, strResult))
+      return PVR_ERROR_SERVER_ERROR;
+
+    TimerUpdates();   
+
+    return PVR_ERROR_NO_ERROR; 
   }
 
-  Timer &oldTimer = m_timers.at(i);
-  std::string strOldServiceReference = vuData.GetChannels().at(oldTimer.iChannelId-1).strServiceReference.c_str();  
-  XBMC->Log(LOG_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.iChannelId);
-
-  int iDisabled = 0;
-  if (timer.state == PVR_TIMER_STATE_CANCELLED)
-    iDisabled = 1;
-
-  strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), vuData.URLEncodeInline(oldTimer.tags).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
-  
-  std::string strResult;
-  if(!vuData.SendSimpleCommand(strTmp, strResult))
-    return PVR_ERROR_SERVER_ERROR;
-
-  TimerUpdates();   
-
-  return PVR_ERROR_NO_ERROR; 
+  return PVR_ERROR_SERVER_ERROR;
 }
 
 PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
 {
-  unsigned int i=0;
-  while (i<m_autotimers.size())
+  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
   {
-    if (m_autotimers.at(i).iClientIndex == timer.iClientIndex)
-      break;
+    return autoTimer.iClientIndex == timer.iClientIndex;
+  });
+  
+  if (it != m_autotimers.cend())
+  {
+    AutoTimer timerToUpdate = *it;
+
+    std::string strTmp = StringUtils::Format("autotimer/edit?id=%d", timerToUpdate.backendId);
+
+    strTmp += StringUtils::Format("&name=%s", vuData.URLEncodeInline(timer.strTitle).c_str());
+    strTmp += StringUtils::Format("&match=%s", vuData.URLEncodeInline(timer.strEpgSearchString).c_str());
+
+    if (timer.state != PVR_TIMER_STATE_CANCELLED)
+      strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
     else
-      i++;
-  }
-
-  AutoTimer timerToUpdate = m_autotimers.at(i);
-
-  std::string strTmp;
-  strTmp = StringUtils::Format("autotimer/edit?id=%d", timerToUpdate.backendId);
-
-  strTmp += StringUtils::Format("&name=%s", vuData.URLEncodeInline(timer.strTitle).c_str());
-  strTmp += StringUtils::Format("&match=%s", vuData.URLEncodeInline(timer.strEpgSearchString).c_str());
-
-  if (timer.state != PVR_TIMER_STATE_CANCELLED)
-    strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
-  else
-    strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
+      strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
 
 
-  if (!timer.bStartAnyTime)
-  {
-    time_t startTime = timer.startTime;
-    std::tm timeinfo = *std::localtime(&startTime);
-    strTmp += StringUtils::Format("&timespanFrom=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
-  }
-
-  if (!timer.bEndAnyTime)
-  {
-    time_t endTime = timer.endTime;
-    std::tm timeinfo = *std::localtime(&endTime);
-    strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
-  }
-
-  strTmp += StringUtils::Format("&encoding=%s", vuData.URLEncodeInline(AUTOTIMER_ENCODING).c_str());
-
-  if (timer.bFullTextEpgSearch)
-    strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());  
-  else
-    strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
-
-  if (!AUTOTIMER_DEFAULT_OMIT(timerToUpdate.searchCase))
-  strTmp += StringUtils::Format("&searchCase=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
-
-  std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.iPreventDuplicateEpisodes);
-  if (deDup == AutoTimer::DeDup::DISABLED)
-  {
-    strTmp += StringUtils::Format("&avoidDuplicateDescription=0");
-  }
-  else
-  {
-    strTmp += StringUtils::Format("&avoidDuplicateDescription=%s", AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING);
-    switch (deDup)
+    if (!timer.bStartAnyTime)
     {
-      case AutoTimer::DeDup::CHECK_TITLE:
-        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE);
-        break;
-      case AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC:
-        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC);
-        break;
-      case AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS:
-        //TODO Below is unsupported currently due to bug in the OpenWebIf API, the value cannot be unset
-        //strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS);
-        break;
+      time_t startTime = timer.startTime;
+      std::tm timeinfo = *std::localtime(&startTime);
+      strTmp += StringUtils::Format("&timespanFrom=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
     }
-  }
 
-  if (timerToUpdate.anyChannel && timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
-  {
-    //move to single channel
-    strTmp += StringUtils::Format("&services=%s", vuData.URLEncodeInline(vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference).c_str());
-  }
-  else if (!timerToUpdate.anyChannel && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
-  {
-    //Move to any channel
-    strTmp += StringUtils::Format("&services=");
-  }
+    if (!timer.bEndAnyTime)
+    {
+      time_t endTime = timer.endTime;
+      std::tm timeinfo = *std::localtime(&endTime);
+      strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+    }
 
+    strTmp += StringUtils::Format("&encoding=%s", vuData.URLEncodeInline(AUTOTIMER_ENCODING).c_str());
+
+    if (timer.bFullTextEpgSearch)
+      strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());  
+    else
+      strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
+
+    if (!timerToUpdate.searchCase.empty())
+      strTmp += StringUtils::Format("&searchCase=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
+
+    std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.iPreventDuplicateEpisodes);
+    if (deDup == AutoTimer::DeDup::DISABLED)
+    {
+      strTmp += StringUtils::Format("&avoidDuplicateDescription=0");
+    }
+    else
+    {
+      strTmp += StringUtils::Format("&avoidDuplicateDescription=%s", AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING.c_str());
+      switch (deDup)
+      {
+        case AutoTimer::DeDup::CHECK_TITLE:
+          strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE.c_str());
+          break;
+        case AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC:
+          strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC.c_str());
+          break;
+        case AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS:
+          //TODO Below is unsupported currently due to bug in the OpenWebIf API, the value cannot be unset
+          //strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS.c_str());
+          break;
+      }
+    }
+
+    if (timerToUpdate.anyChannel && timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
+    {
+      //move to single channel
+      strTmp += StringUtils::Format("&services=%s", vuData.URLEncodeInline(vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference).c_str());
+    }
+    else if (!timerToUpdate.anyChannel && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
+    {
+      //Move to any channel
+      strTmp += StringUtils::Format("&services=");
+    }
+
+    strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
+
+    std::string strResult;
+    if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+      return PVR_ERROR_SERVER_ERROR;
+
+    if (timer.state == PVR_TIMER_STATE_RECORDING)
+      PVR->TriggerRecordingUpdate();
+    
+    TimerUpdates();
+
+    return PVR_ERROR_NO_ERROR;
+  }
+  return PVR_ERROR_SERVER_ERROR;
+}
+
+std::string Timers::BuildAddUpdateAutoTimerIncludeParams(int weekdays)
+{
   bool everyday = true;
   std::string includeParams;
-  if (timer.iWeekdays)
+  if (weekdays != PVR_WEEKDAY_NONE)
   {
-      for (int i = 0; i < 7; i++)
+      for (int i = 0; i < DAYS_IN_WEEK; i++)
       {
-        if (1 & (timer.iWeekdays >> i))
+        if (1 & (weekdays >> i))
         {
           includeParams += StringUtils::Format("&dayofweek=%d", i);
         }
@@ -1086,21 +1068,8 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
   {
     includeParams = "&dayofweek=";
   }
-  strTmp += includeParams;
 
-  //TODO Tags
-    //TODO Full EPG Search <include description match text
-
-  std::string strResult;
-  if(!vuData.SendSimpleCommand(strTmp, strResult)) 
-    return PVR_ERROR_SERVER_ERROR;
-
-  if (timer.state == PVR_TIMER_STATE_RECORDING)
-    PVR->TriggerRecordingUpdate();
-  
-  TimerUpdates();
-
-  return PVR_ERROR_NO_ERROR;
+  return includeParams;
 }
 
 PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
@@ -1118,7 +1087,7 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", vuData.URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
 
   std::string strResult;
-  if(!vuData.SendSimpleCommand(strTmp, strResult)) 
+  if (!vuData.SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
 
   if (timer.state == PVR_TIMER_STATE_RECORDING)
@@ -1131,30 +1100,31 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
 
 PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
 {
-  unsigned int i=0;
-  while (i<m_autotimers.size())
+  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
   {
-    if (m_autotimers.at(i).iClientIndex == timer.iClientIndex)
-      break;
-    else
-      i++;
+    return autoTimer.iClientIndex == timer.iClientIndex;
+  });
+  
+  if (it != m_autotimers.cend())
+  {
+    AutoTimer timerToDelete = *it;
+
+    std::string strTmp;
+    strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.backendId);
+
+    std::string strResult;
+    if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+      return PVR_ERROR_SERVER_ERROR;
+
+    if (timer.state == PVR_TIMER_STATE_RECORDING)
+      PVR->TriggerRecordingUpdate();
+    
+    TimerUpdates();
+
+    return PVR_ERROR_NO_ERROR;
   }
 
-  AutoTimer timerToDelete = m_autotimers.at(i);
-
-  std::string strTmp;
-  strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.backendId);
-
-  std::string strResult;
-  if(!vuData.SendSimpleCommand(strTmp, strResult)) 
-    return PVR_ERROR_SERVER_ERROR;
-
-  if (timer.state == PVR_TIMER_STATE_RECORDING)
-    PVR->TriggerRecordingUpdate();
-  
-  TimerUpdates();
-
-  return PVR_ERROR_NO_ERROR;
+  return PVR_ERROR_SERVER_ERROR;
 }
 
 void Timers::ClearTimers()
@@ -1179,39 +1149,40 @@ bool Timers::TimerUpdatesRegular()
 {
   std::vector<Timer> newtimers = LoadTimers();
 
-  for (unsigned int i=0; i<m_timers.size(); i++)
+  for (auto& timer : m_timers)
   {
-    m_timers[i].iUpdateState = VU_UPDATE_STATE_NONE;
+    timer.iUpdateState = VU_UPDATE_STATE_NONE;
   }
 
+  //Update any timers
   unsigned int iUpdated=0;
   unsigned int iUnchanged=0; 
 
-  for (unsigned int j=0;j<newtimers.size(); j++) 
+  for (auto& newTimer : newtimers)
   {
-    for (unsigned int i=0; i<m_timers.size(); i++) 
+    for (auto& existingTimer : m_timers)
     {
-      if (m_timers[i].like(newtimers[j]))
+      if (existingTimer.like(newTimer))
       {
-        if(m_timers[i] == newtimers[j])
+        if(existingTimer == newTimer)
         {
-          m_timers[i].iUpdateState = VU_UPDATE_STATE_FOUND;
-          newtimers[j].iUpdateState = VU_UPDATE_STATE_FOUND;
+          existingTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
+          newTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
           iUnchanged++;
         }
         else
         {
-          newtimers[j].iUpdateState = VU_UPDATE_STATE_UPDATED;
-          m_timers[i].iUpdateState = VU_UPDATE_STATE_UPDATED;
-          m_timers[i].strTitle = newtimers[j].strTitle;
-          m_timers[i].strPlot = newtimers[j].strPlot;
-          m_timers[i].iChannelId = newtimers[j].iChannelId;
-          m_timers[i].strChannelName = newtimers[j].strChannelName;
-          m_timers[i].startTime = newtimers[j].startTime;
-          m_timers[i].endTime = newtimers[j].endTime;
-          m_timers[i].iWeekdays = newtimers[j].iWeekdays;
-          m_timers[i].iEpgID = newtimers[j].iEpgID;
-          m_timers[i].tags = newtimers[j].tags;
+          newTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
+          existingTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
+          existingTimer.strTitle = newTimer.strTitle;
+          existingTimer.strPlot = newTimer.strPlot;
+          existingTimer.iChannelId = newTimer.iChannelId;
+          existingTimer.strChannelName = newTimer.strChannelName;
+          existingTimer.startTime = newTimer.startTime;
+          existingTimer.endTime = newTimer.endTime;
+          existingTimer.iWeekdays = newTimer.iWeekdays;
+          existingTimer.iEpgID = newTimer.iEpgID;
+          existingTimer.tags = newTimer.tags;
 
           iUpdated++;
         }
@@ -1219,42 +1190,41 @@ bool Timers::TimerUpdatesRegular()
     }
   }
 
-  unsigned int iRemoved = 0;
+  //Remove any timers that are no longer valid
+  unsigned int iRemoved = m_timers.size();
 
-  for (unsigned int i=0; i<m_timers.size(); i++)
-  {
-    if (m_timers.at(i).iUpdateState == VU_UPDATE_STATE_NONE)
-    {
-        XBMC->Log(LOG_INFO, "%s Removed timer: '%s', ClientIndex: '%d'", __FUNCTION__, m_timers.at(i).strTitle.c_str(), m_timers.at(i).iClientIndex);
-        m_timers.erase(m_timers.begin()+i);
-        i=0;
-        iRemoved++;
-    }
-  }
+  m_timers.erase(
+    std::remove_if(m_timers.begin(), m_timers.end(), 
+      [](const Timer& timer) { return timer.iUpdateState == VU_UPDATE_STATE_NONE; }), 
+    m_timers.end());
+
+  iRemoved -= m_timers.size();
+
+  //Add any new autotimers
   unsigned int iNew=0;
 
-  for (unsigned int i=0; i<newtimers.size();i++)
+  for (auto& newTimer : newtimers)
   { 
-    if(newtimers.at(i).iUpdateState == VU_UPDATE_STATE_NEW)
+    if(newTimer.iUpdateState == VU_UPDATE_STATE_NEW)
     {  
-      Timer &timer = newtimers.at(i);
-      timer.iClientIndex = m_iClientIndexCounter;
-      timer.strChannelName = vuData.GetChannels().at(timer.iChannelId-1).strChannelName;
-      XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, timer.strTitle.c_str(), m_iClientIndexCounter);
-      m_timers.push_back(timer);
+      newTimer.iClientIndex = m_iClientIndexCounter;
+      newTimer.strChannelName = vuData.GetChannels().at(newTimer.iChannelId-1).strChannelName;
+      XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.strTitle.c_str(), m_iClientIndexCounter);
+      m_timers.emplace_back(newTimer);
       m_iClientIndexCounter++;
       iNew++;  
     } 
   }  
 
-  for (unsigned int i=0; i<m_timers.size();i++)
+  //Link any Readonly timers to Repeating Timers
+  for (const auto& repeatingTimer : m_timers)
   {
-    for (unsigned int j=0; j<m_timers.size();j++)
+    for (auto& readonlyRepeatingOnceTimer : m_timers)
     {
-      if ((m_timers.at(i).type == Timer::MANUAL_REPEATING || m_timers.at(i).type == Timer::EPG_REPEATING) &&
-          m_timers.at(j).type == Timer::READONLY_REPEATING_ONCE && m_timers.at(j).isChildOfParent(m_timers.at(i)))
+      if ((repeatingTimer.type == Timer::MANUAL_REPEATING || repeatingTimer.type == Timer::EPG_REPEATING) &&
+          readonlyRepeatingOnceTimer.type == Timer::READONLY_REPEATING_ONCE && readonlyRepeatingOnceTimer.isChildOfParent(repeatingTimer))
       {
-        m_timers.at(j).iParentClientIndex = m_timers.at(i).iClientIndex;
+        readonlyRepeatingOnceTimer.iParentClientIndex = repeatingTimer.iClientIndex;
         continue;
       }
     }
@@ -1269,50 +1239,51 @@ bool Timers::TimerUpdatesAuto()
 {
   std::vector<AutoTimer> newautotimers = LoadAutoTimers();
 
-  for (unsigned int i=0; i<m_autotimers.size(); i++)
+  for (auto& autoTimer : m_autotimers)
   {
-    m_autotimers[i].iUpdateState = VU_UPDATE_STATE_NONE;
+    autoTimer.iUpdateState = VU_UPDATE_STATE_NONE;
   }
 
+  //Update any autotimers
   unsigned int iUpdated=0;
   unsigned int iUnchanged=0; 
 
-  for (unsigned int j=0;j<m_autotimers.size(); j++) 
+  for (auto& newAutoTimer : newautotimers)
   {
-    for (unsigned int i=0; i<m_autotimers.size(); i++) 
+    for (auto& existingAutoTimer : m_autotimers)
     {
-      if (m_autotimers[i].like(newautotimers[j]))
+      if (existingAutoTimer.like(newAutoTimer))
       {
-        if(m_autotimers[i] == newautotimers[j])
+        if(existingAutoTimer == newAutoTimer)
         {
-          m_autotimers[i].iUpdateState = VU_UPDATE_STATE_FOUND;
-          newautotimers[j].iUpdateState = VU_UPDATE_STATE_FOUND;
+          existingAutoTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
+          newAutoTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
           iUnchanged++;
         }
         else
         {
-          newautotimers[j].iUpdateState = VU_UPDATE_STATE_UPDATED;
-          m_autotimers[i].iUpdateState = VU_UPDATE_STATE_UPDATED;
+          newAutoTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
+          existingAutoTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
 
-          m_autotimers[i].strTitle = newautotimers[j].strTitle;
-          m_autotimers[i].strPlot = newautotimers[j].strPlot;
-          m_autotimers[i].iChannelId = newautotimers[j].iChannelId;
-          m_autotimers[i].strChannelName = newautotimers[j].strChannelName;
-          m_autotimers[i].startTime = newautotimers[j].startTime;
-          m_autotimers[i].endTime = newautotimers[j].endTime;
-          m_autotimers[i].iWeekdays = newautotimers[j].iWeekdays;
-          m_autotimers[i].iEpgID = newautotimers[j].iEpgID;
-          m_autotimers[i].tags = newautotimers[j].tags;
+          existingAutoTimer.strTitle = newAutoTimer.strTitle;
+          existingAutoTimer.strPlot = newAutoTimer.strPlot;
+          existingAutoTimer.iChannelId = newAutoTimer.iChannelId;
+          existingAutoTimer.strChannelName = newAutoTimer.strChannelName;
+          existingAutoTimer.startTime = newAutoTimer.startTime;
+          existingAutoTimer.endTime = newAutoTimer.endTime;
+          existingAutoTimer.iWeekdays = newAutoTimer.iWeekdays;
+          existingAutoTimer.iEpgID = newAutoTimer.iEpgID;
+          existingAutoTimer.tags = newAutoTimer.tags;
 
-          m_autotimers[i].searchPhrase = newautotimers[j].searchPhrase;
-          m_autotimers[i].encoding = newautotimers[j].encoding;
-          m_autotimers[i].searchCase = newautotimers[j].searchCase;
-          m_autotimers[i].searchType = newautotimers[j].searchType;
-          m_autotimers[i].searchFulltext = newautotimers[j].searchFulltext;
-          m_autotimers[i].startAnyTime = newautotimers[j].startAnyTime;
-          m_autotimers[i].endAnyTime = newautotimers[j].endAnyTime;
-          m_autotimers[i].anyChannel = newautotimers[j].anyChannel;
-          m_autotimers[i].deDup = newautotimers[j].deDup;
+          existingAutoTimer.searchPhrase = newAutoTimer.searchPhrase;
+          existingAutoTimer.encoding = newAutoTimer.encoding;
+          existingAutoTimer.searchCase = newAutoTimer.searchCase;
+          existingAutoTimer.searchType = newAutoTimer.searchType;
+          existingAutoTimer.searchFulltext = newAutoTimer.searchFulltext;
+          existingAutoTimer.startAnyTime = newAutoTimer.startAnyTime;
+          existingAutoTimer.endAnyTime = newAutoTimer.endAnyTime;
+          existingAutoTimer.anyChannel = newAutoTimer.anyChannel;
+          existingAutoTimer.deDup = newAutoTimer.deDup;
 
           iUpdated++;
         }
@@ -1320,43 +1291,42 @@ bool Timers::TimerUpdatesAuto()
     }
   }
 
-  unsigned int iRemoved = 0;
+  //Remove any autotimers that are no longer valid
+  unsigned int iRemoved = m_autotimers.size();
 
-  for (unsigned int i=0; i<m_autotimers.size(); i++)
-  {
-    if (m_autotimers.at(i).iUpdateState == VU_UPDATE_STATE_NONE)
-    {
-      XBMC->Log(LOG_INFO, "%s Removed timer: '%s', ClientIndex: '%d'", __FUNCTION__, m_autotimers.at(i).strTitle.c_str(), m_autotimers.at(i).iClientIndex);
-      m_autotimers.erase(m_autotimers.begin()+i);
-      i=0;
-      iRemoved++;
-    }
-  }
+  m_autotimers.erase(
+    std::remove_if(m_autotimers.begin(), m_autotimers.end(), 
+      [](const AutoTimer& autoTimer) { return autoTimer.iUpdateState == VU_UPDATE_STATE_NONE; }), 
+    m_autotimers.end());
+
+  iRemoved -= m_autotimers.size();
+
+  //Add any new autotimers
   unsigned int iNew=0;
 
-  for (unsigned int i=0; i<newautotimers.size();i++)
+  for (auto& newAutoTimer : newautotimers)
   { 
-    if(newautotimers.at(i).iUpdateState == VU_UPDATE_STATE_NEW)
+    if(newAutoTimer.iUpdateState == VU_UPDATE_STATE_NEW)
     {  
-      AutoTimer &autoTimer = newautotimers.at(i);
-      autoTimer.iClientIndex = m_iClientIndexCounter;
-      autoTimer.strChannelName = vuData.GetChannels().at(autoTimer.iChannelId-1).strChannelName;
-      XBMC->Log(LOG_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, autoTimer.strTitle.c_str(), m_iClientIndexCounter);
-      m_autotimers.push_back(autoTimer);
+      newAutoTimer.iClientIndex = m_iClientIndexCounter;
+      newAutoTimer.strChannelName = vuData.GetChannels().at(newAutoTimer.iChannelId-1).strChannelName;
+      XBMC->Log(LOG_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.strTitle.c_str(), m_iClientIndexCounter);
+      m_autotimers.emplace_back(newAutoTimer);
       m_iClientIndexCounter++;
       iNew++;
     } 
   }
 
-  for (unsigned int i=0; i<m_timers.size();i++)
+  //Link Any child timers to autotimers
+  for (const auto& autoTimer : m_autotimers)
   {
-    for (unsigned int j=0; j<m_autotimers.size();j++)
+    for (auto& timer : m_timers)
     {
-      std::string autotimerTag = ConvertToAutoTimerTag(m_autotimers.at(j).strTitle);
+      std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.strTitle);
 
-      if (m_timers.at(i).type == Timer::EPG_AUTO_ONCE && FindTagInTimerTags(autotimerTag, m_timers.at(i).tags))
+      if (timer.type == Timer::EPG_AUTO_ONCE && FindTagInTimerTags(autotimerTag, timer.tags))
       {
-        m_timers.at(i).iParentClientIndex = m_autotimers.at(j).iClientIndex;
+        timer.iParentClientIndex = autoTimer.iClientIndex;
         continue;
       }
     }
@@ -1367,7 +1337,7 @@ bool Timers::TimerUpdatesAuto()
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }
 
-void Timers::ParseTime(const std::string &time, std::tm &timeinfo)
+void Timers::ParseTime(const std::string &time, std::tm &timeinfo) const
 {
   std::sscanf(time.c_str(), "%02d:%02d", &timeinfo.tm_hour,
       &timeinfo.tm_min);

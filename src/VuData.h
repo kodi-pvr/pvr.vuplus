@@ -27,9 +27,6 @@
 #include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
 
-#define CHANNELDATAVERSION 2
-#define WEBIF_VERSION_NUM(a, b, c) (a << 16 | b << 8 | c)
-
 class CCurlFile
 {
 public:
@@ -111,8 +108,6 @@ private:
   bool  m_bIsConnected;
   std::string m_strServerName;
   std::string m_strURL;
-  int m_iNumRecordings;
-  int m_iNumChannelGroups;
   int m_iCurrentChannel;
   unsigned int m_iUpdateTimer;
   std::vector<VuChannel> m_channels;
@@ -152,27 +147,32 @@ public:
   Vu(void);
   ~Vu();
 
+  inline unsigned int GenerateWebIfVersionNum(unsigned int major, unsigned int minor, unsigned int patch)
+  {
+    return (major << 16 | minor << 8 | patch);
+  };
+
   //device and helper functions
   bool Open();
   void SendPowerstate();
-  const char * GetServerName();
-  unsigned int GetWebIfVersion();
-  bool IsConnected(); 
-  std::string getConnectionURL();
-  std::vector<std::string> GetLocations();
-  std::string GetHttpXML(std::string& url);
-  bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false);
-  std::string URLEncodeInline(const std::string& sSrc);
-  int GetNumGenRepeatTimers();
+  const char * GetServerName() const;
+  unsigned int GetWebIfVersion() const;
+  bool IsConnected() const; 
+  std::string GetConnectionURL() const;
+  std::vector<std::string> GetLocations() const;
+  std::string GetHttpXML(const std::string& url) const;
+  bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false) const;
+  std::string URLEncodeInline(const std::string& sSrc) const;
+  int GetNumGenRepeatTimers() const;
 
   
   //groups, channels and EPG
-  unsigned int GetNumChannelGroups(void);
+  unsigned int GetNumChannelGroups(void) const;
   PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
-  int GetChannelsAmount(void);
-  int GetChannelNumber(std::string strServiceReference);
-  std::vector<VuChannel> GetChannels();
+  int GetChannelsAmount(void) const;
+  int GetChannelNumber(std::string strServiceReference) const;
+  std::vector<VuChannel> GetChannels() const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
   bool GetInitialEPGForGroup(VuChannelGroup &group);
   PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);

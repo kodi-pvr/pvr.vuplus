@@ -25,16 +25,16 @@
 #include "libXBMC_pvr.h"
 #include "IStreamReader.h"
 
-#define DEFAULT_HOST                    "127.0.0.1"
-#define DEFAULT_CONNECT_TIMEOUT         30
-#define DEFAULT_STREAM_PORT             8001
-#define DEFAULT_WEB_PORT                80
-#define DEFAULT_UPDATE_INTERVAL         2
-#define DEFAULT_TSBUFFERPATH            "special://userdata/addon_data/pvr.vuplus"
-#define TIMESHIFT_OFF                   0
-#define TIMESHIFT_ON_PLAYBACK           1
-#define TIMESHIFT_ON_PAUSE              2
-#define DEFAULT_NUM_GEN_REPEAT_TIMERS   1
+static const std::string   DEFAULT_HOST                  = "127.0.0.1";
+static const int           DEFAULT_CONNECT_TIMEOUT       = 30;
+static const int           DEFAULT_STREAM_PORT           = 8001;
+static const int           DEFAULT_WEB_PORT              = 80;
+static const int           DEFAULT_UPDATE_INTERVAL       = 2;
+static const std::string   DEFAULT_TSBUFFERPATH          = "special://userdata/addon_data/pvr.vuplus";
+static const int           TIMESHIFT_OFF                 = 0;
+static const int           TIMESHIFT_ON_PLAYBACK         = 1;
+static const int           TIMESHIFT_ON_PAUSE            = 2;
+static const int           DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
 extern bool                      m_bCreated;
 extern std::string               g_strHostname;
