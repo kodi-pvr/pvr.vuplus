@@ -427,7 +427,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         autoTimer.deDup = AutoTimer::DeDup::CHECK_TITLE;
       else if (searchForDuplicateDescription == AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC)
         autoTimer.deDup = AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC;
-      else if (searchForDuplicateDescription == AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS)
+      else if (searchForDuplicateDescription.empty()) //Even though this value should be 2 it is sent as ommitted for this attribute
         autoTimer.deDup = AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS;
     }
 
@@ -689,7 +689,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       groupValues, deDupValues);
     types.emplace_back(*t);
     types.back().iPreventDuplicateEpisodesDefault =
-        AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC;
+        AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS;
 
     /* One-shot created by epg auto search */
     types.emplace_back(TimerType(
@@ -884,7 +884,9 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
       case AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC:
         strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC.c_str());
         break;
-      // For AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS we don't need to set a value as this is the default
+      case AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS:
+        strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS.c_str());
+        break;
     }
   }
 
@@ -1010,8 +1012,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
           strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC.c_str());
           break;
         case AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS:
-          //TODO Below is unsupported currently due to bug in the OpenWebIf API, the value cannot be unset
-          //strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS.c_str());
+          strTmp += StringUtils::Format("&searchForDuplicateDescription=%s", AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS.c_str());
           break;
       }
     }
