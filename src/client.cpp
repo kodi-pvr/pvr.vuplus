@@ -71,6 +71,7 @@ std::string g_szClientPath            = "";
 int         g_iEnableTimeshift        = TIMESHIFT_OFF;
 std::string g_strTimeshiftBufferPath  = DEFAULT_TSBUFFERPATH;
 int         g_iReadTimeout            = 0;
+int         g_iNumGenRepeatTimers     = DEFAULT_NUM_GEN_REPEAT_TIMERS;
 
 CHelper_libXBMC_addon *XBMC           = NULL;
 CHelper_libXBMC_pvr   *PVR            = NULL;
@@ -170,6 +171,9 @@ void ADDON_ReadSettings(void)
 
   if (!XBMC->GetSetting("readtimeout", &g_iReadTimeout))
     g_iReadTimeout = 0;
+
+  if (!XBMC->GetSetting("numgenrepeattimers", &g_iNumGenRepeatTimers))
+    g_iNumGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
 
   free (buffer);
 }
@@ -385,7 +389,7 @@ const char *GetBackendHostname(void)
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-  return PVR_ERROR_SERVER_ERROR;
+  return VuData->GetDriveSpace(iTotal, iUsed);
 }
 
 
