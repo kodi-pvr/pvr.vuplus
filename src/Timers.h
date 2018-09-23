@@ -35,7 +35,7 @@ static const std::string AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING = "3
 
 static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE = "0";                 //Check for uniqueness in - Title
 static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC = "1";  //Check for uniqueness in - Title and Short description
-static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS = "";    //Check for uniqueness in - Title and all descpritions
+static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS = "2";   //Check for uniqueness in - Title and all descpritions
 
 static const std::string AUTOTIMER_DEFAULT = "";
 

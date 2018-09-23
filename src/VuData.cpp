@@ -678,7 +678,7 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
       continue;
 
     newChannel.strChannelName = strTmp;
- 
+
     std::string strIcon;
     strIcon = newChannel.strServiceReference.c_str();
 
@@ -701,6 +701,14 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
     {
       strIcon.erase(it);
     }
+
+    //Extract the unique part of the icon name and apply the standard pre and post-fix
+    std::regex startPrefixRegex ("^\\d+:\\d+:\\d+:");
+    std::string replaceWith = "";
+    strIcon = regex_replace(strIcon, startPrefixRegex, replaceWith);
+    std::regex endPostfixRegex (":\\d+:\\d+:\\d+$");
+    strIcon = regex_replace(strIcon, endPostfixRegex, replaceWith);
+    strIcon = SERVICE_REF_ICON_PREFIX + strIcon + SERVICE_REF_ICON_POSTFIX;
     
     std::string strTmp2;
 

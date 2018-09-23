@@ -147,6 +147,9 @@ public:
   Vu(void);
   ~Vu();
 
+  const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
+  const std::string SERVICE_REF_ICON_POSTFIX = ":0:0:0";
+
   inline unsigned int GenerateWebIfVersionNum(unsigned int major, unsigned int minor, unsigned int patch)
   {
     return (major << 16 | minor << 8 | patch);
