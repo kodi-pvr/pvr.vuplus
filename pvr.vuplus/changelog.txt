@@ -1,3 +1,6 @@
+v3.11.2
+- Fixed: Previous version picon fix turned into an option to use picons.eu file format
+
 v3.11.1
 - Fixed: Not able to select duplicate with titles and all descs
 - Fixed: Online icons path processing incorrect for some channels

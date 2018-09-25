@@ -72,6 +72,7 @@ int         g_iEnableTimeshift        = TIMESHIFT_OFF;
 std::string g_strTimeshiftBufferPath  = DEFAULT_TSBUFFERPATH;
 int         g_iReadTimeout            = 0;
 int         g_iNumGenRepeatTimers     = DEFAULT_NUM_GEN_REPEAT_TIMERS;
+bool        g_bUsePiconsEuFormat      = false;
 
 CHelper_libXBMC_addon *XBMC           = NULL;
 CHelper_libXBMC_pvr   *PVR            = NULL;
@@ -174,6 +175,9 @@ void ADDON_ReadSettings(void)
 
   if (!XBMC->GetSetting("numgenrepeattimers", &g_iNumGenRepeatTimers))
     g_iNumGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
+
+  if (!XBMC->GetSetting("usepiconseuformat", &g_bUsePiconsEuFormat))
+    g_bUsePiconsEuFormat = false;
 
   free (buffer);
 }

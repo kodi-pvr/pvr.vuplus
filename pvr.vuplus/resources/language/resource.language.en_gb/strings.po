@@ -140,6 +140,10 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr ""
 
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr ""
+
 #empty strings from id 30031 to 30499
 #notifications
 

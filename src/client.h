@@ -63,6 +63,7 @@ extern int                       g_iEnableTimeshift;
 extern std::string               g_strTimeshiftBufferPath;
 extern int                       g_iReadTimeout;
 extern int                       g_iNumGenRepeatTimers;
+extern bool                      g_bUsePiconsEuFormat;
 extern std::string               g_strChannelDataPath;
 extern ADDON::CHelper_libXBMC_addon *   XBMC;
 extern CHelper_libXBMC_pvr *     PVR;
