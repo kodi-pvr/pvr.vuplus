@@ -140,76 +140,77 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr ""
 
+#empty strings from id 30031 to 30034
+
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr ""
 
-#empty strings from id 30031 to 30499
-#notifications
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr ""
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr ""
+#empty strings from id 30036 to 30049
 
 msgctxt "#30050"
 msgid "Custom Live TV timeout (0 to use default)"
-msgstr "Custom Live TV timeout (0 to use default)"
+msgstr ""
 
 msgctxt "#30051"
 msgid "Login"
-msgstr "Login"
+msgstr ""
 
 msgctxt "#30052"
 msgid "Misc"
-msgstr "Misc"
+msgstr ""
+
+#empty strings from id 30053 to 30059
 
 msgctxt "#30060"
 msgid "Timeshift"
-msgstr "Timeshift"
+msgstr ""
 
 msgctxt "#30061"
 msgid "Enable Timeshift"
-msgstr "Enable Timeshift"
+msgstr ""
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Timeshift buffer path"
+msgstr ""
 
 msgctxt "#30063"
 msgid "Off"
-msgstr "Off"
+msgstr ""
 
 msgctxt "#30064"
 msgid "On playback"
-msgstr "On playback"
+msgstr ""
 
 msgctxt "#30065"
 msgid "On pause"
-msgstr "On pause"
+msgstr ""
+
+#empty strings from id 30066 to 30069
 
 msgctxt "#30070"
 msgid "Recordings & Timers"
-msgstr "Recordings & Timers"
+msgstr ""
 
 msgctxt "#30071"
 msgid "Recordings"
-msgstr "Recordings"
+msgstr ""
 
 msgctxt "#30072"
 msgid "Timers"
-msgstr "Timers"
+msgstr ""
 
 msgctxt "#30073"
 msgid "Number of Repeat Timers to generate"
-msgstr "Number of Repeat Timers to generate"
+msgstr ""
+
+#empty strings from id 30074 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"
 msgstr ""
+
+#empty strings from id 30411 to 30419
 
 msgctxt "#30420"
 msgid "One time (Scheduled by guide-based timer rule)"
@@ -218,6 +219,8 @@ msgstr ""
 msgctxt "#30421"
 msgid "One time (Scheduled by repeating timer rule)"
 msgstr ""
+
+#empty strings from id 30422 to 30429
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -235,6 +238,19 @@ msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr ""
 
+#empty strings from id 30434 to 30499
+#notifications
+
+msgctxt "#30500"
+msgid "Disconnected from '%s'"
+msgstr ""
+
+msgctxt "#30501"
+msgid "Reconnected to '%s'"
+msgstr ""
+
+#empty strings from id 30502 to 30513
+
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "Timeshift buffer path does not exist"
+msgstr ""
