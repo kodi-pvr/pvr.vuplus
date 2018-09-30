@@ -213,7 +213,7 @@ std::vector<Timer> Timers::LoadTimers() const
     if (XMLUtils::GetString(pNode, "e2tags", strTmp))
       timer.tags        = strTmp.c_str();
 
-    if (Timers::FindTagInTimerTags("Manual", timer.tags))
+    if (Timers::FindTagInTimerTags(TAG_FOR_MANUAL_TIMER, timer.tags))
     {
       //We create a Manual tag on Manual timers created from Kodi, this allows us to set the Timer Type correctly
       if (timer.iWeekdays != PVR_WEEKDAY_NONE)
@@ -233,7 +233,7 @@ std::vector<Timer> Timers::LoadTimers() const
       }
       else
       {
-        if (Timers::FindTagInTimerTags("AutoTimer", timer.tags))
+        if (Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.tags))
         {
           timer.type =  Timer::EPG_AUTO_ONCE;
         }
@@ -808,9 +808,9 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
 
   XBMC->Log(LOG_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
 
-  std::string tags = "EPG";
+  std::string tags = TAG_FOR_EPG_TIMER;
   if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
-    tags = "Manual";
+    tags = TAG_FOR_MANUAL_TIMER;
 
   std::string strTmp;
   std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
@@ -1328,7 +1328,8 @@ bool Timers::TimerUpdatesAuto()
     {
       std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.strTitle);
 
-      if (timer.type == Timer::EPG_AUTO_ONCE && FindTagInTimerTags(autotimerTag, timer.tags))
+      if (timer.type == Timer::EPG_AUTO_ONCE && Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.tags) 
+            && FindTagInTimerTags(autotimerTag, timer.tags))
       {
         timer.iParentClientIndex = autoTimer.iClientIndex;
         continue;
