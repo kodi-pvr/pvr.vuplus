@@ -65,6 +65,9 @@ extern int                       g_iReadTimeout;
 extern int                       g_iNumGenRepeatTimers;
 extern bool                      g_bUsePiconsEuFormat;
 extern std::string               g_strChannelDataPath;
+extern bool                      g_bEnableAutoTimers;
+extern bool                      g_bEnableGenRepeatTimers;
+extern bool                      g_bExtractExtraEpgInfo;
 extern ADDON::CHelper_libXBMC_addon *   XBMC;
 extern CHelper_libXBMC_pvr *     PVR;
 

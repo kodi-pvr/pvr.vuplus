@@ -394,9 +394,19 @@ std::string Vu::URLEncodeInline(const std::string& sSrc) const
   return sResult;
 }
 
+bool Vu::GetGenRepeatTimersEnabled() const
+{
+  return g_bEnableGenRepeatTimers;
+}
+
 int Vu::GetNumGenRepeatTimers() const
 {
   return g_iNumGenRepeatTimers;
+}
+
+bool Vu::GetAutoTimersEnabled() const
+{
+  return g_bEnableAutoTimers;
 }
 
 /***************************************************************************

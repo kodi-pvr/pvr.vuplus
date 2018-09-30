@@ -10,16 +10,19 @@
     <setting label="30006" type="lsep"/>
     <setting id="onlinepicons" type="bool" default="true" label="30027" />
     <setting id="usepiconseuformat" type="bool" default="false" enable="eq(-1,true)" subsetting="true" label="30035" />
-    <setting id="iconpath" type="folder" label="30008" enable="eq(-2,false)" default="" />
+    <setting id="iconpath" type="folder" label="30008" enable="eq(-1,false)" subsetting="true" default="" />
     <setting label="30009" type="lsep"/>
     <setting id="updateint" type="number" label="30010" default="2" />
   </category>
 
   <!-- Channels -->
-  <category label="30019">
+  <category label="30031">
+    <setting label="30019" type="lsep"/>
     <setting label="30025" type="bool" id="onlyonegroup" default="false"/>
-    <setting label="30026" type="text" id="onegroup" default="" enable="eq(-1,true)" />
+    <setting label="30026" type="text" id="onegroup" default="" enable="eq(-1,true)" subsetting="true"/>
     <setting label="30013" type="bool" id="zap" default="false"/>
+    <setting label="30032" type="lsep"/>
+    <setting label="30033" type="bool" id="extracteventinfo" default="true"/>
   </category>
 
   <!-- Recordings and Timers-->
@@ -29,13 +32,16 @@
     <setting label="30017" type="bool" id="onlycurrent" default="false"/>
     <setting label="30030" type="bool" id="keepfolders" default="false" />
     <setting label="30072" type="lsep"/>
-    <setting label="30073" type="number" id="numgenrepeattimers" default="1"/>
+    <setting label="30036" type="bool" id="enablegenrepeattimers" default="true"/>
+    <setting label="30073" type="number" id="numgenrepeattimers" subsetting="true" enable="eq(-1,true)" default="1"/>
+    <setting label="30034" type="bool" id="enableautotimers" default="true"/>
+    <setting label="30011" type="bool" id="timerlistcleanup" default="false"/>
   </category>
 
   <!-- Timeshift -->
   <category label="30060">
     <setting id="enabletimeshift" type="enum" label="30061" lvalues="30063|30064|30065"/>
-    <setting id="timeshiftbufferpath" type="folder" label="30062" source="auto" option="writeable" enable="gt(-1,0)" default="special://userdata/addon_data/pvr.vuplus"/>
+    <setting id="timeshiftbufferpath" type="folder" label="30062" source="auto" option="writeable" enable="gt(-1,0)" subsetting="true" default="special://userdata/addon_data/pvr.vuplus"/>
   </category>
   
   <!-- Advanced -->
@@ -46,7 +52,6 @@
     <setting id="user" type="text" label="30003" default="" />
     <setting id="pass" type="text" label="30004" option="hidden" default="" />
     <setting label="30052" type="lsep"/>
-    <setting label="30011" type="bool" id="timerlistcleanup" default="false"/>
     <setting label="30024" type="bool" id="setpowerstate" default="false" />
     <setting label="30050" type="number" id="readtimeout" default="0"/>
   </category>
