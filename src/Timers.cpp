@@ -141,6 +141,12 @@ std::vector<Timer> Timers::LoadTimers() const
     if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
       timer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
 
+    if (timer.iChannelId < 0)
+    {
+      XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, timer.strTitle.c_str());
+      continue;
+    }
+
     timer.strChannelName = vuData.GetChannels().at(timer.iChannelId-1).strChannelName;  
 
     if (!XMLUtils::GetInt(pNode, "e2timebegin", iTmp)) 
@@ -457,6 +463,13 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         if (XMLUtils::GetString(serviceNode, "e2servicereference", strTmp))
         {
           autoTimer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
+
+          if (autoTimer.iChannelId < 0)
+          {
+            XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, autoTimer.strTitle.c_str());
+            continue;
+          }
+
           autoTimer.strChannelName = vuData.GetChannels().at(autoTimer.iChannelId-1).strChannelName;  
         }
       }
@@ -466,6 +479,11 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         autoTimer.anyChannel = true; 
       }
     } 
+    else //otherwise set to any channel
+    {
+      autoTimer.iChannelId = PVR_TIMER_ANY_CHANNEL;
+      autoTimer.anyChannel = true; 
+    }
 
     autoTimer.iWeekdays = 0;
     
@@ -1313,7 +1331,9 @@ bool Timers::TimerUpdatesAuto()
     if(newAutoTimer.iUpdateState == VU_UPDATE_STATE_NEW)
     {  
       newAutoTimer.iClientIndex = m_iClientIndexCounter;
-      newAutoTimer.strChannelName = vuData.GetChannels().at(newAutoTimer.iChannelId-1).strChannelName;
+
+      if ((newAutoTimer.iChannelId -1) == PVR_TIMER_ANY_CHANNEL)
+        newAutoTimer.anyChannel = true;
       XBMC->Log(LOG_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.strTitle.c_str(), m_iClientIndexCounter);
       m_autotimers.emplace_back(newAutoTimer);
       m_iClientIndexCounter++;
