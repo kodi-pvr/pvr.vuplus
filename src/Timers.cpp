@@ -246,7 +246,8 @@ std::vector<Timer> Timers::LoadTimers() const
 
     timers.emplace_back(timer);
 
-    if ((timer.type == Timer::MANUAL_REPEATING || timer.type == Timer::EPG_REPEATING) && vuData.GetNumGenRepeatTimers() > 0)
+    if ((timer.type == Timer::MANUAL_REPEATING || timer.type == Timer::EPG_REPEATING) 
+        && vuData.GetGenRepeatTimersEnabled() && vuData.GetNumGenRepeatTimers() > 0)
     {
       GenerateChildManualRepeatingTimers(&timers, &timer);
     }
@@ -657,7 +658,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
     ""); /* Let Kodi generate the description */
   types.emplace_back(*t);
 
-  if (CanAutoTimers())
+  if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
   {
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
     static std::vector< std::pair<int, std::string> > deDupValues =
@@ -1137,7 +1138,10 @@ void Timers::ClearTimers()
 void Timers::TimerUpdates()
 {
   bool regularTimersChanged = TimerUpdatesRegular();
-  bool autoTimersChanged = TimerUpdatesAuto();
+  bool autoTimersChanged = false;
+  
+  if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
+    autoTimersChanged = TimerUpdatesAuto();
 
   if (regularTimersChanged || autoTimersChanged) 
   {
@@ -1209,7 +1213,6 @@ bool Timers::TimerUpdatesRegular()
     if(newTimer.iUpdateState == VU_UPDATE_STATE_NEW)
     {  
       newTimer.iClientIndex = m_iClientIndexCounter;
-      newTimer.strChannelName = vuData.GetChannels().at(newTimer.iChannelId-1).strChannelName;
       XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.strTitle.c_str(), m_iClientIndexCounter);
       m_timers.emplace_back(newTimer);
       m_iClientIndexCounter++;
