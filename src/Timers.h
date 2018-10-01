@@ -39,6 +39,10 @@ static const std::string AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS =
 
 static const std::string AUTOTIMER_DEFAULT = "";
 
+static const std::string TAG_FOR_AUTOTIMER = "AutoTimer";
+static const std::string TAG_FOR_MANUAL_TIMER = "Manual";
+static const std::string TAG_FOR_EPG_TIMER = "EPG";
+
 static const int DAYS_IN_WEEK = 7;
 
 typedef enum VU_UPDATE_STATE

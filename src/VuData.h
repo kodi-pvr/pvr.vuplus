@@ -166,7 +166,9 @@ public:
   std::string GetHttpXML(const std::string& url) const;
   bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false) const;
   std::string URLEncodeInline(const std::string& sSrc) const;
+  bool GetGenRepeatTimersEnabled() const;
   int GetNumGenRepeatTimers() const;
+  bool GetAutoTimersEnabled() const;
 
   
   //groups, channels and EPG

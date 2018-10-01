@@ -141,6 +141,12 @@ std::vector<Timer> Timers::LoadTimers() const
     if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
       timer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
 
+    if (timer.iChannelId < 0)
+    {
+      XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, timer.strTitle.c_str());
+      continue;
+    }
+
     timer.strChannelName = vuData.GetChannels().at(timer.iChannelId-1).strChannelName;  
 
     if (!XMLUtils::GetInt(pNode, "e2timebegin", iTmp)) 
@@ -213,7 +219,7 @@ std::vector<Timer> Timers::LoadTimers() const
     if (XMLUtils::GetString(pNode, "e2tags", strTmp))
       timer.tags        = strTmp.c_str();
 
-    if (Timers::FindTagInTimerTags("Manual", timer.tags))
+    if (Timers::FindTagInTimerTags(TAG_FOR_MANUAL_TIMER, timer.tags))
     {
       //We create a Manual tag on Manual timers created from Kodi, this allows us to set the Timer Type correctly
       if (timer.iWeekdays != PVR_WEEKDAY_NONE)
@@ -233,7 +239,7 @@ std::vector<Timer> Timers::LoadTimers() const
       }
       else
       {
-        if (Timers::FindTagInTimerTags("AutoTimer", timer.tags))
+        if (Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.tags))
         {
           timer.type =  Timer::EPG_AUTO_ONCE;
         }
@@ -246,7 +252,8 @@ std::vector<Timer> Timers::LoadTimers() const
 
     timers.emplace_back(timer);
 
-    if ((timer.type == Timer::MANUAL_REPEATING || timer.type == Timer::EPG_REPEATING) && vuData.GetNumGenRepeatTimers() > 0)
+    if ((timer.type == Timer::MANUAL_REPEATING || timer.type == Timer::EPG_REPEATING) 
+        && vuData.GetGenRepeatTimersEnabled() && vuData.GetNumGenRepeatTimers() > 0)
     {
       GenerateChildManualRepeatingTimers(&timers, &timer);
     }
@@ -456,6 +463,13 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         if (XMLUtils::GetString(serviceNode, "e2servicereference", strTmp))
         {
           autoTimer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
+
+          if (autoTimer.iChannelId < 0)
+          {
+            XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, autoTimer.strTitle.c_str());
+            continue;
+          }
+
           autoTimer.strChannelName = vuData.GetChannels().at(autoTimer.iChannelId-1).strChannelName;  
         }
       }
@@ -465,6 +479,11 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         autoTimer.anyChannel = true; 
       }
     } 
+    else //otherwise set to any channel
+    {
+      autoTimer.iChannelId = PVR_TIMER_ANY_CHANNEL;
+      autoTimer.anyChannel = true; 
+    }
 
     autoTimer.iWeekdays = 0;
     
@@ -657,7 +676,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
     ""); /* Let Kodi generate the description */
   types.emplace_back(*t);
 
-  if (CanAutoTimers())
+  if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
   {
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
     static std::vector< std::pair<int, std::string> > deDupValues =
@@ -807,9 +826,9 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
 
   XBMC->Log(LOG_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
 
-  std::string tags = "EPG";
+  std::string tags = TAG_FOR_EPG_TIMER;
   if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
-    tags = "Manual";
+    tags = TAG_FOR_MANUAL_TIMER;
 
   std::string strTmp;
   std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
@@ -1137,7 +1156,10 @@ void Timers::ClearTimers()
 void Timers::TimerUpdates()
 {
   bool regularTimersChanged = TimerUpdatesRegular();
-  bool autoTimersChanged = TimerUpdatesAuto();
+  bool autoTimersChanged = false;
+  
+  if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
+    autoTimersChanged = TimerUpdatesAuto();
 
   if (regularTimersChanged || autoTimersChanged) 
   {
@@ -1209,7 +1231,6 @@ bool Timers::TimerUpdatesRegular()
     if(newTimer.iUpdateState == VU_UPDATE_STATE_NEW)
     {  
       newTimer.iClientIndex = m_iClientIndexCounter;
-      newTimer.strChannelName = vuData.GetChannels().at(newTimer.iChannelId-1).strChannelName;
       XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.strTitle.c_str(), m_iClientIndexCounter);
       m_timers.emplace_back(newTimer);
       m_iClientIndexCounter++;
@@ -1310,7 +1331,9 @@ bool Timers::TimerUpdatesAuto()
     if(newAutoTimer.iUpdateState == VU_UPDATE_STATE_NEW)
     {  
       newAutoTimer.iClientIndex = m_iClientIndexCounter;
-      newAutoTimer.strChannelName = vuData.GetChannels().at(newAutoTimer.iChannelId-1).strChannelName;
+
+      if ((newAutoTimer.iChannelId -1) == PVR_TIMER_ANY_CHANNEL)
+        newAutoTimer.anyChannel = true;
       XBMC->Log(LOG_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.strTitle.c_str(), m_iClientIndexCounter);
       m_autotimers.emplace_back(newAutoTimer);
       m_iClientIndexCounter++;
@@ -1325,7 +1348,8 @@ bool Timers::TimerUpdatesAuto()
     {
       std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.strTitle);
 
-      if (timer.type == Timer::EPG_AUTO_ONCE && FindTagInTimerTags(autotimerTag, timer.tags))
+      if (timer.type == Timer::EPG_AUTO_ONCE && Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.tags) 
+            && FindTagInTimerTags(autotimerTag, timer.tags))
       {
         timer.iParentClientIndex = autoTimer.iClientIndex;
         continue;

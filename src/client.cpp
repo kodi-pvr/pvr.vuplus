@@ -73,6 +73,9 @@ std::string g_strTimeshiftBufferPath  = DEFAULT_TSBUFFERPATH;
 int         g_iReadTimeout            = 0;
 int         g_iNumGenRepeatTimers     = DEFAULT_NUM_GEN_REPEAT_TIMERS;
 bool        g_bUsePiconsEuFormat      = false;
+bool        g_bEnableAutoTimers       = true;
+bool        g_bEnableGenRepeatTimers  = true;
+bool        g_bExtractExtraEpgInfo    = true;
 
 CHelper_libXBMC_addon *XBMC           = NULL;
 CHelper_libXBMC_pvr   *PVR            = NULL;
@@ -86,35 +89,33 @@ extern "C" {
 
 void ADDON_ReadSettings(void)
 {
-  /* read setting "host" from settings.xml */
   char * buffer;
   buffer = (char*) malloc (1024);
-  buffer[0] = 0; /* Set the end of string */
+  buffer[0] = 0;
 
   if (XBMC->GetSetting("host", buffer))
     g_strHostname = buffer;
   else
     g_strHostname = DEFAULT_HOST;
-  buffer[0] = 0; /* Set the end of string */
+  buffer[0] = 0;
 
-  /* read setting "user" from settings.xml */
   if (XBMC->GetSetting("user", buffer))
     g_strUsername = buffer;
   else
     g_strUsername = "";
-  buffer[0] = 0; /* Set the end of string */
+  buffer[0] = 0;
   
-  /* read setting "recordingpath" from settings.xml */
   if (XBMC->GetSetting("recordingpath", buffer))
     g_strRecordingPath = buffer;
   else
     g_strRecordingPath = "";
-  buffer[0] = 0; /* Set the end of string */
+  buffer[0] = 0;
 
   if (XBMC->GetSetting("pass", buffer))
     g_strPassword = buffer;
   else
     g_strPassword = "";
+  buffer[0] = 0;
   
   if (!XBMC->GetSetting("use_secure", &g_bUseSecureHTTP))
     g_bUseSecureHTTP = false;
@@ -150,17 +151,19 @@ void ADDON_ReadSettings(void)
     g_strOneGroup = buffer;
   else
     g_strOneGroup = "";
+  buffer[0] = 0;
 
   if (!XBMC->GetSetting("timerlistcleanup", &g_bAutomaticTimerlistCleanup))
     g_bAutomaticTimerlistCleanup = false;
 
   if (!XBMC->GetSetting("updateint", &g_iUpdateInterval))
-    g_iConnectTimeout = DEFAULT_UPDATE_INTERVAL;
+    g_iUpdateInterval = DEFAULT_UPDATE_INTERVAL;
 
   if (XBMC->GetSetting("iconpath", buffer))
     g_strIconPath = buffer;
   else
     g_strIconPath = "";
+  buffer[0] = 0;
 
   if (!XBMC->GetSetting("enabletimeshift", &g_iEnableTimeshift))
     g_iEnableTimeshift = TIMESHIFT_OFF;
@@ -169,6 +172,7 @@ void ADDON_ReadSettings(void)
     g_strTimeshiftBufferPath = buffer;
   else
     g_strTimeshiftBufferPath = DEFAULT_TSBUFFERPATH;
+  buffer[0] = 0;
 
   if (!XBMC->GetSetting("readtimeout", &g_iReadTimeout))
     g_iReadTimeout = 0;
@@ -178,6 +182,15 @@ void ADDON_ReadSettings(void)
 
   if (!XBMC->GetSetting("usepiconseuformat", &g_bUsePiconsEuFormat))
     g_bUsePiconsEuFormat = false;
+
+  if (!XBMC->GetSetting("enableautotimers", &g_bEnableAutoTimers))
+    g_bEnableAutoTimers = true;
+
+  if (!XBMC->GetSetting("enablegenrepeattimers", &g_bEnableGenRepeatTimers))
+    g_bEnableGenRepeatTimers = true;
+
+  if (!XBMC->GetSetting("extracteventinfo", &g_bExtractExtraEpgInfo))
+    g_bExtractExtraEpgInfo = true;
 
   free (buffer);
 }
@@ -256,69 +269,100 @@ void ADDON_Destroy()
   m_CurStatus = ADDON_STATUS_UNKNOWN;
 }
 
+ADDON_STATUS SetStringSetting(const std::string &settingName, const char* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged)
+{
+  string strSettingValue = settingValue;
+
+  if (strSettingValue != currentValue)
+  {
+    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
+    currentValue = strSettingValue;
+    return returnValueIfChanged;
+  }
+
+  return ADDON_STATUS_OK;
+}
+
+ADDON_STATUS SetIntSetting(const std::string &settingName, int settingValue, int &currentValue, ADDON_STATUS returnValueIfChanged)
+{
+  if (settingValue != currentValue)
+  {
+    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, settingValue);
+    currentValue = settingValue;
+    return returnValueIfChanged;
+  }
+
+  return ADDON_STATUS_OK;
+}
+
+ADDON_STATUS SetBoolSetting(const std::string &settingName, bool settingValue, bool &currentValue, ADDON_STATUS returnValueIfChanged)
+{
+  if (settingValue != currentValue)
+  {
+    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, settingValue);
+    currentValue = settingValue;
+    return returnValueIfChanged;
+  }
+
+  return ADDON_STATUS_OK;
+}
+
 ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
 {
-  string str = settingName;
-  if (str == "host")
-  {
-    string tmp_sHostname;
-    XBMC->Log(LOG_INFO, "%s - Changed Setting 'host' from %s to %s", __FUNCTION__, g_strHostname.c_str(), (const char*) settingValue);
-    tmp_sHostname = g_strHostname;
-    g_strHostname = (const char*) settingValue;
-    if (tmp_sHostname != g_strHostname)
-      return ADDON_STATUS_NEED_RESTART;
-  }
-  else if (str == "user")
-  {
-    string tmp_sUsername = g_strUsername;
-    g_strUsername = (const char*) settingValue;
-    if (tmp_sUsername != g_strUsername)
-    {
-      XBMC->Log(LOG_INFO, "%s - Changed Setting 'user'", __FUNCTION__);
-      return ADDON_STATUS_NEED_RESTART;
-    }
-  }
-  else if (str == "pass")
-  {
-    string tmp_sPassword = g_strPassword;
-    g_strPassword = (const char*) settingValue;
-    if (tmp_sPassword != g_strPassword)
-    {
-      XBMC->Log(LOG_INFO, "%s - Changed Setting 'pass'", __FUNCTION__);
-      return ADDON_STATUS_NEED_RESTART;
-    }
-  }
-  else if (str == "streamport")
-  {
-    int iNewValue = *(int*) settingValue + 1;
-    if (g_iPortStream != iNewValue)
-    {
-      XBMC->Log(LOG_INFO, "%s - Changed Setting 'streamport' from %u to %u", __FUNCTION__, g_iPortStream, iNewValue);
-      g_iPortStream = iNewValue;
-      return ADDON_STATUS_OK;
-    }
-  }
-  else if (str == "webport")
-  {
-    int iNewValue = *(int*) settingValue + 1;
-    if (g_iPortWeb != iNewValue)
-    {
-      XBMC->Log(LOG_INFO, "%s - Changed Setting 'webport' from %u to %u", __FUNCTION__, g_iPortWeb, iNewValue);
-      g_iPortWeb = iNewValue;
-      return ADDON_STATUS_OK;
-    }
-  }
-  else if (str == "enabletimeshift")
-  {
-    int iNewValue = *(int*) settingValue;
+  const std::string str = settingName;
 
-    if (g_iEnableTimeshift != iNewValue)
-    {
-      XBMC->Log(LOG_INFO, "%s - Changed Setting 'enabletimeshift' from %u to %u", __FUNCTION__, g_iEnableTimeshift, iNewValue);
-      g_iEnableTimeshift = iNewValue;
-      return ADDON_STATUS_OK;
-    }
-  }
+  if (str == "host")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strHostname, ADDON_STATUS_NEED_RESTART);
+  else if (str == "webport")
+    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iPortWeb, ADDON_STATUS_NEED_RESTART);
+  else if (str == "use_secure")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bUseSecureHTTP, ADDON_STATUS_NEED_RESTART);
+  else if (str == "onlinepicons")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bOnlinePicons, ADDON_STATUS_NEED_RESTART);
+  else if (str == "usepiconseuformat")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bUsePiconsEuFormat, ADDON_STATUS_NEED_RESTART);
+  else if (str == "iconpath")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strIconPath, ADDON_STATUS_NEED_RESTART);
+  else if (str == "updateint")
+    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iUpdateInterval, ADDON_STATUS_OK);
+  else if (str == "onlyonegroup")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bOnlyOneGroup, ADDON_STATUS_NEED_RESTART);
+  else if (str == "onegroup")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strOneGroup, ADDON_STATUS_NEED_RESTART);
+  else if (str == "zap")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bZap, ADDON_STATUS_OK);
+  else if (str == "extracteventinfo")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bExtractExtraEpgInfo, ADDON_STATUS_OK);
+  else if (str == "recordingpath")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strRecordingPath, ADDON_STATUS_NEED_RESTART);
+  else if (str == "onlycurrent")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bOnlyCurrentLocation, ADDON_STATUS_OK);
+  else if (str == "keepfolders")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bKeepFolders, ADDON_STATUS_OK);
+  else if (str == "enablegenrepeattimers")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bEnableAutoTimers, ADDON_STATUS_OK);
+  else if (str == "numgenrepeattimers")
+    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iNumGenRepeatTimers, ADDON_STATUS_OK);
+  else if (str == "enableautotimers")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bEnableAutoTimers, ADDON_STATUS_NEED_RESTART);
+  else if (str == "timerlistcleanup")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bAutomaticTimerlistCleanup, ADDON_STATUS_OK);
+  else if (str == "enabletimeshift")
+    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iEnableTimeshift, ADDON_STATUS_OK);
+  else if (str == "timeshiftbufferpath")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strTimeshiftBufferPath, ADDON_STATUS_OK);
+  else if (str == "autoconfig")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bAutoConfig, ADDON_STATUS_OK);
+  else if (str == "streamport")
+    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iPortStream, ADDON_STATUS_NEED_RESTART);
+  else if (str == "user")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strUsername, ADDON_STATUS_OK);
+  else if (str == "pass")
+    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strPassword, ADDON_STATUS_OK);
+  else if (str == "setpowerstate")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bSetPowerstate, ADDON_STATUS_OK);
+  else if (str == "readtimeout")
+    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iReadTimeout, ADDON_STATUS_NEED_RESTART);
 
   return ADDON_STATUS_OK;
 }

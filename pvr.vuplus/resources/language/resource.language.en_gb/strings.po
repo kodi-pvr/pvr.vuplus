@@ -140,13 +140,32 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr ""
 
-#empty strings from id 30031 to 30034
+msgctxt "#30031"
+msgid "Channels & EPG"
+msgstr ""
+
+msgctxt "#30032"
+msgid "EPG"
+msgstr ""
+
+msgctxt "#30033"
+msgid "Extract Genre, Season and Episode Info where possible"
+msgstr ""
+
+msgctxt "#30034"
+msgid "Enable Autotimers"
+msgstr ""
 
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr ""
 
-#empty strings from id 30036 to 30049
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr ""
+
+#empty strings from id 30037 to 30049
+#notifications
 
 msgctxt "#30050"
 msgid "Custom Live TV timeout (0 to use default)"

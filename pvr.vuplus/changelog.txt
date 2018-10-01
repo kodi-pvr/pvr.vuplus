@@ -1,3 +1,8 @@
+v3.11.3
+- Added: New settings to allow feature switches for generating repeating timers and autotimers
+- Added: Config guide to Readme
+- Fixed: Missing channel or more than one channel in timers/autotimers
+
 v3.11.2
 - Fixed: Previous version picon fix turned into an option to use picons.eu file format
 
