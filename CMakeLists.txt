@@ -21,14 +21,21 @@ set(VUPLUS_SOURCES src/client.cpp
                    src/StreamReader.cpp
                    src/TimeshiftBuffer.cpp
                    src/Timers.cpp
+                   src/extract/EpgEntryExtractor.cpp
+                   src/extract/GenreExtractor.cpp
+                   src/extract/ShowInfoExtractor.cpp
                    src/RecordingReader.cpp)
 
 set(VUPLUS_HEADERS src/client.h
                    src/VuData.h
+                   src/VuBase.h
                    src/IStreamReader.h
                    src/StreamReader.h
                    src/TimeshiftBuffer.h
                    src/Timers.h
+                   src/extract/EpgEntryExtractor.h
+                   src/extract/GenreExtractor.h
+                   src/extract/ShowInfoExtractor.h
                    src/RecordingReader.h
                    src/LocalizedString.h)
 

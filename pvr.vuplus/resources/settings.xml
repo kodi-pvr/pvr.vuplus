@@ -22,7 +22,8 @@
     <setting label="30026" type="text" id="onegroup" default="" enable="eq(-1,true)" subsetting="true"/>
     <setting label="30013" type="bool" id="zap" default="false"/>
     <setting label="30032" type="lsep"/>
-    <setting label="30033" type="bool" id="extracteventinfo" default="true"/>
+    <setting label="30033" type="bool" id="extracteventinfo" default="false"/>
+    <setting label="30037" type="bool" id="logmissinggenremapping" enable="eq(-1,true)" default="false"/>
   </category>
 
   <!-- Recordings and Timers-->

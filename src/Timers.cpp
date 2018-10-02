@@ -892,7 +892,6 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   if (deDup == AutoTimer::DeDup::DISABLED)
   {
     strTmp += StringUtils::Format("&avoidDuplicateDescription=0");
-    //strTmp += StringUtils::Format("&searchForDuplicateDescription=");
   }
   else
   {

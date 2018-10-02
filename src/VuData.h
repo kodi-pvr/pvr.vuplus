@@ -23,6 +23,8 @@
 
 #include "client.h"
 #include "Timers.h"
+#include "VuBase.h"
+#include "extract/EpgEntryExtractor.h"
 #include "RecordingReader.h"
 #include "p8-platform/threads/threads.h"
 #include "tinyxml.h"
@@ -36,7 +38,6 @@ public:
   bool Get(const std::string &strURL, std::string &strResult);
 };
 
-
 typedef enum VU_UPDATE_STATE
 {
     VU_UPDATE_STATE_NONE,
@@ -45,16 +46,13 @@ typedef enum VU_UPDATE_STATE
     VU_UPDATE_STATE_NEW
 } VU_UPDATE_STATE;
 
-struct VuEPGEntry 
+struct VuEPGEntry : public VuBase
 {
   int iEventId;
   std::string strServiceReference;
-  std::string strTitle;
   int iChannelId;
   time_t startTime;
   time_t endTime;
-  std::string strPlotOutline;
-  std::string strPlot;
 };
 
 struct VuChannelGroup 
@@ -79,21 +77,18 @@ struct VuChannel
   std::string strIconPath;
 };
 
-struct VuRecording
+struct VuRecording : public VuBase
 {
   std::string strRecordingId;
   time_t startTime;
   int iDuration;
   int iLastPlayedPosition;
-  std::string strTitle;
   std::string strStreamURL;
-  std::string strPlot;
-  std::string strPlotOutline;
   std::string strChannelName;
   std::string strDirectory;
   std::string strIconPath;
 };
- 
+
 class Vu  : public P8PLATFORM::CThread
 {
 private:
@@ -114,6 +109,7 @@ private:
   std::vector<VuRecording> m_recordings;
   std::vector<VuChannelGroup> m_groups;
   std::vector<std::string> m_locations;
+  vuplus::EpgEntryExtractor entryExtractor;
 
   vuplus::Timers my_timers = vuplus::Timers(*this);
 
