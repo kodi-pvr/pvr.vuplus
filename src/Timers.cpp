@@ -550,7 +550,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
 bool Timers::CanAutoTimers() const
 {
-  return vuData.GetWebIfVersion() >= vuData.GenerateWebIfVersionNum(1, 2, 4);
+  return vuData.GetWebIfVersion() >= vuData.GenerateWebIfVersionNum(1, 3, 0);
 }
 
 bool Timers::IsAutoTimer(const PVR_TIMER &timer) const
