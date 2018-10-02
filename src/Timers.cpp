@@ -141,6 +141,7 @@ std::vector<Timer> Timers::LoadTimers() const
     if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
       timer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
 
+    // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
     if (timer.iChannelId < 0)
     {
       XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, timer.strTitle.c_str());
@@ -464,6 +465,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         {
           autoTimer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
 
+          // Skip autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
           if (autoTimer.iChannelId < 0)
           {
             XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, autoTimer.strTitle.c_str());
@@ -563,10 +565,10 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   {
     TimerType(unsigned int id, unsigned int attributes,
       const std::string &description = std::string(),
-      const std::vector< std::pair<int, std::string> > &groupValues
-        = std::vector< std::pair<int, std::string> >(),
-      const std::vector< std::pair<int, std::string> > &deDupValues
-        = std::vector< std::pair<int, std::string> >())
+      const std::vector<std::pair<int, std::string>> &groupValues
+        = std::vector<std::pair<int, std::string>>(),
+      const std::vector<std::pair<int, std::string> > &deDupValues
+        = std::vector<std::pair<int, std::string>>())
     {
       int i;
       memset(this, 0, sizeof(PVR_TIMER_TYPE));
@@ -599,7 +601,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   };
 
   /* PVR_Timer.iRecordingGroup values and presentation.*/
-  std::vector< std::pair<int, std::string> > groupValues = {
+  std::vector<std::pair<int, std::string>> groupValues = {
     { 0, LocalizedString(30410) }, //automatic
   };
   for (auto &recf : vuData.GetLocations())
@@ -679,7 +681,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
   {
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
-    static std::vector< std::pair<int, std::string> > deDupValues =
+    static std::vector<std::pair<int, std::string>> deDupValues =
     {
       { AutoTimer::DeDup::DISABLED,                   LocalizedString(30430) },
       { AutoTimer::DeDup::CHECK_TITLE,                LocalizedString(30431) },
