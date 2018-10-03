@@ -76,6 +76,7 @@ bool        g_bUsePiconsEuFormat      = false;
 bool        g_bEnableAutoTimers       = true;
 bool        g_bEnableGenRepeatTimers  = true;
 bool        g_bExtractExtraEpgInfo    = true;
+bool        g_bLogMissingGenreMappings = true;
 
 CHelper_libXBMC_addon *XBMC           = NULL;
 CHelper_libXBMC_pvr   *PVR            = NULL;
@@ -190,7 +191,10 @@ void ADDON_ReadSettings(void)
     g_bEnableGenRepeatTimers = true;
 
   if (!XBMC->GetSetting("extracteventinfo", &g_bExtractExtraEpgInfo))
-    g_bExtractExtraEpgInfo = true;
+    g_bExtractExtraEpgInfo = false;
+
+  if (!XBMC->GetSetting("logmissinggenremapping", &g_bLogMissingGenreMappings))
+    g_bLogMissingGenreMappings = false;
 
   free (buffer);
 }
@@ -333,6 +337,8 @@ ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
     return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bZap, ADDON_STATUS_OK);
   else if (str == "extracteventinfo")
     return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bExtractExtraEpgInfo, ADDON_STATUS_OK);
+  else if (str == "logmissinggenremapping")
+    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bLogMissingGenreMappings, ADDON_STATUS_OK);
   else if (str == "recordingpath")
     return SetStringSetting(str, static_cast<const char*>(settingValue), g_strRecordingPath, ADDON_STATUS_NEED_RESTART);
   else if (str == "onlycurrent")

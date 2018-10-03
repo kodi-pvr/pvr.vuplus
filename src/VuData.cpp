@@ -689,6 +689,8 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
 
     newChannel.strChannelName = strTmp;
 
+    XBMC->Log(LOG_DEBUG, "%s: Loaded Channel: %s, sRef=%s", __FUNCTION__, newChannel.strChannelName.c_str(), newChannel.strServiceReference.c_str());
+
     std::string strIcon;
     strIcon = newChannel.strServiceReference.c_str();
 
@@ -944,6 +946,10 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
       }
     }
 
+    tag.iSeriesNumber = recording.seasonNumber;
+    tag.iEpisodeNumber = recording.episodeNumber;
+    tag.iYear = recording.year;
+
     PVR->TransferRecordingEntry(handle, &tag);
   }
 }
@@ -1162,6 +1168,16 @@ bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
     if (XMLUtils::GetString(pNode, "e2eventdescription", strTmp))
        entry.strPlotOutline = strTmp;
 
+    // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
+    if (entry.strPlot.empty() && !entry.strPlotOutline.empty())
+    {
+      entry.strPlot = entry.strPlotOutline;
+      entry.strPlotOutline = "";
+    }
+
+    if (g_bExtractExtraEpgInfo)
+      entryExtractor.ExtractFromEntry(entry);
+
     iNumEPG++; 
     
     group.initialEPG.emplace_back(entry);
@@ -1209,19 +1225,19 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
       broadcast.strCast             = NULL; // unused
       broadcast.strDirector         = NULL; // unused
       broadcast.strWriter           = NULL; // unused
-      broadcast.iYear               = 0;    // unused
+      broadcast.iYear               = entry.year;
       broadcast.strIMDBNumber       = NULL; // unused
       broadcast.strIconPath         = ""; // unused
-      broadcast.iGenreType          = 0; // unused
-      broadcast.iGenreSubType       = 0; // unused
-      broadcast.strGenreDescription = "";
+      broadcast.iGenreType          = entry.genreType;
+      broadcast.iGenreSubType       = entry.genreSubType;
+      broadcast.strGenreDescription = entry.genreDescription.c_str();
       broadcast.firstAired          = 0;  // unused
       broadcast.iParentalRating     = 0;  // unused
       broadcast.iStarRating         = 0;  // unused
       broadcast.bNotify             = false;
-      broadcast.iSeriesNumber       = 0;  // unused
-      broadcast.iEpisodeNumber      = 0;  // unused
-      broadcast.iEpisodePartNumber  = 0;  // unused
+      broadcast.iSeriesNumber       = entry.seasonNumber;
+      broadcast.iEpisodeNumber      = entry.episodeNumber;
+      broadcast.iEpisodePartNumber  = entry.episodePartNumber;
       broadcast.strEpisodeName      = ""; // unused
       broadcast.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 
@@ -1355,6 +1371,16 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     if (XMLUtils::GetString(pNode, "e2eventdescription", strTmp))
        entry.strPlotOutline = strTmp;
 
+    // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
+    if (entry.strPlot.empty() && !entry.strPlotOutline.empty())
+    {
+      entry.strPlot = entry.strPlotOutline;
+      entry.strPlotOutline = "";
+    }
+
+    if (g_bExtractExtraEpgInfo)
+      entryExtractor.ExtractFromEntry(entry);
+
     EPG_TAG broadcast;
     memset(&broadcast, 0, sizeof(EPG_TAG));
 
@@ -1369,19 +1395,19 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     broadcast.strCast             = NULL; // unused
     broadcast.strDirector         = NULL; // unused
     broadcast.strWriter           = NULL; // unused
-    broadcast.iYear               = 0;    // unused
+    broadcast.iYear               = entry.year;
     broadcast.strIMDBNumber       = NULL; // unused
     broadcast.strIconPath         = ""; // unused
-    broadcast.iGenreType          = 0; // unused
-    broadcast.iGenreSubType       = 0; // unused
-    broadcast.strGenreDescription = "";
+    broadcast.iGenreType          = entry.genreType;
+    broadcast.iGenreSubType       = entry.genreSubType;
+    broadcast.strGenreDescription = entry.genreDescription.c_str();
     broadcast.firstAired          = 0;  // unused
     broadcast.iParentalRating     = 0;  // unused
     broadcast.iStarRating         = 0;  // unused
     broadcast.bNotify             = false;
-    broadcast.iSeriesNumber       = 0;  // unused
-    broadcast.iEpisodeNumber      = 0;  // unused
-    broadcast.iEpisodePartNumber  = 0;  // unused
+    broadcast.iSeriesNumber       = entry.seasonNumber;
+    broadcast.iEpisodeNumber      = entry.episodeNumber;
+    broadcast.iEpisodePartNumber  = entry.episodePartNumber;
     broadcast.strEpisodeName      = ""; // unused
     broadcast.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 
@@ -1571,6 +1597,16 @@ bool Vu::GetRecordingFromLocation(std::string strRecordingFolder)
       strTmp = StringUtils::Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp).c_str());
       recording.strStreamURL = strTmp;
     }
+
+    // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
+    if (recording.strPlot.empty() && !recording.strPlotOutline.empty())
+    {
+      recording.strPlot = recording.strPlotOutline;
+      recording.strPlotOutline = "";
+    }
+
+    if (g_bExtractExtraEpgInfo)
+      entryExtractor.ExtractFromEntry(recording);
 
     iNumRecording++;
 

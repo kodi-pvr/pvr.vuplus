@@ -25,6 +25,8 @@ VuPlus PVR client addon for [Kodi] (http://kodi.tv)
 Within this tab the mandatory addon options need to be configured before it can be successfully enabled.
 
 * **VU+ hostname or IP address**: The IP address or hostname of your enigma2 based settop box.
+* **Web interface port**: The port used to connect to the web interface
+* **Use Secure HTTP (https)**: Use https to connect to the web interface
 * **Fetch picons from web interface**: Fetch the picons straight from the Vuplus/Enigma 2 STB
 * **Use picons.eu file formate**: Assume all picons files fetched from the STB start with `1_1_1_` and end with `_0_0_0`
 * **Icon Path**: In order to have Kodi display channel logos you have to copy the picons from your settop box onto your OpenELEC machine. You then need to specify this path in this property.
@@ -36,7 +38,8 @@ Within this tab options that refer to channel and EPG data can be set.
 * **Fetch only one TV bouquet**: If this option is set than only the channels that are in one specified TV bouquet will be loaded, instead of fetching all available channels in all available bouquets.
 * **TV-Bouquet**: If the previous option has been enabled you need to specify the TV bouquet to be fetched from the settop box. Please not that this is the bouquet-name as shown on the settop box (i.e. "Favourites (TV)"). This setting is case-sensitive.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the settop box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the settop box. Please note that "allow channel switching" needs to be enabled in the webinterface on the settop box.
-* **Extract Genre, Season and Episode Info where possible**: Have kodi check the description fields in the EPG data and attempt to extract genre, season and episode info where possible.
+* **Extract Genre, Season and Episode Info where possible**: Have kodi check the description fields in the EPG data and attempt to extract genre, season and episode info where possible. Currently supports OTA, OpenTV and Rytec XMLTV EPG data for UK and Ireland channels. If you would like to support other formats please raise an issue at the github project https://github.com/kodi-pvr/pvr.vuplus. Genre support specificially requires the use of Rytec XMLTV Epg data.
+* **Log missing genre mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note, any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama]
 
 ### Recordings & Timers
 
@@ -47,7 +50,7 @@ Within this tab options that refer to channel and EPG data can be set.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
 * **Enable AutoTimers**: When this is enabled there are some settings required on the STB to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. On the STB enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
   1. Hit `Menu` on the remote and go to `Timers->AutoTimers`
-  2. Hit `Menu` again and then select `6 Setup`s
+  2. Hit `Menu` again and then select `6 Setup`
   3. Set the following to option to `yes`
     * `Include "AutoTimer" in tags`
     * `Include AutoTimer name in tags`

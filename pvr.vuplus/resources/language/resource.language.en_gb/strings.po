@@ -164,7 +164,11 @@ msgctxt "#30036"
 msgid "Enable generate repeat timers"
 msgstr ""
 
-#empty strings from id 30037 to 30049
+msgctxt "#30037"
+msgid "Log missing genre mappings"
+msgstr ""
+
+#empty strings from id 30038 to 30049
 #notifications
 
 msgctxt "#30050"

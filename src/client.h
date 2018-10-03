@@ -68,6 +68,7 @@ extern std::string               g_strChannelDataPath;
 extern bool                      g_bEnableAutoTimers;
 extern bool                      g_bEnableGenRepeatTimers;
 extern bool                      g_bExtractExtraEpgInfo;
+extern bool                      g_bLogMissingGenreMappings;
 extern ADDON::CHelper_libXBMC_addon *   XBMC;
 extern CHelper_libXBMC_pvr *     PVR;
 

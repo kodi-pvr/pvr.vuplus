@@ -1,3 +1,8 @@
+v3.12.0
+- Added: Extracting Genre and Season/Episode numbers for EPG entries and recordings
+- Added: Updated Readme
+- Fixed: Minimum version now 1.3.0 to use autotimers
+
 v3.11.3
 - Added: New settings to allow feature switches for generating repeating timers and autotimers
 - Added: Config guide to Readme
