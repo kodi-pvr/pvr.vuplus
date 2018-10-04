@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.12.0"
-  name="VU+ / Enigma2 Client"
+  version="3.12.1"
+  name="Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>@ADDON_DEPENDS@</requires>
   <extension
@@ -19,7 +19,7 @@
     <summary lang="de_DE">Kodi Oberfläche für VU+ / Enigma2-basierte Settop-Boxen</summary>
     <summary lang="el_GR">Frontend του Kodi για αποκωδικοποιητές (settop box) τύπου VU+ / Enigma2</summary>
     <summary lang="en_AU">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
-    <summary lang="en_GB">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
+    <summary lang="en_GB">Kodi's frontend for Enigma2 based settop boxes</summary>
     <summary lang="en_NZ">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="en_US">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="es_AR">Kodi frontend para decodificadores equipados con VU+/Enigma2</summary>
@@ -71,7 +71,7 @@
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="en_GB">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
+    <description lang="en_GB">Enigma2 frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.</description>
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
