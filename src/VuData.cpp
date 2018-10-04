@@ -1552,84 +1552,84 @@ bool Vu::GetRecordingFromLocation(std::string strRecordingFolder)
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2movie").Element();
 
+  int iNumRecording = 0; 
+
   if (!pNode)
   {
-    XBMC->Log(LOG_DEBUG, "Could not find <e2movie> element");
-    return false;
+    XBMC->Log(LOG_DEBUG, "Could not find <e2movie> element, no movies at location: %s", directory.c_str());
+  }  
+  else
+  {  
+    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2movie"))
+    {
+      std::string strTmp;
+      int iTmp;
+
+      VuRecording recording;
+
+      recording.strDirectory = directory;
+
+      recording.iLastPlayedPosition = 0;
+      if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
+        recording.strRecordingId = strTmp;
+
+      if (XMLUtils::GetString(pNode, "e2title", strTmp))
+        recording.strTitle = strTmp;
+      
+      if (XMLUtils::GetString(pNode, "e2description", strTmp))
+        recording.strPlotOutline = strTmp;
+
+      if (XMLUtils::GetString(pNode, "e2descriptionextended", strTmp))
+        recording.strPlot = strTmp;
+      
+      if (XMLUtils::GetString(pNode, "e2servicename", strTmp))
+        recording.strChannelName = strTmp;
+
+      recording.strIconPath = GetChannelIconPath(strTmp.c_str());
+
+      if (XMLUtils::GetInt(pNode, "e2time", iTmp)) 
+        recording.startTime = iTmp;
+
+      if (XMLUtils::GetString(pNode, "e2length", strTmp)) 
+      {
+        iTmp = TimeStringToSeconds(strTmp.c_str());
+        recording.iDuration = iTmp;
+      }
+      else
+        recording.iDuration = 0;
+
+      if (XMLUtils::GetString(pNode, "e2filename", strTmp)) 
+      {
+        strTmp = StringUtils::Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp).c_str());
+        recording.strStreamURL = strTmp;
+      }
+
+      // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
+      if (recording.strPlot.empty())
+      {
+        recording.strPlot = recording.strPlotOutline;
+        recording.strPlotOutline.clear();
+      }
+      else if ((m_settings.m_prependOutline == PrependOutline::IN_RECORDINGS || m_settings.m_prependOutline == PrependOutline::ALWAYS)
+                && !recording.strPlotOutline.empty())
+      {
+        recording.strPlot.insert(0, recording.strPlotOutline + "\n");
+        recording.strPlotOutline.clear();
+      }    
+
+
+      if (m_settings.m_bExtractExtraEpgInfo)
+        m_entryExtractor->ExtractFromEntry(recording);
+
+      iNumRecording++;
+
+      m_recordings.emplace_back(recording);
+
+      XBMC->Log(LOG_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recording.strTitle.c_str(), recording.startTime, recording.iDuration);
+    }
+
+    XBMC->Log(LOG_INFO, "%s Loaded %u Recording Entries from folder '%s'", __FUNCTION__, iNumRecording, strRecordingFolder.c_str());
   }
-  
-  int iNumRecording = 0; 
-  
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2movie"))
-  {
-    std::string strTmp;
-    int iTmp;
-
-    VuRecording recording;
-
-    recording.strDirectory = directory;
-
-    recording.iLastPlayedPosition = 0;
-    if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
-      recording.strRecordingId = strTmp;
-
-    if (XMLUtils::GetString(pNode, "e2title", strTmp))
-      recording.strTitle = strTmp;
-    
-    if (XMLUtils::GetString(pNode, "e2description", strTmp))
-      recording.strPlotOutline = strTmp;
-
-    if (XMLUtils::GetString(pNode, "e2descriptionextended", strTmp))
-      recording.strPlot = strTmp;
-    
-    if (XMLUtils::GetString(pNode, "e2servicename", strTmp))
-      recording.strChannelName = strTmp;
-
-    recording.strIconPath = GetChannelIconPath(strTmp.c_str());
-
-    if (XMLUtils::GetInt(pNode, "e2time", iTmp)) 
-      recording.startTime = iTmp;
-
-    if (XMLUtils::GetString(pNode, "e2length", strTmp)) 
-    {
-      iTmp = TimeStringToSeconds(strTmp.c_str());
-      recording.iDuration = iTmp;
-    }
-    else
-      recording.iDuration = 0;
-
-    if (XMLUtils::GetString(pNode, "e2filename", strTmp)) 
-    {
-      strTmp = StringUtils::Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp).c_str());
-      recording.strStreamURL = strTmp;
-    }
-
-    // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
-    if (recording.strPlot.empty())
-    {
-      recording.strPlot = recording.strPlotOutline;
-      recording.strPlotOutline.clear();
-    }
-    else if ((m_settings.m_prependOutline == PrependOutline::IN_RECORDINGS || m_settings.m_prependOutline == PrependOutline::ALWAYS)
-              && !recording.strPlotOutline.empty())
-    {
-      recording.strPlot.insert(0, recording.strPlotOutline + "\n");
-      recording.strPlotOutline.clear();
-    }    
-
-
-    if (m_settings.m_bExtractExtraEpgInfo)
-      m_entryExtractor->ExtractFromEntry(recording);
-
-    iNumRecording++;
-
-    m_recordings.emplace_back(recording);
-
-    XBMC->Log(LOG_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recording.strTitle.c_str(), recording.startTime, recording.iDuration);
-  }
-
-  XBMC->Log(LOG_INFO, "%s Loaded %u Recording Entries from folder '%s'", __FUNCTION__, iNumRecording, strRecordingFolder.c_str());
-
   return true;
 }
 
