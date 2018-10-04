@@ -23,6 +23,7 @@
 #include "client.h"
 #include "xbmc_pvr_dll.h"
 #include <stdlib.h>
+#include "Settings.h"
 #include "VuData.h"
 #include <p8-platform/util/StringUtils.h>
 #include "p8-platform/util/util.h"
@@ -33,7 +34,6 @@
 
 #include <stdlib.h>
 
-using namespace std;
 using namespace vuplus;
 using namespace ADDON;
 
@@ -42,162 +42,17 @@ ADDON_STATUS    m_CurStatus = ADDON_STATUS_UNKNOWN;
 IStreamReader   *strReader  = nullptr;
 int             m_streamReadChunkSize = 64;
 RecordingReader *recReader  = nullptr;
+Settings        settings;
 
-/* User adjustable settings are saved here.
- * Default values are defined inside client.h
- * and exported to the other source files.
- */
-std::string g_strHostname             = DEFAULT_HOST;
-int         g_iConnectTimeout         = DEFAULT_CONNECT_TIMEOUT;
-int         g_iPortStream             = DEFAULT_STREAM_PORT;
-int         g_iPortWeb                = DEFAULT_WEB_PORT;
-int         g_iUpdateInterval         = DEFAULT_UPDATE_INTERVAL;
-std::string g_strUsername             = "";
-std::string g_strRecordingPath        = "";
-std::string g_strPassword             = "";
-std::string g_szUserPath              = "";
-std::string g_strIconPath             = "";
-bool        g_bAutomaticTimerlistCleanup = false;
-bool        g_bZap                    = false;
-bool        g_bOnlyCurrentLocation    = false;
-bool        g_bSetPowerstate          = false;
-bool        g_bOnlyOneGroup           = false;
-bool        g_bOnlinePicons           = true;
-bool        g_bUseSecureHTTP          = false;
-bool        g_bAutoConfig             = false;
-bool        g_bKeepFolders            = false;
-std::string g_strOneGroup             = "";
-std::string g_szClientPath            = "";
-int         g_iEnableTimeshift        = TIMESHIFT_OFF;
-std::string g_strTimeshiftBufferPath  = DEFAULT_TSBUFFERPATH;
-int         g_iReadTimeout            = 0;
-int         g_iNumGenRepeatTimers     = DEFAULT_NUM_GEN_REPEAT_TIMERS;
-bool        g_bUsePiconsEuFormat      = false;
-bool        g_bEnableAutoTimers       = true;
-bool        g_bEnableGenRepeatTimers  = true;
-bool        g_bExtractExtraEpgInfo    = true;
-bool        g_bLogMissingGenreMappings = true;
-
-CHelper_libXBMC_addon *XBMC           = NULL;
-CHelper_libXBMC_pvr   *PVR            = NULL;
-Vu                *VuData             = NULL;
+CHelper_libXBMC_addon *XBMC           = nullptr;
+CHelper_libXBMC_pvr   *PVR            = nullptr;
+Vu                    *VuData         = nullptr;
 
 extern "C" {
 
 /***************************************************************************
  * Addon Calls
  **************************************************************************/
-
-void ADDON_ReadSettings(void)
-{
-  char * buffer;
-  buffer = (char*) malloc (1024);
-  buffer[0] = 0;
-
-  if (XBMC->GetSetting("host", buffer))
-    g_strHostname = buffer;
-  else
-    g_strHostname = DEFAULT_HOST;
-  buffer[0] = 0;
-
-  if (XBMC->GetSetting("user", buffer))
-    g_strUsername = buffer;
-  else
-    g_strUsername = "";
-  buffer[0] = 0;
-  
-  if (XBMC->GetSetting("recordingpath", buffer))
-    g_strRecordingPath = buffer;
-  else
-    g_strRecordingPath = "";
-  buffer[0] = 0;
-
-  if (XBMC->GetSetting("pass", buffer))
-    g_strPassword = buffer;
-  else
-    g_strPassword = "";
-  buffer[0] = 0;
-  
-  if (!XBMC->GetSetting("use_secure", &g_bUseSecureHTTP))
-    g_bUseSecureHTTP = false;
-  
-  if (!XBMC->GetSetting("autoconfig", &g_bAutoConfig))
-    g_bAutoConfig = false;
-  
-  if (!XBMC->GetSetting("streamport", &g_iPortStream))
-    g_iPortStream = DEFAULT_STREAM_PORT;
-  
-  if (!XBMC->GetSetting("webport", &g_iPortWeb))
-    g_iPortWeb = DEFAULT_WEB_PORT;
-  
-  if (!XBMC->GetSetting("onlinepicons", &g_bOnlinePicons))
-    g_bOnlinePicons = true;
-  
-  if (!XBMC->GetSetting("onlycurrent", &g_bOnlyCurrentLocation))
-    g_bOnlyCurrentLocation = false;
-  
-  if (!XBMC->GetSetting("setpowerstate", &g_bSetPowerstate))
-    g_bSetPowerstate = false;
-  
-  if (!XBMC->GetSetting("keepfolders", &g_bKeepFolders))
-    g_bKeepFolders = false;
-  
-  if (!XBMC->GetSetting("zap", &g_bZap))
-    g_bZap = false;
-
-  if (!XBMC->GetSetting("onlyonegroup", &g_bOnlyOneGroup))
-    g_bOnlyOneGroup = false;
-  
-  if (XBMC->GetSetting("onegroup", buffer))
-    g_strOneGroup = buffer;
-  else
-    g_strOneGroup = "";
-  buffer[0] = 0;
-
-  if (!XBMC->GetSetting("timerlistcleanup", &g_bAutomaticTimerlistCleanup))
-    g_bAutomaticTimerlistCleanup = false;
-
-  if (!XBMC->GetSetting("updateint", &g_iUpdateInterval))
-    g_iUpdateInterval = DEFAULT_UPDATE_INTERVAL;
-
-  if (XBMC->GetSetting("iconpath", buffer))
-    g_strIconPath = buffer;
-  else
-    g_strIconPath = "";
-  buffer[0] = 0;
-
-  if (!XBMC->GetSetting("enabletimeshift", &g_iEnableTimeshift))
-    g_iEnableTimeshift = TIMESHIFT_OFF;
-
-  if (XBMC->GetSetting("timeshiftbufferpath", buffer) && !std::string(buffer).empty())
-    g_strTimeshiftBufferPath = buffer;
-  else
-    g_strTimeshiftBufferPath = DEFAULT_TSBUFFERPATH;
-  buffer[0] = 0;
-
-  if (!XBMC->GetSetting("readtimeout", &g_iReadTimeout))
-    g_iReadTimeout = 0;
-
-  if (!XBMC->GetSetting("numgenrepeattimers", &g_iNumGenRepeatTimers))
-    g_iNumGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
-
-  if (!XBMC->GetSetting("usepiconseuformat", &g_bUsePiconsEuFormat))
-    g_bUsePiconsEuFormat = false;
-
-  if (!XBMC->GetSetting("enableautotimers", &g_bEnableAutoTimers))
-    g_bEnableAutoTimers = true;
-
-  if (!XBMC->GetSetting("enablegenrepeattimers", &g_bEnableGenRepeatTimers))
-    g_bEnableGenRepeatTimers = true;
-
-  if (!XBMC->GetSetting("extracteventinfo", &g_bExtractExtraEpgInfo))
-    g_bExtractExtraEpgInfo = false;
-
-  if (!XBMC->GetSetting("logmissinggenremapping", &g_bLogMissingGenreMappings))
-    g_bLogMissingGenreMappings = false;
-
-  free (buffer);
-}
 
 ADDON_STATUS ADDON_Create(void* hdl, void* props)
 {
@@ -224,13 +79,12 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   XBMC->Log(LOG_DEBUG, "%s - Creating VU+ PVR-Client", __FUNCTION__);
 
   m_CurStatus     = ADDON_STATUS_UNKNOWN;
-  //g_iClientId     = pvrprops->iClientId; //removed from Frodo PVR API
-  g_szUserPath   = pvrprops->strUserPath;
-  g_szClientPath  = pvrprops->strClientPath;
+  settings.m_szUserPath   = pvrprops->strUserPath;
+  settings.m_szClientPath  = pvrprops->strClientPath;
 
-  ADDON_ReadSettings();
+  settings.ReadFromAddon();
 
-  VuData = new Vu;
+  VuData = new Vu(settings);
   if (!VuData->Open()) 
   {
     SAFE_DELETE(VuData);
@@ -273,104 +127,12 @@ void ADDON_Destroy()
   m_CurStatus = ADDON_STATUS_UNKNOWN;
 }
 
-ADDON_STATUS SetStringSetting(const std::string &settingName, const char* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged)
-{
-  string strSettingValue = settingValue;
-
-  if (strSettingValue != currentValue)
-  {
-    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
-    currentValue = strSettingValue;
-    return returnValueIfChanged;
-  }
-
-  return ADDON_STATUS_OK;
-}
-
-ADDON_STATUS SetIntSetting(const std::string &settingName, int settingValue, int &currentValue, ADDON_STATUS returnValueIfChanged)
-{
-  if (settingValue != currentValue)
-  {
-    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, settingValue);
-    currentValue = settingValue;
-    return returnValueIfChanged;
-  }
-
-  return ADDON_STATUS_OK;
-}
-
-ADDON_STATUS SetBoolSetting(const std::string &settingName, bool settingValue, bool &currentValue, ADDON_STATUS returnValueIfChanged)
-{
-  if (settingValue != currentValue)
-  {
-    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, settingValue);
-    currentValue = settingValue;
-    return returnValueIfChanged;
-  }
-
-  return ADDON_STATUS_OK;
-}
-
 ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
 {
-  const std::string str = settingName;
+  if (!XBMC || !VuData)
+    return ADDON_STATUS_OK;
 
-  if (str == "host")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strHostname, ADDON_STATUS_NEED_RESTART);
-  else if (str == "webport")
-    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iPortWeb, ADDON_STATUS_NEED_RESTART);
-  else if (str == "use_secure")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bUseSecureHTTP, ADDON_STATUS_NEED_RESTART);
-  else if (str == "onlinepicons")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bOnlinePicons, ADDON_STATUS_NEED_RESTART);
-  else if (str == "usepiconseuformat")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bUsePiconsEuFormat, ADDON_STATUS_NEED_RESTART);
-  else if (str == "iconpath")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strIconPath, ADDON_STATUS_NEED_RESTART);
-  else if (str == "updateint")
-    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iUpdateInterval, ADDON_STATUS_OK);
-  else if (str == "onlyonegroup")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bOnlyOneGroup, ADDON_STATUS_NEED_RESTART);
-  else if (str == "onegroup")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strOneGroup, ADDON_STATUS_NEED_RESTART);
-  else if (str == "zap")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bZap, ADDON_STATUS_OK);
-  else if (str == "extracteventinfo")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bExtractExtraEpgInfo, ADDON_STATUS_OK);
-  else if (str == "logmissinggenremapping")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bLogMissingGenreMappings, ADDON_STATUS_OK);
-  else if (str == "recordingpath")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strRecordingPath, ADDON_STATUS_NEED_RESTART);
-  else if (str == "onlycurrent")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bOnlyCurrentLocation, ADDON_STATUS_OK);
-  else if (str == "keepfolders")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bKeepFolders, ADDON_STATUS_OK);
-  else if (str == "enablegenrepeattimers")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bEnableAutoTimers, ADDON_STATUS_OK);
-  else if (str == "numgenrepeattimers")
-    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iNumGenRepeatTimers, ADDON_STATUS_OK);
-  else if (str == "enableautotimers")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bEnableAutoTimers, ADDON_STATUS_NEED_RESTART);
-  else if (str == "timerlistcleanup")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bAutomaticTimerlistCleanup, ADDON_STATUS_OK);
-  else if (str == "enabletimeshift")
-    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iEnableTimeshift, ADDON_STATUS_OK);
-  else if (str == "timeshiftbufferpath")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strTimeshiftBufferPath, ADDON_STATUS_OK);
-  else if (str == "autoconfig")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bAutoConfig, ADDON_STATUS_OK);
-  else if (str == "streamport")
-    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iPortStream, ADDON_STATUS_NEED_RESTART);
-  else if (str == "user")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strUsername, ADDON_STATUS_OK);
-  else if (str == "pass")
-    return SetStringSetting(str, static_cast<const char*>(settingValue), g_strPassword, ADDON_STATUS_OK);
-  else if (str == "setpowerstate")
-    return SetBoolSetting(str, *static_cast<const bool*>(settingValue), g_bSetPowerstate, ADDON_STATUS_OK);
-  else if (str == "readtimeout")
-    return SetIntSetting(str, *static_cast<const int*>(settingValue), g_iReadTimeout, ADDON_STATUS_NEED_RESTART);
-
-  return ADDON_STATUS_OK;
+  return settings.SetValue(settingName, settingValue);
 }
 
 /***********************************************************
@@ -430,15 +192,15 @@ static std::string strConnectionString;
 const char *GetConnectionString(void)
 {
   if (VuData)
-    strConnectionString = StringUtils::Format("%s%s", g_strHostname.c_str(), VuData->IsConnected() ? "" : " (Not connected!)");
+    strConnectionString = StringUtils::Format("%s%s", settings.m_strHostname.c_str(), VuData->IsConnected() ? "" : " (Not connected!)");
   else
-    strConnectionString = StringUtils::Format("%s (addon error!)", g_strHostname.c_str());
+    strConnectionString = StringUtils::Format("%s (addon error!)", settings.m_strHostname.c_str());
   return strConnectionString.c_str();
 }
 
 const char *GetBackendHostname(void)
 {
-  return g_strHostname.c_str();
+  return settings.m_strHostname.c_str();
 }
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
@@ -527,7 +289,10 @@ PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 {
   if (!chunksize)
     return PVR_ERROR_INVALID_PARAMETERS;
-  *chunksize = m_streamReadChunkSize;
+  int size = settings.m_streamReadChunkSize;
+  if (!size)
+    return PVR_ERROR_NOT_IMPLEMENTED;
+  *chunksize = settings.m_streamReadChunkSize * 1024;
   return PVR_ERROR_NO_ERROR;
 }
 
@@ -541,14 +306,14 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
     return false;
 
   /* queue a warning if the timeshift buffer path does not exist */
-  if (g_iEnableTimeshift != TIMESHIFT_OFF
-      && !XBMC->DirectoryExists(g_strTimeshiftBufferPath.c_str()))
+  if (settings.m_timeshift != Timeshift::OFF
+      && !settings.IsTimeshiftBufferPathValid())
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30514).c_str());
 
   std::string streamURL = VuData->GetLiveStreamURL(channel);
-  strReader = new StreamReader(streamURL, g_iReadTimeout);
-  if (g_iEnableTimeshift == TIMESHIFT_ON_PLAYBACK)// || g_iEnableTimeshift == TIMESHIFT_ON_PAUSE)
-    strReader = new TimeshiftBuffer(strReader, g_strTimeshiftBufferPath, g_iReadTimeout);
+  strReader = new StreamReader(streamURL, settings.m_iReadTimeout);
+  if (settings.m_timeshift == Timeshift::ON_PLAYBACK)
+    strReader = new TimeshiftBuffer(strReader, settings.m_strTimeshiftBufferPath, settings.m_iReadTimeout);
   
   return strReader->Start();
 }
@@ -569,8 +334,8 @@ bool CanPauseStream(void)
   if (!VuData)
     return false;
 
-  if (g_iEnableTimeshift != TIMESHIFT_OFF && strReader)
-    return (strReader->IsTimeshifting() || XBMC->DirectoryExists(g_strTimeshiftBufferPath.c_str()));
+  if (settings.m_timeshift != Timeshift::OFF && strReader)
+    return (strReader->IsTimeshifting() || settings.IsTimeshiftBufferPathValid());
 
   return false;
 }
@@ -580,7 +345,7 @@ bool CanSeekStream(void)
   if (!VuData)
     return false;
 
-  return (g_iEnableTimeshift != TIMESHIFT_OFF);
+  return (settings.m_timeshift != Timeshift::OFF);
 }
 
 int ReadLiveStream(unsigned char *buffer, unsigned int size)
@@ -626,11 +391,11 @@ void PauseStream(bool paused)
     return;
 
   /* start timeshift on pause */
-  if (paused && g_iEnableTimeshift == TIMESHIFT_ON_PAUSE
+  if (paused && settings.m_timeshift == Timeshift::ON_PAUSE
       && strReader && !strReader->IsTimeshifting()
-      && XBMC->DirectoryExists(g_strTimeshiftBufferPath.c_str()))
+      && settings.IsTimeshiftBufferPathValid())
   {
-    strReader = new TimeshiftBuffer(strReader, g_strTimeshiftBufferPath ,g_iReadTimeout);
+    strReader = new TimeshiftBuffer(strReader, settings.m_strTimeshiftBufferPath, settings.m_iReadTimeout);
     (void)strReader->Start();
   }
 }
@@ -761,7 +526,7 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
 PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; } 
 PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxAbort(void) { return; }
-DemuxPacket* DemuxRead(void) { return NULL; }
+DemuxPacket* DemuxRead(void) { return nullptr; }
 PVR_ERROR OpenDialogChannelScan(void) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR CallMenuHook(const PVR_MENUHOOK &menuhook, const PVR_MENUHOOK_DATA &item) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR DeleteChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }

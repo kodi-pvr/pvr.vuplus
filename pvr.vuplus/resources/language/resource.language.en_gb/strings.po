@@ -1,5 +1,5 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
 # Addon Provider: Joerg Dembski
 msgid ""
@@ -19,13 +19,13 @@ msgstr ""
 #settings labels
 
 msgctxt "#30000"
-msgid "VU+ hostname or IP address"
+msgid "Enigma2 hostname or IP address"
 msgstr ""
 
 #empty string with id 30001
 
 msgctxt "#30002"
-msgid "Streaming Port"
+msgid "Streaming port"
 msgstr ""
 
 msgctxt "#30003"
@@ -37,7 +37,7 @@ msgid "Password"
 msgstr ""
 
 msgctxt "#30005"
-msgid "Connection Details"
+msgid "Connection"
 msgstr ""
 
 msgctxt "#30006"
@@ -49,7 +49,7 @@ msgid "Response timeout in seconds"
 msgstr ""
 
 msgctxt "#30008"
-msgid "Icon Path"
+msgid "Icon path"
 msgstr ""
 
 msgctxt "#30009"
@@ -61,15 +61,15 @@ msgid "Update Interval in minutes"
 msgstr ""
 
 msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
+msgid "Automatic timerlist cleanup"
 msgstr ""
 
 msgctxt "#30012"
-msgid "Webinterface Port"
+msgid "Web interface port"
 msgstr ""
 
 msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr ""
 
 msgctxt "#30014"
@@ -77,7 +77,7 @@ msgid "Folder for channeldata"
 msgstr ""
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
+msgid "Update interval"
 msgstr ""
 
 msgctxt "#30016"
@@ -113,7 +113,7 @@ msgid "Recording folder on the receiver"
 msgstr ""
 
 msgctxt "#30024"
-msgid "Send DeepStandby-Command"
+msgid "Send deep standby command"
 msgstr ""
 
 msgctxt "#30025"
@@ -121,15 +121,15 @@ msgid "Fetch only one TV bouquet"
 msgstr ""
 
 msgctxt "#30026"
-msgid "TV-Bouquet"
+msgid "TV bouquet"
 msgstr ""
 
 msgctxt "#30027"
-msgid "Fetch picons from webinterface"
+msgid "Fetch picons from web interface"
 msgstr ""
 
 msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
+msgid "Use secure HTTP (https)"
 msgstr ""
 
 msgctxt "#30029"
@@ -149,11 +149,11 @@ msgid "EPG"
 msgstr ""
 
 msgctxt "#30033"
-msgid "Extract Genre, Season and Episode Info where possible"
+msgid "Extract genre, season and episode info where possible"
 msgstr ""
 
 msgctxt "#30034"
-msgid "Enable Autotimers"
+msgid "Enable autotimers"
 msgstr ""
 
 msgctxt "#30035"
@@ -168,11 +168,43 @@ msgctxt "#30037"
 msgid "Log missing genre mappings"
 msgstr ""
 
-#empty strings from id 30038 to 30049
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr ""
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Never"
+msgstr ""
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr ""
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr ""
+
+msgctxt "#30045"
+msgid "Always"
+msgstr ""
+
+#empty strings from id 30046 to 30049
 #notifications
 
 msgctxt "#30050"
-msgid "Custom Live TV timeout (0 to use default)"
+msgid "Custom live TV timeout (0 to use default)"
 msgstr ""
 
 msgctxt "#30051"
@@ -190,7 +222,7 @@ msgid "Timeshift"
 msgstr ""
 
 msgctxt "#30061"
-msgid "Enable Timeshift"
+msgid "Enable timeshift"
 msgstr ""
 
 msgctxt "#30062"
@@ -224,7 +256,7 @@ msgid "Timers"
 msgstr ""
 
 msgctxt "#30073"
-msgid "Number of Repeat Timers to generate"
+msgid "Number of repeat timers to generate"
 msgstr ""
 
 #empty strings from id 30074 to 30409

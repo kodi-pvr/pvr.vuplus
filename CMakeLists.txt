@@ -17,6 +17,7 @@ include_directories(${kodiplatform_INCLUDE_DIRS}
                     ${KODI_INCLUDE_DIR})
 
 set(VUPLUS_SOURCES src/client.cpp
+                   src/Settings.cpp
                    src/VuData.cpp
                    src/StreamReader.cpp
                    src/TimeshiftBuffer.cpp
@@ -27,6 +28,7 @@ set(VUPLUS_SOURCES src/client.cpp
                    src/RecordingReader.cpp)
 
 set(VUPLUS_HEADERS src/client.h
+                   src/Settings.h
                    src/VuData.h
                    src/VuBase.h
                    src/IStreamReader.h

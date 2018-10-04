@@ -25,50 +25,6 @@
 #include "libXBMC_pvr.h"
 #include "IStreamReader.h"
 
-static const std::string   DEFAULT_HOST                  = "127.0.0.1";
-static const int           DEFAULT_CONNECT_TIMEOUT       = 30;
-static const int           DEFAULT_STREAM_PORT           = 8001;
-static const int           DEFAULT_WEB_PORT              = 80;
-static const int           DEFAULT_UPDATE_INTERVAL       = 2;
-static const std::string   DEFAULT_TSBUFFERPATH          = "special://userdata/addon_data/pvr.vuplus";
-static const int           TIMESHIFT_OFF                 = 0;
-static const int           TIMESHIFT_ON_PLAYBACK         = 1;
-static const int           TIMESHIFT_ON_PAUSE            = 2;
-static const int           DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
-
-extern bool                      m_bCreated;
-extern std::string               g_strHostname;
-extern int                       g_iPortStream;
-extern int                       g_iPortWeb;
-extern std::string               g_strUsername;
-extern std::string               g_strPassword;
-extern std::string               g_strIconPath;
-extern std::string               g_strRecordingPath;
-extern int                       g_iUpdateInterval;
-extern unsigned int              g_iPacketSequence;
-extern bool                      g_bShowTimerNotifications;
-extern bool                      g_bZap;
-extern bool                      g_bAutomaticTimerlistCleanup;
-extern bool                      g_bUseSecureHTTP;
-extern bool                      g_bAutoConfig;
-extern bool                      g_bKeepFolders;
-extern bool                      g_bOnlyCurrentLocation;
-extern bool                      g_bSetPowerstate;
-extern bool                      g_bOnlyOneGroup;
-extern bool                      g_bOnlinePicons;
-extern std::string               g_strOneGroup;
-extern std::string               g_szUserPath;
-extern std::string               g_szClientPath;
-extern int                       g_iEnableTimeshift;
-extern std::string               g_strTimeshiftBufferPath;
-extern int                       g_iReadTimeout;
-extern int                       g_iNumGenRepeatTimers;
-extern bool                      g_bUsePiconsEuFormat;
-extern std::string               g_strChannelDataPath;
-extern bool                      g_bEnableAutoTimers;
-extern bool                      g_bEnableGenRepeatTimers;
-extern bool                      g_bExtractExtraEpgInfo;
-extern bool                      g_bLogMissingGenreMappings;
 extern ADDON::CHelper_libXBMC_addon *   XBMC;
 extern CHelper_libXBMC_pvr *     PVR;
 

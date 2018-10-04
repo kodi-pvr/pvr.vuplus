@@ -4,7 +4,8 @@
 using namespace vuplus;
 using namespace ADDON;
 
-ShowInfoExtractor::ShowInfoExtractor()
+ShowInfoExtractor::ShowInfoExtractor(const vuplus::Settings &settings) 
+  : IExtractor(settings)
 {
   episodeSeasonPatterns.emplace_back(
       EpisodeSeasonPattern(MASTER_SEASON_EPISODE_PATTERN, 
