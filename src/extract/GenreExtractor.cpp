@@ -1,10 +1,9 @@
 #include "GenreExtractor.h"
-#include <regex>
 
-using namespace vuplus;
+using namespace VUPLUS;
 using namespace ADDON;
 
-GenreExtractor::GenreExtractor(const vuplus::Settings &settings) 
+GenreExtractor::GenreExtractor(const VUPLUS::Settings &settings) 
   : IExtractor(settings)
 {
   for (const auto& genreMapEntry : kodiKeyToGenreMap)

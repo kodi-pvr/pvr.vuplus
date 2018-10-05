@@ -1,18 +1,18 @@
 #pragma once
 
-#include "libXBMC_pvr.h"
-#include "tinyxml.h"
-
 #include <string>
 #include <memory>
 #include <functional>
 #include <ctime>
 #include <type_traits>
 
+#include "libXBMC_pvr.h"
+#include "tinyxml.h"
+
 /* forward declaration */
 class Vu;
 
-namespace vuplus
+namespace VUPLUS
 {
 
 static const std::string AUTOTIMER_SEARCH_CASE_SENSITIVE = "sensitive";
@@ -176,35 +176,7 @@ struct AutoTimer
 
 class Timers
 {
-private:
-
-  // members
-  unsigned int m_iUpdateTimer;
-  unsigned int m_iClientIndexCounter;
-  std::vector<Timer> m_timers;
-  std::vector<AutoTimer> m_autotimers;
-  Vu &vuData;
-
-  //templates
-  template <typename T>
-  T *GetTimer(std::function<bool (const T&)> func,
-      std::vector<T> &timerlist);
-
-  // functions
-  std::vector<Timer> LoadTimers() const;
-  void GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer) const;
-  static bool FindTagInTimerTags(std::string tag, std::string tags);
-  static std::string ConvertToAutoTimerTag(std::string tag);
-  std::vector<AutoTimer> LoadAutoTimers() const;
-  bool CanAutoTimers() const;
-  bool IsAutoTimer(const PVR_TIMER &timer) const;
-  bool TimerUpdatesRegular();
-  bool TimerUpdatesAuto();
-  void ParseTime(const std::string &time, std::tm &timeinfo) const;
-  static std::string BuildAddUpdateAutoTimerIncludeParams(int weekdays);
-
 public:
-
   Timers(Vu &data)
     : vuData(data)
   {
@@ -233,5 +205,31 @@ public:
 
   void ClearTimers();
   void TimerUpdates();
+
+private:
+  //templates
+  template <typename T>
+  T *GetTimer(std::function<bool (const T&)> func,
+      std::vector<T> &timerlist);
+
+  // functions
+  std::vector<Timer> LoadTimers() const;
+  void GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer) const;
+  static bool FindTagInTimerTags(std::string tag, std::string tags);
+  static std::string ConvertToAutoTimerTag(std::string tag);
+  std::vector<AutoTimer> LoadAutoTimers() const;
+  bool CanAutoTimers() const;
+  bool IsAutoTimer(const PVR_TIMER &timer) const;
+  bool TimerUpdatesRegular();
+  bool TimerUpdatesAuto();
+  void ParseTime(const std::string &time, std::tm &timeinfo) const;
+  static std::string BuildAddUpdateAutoTimerIncludeParams(int weekdays);
+
+  // members
+  unsigned int m_iUpdateTimer;
+  unsigned int m_iClientIndexCounter;
+  std::vector<Timer> m_timers;
+  std::vector<AutoTimer> m_autotimers;
+  Vu &vuData;
 };
-} // end vuplus
+} // namespace VUPLUS

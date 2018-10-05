@@ -6,7 +6,7 @@
 
 #include "p8-platform/util/StringUtils.h"
 
-using namespace vuplus;
+using namespace VUPLUS;
 using namespace ADDON;
 
 /***************************************************************************

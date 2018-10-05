@@ -1,12 +1,9 @@
 #include "TimeshiftBuffer.h"
-#include "StreamReader.h"
+
 #include "client.h"
+#include "StreamReader.h"
 
 #include "p8-platform/util/util.h"
-
-#define BUFFER_SIZE 32 * 1024
-#define DEFAULT_READ_TIMEOUT 10
-#define READ_WAITTIME 50
 
 using namespace ADDON;
 

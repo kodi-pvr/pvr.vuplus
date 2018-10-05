@@ -21,8 +21,6 @@
  */
 
 #include "VuData.h"
-#include "client.h" 
-#include "LocalizedString.h"
 
 #include <algorithm>
 #include <iostream> 
@@ -31,14 +29,17 @@
 #include <regex>
 #include <stdlib.h>
 
-#include <p8-platform/util/StringUtils.h>
+#include "client.h" 
+#include "LocalizedString.h"
+
 #include "util/XMLUtils.h"
+#include <p8-platform/util/StringUtils.h>
 
 #if defined(_WIN32)
 #include <Bits.h>
 #endif
 
-using namespace vuplus;
+using namespace VUPLUS;
 using namespace ADDON;
 using namespace P8PLATFORM;
 

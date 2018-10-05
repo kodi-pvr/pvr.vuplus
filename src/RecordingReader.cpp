@@ -1,13 +1,10 @@
 #include "RecordingReader.h"
+
+#include <algorithm>
+
 #include "client.h"
 
 #include "p8-platform/threads/mutex.h"
-
-#include <algorithm>
-#include <ctime>
-
-#define REOPEN_INTERVAL      30
-#define REOPEN_INTERVAL_FAST 10
 
 using namespace ADDON;
 

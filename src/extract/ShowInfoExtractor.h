@@ -1,14 +1,13 @@
 #pragma once
 
-#include "../client.h"
 #include "IExtractor.h"
-#include <map>
-#include <string>
+#include "../client.h"
+
 #include <vector>
-#include <regex>
+
 #include "libXBMC_addon.h"
 
-namespace vuplus
+namespace VUPLUS
 {
 
 // (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7)
@@ -33,11 +32,6 @@ static const std::string GET_YEAR_EPISODE_PATTERN = "^.*\\(([12][0-9][0-9][0-9])
 
 struct EpisodeSeasonPattern
 {
-  std::regex masterRegex;
-  std::regex seasonRegex;
-  std::regex episodeRegex;
-  bool hasSeasonRegex;
-
   EpisodeSeasonPattern(const std::string &masterPattern, const std::string &seasonPattern, const std::string &episodePattern)
   {
     masterRegex = std::regex(masterPattern);
@@ -52,13 +46,18 @@ struct EpisodeSeasonPattern
     episodeRegex = std::regex(episodePattern);
     hasSeasonRegex = false;
   }
+
+  std::regex masterRegex;
+  std::regex seasonRegex;
+  std::regex episodeRegex;
+  bool hasSeasonRegex;
 };
 
 class ShowInfoExtractor
   : public IExtractor
 {
 public:
-  ShowInfoExtractor(const vuplus::Settings &settings);
+  ShowInfoExtractor(const VUPLUS::Settings &settings);
   ~ShowInfoExtractor(void);
   void ExtractFromEntry(VuBase &base);
 
@@ -67,4 +66,4 @@ private:
   std::vector<std::regex> yearPatterns;
 };
 
-} // end vuplus
+} //namespace VUPLUS

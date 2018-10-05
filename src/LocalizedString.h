@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace vuplus
+namespace VUPLUS
 {
 
 class LocalizedString
@@ -52,4 +52,4 @@ private:
   std::string m_localizedString;
 };
 
-} //namespace vuplus
+} //namespace VUPLUS

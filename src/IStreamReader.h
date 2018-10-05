@@ -1,8 +1,8 @@
 #pragma once
 
-#include "libXBMC_addon.h"
-
 #include <ctime>
+
+#include "libXBMC_addon.h"
 
 class IStreamReader
 {

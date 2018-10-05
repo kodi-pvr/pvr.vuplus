@@ -1,13 +1,15 @@
 #pragma once
 
-#include "../client.h"
 #include "IExtractor.h"
+#include "../client.h"
+
 #include <map>
-#include <string>
 #include <regex>
+#include <string>
+
 #include "libXBMC_addon.h"
 
-namespace vuplus
+namespace VUPLUS
 {
   static const std::string GENRE_PATTERN = "^\\[([a-zA-Z /]{3}[a-zA-Z ./]+)\\][^]*";
   static const std::string GENRE_MAJOR_PATTERN = "^([a-zA-Z /]{3,})\\.?.*";
@@ -17,11 +19,17 @@ class GenreExtractor
   : public IExtractor
 {
 public:
-  GenreExtractor(const vuplus::Settings &settings);
+  GenreExtractor(const VUPLUS::Settings &settings);
   ~GenreExtractor(void);
+
   void ExtractFromEntry(VuBase &base);
 
 private:
+  static int GetGenreTypeFromCombined(int combinedGenreType);
+  static int GetGenreSubTypeFromCombined(int combinedGenreType);
+
+  int GetGenreTypeFromText(const std::string &genreText, const std::string &showName);
+  int LookupGenreValueInMaps(const std::string &genreText);
 
   std::regex genrePattern;
   std::regex genreMajorPattern;
@@ -239,12 +247,6 @@ private:
     {"Factual Crime", 0xF1},
   };
 
-  static int GetGenreTypeFromCombined(int combinedGenreType);
-  static int GetGenreSubTypeFromCombined(int combinedGenreType);
-
-  int GetGenreTypeFromText(const std::string &genreText, const std::string &showName);
-  int LookupGenreValueInMaps(const std::string &genreText);
-
 /*
 Useful reference to Genres uses by Kodi PVR
 
@@ -267,4 +269,4 @@ EPG_STRING_TOKEN_SEPARATOR ","
 */
 };
 
-} // end vuplus
+} //namespace vuplus

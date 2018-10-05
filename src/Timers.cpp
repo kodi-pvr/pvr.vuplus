@@ -4,14 +4,13 @@
 #include "LocalizedString.h"
 
 #include <algorithm>
-#include <ctime>
 #include <regex>
 
 #include "inttypes.h"
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
-using namespace vuplus;
+using namespace VUPLUS;
 using namespace ADDON;
 
 bool Timer::isScheduled() const

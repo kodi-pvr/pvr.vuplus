@@ -1,25 +1,27 @@
 #pragma once
 
-#include "../client.h"
-#include "IExtractor.h"
+#include <string>
+
 #include "GenreExtractor.h"
 #include "ShowInfoExtractor.h"
-#include <string>
+#include "../client.h"
+
 #include "libXBMC_addon.h"
 
-namespace vuplus
+namespace VUPLUS
 {
 
 class EpgEntryExtractor
   : public IExtractor
 {
 public:
-  EpgEntryExtractor(const vuplus::Settings &settings);
+  EpgEntryExtractor(const VUPLUS::Settings &settings);
   ~EpgEntryExtractor(void);
+
   void ExtractFromEntry(VuBase &entry);
 
 private:
   std::vector<std::unique_ptr<IExtractor>> extractors;  
 };
 
-} // end vuplus
+} //namespace VUPLUS

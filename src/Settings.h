@@ -8,7 +8,7 @@
 
 class Vu;
 
-namespace vuplus
+namespace VUPLUS
 {
 
 static const std::string DEFAULT_HOST = "127.0.0.1";
@@ -93,8 +93,6 @@ public:
   std::string m_szClientPath = "";
 
   private:
-  ADDON_STATUS SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged);
-
   template <typename T>
   ADDON_STATUS SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, ADDON_STATUS returnValueIfChanged)
   {
@@ -107,6 +105,8 @@ public:
     }
     return ADDON_STATUS_OK;
   };
+
+  ADDON_STATUS SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged);
 };
 
-} //namespace vuplus
+} //namespace VUPLUS
