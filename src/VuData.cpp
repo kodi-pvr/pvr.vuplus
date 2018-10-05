@@ -251,7 +251,6 @@ std::vector<std::string> Vu::GetLocations() const
 
 std::string Vu::GetHttpXML(const std::string& url) const
 {
-  //  CLockObject lock(m_mutex);
   XBMC->Log(LOG_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
 
   std::string strTmp;
@@ -262,6 +261,11 @@ std::string Vu::GetHttpXML(const std::string& url) const
     XBMC->Log(LOG_DEBUG, "%s - Could not open webAPI.", __FUNCTION__);
     return "";
   }
+
+  // If there is no newline add it as it not being there will cause a parse error
+  // TODO: Remove once bug is fixed in Open WebIf
+  if (strTmp.back() != '\n')
+    strTmp += "\n";
 
   XBMC->Log(LOG_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
   
@@ -290,10 +294,6 @@ bool Vu::SendSimpleCommand(const std::string& strCommandURL, std::string& strRes
   
   if (!bIgnoreResult)
   {
-    // If there is no newline add it as it not being there will cause a parse error
-    // TODO: Remove once bug is fixed in Open WebIf
-    if (strXML.back() != '\n')
-      strXML += "\n";
 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
@@ -673,7 +673,6 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
 
     VuChannel newChannel;
     newChannel.bRadio = bRadio;
-    newChannel.bInitialEPG = true;
     newChannel.strGroupName = strGroupName;
     newChannel.iUniqueId = m_channels.size()+1;
     newChannel.iChannelNumber = m_channels.size()+1;
@@ -1144,13 +1143,16 @@ bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
     if (!XMLUtils::GetInt(pNode, "e2eventid", entry.iEventId))  
       continue;
 
-    
     if(!XMLUtils::GetString(pNode, "e2eventtitle", strTmp))
       continue;
 
     entry.strTitle = strTmp;
 
     if(!XMLUtils::GetString(pNode, "e2eventservicereference", strTmp))
+      continue;
+
+    // Check whether the current element is not just a label or that it's not an empty record
+    if (strTmp.compare(0,5,"1:64:") == 0 || (entry.iEventId == 0 && entry.strTitle == "None"))
       continue;
 
     entry.strServiceReference = strTmp;
@@ -1193,22 +1195,44 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
   if (m_groups.size() < 1)
     return PVR_ERROR_SERVER_ERROR;
 
-  XBMC->Log(LOG_DEBUG, "%s Fetch information for group '%s'", __FUNCTION__, channel.strGroupName.c_str());
-
-  VuChannelGroup &myGroup = m_groups.at(0);
-  for (auto& group : m_groups)
+  if (channel.bRadio)
   {
-    if (!myGroup.strGroupName.compare(channel.strGroupName))
-      if (myGroup.initialEPG.size() == 0)
-      {
-        GetInitialEPGForGroup(group);
-        break;
-      }
+    XBMC->Log(LOG_DEBUG, "%s Channel '%s' is a radio channel so no Initial EPG", __FUNCTION__, channel.strChannelName.c_str());
+    return PVR_ERROR_NO_ERROR;
   }
 
-  XBMC->Log(LOG_DEBUG, "%s initialEPG size is now '%d'", __FUNCTION__, myGroup.initialEPG.size());
-  
-  for (const auto& entry : myGroup.initialEPG)
+  XBMC->Log(LOG_DEBUG, "%s Checking for initialEPG for group '%s', num groups %d, channel %s", __FUNCTION__, channel.strGroupName.c_str(), m_groups.size(), channel.strChannelName.c_str());
+
+  bool retrievedInitialEPGForGroup = false;
+  VuChannelGroup *myGroupPtr = nullptr;
+  for (auto& group : m_groups)
+  {
+    XBMC->Log(LOG_DEBUG, "%s Looking for channel %s group %s",  __FUNCTION__, channel.strChannelName.c_str(), channel.strGroupName.c_str());
+    if (group.strGroupName == channel.strGroupName)
+    {
+      myGroupPtr = &group;
+
+      if (myGroupPtr->initialEPG.size() == 0)
+      {
+        XBMC->Log(LOG_DEBUG, "%s Fetching initialEPG for group '%s'", __FUNCTION__, channel.strGroupName.c_str());
+        retrievedInitialEPGForGroup = GetInitialEPGForGroup(group);
+      }
+      break;
+    }
+  }
+
+  if (!myGroupPtr)
+  {
+    XBMC->Log(LOG_DEBUG, "%s No group found for channel '%s' group '%s' sp no Initial EPG",  __FUNCTION__, channel.strChannelName.c_str(), channel.strGroupName.c_str());
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  if (retrievedInitialEPGForGroup)
+    XBMC->Log(LOG_DEBUG, "%s InitialEPG size for group '%s' is now '%d'", __FUNCTION__, channel.strGroupName.c_str(), myGroupPtr->initialEPG.size());
+  else
+    XBMC->Log(LOG_DEBUG, "%s Already have initialEPG for group '%s', it's size is '%d'", __FUNCTION__, channel.strGroupName.c_str(), myGroupPtr->initialEPG.size());
+
+  for (const auto& entry : myGroupPtr->initialEPG)
   {
     if (!channel.strServiceReference.compare(entry.strServiceReference)) 
     {
@@ -1245,7 +1269,22 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
       PVR->TransferEpgEntry(handle, &broadcast);
     }
   }
+
   return PVR_ERROR_NO_ERROR;
+}
+
+bool Vu::CheckIfAllChannelsHaveInitialEPG() const
+{
+  bool someChannelsStillNeedInitialEPG = false;
+  for (const auto& channel : m_channels)
+  {
+    if (channel.bRequiresInitialEPG) 
+    {
+      someChannelsStillNeedInitialEPG = true;
+    }
+  }
+
+  return !someChannelsStillNeedInitialEPG;
 }
 
 PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
@@ -1260,35 +1299,30 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
 
   if (channel.iUniqueId-1 > m_channels.size())
   {
-    XBMC->Log(LOG_ERROR, "%s Could not fetch cannel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
+    XBMC->Log(LOG_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
     return PVR_ERROR_NO_ERROR;
   }
 
-  VuChannel myChannel;
-  myChannel = m_channels.at(channel.iUniqueId-1);
+  VuChannel& myChannel = m_channels.at(channel.iUniqueId-1);
+
+  XBMC->Log(LOG_DEBUG, "%s Getting EPG for channel '%s'", __FUNCTION__, myChannel.strChannelName.c_str());
 
   // Check if the initial short import has already been done for this channel
-  if (m_channels.at(channel.iUniqueId-1).bInitialEPG == true)
+  if (myChannel.bRequiresInitialEPG == true)
   {
-    m_channels.at(channel.iUniqueId-1).bInitialEPG = false;
-  
-    // Check if all channels have completed the initial EPG import
-    m_bInitialEPG = false;
-    for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
-    {
-      if (m_channels.at(iChannelPtr).bInitialEPG == true) 
-      {
-        m_bInitialEPG = true;
-      }
-    }
+    myChannel.bRequiresInitialEPG = false;
 
-    if (!m_bInitialEPG)
+    if (!m_bAllChannelsHaveInitialEPG)
+      m_bAllChannelsHaveInitialEPG = CheckIfAllChannelsHaveInitialEPG();
+
+    if (m_bAllChannelsHaveInitialEPG)
     {
       std::string initialEPGReady = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
       m_writeHandle = XBMC->OpenFileForWrite(initialEPGReady.c_str(), true);
       XBMC->WriteFile(m_writeHandle, "N", 1);
       XBMC->CloseFile(m_writeHandle);
     }
+
     return GetInitialEPGForChannel(handle, myChannel, iStart, iEnd);
   }
 
@@ -1365,6 +1399,10 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     entry.strTitle = strTmp;
     
     entry.strServiceReference = myChannel.strServiceReference.c_str();
+
+    // Check that it's not an empty record
+    if (entry.iEventId == 0 && entry.strTitle == "None")
+      continue;
 
     if (XMLUtils::GetString(pNode, "e2eventdescriptionextended", strTmp))
       entry.strPlot = strTmp;

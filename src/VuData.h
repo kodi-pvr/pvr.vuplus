@@ -68,7 +68,7 @@ struct VuChannelGroup
 struct VuChannel
 {
   bool bRadio;
-  bool bInitialEPG;
+  bool bRequiresInitialEPG = true;
   int iUniqueId;
   int iChannelNumber;
   std::string strGroupName;
@@ -170,6 +170,7 @@ private:
   bool LoadChannels();
   std::string GetChannelIconPath(std::string strChannelName);
   bool LoadLocations();
+  bool CheckIfAllChannelsHaveInitialEPG() const;
 
   // helper functions
   std::string GetStreamURL(std::string& strM3uURL);
@@ -203,5 +204,5 @@ private:
   P8PLATFORM::CCondition<bool> m_started;
 
   bool m_bUpdating = false;
-  bool m_bInitialEPG = true;
+  bool m_bAllChannelsHaveInitialEPG = false;
 };
