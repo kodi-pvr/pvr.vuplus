@@ -13,15 +13,13 @@ namespace vuplus
 class EpgEntryExtractor
   : public IExtractor
 {
-private:
-  GenreExtractor genreExtractor;
-  ShowInfoExtractor showInfoExtractor;
-  std::vector<std::unique_ptr<IExtractor>> extractors;
-  
 public:
-  EpgEntryExtractor();
+  EpgEntryExtractor(const vuplus::Settings &settings);
   ~EpgEntryExtractor(void);
   void ExtractFromEntry(VuBase &entry);
+
+private:
+  std::vector<std::unique_ptr<IExtractor>> extractors;  
 };
 
 } // end vuplus

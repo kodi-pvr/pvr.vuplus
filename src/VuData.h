@@ -22,6 +22,7 @@
  */
 
 #include "client.h"
+#include "Settings.h"
 #include "Timers.h"
 #include "VuBase.h"
 #include "extract/EpgEntryExtractor.h"
@@ -100,24 +101,25 @@ private:
   std::string m_strImageVersion;
   std::string m_strWebIfVersion;
   unsigned int m_iWebIfVersion;
-  bool  m_bIsConnected;
-  std::string m_strServerName;
+  bool m_bIsConnected = false;
+  std::string m_strServerName = "Vu";
   std::string m_strURL;
-  int m_iCurrentChannel;
-  unsigned int m_iUpdateTimer;
+  int m_iCurrentChannel = -1;
+  unsigned int m_iUpdateTimer = 0;
   std::vector<VuChannel> m_channels;
   std::vector<VuRecording> m_recordings;
   std::vector<VuChannelGroup> m_groups;
   std::vector<std::string> m_locations;
-  vuplus::EpgEntryExtractor entryExtractor;
 
   vuplus::Timers my_timers = vuplus::Timers(*this);
+  vuplus::Settings m_settings;
+  std::unique_ptr<vuplus::EpgEntryExtractor> m_entryExtractor;
 
   P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;
 
-  bool m_bUpdating;
-  bool m_bInitialEPG;
+  bool m_bUpdating = false;
+  bool m_bInitialEPG = true;
 
   // functions
   bool GetDeviceInfo();
@@ -140,7 +142,7 @@ protected:
   virtual void *Process(void);
 
 public:
-  Vu(void);
+  Vu(const vuplus::Settings &settings);
   ~Vu();
 
   const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
@@ -149,6 +151,11 @@ public:
   inline unsigned int GenerateWebIfVersionNum(unsigned int major, unsigned int minor, unsigned int patch)
   {
     return (major << 16 | minor << 8 | patch);
+  };
+
+  vuplus::Settings &GetSettings()
+  { 
+    return m_settings; 
   };
 
   //device and helper functions
@@ -188,6 +195,7 @@ public:
   std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
   bool GetRecordingFromLocation(std::string strRecordingFolder);
+  std::string GetRecordingPath() const;
   RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);

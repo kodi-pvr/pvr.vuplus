@@ -1,60 +1,300 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<settings>
-  
-  <!-- SYSTEM -->
-  <category label="30018">
-    <setting label="30005" type="lsep"/>
-    <setting id="host" type="text" label="30000" default="127.0.0.1" />
-    <setting id="webport" type="number" label="30012" default="80" />
-    <setting label="30028" type="bool" id="use_secure" default="false"/>
-    <setting label="30006" type="lsep"/>
-    <setting id="onlinepicons" type="bool" default="true" label="30027" />
-    <setting id="usepiconseuformat" type="bool" default="false" enable="eq(-1,true)" subsetting="true" label="30035" />
-    <setting id="iconpath" type="folder" label="30008" enable="eq(-1,false)" subsetting="true" default="" />
-    <setting label="30009" type="lsep"/>
-    <setting id="updateint" type="number" label="30010" default="2" />
-  </category>
+<?xml version="1.0" encoding="utf-8" ?>
+<settings version="1">
+  <section id="pvr.vuplus">
 
-  <!-- Channels -->
-  <category label="30031">
-    <setting label="30019" type="lsep"/>
-    <setting label="30025" type="bool" id="onlyonegroup" default="false"/>
-    <setting label="30026" type="text" id="onegroup" default="" enable="eq(-1,true)" subsetting="true"/>
-    <setting label="30013" type="bool" id="zap" default="false"/>
-    <setting label="30032" type="lsep"/>
-    <setting label="30033" type="bool" id="extracteventinfo" default="false"/>
-    <setting label="30037" type="bool" id="logmissinggenremapping" enable="eq(-1,true)" default="false"/>
-  </category>
+    <!-- Connection -->
+    <category id="connection" label="30005">
+      <group id="1" label="30038">
+        <setting id="host" type="string" label="30000">
+          <level>0</level>
+          <default>127.0.0.1</default>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="webport" type="integer" label="30012">
+          <level>0</level>
+          <default>80</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>65535</maximum>
+          </constraints>
+          <control type="edit" format="integer" />
+        </setting>      
+        <setting id="use_secure" type="boolean" label="30028">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="2" label="30051">
+        <setting id="user" type="string" label="30003">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="pass" type="string" label="30004">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string">
+            <hidden>true</hidden>
+          </control>
+        </setting>
+      </group>      
+      <group id="3" label="30039">
+        <setting id="autoconfig" type="boolean" label="30029">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="streamport" type="integer" parent="autoconfig" label="30002">
+          <level>0</level>
+          <default>8001</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>65535</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="autoconfig">false</dependency>
+          </dependencies>
+          <control type="edit" format="integer" />
+        </setting>     
+      </group>
+    </category>
 
-  <!-- Recordings and Timers-->
-  <category label="30070">
-    <setting label="30071" type="lsep"/>
-    <setting id="recordingpath" type="text" label="30023" default="" />
-    <setting label="30017" type="bool" id="onlycurrent" default="false"/>
-    <setting label="30030" type="bool" id="keepfolders" default="false" />
-    <setting label="30072" type="lsep"/>
-    <setting label="30036" type="bool" id="enablegenrepeattimers" default="true"/>
-    <setting label="30073" type="number" id="numgenrepeattimers" subsetting="true" enable="eq(-1,true)" default="1"/>
-    <setting label="30034" type="bool" id="enableautotimers" default="true"/>
-    <setting label="30011" type="bool" id="timerlistcleanup" default="false"/>
-  </category>
+    <!-- General -->
+    <category id="general" label="30018">
+      <group id="1" label="30006">
+        <setting id="onlinepicons" type="boolean" label="30027">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="usepiconseuformat" type="boolean" parent="onlinepicons" label="30035">
+          <level>0</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="onlinepicons">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="iconpath" type="path" label="30008">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+            <writable>true</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="onlinepicons">false</dependency>
+          </dependencies>
+          <control type="button" format="path">
+            <heading>657</heading>
+          </control>
+        </setting>        
+      </group>
 
-  <!-- Timeshift -->
-  <category label="30060">
-    <setting id="enabletimeshift" type="enum" label="30061" lvalues="30063|30064|30065"/>
-    <setting id="timeshiftbufferpath" type="folder" label="30062" source="auto" option="writeable" enable="gt(-1,0)" subsetting="true" default="special://userdata/addon_data/pvr.vuplus"/>
-  </category>
-  
-  <!-- Advanced -->
-  <category label="30020">
-    <setting label="30051" type="lsep"/>
-    <setting label="30029" type="bool" id="autoconfig" default="false" />
-    <setting id="streamport" type="number" label="30002" default="8001" enable="eq(-1,false)"/>
-    <setting id="user" type="text" label="30003" default="" />
-    <setting id="pass" type="text" label="30004" option="hidden" default="" />
-    <setting label="30052" type="lsep"/>
-    <setting label="30024" type="bool" id="setpowerstate" default="false" />
-    <setting label="30050" type="number" id="readtimeout" default="0"/>
-  </category>
-  
+      <group id="2" label="30009">
+        <setting id="updateint" type="integer" label="30015">
+          <level>0</level>
+          <default>2</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>60</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14044</formatlabel>
+          </control>
+        </setting>      
+      </group>
+    </category>
+
+    <!-- Channels & EPG -->
+    <category id="channels-epg" label="30031">
+      <group id="1" label="30019">
+        <setting id="onlyonegroup" type="boolean" label="30025">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="onegroup" type="string" label="30026">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="onlyonegroup">true</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="zap" type="boolean" label="30013">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+
+      <group id="2" label="30032">
+        <setting id="extracteventinfo" type="boolean" label="30033">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="logmissinggenremapping" type="boolean" parent="extracteventinfo" label="30037">
+          <level>0</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="extracteventinfo">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+
+    <!-- Recordings & Timers -->
+    <category id="recordings-timers" label="30070">
+      <group id="1" label="30071">
+        <setting id="recordingpath" type="string" label="30023">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="onlycurrent" type="boolean" label="30017">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="keepfolders" type="boolean" label="30030">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      
+      <group id="2" label="30072">
+        <setting id="enablegenrepeattimers" type="boolean" label="30036">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="numgenrepeattimers" type="integer" parent="enablegenrepeattimers" label="30073">
+          <level>0</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>10</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="enablegenrepeattimers">true</dependency>
+          </dependencies>
+          <control type="edit" format="integer" />
+        </setting>    
+        <setting id="enableautotimers" type="boolean" label="30034">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="timerlistcleanup" type="boolean" label="30011">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+
+    <!-- Timeshift -->
+    <category id="timeshift" label="30060">
+      <group id="1" label="30060">
+        <setting id="enabletimeshift" type="integer" label="30061">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30063">0</option> <!-- OFF -->
+              <option label="30064">1</option> <!-- ON_PLAYBACK -->
+              <option label="30065">2</option> <!-- ON_PAUSE -->
+            </options>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="timeshiftbufferpath" type="path" parent="enabletimeshift" label="30062">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+            <writable>true</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="enabletimeshift" operator="gt">0</dependency>
+          </dependencies>
+          <control type="button" format="path">
+            <heading>657</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- Advanced -->
+    <category id="advanced" label="30020">      
+      <group id="1" label="30052">
+        <setting id="prependoutline" type="integer" label="30040">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30042">0</option> <!-- NEVER -->
+              <option label="30043">1</option> <!-- IN_EPG -->
+              <option label="30044">2</option> <!-- IN_RECORDINGS -->
+              <option label="30045">3</option> <!-- ALWAYS -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
+        <setting id="setpowerstate" type="boolean" label="30024">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="readtimeout" type="integer" label="30050">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>60</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14045</formatlabel>
+          </control>
+        </setting>
+        <setting id="streamreadchunksize" type="integer" label="30041">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>4</step>
+            <maximum>128</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14049</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+  </section>
 </settings>

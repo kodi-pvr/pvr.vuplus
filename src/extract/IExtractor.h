@@ -4,11 +4,19 @@
 #define PVR_VUPLUS_IEXTRACTOR_H
 
 #include "../VuBase.h"
+#include "../Settings.h"
 #include <regex>
 
 class IExtractor
 {
+public:
+  IExtractor(const vuplus::Settings &settings) : m_settings(settings) {};
+  virtual ~IExtractor(void) = default;
+  virtual void ExtractFromEntry(VuBase &base) = 0;
+
 protected:
+  vuplus::Settings m_settings;
+
   static std::string GetMatchTextFromString(const std::string &text, const std::regex &pattern)
   {
     std::string matchText = "";
@@ -35,10 +43,6 @@ protected:
 
     return matchedText;
   }
-
-public:
-  virtual ~IExtractor(void) = default;
-  virtual void ExtractFromEntry(VuBase &base) = 0;
 };
 
 #endif

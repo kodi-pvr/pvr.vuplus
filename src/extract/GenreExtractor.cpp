@@ -4,11 +4,12 @@
 using namespace vuplus;
 using namespace ADDON;
 
-GenreExtractor::GenreExtractor()
+GenreExtractor::GenreExtractor(const vuplus::Settings &settings) 
+  : IExtractor(settings)
 {
-  for (std::map<int, std::string>::const_iterator it = kodiKeyToGenreMap.begin(); it != kodiKeyToGenreMap.end(); it++)
+  for (const auto& genreMapEntry : kodiKeyToGenreMap)
   {
-    kodiGenreToKeyMap.insert({it->second, it->first});
+    kodiGenreToKeyMap.insert({genreMapEntry.second, genreMapEntry.first});
   }
 
   genrePattern = std::regex(GENRE_PATTERN);
@@ -29,7 +30,7 @@ void GenreExtractor::ExtractFromEntry(VuBase &entry)
 
     if (combinedGenreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
     {
-      if (g_bLogMissingGenreMappings)
+      if (m_settings.m_bLogMissingGenreMappings)
         XBMC->Log(LOG_NOTICE, "%s: Could not lookup genre using genre description string instead:'%s'", __FUNCTION__, genreText.c_str());
 
       entry.genreType = EPG_GENRE_USE_STRING;
@@ -59,7 +60,7 @@ int GenreExtractor::GetGenreTypeFromText(const std::string &genreText, const std
 
   if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED) 
   {
-    if (g_bLogMissingGenreMappings)
+    if (m_settings.m_bLogMissingGenreMappings)
       XBMC->Log(LOG_NOTICE, "%s: Tried to find genre text but no value: '%s', show - '%s'", __FUNCTION__, genreText.c_str(), showName.c_str());
 
     std::string genreMajorText = GetMatchTextFromString(genreText, genreMajorPattern);
@@ -68,7 +69,7 @@ int GenreExtractor::GetGenreTypeFromText(const std::string &genreText, const std
     {
       genreType = LookupGenreValueInMaps(genreMajorText);
 
-      if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && g_bLogMissingGenreMappings)
+      if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && m_settings.m_bLogMissingGenreMappings)
         XBMC->Log(LOG_NOTICE, "%s: Tried to find major genre text but no value: '%s', show - '%s'", __FUNCTION__, genreMajorText.c_str(), showName.c_str());  
     }
   } 

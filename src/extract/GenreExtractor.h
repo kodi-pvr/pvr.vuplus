@@ -9,13 +9,18 @@
 
 namespace vuplus
 {
-  static const std::string GENRE_PATTERN = "^\\[([a-zA-Z /]{3}[a-zA-Z ./]+)\\].*";
+  static const std::string GENRE_PATTERN = "^\\[([a-zA-Z /]{3}[a-zA-Z ./]+)\\][^]*";
   static const std::string GENRE_MAJOR_PATTERN = "^([a-zA-Z /]{3,})\\.?.*";
   static const std::string GENRE_RESERVED_IGNORE = "reserved";
 
 class GenreExtractor
   : public IExtractor
 {
+public:
+  GenreExtractor(const vuplus::Settings &settings);
+  ~GenreExtractor(void);
+  void ExtractFromEntry(VuBase &base);
+
 private:
 
   std::regex genrePattern;
@@ -260,11 +265,6 @@ EPG_EVENT_CONTENTMASK_USERDEFINED              0xF0
 EPG_GENRE_USE_STRING                           0x100
 EPG_STRING_TOKEN_SEPARATOR ","
 */
-
-public:
-  GenreExtractor();
-  ~GenreExtractor(void);
-  void ExtractFromEntry(VuBase &base);
 };
 
 } // end vuplus

@@ -1,3 +1,9 @@
+v3.12.1
+- Added: New setting for Prepending outline to plot
+- Added: New setting for stream read chunk size
+- Fixed: cosmetic error when recordings folder is empty #10
+- Fixed: Rename "VuPlus" PVR client addon to Enigma2 or something else for Kodi? #28
+
 v3.12.0
 - Added: Extracting Genre and Season/Episode numbers for EPG entries and recordings
 - Added: Updated Readme

@@ -5,10 +5,10 @@
 using namespace vuplus;
 using namespace ADDON;
 
-EpgEntryExtractor::EpgEntryExtractor()
+EpgEntryExtractor::EpgEntryExtractor(const vuplus::Settings &settings) : IExtractor(settings)
 {
-   extractors.emplace_back(new GenreExtractor());
-   extractors.emplace_back(new ShowInfoExtractor());
+   extractors.emplace_back(new GenreExtractor(settings));
+   extractors.emplace_back(new ShowInfoExtractor(settings));
 }
 
 EpgEntryExtractor::~EpgEntryExtractor(void)

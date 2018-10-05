@@ -42,30 +42,23 @@ using namespace vuplus;
 using namespace ADDON;
 using namespace P8PLATFORM;
 
-Vu::Vu() 
+Vu::Vu(const Settings &settings) 
+  : m_settings(settings), m_entryExtractor(std::unique_ptr<EpgEntryExtractor>(new EpgEntryExtractor(m_settings)))
 {
-  m_bIsConnected = false;
-  m_strServerName = "Vu";
   std::string strURL = "";
 
   // simply add user@pass in front of the URL if username/password is set
-  if ((g_strUsername.length() > 0) && (g_strPassword.length() > 0))
+  if ((settings.m_strUsername.length() > 0) && (settings.m_strPassword.length() > 0))
   {
-    strURL = StringUtils::Format("%s:%s@", g_strUsername.c_str(), g_strPassword.c_str());
+    strURL = StringUtils::Format("%s:%s@", settings.m_strUsername.c_str(), settings.m_strPassword.c_str());
   }
   
-  if (!g_bUseSecureHTTP)
-    strURL = StringUtils::Format("http://%s%s:%u/", strURL.c_str(), g_strHostname.c_str(), g_iPortWeb);
+  if (!settings.m_bUseSecureHTTP)
+    strURL = StringUtils::Format("http://%s%s:%u/", strURL.c_str(), settings.m_strHostname.c_str(), settings.m_iPortWeb);
   else
-    strURL = StringUtils::Format("https://%s%s:%u/", strURL.c_str(), g_strHostname.c_str(), g_iPortWeb);
+    strURL = StringUtils::Format("https://%s%s:%u/", strURL.c_str(), settings.m_strHostname.c_str(), settings.m_iPortWeb);
   
   m_strURL = strURL.c_str();
-
-  m_iCurrentChannel = -1;
-
-  m_bUpdating = false;
-  m_iUpdateTimer = 0;
-  m_bInitialEPG = true;
 
   std::string initialEPGReady = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
   m_writeHandle = XBMC->OpenFileForWrite(initialEPGReady.c_str(), true);
@@ -102,17 +95,17 @@ bool Vu::Open()
   CLockObject lock(m_mutex);
 
   XBMC->Log(LOG_NOTICE, "%s - VU+ Addon Configuration options", __FUNCTION__);
-  XBMC->Log(LOG_NOTICE, "%s - Hostname: '%s'", __FUNCTION__, g_strHostname.c_str());
-  XBMC->Log(LOG_NOTICE, "%s - WebPort: '%d'", __FUNCTION__, g_iPortWeb);
-  XBMC->Log(LOG_NOTICE, "%s - StreamPort: '%d'", __FUNCTION__, g_iPortStream);
-  if (!g_bUseSecureHTTP)
+  XBMC->Log(LOG_NOTICE, "%s - Hostname: '%s'", __FUNCTION__, m_settings.m_strHostname.c_str());
+  XBMC->Log(LOG_NOTICE, "%s - WebPort: '%d'", __FUNCTION__, m_settings.m_iPortWeb);
+  XBMC->Log(LOG_NOTICE, "%s - StreamPort: '%d'", __FUNCTION__, m_settings.m_iPortStream);
+  if (!m_settings.m_bUseSecureHTTP)
     XBMC->Log(LOG_NOTICE, "%s Use HTTPS: 'false'", __FUNCTION__);
   else
     XBMC->Log(LOG_NOTICE, "%s Use HTTPS: 'true'", __FUNCTION__);
   
-  if ((g_strUsername.length() > 0) && (g_strPassword.length() > 0))
+  if ((m_settings.m_strUsername.length() > 0) && (m_settings.m_strPassword.length() > 0))
   {
-    if ((g_strUsername.find("@") != std::string::npos) || (g_strPassword.find("@") != std::string::npos))
+    if ((m_settings.m_strUsername.find("@") != std::string::npos) || (m_settings.m_strPassword.find("@") != std::string::npos))
     {
       XBMC->Log(LOG_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuraton!", __FUNCTION__);
       return false;
@@ -189,7 +182,7 @@ void  *Vu::Process()
     Sleep(5 * 1000);
     m_iUpdateTimer += 5;
 
-    if ((int)m_iUpdateTimer > (g_iUpdateInterval * 60)) 
+    if ((int)m_iUpdateTimer > (m_settings.m_iUpdateInterval * 60)) 
     {
       m_iUpdateTimer = 0;
  
@@ -197,7 +190,7 @@ void  *Vu::Process()
       CLockObject lock(m_mutex);
       XBMC->Log(LOG_INFO, "%s Perform Updates!", __FUNCTION__);
 
-      if (g_bAutomaticTimerlistCleanup) 
+      if (m_settings.m_bAutomaticTimerlistCleanup) 
       {
         std::string strTmp;
         strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
@@ -214,12 +207,12 @@ void  *Vu::Process()
   //CLockObject lock(m_mutex);
   m_started.Broadcast();
 
-  return NULL;
+  return nullptr;
 }
 
 void Vu::SendPowerstate()
 {
-  if (!g_bSetPowerstate)
+  if (!m_settings.m_bSetPowerstate)
     return;
   
   CLockObject lock(m_mutex);
@@ -396,17 +389,17 @@ std::string Vu::URLEncodeInline(const std::string& sSrc) const
 
 bool Vu::GetGenRepeatTimersEnabled() const
 {
-  return g_bEnableGenRepeatTimers;
+  return m_settings.m_bEnableGenRepeatTimers;
 }
 
 int Vu::GetNumGenRepeatTimers() const
 {
-  return g_iNumGenRepeatTimers;
+  return m_settings.m_iNumGenRepeatTimers;
 }
 
 bool Vu::GetAutoTimersEnabled() const
 {
-  return g_bEnableAutoTimers;
+  return m_settings.m_bEnableAutoTimers;
 }
 
 /***************************************************************************
@@ -560,7 +553,7 @@ bool Vu::LoadChannelGroups()
 
   m_groups.clear();
 
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2service"))
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
     std::string strTmp;
 
@@ -579,8 +572,9 @@ bool Vu::LoadChannelGroups()
 
     newGroup.strGroupName = strTmp;
 
-    if (g_bOnlyOneGroup && g_strOneGroup.compare(strTmp.c_str())) {
-        XBMC->Log(LOG_INFO, "%s Only one group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, strTmp.c_str(), g_strOneGroup.c_str());
+    if (m_settings.m_bOnlyOneGroup && m_settings.m_strOneGroup.compare(strTmp.c_str())) 
+    {
+        XBMC->Log(LOG_INFO, "%s Only one group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, strTmp.c_str(), m_settings.m_strOneGroup.c_str());
         continue;
     }
  
@@ -665,7 +659,7 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
 
   bRadio = !strGroupName.compare("radio");
 
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2service"))
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
     std::string strTmp;
 
@@ -714,7 +708,7 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
       strIcon.erase(it);
     }
 
-    if (g_bUsePiconsEuFormat)
+    if (m_settings.m_bUsePiconsEuFormat)
     {
       //Extract the unique part of the icon name and apply the standard pre and post-fix
       std::regex startPrefixRegex ("^\\d+:\\d+:\\d+:");
@@ -730,17 +724,17 @@ bool Vu::LoadChannels(std::string strServiceReference, std::string strGroupName)
     strTmp2 = StringUtils::Format("%s", strIcon.c_str());
 
     std::replace(strIcon.begin(), strIcon.end(), ':', '_');
-    strIcon = g_strIconPath.c_str() + strIcon + ".png";
+    strIcon = m_settings.m_strIconPath.c_str() + strIcon + ".png";
 
     newChannel.strIconPath = strIcon;
 
     strTmp = StringUtils::Format("%s/web/stream.m3u?ref=%s", m_strURL.c_str(), URLEncodeInline(newChannel.strServiceReference).c_str());
     newChannel.strM3uURL = strTmp;
 
-    strTmp = StringUtils::Format("http://%s:%d/%s", g_strHostname.c_str(), g_iPortStream, strTmp2.c_str());
+    strTmp = StringUtils::Format("http://%s:%d/%s", m_settings.m_strHostname.c_str(), m_settings.m_iPortStream, strTmp2.c_str());
     newChannel.strStreamURL = strTmp;
 
-    if (g_bOnlinePicons == true)
+    if (m_settings.m_bOnlinePicons == true)
     {
       std::replace(strTmp2.begin(), strTmp2.end(), ':', '_');
       strTmp = StringUtils::Format("%spicon/%s.png", m_strURL.c_str(), strTmp2.c_str());
@@ -768,7 +762,7 @@ std::string Vu::GetChannelIconPath(std::string strChannelName)
 bool Vu::LoadLocations() 
 {
   std::string url;
-  if (g_bOnlyCurrentLocation)
+  if (m_settings.m_bOnlyCurrentLocation)
     url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getcurrlocation"); 
   else 
     url = StringUtils::Format("%s%s",  m_strURL.c_str(), "web/getlocations"); 
@@ -804,7 +798,7 @@ bool Vu::LoadLocations()
     return false;
   }
 
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2location"))
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2location"))
   {
     std::string strTmp;
     strTmp = pNode->GetText();
@@ -913,7 +907,7 @@ void Vu::TransferRecordings(ADDON_HANDLE handle)
     strncpy(tag.strChannelName, recording.strChannelName.c_str(), sizeof(tag.strChannelName));
     strncpy(tag.strIconPath, recording.strIconPath.c_str(), sizeof(tag.strIconPath));
 
-    if (!g_bKeepFolders)
+    if (!m_settings.m_bKeepFolders)
     {
       if(IsInRecordingFolder(recording.strTitle))
         strTmp = StringUtils::Format("/%s/", recording.strTitle.c_str());
@@ -1078,7 +1072,7 @@ PVR_ERROR Vu::GetChannels(ADDON_HANDLE handle, bool bRadio)
 }
 
 /***************************************************************************
- * Channels
+ * EPG
  **************************************************************************/
 
 bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
@@ -1128,7 +1122,7 @@ bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
     return false;
   }
   
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2event"))
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
   {
     std::string strTmp;
 
@@ -1169,14 +1163,20 @@ bool Vu::GetInitialEPGForGroup(VuChannelGroup &group)
        entry.strPlotOutline = strTmp;
 
     // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
-    if (entry.strPlot.empty() && !entry.strPlotOutline.empty())
+    if (entry.strPlot.empty())
     {
       entry.strPlot = entry.strPlotOutline;
-      entry.strPlotOutline = "";
+      entry.strPlotOutline.clear();
     }
+    else if ((m_settings.m_prependOutline == PrependOutline::IN_EPG || m_settings.m_prependOutline == PrependOutline::ALWAYS)
+              && !entry.strPlotOutline.empty())
+    {
+      entry.strPlot.insert(0, entry.strPlotOutline + "\n");
+      entry.strPlotOutline.clear();
+    }    
 
-    if (g_bExtractExtraEpgInfo)
-      entryExtractor.ExtractFromEntry(entry);
+    if (m_settings.m_bExtractExtraEpgInfo)
+      m_entryExtractor->ExtractFromEntry(entry);
 
     iNumEPG++; 
     
@@ -1221,12 +1221,12 @@ PVR_ERROR Vu::GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &chan
       broadcast.endTime             = entry.endTime;
       broadcast.strPlotOutline      = entry.strPlotOutline.c_str();
       broadcast.strPlot             = entry.strPlot.c_str();
-      broadcast.strOriginalTitle    = NULL; // unused
-      broadcast.strCast             = NULL; // unused
-      broadcast.strDirector         = NULL; // unused
-      broadcast.strWriter           = NULL; // unused
+      broadcast.strOriginalTitle    = nullptr; // unused
+      broadcast.strCast             = nullptr; // unused
+      broadcast.strDirector         = nullptr; // unused
+      broadcast.strWriter           = nullptr; // unused
       broadcast.iYear               = entry.year;
-      broadcast.strIMDBNumber       = NULL; // unused
+      broadcast.strIMDBNumber       = nullptr; // unused
       broadcast.strIconPath         = ""; // unused
       broadcast.iGenreType          = entry.genreType;
       broadcast.iGenreSubType       = entry.genreSubType;
@@ -1328,7 +1328,7 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     return PVR_ERROR_SERVER_ERROR;
   }
   
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2event"))
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
   {
     std::string strTmp;
 
@@ -1372,14 +1372,20 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
        entry.strPlotOutline = strTmp;
 
     // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
-    if (entry.strPlot.empty() && !entry.strPlotOutline.empty())
+    if (entry.strPlot.empty())
     {
       entry.strPlot = entry.strPlotOutline;
-      entry.strPlotOutline = "";
+      entry.strPlotOutline.clear();
     }
+    else if ((m_settings.m_prependOutline == PrependOutline::IN_EPG || m_settings.m_prependOutline == PrependOutline::ALWAYS)
+              && !entry.strPlotOutline.empty())
+    {
+      entry.strPlot.insert(0, entry.strPlotOutline + "\n");
+      entry.strPlotOutline.clear();
+    }    
 
-    if (g_bExtractExtraEpgInfo)
-      entryExtractor.ExtractFromEntry(entry);
+    if (m_settings.m_bExtractExtraEpgInfo)
+      m_entryExtractor->ExtractFromEntry(entry);
 
     EPG_TAG broadcast;
     memset(&broadcast, 0, sizeof(EPG_TAG));
@@ -1391,12 +1397,12 @@ PVR_ERROR Vu::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, 
     broadcast.endTime             = entry.endTime;
     broadcast.strPlotOutline      = entry.strPlotOutline.c_str();
     broadcast.strPlot             = entry.strPlot.c_str();
-    broadcast.strOriginalTitle    = NULL; // unused
-    broadcast.strCast             = NULL; // unused
-    broadcast.strDirector         = NULL; // unused
-    broadcast.strWriter           = NULL; // unused
+    broadcast.strOriginalTitle    = nullptr; // unused
+    broadcast.strCast             = nullptr; // unused
+    broadcast.strDirector         = nullptr; // unused
+    broadcast.strWriter           = nullptr; // unused
     broadcast.iYear               = entry.year;
-    broadcast.strIMDBNumber       = NULL; // unused
+    broadcast.strIMDBNumber       = nullptr; // unused
     broadcast.strIconPath         = ""; // unused
     broadcast.iGenreType          = entry.genreType;
     broadcast.iGenreSubType       = entry.genreSubType;
@@ -1434,7 +1440,7 @@ bool Vu::OpenLiveStream(const PVR_CHANNEL &channelinfo)
   {
     m_iCurrentChannel = channelinfo.iUniqueId;
 
-    if (g_bZap)
+    if (m_settings.m_bZap)
     {
       // Zapping is set to true, so send the zapping command to the PVR box
       std::string strServiceReference = m_channels.at(channelinfo.iUniqueId-1).strServiceReference.c_str();
@@ -1459,7 +1465,7 @@ void Vu::CloseLiveStream(void)
 
 const std::string Vu::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
-  if (g_bAutoConfig)
+  if (m_settings.m_bAutoConfig)
   {
     // we need to download the M3U file that contains the URL for the stream...
     // we do it here for 2 reasons:
@@ -1546,77 +1552,84 @@ bool Vu::GetRecordingFromLocation(std::string strRecordingFolder)
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2movie").Element();
 
+  int iNumRecording = 0; 
+
   if (!pNode)
   {
-    XBMC->Log(LOG_DEBUG, "Could not find <e2movie> element");
-    return false;
+    XBMC->Log(LOG_DEBUG, "Could not find <e2movie> element, no movies at location: %s", directory.c_str());
+  }  
+  else
+  {  
+    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2movie"))
+    {
+      std::string strTmp;
+      int iTmp;
+
+      VuRecording recording;
+
+      recording.strDirectory = directory;
+
+      recording.iLastPlayedPosition = 0;
+      if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
+        recording.strRecordingId = strTmp;
+
+      if (XMLUtils::GetString(pNode, "e2title", strTmp))
+        recording.strTitle = strTmp;
+      
+      if (XMLUtils::GetString(pNode, "e2description", strTmp))
+        recording.strPlotOutline = strTmp;
+
+      if (XMLUtils::GetString(pNode, "e2descriptionextended", strTmp))
+        recording.strPlot = strTmp;
+      
+      if (XMLUtils::GetString(pNode, "e2servicename", strTmp))
+        recording.strChannelName = strTmp;
+
+      recording.strIconPath = GetChannelIconPath(strTmp.c_str());
+
+      if (XMLUtils::GetInt(pNode, "e2time", iTmp)) 
+        recording.startTime = iTmp;
+
+      if (XMLUtils::GetString(pNode, "e2length", strTmp)) 
+      {
+        iTmp = TimeStringToSeconds(strTmp.c_str());
+        recording.iDuration = iTmp;
+      }
+      else
+        recording.iDuration = 0;
+
+      if (XMLUtils::GetString(pNode, "e2filename", strTmp)) 
+      {
+        strTmp = StringUtils::Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp).c_str());
+        recording.strStreamURL = strTmp;
+      }
+
+      // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
+      if (recording.strPlot.empty())
+      {
+        recording.strPlot = recording.strPlotOutline;
+        recording.strPlotOutline.clear();
+      }
+      else if ((m_settings.m_prependOutline == PrependOutline::IN_RECORDINGS || m_settings.m_prependOutline == PrependOutline::ALWAYS)
+                && !recording.strPlotOutline.empty())
+      {
+        recording.strPlot.insert(0, recording.strPlotOutline + "\n");
+        recording.strPlotOutline.clear();
+      }    
+
+
+      if (m_settings.m_bExtractExtraEpgInfo)
+        m_entryExtractor->ExtractFromEntry(recording);
+
+      iNumRecording++;
+
+      m_recordings.emplace_back(recording);
+
+      XBMC->Log(LOG_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recording.strTitle.c_str(), recording.startTime, recording.iDuration);
+    }
+
+    XBMC->Log(LOG_INFO, "%s Loaded %u Recording Entries from folder '%s'", __FUNCTION__, iNumRecording, strRecordingFolder.c_str());
   }
-  
-  int iNumRecording = 0; 
-  
-  for (; pNode != NULL; pNode = pNode->NextSiblingElement("e2movie"))
-  {
-    std::string strTmp;
-    int iTmp;
-
-    VuRecording recording;
-
-    recording.strDirectory = directory;
-
-    recording.iLastPlayedPosition = 0;
-    if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
-      recording.strRecordingId = strTmp;
-
-    if (XMLUtils::GetString(pNode, "e2title", strTmp))
-      recording.strTitle = strTmp;
-    
-    if (XMLUtils::GetString(pNode, "e2description", strTmp))
-      recording.strPlotOutline = strTmp;
-
-    if (XMLUtils::GetString(pNode, "e2descriptionextended", strTmp))
-      recording.strPlot = strTmp;
-    
-    if (XMLUtils::GetString(pNode, "e2servicename", strTmp))
-      recording.strChannelName = strTmp;
-
-    recording.strIconPath = GetChannelIconPath(strTmp.c_str());
-
-    if (XMLUtils::GetInt(pNode, "e2time", iTmp)) 
-      recording.startTime = iTmp;
-
-    if (XMLUtils::GetString(pNode, "e2length", strTmp)) 
-    {
-      iTmp = TimeStringToSeconds(strTmp.c_str());
-      recording.iDuration = iTmp;
-    }
-    else
-      recording.iDuration = 0;
-
-    if (XMLUtils::GetString(pNode, "e2filename", strTmp)) 
-    {
-      strTmp = StringUtils::Format("%sfile?file=%s", m_strURL.c_str(), URLEncodeInline(strTmp).c_str());
-      recording.strStreamURL = strTmp;
-    }
-
-    // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
-    if (recording.strPlot.empty() && !recording.strPlotOutline.empty())
-    {
-      recording.strPlot = recording.strPlotOutline;
-      recording.strPlotOutline = "";
-    }
-
-    if (g_bExtractExtraEpgInfo)
-      entryExtractor.ExtractFromEntry(recording);
-
-    iNumRecording++;
-
-    m_recordings.emplace_back(recording);
-
-    XBMC->Log(LOG_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recording.strTitle.c_str(), recording.startTime, recording.iDuration);
-  }
-
-  XBMC->Log(LOG_INFO, "%s Loaded %u Recording Entries from folder '%s'", __FUNCTION__, iNumRecording, strRecordingFolder.c_str());
-
   return true;
 }
 
@@ -1628,6 +1641,11 @@ std::string Vu::GetRecordingURL(const PVR_RECORDING &recinfo)
       return recording.strStreamURL;
   }
   return "";
+}
+
+std::string Vu::GetRecordingPath() const
+{
+  return m_settings.m_strRecordingPath;
 }
 
 PVR_ERROR Vu::DeleteRecording(const PVR_RECORDING &recinfo) 
@@ -1770,7 +1788,7 @@ PVR_ERROR Vu::GetDriveSpace(long long *iTotal, long long *iUsed)
     return PVR_ERROR_SERVER_ERROR;
   }
 
-  for (; hddNode != NULL; hddNode = hddNode->NextSiblingElement("e2hdd"))
+  for (; hddNode != nullptr; hddNode = hddNode->NextSiblingElement("e2hdd"))
   {
     std::string capacity;
     std::string freeSpace;

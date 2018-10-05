@@ -567,7 +567,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       const std::string &description = std::string(),
       const std::vector<std::pair<int, std::string>> &groupValues
         = std::vector<std::pair<int, std::string>>(),
-      const std::vector<std::pair<int, std::string> > &deDupValues
+      const std::vector<std::pair<int, std::string>> &deDupValues
         = std::vector<std::pair<int, std::string>>())
     {
       int i;
@@ -839,8 +839,8 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  if (!g_strRecordingPath.compare(""))
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s", vuData.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, vuData.URLEncodeInline(tags).c_str(), vuData.URLEncodeInline(g_strRecordingPath).c_str());
+  if (!vuData.GetRecordingPath().compare(""))
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s", vuData.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, vuData.URLEncodeInline(tags).c_str(), vuData.URLEncodeInline(vuData.GetRecordingPath()).c_str());
   else
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s", vuData.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, vuData.URLEncodeInline(tags).c_str());
 
