@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.12.1"
+  version="3.12.2"
   name="Enigma2 Client"
   provider-name="Joerg Dembski">
   <requires>@ADDON_DEPENDS@</requires>
@@ -174,5 +174,10 @@
     <disclaimer lang="zh_CN">这是不稳定版的软件！作者不对录像失败、错误定时造成时间浪费或其它不良影响负责。</disclaimer>
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
+    <news>
+v3.12.2
+- Fixed: Refactoring - Conventions: includes, namesapce naming, public private order in class definition
+- Fixed: GetInitialEPGForGroup called for each CHANNEL while initial EPG Update - #86
+    </news>
   </extension>
 </addon>
