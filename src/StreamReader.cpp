@@ -1,4 +1,5 @@
 #include "StreamReader.h"
+
 #include "client.h"
 
 using namespace ADDON;

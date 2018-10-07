@@ -14,6 +14,7 @@ public:
   TimeshiftBuffer(IStreamReader *strReader,
       const std::string &m_timeshiftBufferPath, const unsigned int m_readTimeoutX);
   ~TimeshiftBuffer(void);
+  
   bool Start() override;
   ssize_t ReadData(unsigned char *buffer, unsigned int size) override;
   int64_t Seek(long long position, int whence) override;
@@ -26,6 +27,10 @@ public:
 
 private:
   void DoReadWrite();
+
+  static const int BUFFER_SIZE = 32 * 1024;
+  static const int DEFAULT_READ_TIMEOUT = 10;
+  static const int READ_WAITTIME = 50;
 
   std::string m_bufferPath;
   IStreamReader *m_strReader;

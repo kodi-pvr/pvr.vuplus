@@ -1,14 +1,16 @@
 #pragma once
 
-#include "libXBMC_addon.h"
-
 #include <ctime>
+
+#include "libXBMC_addon.h"
 
 class RecordingReader
 {
+
 public:
   RecordingReader(const std::string &streamURL, std::time_t end);
   ~RecordingReader(void);
+
   bool Start();
   ssize_t ReadData(unsigned char *buffer, unsigned int size);
   int64_t Seek(long long position, int whence);
@@ -16,6 +18,9 @@ public:
   int64_t Length();
 
 private:
+  static const int REOPEN_INTERVAL = 30;
+  static const int REOPEN_INTERVAL_FAST = 10;
+
   std::string m_streamURL;
   void *m_readHandle;
 

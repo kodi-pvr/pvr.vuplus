@@ -1,10 +1,9 @@
 #include "ShowInfoExtractor.h"
-#include <regex>
 
-using namespace vuplus;
+using namespace VUPLUS;
 using namespace ADDON;
 
-ShowInfoExtractor::ShowInfoExtractor(const vuplus::Settings &settings) 
+ShowInfoExtractor::ShowInfoExtractor(const VUPLUS::Settings &settings) 
   : IExtractor(settings)
 {
   episodeSeasonPatterns.emplace_back(

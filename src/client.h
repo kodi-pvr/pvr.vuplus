@@ -23,7 +23,6 @@
 
 #include "libXBMC_addon.h"
 #include "libXBMC_pvr.h"
-#include "IStreamReader.h"
 
 extern ADDON::CHelper_libXBMC_addon *   XBMC;
 extern CHelper_libXBMC_pvr *     PVR;

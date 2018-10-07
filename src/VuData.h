@@ -22,13 +22,14 @@
  */
 
 #include "client.h"
+#include "RecordingReader.h"
 #include "Settings.h"
 #include "Timers.h"
 #include "VuBase.h"
 #include "extract/EpgEntryExtractor.h"
-#include "RecordingReader.h"
-#include "p8-platform/threads/threads.h"
+
 #include "tinyxml.h"
+#include "p8-platform/threads/threads.h"
 
 class CCurlFile
 {
@@ -67,7 +68,7 @@ struct VuChannelGroup
 struct VuChannel
 {
   bool bRadio;
-  bool bInitialEPG;
+  bool bRequiresInitialEPG = true;
   int iUniqueId;
   int iChannelNumber;
   std::string strGroupName;
@@ -92,57 +93,8 @@ struct VuRecording : public VuBase
 
 class Vu  : public P8PLATFORM::CThread
 {
-private:
-
-  // members
-  void *m_writeHandle;
-  void *m_readHandle;
-  std::string m_strEnigmaVersion;
-  std::string m_strImageVersion;
-  std::string m_strWebIfVersion;
-  unsigned int m_iWebIfVersion;
-  bool m_bIsConnected = false;
-  std::string m_strServerName = "Vu";
-  std::string m_strURL;
-  int m_iCurrentChannel = -1;
-  unsigned int m_iUpdateTimer = 0;
-  std::vector<VuChannel> m_channels;
-  std::vector<VuRecording> m_recordings;
-  std::vector<VuChannelGroup> m_groups;
-  std::vector<std::string> m_locations;
-
-  vuplus::Timers my_timers = vuplus::Timers(*this);
-  vuplus::Settings m_settings;
-  std::unique_ptr<vuplus::EpgEntryExtractor> m_entryExtractor;
-
-  P8PLATFORM::CMutex m_mutex;
-  P8PLATFORM::CCondition<bool> m_started;
-
-  bool m_bUpdating = false;
-  bool m_bInitialEPG = true;
-
-  // functions
-  bool GetDeviceInfo();
-  static unsigned int GetWebIfVersion(std::string versionString);
-  bool LoadChannelGroups();
-  std::string GetGroupServiceReference(std::string strGroupName);
-  bool LoadChannels(std::string strServerReference, std::string strGroupName);
-  bool LoadChannels();
-  std::string GetChannelIconPath(std::string strChannelName);
-  bool LoadLocations();
-
-  // helper functions
-  std::string GetStreamURL(std::string& strM3uURL);
-  static long TimeStringToSeconds(const std::string &timeString);
-  std::string& Escape(std::string &s, std::string from, std::string to);
-  bool IsInRecordingFolder(std::string);
-  void TransferRecordings(ADDON_HANDLE handle);
-
-protected:
-  virtual void *Process(void);
-
 public:
-  Vu(const vuplus::Settings &settings);
+  Vu(const VUPLUS::Settings &settings);
   ~Vu();
 
   const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
@@ -153,7 +105,7 @@ public:
     return (major << 16 | minor << 8 | patch);
   };
 
-  vuplus::Settings &GetSettings()
+  VUPLUS::Settings &GetSettings()
   { 
     return m_settings; 
   };
@@ -204,5 +156,53 @@ public:
   PVR_ERROR UpdateTimer(const PVR_TIMER &timer);
   PVR_ERROR DeleteTimer(const PVR_TIMER &timer);
   PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed);
-};
 
+protected:
+  virtual void *Process(void);
+
+private:
+  // functions
+  bool GetDeviceInfo();
+  static unsigned int GetWebIfVersion(std::string versionString);
+  bool LoadChannelGroups();
+  std::string GetGroupServiceReference(std::string strGroupName);
+  bool LoadChannels(std::string strServerReference, std::string strGroupName);
+  bool LoadChannels();
+  std::string GetChannelIconPath(std::string strChannelName);
+  bool LoadLocations();
+  bool CheckIfAllChannelsHaveInitialEPG() const;
+
+  // helper functions
+  std::string GetStreamURL(std::string& strM3uURL);
+  static long TimeStringToSeconds(const std::string &timeString);
+  std::string& Escape(std::string &s, std::string from, std::string to);
+  bool IsInRecordingFolder(std::string);
+  void TransferRecordings(ADDON_HANDLE handle);
+
+  // members
+  void *m_writeHandle;
+  void *m_readHandle;
+  std::string m_strEnigmaVersion;
+  std::string m_strImageVersion;
+  std::string m_strWebIfVersion;
+  unsigned int m_iWebIfVersion;
+  bool m_bIsConnected = false;
+  std::string m_strServerName = "Vu";
+  std::string m_strURL;
+  int m_iCurrentChannel = -1;
+  unsigned int m_iUpdateTimer = 0;
+  std::vector<VuChannel> m_channels;
+  std::vector<VuRecording> m_recordings;
+  std::vector<VuChannelGroup> m_groups;
+  std::vector<std::string> m_locations;
+
+  VUPLUS::Timers my_timers = VUPLUS::Timers(*this);
+  VUPLUS::Settings m_settings;
+  std::unique_ptr<VUPLUS::EpgEntryExtractor> m_entryExtractor;
+
+  P8PLATFORM::CMutex m_mutex;
+  P8PLATFORM::CCondition<bool> m_started;
+
+  bool m_bUpdating = false;
+  bool m_bAllChannelsHaveInitialEPG = false;
+};

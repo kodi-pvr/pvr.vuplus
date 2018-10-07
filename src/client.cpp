@@ -21,20 +21,21 @@
  */
 
 #include "client.h"
-#include "xbmc_pvr_dll.h"
+
 #include <stdlib.h>
-#include "Settings.h"
-#include "VuData.h"
-#include <p8-platform/util/StringUtils.h>
-#include "p8-platform/util/util.h"
-#include "StreamReader.h"
-#include "TimeshiftBuffer.h"
+
 #include "LocalizedString.h"
 #include "RecordingReader.h"
+#include "Settings.h"
+#include "StreamReader.h"
+#include "TimeshiftBuffer.h"
+#include "VuData.h"
 
-#include <stdlib.h>
+#include "p8-platform/util/util.h"
+#include <p8-platform/util/StringUtils.h>
+#include "xbmc_pvr_dll.h"
 
-using namespace vuplus;
+using namespace VUPLUS;
 using namespace ADDON;
 
 bool            m_bCreated  = false;
