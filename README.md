@@ -1,8 +1,12 @@
 [![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.vuplus)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
-# VuPlus PVR
-VuPlus PVR client addon for [Kodi] (http://kodi.tv)
+# Enigma2 PVR
+PVR client addon for [Kodi] (http://kodi.tv) to control Enigma2-based TV-receivers/DVR/set-top boxes. 
+
+Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. Such Enigma2-based TV-boxes include Amiko, DBox2, Dreambox, Gigablue, SAB, VuPlus/Vu+, WeTek, Zgemma, Xtrend, and more. 
+
+For those interested; there are multiple open source projects and teams of independent developers out there making unofficial third-party firmware (OS) images for newer set-top box hardware that can run Enigma2. The Enigma2 framework/GUI and TV-zapping application running on Enigma2-based TV-boxes is written in Python (for LinuxTV DVB API) and its firmware OS images are based on OpenEmbedded is built with Yocto. 
 
 ## Build instructions
 
@@ -24,7 +28,7 @@ VuPlus PVR client addon for [Kodi] (http://kodi.tv)
 ### Connection
 Within this tab the connection options need to be configured before it can be successfully enabled.
 
-* **VU+ hostname or IP address**: The IP address or hostname of your enigma2 based settop box.
+* **Enigma2 hostname IP-address**: The hostname (DNS-name) or IP-address of your Enigma2-based set-top box.
 * **Web interface port**: The port used to connect to the web interface
 * **Use secure HTTP (https)**: Use https to connect to the web interface
 * **Username**: If the webinterface of the settop box is protected with a username / password combination this needs to be set in this option.
