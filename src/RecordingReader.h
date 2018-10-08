@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ctime>
+#include <string>
 
 #include "libXBMC_addon.h"
 

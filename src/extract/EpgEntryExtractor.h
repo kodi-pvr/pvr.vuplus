@@ -1,9 +1,10 @@
 #pragma once
 
+#include <memory>
 #include <string>
+#include <vector>
 
-#include "GenreExtractor.h"
-#include "ShowInfoExtractor.h"
+#include "IExtractor.h"
 #include "../client.h"
 
 #include "libXBMC_addon.h"
@@ -21,7 +22,7 @@ public:
   void ExtractFromEntry(VuBase &entry);
 
 private:
-  std::vector<std::unique_ptr<IExtractor>> extractors;  
+  std::vector<std::unique_ptr<IExtractor>> m_extractors;  
 };
 
 } //namespace VUPLUS
