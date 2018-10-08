@@ -2,7 +2,7 @@
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
 # Enigma2 PVR
-PVR client addon for [Kodi] (http://kodi.tv) to control Enigma2-based TV-receivers/DVR/set-top boxes. 
+PVR client addon for Kodi to control Enigma2-based TV-receivers/DVR/set-top boxes. 
 
 Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. Such Enigma2-based TV-boxes include Amiko, DBox2, Dreambox, Gigablue, SAB, VuPlus/Vu+, WeTek, Zgemma, Xtrend, and more. 
 
