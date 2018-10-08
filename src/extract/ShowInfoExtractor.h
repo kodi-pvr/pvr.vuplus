@@ -3,6 +3,8 @@
 #include "IExtractor.h"
 #include "../client.h"
 
+#include <regex>
+#include <string>
 #include <vector>
 
 #include "libXBMC_addon.h"
