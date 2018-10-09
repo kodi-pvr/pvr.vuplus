@@ -20,8 +20,8 @@ For those interested; there are multiple open source projects and teams of indep
 
 ##### Useful links
 
-* [Kodi's PVR user support] (http://forum.kodi.tv/forumdisplay.php?fid=167)
-* [Kodi's PVR development support] (http://forum.kodi.tv/forumdisplay.php?fid=136)
+* [Kodi's PVR user support] (https://forum.kodi.tv/forumdisplay.php?fid=167)
+* [Kodi's PVR development support] (https://forum.kodi.tv/forumdisplay.php?fid=136)
 
 ## Configuring the addon
 
@@ -40,7 +40,7 @@ Webinterface Port: This option defines the port that should be used to access th
 ### General
 Within this tab general options are configured.
 
-* **Fetch picons from web interface**: Fetch the picons straight from the Vuplus/Enigma 2 STB
+* **Fetch picons from web interface**: Fetch the picons straight from the Enigma2 STB
 * **Use picons.eu file formate**: Assume all picons files fetched from the STB start with `1_1_1_` and end with `_0_0_0`
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your settop box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the settop box can also be used to modify timers, delete recordings etc. and the settop box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
