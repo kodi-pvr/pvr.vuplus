@@ -71,7 +71,7 @@
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="en_GB">Enigma2 PVR client addon; frontend supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers. Compatible with Enigma2-based TV-boxes from different manufacturers, such as Amiko, DBox2, Dreambox, Gigablue, SAB, VuPlus/Vu+, WeTek, Zgemma, Xtrend, and more.</description>
+    <description lang="en_GB">Enigma2 PVR client addon; frontend supporting streaming of Live TV &amp Recordings, EPG, Timers, Autotimers. Should be API compatible with Enigma2-based TV-boxes from different manufacturers if they do not deviate from the default Enigma2 configuration and standards. While not garanteed to work with this PVR client addon, a few examples of Enigma2-based TV-boxes are; Amiko, DBox2, Dreambox, Gigablue, SAB, VuPlus/Vu+, WeTek, Zgemma, Xtrend, and more.</description>
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
