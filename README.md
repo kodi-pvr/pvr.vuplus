@@ -1,8 +1,12 @@
 [![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.vuplus)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
-# VuPlus PVR
-VuPlus PVR client addon for [Kodi] (http://kodi.tv)
+# Enigma2 PVR
+PVR client addon for Kodi to control Enigma2-based TV-receivers/DVR/set-top boxes. 
+
+Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. Such Enigma2-based TV-boxes include Amiko, DBox2, Dreambox, Gigablue, SAB, VuPlus/Vu+, WeTek, Zgemma, Xtrend, and more. 
+
+For those interested; there are multiple open source projects and teams of independent developers out there making unofficial third-party firmware (OS) images for newer set-top box hardware that can run Enigma2. The Enigma2 framework/GUI and TV-zapping application running on Enigma2-based TV-boxes is written in Python (for LinuxTV DVB API) and its firmware OS images are based on OpenEmbedded is built with Yocto. 
 
 ## Build instructions
 
@@ -16,15 +20,15 @@ VuPlus PVR client addon for [Kodi] (http://kodi.tv)
 
 ##### Useful links
 
-* [Kodi's PVR user support] (http://forum.kodi.tv/forumdisplay.php?fid=167)
-* [Kodi's PVR development support] (http://forum.kodi.tv/forumdisplay.php?fid=136)
+* [Kodi's PVR user support] (https://forum.kodi.tv/forumdisplay.php?fid=167)
+* [Kodi's PVR development support] (https://forum.kodi.tv/forumdisplay.php?fid=136)
 
 ## Configuring the addon
 
 ### Connection
 Within this tab the connection options need to be configured before it can be successfully enabled.
 
-* **VU+ hostname or IP address**: The IP address or hostname of your enigma2 based settop box.
+* **Enigma2 hostname IP-address**: The hostname (DNS-name) or IP-address of your Enigma2-based set-top box.
 * **Web interface port**: The port used to connect to the web interface
 * **Use secure HTTP (https)**: Use https to connect to the web interface
 * **Username**: If the webinterface of the settop box is protected with a username / password combination this needs to be set in this option.
@@ -36,7 +40,7 @@ Webinterface Port: This option defines the port that should be used to access th
 ### General
 Within this tab general options are configured.
 
-* **Fetch picons from web interface**: Fetch the picons straight from the Vuplus/Enigma 2 STB
+* **Fetch picons from web interface**: Fetch the picons straight from the Enigma2 STB
 * **Use picons.eu file formate**: Assume all picons files fetched from the STB start with `1_1_1_` and end with `_0_0_0`
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your settop box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the settop box can also be used to modify timers, delete recordings etc. and the settop box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
