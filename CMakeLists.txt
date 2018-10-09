@@ -17,29 +17,44 @@ include_directories(${kodiplatform_INCLUDE_DIRS}
                     ${KODI_INCLUDE_DIR})
 
 set(VUPLUS_SOURCES src/client.cpp
-                   src/Settings.cpp
-                   src/VuData.cpp
-                   src/StreamReader.cpp
-                   src/TimeshiftBuffer.cpp
-                   src/Timers.cpp
-                   src/extract/EpgEntryExtractor.cpp
-                   src/extract/GenreExtractor.cpp
-                   src/extract/ShowInfoExtractor.cpp
-                   src/RecordingReader.cpp)
+                   src/Enigma2.cpp
+                   src/enigma2/RecordingReader.cpp
+                   src/enigma2/Settings.cpp
+                   src/enigma2/StreamReader.cpp
+                   src/enigma2/Timers.cpp
+                   src/enigma2/TimeshiftBuffer.cpp
+                   src/enigma2/data/AutoTimer.cpp
+                   src/enigma2/data/Timer.cpp
+                   src/enigma2/extract/EpgEntryExtractor.cpp
+                   src/enigma2/extract/GenreExtractor.cpp
+                   src/enigma2/extract/ShowInfoExtractor.cpp
+                   src/enigma2/utilities/CurlFile.cpp
+                   src/enigma2/utilities/Logger.cpp)
 
 set(VUPLUS_HEADERS src/client.h
-                   src/Settings.h
-                   src/VuData.h
-                   src/VuBase.h
-                   src/IStreamReader.h
-                   src/StreamReader.h
-                   src/TimeshiftBuffer.h
-                   src/Timers.h
-                   src/extract/EpgEntryExtractor.h
-                   src/extract/GenreExtractor.h
-                   src/extract/ShowInfoExtractor.h
-                   src/RecordingReader.h
-                   src/LocalizedString.h)
+                   src/Enigma2.h
+                   src/enigma2/IStreamReader.h
+                   src/enigma2/RecordingReader.h
+                   src/enigma2/Settings.h
+                   src/enigma2/StreamReader.h
+                   src/enigma2/Timers.h
+                   src/enigma2/TimeshiftBuffer.h
+                   src/enigma2/data/AutoTimer.h
+                   src/enigma2/data/BaseEntry.h
+                   src/enigma2/data/Channel.h
+                   src/enigma2/data/ChannelGroup.h
+                   src/enigma2/data/EPGEntry.h
+                   src/enigma2/data/RecordingEntry.h
+                   src/enigma2/data/Timer.h
+                   src/enigma2/extract/IExtractor.h
+                   src/enigma2/extract/EpgEntryExtractor.h
+                   src/enigma2/extract/EpisodeSeasonPattern.h
+                   src/enigma2/extract/GenreExtractor.h
+                   src/enigma2/extract/ShowInfoExtractor.h
+                   src/enigma2/utilities/CurlFile.h
+                   src/enigma2/utilities/LocalizedString.h
+                   src/enigma2/utilities/UpdateState.h
+                   src/enigma2/utilities/Logger.h)
 
 set(DEPLIBS ${kodiplatform_LIBRARIES}
             ${p8-platform_LIBRARIES}

@@ -23,16 +23,18 @@
 
 #include <string>
 
-struct VuBase 
+#include "../data/BaseEntry.h"
+
+namespace enigma2
 {
-  std::string strTitle;
-  std::string strPlotOutline;
-  std::string strPlot;
-  int genreType = 0;
-  int genreSubType = 0;
-  std::string genreDescription;
-  int episodeNumber = 0;
-  int episodePartNumber = 0;
-  int seasonNumber = 0;
-  int year = 0;
-};
+  namespace utilities
+  {
+    typedef enum UPDATE_STATE
+    {
+        UPDATE_STATE_NONE,
+        UPDATE_STATE_FOUND,
+        UPDATE_STATE_UPDATED,
+        UPDATE_STATE_NEW
+    } UPDATE_STATE;
+  } //namespace data
+} //namespace enigma2

@@ -1,10 +1,14 @@
 #include "GenreExtractor.h"
 
-using namespace VUPLUS;
-using namespace ADDON;
+#include "libXBMC_pvr.h"
 
-GenreExtractor::GenreExtractor(const VUPLUS::Settings &settings) 
-  : IExtractor(settings)
+using namespace enigma2;
+using namespace enigma2::data;
+using namespace enigma2::extract;
+using namespace enigma2::utilities;
+
+GenreExtractor::GenreExtractor() 
+  : IExtractor()
 {
   for (const auto& genreMapEntry : kodiKeyToGenreMap)
   {
@@ -19,26 +23,26 @@ GenreExtractor::~GenreExtractor(void)
 {
 }
 
-void GenreExtractor::ExtractFromEntry(VuBase &entry)
+void GenreExtractor::ExtractFromEntry(BaseEntry &entry)
 {
-  std::string genreText = GetMatchedText(entry.strPlotOutline, entry.strPlot, genrePattern);
+  std::string genreText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), genrePattern);
 
   if (!genreText.empty() && genreText != GENRE_RESERVED_IGNORE)
   {
-    int combinedGenreType = GetGenreTypeFromText(genreText, entry.strTitle);
+    int combinedGenreType = GetGenreTypeFromText(genreText, entry.GetTitle());
 
     if (combinedGenreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
     {
-      if (m_settings.m_bLogMissingGenreMappings)
-        XBMC->Log(LOG_NOTICE, "%s: Could not lookup genre using genre description string instead:'%s'", __FUNCTION__, genreText.c_str());
+      if (m_settings.GetLogMissingGenreMappings())
+        Logger::Log(LEVEL_NOTICE, "%s: Could not lookup genre using genre description string instead:'%s'", __FUNCTION__, genreText.c_str());
 
-      entry.genreType = EPG_GENRE_USE_STRING;
-      entry.genreDescription = genreText;
+      entry.SetGenreType(EPG_GENRE_USE_STRING);
+      entry.SetGenreDescription(genreText);
     }
     else
     {
-      entry.genreType = GetGenreTypeFromCombined(combinedGenreType);
-      entry.genreSubType = GetGenreSubTypeFromCombined(combinedGenreType);
+      entry.SetGenreType(GetGenreTypeFromCombined(combinedGenreType));
+      entry.SetGenreSubType(GetGenreSubTypeFromCombined(combinedGenreType));
     }
   }
 }
@@ -59,8 +63,8 @@ int GenreExtractor::GetGenreTypeFromText(const std::string &genreText, const std
 
   if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED) 
   {
-    if (m_settings.m_bLogMissingGenreMappings)
-      XBMC->Log(LOG_NOTICE, "%s: Tried to find genre text but no value: '%s', show - '%s'", __FUNCTION__, genreText.c_str(), showName.c_str());
+    if (m_settings.GetLogMissingGenreMappings())
+      Logger::Log(LEVEL_NOTICE, "%s: Tried to find genre text but no value: '%s', show - '%s'", __FUNCTION__, genreText.c_str(), showName.c_str());
 
     std::string genreMajorText = GetMatchTextFromString(genreText, genreMajorPattern);
     
@@ -68,8 +72,8 @@ int GenreExtractor::GetGenreTypeFromText(const std::string &genreText, const std
     {
       genreType = LookupGenreValueInMaps(genreMajorText);
 
-      if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && m_settings.m_bLogMissingGenreMappings)
-        XBMC->Log(LOG_NOTICE, "%s: Tried to find major genre text but no value: '%s', show - '%s'", __FUNCTION__, genreMajorText.c_str(), showName.c_str());  
+      if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && m_settings.GetLogMissingGenreMappings())
+        Logger::Log(LEVEL_NOTICE, "%s: Tried to find major genre text but no value: '%s', show - '%s'", __FUNCTION__, genreMajorText.c_str(), showName.c_str());  
     }
   } 
 
