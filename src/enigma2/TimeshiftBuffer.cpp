@@ -1,11 +1,14 @@
 #include "TimeshiftBuffer.h"
 
-#include "client.h"
+#include "../client.h"
 #include "StreamReader.h"
+#include "utilities/Logger.h"
 
 #include "p8-platform/util/util.h"
 
 using namespace ADDON;
+using namespace enigma2;
+using namespace enigma2::utilities;
 
 TimeshiftBuffer::TimeshiftBuffer(IStreamReader *strReader,
     const std::string &m_timeshiftBufferPath, const unsigned int m_readTimeoutX)
@@ -37,7 +40,7 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
   if (m_filebufferReadHandle)
     XBMC->CloseFile(m_filebufferReadHandle);
   SAFE_DELETE(m_strReader);
-  XBMC->Log(LOG_DEBUG, "Timeshift: Stopped");
+  Logger::Log(LEVEL_DEBUG, "Timeshift: Stopped");
 }
 
 bool TimeshiftBuffer::Start()
@@ -49,7 +52,7 @@ bool TimeshiftBuffer::Start()
   if (m_running)
     return true;
 
-  XBMC->Log(LOG_INFO, "Timeshift: Started");
+  Logger::Log(LEVEL_INFO, "Timeshift: Started");
   m_start = time(nullptr);
   m_running = true;
   m_inputThread = std::thread([&] { DoReadWrite(); });
@@ -59,7 +62,7 @@ bool TimeshiftBuffer::Start()
 
 void TimeshiftBuffer::DoReadWrite()
 {
-  XBMC->Log(LOG_DEBUG, "Timeshift: Thread started");
+  Logger::Log(LEVEL_DEBUG, "Timeshift: Thread started");
   uint8_t buffer[BUFFER_SIZE];
 
   m_strReader->Start();
@@ -75,7 +78,7 @@ void TimeshiftBuffer::DoReadWrite()
 
     m_condition.notify_one();
   }
-  XBMC->Log(LOG_DEBUG, "Timeshift: Thread stopped");
+  Logger::Log(LEVEL_DEBUG, "Timeshift: Thread stopped");
   return;
 }
 
@@ -105,7 +108,7 @@ ssize_t TimeshiftBuffer::ReadData(unsigned char *buffer, unsigned int size)
 
   if (!available)
   {
-    XBMC->Log(LOG_DEBUG, "Timeshift: Read timed out; waited %d", m_readTimeout);
+    Logger::Log(LEVEL_DEBUG, "Timeshift: Read timed out; waited %d", m_readTimeout);
     return -1;
   }
 

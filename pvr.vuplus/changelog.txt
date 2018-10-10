@@ -1,3 +1,8 @@
+v3.12.3
+- Fixed: Refactoring - Changed Directory structure, split out classes and added getters/setters #102
+- Fixed: Updated readme without VU+ entries - Courtesy of Hedda
+- Fixed: New temporary icon
+
 v3.12.2
 - Fixed: Refactoring - Conventions: includes, namesapce naming, public private order in class definition
 - Fixed: GetInitialEPGForGroup called for each CHANNEL while initial EPG Update - #86

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.12.2"
+  version="3.12.3"
   name="Enigma2 Client"
-  provider-name="Joerg Dembski">
+  provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
   <extension
     point="xbmc.pvrclient"

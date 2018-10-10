@@ -24,30 +24,33 @@
 
 #include <stdlib.h>
 
-#include "LocalizedString.h"
-#include "RecordingReader.h"
-#include "Settings.h"
-#include "StreamReader.h"
-#include "TimeshiftBuffer.h"
-#include "VuData.h"
+#include "Enigma2.h"
+#include "enigma2/RecordingReader.h"
+#include "enigma2/Settings.h"
+#include "enigma2/StreamReader.h"
+#include "enigma2/TimeshiftBuffer.h"
+#include "enigma2/utilities/LocalizedString.h"
+#include "enigma2/utilities/Logger.h"
 
 #include "p8-platform/util/util.h"
 #include <p8-platform/util/StringUtils.h>
 #include "xbmc_pvr_dll.h"
 
-using namespace VUPLUS;
 using namespace ADDON;
+using namespace enigma2;
+using namespace enigma2::data;
+using namespace enigma2::utilities;
 
 bool            m_bCreated  = false;
 ADDON_STATUS    m_CurStatus = ADDON_STATUS_UNKNOWN;
 IStreamReader   *strReader  = nullptr;
 int             m_streamReadChunkSize = 64;
 RecordingReader *recReader  = nullptr;
-Settings        settings;
+Settings        &settings = Settings::GetInstance();
 
 CHelper_libXBMC_addon *XBMC           = nullptr;
 CHelper_libXBMC_pvr   *PVR            = nullptr;
-Vu                    *VuData         = nullptr;
+Enigma2               *enigma         = nullptr;
 
 extern "C" {
 
@@ -77,18 +80,48 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     return ADDON_STATUS_PERMANENT_FAILURE;
   }
 
-  XBMC->Log(LOG_DEBUG, "%s - Creating VU+ PVR-Client", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __FUNCTION__);
 
   m_CurStatus     = ADDON_STATUS_UNKNOWN;
-  settings.m_szUserPath   = pvrprops->strUserPath;
-  settings.m_szClientPath  = pvrprops->strClientPath;
+
+  /* Configure the logger */
+  Logger::GetInstance().SetImplementation([](LogLevel level, const char *message)
+  {
+    /* Convert the log level */
+    addon_log_t addonLevel;
+
+    switch (level)
+    {
+      case LogLevel::LEVEL_ERROR:
+        addonLevel = addon_log_t::LOG_ERROR;
+        break;
+      case LogLevel::LEVEL_INFO:
+        addonLevel = addon_log_t::LOG_INFO;
+        break;
+      case LogLevel::LEVEL_NOTICE:
+        addonLevel = addon_log_t::LOG_NOTICE;
+        break;
+      default:
+        addonLevel = addon_log_t::LOG_DEBUG;
+    }
+
+    /* Don't log trace messages unless told so */
+    //if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+      //return;
+
+    XBMC->Log(addonLevel, "%s", message);
+  });
+
+  Logger::GetInstance().SetPrefix("pvr.vuplus");
+
+  Logger::Log(LogLevel::LEVEL_INFO, "starting PVR client XXX");  
 
   settings.ReadFromAddon();
 
-  VuData = new Vu(settings);
-  if (!VuData->Open()) 
+  enigma = new Enigma2(settings);
+  if (!enigma->Open()) 
   {
-    SAFE_DELETE(VuData);
+    SAFE_DELETE(enigma);
     SAFE_DELETE(PVR);
     SAFE_DELETE(XBMC);
     m_CurStatus = ADDON_STATUS_LOST_CONNECTION;
@@ -103,7 +136,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 ADDON_STATUS ADDON_GetStatus()
 {
   /* check whether we're still connected */
-  if (m_CurStatus == ADDON_STATUS_OK && !VuData->IsConnected())
+  if (m_CurStatus == ADDON_STATUS_OK && !enigma->IsConnected())
     m_CurStatus = ADDON_STATUS_LOST_CONNECTION;
 
   return m_CurStatus;
@@ -116,12 +149,12 @@ void ADDON_Destroy()
     m_bCreated = false;
   }
 
-  if (VuData)
+  if (enigma)
   {
-    VuData->SendPowerstate();
+    enigma->SendPowerstate();
   }
   
-  SAFE_DELETE(VuData);
+  SAFE_DELETE(enigma);
   SAFE_DELETE(PVR);
   SAFE_DELETE(XBMC);
 
@@ -130,7 +163,7 @@ void ADDON_Destroy()
 
 ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
 {
-  if (!XBMC || !VuData)
+  if (!XBMC || !enigma)
     return ADDON_STATUS_OK;
 
   return settings.SetValue(settingName, settingValue);
@@ -178,7 +211,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 
 const char *GetBackendName(void)
 {
-  static const char *strBackendName = VuData ? VuData->GetServerName() : "unknown";
+  static const char *strBackendName = enigma ? enigma->GetServerName() : "unknown";
   return strBackendName;
 }
 
@@ -192,21 +225,21 @@ static std::string strConnectionString;
 
 const char *GetConnectionString(void)
 {
-  if (VuData)
-    strConnectionString = StringUtils::Format("%s%s", settings.m_strHostname.c_str(), VuData->IsConnected() ? "" : " (Not connected!)");
+  if (enigma)
+    strConnectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : " (Not connected!)");
   else
-    strConnectionString = StringUtils::Format("%s (addon error!)", settings.m_strHostname.c_str());
+    strConnectionString = StringUtils::Format("%s (addon error!)", settings.GetHostname().c_str());
   return strConnectionString.c_str();
 }
 
 const char *GetBackendHostname(void)
 {
-  return settings.m_strHostname.c_str();
+  return settings.GetHostname().c_str();
 }
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-  return VuData->GetDriveSpace(iTotal, iUsed);
+  return enigma->GetDriveSpace(iTotal, iUsed);
 }
 
 
@@ -226,10 +259,10 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 
 int GetChannelGroupsAmount(void)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetNumChannelGroups();
+  return enigma->GetNumChannelGroups();
 }
 
 PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
@@ -237,10 +270,10 @@ PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
   if (bRadio)
     return PVR_ERROR_NO_ERROR;
 
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetChannelGroups(handle);
+  return enigma->GetChannelGroups(handle);
 }
 
 PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
@@ -248,10 +281,10 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &g
   if (group.bIsRadio)
     return PVR_ERROR_NO_ERROR;
 
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetChannelGroupMembers(handle, group);
+  return enigma->GetChannelGroupMembers(handle, group);
 }
 
 /***************************************************************************
@@ -260,26 +293,26 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &g
 
 PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetEPGForChannel(handle, channel, iStart, iEnd);
+  return enigma->GetEPGForChannel(handle, channel, iStart, iEnd);
 }
 
 int GetChannelsAmount(void)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return 0;
 
-  return VuData->GetChannelsAmount();
+  return enigma->GetChannelsAmount();
 }
 
 PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetChannels(handle, bRadio);
+  return enigma->GetChannels(handle, bRadio);
 }
 
 /***************************************************************************
@@ -290,38 +323,38 @@ PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 {
   if (!chunksize)
     return PVR_ERROR_INVALID_PARAMETERS;
-  int size = settings.m_streamReadChunkSize;
+  int size = settings.GetStreamReadCheckSizeKb();
   if (!size)
     return PVR_ERROR_NOT_IMPLEMENTED;
-  *chunksize = settings.m_streamReadChunkSize * 1024;
+  *chunksize = settings.GetStreamReadCheckSizeKb() * 1024;
   return PVR_ERROR_NO_ERROR;
 }
 
 /* live stream functions */
 bool OpenLiveStream(const PVR_CHANNEL &channel)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return false;
 
-  if (!VuData->OpenLiveStream(channel))
+  if (!enigma->OpenLiveStream(channel))
     return false;
 
   /* queue a warning if the timeshift buffer path does not exist */
-  if (settings.m_timeshift != Timeshift::OFF
+  if (settings.GetTimeshift() != Timeshift::OFF
       && !settings.IsTimeshiftBufferPathValid())
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30514).c_str());
 
-  std::string streamURL = VuData->GetLiveStreamURL(channel);
-  strReader = new StreamReader(streamURL, settings.m_iReadTimeout);
-  if (settings.m_timeshift == Timeshift::ON_PLAYBACK)
-    strReader = new TimeshiftBuffer(strReader, settings.m_strTimeshiftBufferPath, settings.m_iReadTimeout);
+  std::string streamURL = enigma->GetLiveStreamURL(channel);
+  strReader = new StreamReader(streamURL, settings.GetReadTimeoutSecs());
+  if (settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
+    strReader = new TimeshiftBuffer(strReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
   
   return strReader->Start();
 }
 
 void CloseLiveStream(void)
 {
-  VuData->CloseLiveStream();
+  enigma->CloseLiveStream();
   SAFE_DELETE(strReader);
 }
 
@@ -332,10 +365,10 @@ bool IsRealTimeStream()
 
 bool CanPauseStream(void)
 {
-  if (!VuData)
+  if (!enigma)
     return false;
 
-  if (settings.m_timeshift != Timeshift::OFF && strReader)
+  if (settings.GetTimeshift() != Timeshift::OFF && strReader)
     return (strReader->IsTimeshifting() || settings.IsTimeshiftBufferPathValid());
 
   return false;
@@ -343,10 +376,10 @@ bool CanPauseStream(void)
 
 bool CanSeekStream(void)
 {
-  if (!VuData)
+  if (!enigma)
     return false;
 
-  return (settings.m_timeshift != Timeshift::OFF);
+  return (settings.GetTimeshift() != Timeshift::OFF);
 }
 
 int ReadLiveStream(unsigned char *buffer, unsigned int size)
@@ -388,15 +421,15 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
 
 void PauseStream(bool paused)
 {
-  if (!VuData)
+  if (!enigma)
     return;
 
   /* start timeshift on pause */
-  if (paused && settings.m_timeshift == Timeshift::ON_PAUSE
+  if (paused && settings.GetTimeshift() == Timeshift::ON_PAUSE
       && strReader && !strReader->IsTimeshifting()
       && settings.IsTimeshiftBufferPathValid())
   {
-    strReader = new TimeshiftBuffer(strReader, settings.m_strTimeshiftBufferPath, settings.m_iReadTimeout);
+    strReader = new TimeshiftBuffer(strReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
     (void)strReader->Start();
   }
 }
@@ -407,26 +440,26 @@ void PauseStream(bool paused)
 
 int GetRecordingsAmount(bool deleted)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetRecordingsAmount();
+  return enigma->GetRecordingsAmount();
 }
 
 PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetRecordings(handle);
+  return enigma->GetRecordings(handle);
 }
 
 PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->DeleteRecording(recording);
+  return enigma->DeleteRecording(recording);
 }
 
 /***************************************************************************
@@ -437,7 +470,7 @@ bool OpenRecordedStream(const PVR_RECORDING &recording)
 {
   if (recReader)
     SAFE_DELETE(recReader);
-  recReader = VuData->OpenRecordedStream(recording);
+  recReader = enigma->OpenRecordedStream(recording);
   return recReader->Start();
 }
 
@@ -478,49 +511,49 @@ long long LengthRecordedStream(void)
 PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
 {
   *size = 0;
-  if (VuData && VuData->IsConnected())
-    VuData->GetTimerTypes(types, size);
+  if (enigma && enigma->IsConnected())
+    enigma->GetTimerTypes(types, size);
   return PVR_ERROR_NO_ERROR;
 }
 
 int GetTimersAmount(void)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return 0;
 
-  return VuData->GetTimersAmount();
+  return enigma->GetTimersAmount();
 }
 
 PVR_ERROR GetTimers(ADDON_HANDLE handle)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->GetTimers(handle);
+  return enigma->GetTimers(handle);
 }
 
 PVR_ERROR AddTimer(const PVR_TIMER &timer)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->AddTimer(timer);
+  return enigma->AddTimer(timer);
 }
 
 PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->DeleteTimer(timer);
+  return enigma->DeleteTimer(timer);
 }
 
 PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
 {
-  if (!VuData || !VuData->IsConnected())
+  if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return VuData->UpdateTimer(timer);
+  return enigma->UpdateTimer(timer);
 }
 
 /** UNUSED API FUNCTIONS */
@@ -553,5 +586,4 @@ PVR_ERROR IsEPGTagRecordable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLE
 PVR_ERROR IsEPGTagPlayable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetEPGTagStreamProperties(const EPG_TAG*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetEPGTagEdl(const EPG_TAG* epgTag, PVR_EDL_ENTRY edl[], int *size) { return PVR_ERROR_NOT_IMPLEMENTED; }
-
 }

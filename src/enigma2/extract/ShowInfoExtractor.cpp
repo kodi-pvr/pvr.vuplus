@@ -1,10 +1,11 @@
 #include "ShowInfoExtractor.h"
 
-using namespace VUPLUS;
-using namespace ADDON;
+using namespace enigma2;
+using namespace enigma2::data;
+using namespace enigma2::extract;
 
-ShowInfoExtractor::ShowInfoExtractor(const VUPLUS::Settings &settings) 
-  : IExtractor(settings)
+ShowInfoExtractor::ShowInfoExtractor() 
+  : IExtractor()
 {
   episodeSeasonPatterns.emplace_back(
       EpisodeSeasonPattern(MASTER_SEASON_EPISODE_PATTERN, 
@@ -27,48 +28,48 @@ ShowInfoExtractor::~ShowInfoExtractor(void)
 {
 }
 
-void ShowInfoExtractor::ExtractFromEntry(VuBase &entry)
+void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 {
   for (const auto& patternSet : episodeSeasonPatterns)
   {
-    std::string masterText = GetMatchedText(entry.strPlotOutline, entry.strPlot, patternSet.masterRegex);
+    std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.masterRegex);
 
     if (!masterText.empty())
     {
-      if (patternSet.hasSeasonRegex && entry.seasonNumber == 0)
+      if (patternSet.hasSeasonRegex && entry.GetSeasonNumber() == 0)
       {
         std::string seasonText = GetMatchTextFromString(masterText, patternSet.seasonRegex);
         if (!seasonText.empty())
         {
-          entry.seasonNumber = atoi(seasonText.c_str());
+          entry.SetSeasonNumber(atoi(seasonText.c_str()));
         }
       }
 
-      if (entry.episodeNumber == 0)
+      if (entry.GetEpisodeNumber() == 0)
       {
         std::string episodeText = GetMatchTextFromString(masterText, patternSet.episodeRegex);      
         if (!episodeText.empty())
         {
-          entry.episodeNumber = atoi(episodeText.c_str());
+          entry.SetEpisodeNumber(atoi(episodeText.c_str()));
         }
       }
     }
 
     //Once we have at least an episode number we are done
-    if (entry.episodeNumber != 0)
+    if (entry.GetEpisodeNumber() != 0)
       break;
   }
 
   for (const auto& pattern : yearPatterns)
   {
-    std::string yearText = GetMatchedText(entry.strPlotOutline, entry.strPlot, pattern);
+    std::string yearText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), pattern);
 
-    if (!yearText.empty() && entry.year == 0)
+    if (!yearText.empty() && entry.GetYear() == 0)
     {
-      entry.year = atoi(yearText.c_str());
+      entry.SetYear(atoi(yearText.c_str()));
     }
 
-    if (entry.year != 0)
+    if (entry.GetYear() != 0)
       break;
   }
 }

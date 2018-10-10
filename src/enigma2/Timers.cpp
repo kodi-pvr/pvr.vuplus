@@ -1,71 +1,22 @@
 #include "Timers.h"
-#include "client.h"
-#include "VuData.h"
-#include "LocalizedString.h"
 
 #include <algorithm>
 #include <regex>
+
+#include "../client.h"
+#include "../Enigma2.h"
+#include "utilities/LocalizedString.h"
+#include "utilities/Logger.h"
+#include "utilities/UpdateState.h"
 
 #include "inttypes.h"
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
-using namespace VUPLUS;
 using namespace ADDON;
-
-bool Timer::isScheduled() const
-{
-  return state == PVR_TIMER_STATE_SCHEDULED
-      || state == PVR_TIMER_STATE_RECORDING;
-}
-
-bool Timer::isRunning(std::time_t *now, std::string *channelName) const
-{
-  if (!isScheduled())
-    return false;
-  if (now && !(startTime <= *now && *now <= endTime))
-    return false;
-  if (channelName && strChannelName != *channelName)
-    return false;
-  return true;
-}
-
-bool Timer::isChildOfParent(const Timer &parent) const
-{
-  time_t time;
-  std::tm timeinfo;
-  int weekday = 0;
-
-  time = startTime;
-  timeinfo = *std::localtime(&time);
-  std::string childStartTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
-  int tmDayOfWeek = timeinfo.tm_wday - 1;
-  if (tmDayOfWeek < 0)
-    tmDayOfWeek = 6;
-  weekday = (1 << tmDayOfWeek);
-
-  time = endTime;
-  timeinfo = *std::localtime(&time);
-  std::string childEndTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
-
-  time = parent.startTime;
-  timeinfo = *std::localtime(&time);
-  std::string parentStartTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
-
-  time = parent.endTime;
-  timeinfo = *std::localtime(&time);
-  std::string parentEndTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
-
-  bool isChild = true;
-
-  isChild = isChild && (!strTitle.compare(parent.strTitle));  
-  isChild = isChild && (childStartTime == parentStartTime); 
-  isChild = isChild && (childEndTime == parentEndTime); 
-  isChild = isChild && (iChannelId == parent.iChannelId); 
-  isChild = isChild && (weekday & parent.iWeekdays); 
-
-  return isChild; 
-}
+using namespace enigma2;
+using namespace enigma2::data;
+using namespace enigma2::utilities;
 
 template <typename T>
 T *Timers::GetTimer(std::function<bool (const T&)> func,
@@ -83,14 +34,14 @@ std::vector<Timer> Timers::LoadTimers() const
 {
   std::vector<Timer> timers;
 
-  const std::string url = StringUtils::Format("%s%s", vuData.GetConnectionURL().c_str(), "web/timerlist"); 
+  const std::string url = StringUtils::Format("%s%s", enigma.GetConnectionURL().c_str(), "web/timerlist"); 
 
-  const std::string strXML = vuData.GetHttpXML(url);
+  const std::string strXML = enigma.GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return timers;
   }
 
@@ -102,7 +53,7 @@ std::vector<Timer> Timers::LoadTimers() const
 
   if (!pElem)
   {
-    XBMC->Log(LOG_DEBUG, "%s Could not find <e2timerlist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2timerlist> element!", __FUNCTION__);
     return timers;
   }
 
@@ -112,7 +63,7 @@ std::vector<Timer> Timers::LoadTimers() const
 
   if (!pNode)
   {
-    XBMC->Log(LOG_DEBUG, "Could not find <e2timer> element");
+    Logger::Log(LEVEL_DEBUG, "Could not find <e2timer> element");
     return timers;
   }
   
@@ -125,7 +76,7 @@ std::vector<Timer> Timers::LoadTimers() const
     int iDisabled;
     
     if (XMLUtils::GetString(pNode, "e2name", strTmp)) 
-      XBMC->Log(LOG_DEBUG, "%s Processing timer '%s'", __FUNCTION__, strTmp.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __FUNCTION__, strTmp.c_str());
  
     if (!XMLUtils::GetInt(pNode, "e2state", iTmp)) 
       continue;
@@ -135,148 +86,148 @@ std::vector<Timer> Timers::LoadTimers() const
 
     Timer timer;
     
-    timer.strTitle          = strTmp;
+    timer.SetTitle(strTmp);
 
     if (XMLUtils::GetString(pNode, "e2servicereference", strTmp))
-      timer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
+      timer.SetChannelId(enigma.GetChannelNumber(strTmp.c_str()));
 
     // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
-    if (timer.iChannelId < 0)
+    if (timer.GetChannelId() < 0)
     {
-      XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, timer.strTitle.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, timer.GetTitle().c_str());
       continue;
     }
 
-    timer.strChannelName = vuData.GetChannels().at(timer.iChannelId-1).strChannelName;  
+    timer.SetChannelName(enigma.GetChannels().at(timer.GetChannelId()-1).GetChannelName());  
 
     if (!XMLUtils::GetInt(pNode, "e2timebegin", iTmp)) 
       continue; 
  
-    timer.startTime         = iTmp;
+    timer.SetStartTime(iTmp);
     
     if (!XMLUtils::GetInt(pNode, "e2timeend", iTmp)) 
       continue; 
  
-    timer.endTime           = iTmp;
+    timer.SetEndTime(iTmp);
     
     if (XMLUtils::GetString(pNode, "e2description", strTmp))
-      timer.strPlot        = strTmp.c_str();
+      timer.SetPlot(strTmp.c_str());
  
     if (XMLUtils::GetInt(pNode, "e2repeated", iTmp))
-      timer.iWeekdays         = iTmp;
+      timer.SetWeekdays(iTmp);
     else 
-      timer.iWeekdays = 0;
+      timer.SetWeekdays(0);
 
     if (XMLUtils::GetInt(pNode, "e2eit", iTmp))
-      timer.iEpgID = iTmp;
+      timer.SetEpgId(iTmp);
     else 
-      timer.iEpgID = 0;
+      timer.SetEpgId(0);
 
-    timer.state = PVR_TIMER_STATE_NEW;
+    timer.SetState(PVR_TIMER_STATE_NEW);
 
     if (!XMLUtils::GetInt(pNode, "e2state", iTmp))
       continue;
 
-    XBMC->Log(LOG_DEBUG, "%s e2state is: %d ", __FUNCTION__, iTmp);
+    Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __FUNCTION__, iTmp);
   
     if (iTmp == 0) 
     {
-      timer.state = PVR_TIMER_STATE_SCHEDULED;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: SCHEDULED", __FUNCTION__);
+      timer.SetState(PVR_TIMER_STATE_SCHEDULED);
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: SCHEDULED", __FUNCTION__);
     }
     
     if (iTmp == 2) 
     {
-      timer.state = PVR_TIMER_STATE_RECORDING;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: RECORDING", __FUNCTION__);
+      timer.SetState(PVR_TIMER_STATE_RECORDING);
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: RECORDING", __FUNCTION__);
     }
     
     if (iTmp == 3 && iDisabled == 0) 
     {
-      timer.state = PVR_TIMER_STATE_COMPLETED;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: COMPLETED", __FUNCTION__);
+      timer.SetState(PVR_TIMER_STATE_COMPLETED);
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __FUNCTION__);
     }
 
     if (XMLUtils::GetBoolean(pNode, "e2cancled", bTmp)) 
     {
       if (bTmp)  
       {
-        timer.state = PVR_TIMER_STATE_ABORTED;
-        XBMC->Log(LOG_DEBUG, "%s Timer state is: ABORTED", __FUNCTION__);
+        timer.SetState(PVR_TIMER_STATE_ABORTED);
+        Logger::Log(LEVEL_DEBUG, "%s Timer state is: ABORTED", __FUNCTION__);
       }
     }
 
     if (iDisabled == 1) 
     {
-      timer.state = PVR_TIMER_STATE_CANCELLED;
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: Cancelled", __FUNCTION__);
+      timer.SetState(PVR_TIMER_STATE_CANCELLED);
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: Cancelled", __FUNCTION__);
     }
 
-    if (timer.state == PVR_TIMER_STATE_NEW)
-      XBMC->Log(LOG_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
+    if (timer.GetState() == PVR_TIMER_STATE_NEW)
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
 
-    timer.tags = "";
+    timer.SetTags("");
     if (XMLUtils::GetString(pNode, "e2tags", strTmp))
-      timer.tags        = strTmp.c_str();
+      timer.SetTags(strTmp.c_str());
 
-    if (Timers::FindTagInTimerTags(TAG_FOR_MANUAL_TIMER, timer.tags))
+    if (Timers::FindTagInTimerTags(TAG_FOR_MANUAL_TIMER, timer.GetTags()))
     {
       //We create a Manual tag on Manual timers created from Kodi, this allows us to set the Timer Type correctly
-      if (timer.iWeekdays != PVR_WEEKDAY_NONE)
+      if (timer.GetWeekdays() != PVR_WEEKDAY_NONE)
       {
-        timer.type = Timer::MANUAL_REPEATING;
+        timer.SetType(Timer::MANUAL_REPEATING);
       }
       else
       {
-        timer.type =  Timer::MANUAL_ONCE;
+        timer.SetType(Timer::MANUAL_ONCE);
       }
     }
     else
     { //Default to EPG for all other standard timers
-      if (timer.iWeekdays != PVR_WEEKDAY_NONE)
+      if (timer.GetWeekdays() != PVR_WEEKDAY_NONE)
       {
-        timer.type = Timer::EPG_REPEATING;
+        timer.SetType(Timer::EPG_REPEATING);
       }
       else
       {
-        if (Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.tags))
+        if (Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.GetTags()))
         {
-          timer.type =  Timer::EPG_AUTO_ONCE;
+          timer.SetType(Timer::EPG_AUTO_ONCE);
         }
         else
         {
-          timer.type =  Timer::EPG_ONCE;
+          timer.SetType(Timer::EPG_ONCE);
         }
       }
     }
 
     timers.emplace_back(timer);
 
-    if ((timer.type == Timer::MANUAL_REPEATING || timer.type == Timer::EPG_REPEATING) 
-        && vuData.GetGenRepeatTimersEnabled() && vuData.GetNumGenRepeatTimers() > 0)
+    if ((timer.GetType() == Timer::MANUAL_REPEATING || timer.GetType() == Timer::EPG_REPEATING) 
+        && enigma.GetGenRepeatTimersEnabled() && enigma.GetNumGenRepeatTimers() > 0)
     {
       GenerateChildManualRepeatingTimers(&timers, &timer);
     }
 
-    XBMC->Log(LOG_INFO, "%s fetched Timer entry '%s', begin '%d', end '%d'", __FUNCTION__, timer.strTitle.c_str(), timer.startTime, timer.endTime);
+    Logger::Log(LEVEL_INFO, "%s fetched Timer entry '%s', begin '%d', end '%d'", __FUNCTION__, timer.GetTitle().c_str(), timer.GetStartTime(), timer.GetEndTime());
   }
 
-  XBMC->Log(LOG_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
+  Logger::Log(LEVEL_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
   return timers; 
 }
 
 void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer) const
 {
   int genTimerCount = 0;
-  int weekdays = timer->iWeekdays;
+  int weekdays = timer->GetWeekdays();
   const time_t ONE_DAY = 24 * 60 * 60 ;
 
-  if (vuData.GetNumGenRepeatTimers() && weekdays != PVR_WEEKDAY_NONE)
+  if (enigma.GetNumGenRepeatTimers() && weekdays != PVR_WEEKDAY_NONE)
   {
-    time_t nextStartTime = timer->startTime;
-    time_t nextEndTime = timer->endTime;
+    time_t nextStartTime = timer->GetStartTime();
+    time_t nextEndTime = timer->GetEndTime();
 
-    for (int i=0; i<vuData.GetNumGenRepeatTimers(); i++)
+    for (int i=0; i<enigma.GetNumGenRepeatTimers(); i++)
     {
       //Even if one day a week the max we can hit is 3 weeks
       for (int i = 0; i < DAYS_IN_WEEK; i++)
@@ -288,34 +239,34 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
         if (pvrWeekday < 0)
           pvrWeekday = 6;
 
-        if (timer->iWeekdays & (1 << pvrWeekday))
+        if (timer->GetWeekdays() & (1 << pvrWeekday))
         {
           //Create a timer
           Timer newTimer;
-          newTimer.type = Timer::READONLY_REPEATING_ONCE;
-          newTimer.strTitle = timer->strTitle;
-          newTimer.iChannelId = timer->iChannelId;
-          newTimer.strChannelName = timer->strChannelName;
-          newTimer.startTime = nextStartTime;
-          newTimer.endTime = nextEndTime;
-          newTimer.strPlot = timer->strPlot;
-          newTimer.iWeekdays = 0;
-          newTimer.state = PVR_TIMER_STATE_NEW; 
-          newTimer.iEpgID = timer->iEpgID;
+          newTimer.SetType(Timer::READONLY_REPEATING_ONCE);
+          newTimer.SetTitle(timer->GetTitle());
+          newTimer.SetChannelId(timer->GetChannelId());
+          newTimer.SetChannelName(timer->GetChannelName());
+          newTimer.SetStartTime(nextStartTime);
+          newTimer.SetEndTime(nextEndTime);
+          newTimer.SetPlot(timer->GetPlot());
+          newTimer.SetWeekdays(0);
+          newTimer.SetState(PVR_TIMER_STATE_NEW); 
+          newTimer.SetEpgId(timer->GetEpgId());
 
           time_t now = time(0);
           if (now < nextStartTime)
-            newTimer.state = PVR_TIMER_STATE_SCHEDULED;
+            newTimer.SetState(PVR_TIMER_STATE_SCHEDULED);
           else if (nextStartTime <= now && now <= nextEndTime)
-            newTimer.state = PVR_TIMER_STATE_RECORDING;
+            newTimer.SetState(PVR_TIMER_STATE_RECORDING);
           else
-            newTimer.state = PVR_TIMER_STATE_COMPLETED;
+            newTimer.SetState(PVR_TIMER_STATE_COMPLETED);
 
           timers->emplace_back(newTimer);
 
           genTimerCount++;
           
-          if (genTimerCount >= vuData.GetNumGenRepeatTimers())
+          if (genTimerCount >= enigma.GetNumGenRepeatTimers())
             break;
         }
 
@@ -323,7 +274,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
         nextEndTime += ONE_DAY;
       }             
       
-      if (genTimerCount >= vuData.GetNumGenRepeatTimers())
+      if (genTimerCount >= enigma.GetNumGenRepeatTimers())
         break;
     }
   }
@@ -348,14 +299,14 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 {
   std::vector<AutoTimer> autoTimers;
 
-  const std::string url = StringUtils::Format("%s%s", vuData.GetConnectionURL().c_str(), "autotimer"); 
+  const std::string url = StringUtils::Format("%s%s", enigma.GetConnectionURL().c_str(), "autotimer"); 
 
-  const std::string strXML = vuData.GetHttpXML(url);
+  const std::string strXML = enigma.GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    XBMC->Log(LOG_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return autoTimers;
   }
 
@@ -367,7 +318,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
   if (!pElem)
   {
-    XBMC->Log(LOG_DEBUG, "%s Could not find <autotimer> element!", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <autotimer> element!", __FUNCTION__);
     return autoTimers;
   }
 
@@ -377,7 +328,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
   if (!pNode)
   {
-    XBMC->Log(LOG_DEBUG, "Could not find <timer> element");
+    Logger::Log(LEVEL_DEBUG, "Could not find <timer> element");
     return autoTimers;
   }
 
@@ -400,28 +351,32 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("timer"))
   {
+    searchForDuplicateDescription.clear();
+    from.clear();
+    to.clear();
+
     AutoTimer autoTimer;
-    autoTimer.type = Timer::EPG_AUTO_SEARCH;
+    autoTimer.SetType(Timer::EPG_AUTO_SEARCH);
 
     //this is an auto timer so the state is always scheduled unless it's disabled
-    autoTimer.state = PVR_TIMER_STATE_SCHEDULED;
+    autoTimer.SetState(PVR_TIMER_STATE_SCHEDULED);
 
     if (pNode->QueryStringAttribute("name", &name) == TIXML_SUCCESS)
-      autoTimer.strTitle = name;
+      autoTimer.SetTitle(name);
 
     if (pNode->QueryStringAttribute("match", &match) == TIXML_SUCCESS)
-      autoTimer.searchPhrase = match;
+      autoTimer.SetSearchPhrase(match);
     
     if (pNode->QueryStringAttribute("enabled", &enabled) == TIXML_SUCCESS)
     {
       if (enabled == AUTOTIMER_ENABLED_NO)
       {
-        autoTimer.state = PVR_TIMER_STATE_CANCELLED;
+        autoTimer.SetState(PVR_TIMER_STATE_CANCELLED);
       }
     }
 
     if (pNode->QueryIntAttribute("id", &id) == TIXML_SUCCESS)
-      autoTimer.backendId = id;
+      autoTimer.SetBackendId(id);
 
     pNode->QueryStringAttribute("from", &from);
     pNode->QueryStringAttribute("to", &to);
@@ -431,25 +386,25 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
     if (avoidDuplicateDescription != AUTOTIMER_AVOID_DUPLICATE_DISABLED)
     {
       if (searchForDuplicateDescription == AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE)
-        autoTimer.deDup = AutoTimer::DeDup::CHECK_TITLE;
+        autoTimer.SetDeDup(AutoTimer::DeDup::CHECK_TITLE);
       else if (searchForDuplicateDescription == AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC)
-        autoTimer.deDup = AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC;
+        autoTimer.SetDeDup(AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC);
       else if (searchForDuplicateDescription.empty()) //Even though this value should be 2 it is sent as ommitted for this attribute
-        autoTimer.deDup = AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS;
+        autoTimer.SetDeDup(AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS);
     }
 
     if (pNode->QueryStringAttribute("encoding", &encoding) == TIXML_SUCCESS)
-      autoTimer.encoding = encoding;    
+      autoTimer.SetEncoding(encoding);
 
     if (pNode->QueryStringAttribute("searchType", &searchType) == TIXML_SUCCESS)
     {
-      autoTimer.searchType = searchType;
+      autoTimer.SetSearchType(searchType);
       if (searchType == AUTOTIMER_SEARCH_TYPE_DESCRIPTION)
-        autoTimer.searchFulltext = true;
+        autoTimer.SetSearchFulltext(true);
     }
 
     if (pNode->QueryStringAttribute("searchCase", &searchCase) == TIXML_SUCCESS)
-      autoTimer.searchCase = searchCase;
+      autoTimer.SetSearchCase(searchCase);
 
     TiXmlElement* serviceNode = pNode->FirstChildElement("e2service");
 
@@ -462,31 +417,31 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         //If we only have one channel
         if (XMLUtils::GetString(serviceNode, "e2servicereference", strTmp))
         {
-          autoTimer.iChannelId = vuData.GetChannelNumber(strTmp.c_str());
+          autoTimer.SetChannelId(enigma.GetChannelNumber(strTmp.c_str()));
 
           // Skip autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
-          if (autoTimer.iChannelId < 0)
+          if (autoTimer.GetChannelId() < 0)
           {
-            XBMC->Log(LOG_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, autoTimer.strTitle.c_str());
+            Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, autoTimer.GetTitle().c_str());
             continue;
           }
 
-          autoTimer.strChannelName = vuData.GetChannels().at(autoTimer.iChannelId-1).strChannelName;  
+          autoTimer.SetChannelName(enigma.GetChannels().at(autoTimer.GetChannelId()-1).GetChannelName());  
         }
       }
       else //otherwise set to any channel
       {
-        autoTimer.iChannelId = PVR_TIMER_ANY_CHANNEL;
-        autoTimer.anyChannel = true; 
+        autoTimer.SetChannelId(PVR_TIMER_ANY_CHANNEL);
+        autoTimer.SetAnyChannel(true); 
       }
     } 
     else //otherwise set to any channel
     {
-      autoTimer.iChannelId = PVR_TIMER_ANY_CHANNEL;
-      autoTimer.anyChannel = true; 
+      autoTimer.SetChannelId(PVR_TIMER_ANY_CHANNEL);
+      autoTimer.SetAnyChannel(true); 
     }
 
-    autoTimer.iWeekdays = 0;
+    autoTimer.SetWeekdays(0);
     
     TiXmlElement* includeNode = pNode->FirstChildElement("include");
 
@@ -501,55 +456,57 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
         {
           if (where == "dayofweek")
           {
-            autoTimer.iWeekdays |= (1 << atoi(includeVal.c_str()));
+            int tempWeekdays = autoTimer.GetWeekdays();
+            autoTimer.SetWeekdays(tempWeekdays |= (1 << atoi(includeVal.c_str())));
           }
         }
       }
     }
 
-    if (autoTimer.iWeekdays != PVR_WEEKDAY_NONE)
+    if (autoTimer.GetWeekdays() != PVR_WEEKDAY_NONE)
     {
       std::time_t t = std::time(nullptr);
       std::tm timeinfo = *std::localtime(&t);
       timeinfo.tm_sec = 0;
-      autoTimer.startTime = 0;
+      autoTimer.SetStartTime(0);
       if (!from.empty())
       {
         ParseTime(from, timeinfo);
-        autoTimer.startTime = std::mktime(&timeinfo);
+        autoTimer.SetStartTime(std::mktime(&timeinfo));
       }
 
       timeinfo = *std::localtime(&t);
       timeinfo.tm_sec = 0;
-      autoTimer.endTime = 0;
+      autoTimer.SetEndTime(0);
       if (!to.empty())
       {
         ParseTime(to, timeinfo);
-        autoTimer.endTime = std::mktime(&timeinfo);
+        autoTimer.SetEndTime(std::mktime(&timeinfo));
       }
     }
     else
     {
       for (int i = 0; i < DAYS_IN_WEEK; i++)
       {
-        autoTimer.iWeekdays |= (1 << i);
+        int tempWeekdays = autoTimer.GetWeekdays();
+        autoTimer.SetWeekdays(tempWeekdays |= (1 << i));
       }
-      autoTimer.startAnyTime = true;
-      autoTimer.endAnyTime = true;
+      autoTimer.SetStartAnyTime(true);
+      autoTimer.SetEndAnyTime(true);
     }
 
     autoTimers.emplace_back(autoTimer);
 
-    XBMC->Log(LOG_INFO, "%s fetched AutoTimer entry '%s', begin '%d', end '%d'", __FUNCTION__, autoTimer.strTitle.c_str(), autoTimer.startTime, autoTimer.endTime);
+    Logger::Log(LEVEL_INFO, "%s fetched AutoTimer entry '%s', begin '%d', end '%d'", __FUNCTION__, autoTimer.GetTitle().c_str(), autoTimer.GetStartTime(), autoTimer.GetEndTime());
   }
 
-  XBMC->Log(LOG_INFO, "%s fetched %u AutoTimer Entries", __FUNCTION__, autoTimers.size());
+  Logger::Log(LEVEL_INFO, "%s fetched %u AutoTimer Entries", __FUNCTION__, autoTimers.size());
   return autoTimers; 
 }
 
 bool Timers::CanAutoTimers() const
 {
-  return vuData.GetWebIfVersion() >= vuData.GenerateWebIfVersionNum(1, 3, 0);
+  return enigma.GetWebIfVersion() >= enigma.GenerateWebIfVersionNum(1, 3, 0);
 }
 
 bool Timers::IsAutoTimer(const PVR_TIMER &timer) const
@@ -603,7 +560,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   std::vector<std::pair<int, std::string>> groupValues = {
     { 0, LocalizedString(30410) }, //automatic
   };
-  for (auto &recf : vuData.GetLocations())
+  for (auto &recf : enigma.GetLocations())
     groupValues.emplace_back(groupValues.size(), recf);
 
   /* One-shot manual (time and channel based) */
@@ -677,7 +634,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
     ""); /* Let Kodi generate the description */
   types.emplace_back(*t);
 
-  if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
+  if (CanAutoTimers() && enigma.GetAutoTimersEnabled())
   {
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
     static std::vector<std::pair<int, std::string>> deDupValues =
@@ -743,29 +700,11 @@ void Timers::GetTimers(std::vector<PVR_TIMER> &timers) const
 {
   for (const auto& timer : m_timers)
   {
-    XBMC->Log(LOG_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.strTitle.c_str(), timer.iClientIndex);
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.GetTitle().c_str(), timer.GetClientIndex());
     PVR_TIMER tag;
     memset(&tag, 0, sizeof(PVR_TIMER));
 
-    tag.iTimerType        = timer.type;
-    tag.iClientChannelUid = timer.iChannelId;
-    tag.startTime         = timer.startTime;
-    tag.endTime           = timer.endTime;
-    strncpy(tag.strTitle, timer.strTitle.c_str(), sizeof(tag.strTitle));
-    strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory));   // unused
-    strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary));
-    tag.state             = timer.state;
-    tag.iPriority         = 0;     // unused
-    tag.iLifetime         = 0;     // unused
-    tag.firstDay          = 0;     // unused
-    tag.iWeekdays         = timer.iWeekdays;
-    tag.iEpgUid           = timer.iEpgID;
-    tag.iMarginStart      = 0;     // unused
-    tag.iMarginEnd        = 0;     // unused
-    tag.iGenreType        = 0;     // unused
-    tag.iGenreSubType     = 0;     // unused
-    tag.iClientIndex = timer.iClientIndex;
-    tag.iParentClientIndex = timer.iParentClientIndex;
+    timer.UpdateTo(tag);
 
     timers.emplace_back(tag);
   }
@@ -775,36 +714,11 @@ void Timers::GetAutoTimers(std::vector<PVR_TIMER> &timers) const
 {
   for (const auto& autoTimer : m_autotimers)
   {
-    XBMC->Log(LOG_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.strTitle.c_str(), autoTimer.iClientIndex);
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.GetTitle().c_str(), autoTimer.GetClientIndex());
     PVR_TIMER tag;
     memset(&tag, 0, sizeof(PVR_TIMER));
 
-    tag.iTimerType        = autoTimer.type;
-    if (autoTimer.anyChannel)
-      tag.iClientChannelUid = PVR_TIMER_ANY_CHANNEL;
-    else
-      tag.iClientChannelUid = autoTimer.iChannelId;
-    tag.startTime         = autoTimer.startTime;
-    tag.endTime           = autoTimer.endTime;
-    strncpy(tag.strTitle, autoTimer.strTitle.c_str(), sizeof(tag.strTitle));
-    //strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory));   // unused
-    //strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary));
-    tag.state             = autoTimer.state;
-    tag.iPriority         = 0;     // unused
-    tag.iLifetime         = 0;     // unused
-    tag.firstDay          = 0;     // unused
-    tag.iWeekdays         = autoTimer.iWeekdays;
-    //tag.iEpgUid           = timer.iEpgID;
-    tag.iMarginStart      = 0;     // unused
-    tag.iMarginEnd        = 0;     // unused
-    tag.iGenreType        = 0;     // unused
-    tag.iGenreSubType     = 0;     // unused
-    tag.iClientIndex = autoTimer.iClientIndex;
-    strncpy(tag.strEpgSearchString, autoTimer.searchPhrase.c_str(), sizeof(tag.strEpgSearchString));
-    tag.bStartAnyTime     = autoTimer.startAnyTime;
-    tag.bEndAnyTime     = autoTimer.endAnyTime;
-    tag.bFullTextEpgSearch = autoTimer.searchFulltext;
-    tag.iPreventDuplicateEpisodes = autoTimer.deDup;
+    autoTimer.UpdateTo(tag);
 
     timers.emplace_back(tag);
   }
@@ -825,26 +739,26 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return AddAutoTimer(timer);
 
-  XBMC->Log(LOG_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
+  Logger::Log(LEVEL_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
 
   std::string tags = TAG_FOR_EPG_TIMER;
   if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
     tags = TAG_FOR_MANUAL_TIMER;
 
   std::string strTmp;
-  std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
+  std::string strServiceReference = enigma.GetChannels().at(timer.iClientChannelUid-1).GetServiceReference().c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  if (!vuData.GetRecordingPath().compare(""))
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s", vuData.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, vuData.URLEncodeInline(tags).c_str(), vuData.URLEncodeInline(vuData.GetRecordingPath()).c_str());
+  if (!enigma.GetRecordingPath().compare(""))
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s", enigma.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, enigma.URLEncodeInline(timer.strTitle).c_str(), enigma.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, enigma.URLEncodeInline(tags).c_str(), enigma.URLEncodeInline(enigma.GetRecordingPath()).c_str());
   else
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s", vuData.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, vuData.URLEncodeInline(tags).c_str());
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s", enigma.URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, enigma.URLEncodeInline(timer.strTitle).c_str(), enigma.URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, enigma.URLEncodeInline(tags).c_str());
 
   std::string strResult;
-  if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+  if (!enigma.SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
   
   TimerUpdates();
@@ -857,13 +771,13 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   std::string strTmp;
   strTmp = StringUtils::Format("autotimer/edit?");
 
-  strTmp += StringUtils::Format("name=%s", vuData.URLEncodeInline(timer.strTitle).c_str());
-  strTmp += StringUtils::Format("&match=%s", vuData.URLEncodeInline(timer.strEpgSearchString).c_str());
+  strTmp += StringUtils::Format("name=%s", enigma.URLEncodeInline(timer.strTitle).c_str());
+  strTmp += StringUtils::Format("&match=%s", enigma.URLEncodeInline(timer.strEpgSearchString).c_str());
 
   if (timer.state != PVR_TIMER_STATE_CANCELLED)
-    strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
+    strTmp += StringUtils::Format("&enabled=%s", enigma.URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
   else
-    strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
+    strTmp += StringUtils::Format("&enabled=%s", enigma.URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
 
 
   if (!timer.bStartAnyTime)
@@ -880,12 +794,12 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
     strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
   }
 
-  strTmp += StringUtils::Format("&encoding=%s", vuData.URLEncodeInline(AUTOTIMER_ENCODING).c_str());
-  strTmp += StringUtils::Format("&searchCase=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
+  strTmp += StringUtils::Format("&encoding=%s", enigma.URLEncodeInline(AUTOTIMER_ENCODING).c_str());
+  strTmp += StringUtils::Format("&searchCase=%s", enigma.URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
   if (timer.bFullTextEpgSearch)
-    strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());  
+    strTmp += StringUtils::Format("&searchType=%s", enigma.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());  
   else
-    strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
+    strTmp += StringUtils::Format("&searchType=%s", enigma.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
 
   std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.iPreventDuplicateEpisodes);
   if (deDup == AutoTimer::DeDup::DISABLED)
@@ -912,13 +826,13 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
   {
     //single channel
-    strTmp += StringUtils::Format("&services=%s", vuData.URLEncodeInline(vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference).c_str());
+    strTmp += StringUtils::Format("&services=%s", enigma.URLEncodeInline(enigma.GetChannels().at(timer.iClientChannelUid-1).GetServiceReference()).c_str());
   }
 
   strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
 
   std::string strResult;
-  if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+  if (!enigma.SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
 
   if (timer.state == PVR_TIMER_STATE_RECORDING)
@@ -934,30 +848,30 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return UpdateAutoTimer(timer);
     
-  XBMC->Log(LOG_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
+  Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
 
   std::string strTmp;
-  std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();  
+  std::string strServiceReference = enigma.GetChannels().at(timer.iClientChannelUid-1).GetServiceReference().c_str();  
 
   const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
   {
-    return myTimer.iClientIndex == timer.iClientIndex;
+    return myTimer.GetClientIndex() == timer.iClientIndex;
   });
   
   if (it != m_timers.cend())
   {
     Timer oldTimer = *it;
-    std::string strOldServiceReference = vuData.GetChannels().at(oldTimer.iChannelId-1).strServiceReference.c_str();  
-    XBMC->Log(LOG_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.iChannelId);
+    std::string strOldServiceReference = enigma.GetChannels().at(oldTimer.GetChannelId()-1).GetServiceReference().c_str();  
+    Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
     int iDisabled = 0;
     if (timer.state == PVR_TIMER_STATE_CANCELLED)
       iDisabled = 1;
 
-    strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", vuData.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, vuData.URLEncodeInline(timer.strTitle).c_str(), vuData.URLEncodeInline(timer.strSummary).c_str(), vuData.URLEncodeInline(oldTimer.tags).c_str(), iDisabled, timer.iWeekdays, vuData.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.startTime, oldTimer.endTime  );
+    strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", enigma.URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, enigma.URLEncodeInline(timer.strTitle).c_str(), enigma.URLEncodeInline(timer.strSummary).c_str(), enigma.URLEncodeInline(oldTimer.GetTags()).c_str(), iDisabled, timer.iWeekdays, enigma.URLEncodeInline(strOldServiceReference).c_str(), oldTimer.GetStartTime(), oldTimer.GetEndTime());
     
     std::string strResult;
-    if (!vuData.SendSimpleCommand(strTmp, strResult))
+    if (!enigma.SendSimpleCommand(strTmp, strResult))
       return PVR_ERROR_SERVER_ERROR;
 
     TimerUpdates();   
@@ -972,22 +886,22 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
 {
   const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
   {
-    return autoTimer.iClientIndex == timer.iClientIndex;
+    return autoTimer.GetClientIndex() == timer.iClientIndex;
   });
   
   if (it != m_autotimers.cend())
   {
     AutoTimer timerToUpdate = *it;
 
-    std::string strTmp = StringUtils::Format("autotimer/edit?id=%d", timerToUpdate.backendId);
+    std::string strTmp = StringUtils::Format("autotimer/edit?id=%d", timerToUpdate.GetBackendId());
 
-    strTmp += StringUtils::Format("&name=%s", vuData.URLEncodeInline(timer.strTitle).c_str());
-    strTmp += StringUtils::Format("&match=%s", vuData.URLEncodeInline(timer.strEpgSearchString).c_str());
+    strTmp += StringUtils::Format("&name=%s", enigma.URLEncodeInline(timer.strTitle).c_str());
+    strTmp += StringUtils::Format("&match=%s", enigma.URLEncodeInline(timer.strEpgSearchString).c_str());
 
     if (timer.state != PVR_TIMER_STATE_CANCELLED)
-      strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
+      strTmp += StringUtils::Format("&enabled=%s", enigma.URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
     else
-      strTmp += StringUtils::Format("&enabled=%s", vuData.URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
+      strTmp += StringUtils::Format("&enabled=%s", enigma.URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
 
 
     if (!timer.bStartAnyTime)
@@ -1004,15 +918,15 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
       strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
     }
 
-    strTmp += StringUtils::Format("&encoding=%s", vuData.URLEncodeInline(AUTOTIMER_ENCODING).c_str());
+    strTmp += StringUtils::Format("&encoding=%s", enigma.URLEncodeInline(AUTOTIMER_ENCODING).c_str());
 
     if (timer.bFullTextEpgSearch)
-      strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());  
+      strTmp += StringUtils::Format("&searchType=%s", enigma.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());  
     else
-      strTmp += StringUtils::Format("&searchType=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
+      strTmp += StringUtils::Format("&searchType=%s", enigma.URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
 
-    if (!timerToUpdate.searchCase.empty())
-      strTmp += StringUtils::Format("&searchCase=%s", vuData.URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
+    if (!timerToUpdate.GetSearchCase().empty())
+      strTmp += StringUtils::Format("&searchCase=%s", enigma.URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
 
     std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.iPreventDuplicateEpisodes);
     if (deDup == AutoTimer::DeDup::DISABLED)
@@ -1036,12 +950,12 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
       }
     }
 
-    if (timerToUpdate.anyChannel && timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
+    if (timerToUpdate.GetAnyChannel() && timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
     {
       //move to single channel
-      strTmp += StringUtils::Format("&services=%s", vuData.URLEncodeInline(vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference).c_str());
+      strTmp += StringUtils::Format("&services=%s", enigma.URLEncodeInline(enigma.GetChannels().at(timer.iClientChannelUid-1).GetServiceReference()).c_str());
     }
-    else if (!timerToUpdate.anyChannel && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
+    else if (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
     {
       //Move to any channel
       strTmp += StringUtils::Format("&services=");
@@ -1050,7 +964,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
     strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
 
     std::string strResult;
-    if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+    if (!enigma.SendSimpleCommand(strTmp, strResult)) 
       return PVR_ERROR_SERVER_ERROR;
 
     if (timer.state == PVR_TIMER_STATE_RECORDING)
@@ -1098,16 +1012,16 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
     return DeleteAutoTimer(timer);
 
   std::string strTmp;
-  std::string strServiceReference = vuData.GetChannels().at(timer.iClientChannelUid-1).strServiceReference.c_str();
+  std::string strServiceReference = enigma.GetChannels().at(timer.iClientChannelUid-1).GetServiceReference().c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", vuData.URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
+  strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", enigma.URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
 
   std::string strResult;
-  if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+  if (!enigma.SendSimpleCommand(strTmp, strResult)) 
     return PVR_ERROR_SERVER_ERROR;
 
   if (timer.state == PVR_TIMER_STATE_RECORDING)
@@ -1122,7 +1036,7 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
 {
   const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
   {
-    return autoTimer.iClientIndex == timer.iClientIndex;
+    return autoTimer.GetClientIndex() == timer.iClientIndex;
   });
   
   if (it != m_autotimers.cend())
@@ -1130,10 +1044,10 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
     AutoTimer timerToDelete = *it;
 
     std::string strTmp;
-    strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.backendId);
+    strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
 
     std::string strResult;
-    if (!vuData.SendSimpleCommand(strTmp, strResult)) 
+    if (!enigma.SendSimpleCommand(strTmp, strResult)) 
       return PVR_ERROR_SERVER_ERROR;
 
     if (timer.state == PVR_TIMER_STATE_RECORDING)
@@ -1158,12 +1072,12 @@ void Timers::TimerUpdates()
   bool regularTimersChanged = TimerUpdatesRegular();
   bool autoTimersChanged = false;
   
-  if (CanAutoTimers() && vuData.GetAutoTimersEnabled())
+  if (CanAutoTimers() && enigma.GetAutoTimersEnabled())
     autoTimersChanged = TimerUpdatesAuto();
 
   if (regularTimersChanged || autoTimersChanged) 
   {
-    XBMC->Log(LOG_INFO, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
     PVR->TriggerTimerUpdate();
   }
 }
@@ -1174,7 +1088,7 @@ bool Timers::TimerUpdatesRegular()
 
   for (auto& timer : m_timers)
   {
-    timer.iUpdateState = VU_UPDATE_STATE_NONE;
+    timer.SetUpdateState(UPDATE_STATE_NONE);
   }
 
   //Update any timers
@@ -1185,27 +1099,20 @@ bool Timers::TimerUpdatesRegular()
   {
     for (auto& existingTimer : m_timers)
     {
-      if (existingTimer.like(newTimer))
+      if (existingTimer.Like(newTimer))
       {
         if(existingTimer == newTimer)
         {
-          existingTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
-          newTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
+          existingTimer.SetUpdateState(UPDATE_STATE_FOUND);
+          newTimer.SetUpdateState(UPDATE_STATE_FOUND);
           iUnchanged++;
         }
         else
         {
-          newTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
-          existingTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
-          existingTimer.strTitle = newTimer.strTitle;
-          existingTimer.strPlot = newTimer.strPlot;
-          existingTimer.iChannelId = newTimer.iChannelId;
-          existingTimer.strChannelName = newTimer.strChannelName;
-          existingTimer.startTime = newTimer.startTime;
-          existingTimer.endTime = newTimer.endTime;
-          existingTimer.iWeekdays = newTimer.iWeekdays;
-          existingTimer.iEpgID = newTimer.iEpgID;
-          existingTimer.tags = newTimer.tags;
+          newTimer.SetUpdateState(UPDATE_STATE_UPDATED);
+          existingTimer.SetUpdateState(UPDATE_STATE_UPDATED);
+
+          existingTimer.UpdateFrom(newTimer);
 
           iUpdated++;
         }
@@ -1218,7 +1125,7 @@ bool Timers::TimerUpdatesRegular()
 
   m_timers.erase(
     std::remove_if(m_timers.begin(), m_timers.end(), 
-      [](const Timer& timer) { return timer.iUpdateState == VU_UPDATE_STATE_NONE; }), 
+      [](const Timer& timer) { return timer.GetUpdateState() == UPDATE_STATE_NONE; }), 
     m_timers.end());
 
   iRemoved -= m_timers.size();
@@ -1228,10 +1135,10 @@ bool Timers::TimerUpdatesRegular()
 
   for (auto& newTimer : newtimers)
   { 
-    if(newTimer.iUpdateState == VU_UPDATE_STATE_NEW)
+    if(newTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {  
-      newTimer.iClientIndex = m_iClientIndexCounter;
-      XBMC->Log(LOG_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.strTitle.c_str(), m_iClientIndexCounter);
+      newTimer.SetClientIndex(m_iClientIndexCounter);
+      Logger::Log(LEVEL_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.GetTitle().c_str(), m_iClientIndexCounter);
       m_timers.emplace_back(newTimer);
       m_iClientIndexCounter++;
       iNew++;  
@@ -1243,16 +1150,16 @@ bool Timers::TimerUpdatesRegular()
   {
     for (auto& readonlyRepeatingOnceTimer : m_timers)
     {
-      if ((repeatingTimer.type == Timer::MANUAL_REPEATING || repeatingTimer.type == Timer::EPG_REPEATING) &&
-          readonlyRepeatingOnceTimer.type == Timer::READONLY_REPEATING_ONCE && readonlyRepeatingOnceTimer.isChildOfParent(repeatingTimer))
+      if ((repeatingTimer.GetType() == Timer::MANUAL_REPEATING || repeatingTimer.GetType() == Timer::EPG_REPEATING) &&
+          readonlyRepeatingOnceTimer.GetType() == Timer::READONLY_REPEATING_ONCE && readonlyRepeatingOnceTimer.isChildOfParent(repeatingTimer))
       {
-        readonlyRepeatingOnceTimer.iParentClientIndex = repeatingTimer.iClientIndex;
+        readonlyRepeatingOnceTimer.SetParentClientIndex(repeatingTimer.GetClientIndex());
         continue;
       }
     }
   }  
  
-  XBMC->Log(LOG_INFO , "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew); 
+  Logger::Log(LEVEL_INFO , "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew); 
 
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }
@@ -1263,7 +1170,7 @@ bool Timers::TimerUpdatesAuto()
 
   for (auto& autoTimer : m_autotimers)
   {
-    autoTimer.iUpdateState = VU_UPDATE_STATE_NONE;
+    autoTimer.SetUpdateState(UPDATE_STATE_NONE);
   }
 
   //Update any autotimers
@@ -1274,38 +1181,20 @@ bool Timers::TimerUpdatesAuto()
   {
     for (auto& existingAutoTimer : m_autotimers)
     {
-      if (existingAutoTimer.like(newAutoTimer))
+      if (existingAutoTimer.Like(newAutoTimer))
       {
         if(existingAutoTimer == newAutoTimer)
         {
-          existingAutoTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
-          newAutoTimer.iUpdateState = VU_UPDATE_STATE_FOUND;
+          existingAutoTimer.SetUpdateState(UPDATE_STATE_FOUND);
+          newAutoTimer.SetUpdateState(UPDATE_STATE_FOUND);
           iUnchanged++;
         }
         else
         {
-          newAutoTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
-          existingAutoTimer.iUpdateState = VU_UPDATE_STATE_UPDATED;
+          newAutoTimer.SetUpdateState(UPDATE_STATE_UPDATED);
+          existingAutoTimer.SetUpdateState(UPDATE_STATE_UPDATED);
 
-          existingAutoTimer.strTitle = newAutoTimer.strTitle;
-          existingAutoTimer.strPlot = newAutoTimer.strPlot;
-          existingAutoTimer.iChannelId = newAutoTimer.iChannelId;
-          existingAutoTimer.strChannelName = newAutoTimer.strChannelName;
-          existingAutoTimer.startTime = newAutoTimer.startTime;
-          existingAutoTimer.endTime = newAutoTimer.endTime;
-          existingAutoTimer.iWeekdays = newAutoTimer.iWeekdays;
-          existingAutoTimer.iEpgID = newAutoTimer.iEpgID;
-          existingAutoTimer.tags = newAutoTimer.tags;
-
-          existingAutoTimer.searchPhrase = newAutoTimer.searchPhrase;
-          existingAutoTimer.encoding = newAutoTimer.encoding;
-          existingAutoTimer.searchCase = newAutoTimer.searchCase;
-          existingAutoTimer.searchType = newAutoTimer.searchType;
-          existingAutoTimer.searchFulltext = newAutoTimer.searchFulltext;
-          existingAutoTimer.startAnyTime = newAutoTimer.startAnyTime;
-          existingAutoTimer.endAnyTime = newAutoTimer.endAnyTime;
-          existingAutoTimer.anyChannel = newAutoTimer.anyChannel;
-          existingAutoTimer.deDup = newAutoTimer.deDup;
+          existingAutoTimer.UpdateFrom(newAutoTimer);
 
           iUpdated++;
         }
@@ -1318,7 +1207,7 @@ bool Timers::TimerUpdatesAuto()
 
   m_autotimers.erase(
     std::remove_if(m_autotimers.begin(), m_autotimers.end(), 
-      [](const AutoTimer& autoTimer) { return autoTimer.iUpdateState == VU_UPDATE_STATE_NONE; }), 
+      [](const AutoTimer& autoTimer) { return autoTimer.GetUpdateState() == UPDATE_STATE_NONE; }), 
     m_autotimers.end());
 
   iRemoved -= m_autotimers.size();
@@ -1328,13 +1217,13 @@ bool Timers::TimerUpdatesAuto()
 
   for (auto& newAutoTimer : newautotimers)
   { 
-    if(newAutoTimer.iUpdateState == VU_UPDATE_STATE_NEW)
+    if(newAutoTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {  
-      newAutoTimer.iClientIndex = m_iClientIndexCounter;
+      newAutoTimer.SetClientIndex(m_iClientIndexCounter);
 
-      if ((newAutoTimer.iChannelId -1) == PVR_TIMER_ANY_CHANNEL)
-        newAutoTimer.anyChannel = true;
-      XBMC->Log(LOG_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.strTitle.c_str(), m_iClientIndexCounter);
+      if ((newAutoTimer.GetChannelId() -1) == PVR_TIMER_ANY_CHANNEL)
+        newAutoTimer.SetAnyChannel(true);
+      Logger::Log(LEVEL_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), m_iClientIndexCounter);
       m_autotimers.emplace_back(newAutoTimer);
       m_iClientIndexCounter++;
       iNew++;
@@ -1346,18 +1235,18 @@ bool Timers::TimerUpdatesAuto()
   {
     for (auto& timer : m_timers)
     {
-      std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.strTitle);
+      std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.GetTitle());
 
-      if (timer.type == Timer::EPG_AUTO_ONCE && Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.tags) 
-            && FindTagInTimerTags(autotimerTag, timer.tags))
+      if (timer.GetType() == Timer::EPG_AUTO_ONCE && Timers::FindTagInTimerTags(TAG_FOR_AUTOTIMER, timer.GetTags()) 
+            && FindTagInTimerTags(autotimerTag, timer.GetTags()))
       {
-        timer.iParentClientIndex = autoTimer.iClientIndex;
+        timer.SetParentClientIndex(autoTimer.GetClientIndex());
         continue;
       }
     }
   }
  
-  XBMC->Log(LOG_INFO, "%s No of autotimers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew); 
+  Logger::Log(LEVEL_INFO, "%s No of autotimers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew); 
   
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }

@@ -22,80 +22,24 @@
  */
 
 #include "client.h"
-#include "RecordingReader.h"
-#include "Settings.h"
-#include "Timers.h"
-#include "VuBase.h"
-#include "extract/EpgEntryExtractor.h"
+#include "enigma2/RecordingReader.h"
+#include "enigma2/Settings.h"
+#include "enigma2/Timers.h"
+#include "enigma2/data/BaseEntry.h"
+#include "enigma2/data/Channel.h"
+#include "enigma2/data/ChannelGroup.h"
+#include "enigma2/data/EPGEntry.h"
+#include "enigma2/data/RecordingEntry.h"
+#include "enigma2/extract/EpgEntryExtractor.h"
 
 #include "tinyxml.h"
 #include "p8-platform/threads/threads.h"
 
-class CCurlFile
+class Enigma2  : public P8PLATFORM::CThread
 {
 public:
-  CCurlFile(void) {};
-  ~CCurlFile(void) {};
-
-  bool Get(const std::string &strURL, std::string &strResult);
-};
-
-typedef enum VU_UPDATE_STATE
-{
-    VU_UPDATE_STATE_NONE,
-    VU_UPDATE_STATE_FOUND,
-    VU_UPDATE_STATE_UPDATED,
-    VU_UPDATE_STATE_NEW
-} VU_UPDATE_STATE;
-
-struct VuEPGEntry : public VuBase
-{
-  int iEventId;
-  std::string strServiceReference;
-  int iChannelId;
-  time_t startTime;
-  time_t endTime;
-};
-
-struct VuChannelGroup 
-{
-  std::string strServiceReference;
-  std::string strGroupName;
-  int iGroupState;
-  std::vector<VuEPGEntry> initialEPG;
-};
-
-struct VuChannel
-{
-  bool bRadio;
-  bool bRequiresInitialEPG = true;
-  int iUniqueId;
-  int iChannelNumber;
-  std::string strGroupName;
-  std::string strChannelName;
-  std::string strServiceReference;
-  std::string strStreamURL;
-  std::string strM3uURL;
-  std::string strIconPath;
-};
-
-struct VuRecording : public VuBase
-{
-  std::string strRecordingId;
-  time_t startTime;
-  int iDuration;
-  int iLastPlayedPosition;
-  std::string strStreamURL;
-  std::string strChannelName;
-  std::string strDirectory;
-  std::string strIconPath;
-};
-
-class Vu  : public P8PLATFORM::CThread
-{
-public:
-  Vu(const VUPLUS::Settings &settings);
-  ~Vu();
+  Enigma2(const enigma2::Settings &settings);
+  ~Enigma2();
 
   const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
   const std::string SERVICE_REF_ICON_POSTFIX = ":0:0:0";
@@ -105,7 +49,7 @@ public:
     return (major << 16 | minor << 8 | patch);
   };
 
-  VUPLUS::Settings &GetSettings()
+  enigma2::Settings &GetSettings()
   { 
     return m_settings; 
   };
@@ -132,10 +76,10 @@ public:
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
   int GetChannelsAmount(void) const;
   int GetChannelNumber(std::string strServiceReference) const;
-  std::vector<VuChannel> GetChannels() const;
+  std::vector<enigma2::data::Channel> GetChannels() const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
-  bool GetInitialEPGForGroup(VuChannelGroup &group);
-  PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const VuChannel &channel, time_t iStart, time_t iEnd);
+  bool GetInitialEPGForGroup(enigma2::data::ChannelGroup &group);
+  PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const enigma2::data::Channel &channel, time_t iStart, time_t iEnd);
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
 
   //live streams, recordings and Timers
@@ -148,7 +92,7 @@ public:
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
   bool GetRecordingFromLocation(std::string strRecordingFolder);
   std::string GetRecordingPath() const;
-  RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
+  enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
@@ -166,14 +110,14 @@ private:
   static unsigned int GetWebIfVersion(std::string versionString);
   bool LoadChannelGroups();
   std::string GetGroupServiceReference(std::string strGroupName);
-  bool LoadChannels(std::string strServerReference, std::string strGroupName);
+  bool LoadChannels(std::string groupServiceReference, std::string groupName);
   bool LoadChannels();
   std::string GetChannelIconPath(std::string strChannelName);
   bool LoadLocations();
   bool CheckIfAllChannelsHaveInitialEPG() const;
 
   // helper functions
-  std::string GetStreamURL(std::string& strM3uURL);
+  std::string GetStreamURL(const std::string& strM3uURL);
   static long TimeStringToSeconds(const std::string &timeString);
   std::string& Escape(std::string &s, std::string from, std::string to);
   bool IsInRecordingFolder(std::string);
@@ -187,18 +131,18 @@ private:
   std::string m_strWebIfVersion;
   unsigned int m_iWebIfVersion;
   bool m_bIsConnected = false;
-  std::string m_strServerName = "Vu";
+  std::string m_strServerName = "Enigma2";
   std::string m_strURL;
   int m_iCurrentChannel = -1;
   unsigned int m_iUpdateTimer = 0;
-  std::vector<VuChannel> m_channels;
-  std::vector<VuRecording> m_recordings;
-  std::vector<VuChannelGroup> m_groups;
+  std::vector<enigma2::data::Channel> m_channels;
+  std::vector<enigma2::data::RecordingEntry> m_recordings;
+  std::vector<enigma2::data::ChannelGroup> m_groups;
   std::vector<std::string> m_locations;
 
-  VUPLUS::Timers my_timers = VUPLUS::Timers(*this);
-  VUPLUS::Settings m_settings;
-  std::unique_ptr<VUPLUS::EpgEntryExtractor> m_entryExtractor;
+  enigma2::Timers my_timers = enigma2::Timers(*this);
+  enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
+  std::unique_ptr<enigma2::extract::EpgEntryExtractor> m_entryExtractor;
 
   P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;

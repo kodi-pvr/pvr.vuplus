@@ -1,8 +1,11 @@
 #include "StreamReader.h"
 
-#include "client.h"
+#include "../client.h"
+#include "utilities/Logger.h"
 
 using namespace ADDON;
+using namespace enigma2;
+using namespace enigma2::utilities;
 
 StreamReader::StreamReader(const std::string &streamURL,
   const unsigned int m_readTimeout)
@@ -12,14 +15,14 @@ StreamReader::StreamReader(const std::string &streamURL,
     XBMC->CURLAddOption(m_streamHandle, XFILE::CURL_OPTION_PROTOCOL,
       "connection-timeout", std::to_string(0).c_str());
 
-  XBMC->Log(LOG_DEBUG, "StreamReader: Started; url=%s", streamURL.c_str());
+  Logger::Log(LEVEL_DEBUG, "StreamReader: Started; url=%s", streamURL.c_str());
 }
 
 StreamReader::~StreamReader(void)
 {
   if (m_streamHandle)
     XBMC->CloseFile(m_streamHandle);
-  XBMC->Log(LOG_DEBUG, "StreamReader: Stopped");
+  Logger::Log(LEVEL_DEBUG, "StreamReader: Stopped");
 }
 
 bool StreamReader::Start()

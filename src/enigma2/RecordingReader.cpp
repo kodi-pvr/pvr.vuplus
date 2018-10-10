@@ -2,11 +2,14 @@
 
 #include <algorithm>
 
-#include "client.h"
+#include "../client.h"
+#include "utilities/Logger.h"
 
 #include "p8-platform/threads/mutex.h"
 
 using namespace ADDON;
+using namespace enigma2;
+using namespace enigma2::utilities;
 
 RecordingReader::RecordingReader(const std::string &streamURL, std::time_t end)
   : m_streamURL(streamURL), m_end(end)
@@ -15,7 +18,7 @@ RecordingReader::RecordingReader(const std::string &streamURL, std::time_t end)
   (void)XBMC->CURLOpen(m_readHandle, XFILE::READ_NO_CACHE);
   m_len = XBMC->GetFileLength(m_readHandle);
   m_nextReopen = time(nullptr) + REOPEN_INTERVAL;
-  XBMC->Log(LOG_DEBUG, "RecordingReader: Started; url=%s, end=%u",
+  Logger::Log(LEVEL_DEBUG, "RecordingReader: Started; url=%s, end=%u",
       m_streamURL.c_str(), m_end);
 }
 
@@ -23,7 +26,7 @@ RecordingReader::~RecordingReader(void)
 {
   if (m_readHandle)
     XBMC->CloseFile(m_readHandle);
-  XBMC->Log(LOG_DEBUG, "RecordingReader: Stopped");
+  Logger::Log(LEVEL_DEBUG, "RecordingReader: Stopped");
 }
 
 bool RecordingReader::Start()
@@ -40,7 +43,7 @@ ssize_t RecordingReader::ReadData(unsigned char *buffer, unsigned int size)
     if (m_pos == m_len || now > m_nextReopen)
     {
       /* reopen stream */
-      XBMC->Log(LOG_DEBUG, "RecordingReader: Reopening stream...");
+      Logger::Log(LEVEL_DEBUG, "RecordingReader: Reopening stream...");
       (void)XBMC->CURLOpen(m_readHandle, XFILE::READ_REOPEN | XFILE::READ_NO_CACHE);
       m_len = XBMC->GetFileLength(m_readHandle);
       XBMC->SeekFile(m_readHandle, m_pos, SEEK_SET);

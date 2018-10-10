@@ -1,8 +1,12 @@
 [![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.vuplus)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
-# VuPlus PVR
-VuPlus PVR client addon for [Kodi] (http://kodi.tv)
+Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers.
+
+This addon leverage the OpenWebIf project: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
+
+# Enigma2 PVR
+VuPlus PVR client addon for [Kodi] (https://kodi.tv)
 
 ## Build instructions
 
@@ -16,15 +20,15 @@ VuPlus PVR client addon for [Kodi] (http://kodi.tv)
 
 ##### Useful links
 
-* [Kodi's PVR user support] (http://forum.kodi.tv/forumdisplay.php?fid=167)
-* [Kodi's PVR development support] (http://forum.kodi.tv/forumdisplay.php?fid=136)
+* [Kodi's PVR user support] (https://forum.kodi.tv/forumdisplay.php?fid=167)
+* [Kodi's PVR development support] (https://forum.kodi.tv/forumdisplay.php?fid=136)
 
 ## Configuring the addon
 
 ### Connection
 Within this tab the connection options need to be configured before it can be successfully enabled.
 
-* **VU+ hostname or IP address**: The IP address or hostname of your enigma2 based settop box.
+* **Enigma2 hostname or IP address**: The IP address or hostname of your enigma2 based settop box.
 * **Web interface port**: The port used to connect to the web interface
 * **Use secure HTTP (https)**: Use https to connect to the web interface
 * **Username**: If the webinterface of the settop box is protected with a username / password combination this needs to be set in this option.
@@ -36,7 +40,7 @@ Webinterface Port: This option defines the port that should be used to access th
 ### General
 Within this tab general options are configured.
 
-* **Fetch picons from web interface**: Fetch the picons straight from the Vuplus/Enigma 2 STB
+* **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 STB
 * **Use picons.eu file formate**: Assume all picons files fetched from the STB start with `1_1_1_` and end with `_0_0_0`
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your settop box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the settop box can also be used to modify timers, delete recordings etc. and the settop box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
@@ -58,7 +62,7 @@ ll need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for
 
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the settop box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the STB. If this option is set then it will only list recordings that are stored within the "current recording path" on the settop box.
-* **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of ht recording path
+* **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
 * **Enable autotimers**: When this is enabled there are some settings required on the STB to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. On the STB enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):

@@ -1,13 +1,13 @@
 #include "Settings.h"
 
-#include "client.h"
-#include "LocalizedString.h"
-#include "VuData.h"
+#include "../client.h"
+#include "utilities/LocalizedString.h"
 
 #include "p8-platform/util/StringUtils.h"
 
-using namespace VUPLUS;
 using namespace ADDON;
+using namespace enigma2;
+using namespace enigma2::utilities;
 
 /***************************************************************************
  * PVR settings
@@ -208,7 +208,7 @@ ADDON_STATUS Settings::SetStringSetting(const std::string &settingName, const vo
 
   if (strSettingValue != currentValue)
   {
-    XBMC->Log(LOG_INFO, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
+    Logger::Log(LEVEL_INFO, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
     currentValue = strSettingValue;
     return returnValueIfChanged;
   }
