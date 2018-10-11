@@ -25,24 +25,27 @@ GenreExtractor::~GenreExtractor(void)
 
 void GenreExtractor::ExtractFromEntry(BaseEntry &entry)
 {
-  std::string genreText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), genrePattern);
-
-  if (!genreText.empty() && genreText != GENRE_RESERVED_IGNORE)
+  if (entry.GetGenreType() == 0)
   {
-    int combinedGenreType = GetGenreTypeFromText(genreText, entry.GetTitle());
+    const std::string genreText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), genrePattern);
 
-    if (combinedGenreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
+    if (!genreText.empty() && genreText != GENRE_RESERVED_IGNORE)
     {
-      if (m_settings.GetLogMissingGenreMappings())
-        Logger::Log(LEVEL_NOTICE, "%s: Could not lookup genre using genre description string instead:'%s'", __FUNCTION__, genreText.c_str());
+      int combinedGenreType = GetGenreTypeFromText(genreText, entry.GetTitle());
 
-      entry.SetGenreType(EPG_GENRE_USE_STRING);
-      entry.SetGenreDescription(genreText);
-    }
-    else
-    {
-      entry.SetGenreType(GetGenreTypeFromCombined(combinedGenreType));
-      entry.SetGenreSubType(GetGenreSubTypeFromCombined(combinedGenreType));
+      if (combinedGenreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
+      {
+        if (m_settings.GetLogMissingGenreMappings())
+          Logger::Log(LEVEL_NOTICE, "%s: Could not lookup genre using genre description string instead:'%s'", __FUNCTION__, genreText.c_str());
+
+        entry.SetGenreType(EPG_GENRE_USE_STRING);
+        entry.SetGenreDescription(genreText);
+      }
+      else
+      {
+        entry.SetGenreType(GetGenreTypeFromCombined(combinedGenreType));
+        entry.SetGenreSubType(GetGenreSubTypeFromCombined(combinedGenreType));
+      }
     }
   }
 }

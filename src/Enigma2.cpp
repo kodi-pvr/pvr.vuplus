@@ -1166,6 +1166,19 @@ bool Enigma2::GetInitialEPGForGroup(ChannelGroup &group)
       entry.SetPlotOutline("");
     }    
 
+    if (XMLUtils::GetString(pNode, "e2eventgenre", strTmp))
+    {
+      entry.SetGenreDescription(strTmp);
+
+      TiXmlElement* genreNode = pNode->FirstChildElement("e2eventgenre");
+      int genreId = 0;
+      if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+      {
+        entry.SetGenreType(genreId & 0xF0);
+        entry.SetGenreSubType(genreId & 0x0F);
+      }
+    }
+
     if (m_settings.GetExtractExtraEpgInfo())
       m_entryExtractor->ExtractFromEntry(entry);
 
@@ -1386,6 +1399,19 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
       entry.SetPlot(entry.GetPlotOutline() + "\n" + entry.GetPlot());
       entry.SetPlotOutline("");
     }    
+
+    if (XMLUtils::GetString(pNode, "e2eventgenre", strTmp))
+    {
+      entry.SetGenreDescription(strTmp);
+
+      TiXmlElement* genreNode = pNode->FirstChildElement("e2eventgenre");
+      int genreId = 0;
+      if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+      {
+        entry.SetGenreType(genreId & 0xF0);
+        entry.SetGenreSubType(genreId & 0x0F);
+      }
+    }
 
     if (m_settings.GetExtractExtraEpgInfo())
       m_entryExtractor->ExtractFromEntry(entry);
