@@ -122,6 +122,7 @@ private:
   std::string& Escape(std::string &s, std::string from, std::string to);
   bool IsInRecordingFolder(std::string);
   void TransferRecordings(ADDON_HANDLE handle);
+  long long GetKbFromString(const std::string &stringInMbGbTb) const;
 
   // members
   void *m_writeHandle;

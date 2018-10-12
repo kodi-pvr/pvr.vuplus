@@ -795,7 +795,7 @@ bool Enigma2::LoadLocations()
     Logger::Log(LEVEL_DEBUG, "%s Added '%s' as a recording location", __FUNCTION__, strTmp.c_str());
   }
 
-  Logger::Log(LEVEL_INFO, "%s Loded '%d' recording locations", __FUNCTION__, m_locations.size());
+  Logger::Log(LEVEL_INFO, "%s Loaded '%d' recording locations", __FUNCTION__, m_locations.size());
 
   return true;
 }
@@ -1151,7 +1151,7 @@ bool Enigma2::GetInitialEPGForGroup(ChannelGroup &group)
       entry.SetPlot(strTmp);
 
     if (XMLUtils::GetString(pNode, "e2eventdescription", strTmp))
-       entry.SetPlotOutline(strTmp);
+      entry.SetPlotOutline(strTmp);
 
     // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
     if (entry.GetPlot().empty())
@@ -1165,6 +1165,19 @@ bool Enigma2::GetInitialEPGForGroup(ChannelGroup &group)
       entry.SetPlot(entry.GetPlotOutline() + "\n" + entry.GetPlot());
       entry.SetPlotOutline("");
     }    
+
+    if (XMLUtils::GetString(pNode, "e2eventgenre", strTmp))
+    {
+      entry.SetGenreDescription(strTmp);
+
+      TiXmlElement* genreNode = pNode->FirstChildElement("e2eventgenre");
+      int genreId = 0;
+      if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+      {
+        entry.SetGenreType(genreId & 0xF0);
+        entry.SetGenreSubType(genreId & 0x0F);
+      }
+    }
 
     if (m_settings.GetExtractExtraEpgInfo())
       m_entryExtractor->ExtractFromEntry(entry);
@@ -1386,6 +1399,19 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
       entry.SetPlot(entry.GetPlotOutline() + "\n" + entry.GetPlot());
       entry.SetPlotOutline("");
     }    
+
+    if (XMLUtils::GetString(pNode, "e2eventgenre", strTmp))
+    {
+      entry.SetGenreDescription(strTmp);
+
+      TiXmlElement* genreNode = pNode->FirstChildElement("e2eventgenre");
+      int genreId = 0;
+      if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+      {
+        entry.SetGenreType(genreId & 0xF0);
+        entry.SetGenreSubType(genreId & 0x0F);
+      }
+    }
 
     if (m_settings.GetExtractExtraEpgInfo())
       m_entryExtractor->ExtractFromEntry(entry);
@@ -1722,8 +1748,8 @@ PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER &timer)
 
 PVR_ERROR Enigma2::GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-  long long total = 0;
-  long long used = 0;
+  long long totalKb = 0;
+  long long freeKb = 0;
 
   const std::string url = StringUtils::Format("%s%s", m_strURL.c_str(), "web/deviceinfo"); 
 
@@ -1774,51 +1800,41 @@ PVR_ERROR Enigma2::GetDriveSpace(long long *iTotal, long long *iUsed)
     XMLUtils::GetString(hddNode, "e2capacity", capacity);
     XMLUtils::GetString(hddNode, "e2free", freeSpace);
 
-    std::regex regexGB ("^.* GB");
-    std::regex regexMB ("^.* MB");
-    std::regex regexReplaceGB (" GB");
-    std::regex regexReplaceMB (" MB");
-    std::string replaceWith = "";
-
-    if (regex_match(capacity, regexGB))
-    {
-      //It's GB
-      double gigabytesSize = atof(regex_replace(capacity, regexReplaceGB, replaceWith).c_str());
-
-      total += (long long)(gigabytesSize * 1024 * 1024);
-    }
-    else
-    {
-      //It's MB
-      if (regex_match(capacity, regexMB))
-      {
-        double megabytesSize = atof(regex_replace(capacity, regexReplaceMB, replaceWith).c_str());
-
-        total += (long long)(megabytesSize * 1024);
-      }
-    }
-
-    if (regex_match(freeSpace, regexGB))
-    {
-      double gigabytesSize = atof(regex_replace(freeSpace, regexReplaceGB, replaceWith).c_str());
-
-      used += (long long)(gigabytesSize * 1024 * 1024);
-    }
-    else
-    {
-      if (regex_match(freeSpace, regexMB))
-      {
-        double megabytesSize = atof(regex_replace(freeSpace, regexReplaceMB, replaceWith).c_str());
-
-        used += (long long)(megabytesSize * 1024);
-      }
-    }
+    totalKb += GetKbFromString(capacity);
+    freeKb += GetKbFromString(freeSpace);
   }
 
-  *iTotal = total;
-  *iUsed = used;
+  *iTotal = totalKb;
+  *iUsed = totalKb - freeKb;
 
-  Logger::Log(LEVEL_INFO, "GetDriveSpace Total: %u, Free %u", *iTotal, *iUsed);
+  Logger::Log(LEVEL_INFO, "GetDriveSpace Total: %lld, Used %lld", *iTotal, *iUsed);
 
   return PVR_ERROR_NO_ERROR;
+}
+
+long long Enigma2::GetKbFromString(const std::string &stringInMbGbTb) const
+{
+  long long sizeInKb = 0;
+
+  static const std::vector<std::string> sizes = {"MB", "GB", "TB"};
+  long multiplier = 1024 * 1024;
+  std::string replaceWith = "";
+  for (const std::string& size : sizes)
+  {
+    std::regex regexSize ("^.* " + size);
+    std::regex regexReplaceSize (" " + size);
+
+    if (regex_match(stringInMbGbTb, regexSize))
+    {
+      double sizeValue = atof(regex_replace(stringInMbGbTb, regexReplaceSize, replaceWith).c_str());
+
+      sizeInKb += static_cast<long long>(sizeValue * multiplier);
+
+      break;
+    }
+
+    multiplier = multiplier * 1024;
+  }
+
+  return sizeInKb;
 }
