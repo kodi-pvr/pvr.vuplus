@@ -1,3 +1,7 @@
+v3.12.5
+- Fixed: Large refactor for code organisation
+- Fixed: Disk space, only for mounts configured for recordings - Requires OpenWebIf 1.3.5, fixes #112
+
 v3.12.4
 - Fixed: Used space instead of free space in GetDriveSpace - fixes #109
 - Added: Genre id support from OTA feeds - Requires OpenWebIf 1.3.5
