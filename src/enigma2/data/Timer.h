@@ -25,14 +25,20 @@
 #include <ctime>
 #include <type_traits>
 
+#include "../Channels.h"
 #include "../utilities/UpdateState.h"
 
 #include "libXBMC_pvr.h"
+#include "tinyxml.h"
 
 namespace enigma2
 {
   namespace data
   {
+    static const std::string TAG_FOR_AUTOTIMER = "AutoTimer";
+    static const std::string TAG_FOR_MANUAL_TIMER = "Manual";
+    static const std::string TAG_FOR_EPG_TIMER = "EPG";
+
     class Timer
     {
     public:
@@ -105,7 +111,9 @@ namespace enigma2
       bool operator==(const Timer &right) const;
       void UpdateFrom(const Timer &right);
       void UpdateTo(PVR_TIMER &right) const;
-    
+      bool UpdateFrom(TiXmlElement* timerNode, Channels &channels); 
+      bool ContainsTag(const std::string &tag) const;
+
     protected:
       Type m_type = Type::MANUAL_ONCE; 
       std::string m_title;

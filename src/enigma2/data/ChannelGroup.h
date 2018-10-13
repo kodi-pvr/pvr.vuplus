@@ -24,7 +24,10 @@
 #include <string>
 #include <vector>
 
-#include "EPGEntry.h"
+#include "EpgEntry.h"
+
+#include "libXBMC_pvr.h"
+#include "tinyxml.h"
 
 namespace enigma2
 {
@@ -33,6 +36,9 @@ namespace enigma2
     class ChannelGroup 
     {
     public:           
+      int GetUniqueId() const { return m_uniqueId; }
+      void SetUniqueId(int value) { m_uniqueId = value; }  
+
       const std::string& GetServiceReference() const { return m_serviceReference; }
       void SetServiceReference(const std::string& value ) { m_serviceReference = value; }          
 
@@ -42,13 +48,17 @@ namespace enigma2
       int GetGroupState() const { return m_groupState; }
       void SetGroupState(int value) { m_groupState = value; }      
 
-      std::vector<EPGEntry>& GetInitialEPG() { return m_initialEPG; }
+      std::vector<EpgEntry>& GetInitialEPG() { return m_initialEPG; }
+
+      bool UpdateFrom(TiXmlElement* groupNode); 
+      void UpdateTo(PVR_CHANNEL_GROUP &left) const;
 
     private:
+      int m_uniqueId;
       std::string m_serviceReference;
       std::string m_groupName;
       int m_groupState;
-      std::vector<EPGEntry> m_initialEPG; 
+      std::vector<EpgEntry> m_initialEPG; 
     };
   } //namespace data
 } //namespace enigma2

@@ -24,7 +24,11 @@
 #include <string>
 
 #include "BaseEntry.h"
+#include "Channel.h"
+#include "../Channels.h"
 
+#include "libXBMC_pvr.h"
+#include "tinyxml.h"
 namespace enigma2
 {
   namespace data
@@ -56,7 +60,12 @@ namespace enigma2
       const std::string& GetIconPath() const { return m_iconPath; }
       void SetIconPath(const std::string& value ) { m_iconPath = value; }    
 
+      bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, enigma2::Channels &channels); 
+      void UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder);
+
     private:
+      long TimeStringToSeconds(const std::string &timeString);
+
       std::string m_recordingId;
       time_t m_startTime;
       int m_duration;

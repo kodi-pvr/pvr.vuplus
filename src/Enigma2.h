@@ -22,13 +22,18 @@
  */
 
 #include "client.h"
+#include "enigma2/Admin.h"
+#include "enigma2/Channels.h"
+#include "enigma2/ChannelGroups.h"
+#include "enigma2/Epg.h"
 #include "enigma2/RecordingReader.h"
+#include "enigma2/Recordings.h"
 #include "enigma2/Settings.h"
 #include "enigma2/Timers.h"
 #include "enigma2/data/BaseEntry.h"
 #include "enigma2/data/Channel.h"
 #include "enigma2/data/ChannelGroup.h"
-#include "enigma2/data/EPGEntry.h"
+#include "enigma2/data/EpgEntry.h"
 #include "enigma2/data/RecordingEntry.h"
 #include "enigma2/extract/EpgEntryExtractor.h"
 
@@ -38,48 +43,21 @@
 class Enigma2  : public P8PLATFORM::CThread
 {
 public:
-  Enigma2(const enigma2::Settings &settings);
+  Enigma2();
   ~Enigma2();
-
-  const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
-  const std::string SERVICE_REF_ICON_POSTFIX = ":0:0:0";
-
-  inline unsigned int GenerateWebIfVersionNum(unsigned int major, unsigned int minor, unsigned int patch)
-  {
-    return (major << 16 | minor << 8 | patch);
-  };
-
-  enigma2::Settings &GetSettings()
-  { 
-    return m_settings; 
-  };
 
   //device and helper functions
   bool Open();
   void SendPowerstate();
   const char * GetServerName() const;
-  unsigned int GetWebIfVersion() const;
   bool IsConnected() const; 
-  std::string GetConnectionURL() const;
-  std::vector<std::string> GetLocations() const;
-  std::string GetHttpXML(const std::string& url) const;
-  bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResult, bool bIgnoreResult = false) const;
-  std::string URLEncodeInline(const std::string& sSrc) const;
-  bool GetGenRepeatTimersEnabled() const;
-  int GetNumGenRepeatTimers() const;
-  bool GetAutoTimersEnabled() const;
-
   
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void) const;
   PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
   int GetChannelsAmount(void) const;
-  int GetChannelNumber(std::string strServiceReference) const;
-  std::vector<enigma2::data::Channel> GetChannels() const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
-  bool GetInitialEPGForGroup(enigma2::data::ChannelGroup &group);
-  PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const enigma2::data::Channel &channel, time_t iStart, time_t iEnd);
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
 
   //live streams, recordings and Timers
@@ -88,10 +66,8 @@ public:
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount();
   PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
-  std::string  GetRecordingURL(const PVR_RECORDING &recinfo);
   PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
-  bool GetRecordingFromLocation(std::string strRecordingFolder);
-  std::string GetRecordingPath() const;
+  bool GetRecordingsFromLocation(std::string strRecordingFolder);
   enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);
@@ -105,49 +81,24 @@ protected:
   virtual void *Process(void);
 
 private:
-  // functions
-  bool GetDeviceInfo();
-  static unsigned int GetWebIfVersion(std::string versionString);
-  bool LoadChannelGroups();
-  std::string GetGroupServiceReference(std::string strGroupName);
-  bool LoadChannels(std::string groupServiceReference, std::string groupName);
-  bool LoadChannels();
-  std::string GetChannelIconPath(std::string strChannelName);
-  bool LoadLocations();
-  bool CheckIfAllChannelsHaveInitialEPG() const;
-
   // helper functions
   std::string GetStreamURL(const std::string& strM3uURL);
-  static long TimeStringToSeconds(const std::string &timeString);
-  std::string& Escape(std::string &s, std::string from, std::string to);
-  bool IsInRecordingFolder(std::string);
-  void TransferRecordings(ADDON_HANDLE handle);
-  long long GetKbFromString(const std::string &stringInMbGbTb) const;
 
   // members
-  void *m_writeHandle;
-  void *m_readHandle;
-  std::string m_strEnigmaVersion;
-  std::string m_strImageVersion;
-  std::string m_strWebIfVersion;
-  unsigned int m_iWebIfVersion;
   bool m_bIsConnected = false;
-  std::string m_strServerName = "Enigma2";
-  std::string m_strURL;
-  int m_iCurrentChannel = -1;
   unsigned int m_iUpdateTimer = 0;
-  std::vector<enigma2::data::Channel> m_channels;
-  std::vector<enigma2::data::RecordingEntry> m_recordings;
-  std::vector<enigma2::data::ChannelGroup> m_groups;
-  std::vector<std::string> m_locations;
+  int m_iCurrentChannel = -1;
 
-  enigma2::Timers my_timers = enigma2::Timers(*this);
+  enigma2::Channels m_channels;
+  enigma2::ChannelGroups m_channelGroups;
+  enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
+  std::vector<std::string>& m_locations = m_recordings.GetLocations();
+  enigma2::Timers m_timers = enigma2::Timers(m_channels, m_locations);
   enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
-  std::unique_ptr<enigma2::extract::EpgEntryExtractor> m_entryExtractor;
+  enigma2::Admin m_admin;
+  enigma2::Epg m_epg = enigma2::Epg(m_channels, m_channelGroups, m_entryExtractor);
+  enigma2::extract::EpgEntryExtractor m_entryExtractor;
 
   P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;
-
-  bool m_bUpdating = false;
-  bool m_bAllChannelsHaveInitialEPG = false;
 };

@@ -23,6 +23,9 @@
 
 #include <string>
 
+#include "libXBMC_pvr.h"
+#include "tinyxml.h"
+
 namespace enigma2
 {
   namespace data
@@ -30,6 +33,9 @@ namespace enigma2
     class Channel
     {
     public:
+      const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
+      const std::string SERVICE_REF_ICON_POSTFIX = ":0:0:0";
+
       bool IsRadio() const { return m_radio; }
       void SetRadio(bool value) { m_radio = value; }      
 
@@ -59,6 +65,9 @@ namespace enigma2
 
       const std::string& GetIconPath() const { return m_iconPath; }
       void SetIconPath(const std::string& value ) { m_iconPath = value; }
+
+      bool UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL); 
+      void UpdateTo(PVR_CHANNEL &left) const;
 
     private:   
       bool m_radio;
