@@ -190,9 +190,20 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   {
     std::string capacity;
     std::string freeSpace;
+    std::string mount;
 
     XMLUtils::GetString(hddNode, "e2capacity", capacity);
     XMLUtils::GetString(hddNode, "e2free", freeSpace);
+    XMLUtils::GetString(hddNode, "e2mount", mount);
+
+    if (!mount.empty())
+    {
+      auto it = std::find_if(locations.begin(), locations.end(), 
+        [&mount](std::string& location) { return location.find(mount) != std::string::npos; });
+
+      if (it == locations.end())
+        continue; // no valid mount point
+    }
 
     totalKb += GetKbFromString(capacity);
     freeKb += GetKbFromString(freeSpace);
