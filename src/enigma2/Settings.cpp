@@ -130,6 +130,16 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("streamreadchunksize", &m_streamReadChunkSize))
     m_streamReadChunkSize = 0;
+
+  // Now that we've read all the settings construct the connection URL
+  
+  // simply add user@pass in front of the URL if username/password is set
+  if ((m_strUsername.length() > 0) && (m_strPassword.length() > 0))
+    m_connectionURL = StringUtils::Format("%s:%s@", m_strUsername.c_str(), m_strPassword.c_str());
+  if (!m_bUseSecureHTTP)
+    m_connectionURL = StringUtils::Format("http://%s%s:%u/", m_connectionURL.c_str(), m_strHostname.c_str(), m_iPortWeb);
+  else
+    m_connectionURL = StringUtils::Format("https://%s%s:%u/", m_connectionURL.c_str(), m_strHostname.c_str(), m_iPortWeb);  
 }
 
 ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *settingValue)

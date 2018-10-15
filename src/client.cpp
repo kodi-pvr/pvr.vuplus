@@ -118,7 +118,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   settings.ReadFromAddon();
 
-  enigma = new Enigma2(settings);
+  enigma = new Enigma2();
   if (!enigma->Open()) 
   {
     SAFE_DELETE(enigma);
@@ -323,10 +323,10 @@ PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 {
   if (!chunksize)
     return PVR_ERROR_INVALID_PARAMETERS;
-  int size = settings.GetStreamReadCheckSizeKb();
+  int size = settings.GetStreamReadChunkSizeKb();
   if (!size)
     return PVR_ERROR_NOT_IMPLEMENTED;
-  *chunksize = settings.GetStreamReadCheckSizeKb() * 1024;
+  *chunksize = settings.GetStreamReadChunkSizeKb() * 1024;
   return PVR_ERROR_NO_ERROR;
 }
 

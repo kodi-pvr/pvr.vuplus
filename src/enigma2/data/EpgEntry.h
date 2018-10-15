@@ -24,14 +24,17 @@
 #include <string>
 
 #include "BaseEntry.h"
+#include "Channel.h"
+#include "../Channels.h"
 
 #include "libXBMC_pvr.h"
+#include "tinyxml.h"
 
 namespace enigma2
 {
   namespace data
   {
-    class EPGEntry : public BaseEntry
+    class EpgEntry : public BaseEntry
     {
     public:
       int GetEventId() const { return m_eventId; }
@@ -49,35 +52,9 @@ namespace enigma2
       time_t GetEndTime() const { return m_endTime; }
       void SetEndTime(time_t value) { m_endTime = value; }    
 
-      void UpdateTo(EPG_TAG &left) const
-      {
-        left.iUniqueBroadcastId  = m_eventId;
-        left.strTitle            = m_title.c_str();
-        left.iUniqueChannelId    = m_channelId;
-        left.startTime           = m_startTime;
-        left.endTime             = m_endTime;
-        left.strPlotOutline      = m_plotOutline.c_str();
-        left.strPlot             = m_plot.c_str();
-        left.strOriginalTitle    = nullptr; // unused
-        left.strCast             = nullptr; // unused
-        left.strDirector         = nullptr; // unused
-        left.strWriter           = nullptr; // unused
-        left.iYear               = m_year;
-        left.strIMDBNumber       = nullptr; // unused
-        left.strIconPath         = ""; // unused
-        left.iGenreType          = m_genreType;
-        left.iGenreSubType       = m_genreSubType;
-        left.strGenreDescription = m_genreDescription.c_str();
-        left.firstAired          = 0;  // unused
-        left.iParentalRating     = 0;  // unused
-        left.iStarRating         = 0;  // unused
-        left.bNotify             = false;
-        left.iSeriesNumber       = m_seasonNumber;
-        left.iEpisodeNumber      = m_episodeNumber;
-        left.iEpisodePartNumber  = m_episodePartNumber;
-        left.strEpisodeName      = ""; // unused
-        left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
-      }
+      void UpdateTo(EPG_TAG &left) const;
+      bool UpdateFrom(TiXmlElement* eventNode, enigma2::Channels channels); 
+      bool UpdateFrom(TiXmlElement* eventNode, Channel channel, time_t iStart, time_t iEnd); 
 
     private:    
       int m_eventId;

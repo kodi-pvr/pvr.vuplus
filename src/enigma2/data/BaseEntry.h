@@ -23,6 +23,8 @@
 
 #include <string>
 
+#include "../Settings.h"
+
 namespace enigma2
 {
   namespace data
@@ -59,6 +61,8 @@ namespace enigma2
 
       int GetYear() const { return m_year; }
       void SetYear(int value) { m_year = value; }      
+
+      void ProcessPrependMode(PrependOutline prependOutlineMode);
 
     protected:
       std::string m_title;

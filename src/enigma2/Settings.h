@@ -78,7 +78,7 @@ namespace enigma2
     bool GetKeepRecordingsFolders() const { return m_bKeepFolders; }
     bool GetGenRepeatTimersEnabled() const { return m_bEnableGenRepeatTimers; }
     int GetNumGenRepeatTimers() const { return m_iNumGenRepeatTimers; }
-    bool GetAutotimersEnabled() const { return m_bEnableAutoTimers; }
+    bool GetAutoTimersEnabled() const { return m_bEnableAutoTimers; }
     bool GetAutoTimerListCleanupEnabled() const { return m_bAutomaticTimerlistCleanup; }
 
     //Timeshift
@@ -90,7 +90,17 @@ namespace enigma2
     const PrependOutline& GetPrependOutline() const { return m_prependOutline; }
     bool GetDeepStandbyOnAddonExit() const { return m_bSetPowerstate; }
     int GetReadTimeoutSecs() const { return m_iReadTimeout; }
-    int GetStreamReadCheckSizeKb() const { return m_streamReadChunkSize; }
+    int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
+
+    const std::string& GetConnectionURL() const { return m_connectionURL; }
+
+    unsigned int GetWebIfVersionAsNum() const { return m_webIfVersion; }
+    void SetWebIfVersionAsNum(unsigned int value) { m_webIfVersion = value; }
+
+    inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
+    {
+      return (major << 16 | minor << 8 | patch);
+    };
 
   private:
     Settings() = default;
@@ -153,6 +163,9 @@ namespace enigma2
     bool m_bSetPowerstate = false;
     int m_iReadTimeout = 0;
     int m_streamReadChunkSize = 0;
+
+    std::string m_connectionURL;
+    unsigned int m_webIfVersion;
 
     //PVR Props
     std::string m_szUserPath = "";
