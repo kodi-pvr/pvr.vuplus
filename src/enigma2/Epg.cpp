@@ -31,7 +31,7 @@ void Epg::InitialiseEpgReadyFile()
 bool Epg::IsInitialEpgCompleted()
 {
   m_readHandle = XBMC->OpenFile(INITIAL_EPG_READY_FILE.c_str(), 0);
-  byte buf[1];
+  char buf[1];
   XBMC->ReadFile(m_readHandle, buf, 1);
   XBMC->CloseFile(m_readHandle);
   char buf2[] = { "N" };

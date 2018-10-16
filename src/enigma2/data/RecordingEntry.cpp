@@ -6,6 +6,7 @@
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
+using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
