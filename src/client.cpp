@@ -37,10 +37,12 @@
 #include "xbmc_pvr_dll.h"
 
 using namespace ADDON;
+using namespace P8PLATFORM;
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
+CMutex g_mutex;
 bool            m_bCreated  = false;
 ADDON_STATUS    m_CurStatus = ADDON_STATUS_UNKNOWN;
 IStreamReader   *strReader  = nullptr;
@@ -135,6 +137,8 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
 ADDON_STATUS ADDON_GetStatus()
 {
+  CLockObject lock(g_mutex);
+
   /* check whether we're still connected */
   if (m_CurStatus == ADDON_STATUS_OK && !enigma->IsConnected())
     m_CurStatus = ADDON_STATUS_LOST_CONNECTION;
@@ -144,6 +148,8 @@ ADDON_STATUS ADDON_GetStatus()
 
 void ADDON_Destroy()
 {
+  CLockObject lock(g_mutex);
+
   if (m_bCreated)
   {
     m_bCreated = false;
@@ -163,6 +169,8 @@ void ADDON_Destroy()
 
 ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
 {
+  CLockObject lock(g_mutex);
+  
   if (!XBMC || !enigma)
     return ADDON_STATUS_OK;
 

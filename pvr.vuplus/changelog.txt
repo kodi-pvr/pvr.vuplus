@@ -1,3 +1,6 @@
+v3.12.7
+- Fixed: Possible race condition on startup #114
+
 v3.12.6
 - Fixed: Windows build fix
 - Fixed: tsbuffer.ts never got deleted, fixes #115
