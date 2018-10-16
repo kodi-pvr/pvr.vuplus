@@ -39,6 +39,10 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
   }
   if (m_filebufferReadHandle)
     XBMC->CloseFile(m_filebufferReadHandle);
+  
+  if (!XBMC->DeleteFile(m_bufferPath.c_str()))
+    Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __FUNCTION__, m_bufferPath.c_str());
+  
   SAFE_DELETE(m_strReader);
   Logger::Log(LEVEL_DEBUG, "Timeshift: Stopped");
 }
