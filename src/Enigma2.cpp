@@ -39,10 +39,6 @@
 #include "util/XMLUtils.h"
 #include <p8-platform/util/StringUtils.h>
 
-#if defined(_WIN32)
-#include <Bits.h>
-#endif
-
 using namespace ADDON;
 using namespace P8PLATFORM;
 using namespace enigma2;

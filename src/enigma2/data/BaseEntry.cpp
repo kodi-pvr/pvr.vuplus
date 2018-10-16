@@ -3,6 +3,7 @@
 #include "inttypes.h"
 #include "p8-platform/util/StringUtils.h"
 
+using namespace enigma2;
 using namespace enigma2::data;
 
 void BaseEntry::ProcessPrependMode(PrependOutline prependOutlineMode)
