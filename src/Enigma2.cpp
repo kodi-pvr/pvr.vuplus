@@ -53,6 +53,7 @@ Enigma2::Enigma2()
 Enigma2::~Enigma2() 
 {
   CLockObject lock(m_mutex);
+
   Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
   StopThread();
   
@@ -218,6 +219,8 @@ PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle)
 
 PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
 {
+  CLockObject lock(m_mutex);
+
   Logger::Log(LEVEL_DEBUG, "%s - group '%s'", __FUNCTION__, group.strGroupName);
   std::string strTmp = group.strGroupName;
   for (const auto& channel : m_channels.GetChannelsList())
@@ -244,11 +247,12 @@ PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL
  * Channels
  **************************************************************************/
 
-int Enigma2::GetChannelsAmount() const
+int Enigma2::GetChannelsAmount()
 {
+  CLockObject lock(m_mutex);
+
   return m_channels.GetNumChannels();
 }
-
 
 PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 {
@@ -272,6 +276,8 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 
 PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
 {
+  CLockObject lock(m_mutex);
+
   return m_epg.GetEPGForChannel(handle, channel, iStart, iEnd);
 }
 
@@ -280,8 +286,9 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
  **************************************************************************/
 bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
 {
-  Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
   CLockObject lock(m_mutex);
+
+  Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
 
   if (channelinfo.iUniqueId != m_iCurrentChannel)
   {
@@ -306,11 +313,14 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
 void Enigma2::CloseLiveStream(void)
 {
   CLockObject lock(m_mutex);
+
   m_iCurrentChannel = -1;
 }
 
 const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
 {
+  CLockObject lock(m_mutex);
+
   if (m_settings.GetAutoConfigLiveStreamsEnabled())
   {
     // we need to download the M3U file that contains the URL for the stream...
@@ -351,18 +361,19 @@ std::string Enigma2::GetStreamURL(const std::string& strM3uURL)
  * Recordings
  **************************************************************************/
 
-unsigned int Enigma2::GetRecordingsAmount() 
+unsigned int Enigma2::GetRecordingsAmount()
 {
+  CLockObject lock(m_mutex);
+
   return m_recordings.GetNumRecordings();
 }
 
 PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle)
 {
-  m_recordings.LoadRecordings();
-
   std::vector<PVR_RECORDING> recordings;
   {
     CLockObject lock(m_mutex);
+    m_recordings.LoadRecordings();
     m_recordings.GetRecordings(recordings);
   }
 
@@ -376,12 +387,15 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle)
 
 PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo) 
 {
+  CLockObject lock(m_mutex);
+
   return m_recordings.DeleteRecording(recinfo);
 }
 
 RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
 {
   CLockObject lock(m_mutex);
+
   std::time_t now = std::time(nullptr), end = 0;
   std::string channelName = recinfo.strChannelName;
   auto timer = m_timers.GetTimer([&](const Timer &timer)
@@ -399,7 +413,7 @@ RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
  **************************************************************************/
 
 void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
-{
+{  
   std::vector<PVR_TIMER_TYPE> timerTypes;
   {
     CLockObject lock(m_mutex);
@@ -438,16 +452,22 @@ PVR_ERROR Enigma2::GetTimers(ADDON_HANDLE handle)
 
 PVR_ERROR Enigma2::AddTimer(const PVR_TIMER &timer)
 {
+  CLockObject lock(m_mutex);
+
   return m_timers.AddTimer(timer);
 }
 
 PVR_ERROR Enigma2::UpdateTimer(const PVR_TIMER &timer)
 {
+  CLockObject lock(m_mutex);
+
   return m_timers.UpdateTimer(timer);
 }
 
 PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER &timer)
 {
+  CLockObject lock(m_mutex);
+
   return m_timers.DeleteTimer(timer);
 }
 
@@ -457,5 +477,7 @@ PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER &timer)
 
 PVR_ERROR Enigma2::GetDriveSpace(long long *iTotal, long long *iUsed)
 {
+  CLockObject lock(m_mutex);
+
   return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
 }
