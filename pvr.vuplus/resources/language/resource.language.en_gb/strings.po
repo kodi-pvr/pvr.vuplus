@@ -241,7 +241,15 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr ""
 
-#empty strings from id 30066 to 30069
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr ""
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr ""
+
+#empty strings from id 30068 to 30069
 
 msgctxt "#30070"
 msgid "Recordings & Timers"

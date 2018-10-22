@@ -58,6 +58,8 @@ namespace enigma2
     const std::string& GetPassword() const { return m_strPassword; }
     bool GetAutoConfigLiveStreamsEnabled() const { return m_bAutoConfig; }
     int GetStreamPortNum() const { return m_iPortStream; }
+    bool UseSecureConnectionStream() const { return m_bUseSecureHTTPStream; }
+    bool UseLoginStream() const { return m_bUseLoginStream; }
 
     //General
     bool GetUseOnlinePicons() const { return m_bOnlinePicons; }
@@ -131,6 +133,8 @@ namespace enigma2
     std::string m_strPassword = "";
     bool m_bAutoConfig = false;
     int m_iPortStream = DEFAULT_STREAM_PORT;
+    bool m_bUseSecureHTTPStream = false;
+    bool m_bUseLoginStream = false;
 
     //General
     bool m_bOnlinePicons = true;
