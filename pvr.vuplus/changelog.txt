@@ -1,3 +1,7 @@
+v3.13.0
+- Added: New setting to enable streaming over HTTPS
+- Added: New setting to enable authentication for streaming
+
 v3.12.6
 - Fixed: Windows build fix
 - Fixed: tsbuffer.ts never got deleted, fixes #115

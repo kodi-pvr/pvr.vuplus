@@ -47,7 +47,13 @@ void Settings::ReadFromAddon()
   
   if (!XBMC->GetSetting("streamport", &m_iPortStream))
     m_iPortStream = DEFAULT_STREAM_PORT;
-  
+
+  if (!XBMC->GetSetting("use_secure_stream", &m_bUseSecureHTTPStream))
+    m_bUseSecureHTTPStream = false;
+
+  if (!XBMC->GetSetting("use_login_stream", &m_bUseLoginStream))
+    m_bUseLoginStream = false;
+
   //General
   if (!XBMC->GetSetting("onlinepicons", &m_bOnlinePicons))
     m_bOnlinePicons = true;
@@ -159,6 +165,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool>(settingName, settingValue, m_bAutoConfig, ADDON_STATUS_OK);
   else if (settingName == "streamport")
     return SetSetting<int>(settingName, settingValue, m_iPortStream, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "use_secure_stream")
+    return SetSetting<bool>(settingName, settingValue, m_bUseSecureHTTPStream, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "use_login_stream")
+    return SetSetting<bool>(settingName, settingValue, m_bUseLoginStream, ADDON_STATUS_NEED_RESTART);
   //General
   else if (settingName == "onlinepicons")
     return SetSetting<bool>(settingName, settingValue, m_bOnlinePicons, ADDON_STATUS_NEED_RESTART);

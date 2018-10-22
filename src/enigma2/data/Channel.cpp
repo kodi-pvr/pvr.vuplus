@@ -67,7 +67,14 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL
 
   m_m3uURL = StringUtils::Format("%s/web/stream.m3u?ref=%s", enigmaURL.c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
 
-  m_streamURL = StringUtils::Format("http://%s:%d/%s", Settings::GetInstance().GetHostname().c_str(), Settings::GetInstance().GetStreamPortNum(), tempString.c_str());
+  m_streamURL = StringUtils::Format(
+    "http%s://%s%s:%d/%s",
+    Settings::GetInstance().UseSecureConnectionStream() ? "s" : "",
+    Settings::GetInstance().UseLoginStream() ? StringUtils::Format("%s:%s@", Settings::GetInstance().GetUsername().c_str(), Settings::GetInstance().GetPassword().c_str()).c_str() : "",
+    Settings::GetInstance().GetHostname().c_str(),
+    Settings::GetInstance().GetStreamPortNum(),
+    tempString.c_str()
+  );
 
   if (Settings::GetInstance().GetUseOnlinePicons())
   {

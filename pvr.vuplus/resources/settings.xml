@@ -65,6 +65,22 @@
           </dependencies>
           <control type="edit" format="integer" />
         </setting>     
+        <setting id="use_secure_stream" type="boolean" label="30066">
+          <level>0</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="autoconfig">false</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="use_login_stream" type="boolean" label="30067">
+          <level>0</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="autoconfig">false</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
       </group>
     </category>
 
