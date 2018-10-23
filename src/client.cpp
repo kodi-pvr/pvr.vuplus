@@ -217,7 +217,7 @@ const char *GetBackendName(void)
 
 const char *GetBackendVersion(void)
 {
-  static const char *strBackendVersion = "UNKNOWN";
+  static const char *strBackendVersion = enigma ? enigma->GetServerVersion() : "unknown";
   return strBackendVersion;
 }
 

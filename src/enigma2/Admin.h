@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+#include "utilities/DeviceInfo.h"
+
 #include "libXBMC_pvr.h"
 
 namespace enigma2
@@ -32,17 +34,19 @@ namespace enigma2
   {
   public:
     void SendPowerstate();
-    bool GetDeviceInfo();
+    bool LoadDeviceInfo();
+    const utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
     PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations);
-    const std::string& GetServerName() const;
+    const std::string& GetServerName() const { return m_deviceInfo.GetServerName(); }
+    const std::string& GetEnigmaVersion() const { return m_deviceInfo.GetEnigmaVersion(); }
+    const std::string& GetImageVersion() const { return m_deviceInfo.GetImageVersion(); }
+    const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
+    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
 
   private:   
-    unsigned int GetWebIfVersion(std::string versionString);
+    unsigned int ParseWebIfVersion(const std::string &webIfVersion);
     long long GetKbFromString(const std::string &stringInMbGbTb) const;
 
-    std::string m_strEnigmaVersion;
-    std::string m_strImageVersion;
-    std::string m_strWebIfVersion;
-    std::string m_strServerName = "Enigma2";    
+    enigma2::utilities::DeviceInfo m_deviceInfo;
   };
 } //namespace enigma2

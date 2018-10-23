@@ -1,8 +1,9 @@
 #pragma once
 
-#include "utilities/Logger.h"
-
 #include <string>
+
+#include "utilities/Logger.h"
+#include "utilities/DeviceInfo.h"
 
 #include "xbmc_addon_types.h"
 
@@ -71,8 +72,7 @@ namespace enigma2
     bool GetOneGroupOnly() const { return m_bOnlyOneGroup; }
     const std::string& GetOneGroupName() const { return m_strOneGroup; }
     bool GetZapBeforeChannelSwitch() const { return m_bZap; }
-    bool GetExtractExtraEpgInfo() const { return m_bExtractExtraEpgInfo; }
-    bool GetLogMissingGenreMappings() const { return m_bLogMissingGenreMappings; }
+    bool GetExtractExtraEpgInfo() const { return m_bExtractExtraEpgInfo; }    bool GetLogMissingGenreMappings() const { return m_bLogMissingGenreMappings; }
 
     //Recordings and Timers
     const std::string& GetRecordingPath() const { return m_strRecordingPath; }
@@ -96,8 +96,10 @@ namespace enigma2
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
-    unsigned int GetWebIfVersionAsNum() const { return m_webIfVersion; }
-    void SetWebIfVersionAsNum(unsigned int value) { m_webIfVersion = value; }
+    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+
+    const enigma2::utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
+    void SetDeviceInfo(enigma2::utilities::DeviceInfo& deviceInfo) { m_deviceInfo = deviceInfo; }    
 
     inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
     {
@@ -169,7 +171,7 @@ namespace enigma2
     int m_streamReadChunkSize = 0;
 
     std::string m_connectionURL;
-    unsigned int m_webIfVersion;
+    enigma2::utilities::DeviceInfo m_deviceInfo;
 
     //PVR Props
     std::string m_szUserPath = "";

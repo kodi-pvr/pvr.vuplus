@@ -50,6 +50,7 @@ public:
   bool Open();
   void SendPowerstate();
   const char * GetServerName() const;
+  const char * GetServerVersion() const;
   bool IsConnected() const; 
   
   //groups, channels and EPG

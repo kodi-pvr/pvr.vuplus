@@ -95,7 +95,7 @@ bool Enigma2::Open()
       return false;
     }
   } 
-  m_bIsConnected = m_admin.GetDeviceInfo();
+  m_bIsConnected = m_admin.LoadDeviceInfo();
 
   if (!m_bIsConnected)
   {
@@ -184,6 +184,11 @@ void Enigma2::SendPowerstate()
 const char * Enigma2::GetServerName() const
 {
   return m_admin.GetServerName().c_str();  
+}
+
+const char * Enigma2::GetServerVersion() const
+{
+  return m_admin.GetWebIfVersion().c_str();  
 }
 
 bool Enigma2::IsConnected() const
