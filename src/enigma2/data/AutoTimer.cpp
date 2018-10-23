@@ -122,7 +122,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
       m_deDup = AutoTimer::DeDup::CHECK_TITLE;
     else if (searchForDuplicateDescription == AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_SHORT_DESC)
       m_deDup = AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC;
-    else if (searchForDuplicateDescription.empty()) //Even though this value should be 2 it is sent as ommitted for this attribute
+    else if (searchForDuplicateDescription.empty() || searchForDuplicateDescription == AUTOTIMER_CHECK_SEARCH_FOR_DUP_IN_TITLE_AND_ALL_DESCS) //Even though this value should be 2 it is sent as ommitted for this attribute, we'll allow 2 anyway incase it changes in the future
       m_deDup = AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS;
   }
 
