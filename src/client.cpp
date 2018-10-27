@@ -41,11 +41,11 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool            m_bCreated  = false;
-ADDON_STATUS    m_CurStatus = ADDON_STATUS_UNKNOWN;
-IStreamReader   *strReader  = nullptr;
+bool            m_created  = false;
+ADDON_STATUS    m_currentStatus = ADDON_STATUS_UNKNOWN;
+IStreamReader   *streamReader  = nullptr;
 int             m_streamReadChunkSize = 64;
-RecordingReader *recReader  = nullptr;
+RecordingReader *recordingReader  = nullptr;
 Settings        &settings = Settings::GetInstance();
 
 CHelper_libXBMC_addon *XBMC           = nullptr;
@@ -82,7 +82,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __FUNCTION__);
 
-  m_CurStatus     = ADDON_STATUS_UNKNOWN;
+  m_currentStatus = ADDON_STATUS_UNKNOWN;
 
   /* Configure the logger */
   Logger::GetInstance().SetImplementation([](LogLevel level, const char *message)
@@ -124,29 +124,29 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     SAFE_DELETE(enigma);
     SAFE_DELETE(PVR);
     SAFE_DELETE(XBMC);
-    m_CurStatus = ADDON_STATUS_LOST_CONNECTION;
-    return m_CurStatus;
+    m_currentStatus = ADDON_STATUS_LOST_CONNECTION;
+    return m_currentStatus;
   }
 
-  m_CurStatus = ADDON_STATUS_OK;
-  m_bCreated = true;
-  return m_CurStatus;
+  m_currentStatus = ADDON_STATUS_OK;
+  m_created = true;
+  return m_currentStatus;
 }
 
 ADDON_STATUS ADDON_GetStatus()
 {
   /* check whether we're still connected */
-  if (m_CurStatus == ADDON_STATUS_OK && !enigma->IsConnected())
-    m_CurStatus = ADDON_STATUS_LOST_CONNECTION;
+  if (m_currentStatus == ADDON_STATUS_OK && !enigma->IsConnected())
+    m_currentStatus = ADDON_STATUS_LOST_CONNECTION;
 
-  return m_CurStatus;
+  return m_currentStatus;
 }
 
 void ADDON_Destroy()
 {
-  if (m_bCreated)
+  if (m_created)
   {
-    m_bCreated = false;
+    m_created = false;
   }
 
   if (enigma)
@@ -158,7 +158,7 @@ void ADDON_Destroy()
   SAFE_DELETE(PVR);
   SAFE_DELETE(XBMC);
 
-  m_CurStatus = ADDON_STATUS_UNKNOWN;
+  m_currentStatus = ADDON_STATUS_UNKNOWN;
 }
 
 ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
@@ -211,25 +211,25 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 
 const char *GetBackendName(void)
 {
-  static const char *strBackendName = enigma ? enigma->GetServerName() : "unknown";
-  return strBackendName;
+  static const char *backendName = enigma ? enigma->GetServerName() : "unknown";
+  return backendName;
 }
 
 const char *GetBackendVersion(void)
 {
-  static const char *strBackendVersion = enigma ? enigma->GetServerVersion() : "unknown";
-  return strBackendVersion;
+  static const char *backendVersion = enigma ? enigma->GetServerVersion() : "unknown";
+  return backendVersion;
 }
 
-static std::string strConnectionString;
+static std::string connectionString;
 
 const char *GetConnectionString(void)
 {
   if (enigma)
-    strConnectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : " (Not connected!)");
+    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : " (Not connected!)");
   else
-    strConnectionString = StringUtils::Format("%s (addon error!)", settings.GetHostname().c_str());
-  return strConnectionString.c_str();
+    connectionString = StringUtils::Format("%s (addon error!)", settings.GetHostname().c_str());
+  return connectionString.c_str();
 }
 
 const char *GetBackendHostname(void)
@@ -247,7 +247,7 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 {
   // the RS api doesn't provide information about signal quality (yet)
 
-  PVR_STRCPY(signalStatus.strAdapterName, "VUPlus Media Server");
+  PVR_STRCPY(signalStatus.strAdapterName, "Enigma2 Media Server");
   PVR_STRCPY(signalStatus.strAdapterStatus, "OK");
   return PVR_ERROR_NO_ERROR;
 }
@@ -345,22 +345,22 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30514).c_str());
 
   std::string streamURL = enigma->GetLiveStreamURL(channel);
-  strReader = new StreamReader(streamURL, settings.GetReadTimeoutSecs());
+  streamReader = new StreamReader(streamURL, settings.GetReadTimeoutSecs());
   if (settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
-    strReader = new TimeshiftBuffer(strReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
+    streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
   
-  return strReader->Start();
+  return streamReader->Start();
 }
 
 void CloseLiveStream(void)
 {
   enigma->CloseLiveStream();
-  SAFE_DELETE(strReader);
+  SAFE_DELETE(streamReader);
 }
 
 bool IsRealTimeStream()
 {
-  return (strReader) ? strReader->IsRealTime() : false;
+  return (streamReader) ? streamReader->IsRealTime() : false;
 }
 
 bool CanPauseStream(void)
@@ -368,8 +368,8 @@ bool CanPauseStream(void)
   if (!enigma)
     return false;
 
-  if (settings.GetTimeshift() != Timeshift::OFF && strReader)
-    return (strReader->IsTimeshifting() || settings.IsTimeshiftBufferPathValid());
+  if (settings.GetTimeshift() != Timeshift::OFF && streamReader)
+    return (streamReader->IsTimeshifting() || settings.IsTimeshiftBufferPathValid());
 
   return false;
 }
@@ -384,35 +384,35 @@ bool CanSeekStream(void)
 
 int ReadLiveStream(unsigned char *buffer, unsigned int size)
 {
-  return (strReader) ? strReader->ReadData(buffer, size) : 0;
+  return (streamReader) ? streamReader->ReadData(buffer, size) : 0;
 }
 
 long long SeekLiveStream(long long position, int whence)
 {
-  return (strReader) ? strReader->Seek(position, whence) : -1;
+  return (streamReader) ? streamReader->Seek(position, whence) : -1;
 }
 
 long long LengthLiveStream(void)
 {
-  return (strReader) ? strReader->Length() : -1;
+  return (streamReader) ? streamReader->Length() : -1;
 }
 
 bool IsTimeshifting(void)
 {
-  return (strReader && strReader->IsTimeshifting());
+  return (streamReader && streamReader->IsTimeshifting());
 }
 
 PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
 {
   if (!times)
     return PVR_ERROR_INVALID_PARAMETERS;
-  if (strReader)
+  if (streamReader)
   {
-    times->startTime = strReader->TimeStart();
+    times->startTime = streamReader->TimeStart();
     times->ptsStart  = 0;
     times->ptsBegin  = 0;
-    times->ptsEnd    = (!strReader->IsTimeshifting()) ? 0
-      : (strReader->TimeEnd() - strReader->TimeStart()) * DVD_TIME_BASE;
+    times->ptsEnd    = (!streamReader->IsTimeshifting()) ? 0
+      : (streamReader->TimeEnd() - streamReader->TimeStart()) * DVD_TIME_BASE;
     
     return PVR_ERROR_NO_ERROR;
   }
@@ -426,11 +426,11 @@ void PauseStream(bool paused)
 
   /* start timeshift on pause */
   if (paused && settings.GetTimeshift() == Timeshift::ON_PAUSE
-      && strReader && !strReader->IsTimeshifting()
+      && streamReader && !streamReader->IsTimeshifting()
       && settings.IsTimeshiftBufferPathValid())
   {
-    strReader = new TimeshiftBuffer(strReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
-    (void)strReader->Start();
+    streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
+    (void)streamReader->Start();
   }
 }
 
@@ -468,40 +468,40 @@ PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
 
 bool OpenRecordedStream(const PVR_RECORDING &recording)
 {
-  if (recReader)
-    SAFE_DELETE(recReader);
-  recReader = enigma->OpenRecordedStream(recording);
-  return recReader->Start();
+  if (recordingReader)
+    SAFE_DELETE(recordingReader);
+  recordingReader = enigma->OpenRecordedStream(recording);
+  return recordingReader->Start();
 }
 
 void CloseRecordedStream(void)
 {
-  if (recReader)
-    SAFE_DELETE(recReader);
+  if (recordingReader)
+    SAFE_DELETE(recordingReader);
 }
 
 int ReadRecordedStream(unsigned char *buffer, unsigned int size)
 {
-  if (!recReader)
+  if (!recordingReader)
     return 0;
 
-  return recReader->ReadData(buffer, size);
+  return recordingReader->ReadData(buffer, size);
 }
 
 long long SeekRecordedStream(long long position, int whence)
 {
-  if (!recReader)
+  if (!recordingReader)
     return 0;
 
-  return recReader->Seek(position, whence);
+  return recordingReader->Seek(position, whence);
 }
 
 long long LengthRecordedStream(void)
 {
-  if (!recReader)
+  if (!recordingReader)
     return -1;
 
-  return recReader->Length();
+  return recordingReader->Length();
 }
 
 /***************************************************************************
