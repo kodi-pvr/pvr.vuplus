@@ -1,3 +1,7 @@
+v3.14.0
+- Added: Externalised season/episode and genre config to allow users support other formats/languages, closes #118
+- Added: Server OpenWebIf version now reported by addon
+
 v3.13.0
 - Added: New setting to enable streaming over HTTPS
 - Added: New setting to enable authentication for streaming
