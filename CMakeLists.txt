@@ -36,9 +36,11 @@ set(VUPLUS_SOURCES src/client.cpp
                    src/enigma2/data/RecordingEntry.cpp
                    src/enigma2/data/Timer.cpp
                    src/enigma2/extract/EpgEntryExtractor.cpp
-                   src/enigma2/extract/GenreExtractor.cpp
+                   src/enigma2/extract/GenreIdMapper.cpp
+                   src/enigma2/extract/GenreRytecTextMapper.cpp
                    src/enigma2/extract/ShowInfoExtractor.cpp
                    src/enigma2/utilities/CurlFile.cpp
+                   src/enigma2/utilities/FileUtils.cpp
                    src/enigma2/utilities/Logger.cpp
                    src/enigma2/utilities/WebUtils.cpp)
 
@@ -65,12 +67,14 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/extract/IExtractor.h
                    src/enigma2/extract/EpgEntryExtractor.h
                    src/enigma2/extract/EpisodeSeasonPattern.h
-                   src/enigma2/extract/GenreExtractor.h
+                   src/enigma2/extract/GenreIdMapper.h
+                   src/enigma2/extract/GenreRytecTextMapper.h
                    src/enigma2/extract/ShowInfoExtractor.h
                    src/enigma2/utilities/CurlFile.h
                    src/enigma2/utilities/DeviceInfo.h
                    src/enigma2/utilities/LocalizedString.h
                    src/enigma2/utilities/UpdateState.h
+                   src/enigma2/utilities/FileUtils.h
                    src/enigma2/utilities/Logger.h
                    src/enigma2/utilities/WebUtils.h)
 

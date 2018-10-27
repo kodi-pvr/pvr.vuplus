@@ -52,7 +52,7 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="streamport" type="integer" parent="autoconfig" label="30002">
+        <setting id="streamport" type="integer" label="30002">
           <level>0</level>
           <default>8001</default>
           <constraints>
@@ -133,15 +133,15 @@
       </group>
     </category>
 
-    <!-- Channels & EPG -->
-    <category id="channels-epg" label="30031">
+    <!-- Channels -->
+    <category id="channels" label="30019">
       <group id="1" label="30019">
         <setting id="onlyonegroup" type="boolean" label="30025">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="onegroup" type="string" label="30026">
+        <setting id="onegroup" type="string" parent="onlyonegroup" label="30026">
           <level>0</level>
           <default></default>
           <constraints>
@@ -159,17 +159,77 @@
         </setting>
       </group>
 
-      <group id="2" label="30032">
-        <setting id="extracteventinfo" type="boolean" label="30033">
+    </category>
+
+    <!-- EPG -->
+    <category id="epg" label="30032">
+      <group id="1" label="30031">
+        <setting id="extractshowinfoenabled" type="boolean" label="30033">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="logmissinggenremapping" type="boolean" parent="extracteventinfo" label="30037">
+        <setting id="extractshowinfofile" type="path" parent="extractshowinfoenabled" label="30046">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="extractshowinfoenabled">true</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2" label="30053">
+        <setting id="genreidmapenabled" type="boolean" label="30054">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="genreidmapfile" type="path" parent="genreidmapenabled" label="30055">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="genreidmapenabled">true</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="3" label="30047">
+        <setting id="rytecgenretextmapenabled" type="boolean" label="30048">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="rytecgenretextmapfile" type="path" parent="rytecgenretextmapenabled" label="30049">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="rytecgenretextmapenabled">true</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+        <setting id="logmissinggenremapping" type="boolean" parent="rytecgenretextmapenabled" label="30037">
           <level>0</level>
           <default>false</default>
           <dependencies>
-            <dependency type="enable" setting="extracteventinfo">true</dependency>
+            <dependency type="enable" setting="rytecgenretextmapenabled">true</dependency>
           </dependencies>
           <control type="toggle" />
         </setting>

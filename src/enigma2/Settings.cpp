@@ -69,8 +69,8 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("updateint", &m_iUpdateInterval))
     m_iUpdateInterval = DEFAULT_UPDATE_INTERVAL;
-
-  //Channels & EPG
+    
+  //Channels
   if (!XBMC->GetSetting("onlyonegroup", &m_bOnlyOneGroup))
     m_bOnlyOneGroup = false;
   
@@ -83,8 +83,33 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("zap", &m_bZap))
     m_bZap = false;
 
-  if (!XBMC->GetSetting("extracteventinfo", &m_bExtractExtraEpgInfo))
-    m_bExtractExtraEpgInfo = false;
+  //EPG
+  if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))
+    m_extractShowInfo = false;
+
+  if (XBMC->GetSetting("extractshowinfofile", buffer))
+    m_extractShowInfoFile = buffer;
+  else
+    m_extractShowInfoFile = DEFAULT_SHOW_INFO_FILE;
+  buffer[0] = 0;
+
+  if (!XBMC->GetSetting("genreidmapenabled", &m_mapGenreIds))
+    m_mapGenreIds = false;
+
+  if (XBMC->GetSetting("genreidmapfile", buffer))
+    m_mapGenreIdsFile = buffer;
+  else
+    m_mapGenreIdsFile = DEFAULT_GENRE_ID_MAP_FILE;
+  buffer[0] = 0;
+
+  if (!XBMC->GetSetting("rytecgenretextmapenabled", &m_mapRytecTextGenres))
+    m_mapRytecTextGenres = false;
+
+  if (XBMC->GetSetting("rytecgenretextmapfile", buffer))
+    m_mapRytecTextGenresFile = buffer;
+  else
+    m_mapRytecTextGenresFile = DEFAULT_GENRE_ID_MAP_FILE;
+  buffer[0] = 0;
 
   if (!XBMC->GetSetting("logmissinggenremapping", &m_bLogMissingGenreMappings))
     m_bLogMissingGenreMappings = false;
@@ -178,15 +203,26 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetStringSetting(settingName, settingValue, m_strIconPath, ADDON_STATUS_NEED_RESTART);
   else if (settingName == "updateint")
     return SetSetting<int>(settingName, settingValue, m_iUpdateInterval, ADDON_STATUS_OK);
-  //Channels & EPG
+  //Channels
   else if (settingName == "onlyonegroup")
     return SetSetting<bool>(settingName, settingValue, m_bOnlyOneGroup, ADDON_STATUS_NEED_RESTART);
   else if (settingName == "onegroup")
     return SetStringSetting(settingName, settingValue, m_strOneGroup, ADDON_STATUS_NEED_RESTART);
   else if (settingName == "zap")
     return SetSetting<bool>(settingName, settingValue, m_bZap, ADDON_STATUS_OK);
-  else if (settingName == "extracteventinfo")
-    return SetSetting<bool>(settingName, settingValue, m_bExtractExtraEpgInfo, ADDON_STATUS_NEED_RESTART);
+  //EPG
+  else if (settingName == "extractepginfoenabled")
+    return SetSetting<bool>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "extractepginfofile")
+    return SetStringSetting(settingName, settingValue, m_extractShowInfoFile, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "genreidmapenabled")
+    return SetSetting<bool>(settingName, settingValue, m_mapGenreIds, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "genreidmapfile")
+    return SetStringSetting(settingName, settingValue, m_mapGenreIdsFile, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "rytecgenretextmapenabled")
+    return SetSetting<bool>(settingName, settingValue, m_mapRytecTextGenres, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "rytecgenretextmapfile")
+    return SetStringSetting(settingName, settingValue, m_mapRytecTextGenresFile, ADDON_STATUS_NEED_RESTART);
   else if (settingName == "logmissinggenremapping")
     return SetSetting<bool>(settingName, settingValue, m_bLogMissingGenreMappings, ADDON_STATUS_OK);
   //Recordings and Timers

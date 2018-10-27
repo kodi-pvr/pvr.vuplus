@@ -17,6 +17,9 @@ namespace enigma2
   static const int DEFAULT_WEB_PORT = 80;
   static const int DEFAULT_UPDATE_INTERVAL = 2;
   static const std::string DEFAULT_TSBUFFERPATH = "special://userdata/addon_data/pvr.vuplus";
+  static const std::string DEFAULT_SHOW_INFO_FILE = "special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml";
+  static const std::string DEFAULT_GENRE_ID_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml";
+  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreTextMappings/Rytec-UK-Ireland";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
   enum class Timeshift
@@ -68,11 +71,19 @@ namespace enigma2
     const std::string& GetIconPath() const { return m_strIconPath; }
     int GetUpdateIntervalMins() const { return m_iUpdateInterval; }
 
-    //Channel & EPG
+    //Channel
     bool GetOneGroupOnly() const { return m_bOnlyOneGroup; }
     const std::string& GetOneGroupName() const { return m_strOneGroup; }
     bool GetZapBeforeChannelSwitch() const { return m_bZap; }
-    bool GetExtractExtraEpgInfo() const { return m_bExtractExtraEpgInfo; }    bool GetLogMissingGenreMappings() const { return m_bLogMissingGenreMappings; }
+   
+    //EPG
+    bool GetExtractShowInfo() const { return m_extractShowInfo; }
+    const std::string& GetExtractShowInfoFile() const { return m_extractShowInfoFile; }
+    bool GetMapGenreIds() const { return m_mapGenreIds; }
+    const std::string& GetMapGenreIdsFile() const { return m_mapGenreIdsFile; }
+    bool GetMapRytecTextGenres() const { return m_mapRytecTextGenres; }
+    const std::string& GetMapRytecTextGenresFile() const { return m_mapRytecTextGenresFile; }
+    bool GetLogMissingGenreMappings() const { return m_bLogMissingGenreMappings; }
 
     //Recordings and Timers
     const std::string& GetRecordingPath() const { return m_strRecordingPath; }
@@ -144,11 +155,18 @@ namespace enigma2
     std::string m_strIconPath = "";
     int m_iUpdateInterval = DEFAULT_UPDATE_INTERVAL;
     
-    //Channel & EPG
+    //Channel
     bool m_bOnlyOneGroup = false;
     std::string m_strOneGroup = "";
     bool m_bZap = false;
-    bool m_bExtractExtraEpgInfo = true;
+
+    //EPG
+    bool m_extractShowInfo = true;
+    std::string m_extractShowInfoFile;
+    bool m_mapGenreIds = true;
+    std::string m_mapGenreIdsFile;
+    bool m_mapRytecTextGenres = true;
+    std::string m_mapRytecTextGenresFile;
     bool m_bLogMissingGenreMappings = true;
 
     //Recordings and Timers

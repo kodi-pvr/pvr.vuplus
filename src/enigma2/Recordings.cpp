@@ -218,7 +218,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
       if (!recordingEntry.UpdateFrom(pNode, directory, m_channels))
         continue;
 
-      if (Settings::GetInstance().GetExtractExtraEpgInfo())
+      if (m_entryExtractor.IsEnabled())
         m_entryExtractor.ExtractFromEntry(recordingEntry);
 
       iNumRecordings++;
