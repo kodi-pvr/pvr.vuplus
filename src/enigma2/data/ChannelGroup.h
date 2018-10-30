@@ -21,9 +21,11 @@
  *
  */
 
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "Channel.h"
 #include "EpgEntry.h"
 
 #include "libXBMC_pvr.h"
@@ -33,9 +35,20 @@ namespace enigma2
 {
   namespace data
   {
+    class ChannelGroup;
+    typedef std::shared_ptr<enigma2::data::ChannelGroup> ChannelGroupPtr;
+
     class ChannelGroup 
     {
-    public:           
+    public:
+      ChannelGroup() = default;
+      ChannelGroup(ChannelGroup &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
+        m_groupName(c.GetGroupName()), m_serviceReference(c.GetServiceReference()) {};
+      ~ChannelGroup() = default;
+
+      bool IsRadio() const { return m_radio; }
+      void SetRadio(bool value) { m_radio = value; }      
+
       int GetUniqueId() const { return m_uniqueId; }
       void SetUniqueId(int value) { m_uniqueId = value; }  
 
@@ -48,17 +61,24 @@ namespace enigma2
       int GetGroupState() const { return m_groupState; }
       void SetGroupState(int value) { m_groupState = value; }      
 
+      void AddChannel(ChannelPtr channel);
+
       std::vector<EpgEntry>& GetInitialEPG() { return m_initialEPG; }
 
-      bool UpdateFrom(TiXmlElement* groupNode); 
+      bool UpdateFrom(TiXmlElement* groupNode, bool radio); 
       void UpdateTo(PVR_CHANNEL_GROUP &left) const;
 
+      std::vector<ChannelPtr> GetChannelList() { return m_channelList; };
+
     private:
+      bool m_radio;
       int m_uniqueId;
       std::string m_serviceReference;
       std::string m_groupName;
       int m_groupState;
       std::vector<EpgEntry> m_initialEPG; 
+
+      std::vector<ChannelPtr> m_channelList;
     };
   } //namespace data
 } //namespace enigma2

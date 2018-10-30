@@ -21,7 +21,9 @@
  *
  */
 
+#include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "data/Channel.h"
@@ -35,19 +37,23 @@ namespace enigma2
   {
   public:
     void GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &channelGroups) const;
+    PVR_ERROR GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER> &channelGroupMembers, const std::string &groupName);
 
     int GetChannelGroupUniqueId(const std::string &groupName) const;
     std::string GetChannelGroupServiceReference(const std::string &groupName);
-    enigma2::data::ChannelGroup& GetChannelGroup(int uniqueId);
+    data::ChannelGroupPtr GetChannelGroup(int uniqueId);
+    data::ChannelGroupPtr GetChannelGroup(std::string groupName);
     bool IsValid(int uniqueId) const;
+    bool IsValid(std::string groupName);
     int GetNumChannelGroups() const;
     void ClearChannelGroups();
-    std::vector<enigma2::data::ChannelGroup>& GetChannelGroupsList();
+    std::vector<data::ChannelGroupPtr>& GetChannelGroupsList();
     bool LoadChannelGroups();
 
   private:   
     void AddChannelGroup(enigma2::data::ChannelGroup& channelGroup);
 
-    std::vector<enigma2::data::ChannelGroup> m_channelGroups;
+    std::vector<data::ChannelGroupPtr> m_channelGroups;
+    std::unordered_map<std::string, data::ChannelGroupPtr> m_channelGroupsNameMap;
   };
 } //namespace enigma2

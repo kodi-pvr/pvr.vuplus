@@ -51,8 +51,8 @@ void Epg::TriggerEpgUpdatesForChannels()
 {
   for (auto& channel : m_channels.GetChannelsList())
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel '%d'", __FUNCTION__, channel.GetUniqueId());
-    PVR->TriggerEpgUpdate(channel.GetUniqueId());
+    Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel '%d'", __FUNCTION__, channel->GetUniqueId());
+    PVR->TriggerEpgUpdate(channel->GetUniqueId());
   }  
 }
 
@@ -64,14 +64,14 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
     return PVR_ERROR_NO_ERROR;
   }
 
-  Channel& myChannel = m_channels.GetChannel(channel.iUniqueId);
+  ChannelPtr myChannel = m_channels.GetChannel(channel.iUniqueId);
 
-  Logger::Log(LEVEL_DEBUG, "%s Getting EPG for channel '%s'", __FUNCTION__, myChannel.GetChannelName().c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Getting EPG for channel '%s'", __FUNCTION__, myChannel->GetChannelName().c_str());
 
   // Check if the initial short import has already been done for this channel
-  if (myChannel.IsRequiresInitialEPG())
+  if (myChannel->RequiresInitialEPG())
   {
-    myChannel.SetRequiresInitialEPG(false);
+    myChannel->SetRequiresInitialEPG(false);
 
     if (!m_allChannelsHaveInitialEPG)
       m_allChannelsHaveInitialEPG = m_channels.CheckIfAllChannelsHaveInitialEPG();
@@ -88,7 +88,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
   }
 
   const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgservice?sRef=",  
-                                              WebUtils::URLEncodeInline(myChannel.GetServiceReference()).c_str());
+                                              WebUtils::URLEncodeInline(myChannel->GetServiceReference()).c_str());
  
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -151,10 +151,10 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
   return PVR_ERROR_NO_ERROR;
 }
 
-bool Epg::GetInitialEPGForGroup(ChannelGroup &group)
+bool Epg::GetInitialEPGForGroup(ChannelGroupPtr group)
 {
   const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",  
-                                                WebUtils::URLEncodeInline(group.GetServiceReference()).c_str());
+                                                WebUtils::URLEncodeInline(group->GetServiceReference()).c_str());
  
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -203,58 +203,54 @@ bool Epg::GetInitialEPGForGroup(ChannelGroup &group)
 
     iNumEPG++; 
     
-    group.GetInitialEPG().emplace_back(entry);
+    group->GetInitialEPG().emplace_back(entry);
   }
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for group '%s'", __FUNCTION__, iNumEPG, group.GetGroupName().c_str());
+  Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for group '%s'", __FUNCTION__, iNumEPG, group->GetGroupName().c_str());
   return true;
 }
 
-PVR_ERROR Epg::GetInitialEPGForChannel(ADDON_HANDLE handle, const Channel &channel, time_t iStart, time_t iEnd)
+PVR_ERROR Epg::GetInitialEPGForChannel(ADDON_HANDLE handle, const ChannelPtr channel, time_t iStart, time_t iEnd)
 {
   if (m_channelGroups.GetNumChannelGroups() < 1)
     return PVR_ERROR_SERVER_ERROR;
 
-  if (channel.IsRadio())
+  if (channel->IsRadio())
   {
-    Logger::Log(LEVEL_DEBUG, "%s Channel '%s' is a radio channel so no Initial EPG", __FUNCTION__, channel.GetChannelName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Channel '%s' is a radio channel so no Initial EPG", __FUNCTION__, channel->GetChannelName().c_str());
     return PVR_ERROR_NO_ERROR;
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s Checking for initialEPG for group '%s', num groups %d, channel %s", __FUNCTION__, channel.GetGroupName().c_str(), m_channelGroups.GetNumChannelGroups(), channel.GetChannelName().c_str());
-
-  bool retrievedInitialEPGForGroup = false;
-  ChannelGroup *myGroupPtr = nullptr;
-  for (auto& group : m_channelGroups.GetChannelGroupsList())
+  ChannelGroupPtr myGroupPtr = nullptr;
+  for (auto& group : channel->GetChannelGroupList())
   {
-    Logger::Log(LEVEL_DEBUG, "%s Looking for channel %s group %s",  __FUNCTION__, channel.GetChannelName().c_str(), channel.GetGroupName().c_str());
-    if (group.GetGroupName() == channel.GetGroupName())
-    {
-      myGroupPtr = &group;
+    bool retrievedInitialEPGForGroup = false;
 
-      if (myGroupPtr->GetInitialEPG().size() == 0)
-      {
-        Logger::Log(LEVEL_DEBUG, "%s Fetching initialEPG for group '%s'", __FUNCTION__, channel.GetGroupName().c_str());
-        retrievedInitialEPGForGroup = GetInitialEPGForGroup(group);
-      }
-      break;
+    Logger::Log(LEVEL_DEBUG, "%s Checking for initialEPG for group '%s', num groups %d, channel %s", __FUNCTION__, group->GetGroupName().c_str(), m_channelGroups.GetNumChannelGroups(), channel->GetChannelName().c_str());
+
+    myGroupPtr = group;
+
+    if (group->GetInitialEPG().size() == 0)
+    {
+      Logger::Log(LEVEL_DEBUG, "%s Fetching initialEPG for group '%s'", __FUNCTION__, group->GetGroupName().c_str());
+      retrievedInitialEPGForGroup = GetInitialEPGForGroup(group);
     }
+
+    if (retrievedInitialEPGForGroup)
+      Logger::Log(LEVEL_DEBUG, "%s InitialEPG size for group '%s' is now '%d'", __FUNCTION__, group->GetGroupName().c_str(), myGroupPtr->GetInitialEPG().size());
+    else
+      Logger::Log(LEVEL_DEBUG, "%s Already have initialEPG for group '%s', it's size is '%d'", __FUNCTION__, group->GetGroupName().c_str(), myGroupPtr->GetInitialEPG().size());
   }
 
   if (!myGroupPtr)
   {
-    Logger::Log(LEVEL_DEBUG, "%s No group found for channel '%s' group '%s' sp no Initial EPG",  __FUNCTION__, channel.GetChannelName().c_str(), channel.GetGroupName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s No groups found for channel '%s' so no Initial EPG",  __FUNCTION__, channel->GetChannelName().c_str());
     return PVR_ERROR_NO_ERROR;
   }
 
-  if (retrievedInitialEPGForGroup)
-    Logger::Log(LEVEL_DEBUG, "%s InitialEPG size for group '%s' is now '%d'", __FUNCTION__, channel.GetGroupName().c_str(), myGroupPtr->GetInitialEPG().size());
-  else
-    Logger::Log(LEVEL_DEBUG, "%s Already have initialEPG for group '%s', it's size is '%d'", __FUNCTION__, channel.GetGroupName().c_str(), myGroupPtr->GetInitialEPG().size());
-
   for (const auto& entry : myGroupPtr->GetInitialEPG())
   {
-    if (channel.GetServiceReference() == entry.GetServiceReference()) 
+    if (channel->GetServiceReference() == entry.GetServiceReference()) 
     {
       EPG_TAG broadcast;
       memset(&broadcast, 0, sizeof(EPG_TAG));

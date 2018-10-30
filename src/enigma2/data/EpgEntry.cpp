@@ -37,7 +37,7 @@ void EpgEntry::UpdateTo(EPG_TAG &left) const
   left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, Channels channels)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, Channels &channels)
 {
   std::string strTmp; 
 
@@ -58,12 +58,12 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, Channels channels)
     return false;
   }
 
-  const Channel& myChannel = channels.GetChannel(m_channelId);;
+  const ChannelPtr myChannel = channels.GetChannel(m_channelId);;
 
   return UpdateFrom(eventNode, myChannel, 0, 0);
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const Channel channel, time_t iStart, time_t iEnd)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const ChannelPtr channel, time_t iStart, time_t iEnd)
 {
   std::string strTmp;
 
@@ -91,14 +91,14 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const Channel channel, time_t
     return false;
 
   m_eventId = iTmp;
-  m_channelId = channel.GetUniqueId();
+  m_channelId = channel->GetUniqueId();
   
   if(!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
     return false;
 
   m_title = strTmp;
   
-  m_serviceReference = channel.GetServiceReference().c_str();
+  m_serviceReference = channel->GetServiceReference().c_str();
 
   // Check that it's not an empty record
   if (m_eventId == 0 && m_title == "None")

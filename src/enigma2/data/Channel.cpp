@@ -2,6 +2,7 @@
 
 #include <regex>
 
+#include "ChannelGroup.h"
 #include "../Settings.h"
 #include "../utilities/WebUtils.h"
 
@@ -96,4 +97,9 @@ void Channel::UpdateTo(PVR_CHANNEL &left) const
   left.iEncryptionSystem = 0;
   left.bIsHidden = false;
   strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath));
+}
+
+void Channel::AddChannelGroup(ChannelGroupPtr channelGroup)
+{
+  m_channelGroupList.emplace_back(channelGroup);
 }

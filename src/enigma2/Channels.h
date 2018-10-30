@@ -21,7 +21,9 @@
  *
  */
 
+#include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "data/Channel.h"
@@ -32,25 +34,33 @@ namespace enigma2
 {
   class ChannelGroups;
 
+  namespace data
+  {
+    class ChannelGroup;
+  }
+
   class Channels
   {
   public:
     void GetChannels(std::vector<PVR_CHANNEL> &timers, bool bRadio) const;
 
-    int GetChannelUniqueId(const std::string strServiceReference) const;
-    enigma2::data::Channel& GetChannel(int uniqueId);
+    int GetChannelUniqueId(const std::string &channelServiceReference);
+    data::ChannelPtr GetChannel(int uniqueId);
+    data::ChannelPtr GetChannel(const std::string &channelServiceReference);
     bool IsValid(int uniqueId) const;
+    bool IsValid(const std::string &channelServiceReference);
     int GetNumChannels() const;
     void ClearChannels();
-    std::vector<enigma2::data::Channel>& GetChannelsList();
+    std::vector<data::ChannelPtr>& GetChannelsList();
     bool CheckIfAllChannelsHaveInitialEPG() const;
     std::string GetChannelIconPath(std::string strChannelName);
     bool LoadChannels(enigma2::ChannelGroups &channelGroups);
 
   private:   
-    void AddChannel(enigma2::data::Channel& channel);
-    bool LoadChannels(std::string groupServiceReference, std::string groupName);
+    void AddChannel(enigma2::data::Channel &channel, enigma2::data::ChannelGroupPtr channelGroup);
+    bool LoadChannels(const std::string groupServiceReference, const std::string groupName, enigma2::data::ChannelGroupPtr channelGroup);
 
-    std::vector<enigma2::data::Channel> m_channels;
+    std::vector<data::ChannelPtr> m_channels;
+    std::unordered_map<std::string, data::ChannelPtr> m_channelsServiceReferenceMap;
   };
 } //namespace enigma2

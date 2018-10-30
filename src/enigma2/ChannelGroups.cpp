@@ -18,22 +18,48 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannel
 {
   for (const auto& channelGroup : m_channelGroups)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Transfer channelGroup '%s', ChannelGroupIndex '%d'", __FUNCTION__, channelGroup.GetGroupName().c_str(), channelGroup.GetUniqueId());
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer channelGroup '%s', ChannelGroupIndex '%d'", __FUNCTION__, channelGroup->GetGroupName().c_str(), channelGroup->GetUniqueId());
+
     PVR_CHANNEL_GROUP kodiChannelGroup;
     memset(&kodiChannelGroup, 0 , sizeof(PVR_CHANNEL_GROUP));
 
-    channelGroup.UpdateTo(kodiChannelGroup);
+    channelGroup->UpdateTo(kodiChannelGroup);
 
     kodiChannelGroups.emplace_back(kodiChannelGroup);
   }
+}
+
+PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER> &channelGroupMembers, const std::string &groupName)
+{
+  ChannelGroupPtr channelGroup = GetChannelGroup(groupName);
+
+  if (!channelGroup)
+    return PVR_ERROR_NO_ERROR;
+
+  for (const auto& channel : channelGroup->GetChannelList())
+  {
+    PVR_CHANNEL_GROUP_MEMBER tag;
+    memset(&tag,0 , sizeof(PVR_CHANNEL_GROUP_MEMBER));
+
+    strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName));
+    tag.iChannelUniqueId = channel->GetUniqueId();
+    tag.iChannelNumber   = channel->GetChannelNumber();
+
+    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d",
+        __FUNCTION__, channel->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channel->GetChannelNumber());
+
+    channelGroupMembers.emplace_back(tag);
+  }
+
+  return PVR_ERROR_NO_ERROR;
 }
 
 int ChannelGroups::GetChannelGroupUniqueId(const std::string &groupName) const
 {
   for (const auto& channelGroup : m_channelGroups)
   {
-    if (groupName == channelGroup.GetGroupName())
-      return channelGroup.GetUniqueId();
+    if (groupName == channelGroup->GetGroupName())
+      return channelGroup->GetUniqueId();
   }
   return -1;
 }
@@ -42,20 +68,38 @@ std::string ChannelGroups::GetChannelGroupServiceReference(const std::string &gr
 {
   for (const auto& channelGroup : m_channelGroups)
   {
-    if (groupName == channelGroup.GetGroupName())
-      return channelGroup.GetServiceReference();
+    if (groupName == channelGroup->GetGroupName())
+      return channelGroup->GetServiceReference();
   }
   return "error";
 }
 
-enigma2::data::ChannelGroup& ChannelGroups::GetChannelGroup(int uniqueId)
+ChannelGroupPtr ChannelGroups::GetChannelGroup(int uniqueId)
 {
   return m_channelGroups.at(uniqueId - 1);
+}
+
+ChannelGroupPtr ChannelGroups::GetChannelGroup(std::string groupName)
+{
+  ChannelGroupPtr channelGroup = nullptr;
+
+  auto channelGroupPair = m_channelGroupsNameMap.find(groupName);
+  if (channelGroupPair != m_channelGroupsNameMap.end()) 
+  {
+    channelGroup = channelGroupPair->second;
+  } 
+
+  return channelGroup;
 }
 
 bool ChannelGroups::IsValid(int uniqueId) const
 {
   return (uniqueId - 1) < m_channelGroups.size();
+}
+
+bool ChannelGroups::IsValid(std::string groupName)
+{
+  return GetChannelGroup(groupName) != nullptr;
 }
 
 int ChannelGroups::GetNumChannelGroups() const
@@ -70,12 +114,20 @@ void ChannelGroups::ClearChannelGroups()
 
 void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
 {
-  newChannelGroup.SetUniqueId(m_channelGroups.size() + 1);
+  ChannelGroupPtr foundChannelGroup = GetChannelGroup(newChannelGroup.GetGroupName());
 
-  m_channelGroups.emplace_back(newChannelGroup);
+  if (!foundChannelGroup)
+  {  
+    newChannelGroup.SetUniqueId(m_channelGroups.size() + 1);
+
+    m_channelGroups.emplace_back(new ChannelGroup(newChannelGroup));
+
+    ChannelGroupPtr channelGroup = m_channelGroups.back();
+    m_channelGroupsNameMap.insert({channelGroup->GetGroupName(), channelGroup});
+  }
 }
 
-std::vector<enigma2::data::ChannelGroup>& ChannelGroups::GetChannelGroupsList()
+std::vector<ChannelGroupPtr>& ChannelGroups::GetChannelGroupsList()
 {
   return m_channelGroups;
 }
@@ -119,20 +171,25 @@ bool ChannelGroups::LoadChannelGroups()
 
   m_channelGroups.clear();
 
-  std::string serviceReference;
-  std::string groupName;
-
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
     ChannelGroup newChannelGroup;
 
-    if (!newChannelGroup.UpdateFrom(pNode))
+    if (!newChannelGroup.UpdateFrom(pNode, false))
       continue;
  
     AddChannelGroup(newChannelGroup);
 
     Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
   }
+
+  //Now add a radio channel group
+  ChannelGroup newChannelGroup;
+  newChannelGroup.SetRadio(true);
+  newChannelGroup.SetGroupName("Radio");
+  newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
+  AddChannelGroup(newChannelGroup);
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());  
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channelgroups", __FUNCTION__, m_channelGroups.size());
   return true;
