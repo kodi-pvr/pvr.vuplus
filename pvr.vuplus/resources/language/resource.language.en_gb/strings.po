@@ -141,7 +141,7 @@ msgid "Keep folder structure for records"
 msgstr ""
 
 msgctxt "#30031"
-msgid "Channels & EPG"
+msgid "Seasons and Episodes"
 msgstr ""
 
 msgctxt "#30032"
@@ -149,7 +149,7 @@ msgid "EPG"
 msgstr ""
 
 msgctxt "#30033"
-msgid "Extract genre, season and episode info where possible"
+msgid "Extract season, episode and year info where possible"
 msgstr ""
 
 msgctxt "#30034"
@@ -165,7 +165,7 @@ msgid "Enable generate repeat timers"
 msgstr ""
 
 msgctxt "#30037"
-msgid "Log missing genre mappings"
+msgid "Log missing genre text mappings"
 msgstr ""
 
 msgctxt "#30038"
@@ -200,8 +200,21 @@ msgctxt "#30045"
 msgid "Always"
 msgstr ""
 
-#empty strings from id 30046 to 30049
-#notifications
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr ""
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr ""
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr ""
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr ""
 
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
@@ -215,7 +228,19 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr ""
 
-#empty strings from id 30053 to 30059
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr ""
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr ""
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr ""
+
+#empty strings from id 30056 to 30059
 
 msgctxt "#30060"
 msgid "Timeshift"

@@ -73,10 +73,10 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
   {
     myChannel.SetRequiresInitialEPG(false);
 
-    if (!m_bAllChannelsHaveInitialEPG)
-      m_bAllChannelsHaveInitialEPG = m_channels.CheckIfAllChannelsHaveInitialEPG();
+    if (!m_allChannelsHaveInitialEPG)
+      m_allChannelsHaveInitialEPG = m_channels.CheckIfAllChannelsHaveInitialEPG();
 
-    if (m_bAllChannelsHaveInitialEPG)
+    if (m_allChannelsHaveInitialEPG)
     {
       std::string initialEPGReady = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
       m_writeHandle = XBMC->OpenFileForWrite(initialEPGReady.c_str(), true);
@@ -132,7 +132,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
     if (!entry.UpdateFrom(pNode, myChannel, iStart, iEnd))
       continue;
 
-    if (Settings::GetInstance().GetExtractExtraEpgInfo())
+    if (m_entryExtractor.IsEnabled())
       m_entryExtractor.ExtractFromEntry(entry);
 
     EPG_TAG broadcast;
@@ -198,7 +198,7 @@ bool Epg::GetInitialEPGForGroup(ChannelGroup &group)
     if (!entry.UpdateFrom(pNode, m_channels))
       continue;
 
-    if (Settings::GetInstance().GetExtractExtraEpgInfo())
+    if (m_entryExtractor.IsEnabled())
       m_entryExtractor.ExtractFromEntry(entry);
 
     iNumEPG++; 

@@ -1,0 +1,141 @@
+<!-- 
+Note: the first 4 bits is genre and last is sub genre
+
+Kodi DVB Genres can be found here: usersdata/genres/kodiDVBGenres.xml
+
+Mapping Rytec Text Genres:
+ - The end result is to map to one of the DVB Genres for Kodi PVR. 
+ - This enables Kodi PVR to colour the EPG entries accordingly. 
+ - If a mapping cannot be found the text will be used but there will be no colouring (Genre Description only)
+ - All text will be matched in lowercase
+ - The rytec mapper will look for text between square brackets ([...]) to use for the mapping
+ - The rytec mapper will attempt to match the entire genre string, if that fails it will try to match up to the 
+   first dot (this would limit the mapping to 0x10, 0x20, 0x30 etc, but is better than no mapping at all)
+   e.g. if "TV Drama. Melodrama" cannot be found it will look for "TV Drama" and use it's mapping.
+ - If a mapping can't be found it defaults to 0x00 (Undefined)
+
+If you are creating yoru own text mappings make a copy of this file in the same directory so it's not overwritten and start from there.
+
+NOTE: IF YOU MODIFY THIS FILE IT WILL BE OVERWRITTEN NEXT TIME THE ADDON IS STARTED
+
+If you have changes either create a PR containing the changes or an issue with details at:
+  https://github.com/kodi-pvr/pvr.vuplus
+-->      
+
+<genreTextMappings>
+  <mapperName>Rytec UK/Ireland</mapperName>
+  <mappings>
+    <!-- MOVIE/DRAMA -->
+    <mapping targetId="0x10">General Movie/Drama</mapping> <!-- 0x10 Movie/Drama -->
+    <mapping targetId="0x10">Film</mapping> <!-- 0x10 Movie/Drama -->
+    <mapping targetId="0x10">Animated Movie/Drama</mapping> <!-- 0x10 Movie/Drama -->
+    <mapping targetId="0x11">Thriller</mapping> <!-- 0x11 Detective/Thriller -->
+    <mapping targetId="0x11">Detective/Thriller</mapping> <!-- 0x11 Detective/Thriller -->
+    <mapping targetId="0x12">Action</mapping> <!-- 0x12 Adventure/Western/War -->
+    <mapping targetId="0x12">Adventure</mapping> <!-- 0x12 Adventure/Western/War -->
+    <mapping targetId="0x12">Adventure/War</mapping> <!-- 0x12 Adventure/Western/War -->
+    <mapping targetId="0x12">Western</mapping> <!-- 0x12 Adventure/Western/War -->
+    <mapping targetId="0x12">Gangster</mapping> <!-- 0x12 Adventure/Western/War -->
+    <mapping targetId="0x13">Fantasy</mapping> <!-- 0x13 Science Fiction/Fantasy/Horror -->
+    <mapping targetId="0x13">Science Fiction</mapping> <!-- 0x13 Science Fiction/Fantasy/Horror -->
+    <mapping targetId="0x14">Family</mapping> <!-- 0x14 Comedy -->
+    <mapping targetId="0x14">Sitcom</mapping> <!-- 0x14 Comedy -->
+    <mapping targetId="0x14">Comedy</mapping> <!-- 0x14 Comedy -->
+    <mapping targetId="0x14">TV Drama. Comedy</mapping> <!-- 0x14 Comedy -->
+    <mapping targetId="0x15">Drama</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">Soap/Melodrama/Folkloric</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">TV Drama</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">TV Drama. Melodrama</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">TV Drama. Factual</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">TV Drama. Crime</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">TV Drama. Period</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x15">Medical Drama</mapping> <!-- 0x15 Soap/Melodrama/Folkloric -->
+    <mapping targetId="0x16">Romance</mapping> <!-- 0x16 Romance -->
+    <mapping targetId="0x17">Crime drama</mapping> <!-- 0x17 Serious/Classical/Religious/Historical Movie/Drama -->
+    <mapping targetId="0x17">Historical/Period Drama</mapping> <!-- 0x17 Serious/Classical/Religious/Historical Movie/Drama -->
+    <mapping targetId="0x17">Police/Crime Drama</mapping> <!-- 0x17 Serious/Classical/Religious/Historical Movie/Drama -->
+
+    <!-- NEWS/CURRENT AFFAIRS -->
+    <mapping targetId="0x20">News</mapping> <!-- 0x20 News/Current Affairs -->
+    <mapping targetId="0x20">General News/Current Affairs</mapping> <!-- 0x20 News/Current Affairs -->
+    <mapping targetId="0x23">Documentary</mapping> <!-- 0x23 Documentary -->
+    <mapping targetId="0x23">Documentary. News</mapping> <!-- 0x23 Documentary -->
+    <mapping targetId="0x24">Discussion. News</mapping> <!-- 0x24 Discussion/Interview/Debate -->
+          
+    <!-- SHOW -->
+    <mapping targetId="0x30">Series</mapping> <!-- 0x30 Show/Game Show -->
+    <mapping targetId="0x30">Show</mapping> <!-- 0x30 Show/Game Show -->
+    <mapping targetId="0x30">Vets/Pets</mapping> <!-- 0x30 Show/Game Show -->
+    <mapping targetId="0x30">Wildlife</mapping> <!-- 0x30 Show/Game Show -->
+    <mapping targetId="0x30">Property</mapping> <!-- 0x30 Show/Game Show -->
+    <mapping targetId="0x31">General Show/Game Show</mapping> <!-- 0x31 Game Show/Quiz/Contest -->
+    <mapping targetId="0x31">Game Show</mapping> <!-- 0x31 Game Show/Quiz/Contest -->
+    <mapping targetId="0x31">Challenge/Reality Show</mapping> <!-- 0x31 Game Show/Quiz/Contest -->
+    <mapping targetId="0x32">Show. Variety Show</mapping> <!-- 0x32 Game Variety Show -->
+    <mapping targetId="0x32">Variety Show</mapping> <!-- 0x32 Variety Show -->
+    <mapping targetId="0x32">Entertainment</mapping> <!-- 0x32 Variety Show -->
+    <mapping targetId="0x32">Miscellaneous</mapping> <!-- 0x32 Variety Show -->
+    <mapping targetId="0x33">Talk Show</mapping> <!-- 0x33 Talk Show -->
+    <mapping targetId="0x34">Show. Talk Show</mapping> <!-- 0x33 Talk Show -->
+    
+    <!-- SPORTS -->
+    <mapping targetId="0x40">Sport</mapping> <!-- 0x40 Sports -->
+    <mapping targetId="0x40">Live/Sport</mapping> <!-- 0x40 Sports -->
+    <mapping targetId="0x40">General Sports</mapping> <!-- 0x40 Sports -->
+    <mapping targetId="0x43">Football. Sports</mapping> <!-- 0x43 Football -->
+    <mapping targetId="0x4B">Martial Sports</mapping> <!-- 0x4B Martial Sports -->
+    <mapping targetId="0x4B">Martial Sports. Sports</mapping> <!-- 0x4B Martial Sports -->
+    <mapping targetId="0x4B">Wrestling</mapping> <!-- 0x4B Martial Sports -->
+
+    <!-- CHILDREN/YOUTH -->
+    <mapping targetId="0x50">Children</mapping> <!-- 0x50 Children's/Youth Programmes -->
+    <mapping targetId="0x50">Educational/Schools Programmes</mapping> <!-- 0x50 Children's/Youth Programmes -->
+    <mapping targetId="0x55">Animation</mapping> <!-- 0x55 Cartoons/Puppets -->
+    <mapping targetId="0x55">Cartoons/Puppets</mapping> <!-- 0x55 Cartoons/Puppets -->
+    
+    <!-- //MUSIC/BALLET/DANCE -->
+    <mapping targetId="0x60">Music</mapping> <!-- 0x60 Music/Ballet/Dance -->
+    <mapping targetId="0x60">General Music/Ballet/Dance</mapping> <!-- 0x60 Music/Ballet/Dance -->
+    <mapping targetId="0x63">Music. Folk</mapping> <!-- 0x63 Folk/Traditional Music -->
+    <mapping targetId="0x65">Musical</mapping> <!-- 0x65 Musical/Opera -->
+    
+    <!-- //ARTS/CULTURE -->
+    <mapping targetId="0x70">General Arts/Culture</mapping> <!-- 0x70 Arts/Culture -->
+    <mapping targetId="0x70">Arts/Culture</mapping> <!-- 0x70 Arts/Culture -->
+    <mapping targetId="0x72">Arts/Culture. Fine Arts</mapping> <!-- 0x72 Fine Arts -->
+    <mapping targetId="0x73">Religion</mapping> <!-- 0x73 Religion -->
+    
+    <!-- SOCIAL/POLITICAL/ECONOMICS -->
+    <mapping targetId="0x80">Social/Political</mapping> <!-- 0x80 Social/Political/Economics -->
+    <mapping targetId="0x83">Social/Political. Famous People</mapping> <!-- 0x83 Remarkable People -->
+    
+    <!-- EDUCATIONAL/SCIENCE -->
+    <mapping targetId="0x90">Education</mapping> <!-- 0x90 Education/Science/Factual -->
+    <mapping targetId="0x90">Educational</mapping> <!-- 0x90 Education/Science/Factual -->
+    <mapping targetId="0x90">History"</mapping> <!-- 0x90 Education/Science/Factual -->
+    <mapping targetId="0x90">Factual"</mapping> <!-- 0x90 Education/Science/Factual -->
+    <mapping targetId="0x90">General Education/Science/Factual Topics</mapping> <!-- 0x90 Education/Science/Factual -->
+    <mapping targetId="0x90">Science</mapping> <!-- 0x90 Education/Science/Factual -->
+    <mapping targetId="0x91">Educational. Nature</mapping> <!-- 0x91 Nature/Animals/Environment -->
+    <mapping targetId="0x91">Environment</mapping> <!-- 0x91 Nature/Animals/Environment -->
+    <mapping targetId="0x92">Technology</mapping> <!-- 0x92 Technology/Natural Sciences -->
+    <mapping targetId="0x92">Computers/Internet/Gaming</mapping> <!-- 0x92 Technology/Natural Sciences -->
+    
+    <!-- LEISURE/HOBBIES -->
+    <mapping targetId="0xA0">Leisure</mapping> <!-- 0xA0 Leisure/Hobbies -->
+    <mapping targetId="0xA0">Leisure. Lifestyle</mapping> <!-- 0xA0 Leisure/Hobbies -->
+    <mapping targetId="0xA1">Travel</mapping> <!-- 0xA1 Tourism/Travel -->
+    <mapping targetId="0xA4">Health</mapping> <!-- 0xA4 Fitness & Health -->
+    <mapping targetId="0xA4">Leisure. Health</mapping> <!-- 0xA4 Fitness & Health -->
+    <mapping targetId="0xA4">Medicine/Health</mapping> <!-- 0xA4 Fitness & Health -->
+    <mapping targetId="0xA5">Cookery</mapping> <!-- 0xA5 Cooking -->
+    <mapping targetId="0xA5">Leisure. Cooking</mapping> <!-- 0xA5 Cooking -->
+    <mapping targetId="0xA6">Leisure. Shopping</mapping> <!-- 0xA6 Advertisement/Shopping -->
+    <mapping targetId="0xA6">Advertisement/Shopping</mapping> <!-- 0xA6 Advertisement/Shopping -->
+    <mapping targetId="0xA6">Consumer</mapping> <!-- 0xA6 Advertisement/Shopping -->
+    <!-- SPECIAL -->
+    
+    <!-- USERDEFINED -->
+    <mapping targetId="0xF1">Factual Crime</mapping> <!-- 0xF1 Detective/Thriller -->
+  </mappings>
+</genreTextMappings>

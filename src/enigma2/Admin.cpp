@@ -27,7 +27,7 @@ void Admin::SendPowerstate()
   }
 }
 
-bool Admin::GetDeviceInfo()
+bool Admin::LoadDeviceInfo()
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo"); 
 
@@ -39,6 +39,12 @@ bool Admin::GetDeviceInfo()
     Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
+
+  std::string enigmaVersion;
+  std::string imageVersion;
+  std::string webIfVersion;
+  std::string serverName = "Enigma2";    
+  unsigned int webIfVersionAsNum;
 
   TiXmlHandle hDoc(&xmlDoc);
   TiXmlElement* pElem;
@@ -62,8 +68,8 @@ bool Admin::GetDeviceInfo()
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2enigmaversion from result!", __FUNCTION__);
     return false;
   }
-  m_strEnigmaVersion = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2EnigmaVersion: %s", __FUNCTION__, m_strEnigmaVersion.c_str());
+  enigmaVersion = strTmp.c_str();
+  Logger::Log(LEVEL_NOTICE, "%s - E2EnigmaVersion: %s", __FUNCTION__, enigmaVersion.c_str());
 
   // Get ImageVersion
   if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp)) 
@@ -71,8 +77,8 @@ bool Admin::GetDeviceInfo()
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2imageversion from result!", __FUNCTION__);
     return false;
   }
-  m_strImageVersion = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, m_strImageVersion.c_str());
+  imageVersion = strTmp.c_str();
+  Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
 
   // Get WebIfVersion
   if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp)) 
@@ -80,13 +86,10 @@ bool Admin::GetDeviceInfo()
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2webifversion from result!", __FUNCTION__);
     return false;
   }
-  else
-  {
-    m_strWebIfVersion = strTmp.c_str();
-    Logger::Log(LEVEL_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, m_strWebIfVersion.c_str());
-
-    Settings::GetInstance().SetWebIfVersionAsNum(GetWebIfVersion(m_strWebIfVersion));
-  }
+  webIfVersion = strTmp.c_str();
+  webIfVersionAsNum = ParseWebIfVersion(webIfVersion);
+  
+  Logger::Log(LEVEL_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, webIfVersion.c_str());
 
   // Get DeviceName
   if (!XMLUtils::GetString(pElem, "e2devicename", strTmp)) 
@@ -94,37 +97,40 @@ bool Admin::GetDeviceInfo()
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2devicename from result!", __FUNCTION__);
     return false;
   }
-  m_strServerName = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, m_strServerName.c_str());
+  serverName = strTmp.c_str();
+  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, serverName.c_str());
+
+  m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, webIfVersion, webIfVersionAsNum);
+  Settings::GetInstance().SetDeviceInfo(m_deviceInfo);
 
   return true;
 }
 
-unsigned int Admin::GetWebIfVersion(std::string versionString)
+unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
 {
-  unsigned int webIfVersion = 0;
+  unsigned int webIfVersionAsNum = 0;
 
   std::regex regex ("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
-  if (regex_match(versionString, regex))
+  if (regex_match(webIfVersion, regex))
   {
     int count = 0;
     unsigned int versionPart = 0;
     std::regex pattern("([0-9]+)");
-    for (auto i = std::sregex_iterator(versionString.begin(), versionString.end(), pattern); i != std::sregex_iterator(); ++i) 
+    for (auto i = std::sregex_iterator(webIfVersion.begin(), webIfVersion.end(), pattern); i != std::sregex_iterator(); ++i) 
     {
         switch (count)
         {
           case 0:
             versionPart = atoi(i->str().c_str());
-            webIfVersion = versionPart << 16;
+            webIfVersionAsNum = versionPart << 16;
             break;
           case 1:
               versionPart = atoi(i->str().c_str());
-              webIfVersion |= versionPart << 8;
+              webIfVersionAsNum |= versionPart << 8;
             break;     
           case 2:
               versionPart = atoi(i->str().c_str());
-              webIfVersion |= versionPart;
+              webIfVersionAsNum |= versionPart;
             break;      
         }      
 
@@ -132,12 +138,7 @@ unsigned int Admin::GetWebIfVersion(std::string versionString)
     }
   }
 
-  return webIfVersion;
-}
-
-const std::string& Admin::GetServerName() const
-{
-  return m_strServerName;
+  return webIfVersionAsNum;
 }
 
 PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations)

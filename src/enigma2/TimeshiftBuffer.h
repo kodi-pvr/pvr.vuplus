@@ -35,7 +35,7 @@ namespace enigma2
     static const int READ_WAITTIME = 50;
 
     std::string m_bufferPath;
-    IStreamReader *m_strReader;
+    IStreamReader *m_streamReader;
     void *m_filebufferReadHandle;
     void *m_filebufferWriteHandle;
     int m_readTimeout;

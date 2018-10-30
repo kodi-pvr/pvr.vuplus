@@ -20,7 +20,7 @@ namespace enigma2
     Timers(Channels &channels, std::vector<std::string> &locations)
       : m_channels(channels), m_locations(locations)
     {
-        m_iClientIndexCounter = 1;
+        m_clientIndexCounter = 1;
     };
     
     void GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const;
@@ -65,8 +65,7 @@ namespace enigma2
     static std::string BuildAddUpdateAutoTimerIncludeParams(int weekdays);
 
     // members
-    unsigned int m_iUpdateTimer;
-    unsigned int m_iClientIndexCounter;
+    unsigned int m_clientIndexCounter;
     enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
     std::vector<enigma2::data::Timer> m_timers;
     std::vector<enigma2::data::AutoTimer> m_autotimers;

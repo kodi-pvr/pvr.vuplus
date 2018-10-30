@@ -50,6 +50,7 @@ public:
   bool Open();
   void SendPowerstate();
   const char * GetServerName() const;
+  const char * GetServerVersion() const;
   bool IsConnected() const; 
   
   //groups, channels and EPG
@@ -85,9 +86,9 @@ private:
   std::string GetStreamURL(const std::string& strM3uURL);
 
   // members
-  bool m_bIsConnected = false;
-  unsigned int m_iUpdateTimer = 0;
-  int m_iCurrentChannel = -1;
+  bool m_isConnected = false;
+  unsigned int m_updateTimer = 0;
+  int m_currentChannel = -1;
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;

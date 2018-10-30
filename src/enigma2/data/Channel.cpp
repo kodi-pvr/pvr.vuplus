@@ -49,7 +49,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL
     iconPath.erase(it);
   }
 
-  if (Settings::GetInstance().GetUsePiconsEuFormat())
+  if (Settings::GetInstance().UsePiconsEuFormat())
   {
     //Extract the unique part of the icon name and apply the standard pre and post-fix
     std::regex startPrefixRegex ("^\\d+:\\d+:\\d+:");
@@ -76,7 +76,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL
     tempString.c_str()
   );
 
-  if (Settings::GetInstance().GetUseOnlinePicons())
+  if (Settings::GetInstance().UseOnlinePicons())
   {
     std::replace(tempString.begin(), tempString.end(), ':', '_');
     iconPath = StringUtils::Format("%spicon/%s.png", enigmaURL.c_str(), tempString.c_str());

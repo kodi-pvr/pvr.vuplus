@@ -67,7 +67,7 @@ Enigma2::~Enigma2()
   
   Logger::Log(LEVEL_DEBUG, "%s Removing internal group list...", __FUNCTION__);
   m_channelGroups.ClearChannelGroups();
-  m_bIsConnected = false;
+  m_isConnected = false;
 }
 
 /***************************************************************************
@@ -95,9 +95,9 @@ bool Enigma2::Open()
       return false;
     }
   } 
-  m_bIsConnected = m_admin.GetDeviceInfo();
+  m_isConnected = m_admin.LoadDeviceInfo();
 
-  if (!m_bIsConnected)
+  if (!m_isConnected)
   {
     Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __FUNCTION__);
     return false;
@@ -149,11 +149,11 @@ void *Enigma2::Process()
   while(!IsStopped())
   {
     Sleep(5 * 1000);
-    m_iUpdateTimer += 5;
+    m_updateTimer += 5;
 
-    if ((int)m_iUpdateTimer > (m_settings.GetUpdateIntervalMins() * 60)) 
+    if ((int)m_updateTimer > (m_settings.GetUpdateIntervalMins() * 60)) 
     {
-      m_iUpdateTimer = 0;
+      m_updateTimer = 0;
  
       // Trigger Timer and Recording updates acording to the addon settings
       CLockObject lock(m_mutex);
@@ -186,9 +186,14 @@ const char * Enigma2::GetServerName() const
   return m_admin.GetServerName().c_str();  
 }
 
+const char * Enigma2::GetServerVersion() const
+{
+  return m_admin.GetWebIfVersion().c_str();  
+}
+
 bool Enigma2::IsConnected() const
 {
-  return m_bIsConnected;
+  return m_isConnected;
 }
 
 /***************************************************************************
@@ -283,9 +288,9 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
   Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
   CLockObject lock(m_mutex);
 
-  if (channelinfo.iUniqueId != m_iCurrentChannel)
+  if (channelinfo.iUniqueId != m_currentChannel)
   {
-    m_iCurrentChannel = channelinfo.iUniqueId;
+    m_currentChannel = channelinfo.iUniqueId;
 
     if (m_settings.GetZapBeforeChannelSwitch())
     {
@@ -306,7 +311,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
 void Enigma2::CloseLiveStream(void)
 {
   CLockObject lock(m_mutex);
-  m_iCurrentChannel = -1;
+  m_currentChannel = -1;
 }
 
 const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)

@@ -10,6 +10,9 @@
 
 namespace enigma2
 {
+    static const std::string SHOW_INFO_DIR = "/showInfo";
+    static const std::string SHOW_INFO_ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus" + SHOW_INFO_DIR;
+
   namespace extract
   {
     // (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7)
@@ -18,7 +21,7 @@ namespace enigma2
     static const std::string MASTER_EPISODE_PATTERN = "^.*\\(?([eE][pP]?\\.?[0-9]+/?[0-9]*)\\)?[^]*$";
     // (2015E22) (2007E3) (2007E3/6)
     static const std::string MASTER_YEAR_EPISODE_PATTERN = "^.*\\(?([12][0-9][0-9][0-9][eE][pP]?\\.?[0-9]+\\.?/?[0-9]*)\\)?[^]*$";
-    // Starts with 4/4 6/6, no prefix
+    // Starts with 2/4 6/6, no prefix
     static const std::string MASTER_EPISODE_NO_PREFIX_PATTERN = "^.*([0-9]+/[0-9]+)\\.? +[^]*$";
 
     // Get from matster match, prefixed by S,s,E,e,Ep
@@ -38,11 +41,15 @@ namespace enigma2
     public:
       ShowInfoExtractor();
       ~ShowInfoExtractor(void);
+
       void ExtractFromEntry(enigma2::data::BaseEntry &entry);
+      bool IsEnabled();
 
     private:
-      std::vector<EpisodeSeasonPattern> episodeSeasonPatterns;
-      std::vector<std::regex> yearPatterns;
+      bool LoadShowInfoPatternsFile(const std::string &xmlFile, std::vector<EpisodeSeasonPattern> &episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
+      
+      std::vector<EpisodeSeasonPattern> m_episodeSeasonPatterns;
+      std::vector<std::regex> m_yearPatterns;
     };
   } //namespace extract
 } //namespace enigma2

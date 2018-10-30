@@ -1,8 +1,9 @@
 #pragma once
 
-#include "utilities/Logger.h"
-
 #include <string>
+
+#include "utilities/Logger.h"
+#include "utilities/DeviceInfo.h"
 
 #include "xbmc_addon_types.h"
 
@@ -16,6 +17,9 @@ namespace enigma2
   static const int DEFAULT_WEB_PORT = 80;
   static const int DEFAULT_UPDATE_INTERVAL = 2;
   static const std::string DEFAULT_TSBUFFERPATH = "special://userdata/addon_data/pvr.vuplus";
+  static const std::string DEFAULT_SHOW_INFO_FILE = "special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml";
+  static const std::string DEFAULT_GENRE_ID_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml";
+  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreTextMappings/Rytec-UK-Ireland";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
   enum class Timeshift
@@ -51,53 +55,62 @@ namespace enigma2
     ADDON_STATUS SetValue(const std::string &settingName, const void *settingValue);
 
     //Connection
-    const std::string& GetHostname() const { return m_strHostname; }
-    int GetWebPortNum() const { return m_iPortWeb; }
-    bool GetUseSecureConnection() const { return m_bUseSecureHTTP; }
-    const std::string& GetUsername() const {return m_strUsername; }
-    const std::string& GetPassword() const { return m_strPassword; }
-    bool GetAutoConfigLiveStreamsEnabled() const { return m_bAutoConfig; }
-    int GetStreamPortNum() const { return m_iPortStream; }
-    bool UseSecureConnectionStream() const { return m_bUseSecureHTTPStream; }
-    bool UseLoginStream() const { return m_bUseLoginStream; }
+    const std::string& GetHostname() const { return m_hostname; }
+    int GetWebPortNum() const { return m_portWeb; }
+    bool GetUseSecureConnection() const { return m_useSecureHTTP; }
+    const std::string& GetUsername() const {return m_username; }
+    const std::string& GetPassword() const { return m_password; }
+    bool GetAutoConfigLiveStreamsEnabled() const { return m_autoConfig; }
+    int GetStreamPortNum() const { return m_portStream; }
+    bool UseSecureConnectionStream() const { return m_useSecureHTTPStream; }
+    bool UseLoginStream() const { return m_useLoginStream; }
 
     //General
-    bool GetUseOnlinePicons() const { return m_bOnlinePicons; }
-    bool GetUsePiconsEuFormat() const { return m_bUsePiconsEuFormat; }
-    const std::string& GetIconPath() const { return m_strIconPath; }
-    int GetUpdateIntervalMins() const { return m_iUpdateInterval; }
+    bool UseOnlinePicons() const { return m_onlinePicons; }
+    bool UsePiconsEuFormat() const { return m_usePiconsEuFormat; }
+    const std::string& GetIconPath() const { return m_iconPath; }
+    int GetUpdateIntervalMins() const { return m_updateInterval; }
 
-    //Channel & EPG
-    bool GetOneGroupOnly() const { return m_bOnlyOneGroup; }
-    const std::string& GetOneGroupName() const { return m_strOneGroup; }
-    bool GetZapBeforeChannelSwitch() const { return m_bZap; }
-    bool GetExtractExtraEpgInfo() const { return m_bExtractExtraEpgInfo; }
-    bool GetLogMissingGenreMappings() const { return m_bLogMissingGenreMappings; }
+    //Channel
+    bool GetOneGroupOnly() const { return m_onlyOneGroup; }
+    const std::string& GetOneGroupName() const { return m_oneGroup; }
+    bool GetZapBeforeChannelSwitch() const { return m_zap; }
+   
+    //EPG
+    bool GetExtractShowInfo() const { return m_extractShowInfo; }
+    const std::string& GetExtractShowInfoFile() const { return m_extractShowInfoFile; }
+    bool GetMapGenreIds() const { return m_mapGenreIds; }
+    const std::string& GetMapGenreIdsFile() const { return m_mapGenreIdsFile; }
+    bool GetMapRytecTextGenres() const { return m_mapRytecTextGenres; }
+    const std::string& GetMapRytecTextGenresFile() const { return m_mapRytecTextGenresFile; }
+    bool GetLogMissingGenreMappings() const { return m_logMissingGenreMappings; }
 
     //Recordings and Timers
-    const std::string& GetRecordingPath() const { return m_strRecordingPath; }
-    bool GetRecordingsFromCurrentLocationOnly() const { return m_bOnlyCurrentLocation; }
-    bool GetKeepRecordingsFolders() const { return m_bKeepFolders; }
-    bool GetGenRepeatTimersEnabled() const { return m_bEnableGenRepeatTimers; }
-    int GetNumGenRepeatTimers() const { return m_iNumGenRepeatTimers; }
-    bool GetAutoTimersEnabled() const { return m_bEnableAutoTimers; }
-    bool GetAutoTimerListCleanupEnabled() const { return m_bAutomaticTimerlistCleanup; }
+    const std::string& GetRecordingPath() const { return m_recordingPath; }
+    bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
+    bool GetKeepRecordingsFolders() const { return m_keepFolders; }
+    bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
+    int GetNumGenRepeatTimers() const { return m_numGenRepeatTimers; }
+    bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
+    bool GetAutoTimerListCleanupEnabled() const { return m_automaticTimerlistCleanup; }
 
     //Timeshift
     const Timeshift& GetTimeshift() const { return m_timeshift; }
-    const std::string& GetTimeshiftBufferPath() const { return m_strTimeshiftBufferPath; }
+    const std::string& GetTimeshiftBufferPath() const { return m_timeshiftBufferPath; }
     bool IsTimeshiftBufferPathValid() const;
 
     //Advanced
     const PrependOutline& GetPrependOutline() const { return m_prependOutline; }
-    bool GetDeepStandbyOnAddonExit() const { return m_bSetPowerstate; }
-    int GetReadTimeoutSecs() const { return m_iReadTimeout; }
+    bool GetDeepStandbyOnAddonExit() const { return m_setPowerstate; }
+    int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
-    unsigned int GetWebIfVersionAsNum() const { return m_webIfVersion; }
-    void SetWebIfVersionAsNum(unsigned int value) { m_webIfVersion = value; }
+    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+
+    const enigma2::utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
+    void SetDeviceInfo(enigma2::utilities::DeviceInfo& deviceInfo) { m_deviceInfo = deviceInfo; }    
 
     inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
     {
@@ -126,50 +139,57 @@ namespace enigma2
     ADDON_STATUS SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged);
 
     //Connection
-    std::string m_strHostname = DEFAULT_HOST;
-    int m_iPortWeb = DEFAULT_WEB_PORT;
-    bool m_bUseSecureHTTP = false;
-    std::string m_strUsername = "";
-    std::string m_strPassword = "";
-    bool m_bAutoConfig = false;
-    int m_iPortStream = DEFAULT_STREAM_PORT;
-    bool m_bUseSecureHTTPStream = false;
-    bool m_bUseLoginStream = false;
+    std::string m_hostname = DEFAULT_HOST;
+    int m_portWeb = DEFAULT_WEB_PORT;
+    bool m_useSecureHTTP = false;
+    std::string m_username = "";
+    std::string m_password = "";
+    bool m_autoConfig = false;
+    int m_portStream = DEFAULT_STREAM_PORT;
+    bool m_useSecureHTTPStream = false;
+    bool m_useLoginStream = false;
 
     //General
-    bool m_bOnlinePicons = true;
-    bool m_bUsePiconsEuFormat = false;
-    std::string m_strIconPath = "";
-    int m_iUpdateInterval = DEFAULT_UPDATE_INTERVAL;
+    bool m_onlinePicons = true;
+    bool m_usePiconsEuFormat = false;
+    std::string m_iconPath = "";
+    int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     
-    //Channel & EPG
-    bool m_bOnlyOneGroup = false;
-    std::string m_strOneGroup = "";
-    bool m_bZap = false;
-    bool m_bExtractExtraEpgInfo = true;
-    bool m_bLogMissingGenreMappings = true;
+    //Channel
+    bool m_onlyOneGroup = false;
+    std::string m_oneGroup = "";
+    bool m_zap = false;
+
+    //EPG
+    bool m_extractShowInfo = true;
+    std::string m_extractShowInfoFile;
+    bool m_mapGenreIds = true;
+    std::string m_mapGenreIdsFile;
+    bool m_mapRytecTextGenres = true;
+    std::string m_mapRytecTextGenresFile;
+    bool m_logMissingGenreMappings = true;
 
     //Recordings and Timers
-    std::string m_strRecordingPath = "";
-    bool m_bOnlyCurrentLocation = false;
-    bool m_bKeepFolders = false;
-    bool m_bEnableGenRepeatTimers = true;
-    int  m_iNumGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
-    bool m_bEnableAutoTimers = true;
-    bool m_bAutomaticTimerlistCleanup = false;
+    std::string m_recordingPath = "";
+    bool m_onlyCurrentLocation = false;
+    bool m_keepFolders = false;
+    bool m_enableGenRepeatTimers = true;
+    int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
+    bool m_enableAutoTimers = true;
+    bool m_automaticTimerlistCleanup = false;
 
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
-    std::string m_strTimeshiftBufferPath = DEFAULT_TSBUFFERPATH;
+    std::string m_timeshiftBufferPath = DEFAULT_TSBUFFERPATH;
 
     //Advanced
     PrependOutline m_prependOutline = PrependOutline::IN_EPG;
-    bool m_bSetPowerstate = false;
-    int m_iReadTimeout = 0;
+    bool m_setPowerstate = false;
+    int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
 
     std::string m_connectionURL;
-    unsigned int m_webIfVersion;
+    enigma2::utilities::DeviceInfo m_deviceInfo;
 
     //PVR Props
     std::string m_szUserPath = "";

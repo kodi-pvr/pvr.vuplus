@@ -55,6 +55,6 @@ namespace enigma2
 
     void *m_writeHandle;
     void *m_readHandle;
-    bool m_bAllChannelsHaveInitialEPG = false;
+    bool m_allChannelsHaveInitialEPG = false;
   };
 } //namespace enigma2

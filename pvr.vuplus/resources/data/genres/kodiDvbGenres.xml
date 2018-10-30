@@ -1,0 +1,140 @@
+<!-- 
+The following are the DVB Genre Id's used for reference
+
+Source: https://www.etsi.org/deliver/etsi_en/300400_300499/300468/01.11.01_60/en_300468v011101p.pdf
+Page 40
+
+Note: the first 4 bits is genre and last is sub genre
+
+Mapping DVB Genres:
+ - The content below is both a reference for Genre ID mappings and Rytec Text Mappings
+
+There shoud be no reason to modify this file unless the DVB standard changes.
+
+NOTE: IF YOU MODIFY THIS FILE IT WILL BE OVERWRITTEN NEXT TIME THE ADDON IS STARTED
+
+If you have changes either create a PR containing the changes or an issue with details at:
+  https://github.com/kodi-pvr/pvr.vuplus
+-->      
+
+<genreTextMappings>
+  <mapperName>Rytec UK/Ireland</mapperName>
+  <mappings>
+    <!-- UNDEFINED -->
+
+    <mapping targetId="0x00">Undefined</mapping> 
+    <!-- MOVIE/DRAMA -->
+    <mapping targetId="0x10">General Movie/Drama</mapping> 
+    <mapping targetId="0x11">Detective/Thriller</mapping> 
+    <mapping targetId="0x12">Adventure/Western/War</mapping> 
+    <mapping targetId="0x13">Science Fiction/Fantasy/Horror</mapping> 
+    <mapping targetId="0x14">Comedy</mapping> 
+    <mapping targetId="0x15">Soap/Melodrama/Folkloric</mapping> 
+    <mapping targetId="0x16">Romance</mapping>
+    <mapping targetId="0x17">Serious/Classical/Religious/Historical Movie/Drama</mapping>
+    <mapping targetId="0x18">Adult Movie/Drama</mapping>
+
+    <!-- NEWS/CURRENT AFFAIRS -->
+    <mapping targetId="0x20">News/Current Affairs</mapping>
+    <mapping targetId="0x21">News/Weather Report</mapping>
+    <mapping targetId="0x22">News Magazine</mapping>
+    <mapping targetId="0x23">Documentary</mapping>
+    <mapping targetId="0x24">Discussion/Interview/Debate</mapping>
+    
+    <!-- SHOW -->
+    <mapping targetId="0x30">Show/Game Show</mapping>
+    <mapping targetId="0x31">Game Show/Quiz/Contest</mapping>
+    <mapping targetId="0x32">Variety Show</mapping>
+    <mapping targetId="0x33">Talk Show</mapping>
+    
+    <!-- SPORTS -->
+    <mapping targetId="0x40">Sports</mapping>
+    <mapping targetId="0x41">Special Event</mapping>
+    <mapping targetId="0x42">Sport Magazine</mapping>
+    <mapping targetId="0x43">Football</mapping>
+    <mapping targetId="0x44">Tennis/Squash</mapping>
+    <mapping targetId="0x45">Team Sports</mapping>
+    <mapping targetId="0x46">Athletics</mapping>
+    <mapping targetId="0x47">Motor Sport</mapping>
+    <mapping targetId="0x48">Water Sport</mapping>
+    <mapping targetId="0x49">Winter Sports</mapping>
+    <mapping targetId="0x4A">Equestrian</mapping>
+    <mapping targetId="0x4B">Martial Sports</mapping>
+    
+    <!-- CHILDREN/YOUTH -->
+    <mapping targetId="0x50">Children's/Youth Programmes</mapping>
+    <mapping targetId="0x51">Pre-school Children's Programmes</mapping>
+    <mapping targetId="0x52">Entertainment Programmes for 6 to 14</mapping>
+    <mapping targetId="0x53">Entertainment Programmes for 10 to 16</mapping>
+    <mapping targetId="0x54">Informational/Educational/School Programme</mapping>
+    <mapping targetId="0x55">Cartoons/Puppets</mapping>
+    
+    <!-- MUSIC/BALLET/DANCE -->
+    <mapping targetId="0x60">Music/Ballet/Dance</mapping>
+    <mapping targetId="0x61">Rock/Pop</mapping>
+    <mapping targetId="0x62">Serious/Classical Music</mapping>
+    <mapping targetId="0x63">Folk/Traditional Music</mapping>
+    <mapping targetId="0x64">Jazz</mapping>
+    <mapping targetId="0x65">Musical/Opera</mapping>
+    <mapping targetId="0x66">Ballet</mapping>
+    
+    <!-- ARTS/CULTURE -->
+    <mapping targetId="0x70">Arts/Culture</mapping>
+    <mapping targetId="0x71">Performing Arts</mapping>
+    <mapping targetId="0x72">Fine Arts</mapping>
+    <mapping targetId="0x73">Religion</mapping>
+    <mapping targetId="0x74">Popular Culture/Traditional Arts</mapping>
+    <mapping targetId="0x75">Literature</mapping>
+    <mapping targetId="0x76">Film/Cinema</mapping>
+    <mapping targetId="0x77">Experimental Film/Video</mapping>
+    <mapping targetId="0x78">Broadcasting/Press</mapping>
+    <mapping targetId="0x79">New Media</mapping>
+    <mapping targetId="0x7A">Arts/Culture Magazines</mapping>
+    <mapping targetId="0x7B">Fashion</mapping>
+    
+    <!-- SOCIAL/POLITICAL/ECONOMICS -->
+    <mapping targetId="0x80">Social/Political/Economics</mapping>
+    <mapping targetId="0x81">Magazines/Reports/Documentary</mapping>
+    <mapping targetId="0x82">Economics/Social Advisory</mapping>
+    <mapping targetId="0x83">Remarkable People</mapping>
+    
+    <!-- EDUCATIONAL/SCIENCE -->
+    <mapping targetId="0x90">Education/Science/Factual</mapping>
+    <mapping targetId="0x91">Nature/Animals/Environment</mapping>
+    <mapping targetId="0x92">Technology/Natural Sciences</mapping>
+    <mapping targetId="0x93">Medicine/Physiology/Psychology</mapping>
+    <mapping targetId="0x94">Foreign Countries/Expeditions</mapping>
+    <mapping targetId="0x95">Social/Spiritual Sciences</mapping>
+    <mapping targetId="0x96">Further Education</mapping>
+    <mapping targetId="0x97">Languages</mapping>
+    
+    <!-- LEISURE/HOBBIES -->
+    <mapping targetId="0xA0">Leisure/Hobbies</mapping>
+    <mapping targetId="0xA1">Tourism/Travel</mapping>
+    <mapping targetId="0xA2">Handicraft</mapping>
+    <mapping targetId="0xA3">Motoring</mapping>
+    <mapping targetId="0xA4">Fitness &amp; Health</mapping>
+    <mapping targetId="0xA5">Cooking</mapping>
+    <mapping targetId="0xA6">Advertisement/Shopping</mapping>
+    <mapping targetId="0xA7">Gardening</mapping>
+    
+    <!-- SPECIAL -->
+    <mapping targetId="0xB0">Special Characteristics</mapping>
+    <mapping targetId="0xB1">Original Language</mapping>
+    <mapping targetId="0xB2">Black &amp; White</mapping>
+    <mapping targetId="0xB3">Unpublished</mapping>
+    <mapping targetId="0xB4">Live Broadcast</mapping>
+    
+    <!-- USERDEFINED -->
+    <mapping targetId="0xF0">Drama</mapping>
+    <mapping targetId="0xF1">Detective/Thriller</mapping>
+    <mapping targetId="0xF2">Adventure/Western/War</mapping>
+    <mapping targetId="0xF3">Science Fiction/Fantasy/Horror</mapping>
+    <!-- below currently ignored by XBMC see http://trac.xbmc.org/ticket/13627 -->
+    <mapping targetId="0xF4">Comedy</mapping>
+    <mapping targetId="0xF5">Soap/Melodrama/Folkloric</mapping>
+    <mapping targetId="0xF6">Romance</mapping>
+    <mapping targetId="0xF7">Serious/ClassicalReligion/Historical</mapping>
+    <mapping targetId="0xF8">Adult</mapping>
+  </mappings>
+</genreTextMappings>

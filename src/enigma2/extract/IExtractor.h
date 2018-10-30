@@ -15,6 +15,7 @@ namespace enigma2
       IExtractor() = default;
       virtual ~IExtractor() = default;
       virtual void ExtractFromEntry(enigma2::data::BaseEntry &entry) = 0;
+      virtual bool IsEnabled() = 0;
 
     protected:
       static std::string GetMatchTextFromString(const std::string &text, const std::regex &pattern)

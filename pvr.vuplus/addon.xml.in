@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.13.0"
+  version="3.14.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -19,7 +19,7 @@
     <summary lang="de_DE">Kodi Oberfläche für VU+ / Enigma2-basierte Settop-Boxen</summary>
     <summary lang="el_GR">Frontend του Kodi για αποκωδικοποιητές (settop box) τύπου VU+ / Enigma2</summary>
     <summary lang="en_AU">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
-    <summary lang="en_GB">Kodi's frontend for Enigma2 based settop boxes</summary>
+    <summary lang="en_GB">Kodi's frontend for Enigma2 based set-top boxes</summary>
     <summary lang="en_NZ">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="en_US">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="es_AR">Kodi frontend para decodificadores equipados con VU+/Enigma2</summary>
@@ -71,7 +71,10 @@
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="en_GB">Enigma2 frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.</description>
+    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.
+    
+For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md
+    </description>
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
@@ -175,6 +178,10 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v3.14.0
+- Added: Externalised season/episode and genre config to allow users support other formats/languages, closes #118
+- Added: Server OpenWebIf version now reported by addon
+
 v3.13.0
 - Added: New setting to enable streaming over HTTPS
 - Added: New setting to enable authentication for streaming

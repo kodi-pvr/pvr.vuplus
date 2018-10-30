@@ -10,9 +10,9 @@ using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-TimeshiftBuffer::TimeshiftBuffer(IStreamReader *strReader,
+TimeshiftBuffer::TimeshiftBuffer(IStreamReader *m_streamReader,
     const std::string &m_timeshiftBufferPath, const unsigned int m_readTimeoutX)
-  : m_strReader(strReader)
+  : m_streamReader(m_streamReader)
 {
   m_bufferPath = m_timeshiftBufferPath + "/tsbuffer.ts";
   m_readTimeout = (m_readTimeoutX) ? m_readTimeout
@@ -43,13 +43,13 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
   if (!XBMC->DeleteFile(m_bufferPath.c_str()))
     Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __FUNCTION__, m_bufferPath.c_str());
   
-  SAFE_DELETE(m_strReader);
+  SAFE_DELETE(m_streamReader);
   Logger::Log(LEVEL_DEBUG, "Timeshift: Stopped");
 }
 
 bool TimeshiftBuffer::Start()
 {
-  if (m_strReader == nullptr
+  if (m_streamReader == nullptr
       || m_filebufferWriteHandle == nullptr
       || m_filebufferReadHandle == nullptr)
     return false;
@@ -69,10 +69,10 @@ void TimeshiftBuffer::DoReadWrite()
   Logger::Log(LEVEL_DEBUG, "Timeshift: Thread started");
   uint8_t buffer[BUFFER_SIZE];
 
-  m_strReader->Start();
+  m_streamReader->Start();
   while (m_running)
   {
-    ssize_t read = m_strReader->ReadData(buffer, sizeof(buffer));
+    ssize_t read = m_streamReader->ReadData(buffer, sizeof(buffer));
 
     // don't handle any errors here, assume write fully succeeds
     ssize_t write = XBMC->WriteFile(m_filebufferWriteHandle, buffer, read);
