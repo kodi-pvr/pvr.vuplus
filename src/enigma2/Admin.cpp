@@ -223,7 +223,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   long long sizeInKb = 0;
 
   static const std::vector<std::string> sizes = {"MB", "GB", "TB"};
-  long multiplier = 1024 * 1024;
+  long multiplier = 1024;
   std::string replaceWith = "";
   for (const std::string& size : sizes)
   {
