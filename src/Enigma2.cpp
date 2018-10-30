@@ -223,25 +223,17 @@ PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle)
 
 PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
 {
-  Logger::Log(LEVEL_DEBUG, "%s - group '%s'", __FUNCTION__, group.strGroupName);
-  std::string strTmp = group.strGroupName;
-  for (const auto& channel : m_channels.GetChannelsList())
+  std::vector<PVR_CHANNEL_GROUP_MEMBER> channelGroupMembers;
   {
-    if (strTmp == channel.GetGroupName()) 
-    {
-      PVR_CHANNEL_GROUP_MEMBER tag;
-      memset(&tag,0 , sizeof(PVR_CHANNEL_GROUP_MEMBER));
-
-      strncpy(tag.strGroupName, group.strGroupName, sizeof(tag.strGroupName));
-      tag.iChannelUniqueId = channel.GetUniqueId();
-      tag.iChannelNumber   = channel.GetChannelNumber();
-
-      Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d",
-          __FUNCTION__, channel.GetChannelName().c_str(), tag.iChannelUniqueId, group.strGroupName, channel.GetChannelNumber());
-
-      PVR->TransferChannelGroupMember(handle, &tag);
-    }
+    CLockObject lock(m_mutex);
+    m_channelGroups.GetChannelGroupMembers(channelGroupMembers, group.strGroupName);
   }
+
+  Logger::Log(LEVEL_DEBUG, "%s - group '%s' members available '%d'", __FUNCTION__, group.strGroupName, channelGroupMembers.size());
+
+  for (const auto& channelGroupMember : channelGroupMembers)
+      PVR->TransferChannelGroupMember(handle, &channelGroupMember);
+
   return PVR_ERROR_NO_ERROR;
 }
 
@@ -295,7 +287,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
     if (m_settings.GetZapBeforeChannelSwitch())
     {
       // Zapping is set to true, so send the zapping command to the PVR box
-      std::string strServiceReference = m_channels.GetChannel(channelinfo.iUniqueId).GetServiceReference().c_str();
+      std::string strServiceReference = m_channels.GetChannel(channelinfo.iUniqueId)->GetServiceReference().c_str();
 
       std::string strTmp;
       strTmp = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
@@ -322,10 +314,10 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
     // we do it here for 2 reasons:
     //  1. This is faster than doing it during initialization
     //  2. The URL can change, so this is more up-to-date.
-    return GetStreamURL(m_channels.GetChannel(channelinfo.iUniqueId).GetM3uURL());
+    return GetStreamURL(m_channels.GetChannel(channelinfo.iUniqueId)->GetM3uURL());
   }
 
-  return m_channels.GetChannel(channelinfo.iUniqueId).GetStreamURL();
+  return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamURL();
 }
 
 

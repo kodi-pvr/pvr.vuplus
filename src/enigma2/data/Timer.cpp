@@ -156,7 +156,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     return false;
   }
 
-  m_channelName = channels.GetChannel(m_channelId).GetChannelName();  
+  m_channelName = channels.GetChannel(m_channelId)->GetChannelName();  
 
   if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp)) 
     return false; 

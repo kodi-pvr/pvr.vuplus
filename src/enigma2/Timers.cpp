@@ -458,7 +458,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     tags = TAG_FOR_MANUAL_TIMER;
 
   std::string strTmp;
-  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid).GetServiceReference().c_str();
+  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
@@ -544,7 +544,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
   {
     //single channel
-    strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid).GetServiceReference()).c_str());
+    strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference()).c_str());
   }
 
   strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
@@ -569,7 +569,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
 
   std::string strTmp;
-  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid).GetServiceReference().c_str();  
+  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();  
 
   const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
   {
@@ -579,7 +579,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   if (it != m_timers.cend())
   {
     Timer oldTimer = *it;
-    std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId()).GetServiceReference().c_str();  
+    std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId())->GetServiceReference().c_str();  
     Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
     int iDisabled = 0;
@@ -676,7 +676,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
     if (timerToUpdate.GetAnyChannel() && timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
     {
       //move to single channel
-      strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid).GetServiceReference()).c_str());
+      strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference()).c_str());
     }
     else if (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
     {
@@ -735,7 +735,7 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
     return DeleteAutoTimer(timer);
 
   std::string strTmp;
-  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid).GetServiceReference().c_str();
+  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
