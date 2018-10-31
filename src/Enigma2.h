@@ -55,7 +55,7 @@ public:
   
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void) const;
-  PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
+  PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle, bool radio);
   PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
   int GetChannelsAmount(void) const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);

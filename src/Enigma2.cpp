@@ -205,12 +205,12 @@ unsigned int Enigma2::GetNumChannelGroups() const
   return m_channelGroups.GetNumChannelGroups();
 }
 
-PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle)
+PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle, bool radio)
 {
   std::vector<PVR_CHANNEL_GROUP> channelGroups;
   {
     CLockObject lock(m_mutex);
-    m_channelGroups.GetChannelGroups(channelGroups);
+    m_channelGroups.GetChannelGroups(channelGroups, radio);
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - channel groups available '%d'", __FUNCTION__, channelGroups.size());

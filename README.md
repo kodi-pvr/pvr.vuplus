@@ -48,11 +48,27 @@ Within this tab general options are configured.
 * **Update interval**: As the settop box can also be used to modify timers, delete recordings etc. and the settop box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
 
 ### Channels
-Within this tab options that refer to channel data can be set.
+Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
-* **Fetch only one TV bouquet**: If this option is set than only the channels that are in one specified TV bouquet will be loaded, instead of fetching all available channels in all available bouquets.
-* **TV bouquet**: If the previous option has been enabled you need to specify the TV bouquet to be fetched from the settop box. Please not that this is the bouquet-name as shown on the settop box (i.e. "Favourites (TV)"). This setting is case-sensitive.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the settop box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the settop box. Please note that "allow channel switching" needs to be enabled in the webinterface on the settop box.
+* **TV bouquet fetch mode**: Choose from one of the following three modes:
+    - `All bouquets` - Fetch all TV bouquets from the set-top box.
+    - `Only one bouquet` - Only fetch the bouquet specified in the next option
+    - `Favourites group` - Only fetch the system bouquet for TV favourites.
+* **TV bouquet**: If the previous option has been has been set to `Only one bouquet` you need to specify the TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. "Favourites (TV)"). This setting is case-sensitive.
+* **Fetch TV favourites bouquet**: If the fetch mode is `All bouquets` or `Only one bouquet` depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are:
+    - `Disabled` - Don't explicitly fetch TV favourites.
+    - `As first bouquet` - Explicitly fetch them as the first bouquet.
+    - `As last bouquet` - Explicitly fetch them as the last bouquet.
+* **Radio bouquet fetch mode**: Choose from one of the following three modes:
+    - `All bouquets` - Fetch all Radio bouquets from the set-top box.
+    - `Only one bouquet` - Only fetch the bouquet specified in the next option
+    - `Favourites group` - Only fetch the system bouquet for Radio favourites.
+* **Radio bouquet**: If the previous option has been has been set to `Only one bouquet` you need to specify the Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. "Favourites (Radio)"). This setting is case-sensitive.
+* **Fetch Radio favourites bouquet**: If the fetch mode is `All bouquets` or `Only one bouquet` depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are:
+    - `Disabled` - Don't explicitly fetch Radio favourites.
+    - `As first bouquet` - Explicitly fetch them as the first bouquet.
+    - `As last bouquet` - Explicitly fetch them as the last bouquet.
 
 ### EPG
 Within this tab options that refer to EPG data can be set. Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to `Settings->PVR & Live TV->Guide->Clear cache` in Kodi after the addon restarts.

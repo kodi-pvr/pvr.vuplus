@@ -215,12 +215,6 @@ PVR_ERROR Epg::GetInitialEPGForChannel(ADDON_HANDLE handle, const ChannelPtr cha
   if (m_channelGroups.GetNumChannelGroups() < 1)
     return PVR_ERROR_SERVER_ERROR;
 
-  if (channel->IsRadio())
-  {
-    Logger::Log(LEVEL_DEBUG, "%s Channel '%s' is a radio channel so no Initial EPG", __FUNCTION__, channel->GetChannelName().c_str());
-    return PVR_ERROR_NO_ERROR;
-  }
-
   ChannelGroupPtr myGroupPtr = nullptr;
   for (auto& group : channel->GetChannelGroupList())
   {

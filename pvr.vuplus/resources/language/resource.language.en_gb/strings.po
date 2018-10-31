@@ -117,7 +117,7 @@ msgid "Send deep standby command"
 msgstr ""
 
 msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
+msgid "TV bouquet fetch mode"
 msgstr ""
 
 msgctxt "#30026"
@@ -240,7 +240,21 @@ msgctxt "#30055"
 msgid "Genre ID mappings file"
 msgstr ""
 
-#empty strings from id 30056 to 30059
+msgctxt "#30056"
+msgid "TV"
+msgstr ""
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr ""
+
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr ""
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr ""
 
 msgctxt "#30060"
 msgid "Timeshift"
@@ -274,7 +288,13 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr ""
 
-#empty strings from id 30068 to 30069
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr ""
 
 msgctxt "#30070"
 msgid "Recordings & Timers"
@@ -292,7 +312,35 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr ""
 
-#empty strings from id 30074 to 30409
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr ""
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr ""
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr ""
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr ""
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr ""
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr ""
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr ""
+
+#empty strings from id 30081 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

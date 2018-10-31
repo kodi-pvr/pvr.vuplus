@@ -36,7 +36,7 @@ namespace enigma2
   class ChannelGroups
   {
   public:
-    void GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &channelGroups) const;
+    void GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &channelGroups, bool radio) const;
     PVR_ERROR GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER> &channelGroupMembers, const std::string &groupName);
 
     int GetChannelGroupUniqueId(const std::string &groupName) const;
@@ -51,6 +51,10 @@ namespace enigma2
     bool LoadChannelGroups();
 
   private:   
+    bool LoadTVChannelGroups();
+    bool LoadRadioChannelGroups();
+    void AddTVFavouritesChannelGroup();
+    void AddRadioFavouritesChannelGroup();
     void AddChannelGroup(enigma2::data::ChannelGroup& channelGroup);
 
     std::vector<data::ChannelGroupPtr> m_channelGroups;
