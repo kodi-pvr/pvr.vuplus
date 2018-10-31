@@ -71,17 +71,32 @@ void Settings::ReadFromAddon()
     m_updateInterval = DEFAULT_UPDATE_INTERVAL;
 
   //Channels
-  if (!XBMC->GetSetting("onlyonegroup", &m_onlyOneGroup))
-    m_onlyOneGroup = false;
-  
-  if (XBMC->GetSetting("onegroup", buffer))
-    m_oneGroup = buffer;
-  else
-    m_oneGroup = "";
-  buffer[0] = 0;
-
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
+
+  if (!XBMC->GetSetting("tvgroupmode", &m_tvChannelGroupMode))
+    m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
+  
+  if (XBMC->GetSetting("onetvgroup", buffer))
+    m_oneTVGroup = buffer;
+  else
+    m_oneTVGroup = "";
+  buffer[0] = 0;
+
+  if (!XBMC->GetSetting("tvfavouritesmode", &m_tvFavouritesMode))
+    m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
+
+  if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
+    m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+  
+  if (XBMC->GetSetting("oneradiogroup", buffer))
+    m_oneRadioGroup = buffer;
+  else
+    m_oneRadioGroup = "";
+  buffer[0] = 0;
+
+  if (!XBMC->GetSetting("radiofavouritesmode", &m_radioFavouritesMode))
+    m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
 
   //EPG
   if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))
@@ -204,12 +219,20 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "updateint")
     return SetSetting<int>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK);
   //Channels
-  else if (settingName == "onlyonegroup")
-    return SetSetting<bool>(settingName, settingValue, m_onlyOneGroup, ADDON_STATUS_NEED_RESTART);
-  else if (settingName == "onegroup")
-    return SetStringSetting(settingName, settingValue, m_oneGroup, ADDON_STATUS_NEED_RESTART);
   else if (settingName == "zap")
     return SetSetting<bool>(settingName, settingValue, m_zap, ADDON_STATUS_OK);
+  else if (settingName == "tvgroupmode")
+    return SetSetting<ChannelGroupMode>(settingName, settingValue, m_tvChannelGroupMode, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "onetvgroup")
+    return SetStringSetting(settingName, settingValue, m_oneTVGroup, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "tvfavouritesmode")
+    return SetSetting<FavouritesGroupMode>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "radiogroupmode")
+    return SetSetting<ChannelGroupMode>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "oneradiogroup")
+    return SetStringSetting(settingName, settingValue, m_oneRadioGroup, ADDON_STATUS_NEED_RESTART);
+  else if (settingName == "radiofavouritesmode")
+    return SetSetting<FavouritesGroupMode>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART);
   //EPG
   else if (settingName == "extractepginfoenabled")
     return SetSetting<bool>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART);
@@ -264,7 +287,7 @@ ADDON_STATUS Settings::SetStringSetting(const std::string &settingName, const vo
 
   if (strSettingValue != currentValue)
   {
-    Logger::Log(LEVEL_INFO, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
+    Logger::Log(LEVEL_NOTICE, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
     currentValue = strSettingValue;
     return returnValueIfChanged;
   }

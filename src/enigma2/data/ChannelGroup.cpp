@@ -26,12 +26,14 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   if (groupName == "<n/a>" || groupName.compare(groupName.length() - 12, 12, " - Separator") == 0 || groupName == "Last Scanned")
     return false;
 
-  if (!radio && Settings::GetInstance().GetOneTVGroupOnly() && Settings::GetInstance().GetOneTVGroupName() != groupName)
+  if (!radio && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP && 
+        Settings::GetInstance().GetOneTVGroupName() != groupName)
   {
     Logger::Log(LEVEL_DEBUG, "%s Only one TV group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, serviceReference.c_str(), Settings::GetInstance().GetOneTVGroupName().c_str());
     return false;
   } 
-  else if (radio && Settings::GetInstance().GetOneRadioGroupOnly() && Settings::GetInstance().GetOneRadioGroupName() != groupName)
+  else if (radio && Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP && 
+            Settings::GetInstance().GetOneRadioGroupName() != groupName)
   {
     Logger::Log(LEVEL_DEBUG, "%s Only one Radio group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, serviceReference.c_str(), Settings::GetInstance().GetOneRadioGroupName().c_str());
     return false;

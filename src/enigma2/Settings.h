@@ -22,6 +22,22 @@ namespace enigma2
   static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreTextMappings/Rytec-UK-Ireland";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
+  enum class ChannelGroupMode
+    : int // same type as addon settings
+  {
+    ALL_GROUPS = 0,
+    ONLY_ONE_GROUP,
+    FAVOURITES_GROUP
+  };
+
+  enum class FavouritesGroupMode
+    : int // same type as addon settings
+  {
+    DISABLED = 0,
+    AS_FIRST_GROUP,
+    AS_LAST_GROUP
+  };
+
   enum class Timeshift
     : int // same type as addon settings
   {
@@ -72,9 +88,13 @@ namespace enigma2
     int GetUpdateIntervalMins() const { return m_updateInterval; }
 
     //Channel
-    bool GetOneGroupOnly() const { return m_onlyOneGroup; }
-    const std::string& GetOneGroupName() const { return m_oneGroup; }
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
+    const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
+    const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
+    const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
+    const ChannelGroupMode& GetRadioChannelGroupMode() const { return m_radioChannelGroupMode; }
+    const std::string& GetOneRadioGroupName() const { return m_oneRadioGroup; }
+    const FavouritesGroupMode& GetRadioFavouritesMode() const { return m_radioFavouritesMode; }
    
     //EPG
     bool GetExtractShowInfo() const { return m_extractShowInfo; }
@@ -156,9 +176,13 @@ namespace enigma2
     int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     
     //Channel
-    bool m_onlyOneGroup = false;
-    std::string m_oneGroup = "";
     bool m_zap = false;
+    ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
+    std::string m_oneTVGroup = "";
+    FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
+    ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+    std::string m_oneRadioGroup = "";
+    FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
 
     //EPG
     bool m_extractShowInfo = true;

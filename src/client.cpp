@@ -114,7 +114,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   Logger::GetInstance().SetPrefix("pvr.vuplus");
 
-  Logger::Log(LogLevel::LEVEL_INFO, "starting PVR client XXX");  
+  Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __FUNCTION__);  
 
   settings.ReadFromAddon();
 
@@ -267,20 +267,14 @@ int GetChannelGroupsAmount(void)
 
 PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
 {
-  if (bRadio)
-    return PVR_ERROR_NO_ERROR;
-
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return enigma->GetChannelGroups(handle);
+  return enigma->GetChannelGroups(handle, bRadio);
 }
 
 PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
 {
-  if (group.bIsRadio)
-    return PVR_ERROR_NO_ERROR;
-
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
