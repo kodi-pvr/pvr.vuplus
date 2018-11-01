@@ -211,13 +211,13 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 
 const char *GetBackendName(void)
 {
-  static const char *backendName = enigma ? enigma->GetServerName() : "unknown";
+  static const char *backendName = enigma ? enigma->GetServerName() : LocalizedString(60081).c_str(); //unknown
   return backendName;
 }
 
 const char *GetBackendVersion(void)
 {
-  static const char *backendVersion = enigma ? enigma->GetServerVersion() : "unknown";
+  static const char *backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(60081).c_str(); //unknown
   return backendVersion;
 }
 
@@ -226,9 +226,9 @@ static std::string connectionString;
 const char *GetConnectionString(void)
 {
   if (enigma)
-    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : " (Not connected!)");
+    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : LocalizedString(60082).c_str()); // (Not connected!)
   else
-    connectionString = StringUtils::Format("%s (addon error!)", settings.GetHostname().c_str());
+    connectionString = StringUtils::Format("%s (%s!)", settings.GetHostname().c_str(), LocalizedString(60083).c_str()); //addon error
   return connectionString.c_str();
 }
 
@@ -247,8 +247,8 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 {
   // the RS api doesn't provide information about signal quality (yet)
 
-  PVR_STRCPY(signalStatus.strAdapterName, "Enigma2 Media Server");
-  PVR_STRCPY(signalStatus.strAdapterStatus, "OK");
+  PVR_STRCPY(signalStatus.strAdapterName, LocalizedString(60084).c_str()); //Enigma2 Media Server
+  PVR_STRCPY(signalStatus.strAdapterStatus, LocalizedString(60085).c_str()); //OK
   return PVR_ERROR_NO_ERROR;
 }
 

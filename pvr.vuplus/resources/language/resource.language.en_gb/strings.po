@@ -340,7 +340,27 @@ msgctxt "#30080"
 msgid "Favourites (Radio)"
 msgstr ""
 
-#empty strings from id 30081 to 30409
+msgctxt "#30081"
+msgid "unknown"
+msgstr ""
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr ""
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr ""
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr ""
+
+msgctxt "#30085"
+msgid "OK"
+msgstr ""
+
+#empty strings from id 30086 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"
