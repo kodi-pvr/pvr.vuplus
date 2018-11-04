@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Hostname atau alamat IP VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Port pengaliran"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "NamaPengguna"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Password"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Koneksi"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ikon"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Timeout response dalam deti"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Path Ikon"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval update dalam menit"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Pembersihan TImerlist secara otomatis"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Port antar-muka web"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Matikan sebelum pindah kanal (Contohnya untuk Tuner tunggal)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Folder untuk data kanal"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Cek untuk pemuktahiran buket"
+msgid "Update interval"
+msgstr "Interval update"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,57 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder rekaman di penerima"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Kirim perintah DeepStandby-Command"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Hanya ambil satu buket TV"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Buket TV"
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG "
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Ambil picons dan antarmuka web"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Tidak Pernah"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Gunakan Secure HTTP (https)"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "di EPG saja"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Di perekaman saja"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Selalu"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Masuk"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Misc"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Pergeseran waktu"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Path penyangga Timeshift"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Matikan"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Perekaman"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Non Aktif"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

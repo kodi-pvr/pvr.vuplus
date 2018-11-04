@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+-isäntänimi tai ip-osoite"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Suoratoistoportti"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Käyttäjänimi"
@@ -32,37 +24,33 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Salasana"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Yhteys"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Logot"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Vastauksen aikakatkaisu sekunneissa"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Kanavalogojen polku"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Päivitysväli"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Päivitysväli minuuteissa"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automaattinen ajastuslistan siivous"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Web-käyttöliittymän portti"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Lähetä vaihtokäsky ennen kanavan vaihtamista (yhden virittimen bokseille)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Kanavadatan kansio"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Tarkista kanavaryhmien päivitykset"
+msgid "Update interval"
+msgstr "Päivitysväli"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +84,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Vastaanottimen tallennuskansio"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Lähetä syväunikomento"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Nouda vain yksi kanavaryhmä"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Kanavaryhmän nimi"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Nouda kanavalogot web-käyttöliittymästä"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Käytä suojattua HTTP:tä (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +96,98 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Säilytä tallenteiden kansiorakenne"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "Ohjelmaopas"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Käytä picons.eu:n tiedostomuotoa"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Ei koskaan"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Vain ohjelmaoppaassa"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Vain tallenteissa"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Aina"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Käyttäjätunnus"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Muut"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Ajansiirto"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Ajansiirtopuskurin polku"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Pois päältä"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Toiston aikana"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Tauon aikana"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Ajastus ja tallennus"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Tallenteet"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Ajastukset"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automaattinen"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Kerran (luotu ajastussäännöllä)"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Kerran (luotu ajastussäännöllä)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Ei käytössä"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Tallenna, jos on eri ohjelmanimi"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Tallenna, jos ohjelman nimi ja jakso eroavat"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Tallenna, jos ohjelman nimi, jakso ja juoni eroavat"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Yhteys katkaistu palvelimeen '%s'"
@@ -131,3 +195,7 @@ msgstr "Yhteys katkaistu palvelimeen '%s'"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Yhdistetty palvelimeen '%s'"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Ajansiirtopuskurin polkua ei ole olemassa"

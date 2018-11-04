@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Language: th_TH\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "พอร์ตการสตรีมมิ่ง"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "ชื่อผู้ใช้"
@@ -28,9 +24,17 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "รหัสผ่าน"
 
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "พอร์ต Webinterface"
+msgctxt "#30005"
+msgid "Connection"
+msgstr "การเชื่อมต่อ"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "ไอคอน"
+
+msgctxt "#30015"
+msgid "Update interval"
+msgstr "ช่วงเวลาการปรับปรุง"
 
 msgctxt "#30018"
 msgid "General"
@@ -47,3 +51,47 @@ msgstr "ขั้นสูง"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "ไม่เลย"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "ใน EPG เท่านั้น"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "ในการบันทึกเท่านั้น"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "เสมอ"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "ลงชื่อเข้าใช้"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "เส้นทางบัฟเฟอร์ของ Timeshift"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "ปิด"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "กำลังบันทึก"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "ตั้งเวลา"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "อัตโนมัติ"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "ปิดการใช้งาน"

@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: mk_MK\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ hostname или IP адреса"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Streaming Port"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Корисничко име"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Лозинка"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Конекција"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Икони"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Response timeout in seconds"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Патека за икони"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Интервал на надградби во минути"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automatic Timerlist Cleanup"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Webinterface Port"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap before channelswitch (i.e. for Single Tuner boxes)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Папки за channeldata"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Провери дали има нови пакети"
+msgid "Update interval"
+msgstr "Период на освежување"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,49 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка за снимање на ресиверот"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Испрати Наредба за DeepStandby"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Превземи само еден TV пакет"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "ТВ-Пакет"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Никогаш"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Превземи икони од интернет"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Само во EPG"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Користи Secure HTTP (https)"
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Само во снимките"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Секогаш"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Најави се"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Пат за Timeshift buffer-от"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Искл."
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Снимки"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Бројачи"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Исклучено"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

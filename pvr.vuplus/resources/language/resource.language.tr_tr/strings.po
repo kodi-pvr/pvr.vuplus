@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ ana bilgisayar adı veya IP adresi"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Yayın Portu"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Kullanıcı adı"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Parola"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Bağlantı"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Simgeler"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Saniye cinsinden yanıt zaman aşımı süresi"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Simge Yolu"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Güncelleme aralığı dakikası"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Otomatik Zamanlayıcı Listesi Temizleme"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Web arayüzü Portu"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Kanal değişiminden önce değiştir (örn. Tek Alıcılı kutular)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Kanal verisi için klasör"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "bouquett güncellemelerini denetle"
+msgid "Update interval"
+msgstr "Güncelleme aralığı"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,65 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Alıcıdaki kayıt klasörü"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Derin Hazırda Beklet komutu yolla"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Sadece tek TV destesi getir"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV Destesi"
+msgctxt "#30032"
+msgid "EPG"
+msgstr "Elektronik Program Rehberi"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Picon'ları web arayüzünden getir"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Asla"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Güvenli HTTP kullan (https)"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Sadece EPG içinde"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Sadece kayıtlarda"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Her zaman"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Oturum Aç"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Çeşitli"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Zaman Kaydırma"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Zaman kaydırma arabellek yolu"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Kapalı"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Kayıtlar"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Zamanlayıcılar"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Otomatik"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Devre dışı"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

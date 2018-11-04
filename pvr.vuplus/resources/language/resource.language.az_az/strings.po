@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,6 +16,14 @@ msgstr ""
 "Language: az_AZ\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Qoşulma"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Piktoqramlar"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "Ümumi"
@@ -23,3 +31,7 @@ msgstr "Ümumi"
 msgctxt "#30019"
 msgid "Channels"
 msgstr "Kanallar"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Həmişə"

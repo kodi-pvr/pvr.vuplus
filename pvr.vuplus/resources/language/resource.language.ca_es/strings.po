@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: ca_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Nom d'amfitrió o IP de VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Port de la transmissió en línia"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Nom d'usuari"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Contrasenya"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Connexió"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Icones"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Temps d'expiració de la resposta en segons"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Camí a la icona"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval d'actualització en minuts"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Neteja automàtica de Timerlist"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Port de la interfície web"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap abans de canviar de canal (és a dir, per a les caixes amb solament un sintonitzador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Carpeta pel canal de dades"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Comprova si hi ha actualitzacions del paquet de TV"
+msgid "Update interval"
+msgstr "Interval d'actualització"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,73 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta d'enregistrament en el receptor"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Enviar ordre DeepStandby"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Obté només un paquet de TV"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Paquet TV"
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Obté els picons des de la interfície web"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Mai"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Utilitza HTTP segur (https)"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Solament a l'EPG"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Solament als enregistraments"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Sempre"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Autenticació"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Altres"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Salts en el temps"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Camí a la memòria intermèdia dels salts en el temps"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Apagat"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Amb la reproducció"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Amb la pausa"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Enregistraments"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Temporitzadors"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automàtic"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Inhabilitat"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

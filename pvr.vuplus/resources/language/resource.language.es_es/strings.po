@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Nombre o dirección IP de VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Puerto streaming"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Usuario"
@@ -32,37 +24,33 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Contraseña"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Conexión"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Iconos"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Tiempo de espera de respuesta en segundos"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Ruta del icono"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Intervalo de Actualización"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Intervalo de actualización en minutos"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Limpieza automática de temporizadores"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Puerto interface web"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap antes de cambiar de canal (es decir, para las cajas de solo un sintonizador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Carpeta para canales"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Buscar actualizaciones de bouquett"
+msgid "Update interval"
+msgstr "Intervalo de actualización"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +84,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta de grabaciones en el receptor"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Enviar comando DeepStandby"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Buscar sólo un bouquet de TV"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Bouquet de TV"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Obtener picons de la interfaz web"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Usar HTTP seguro (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +96,102 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Mantener estructura de carpetas para las grabaciones"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Usar formato de archivo picons.eu"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Streaming"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nunca"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Solo con EPG"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Solo gravaciones"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Siempre"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Inicio de sesión"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Otros"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Timeshift"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Ruta del buffer de Timeshift"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Desactivado"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Reproduciendo"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Pausado"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Grabaciones y Programaciones"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Grabaciones"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Programaciones"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automático"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Una vez (Programado por una regla basada en la guía)"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Una vez (Programada para repetir por regla de tiempo)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Desactivado"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Grabar si el título en EPG difiere"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Grabar aunque el título y la descripción corta en EPG difiera"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Grabar aunque el título y cualquier descripción en EPG difiera"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Desconectado de '%s'"
@@ -131,3 +199,7 @@ msgstr "Desconectado de '%s'"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Reconectado a '%s'"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "La ruta para el buffer de timeshift no existe"

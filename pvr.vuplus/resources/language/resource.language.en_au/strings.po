@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: en_AU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ hostname or IP address"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Streaming Port"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Username"
@@ -32,37 +24,25 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Password"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Connection"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Icons"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Response timeout in seconds"
-
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Icon Path"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Update Interval in minutes"
 
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automatic Timerlist Cleanup"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Webinterface Port"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap before channelswitch (i.e. for Single Tuner boxes)"
-
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Folder for channeldata"
-
-msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Check for bouquett updates"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +76,37 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Recording folder on the receiver"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Send DeepStandby-Command"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Fetch only one TV bouquet"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Never"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Fetch picons from webinterface"
+msgctxt "#30045"
+msgid "Always"
+msgstr "Always"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Use Secure HTTP (https)"
+msgctxt "#30051"
+msgid "Login"
+msgstr "Login"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Timeshift buffer path"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Off"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Recordings"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Disabled"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

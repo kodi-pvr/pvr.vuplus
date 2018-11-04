@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.14.0"
+  version="3.14.1"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -71,10 +71,7 @@
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.
-    
-For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md
-    </description>
+    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md&#10;    </description>
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
@@ -133,7 +130,7 @@ For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/master/READ
     <disclaimer lang="es_ES">¡Este es un software inestable! Los autores no son de ninguna manera responsables de las grabaciones fallidas o incorrectas, las temporizadores perdidas, ni otros efectos no deseables..</disclaimer>
     <disclaimer lang="es_MX">¡Esto es software inestable! Los autores no son de ninguna manera responsables por grabaciones fallidas, temporizadores incorrectos, horas perdidas o cualquier otro efecto no deseado...</disclaimer>
     <disclaimer lang="et_EE">See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nurjunud salvestiste, ebaõige aegrelee, raisatud tundide ega muude soovimatute asjade eest.</disclaimer>
-    <disclaimer lang="eu_ES">Software hau beta bertsioan dago! Egilea ez da arduratzen grabaketa erroretaz, kronometro erroreak, hordu galduak edo beste edozein ondorio ezerosotaz</disclaimer>
+    <disclaimer lang="eu_ES">Software hau ezegonkorra da! Egilea ez da arduratzen grabazio-erroreetaz, kronometro-erroreetaz, ordu galduetaz edo beste edozein ondorio ezerosoetaz.</disclaimer>
     <disclaimer lang="fi_FI">Tämä on epävakaa ohjelma! Sen tekijät eivät ole millään muotoa vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, haaskatusta ajasta, verenpaineen noususta tai mistään muusta epäsuotuisasta vaikutuksesta.</disclaimer>
     <disclaimer lang="fr_CA">Ce logiciel est instable ! Les auteurs ne sont aucunement responsables des enregistrements défaillants, des minuteries erronées, des heures perdues ou tout autre effet indésirable.</disclaimer>
     <disclaimer lang="fr_FR">Logiciel en cours d'élaboration ! Les auteurs ne sont en aucun cas responsables de l'échec des enregistrements, programmations défectueuses, temps perdu ou autres effets indésirables.</disclaimer>

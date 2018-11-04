@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -24,6 +24,14 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "စကားဝှက်"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "ကွန်နက်ရှင်"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Icons"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "ယေဘုယျ"
@@ -35,3 +43,27 @@ msgstr "Channel များ"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "အဆင့်မြင့်သော"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "ဘယ်တော့မှ"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "အမြဲတမ်း"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "ဝင်ရန်"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "ပိတ်"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "အသံသွင်းခြင်း"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "ပိတ်ထားမည်"

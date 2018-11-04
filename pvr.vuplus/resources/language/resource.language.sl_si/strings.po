@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: sl_SI\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Ime gostitelja ali IP strežnika VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Vrata za pretakanje"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Uporabniško ime"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Geslo"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Povezava"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ikone"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Čas preteka odgovora v sekundah"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Pot ikon"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval posodabljanja v minutah"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Samodejno čiščenje seznama časovnikov"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Vrata spletnega vmesnika"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zamenjaj program tudi na sprejemniku"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Mapa za podatke o programih"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Preveri za posodobitve skupin"
+msgid "Update interval"
+msgstr "Interval posodabljanja"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,69 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Mapa snemanja na sprejemniku"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Pošlji ukaz za prehod v stanje pripravljenosti"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Prenesi le eno skupino"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Skupina programov"
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPV"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Prenesi ikone s spletnega vmesnika"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nikoli"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Uporabi varen HTTP (https)"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Samo v EPG"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Samo v posnetkih"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Vedno"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Prijava"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Razno"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Časovni zamik"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Pot medpomnenja časovnega zamika"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Izključeno"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Ob predvajanju"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Ob prekinitvi"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Posnetki"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Samodejno"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Onemogočeno"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

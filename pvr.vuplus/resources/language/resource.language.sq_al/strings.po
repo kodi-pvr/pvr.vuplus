@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: sq_AL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ hostname ose adresa IP"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Porti i transmetimit"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Emër-përdoruesi"
@@ -32,37 +24,21 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Fjalëkalimi"
 
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ikona"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Timeout i përgjigjjes në eskonda"
-
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Vendndodhja e ikonave"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval i aktualizimit në minuta"
 
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Pastrimi i Orarit automatikisht"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Webinterface porti"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Parashikimi i kanaleve para ndrimit tëi një kanali (p.sh. për aparate me Single Tuner )"
-
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Rregjistri për informacionet të kanaleve"
-
-msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Shikoni për aktualizime të buketit"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,21 +72,29 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Regjistër i regjistrimeve në resiverin"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Dërgo komand DeepStandby"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Shkarko vetëm një TV buket"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-Buket"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Kurrë"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Tërhiqni pikon'at nga webinterface"
+msgctxt "#30045"
+msgid "Always"
+msgstr "Gjithnjë"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Hequr"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Rregjistrime"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Deaktivuar"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

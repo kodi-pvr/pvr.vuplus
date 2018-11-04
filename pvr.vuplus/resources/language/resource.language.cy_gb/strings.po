@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: cy_GB\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Enw gwesteiwr neu gyfeiriad IP VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Porth Ffrydio"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Enw defnyddiwr"
@@ -32,37 +24,25 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Cyfrinair"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Cysylltiad"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Eiconau"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Ymateb amser allan mewn eiliadau"
-
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Llwybr Eiconau"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Cyfnod diweddaru mewn munudau"
 
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Glanhau Amserlen yn Awtomatig"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Porth Rhyngwyneb Gwe"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Sapio cyn newid sianel (h.y. ar gyfer blychau Tiwniwr Unigol)"
-
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Ffolder ar gyfer data sianel"
-
-msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Gwirio am ddiweddariad bouquett"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +76,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Ffolder recordio ar y derbynnydd"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Anfon DeepStandby-Command"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Estyn dim ond un bouquet Teledu"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Estyn piconau o'r rhyngwyneb gwe"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Defnyddiwch HTTP (https) Diogel"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -123,6 +87,34 @@ msgstr "Galluogi ffurfweddu awtomatig ar gyfer ffrydio'n fyw"
 msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Cadw strwythur y ffolderi ar gyfer recordiadau"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Byth"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Bob tro"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Mewngofnodi"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Llwybr byffro Symud Amser"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Diffodd"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Recordiadau"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Analluogwyd"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

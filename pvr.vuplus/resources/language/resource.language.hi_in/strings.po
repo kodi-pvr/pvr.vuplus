@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -20,6 +20,10 @@ msgctxt "#30003"
 msgid "Username"
 msgstr "उपयोगकर्ता नाम"
 
+msgctxt "#30006"
+msgid "Icons"
+msgstr "प्रतीक"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "सामान्य"
@@ -27,3 +31,11 @@ msgstr "सामान्य"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "उन्नत"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "से"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "विकलांग"

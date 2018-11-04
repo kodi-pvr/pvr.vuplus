@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -24,6 +24,10 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "كلمة المرور"
 
+msgctxt "#30006"
+msgid "Icons"
+msgstr "رموز"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "عام"
@@ -39,6 +43,30 @@ msgstr "منقدم"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "أبداً"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "دائما"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "تعطيل"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "التسجيلات"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "معطلة"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

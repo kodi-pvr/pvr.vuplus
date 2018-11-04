@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -23,6 +23,10 @@ msgstr "Номи корбар"
 msgctxt "#30004"
 msgid "Password"
 msgstr "Парол"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Нишонаҳо"
 
 msgctxt "#30007"
 msgid "Response timeout in seconds"
@@ -43,6 +47,30 @@ msgstr "Иловагӣ"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Ҳеҷ гоҳ"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Ҳамеша"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Вуруд"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Хомӯш"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Сабтҳо"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Ғайрифаъол"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

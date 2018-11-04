@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Имя VU+ хоста или IP-адрес"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Порт видео-потока"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Пользователь"
@@ -32,37 +24,33 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Пароль"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Соединение"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Значки"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Тайм-аут отклика в секундах"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Путь к значкам"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Интервал обновления"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Интервал обновления в минутах"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Авто-очистка таймеров"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Порт веб-интерфейса"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Сброс перед переключением канала (для одно-тюнерных устройств)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Папка для данных о каналах"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Проверять обновления букетов"
+msgid "Update interval"
+msgstr "Интервал обновления"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +84,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка для записей на ресивере"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Послать команду DeepStandby"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Выбрать только один букет"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-букет"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Брать лого каналов из вебинтерфейса"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Использовать защищенный HTTP протокол (https) "
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +96,98 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Хранить структуру папок для записей"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Использовать файлы в формате picons.eu"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Никогда"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Только в EPG"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Только в записях"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Всегда"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Логин"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Разное"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Таймшифт"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Путь к буферу таймшифт"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Выкл."
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Воспроизводится"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "На паузе"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Запись и планирование"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Записи"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Таймеры"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Автоматически"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Единоразово (по расписанию планировщика на основе руководства)"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Единоразово (по расписанию на основе правил планировщика)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Откл."
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Записывать, даже если название телепередачи не совпадает"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Записывать, даже если не совпадает название и краткое описание телепередачи"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Записывать, даже если не совпадает название и описание телепередачи"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Отсоединено от '%s'"
@@ -131,3 +195,7 @@ msgstr "Отсоединено от '%s'"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Подключено к '%s'"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Отсутствует путь для буферизации отложенного просмотра"

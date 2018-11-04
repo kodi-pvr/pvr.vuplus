@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: lt_LT\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ kompiuterio vardas arba IP adresas"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Srauto prievadas"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Vartotojo vardas"
@@ -32,37 +24,33 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Slaptažodis"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Prijungimas"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Piktogramos"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Reakcijos laikas, sekundėmis"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Piktogramos kelias"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Atnaujinimo intervalas"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Naujinimo intervalas minutėmis"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automatinis 'Laikmačio Sąrašo' valymas"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Web sąsajos prievadas"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap before channelswitch (i.e. for Single Tuner boxes)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Aplankas kanalo duomenims"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Patikrinkite paketo atnaujinimus"
+msgid "Update interval"
+msgstr "Atnaujinimo intervalas"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +84,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Įrašymo aplankas į imtuvą"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Siųsti 'Gilus budėjimo režimas' - Komandą"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Išrinkta tik viena TV plokštė"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-Plokštė"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Įkelti 'picons' iš interneto sąsajos"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Naudoti saugų HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +96,102 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Išlaikyti aplanko struktūrą įrašams"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Naudoti picons.eu failo formatą"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Transliuojama"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Niekada"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Tik EPG lange"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Tik įrašymuose"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Visada"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Prisijungimo vardas"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Įvairūs"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Laiko poslinkis"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Laiko poslinkio buferio kelias"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Išjungta"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Atkuriant"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Pristabdžius"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Įrašai ir laikmačiai"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Įrašai"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Laikmačiai"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automatiškai"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Vieną kartą (suplanuota gidu paremtos laikmačio taisyklės)"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Vienkartinis (suplanuotas pasikartojančio laikmačio taisyklės)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Atjungta"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Įrašyti, jei skiriasi EPG pavadinimas"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Įrašyti jei EPG pavadinimas ir trumpas aprašymas skiriasi"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Įrašyti jei EPG pavadinimas ir visi aprašymai skiriasi"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Atjungtas nuo '%s'"
@@ -131,3 +199,7 @@ msgstr "Atjungtas nuo '%s'"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Prijungtas prie '%s'"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Laiko poslinkio buferio kelias neegzistuoja"

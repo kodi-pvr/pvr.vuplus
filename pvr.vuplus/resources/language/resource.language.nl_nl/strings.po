@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ hostnaam of IP-adres"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Streamingpoort"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Gebruikersnaam"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Wachtwoord"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Verbinding"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Iconen"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Antwoordtimeout in seconden"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Icoonpad"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Update-interval in minuten"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automatische opschoning van timers"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Webinterfacepoort"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap voor kanaalwisseling (bv. bij enkelvoudige tuners)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Map voor kanaaldata"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Controleer bouquetupdates"
+msgid "Update interval"
+msgstr "Updatefrequentie"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Opnamemap op de ontvanger"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Stuur DeepStandby-commando"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Haal slechts 1 TV-bouquet op"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-bouquet"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Haal picons op van de webinterface"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Gebruik beveiligde HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +92,82 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Behoud folder structuur voor opnamen"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Streaming"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nooit"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Alleen in EPG"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Alleen in opnames"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Altijd"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Gebruikersnaam"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr " Divers"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Timeshift"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Tijdsprong bufferlocatie"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Uit"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Tijdens afspelen"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "tijdens Pauze"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Opnames"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Timers"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Eenmalig (ingesteld door gidsgebaseerde tijdregel)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Opname indien EPG-titel afwijkt"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Verbinding met '%s' verbroken"
@@ -131,3 +175,7 @@ msgstr "Verbinding met '%s' verbroken"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Verbinding met '%s' hersteld"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Tijdshift-bufferpad bestaat niet"

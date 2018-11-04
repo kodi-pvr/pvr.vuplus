@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Nome ou endereço IP do servidor VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Porta de transmissão"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Nome de utilizador"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Palavra-passe"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Ligação"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ícones"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Tempo limite para resposta (segundos)"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Caminho do ícone"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Intervalo de atualização (minutos)"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Limpeza automática da Timerlist"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Porta da interface web"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Zap antes de mudar de canal (útil para caixas só com um sintonizador)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Pasta para dados do canais"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Procurar atualizações do bouquett"
+msgid "Update interval"
+msgstr "Intervalo de atualização "
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,73 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Pasta de gravação no recetor"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Enviar comando de DeepStandby"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Obter apenas um TV bouquet"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Obter ícones da interface web"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nunca"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Utilizar HTTP seguro (https)"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Apenas em EPG"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Apenas em gravações"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Sempre"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Iniciar sessão"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Outras"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Ver Mais Tarde"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Localização do buffer para 'Ver Mais Tarde'"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Desligado"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Ao reproduzir"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Ao pausar"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Gravações"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Temporizadores"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automático"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Desativado"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

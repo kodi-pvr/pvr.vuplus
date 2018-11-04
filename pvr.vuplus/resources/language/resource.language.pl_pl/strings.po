@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Nazwa lub adres serwera"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Port transmisji"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Użytkownik"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Hasło"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Połączenie"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Plakaty"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Limit czasu odpowiedzi w sekundach"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Folder z ikonami"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Częstotliwość aktualizacji w minutach"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automatyczne czyszczenie harmonogramu nagrań"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Port interfejsu webowego"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Przełączaj na dany kanał (np. dla dekoderów z jednym tunerem)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Folder danych kanałów"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Sprawdzaj aktualizacje bukietów"
+msgid "Update interval"
+msgstr "Częstotliwość aktualizacji"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder nagrywania na dekoderze"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Wysyłaj polecenie głębokiego czuwania"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Pobieraj tylko jeden bukiet"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Bukiet"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Pobieraj loga kanałów przez interfejs webowy"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Używaj zabezpieczonego HTTP (HTTPS)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +92,82 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Zachowuj strukturę folderów nagrań"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "Przewodnik"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Strumieniowanie"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nigdy"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "W przewodniku"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "W nagraniach"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Zawsze"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Użytkownik"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Dodatkowe"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Przesunięcie czasowe"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Folderu bufora przesunięcia czasowego"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Nieaktywne"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Po rozpoczęciu odtwarzania"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Po wstrzymaniu odtwarzania"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Nagrania"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Zadania"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automat"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Jednorazowo (zaplanowane przez regułę bazująca na przewodniku)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Nieaktywny"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Nagrywaj, gdy tytuł w przewodniku się różni"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Rozłączono od '%s'"
@@ -131,3 +175,7 @@ msgstr "Rozłączono od '%s'"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Połączono ponownie z '%s'"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Folderu bufora przesunięcia czasowego nie istnieje"

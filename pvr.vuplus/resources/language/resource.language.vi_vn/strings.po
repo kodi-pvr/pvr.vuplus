@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Tên miền hoặc địa chỉ IP của VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Cổng Streaming"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Tên truy cập"
@@ -32,37 +24,25 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Mật khẩu"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Kết nối"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Biểu tượng"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Số giây tự ngắt chờ kết nối"
-
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Đường dẫn biểu tượng"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Số phút tự cập nhật lại"
 
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Tự động xoá danh sách hẹn giờ"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Cổng Webinterface"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Tắt trước khi chuyển kênh (ví dụ cho các Single Tuner box)"
-
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Thư mục đặt dữ liệu cho kênh"
-
-msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Kiểm tra cập nhật bouquett"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +76,37 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Thư mục lưu trên thiết bị"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Gửi lệnh Chế Độ Chờ"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Chỉ lấy một TV bouquet"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-Bouquet"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Không bao giờ"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Lấy các hình icon từ mạng"
+msgctxt "#30045"
+msgid "Always"
+msgstr "Luôn luôn"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Sử dụng an toàn HTTP (https)"
+msgctxt "#30051"
+msgid "Login"
+msgstr "Đăng nhập"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Đường dẫn bộ đệm Timeshift"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Tắt"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Các bản ghi"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Đã tắt"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

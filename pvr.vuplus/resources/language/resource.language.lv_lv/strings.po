@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: lv_LV\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ saimniekvārds vai IP adrese"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Straumēšanas ports"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "LIetotājs"
@@ -32,37 +24,25 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Parole"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Pieslēgums"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ikonas"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Atbildes noilgums sekundēs"
-
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Ikonu ceļš"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Atjaunināšanas intervāls minūtēs"
 
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automātiska taimersaraksta uzkopšana"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Tīmekļa saskarnes ports"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Pārslēgt pirms kanāla pārslēgšanās (piem., viena uztvērēja pierīcēm)"
-
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Mape kanāldatiem"
-
-msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Pārbaudīt buķetes atjauninājumus"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +76,45 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Ierakstīšanas mape atskaņotājā"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Sūtīt \"dziļas gatavības\" komandu"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Iegūt tikai vienu TV buķeti"
 
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-buķete"
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nekad"
 
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Iegūt pikonas no tīmeklā saskarnes"
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Tikai EPG"
 
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Izmantot drošo HTTP (https)"
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Tikai ierakstos"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Vienmēr"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Pieteikšanās"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Laika nobīdes bufera ceļš"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Izslēgts"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Ieraksti"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Izslēgts"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

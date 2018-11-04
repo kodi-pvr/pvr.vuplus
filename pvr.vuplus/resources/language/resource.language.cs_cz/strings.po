@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: cs_CZ\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Název hostitele nebo adresa IP VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Port proudového vysílání"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Uživatelské jméno"
@@ -32,37 +24,33 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Heslo"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Spojení"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ikony"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Časový limit odpovědi v sekundách"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Popis umístění ikon"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Interval aktualizace"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval aktualizace v minutách"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Automatické čištění seznamu časovačů"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Port webového rozhraní"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Přepnout před přepnutím kanálu (např. pro jednotunerové přijímače)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Složka pro data kanálů"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Kontrolovat aktualizace skupin oblíbených programů"
+msgid "Update interval"
+msgstr "Interval aktualizace"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +84,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Složka s nahrávkami na přijímači"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Odeslat příkaz úsporného uspání"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Načíst pouze jednu skupinu oblíbených programů"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "Skupina oblíbených programů"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Načíst ikony kanálů z webového rozhraní"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Použít zabezpečené HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +96,102 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Zachovat strukturu složky pro nahrávky"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "Televizní program"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Používat formát souboru picons.eu"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Streamování"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Nikdy"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Pouze v televizním programu"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Pouze v nahrávkách"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Vždy"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Přihlášení"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Různé"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Časový posun"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Popis umístění vyrovnávací paměti časového posunu"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Vypnout"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Při přehrávání"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Při pozastavení"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Nahrávky a časovače"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Nahrávky"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Časovače"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automatické"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Jednou (naplánováno pravidlem časovače)"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Jednou (Naplánováno opakujícím se pravidlem časovače)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Zakázáno"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Nahrávat, pokud se liší název televizního programu"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Nahrávat, pokud se liší název a krátký popis televizního programu"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Nahrávat, pokud se liší název a všechny popisy televizního programu"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Odpojeno od „%s“"
@@ -131,3 +199,7 @@ msgstr "Odpojeno od „%s“"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Znovu připojeno k „%s“"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Popisované umístění pro vyrovnávací paměť časového posunu neexistuje"

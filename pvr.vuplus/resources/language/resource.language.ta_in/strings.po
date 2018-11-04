@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -24,6 +24,14 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "அடையாளச் சொல்"
 
+msgctxt "#30006"
+msgid "Icons"
+msgstr "சின்னங்கள்"
+
+msgctxt "#30015"
+msgid "Update interval"
+msgstr "இடைவேளையை மெருகேற்று"
+
 msgctxt "#30018"
 msgid "General"
 msgstr "பொதுவானது"
@@ -39,3 +47,27 @@ msgstr "மேம்பட்ட"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "ஒருபோதும் இல்லை"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "எப்போதும்"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "புகுபதிகை"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "நிறுத்து"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "பதிவகள்"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "முடக்கப்பட்டன"

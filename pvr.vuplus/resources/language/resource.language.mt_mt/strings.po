@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -24,13 +24,17 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Sigriet"
 
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ajkons"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Kemm iddum tistenna riposta f'sekondi"
 
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Port tal-webinterface"
+msgctxt "#30015"
+msgid "Update interval"
+msgstr "Il-ħin bejn l-aġġornamenti"
 
 msgctxt "#30018"
 msgid "General"
@@ -47,3 +51,35 @@ msgstr "Avvanzat"
 msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Qatt"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Fl-EPG biss"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Fir-rekordings biss"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Dejjem"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Il-Buffer path tat-timeshift"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Xejn"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Recordings"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Mhux attiv"

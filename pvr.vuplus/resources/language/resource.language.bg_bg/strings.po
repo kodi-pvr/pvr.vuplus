@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "Име на хост или IP адрес на VU+"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Порт за поточно излъчване"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Потребител"
@@ -32,37 +24,33 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Парола"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Връзка"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Иконки"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Време на изчакване за отговор (секунди)"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Път до иконките"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Интервал на обновяване"
 
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Интервал на обновяване (минути)"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Автоматично почистване на броячите"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Порт на уеб интерфейса"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Нулиране преди превключване на канал (за устройства с един тунер)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Папка за данните на каналите"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Проверка за промени на букетите"
+msgid "Update interval"
+msgstr "Интервал на обновление"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -82,7 +70,7 @@ msgstr "Канали"
 
 msgctxt "#30020"
 msgid "Advanced"
-msgstr "Разширени"
+msgstr "Допълнителни"
 
 msgctxt "#30021"
 msgid "HTTP"
@@ -96,25 +84,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка за записите на приемника"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "Изпращане на команда за дълбоко заспиване"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Извличане само на един ТВ букет"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "ТВ букет"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Получаване на логото на канала от уеб интерфейса"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Ползване на HTTPS"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -124,6 +96,98 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Запазване на структурата на папките за записите"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "Справочник"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Използване на файловия форма на picons.eu"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Никога"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "Само в справочника"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Само в записите"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Винаги"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Влизане"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Разни"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Изместване във времето"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Път до буфера за изместване във времето"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Изкл."
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "При възпроизвеждане"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "На пауза"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Записи и броячи"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Записи"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr " Броячи"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Автоматично"
+
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Еднократен (насрочено чрез правило на брояч)"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Еднократен (насрочено чрез правило на повтарящ се брояч)"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Изключено"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Запис само, ако заглавието в справочника е различно"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Запис само, ако заглавието и краткото описание в справочника са различни"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Запис само, ако заглавието и всички описания в справочника са различни"
+
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
 msgstr "Връзката с „%s“ се разпадна"
@@ -131,3 +195,7 @@ msgstr "Връзката с „%s“ се разпадна"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Отново има връзка с „%s“"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Пътят до буфера за изместване във времето не съществува"

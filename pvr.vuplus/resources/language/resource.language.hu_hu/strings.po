@@ -1,11 +1,11 @@
 # Kodi Media Center language file
-# Addon Name: VU+ / Enigma2 Client
+# Addon Name: Enigma2 Client
 # Addon id: pvr.vuplus
-# Addon Provider: Joerg Dembski
+# Addon Provider: Joerg Dembski and Ross Nicholson
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
@@ -16,14 +16,6 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#30000"
-msgid "VU+ hostname or IP address"
-msgstr "VU+ Kiszolgálónév vagy IP cím"
-
-msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Sugárzási port"
-
 msgctxt "#30003"
 msgid "Username"
 msgstr "Felhasználónév"
@@ -32,37 +24,29 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "Jelszó"
 
+msgctxt "#30005"
+msgid "Connection"
+msgstr "Kapcsolat"
+
+msgctxt "#30006"
+msgid "Icons"
+msgstr "Ikon"
+
 msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Válasz időkorlát másodpercben"
 
-msgctxt "#30008"
-msgid "Icon Path"
-msgstr "Csatornaikonok elérési útvonala"
-
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Frissítési intervallum percben"
-
-msgctxt "#30011"
-msgid "Automatic Timerlist Cleanup"
-msgstr "Időzítő lista automatikus tisztítása"
-
-msgctxt "#30012"
-msgid "Webinterface Port"
-msgstr "Web-kezelőfelület port"
-
-msgctxt "#30013"
-msgid "Zap before channelswitch (i.e. for Single Tuner boxes)"
-msgstr "Áthangolás csatornaváltás elött (Egytuneres boxoknál)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Csatornaadat mappa"
 
 msgctxt "#30015"
-msgid "Check for bouquett updates"
-msgstr "Csatonalista frissítés keresése"
+msgid "Update interval"
+msgstr "Frissítési intervallum"
 
 msgctxt "#30016"
 msgid "Check for channel updates"
@@ -96,25 +80,9 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Felvételi mappa a vevőn"
 
-msgctxt "#30024"
-msgid "Send DeepStandby-Command"
-msgstr "DeepStandby parancs küldése"
-
 msgctxt "#30025"
 msgid "Fetch only one TV bouquet"
 msgstr "Csak egy csatornalista letöltése"
-
-msgctxt "#30026"
-msgid "TV-Bouquet"
-msgstr "TV-csatorna-csoport"
-
-msgctxt "#30027"
-msgid "Fetch picons from webinterface"
-msgstr "Webes ikonok használata"
-
-msgctxt "#30028"
-msgid "Use Secure HTTP (https)"
-msgstr "Titkosított HTTP haszálata (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -123,6 +91,74 @@ msgstr "Automatikus konfigurálás engedélyezése élő adásokhoz"
 msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Felvételek mappaszerkezetének megtartása"
+
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Adatfolyam"
+
+msgctxt "#30042"
+msgid "Never"
+msgstr "Soha"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "csak az EPG-ben"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "Csak a felvételekben"
+
+msgctxt "#30045"
+msgid "Always"
+msgstr "Mindig"
+
+msgctxt "#30051"
+msgid "Login"
+msgstr "Bejelentkezés"
+
+msgctxt "#30052"
+msgid "Misc"
+msgstr "Egyéb"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "Csúsztatott felvétel"
+
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Csúsztatott élőkép tároló útvonala"
+
+msgctxt "#30063"
+msgid "Off"
+msgstr "Ki"
+
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Lejátszáskor"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Szüneteltetéskor"
+
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Felvételek"
+
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Időzítők"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automatikus"
+
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Letiltva"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
