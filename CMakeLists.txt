@@ -72,6 +72,7 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/extract/ShowInfoExtractor.h
                    src/enigma2/utilities/CurlFile.h
                    src/enigma2/utilities/DeviceInfo.h
+                   src/enigma2/utilities/DeviceSettings.h
                    src/enigma2/utilities/LocalizedString.h
                    src/enigma2/utilities/UpdateState.h
                    src/enigma2/utilities/FileUtils.h

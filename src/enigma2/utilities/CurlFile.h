@@ -36,6 +36,7 @@ namespace enigma2
       ~CurlFile(void) {};
 
       bool Get(const std::string &strURL, std::string &strResult);
+      bool Post(const std::string &strURL, std::string &strResult);
     };
   }
 }

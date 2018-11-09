@@ -95,13 +95,15 @@ bool Enigma2::Open()
       return false;
     }
   } 
-  m_isConnected = m_admin.LoadDeviceInfo();
+  m_isConnected = m_admin.Initialise();
 
   if (!m_isConnected)
   {
     Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __FUNCTION__);
     return false;
   }
+
+  m_settings.ReadFromAddon();
 
   m_recordings.ClearLocations();
   m_recordings.LoadLocations();

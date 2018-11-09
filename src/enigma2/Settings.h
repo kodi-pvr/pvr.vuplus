@@ -2,8 +2,10 @@
 
 #include <string>
 
+#include "Admin.h"
 #include "utilities/Logger.h"
 #include "utilities/DeviceInfo.h"
+#include "utilities/DeviceSettings.h"
 
 #include "xbmc_addon_types.h"
 
@@ -127,10 +129,20 @@ namespace enigma2
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
-    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo->GetWebIfVersionAsNum(); }
 
-    const enigma2::utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
-    void SetDeviceInfo(enigma2::utilities::DeviceInfo& deviceInfo) { m_deviceInfo = deviceInfo; }    
+    const enigma2::utilities::DeviceInfo* GetDeviceInfo() const { return m_deviceInfo; }
+    void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo) { m_deviceInfo = deviceInfo; }    
+
+    const enigma2::utilities::DeviceSettings* GetDeviceSettings() const { return m_deviceSettings; }
+    void SetDeviceSettings(enigma2::utilities::DeviceSettings* deviceSettings) 
+    { 
+      m_deviceSettings = deviceSettings; 
+      m_globalStartPaddingStb = deviceSettings->GetGlobalRecordingStartMargin();
+      m_globalEndPaddingStb = deviceSettings->GetGlobalRecordingEndMargin();
+    }    
+
+    void SetAdmin(enigma2::Admin* admin) { m_admin = admin; }    
 
     inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
     {
@@ -143,8 +155,8 @@ namespace enigma2
     Settings(Settings const &) = delete;
     void operator=(Settings const &) = delete;
 
-    template <typename T>
-    ADDON_STATUS SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, ADDON_STATUS returnValueIfChanged)
+    template <typename T, typename V>
+    V SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       T newValue =  *static_cast<const T*>(settingValue);
       if (newValue != currentValue)
@@ -153,10 +165,24 @@ namespace enigma2
         currentValue = newValue;
         return returnValueIfChanged;
       }
-      return ADDON_STATUS_OK;
+
+      return defaultReturnValue;
     };
 
-    ADDON_STATUS SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged);
+    template <typename V>
+    V SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, V returnValueIfChanged, V defaultReturnValue)
+    {
+      const std::string strSettingValue = static_cast<const char*>(settingValue);
+
+      if (strSettingValue != currentValue)
+      {
+        utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
+        currentValue = strSettingValue;
+        return returnValueIfChanged;
+      }
+
+      return defaultReturnValue;
+    }
 
     //Connection
     std::string m_hostname = DEFAULT_HOST;
@@ -212,8 +238,14 @@ namespace enigma2
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
 
+    //Backend
+    int m_globalStartPaddingStb = 0;
+    int m_globalEndPaddingStb = 0;
+
     std::string m_connectionURL;
-    enigma2::utilities::DeviceInfo m_deviceInfo;
+    enigma2::utilities::DeviceInfo* m_deviceInfo;
+    enigma2::utilities::DeviceSettings* m_deviceSettings;
+    enigma2::Admin* m_admin;
 
     //PVR Props
     std::string m_szUserPath = "";

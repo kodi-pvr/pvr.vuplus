@@ -4,6 +4,8 @@
 
 #include "../client.h"
 #include "../Enigma2.h"
+#include "utilities/FileUtils.h"
+#include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -25,6 +27,29 @@ void Admin::SendPowerstate()
     std::string strResult;
     WebUtils::SendSimpleCommand(strTmp, strResult, true); 
   }
+}
+
+bool Admin::Initialise()
+{
+  Settings::GetInstance().SetAdmin(this);
+
+  bool deviceInfoLoaded = LoadDeviceInfo();
+
+  if (deviceInfoLoaded)
+  {
+    Settings::GetInstance().SetDeviceInfo(&m_deviceInfo);
+
+    if (LoadDeviceSettings())
+    {
+      Settings::GetInstance().SetDeviceSettings(&m_deviceSettings);
+
+      //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
+      if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0))
+        SendAutoTimerSettings();
+    }
+  }
+
+  return deviceInfoLoaded;
 }
 
 bool Admin::LoadDeviceInfo()
@@ -101,7 +126,6 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, serverName.c_str());
 
   m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, webIfVersion, webIfVersionAsNum);
-  Settings::GetInstance().SetDeviceInfo(m_deviceInfo);
 
   return true;
 }
@@ -139,6 +163,235 @@ unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
   }
 
   return webIfVersionAsNum;
+}
+
+bool Admin::LoadDeviceSettings()
+{
+  //TODO: Include once addon starts to use new API
+  //kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
+
+  if (!LoadAutoTimerSettings())
+  {
+    return false;
+  }
+  else
+  {
+    std::string autoTimerTagInTags = LocalizedString(30094); // N/A
+    std::string autoTimerNameInTags = LocalizedString(30094); // N/A
+
+    //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
+    if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0))
+    {
+      if (m_deviceSettings.IsAddTagAutoTimerToTagsEnabled())
+        autoTimerTagInTags = LocalizedString(30095); // True
+      else
+        autoTimerTagInTags = LocalizedString(30096); // False
+      if (m_deviceSettings.IsAddAutoTimerNameToTagsEnabled())
+        autoTimerNameInTags = LocalizedString(30095); // True
+      else
+        autoTimerNameInTags = LocalizedString(30096); //False
+    }
+
+    //TODO: Include once addon starts to use new API
+    //kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
+    //kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
+  }
+
+  if (!LoadRecordingMarginSettings())
+  {
+    return false;
+  }
+  else
+  {
+    //TODO: Include once addon starts to use new API
+    //kodi::SetSettingInt("globalstartpaddingstb", m_deviceSettings.GetGlobalRecordingStartMargin());
+    //kodi::SetSettingInt("globalendpaddingstb", m_deviceSettings.GetGlobalRecordingEndMargin());
+  }
+
+  return true;
+}
+
+bool Admin::LoadAutoTimerSettings()
+{
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "autotimer/get"); 
+
+  const std::string strXML = WebUtils::GetHttpXML(url);
+  
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+  TiXmlElement* pElem;
+  TiXmlHandle hRoot(0);
+
+  pElem = hDoc.FirstChildElement("e2settings").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2settings> element!", __FUNCTION__);
+    return false;
+  }
+
+  hRoot=TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2setting").Element();
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_DEBUG, "Could not find <e2setting> element");
+    return false;
+  }
+
+  std::string settingName;
+  std::string settingValue;
+  bool setAutoTimerToTags = false;
+  bool setAutoTimerNameToTags = false;
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2setting"))
+  {
+    if (!XMLUtils::GetString(pNode, "e2settingname", settingName)) 
+      return false;
+
+    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue)) 
+      return false;          
+
+    if (settingName == "config.plugins.autotimer.add_autotimer_to_tags")
+    {
+      m_deviceSettings.SetAddTagAutoTimerToTagsEnabled(settingValue == "True");
+      setAutoTimerToTags = true;
+    }  
+    else if (settingName == "config.plugins.autotimer.add_name_to_tags")
+    {
+       m_deviceSettings.SetAddAutoTimerNameToTagsEnabled(settingValue == "True"); 
+       setAutoTimerNameToTags = true;
+    }
+
+    if (setAutoTimerNameToTags && setAutoTimerToTags)
+      break;
+  }
+
+  Logger::Log(LEVEL_DEBUG, "%s Add Tag AutoTimer to Tags: %d, Add AutoTimer Name to tags: %d", __FUNCTION__,  m_deviceSettings.IsAddTagAutoTimerToTagsEnabled(),  m_deviceSettings.IsAddAutoTimerNameToTagsEnabled());
+
+  return true;
+}
+
+bool Admin::LoadRecordingMarginSettings()
+{
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/settings"); 
+
+  const std::string strXML = WebUtils::GetHttpXML(url);
+  
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+  TiXmlElement* pElem;
+  TiXmlHandle hRoot(0);
+
+  pElem = hDoc.FirstChildElement("e2settings").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2settings> element!", __FUNCTION__);
+    return false;
+  }
+
+  hRoot=TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2setting").Element();
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_DEBUG, "Could not find <e2setting> element");
+    return false;
+  }
+
+  std::string settingName;
+  std::string settingValue;
+  bool readMarginBefore = false;
+  bool readMarginAfter = false;
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2setting"))
+  {
+    if (!XMLUtils::GetString(pNode, "e2settingname", settingName)) 
+      continue;
+
+    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue)) 
+      continue;          
+
+    if (settingName == "config.recording.margin_before")
+    {
+      m_deviceSettings.SetGlobalRecordingStartMargin(atoi(settingValue.c_str()));
+      readMarginBefore = true;
+    }  
+    else if (settingName == "config.recording.margin_after")
+    {
+       m_deviceSettings.SetGlobalRecordingEndMargin(atoi(settingValue.c_str())); 
+       readMarginAfter = true;
+    }
+
+    if (readMarginBefore && readMarginAfter)
+      break;
+  }
+
+  Logger::Log(LEVEL_DEBUG, "%s Margin Before: %d, Margin After: %d", __FUNCTION__,  m_deviceSettings.GetGlobalRecordingStartMargin(),  m_deviceSettings.GetGlobalRecordingEndMargin());
+
+  return true;
+}
+
+bool Admin::SendAutoTimerSettings()
+{
+  if (!(m_deviceSettings.IsAddTagAutoTimerToTagsEnabled() && m_deviceSettings.IsAddAutoTimerNameToTagsEnabled()))
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Setting AutoTimer Settings on Backend", __FUNCTION__);
+    std::string url = StringUtils::Format("%s", "autotimer/set?add_name_to_tags=true&add_autotimer_to_tags=true");
+    std::string strResult;
+
+    if (!WebUtils::SendSimpleCommand(url, strResult)) 
+      return false;
+  }
+
+  return true;
+}
+
+bool Admin::SendGlobalRecordingStartMarginSetting(int newValue)
+{
+  if (m_deviceSettings.GetGlobalRecordingStartMargin() != newValue)
+  {
+    Logger::Log(LEVEL_NOTICE, "%s Setting Global Recording Start Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingStartMargin(), newValue);
+    std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_before&value=", newValue);
+    std::string strResult;
+
+    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult)) 
+      return false;
+    else
+      m_deviceSettings.SetGlobalRecordingStartMargin(newValue);
+  }
+
+  return true;
+}
+
+bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
+{
+  if (m_deviceSettings.GetGlobalRecordingEndMargin() != newValue)
+  {
+    Logger::Log(LEVEL_NOTICE, "%s Setting Global Recording End Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingEndMargin(), newValue);
+    std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_after&value=", newValue);
+    std::string strResult;
+
+    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult)) 
+      return false;
+    else
+      m_deviceSettings.SetGlobalRecordingEndMargin(newValue);
+  }
+
+  return true;
 }
 
 PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations)

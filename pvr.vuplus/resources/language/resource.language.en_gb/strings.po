@@ -360,7 +360,51 @@ msgctxt "#30085"
 msgid "OK"
 msgstr ""
 
-#empty strings from id 30086 to 30409
+msgctxt "#30086"
+msgid "Backend"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr ""
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr ""
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr ""
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr ""
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr ""
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr ""
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr ""
+
+msgctxt "#30095"
+msgid "True"
+msgstr ""
+
+msgctxt "#30096"
+msgid "False"
+msgstr ""
+
+#empty strings from id 30097 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

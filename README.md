@@ -90,7 +90,7 @@ Information on customising the extraction and mapper configs can be found in the
 * **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
-* **Enable autotimers**: When this is enabled there are some settings required on the STB to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. On the STB enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
+* **Enable autotimers**: When this is enabled there are some settings required on the STB to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot. To set manually on the STB enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
   1. Hit `Menu` on the remote and go to `Timers->AutoTimers`
   2. Hit `Menu` again and then select `6 Setup`
   3. Set the following to option to `yes`
