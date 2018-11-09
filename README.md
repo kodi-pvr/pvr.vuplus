@@ -110,7 +110,11 @@ Within this tab more uncommon and advanced options can be configured.
 
 * **Put outline (e.g. sub-title) before plot**: By default plot outline (short description on Enigma2) is not displayed in the UI. Can be
  displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect.
-* **Send deep standby command**: If this option is set then the addon will send the DeepStandby-Command to the settop box when Kodi will be closed (or the addon will be deactivated), causing the settop box to shutdown into DeepStandby.
+* **Send powerstate mode on addon exit**: If this option is set to a value other than `DISABLED` then the addon will send a Powerstate command to the STB when Kodi will be closed (or the addon will be deactivated).
+    - `Disabled` - No command sent when the addon exits
+    - `Standby` - Send the standby command on exit
+    - `Deep standby` - Send the deep standby command on exit. Note, the STB will not respond to Kodi after this command is sent.
+    - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
 * **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide.
 

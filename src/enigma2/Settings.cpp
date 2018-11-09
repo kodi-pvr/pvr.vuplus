@@ -168,8 +168,8 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("prependoutline", &m_prependOutline))
     m_prependOutline = PrependOutline::IN_EPG;
 
-  if (!XBMC->GetSetting("setpowerstate", &m_setPowerstate))
-    m_setPowerstate = false;
+  if (!XBMC->GetSetting("powerstatemode", &m_powerstateMode))
+    m_powerstateMode = PowerstateMode::DISABLED;
   
   if (!XBMC->GetSetting("readtimeout", &m_readTimeout))
     m_readTimeout = 0;
@@ -272,8 +272,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   //Advanced
   else if (settingName == "prependoutline")
     return SetSetting<PrependOutline, ADDON_STATUS>(settingName, settingValue, m_prependOutline, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
-  else if (settingName == "setpowerstate")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_setPowerstate, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "powerstatemode")
+    return SetSetting<PowerstateMode, ADDON_STATUS>(settingName, settingValue, m_powerstateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "readtimeout")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")

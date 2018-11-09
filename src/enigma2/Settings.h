@@ -57,6 +57,15 @@ namespace enigma2
     ALWAYS
   };
 
+  enum class PowerstateMode
+    : int // same type as addon settings
+  {
+    DISABLED = 0,
+    STANDBY,
+    DEEP_STANDBY,
+    WAKEUP_THEN_STANDBY
+  };
+
   class Settings
   {
   public:
@@ -123,7 +132,7 @@ namespace enigma2
 
     //Advanced
     const PrependOutline& GetPrependOutline() const { return m_prependOutline; }
-    bool GetDeepStandbyOnAddonExit() const { return m_setPowerstate; }
+    PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
 
@@ -234,7 +243,7 @@ namespace enigma2
 
     //Advanced
     PrependOutline m_prependOutline = PrependOutline::IN_EPG;
-    bool m_setPowerstate = false;
+    PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
 

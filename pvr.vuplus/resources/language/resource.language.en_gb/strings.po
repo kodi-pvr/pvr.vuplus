@@ -113,7 +113,7 @@ msgid "Recording folder on the receiver"
 msgstr ""
 
 msgctxt "#30024"
-msgid "Send deep standby command"
+msgid "Send powerstate mode on addon exit"
 msgstr ""
 
 msgctxt "#30025"
@@ -402,6 +402,18 @@ msgstr ""
 
 msgctxt "#30096"
 msgid "False"
+msgstr ""
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr ""
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr ""
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
 msgstr ""
 
 #empty strings from id 30097 to 30409

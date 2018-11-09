@@ -19,13 +19,32 @@ using namespace enigma2::utilities;
 
 void Admin::SendPowerstate()
 {
-  if (Settings::GetInstance().GetDeepStandbyOnAddonExit())
+  if (Settings::GetInstance().GetPowerstateModeOnAddonExit() != PowerstateMode::DISABLED)
   {  
-    std::string strTmp;
-    strTmp = StringUtils::Format("web/powerstate?newstate=1");
+    if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
+    {
+      std::string strTmp = StringUtils::Format("web/powerstate?newstate=4"); //Wakeup
 
-    std::string strResult;
-    WebUtils::SendSimpleCommand(strTmp, strResult, true); 
+      std::string strResult;
+      WebUtils::SendSimpleCommand(strTmp, strResult, true);
+    }
+
+    if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::STANDBY ||
+      Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
+    {
+      std::string strTmp = StringUtils::Format("web/powerstate?newstate=5"); //Standby
+
+      std::string strResult;
+      WebUtils::SendSimpleCommand(strTmp, strResult, true);
+    }    
+
+    if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
+    {
+      std::string strTmp = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
+
+      std::string strResult;
+      WebUtils::SendSimpleCommand(strTmp, strResult, true); 
+    }
   }
 }
 

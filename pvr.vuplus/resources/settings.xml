@@ -412,10 +412,18 @@
           </constraints>
           <control type="list" format="integer" />
         </setting>
-        <setting id="setpowerstate" type="boolean" label="30024">
+        <setting id="powerstatemode" type="integer" label="30024">
           <level>0</level>
-          <default>false</default>
-          <control type="toggle" />
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30430">0</option> <!-- DISABLED -->
+              <option label="30097">1</option> <!-- STANDBY -->
+              <option label="30098">2</option> <!-- DEEP_STANDBY -->
+              <option label="30099">3</option> <!-- WAKEUP_THEN_STANDBY -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
         </setting>
         <setting id="readtimeout" type="integer" label="30050">
           <level>0</level>
