@@ -24,6 +24,13 @@ namespace enigma2
   static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreTextMappings/Rytec-UK-Ireland";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
+  enum class UpdateMode
+    : int // same type as addon settings
+  {
+    TIMERS_AND_RECORDINGS = 0,
+    TIMERS_ONLY
+  };
+
   enum class ChannelGroupMode
     : int // same type as addon settings
   {
@@ -96,7 +103,8 @@ namespace enigma2
     bool UseOnlinePicons() const { return m_onlinePicons; }
     bool UsePiconsEuFormat() const { return m_usePiconsEuFormat; }
     const std::string& GetIconPath() const { return m_iconPath; }
-    int GetUpdateIntervalMins() const { return m_updateInterval; }
+    unsigned int GetUpdateIntervalMins() const { return m_updateInterval; }
+    UpdateMode GetUpdateMode() const { return m_updateMode; }
 
     //Channel
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
@@ -208,7 +216,8 @@ namespace enigma2
     bool m_onlinePicons = true;
     bool m_usePiconsEuFormat = false;
     std::string m_iconPath = "";
-    int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
+    unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
+    UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
     
     //Channel
     bool m_zap = false;

@@ -123,13 +123,24 @@
           <constraints>
             <minimum>1</minimum>
             <step>1</step>
-            <maximum>60</maximum>
+            <maximum>1440</maximum>
           </constraints>
           <control type="slider" format="integer">
             <popup>true</popup>
             <formatlabel>14044</formatlabel>
           </control>
         </setting>      
+        <setting id="updatemode" type="integer" label="30100">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30101">0</option> <!-- TIMERS_AND_RECORDINGS -->
+              <option label="30102">1</option> <!-- TIMERS_ONLY -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
       </group>
     </category>
 

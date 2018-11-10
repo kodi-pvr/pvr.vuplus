@@ -416,7 +416,19 @@ msgctxt "#30099"
 msgid "Wakeup, then standby"
 msgstr ""
 
-#empty strings from id 30097 to 30409
+msgctxt "#30100"
+msgid "Update mode"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr ""
+
+#empty strings from id 30103 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

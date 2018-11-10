@@ -70,6 +70,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("updateint", &m_updateInterval))
     m_updateInterval = DEFAULT_UPDATE_INTERVAL;
 
+  if (!XBMC->GetSetting("updatemode", &m_updateMode))
+    m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
+
   //Channels
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
@@ -218,7 +221,9 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "iconpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_iconPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "updateint")
-    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "updatemode")
+    return SetSetting<UpdateMode, ADDON_STATUS>(settingName, settingValue, m_updateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
