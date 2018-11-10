@@ -41,16 +41,16 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool            m_created  = false;
-ADDON_STATUS    m_currentStatus = ADDON_STATUS_UNKNOWN;
-IStreamReader   *streamReader  = nullptr;
-int             m_streamReadChunkSize = 64;
-RecordingReader *recordingReader  = nullptr;
-Settings        &settings = Settings::GetInstance();
+bool m_created = false;
+ADDON_STATUS m_currentStatus = ADDON_STATUS_UNKNOWN;
+IStreamReader *streamReader = nullptr;
+int m_streamReadChunkSize = 64;
+RecordingReader *recordingReader = nullptr;
+Settings &settings = Settings::GetInstance();
 
-CHelper_libXBMC_addon *XBMC           = nullptr;
-CHelper_libXBMC_pvr   *PVR            = nullptr;
-Enigma2               *enigma         = nullptr;
+CHelper_libXBMC_addon *XBMC = nullptr;
+CHelper_libXBMC_pvr *PVR = nullptr;
+Enigma2 *enigma = nullptr;
 
 extern "C" {
 
