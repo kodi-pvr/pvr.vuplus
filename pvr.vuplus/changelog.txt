@@ -2,6 +2,14 @@ v3.15.0
 - Added: Support for Radio Groups
 - Added: Create unique list of channels instead of a copy of each channel per group, fixes #101
 - Fixed: hdd free space is wrong,  fixes #122
+- Added: Device Settings - AutoTimer and Padding
+- Added: PowerstateMode on exit, fixes #128
+- Fixed: Store timer state on update, fixes #131
+- Fixed: Updates not occuring at specified time and immediate update on timer event, fixes #130
+- Added: Support different update modes for timers and recordings, fixes #125
+
+v3.14.1
+- Added: updated language files from Transifex
 
 v3.14.0
 - Added: Externalised season/episode and genre config to allow users support other formats/languages, closes #118
