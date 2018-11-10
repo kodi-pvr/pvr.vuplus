@@ -21,6 +21,9 @@
  *
  */
 
+#include <atomic>
+#include <time.h>
+
 #include "client.h"
 #include "enigma2/Admin.h"
 #include "enigma2/Channels.h"
@@ -88,7 +91,9 @@ private:
   // members
   bool m_isConnected = false;
   unsigned int m_updateTimer = 0;
+  time_t m_lastUpdateTimeSeconds;
   int m_currentChannel = -1;
+  std::atomic_bool m_dueRecordingUpdate{true};
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;

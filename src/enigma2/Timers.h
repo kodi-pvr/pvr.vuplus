@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
-#include <memory>
-#include <functional>
+#include <atomic>
 #include <ctime>
+#include <functional>
+#include <memory>
+#include <string>
 #include <type_traits>
 
 #include "data/Timer.h"
@@ -20,7 +21,7 @@ namespace enigma2
     Timers(Channels &channels, std::vector<std::string> &locations)
       : m_channels(channels), m_locations(locations)
     {
-        m_clientIndexCounter = 1;
+      m_clientIndexCounter = 1;
     };
     
     void GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const;
@@ -44,8 +45,9 @@ namespace enigma2
     PVR_ERROR DeleteAutoTimer(const PVR_TIMER &timer);
 
     void ClearTimers();
-    void TimerUpdates();
+    bool TimerUpdates();
     void RunAutoTimerListCleanup();
+    void AddTimerChangeWatcher(std::atomic_bool* watcher);
 
   private:
     //templates
@@ -66,6 +68,8 @@ namespace enigma2
 
     // members
     unsigned int m_clientIndexCounter;
+    std::vector<std::atomic_bool*> m_timerChangeWatchers;
+
     enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
     std::vector<enigma2::data::Timer> m_timers;
     std::vector<enigma2::data::AutoTimer> m_autotimers;

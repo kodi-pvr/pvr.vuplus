@@ -48,6 +48,7 @@ using namespace enigma2::utilities;
 
 Enigma2::Enigma2() 
 {
+  m_lastUpdateTimeSeconds = time(nullptr);
 }
 
 Enigma2::~Enigma2() 
@@ -118,6 +119,7 @@ bool Enigma2::Open()
       return false;
 
   }
+  m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
   m_timers.TimerUpdates();
 
   Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __FUNCTION__);
@@ -151,9 +153,12 @@ void *Enigma2::Process()
   while(!IsStopped())
   {
     Sleep(5 * 1000);
-    m_updateTimer += 5;
+     
+    time_t currentUpdateTimeSeconds = time(nullptr);
+    m_updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - m_lastUpdateTimeSeconds);
+    m_lastUpdateTimeSeconds = currentUpdateTimeSeconds;
 
-    if ((int)m_updateTimer > (m_settings.GetUpdateIntervalMins() * 60)) 
+    if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60)) 
     {
       m_updateTimer = 0;
  
@@ -166,6 +171,9 @@ void *Enigma2::Process()
         m_timers.RunAutoTimerListCleanup();
       }
       m_timers.TimerUpdates();
+
+      m_dueRecordingUpdate = false;
+
       PVR->TriggerRecordingUpdate();
     }
   }

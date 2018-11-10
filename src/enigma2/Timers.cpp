@@ -788,9 +788,15 @@ void Timers::ClearTimers()
 {
     m_timers.clear();
     m_autotimers.clear();
+    m_timerChangeWatchers.clear();
 }
 
-void Timers::TimerUpdates()
+void Timers::AddTimerChangeWatcher(std::atomic_bool* watcher)
+{
+  m_timerChangeWatchers.emplace_back(watcher);
+}
+
+bool Timers::TimerUpdates()
 {
   bool regularTimersChanged = TimerUpdatesRegular();
   bool autoTimersChanged = false;
@@ -802,7 +808,14 @@ void Timers::TimerUpdates()
   {
     Logger::Log(LEVEL_INFO, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
     PVR->TriggerTimerUpdate();
+
+    for (auto watcher : m_timerChangeWatchers)
+        watcher->store(true);
+
+    return true;
   }
+
+  return false;
 }
 
 bool Timers::TimerUpdatesRegular()
