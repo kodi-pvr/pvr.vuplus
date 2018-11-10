@@ -48,6 +48,7 @@ void Timer::UpdateFrom(const Timer &right)
   m_weekdays = right.m_weekdays;
   m_epgId = right.m_epgId;
   m_tags = right.m_tags;
+  m_state = right.m_state;
 }
 
 void Timer::UpdateTo(PVR_TIMER &left) const
