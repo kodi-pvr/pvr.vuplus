@@ -53,8 +53,8 @@ namespace enigma2
       void SetEndTime(time_t value) { m_endTime = value; }    
 
       void UpdateTo(EPG_TAG &left) const;
-      bool UpdateFrom(TiXmlElement* eventNode, enigma2::Channels channels); 
-      bool UpdateFrom(TiXmlElement* eventNode, Channel channel, time_t iStart, time_t iEnd); 
+      bool UpdateFrom(TiXmlElement* eventNode, enigma2::Channels &channels); 
+      bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<enigma2::data::Channel> &channel, time_t iStart, time_t iEnd);
 
     private:    
       int m_eventId;

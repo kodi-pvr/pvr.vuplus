@@ -113,11 +113,11 @@ msgid "Recording folder on the receiver"
 msgstr ""
 
 msgctxt "#30024"
-msgid "Send deep standby command"
+msgid "Send powerstate mode on addon exit"
 msgstr ""
 
 msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
+msgid "TV bouquet fetch mode"
 msgstr ""
 
 msgctxt "#30026"
@@ -240,7 +240,21 @@ msgctxt "#30055"
 msgid "Genre ID mappings file"
 msgstr ""
 
-#empty strings from id 30056 to 30059
+msgctxt "#30056"
+msgid "TV"
+msgstr ""
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr ""
+
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr ""
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr ""
 
 msgctxt "#30060"
 msgid "Timeshift"
@@ -274,7 +288,13 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr ""
 
-#empty strings from id 30068 to 30069
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr ""
 
 msgctxt "#30070"
 msgid "Recordings & Timers"
@@ -292,7 +312,123 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr ""
 
-#empty strings from id 30074 to 30409
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr ""
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr ""
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr ""
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr ""
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr ""
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr ""
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr ""
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr ""
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr ""
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr ""
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr ""
+
+msgctxt "#30085"
+msgid "OK"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr ""
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr ""
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr ""
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr ""
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr ""
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr ""
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr ""
+
+msgctxt "#30095"
+msgid "True"
+msgstr ""
+
+msgctxt "#30096"
+msgid "False"
+msgstr ""
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr ""
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr ""
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr ""
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr ""
+
+#empty strings from id 30103 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

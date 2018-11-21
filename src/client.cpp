@@ -41,16 +41,16 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool            m_created  = false;
-ADDON_STATUS    m_currentStatus = ADDON_STATUS_UNKNOWN;
-IStreamReader   *streamReader  = nullptr;
-int             m_streamReadChunkSize = 64;
-RecordingReader *recordingReader  = nullptr;
-Settings        &settings = Settings::GetInstance();
+bool m_created = false;
+ADDON_STATUS m_currentStatus = ADDON_STATUS_UNKNOWN;
+IStreamReader *streamReader = nullptr;
+int m_streamReadChunkSize = 64;
+RecordingReader *recordingReader = nullptr;
+Settings &settings = Settings::GetInstance();
 
-CHelper_libXBMC_addon *XBMC           = nullptr;
-CHelper_libXBMC_pvr   *PVR            = nullptr;
-Enigma2               *enigma         = nullptr;
+CHelper_libXBMC_addon *XBMC = nullptr;
+CHelper_libXBMC_pvr *PVR = nullptr;
+Enigma2 *enigma = nullptr;
 
 extern "C" {
 
@@ -114,7 +114,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   Logger::GetInstance().SetPrefix("pvr.vuplus");
 
-  Logger::Log(LogLevel::LEVEL_INFO, "starting PVR client XXX");  
+  Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __FUNCTION__);  
 
   settings.ReadFromAddon();
 
@@ -211,13 +211,13 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 
 const char *GetBackendName(void)
 {
-  static const char *backendName = enigma ? enigma->GetServerName() : "unknown";
+  static const char *backendName = enigma ? enigma->GetServerName() : LocalizedString(60081).c_str(); //unknown
   return backendName;
 }
 
 const char *GetBackendVersion(void)
 {
-  static const char *backendVersion = enigma ? enigma->GetServerVersion() : "unknown";
+  static const char *backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(60081).c_str(); //unknown
   return backendVersion;
 }
 
@@ -226,9 +226,9 @@ static std::string connectionString;
 const char *GetConnectionString(void)
 {
   if (enigma)
-    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : " (Not connected!)");
+    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : LocalizedString(60082).c_str()); // (Not connected!)
   else
-    connectionString = StringUtils::Format("%s (addon error!)", settings.GetHostname().c_str());
+    connectionString = StringUtils::Format("%s (%s!)", settings.GetHostname().c_str(), LocalizedString(60083).c_str()); //addon error
   return connectionString.c_str();
 }
 
@@ -247,8 +247,8 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 {
   // the RS api doesn't provide information about signal quality (yet)
 
-  PVR_STRCPY(signalStatus.strAdapterName, "Enigma2 Media Server");
-  PVR_STRCPY(signalStatus.strAdapterStatus, "OK");
+  PVR_STRCPY(signalStatus.strAdapterName, LocalizedString(60084).c_str()); //Enigma2 Media Server
+  PVR_STRCPY(signalStatus.strAdapterStatus, LocalizedString(60085).c_str()); //OK
   return PVR_ERROR_NO_ERROR;
 }
 
@@ -267,20 +267,14 @@ int GetChannelGroupsAmount(void)
 
 PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
 {
-  if (bRadio)
-    return PVR_ERROR_NO_ERROR;
-
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return enigma->GetChannelGroups(handle);
+  return enigma->GetChannelGroups(handle, bRadio);
 }
 
 PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
 {
-  if (group.bIsRadio)
-    return PVR_ERROR_NO_ERROR;
-
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 

@@ -23,6 +23,8 @@
 
 #include <cstdarg>
 
+#include "Logger.h"
+
 using namespace enigma2::utilities;
 
 bool CurlFile::Get(const std::string &strURL, std::string &strResult)
@@ -36,5 +38,35 @@ bool CurlFile::Get(const std::string &strURL, std::string &strResult)
     XBMC->CloseFile(fileHandle);
     return true;
   }
+  return false;
+}
+
+bool CurlFile::Post(const std::string &strURL, std::string &strResult)
+{
+  void *fileHandle = XBMC->CURLCreate(strURL.c_str());
+
+  if (!fileHandle)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Unable to create curl handle for %s", __FUNCTION__, strURL.c_str());
+    return false;
+  }
+
+  XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL, "postdata", "POST");
+
+  if (!XBMC->CURLOpen(fileHandle, XFILE::READ_NO_CACHE))
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Unable to open url: %s", __FUNCTION__, strURL.c_str());
+    XBMC->CloseFile(fileHandle);
+    return false;
+  }
+
+  char buffer[1024];
+  while (XBMC->ReadFileString(fileHandle, buffer, 1024))
+    strResult.append(buffer);
+  XBMC->CloseFile(fileHandle);  
+
+  if (!strResult.empty())
+    return true;
+
   return false;
 }

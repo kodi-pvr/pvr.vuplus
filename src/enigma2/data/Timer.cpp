@@ -48,6 +48,7 @@ void Timer::UpdateFrom(const Timer &right)
   m_weekdays = right.m_weekdays;
   m_epgId = right.m_epgId;
   m_tags = right.m_tags;
+  m_state = right.m_state;
 }
 
 void Timer::UpdateTo(PVR_TIMER &left) const
@@ -156,7 +157,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     return false;
   }
 
-  m_channelName = channels.GetChannel(m_channelId).GetChannelName();  
+  m_channelName = channels.GetChannel(m_channelId)->GetChannelName();  
 
   if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp)) 
     return false; 

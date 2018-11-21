@@ -106,6 +106,29 @@ std::string WebUtils::GetHttpXML(const std::string& url)
   return strTmp;
 }
 
+std::string WebUtils::PostHttpJson(const std::string& url)
+{
+  Logger::Log(LEVEL_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+
+  std::string strTmp;
+
+  CurlFile http;
+  if(!http.Post(url, strTmp))
+  {
+    Logger::Log(LEVEL_DEBUG, "%s - Could not open webAPI.", __FUNCTION__);
+    return "";
+  }
+
+  // If there is no newline add it as it not being there will cause a parse error
+  // TODO: Remove once bug is fixed in Open WebIf
+  if (strTmp.back() != '\n')
+    strTmp += "\n";
+
+  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
+  
+  return strTmp;
+}
+
 bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str()); 
@@ -154,6 +177,29 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 
     return bTmp;
   }
+  return true;
+}
+
+bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
+{
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str()); 
+
+  std::string strJson = WebUtils::PostHttpJson(url);
+  
+  if (!bIgnoreResult)
+  {
+    if (strJson.find("true") != std::string::npos) 
+    {
+      strResultText = "Success!";
+    }
+    else
+    {
+      strResultText = StringUtils::Format("Invalid Command");
+      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
+      return false;
+    }
+  }
+
   return true;
 }
 

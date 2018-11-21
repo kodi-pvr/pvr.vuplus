@@ -127,13 +127,13 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
 
   for (const auto& channel : channels.GetChannelsList())
   {
-    if (m_channelName == channel.GetChannelName())
+    if (m_channelName == channel->GetChannelName())
     {
       /* PVR API 5.0.0: iChannelUid in recordings */
-      left.iChannelUid = channel.GetUniqueId();
+      left.iChannelUid = channel->GetUniqueId();
 
       /* PVR API 5.1.0: Support channel type in recordings */
-      if (channel.IsRadio())
+      if (channel->IsRadio())
         left.channelType = PVR_RECORDING_CHANNEL_TYPE_RADIO;
       else
         left.channelType = PVR_RECORDING_CHANNEL_TYPE_TV;

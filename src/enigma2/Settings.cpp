@@ -70,18 +70,36 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("updateint", &m_updateInterval))
     m_updateInterval = DEFAULT_UPDATE_INTERVAL;
 
-  //Channels
-  if (!XBMC->GetSetting("onlyonegroup", &m_onlyOneGroup))
-    m_onlyOneGroup = false;
-  
-  if (XBMC->GetSetting("onegroup", buffer))
-    m_oneGroup = buffer;
-  else
-    m_oneGroup = "";
-  buffer[0] = 0;
+  if (!XBMC->GetSetting("updatemode", &m_updateMode))
+    m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
 
+  //Channels
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
+
+  if (!XBMC->GetSetting("tvgroupmode", &m_tvChannelGroupMode))
+    m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
+  
+  if (XBMC->GetSetting("onetvgroup", buffer))
+    m_oneTVGroup = buffer;
+  else
+    m_oneTVGroup = "";
+  buffer[0] = 0;
+
+  if (!XBMC->GetSetting("tvfavouritesmode", &m_tvFavouritesMode))
+    m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
+
+  if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
+    m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+  
+  if (XBMC->GetSetting("oneradiogroup", buffer))
+    m_oneRadioGroup = buffer;
+  else
+    m_oneRadioGroup = "";
+  buffer[0] = 0;
+
+  if (!XBMC->GetSetting("radiofavouritesmode", &m_radioFavouritesMode))
+    m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
 
   //EPG
   if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))
@@ -153,8 +171,8 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("prependoutline", &m_prependOutline))
     m_prependOutline = PrependOutline::IN_EPG;
 
-  if (!XBMC->GetSetting("setpowerstate", &m_setPowerstate))
-    m_setPowerstate = false;
+  if (!XBMC->GetSetting("powerstatemode", &m_powerstateMode))
+    m_powerstateMode = PowerstateMode::DISABLED;
   
   if (!XBMC->GetSetting("readtimeout", &m_readTimeout))
     m_readTimeout = 0;
@@ -164,6 +182,7 @@ void Settings::ReadFromAddon()
 
   // Now that we've read all the settings construct the connection URL
   
+  m_connectionURL.clear();
   // simply add user@pass in front of the URL if username/password is set
   if ((m_username.length() > 0) && (m_password.length() > 0))
     m_connectionURL = StringUtils::Format("%s:%s@", m_username.c_str(), m_password.c_str());
@@ -177,96 +196,103 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
 {
   //Connection
   if (settingName == "host")
-    return SetStringSetting(settingName, settingValue, m_hostname, ADDON_STATUS_NEED_RESTART);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_hostname, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "webport")
-    return SetSetting<int>(settingName, settingValue, m_portWeb, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_portWeb, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "use_secure")
-    return SetSetting<bool>(settingName, settingValue, m_useSecureHTTP, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useSecureHTTP, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "user")
-    return SetStringSetting(settingName, settingValue, m_username, ADDON_STATUS_OK);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_username, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "pass")
-    return SetStringSetting(settingName, settingValue, m_password, ADDON_STATUS_OK);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_password, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "autoconfig")
-    return SetSetting<bool>(settingName, settingValue, m_autoConfig, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_autoConfig, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "streamport")
-    return SetSetting<int>(settingName, settingValue, m_portStream, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_portStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "use_secure_stream")
-    return SetSetting<bool>(settingName, settingValue, m_useSecureHTTPStream, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useSecureHTTPStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "use_login_stream")
-    return SetSetting<bool>(settingName, settingValue, m_useLoginStream, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useLoginStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //General
   else if (settingName == "onlinepicons")
-    return SetSetting<bool>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "usepiconseuformat")
-    return SetSetting<bool>(settingName, settingValue, m_usePiconsEuFormat, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_usePiconsEuFormat, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "iconpath")
-    return SetStringSetting(settingName, settingValue, m_iconPath, ADDON_STATUS_NEED_RESTART);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_iconPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "updateint")
-    return SetSetting<int>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK);
+    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "updatemode")
+    return SetSetting<UpdateMode, ADDON_STATUS>(settingName, settingValue, m_updateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
-  else if (settingName == "onlyonegroup")
-    return SetSetting<bool>(settingName, settingValue, m_onlyOneGroup, ADDON_STATUS_NEED_RESTART);
-  else if (settingName == "onegroup")
-    return SetStringSetting(settingName, settingValue, m_oneGroup, ADDON_STATUS_NEED_RESTART);
   else if (settingName == "zap")
-    return SetSetting<bool>(settingName, settingValue, m_zap, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "tvgroupmode")
+    return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "onetvgroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "tvfavouritesmode")
+    return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "radiogroupmode")
+    return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "oneradiogroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "radiofavouritesmode")
+    return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //EPG
   else if (settingName == "extractepginfoenabled")
-    return SetSetting<bool>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "extractepginfofile")
-    return SetStringSetting(settingName, settingValue, m_extractShowInfoFile, ADDON_STATUS_NEED_RESTART);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_extractShowInfoFile, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "genreidmapenabled")
-    return SetSetting<bool>(settingName, settingValue, m_mapGenreIds, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_mapGenreIds, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "genreidmapfile")
-    return SetStringSetting(settingName, settingValue, m_mapGenreIdsFile, ADDON_STATUS_NEED_RESTART);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_mapGenreIdsFile, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "rytecgenretextmapenabled")
-    return SetSetting<bool>(settingName, settingValue, m_mapRytecTextGenres, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_mapRytecTextGenres, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "rytecgenretextmapfile")
-    return SetStringSetting(settingName, settingValue, m_mapRytecTextGenresFile, ADDON_STATUS_NEED_RESTART);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_mapRytecTextGenresFile, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "logmissinggenremapping")
-    return SetSetting<bool>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Recordings and Timers
   else if (settingName == "recordingpath")
-    return SetStringSetting(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")
-    return SetSetting<bool>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
-    return SetSetting<bool>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "enablegenrepeattimers")
-    return SetSetting<bool>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "numgenrepeattimers")
-    return SetSetting<int>(settingName, settingValue, m_numGenRepeatTimers, ADDON_STATUS_OK);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "enableautotimers")
-    return SetSetting<bool>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timerlistcleanup")
-    return SetSetting<bool>(settingName, settingValue, m_automaticTimerlistCleanup, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_automaticTimerlistCleanup, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Timeshift
   else if (settingName == "enabletimeshift")
-    return SetSetting<Timeshift>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")
-    return SetStringSetting(settingName, settingValue, m_timeshiftBufferPath, ADDON_STATUS_OK);
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_timeshiftBufferPath, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Advanced
   else if (settingName == "prependoutline")
-    return SetSetting<PrependOutline>(settingName, settingValue, m_prependOutline, ADDON_STATUS_NEED_RESTART);
-  else if (settingName == "setpowerstate")
-    return SetSetting<bool>(settingName, settingValue, m_setPowerstate, ADDON_STATUS_OK);
+    return SetSetting<PrependOutline, ADDON_STATUS>(settingName, settingValue, m_prependOutline, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "powerstatemode")
+    return SetSetting<PowerstateMode, ADDON_STATUS>(settingName, settingValue, m_powerstateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "readtimeout")
-    return SetSetting<int>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
-    return SetSetting<int>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK);
-
-  return ADDON_STATUS_OK;
-}
-
-ADDON_STATUS Settings::SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged)
-{
-  const std::string strSettingValue = static_cast<const char*>(settingValue);
-
-  if (strSettingValue != currentValue)
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  //Backend
+  else if (settingName == "globalstartpaddingstb")
   {
-    Logger::Log(LEVEL_INFO, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
-    currentValue = strSettingValue;
-    return returnValueIfChanged;
+    if (SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
+      m_admin->SendGlobalRecordingStartMarginSetting(m_globalStartPaddingStb);
+  }
+  else if (settingName == "globalendpaddingstb")
+  {
+    if (SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
+      m_admin->SendGlobalRecordingEndMarginSetting(m_globalEndPaddingStb);
   }
 
   return ADDON_STATUS_OK;

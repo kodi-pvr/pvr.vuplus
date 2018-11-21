@@ -2,8 +2,10 @@
 
 #include <string>
 
+#include "Admin.h"
 #include "utilities/Logger.h"
 #include "utilities/DeviceInfo.h"
+#include "utilities/DeviceSettings.h"
 
 #include "xbmc_addon_types.h"
 
@@ -22,6 +24,29 @@ namespace enigma2
   static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreTextMappings/Rytec-UK-Ireland";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
+  enum class UpdateMode
+    : int // same type as addon settings
+  {
+    TIMERS_AND_RECORDINGS = 0,
+    TIMERS_ONLY
+  };
+
+  enum class ChannelGroupMode
+    : int // same type as addon settings
+  {
+    ALL_GROUPS = 0,
+    ONLY_ONE_GROUP,
+    FAVOURITES_GROUP
+  };
+
+  enum class FavouritesGroupMode
+    : int // same type as addon settings
+  {
+    DISABLED = 0,
+    AS_FIRST_GROUP,
+    AS_LAST_GROUP
+  };
+
   enum class Timeshift
     : int // same type as addon settings
   {
@@ -37,6 +62,15 @@ namespace enigma2
     IN_EPG,
     IN_RECORDINGS,
     ALWAYS
+  };
+
+  enum class PowerstateMode
+    : int // same type as addon settings
+  {
+    DISABLED = 0,
+    STANDBY,
+    DEEP_STANDBY,
+    WAKEUP_THEN_STANDBY
   };
 
   class Settings
@@ -69,12 +103,17 @@ namespace enigma2
     bool UseOnlinePicons() const { return m_onlinePicons; }
     bool UsePiconsEuFormat() const { return m_usePiconsEuFormat; }
     const std::string& GetIconPath() const { return m_iconPath; }
-    int GetUpdateIntervalMins() const { return m_updateInterval; }
+    unsigned int GetUpdateIntervalMins() const { return m_updateInterval; }
+    UpdateMode GetUpdateMode() const { return m_updateMode; }
 
     //Channel
-    bool GetOneGroupOnly() const { return m_onlyOneGroup; }
-    const std::string& GetOneGroupName() const { return m_oneGroup; }
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
+    const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
+    const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
+    const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
+    const ChannelGroupMode& GetRadioChannelGroupMode() const { return m_radioChannelGroupMode; }
+    const std::string& GetOneRadioGroupName() const { return m_oneRadioGroup; }
+    const FavouritesGroupMode& GetRadioFavouritesMode() const { return m_radioFavouritesMode; }
    
     //EPG
     bool GetExtractShowInfo() const { return m_extractShowInfo; }
@@ -101,16 +140,26 @@ namespace enigma2
 
     //Advanced
     const PrependOutline& GetPrependOutline() const { return m_prependOutline; }
-    bool GetDeepStandbyOnAddonExit() const { return m_setPowerstate; }
+    PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
-    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+    unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo->GetWebIfVersionAsNum(); }
 
-    const enigma2::utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
-    void SetDeviceInfo(enigma2::utilities::DeviceInfo& deviceInfo) { m_deviceInfo = deviceInfo; }    
+    const enigma2::utilities::DeviceInfo* GetDeviceInfo() const { return m_deviceInfo; }
+    void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo) { m_deviceInfo = deviceInfo; }    
+
+    const enigma2::utilities::DeviceSettings* GetDeviceSettings() const { return m_deviceSettings; }
+    void SetDeviceSettings(enigma2::utilities::DeviceSettings* deviceSettings) 
+    { 
+      m_deviceSettings = deviceSettings; 
+      m_globalStartPaddingStb = deviceSettings->GetGlobalRecordingStartMargin();
+      m_globalEndPaddingStb = deviceSettings->GetGlobalRecordingEndMargin();
+    }    
+
+    void SetAdmin(enigma2::Admin* admin) { m_admin = admin; }    
 
     inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
     {
@@ -123,8 +172,8 @@ namespace enigma2
     Settings(Settings const &) = delete;
     void operator=(Settings const &) = delete;
 
-    template <typename T>
-    ADDON_STATUS SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, ADDON_STATUS returnValueIfChanged)
+    template <typename T, typename V>
+    V SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       T newValue =  *static_cast<const T*>(settingValue);
       if (newValue != currentValue)
@@ -133,10 +182,24 @@ namespace enigma2
         currentValue = newValue;
         return returnValueIfChanged;
       }
-      return ADDON_STATUS_OK;
+
+      return defaultReturnValue;
     };
 
-    ADDON_STATUS SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, ADDON_STATUS returnValueIfChanged);
+    template <typename V>
+    V SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, V returnValueIfChanged, V defaultReturnValue)
+    {
+      const std::string strSettingValue = static_cast<const char*>(settingValue);
+
+      if (strSettingValue != currentValue)
+      {
+        utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
+        currentValue = strSettingValue;
+        return returnValueIfChanged;
+      }
+
+      return defaultReturnValue;
+    }
 
     //Connection
     std::string m_hostname = DEFAULT_HOST;
@@ -153,12 +216,17 @@ namespace enigma2
     bool m_onlinePicons = true;
     bool m_usePiconsEuFormat = false;
     std::string m_iconPath = "";
-    int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
+    unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
+    UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
     
     //Channel
-    bool m_onlyOneGroup = false;
-    std::string m_oneGroup = "";
     bool m_zap = false;
+    ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
+    std::string m_oneTVGroup = "";
+    FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
+    ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+    std::string m_oneRadioGroup = "";
+    FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
 
     //EPG
     bool m_extractShowInfo = true;
@@ -184,12 +252,18 @@ namespace enigma2
 
     //Advanced
     PrependOutline m_prependOutline = PrependOutline::IN_EPG;
-    bool m_setPowerstate = false;
+    PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
 
+    //Backend
+    int m_globalStartPaddingStb = 0;
+    int m_globalEndPaddingStb = 0;
+
     std::string m_connectionURL;
-    enigma2::utilities::DeviceInfo m_deviceInfo;
+    enigma2::utilities::DeviceInfo* m_deviceInfo;
+    enigma2::utilities::DeviceSettings* m_deviceSettings;
+    enigma2::Admin* m_admin;
 
     //PVR Props
     std::string m_szUserPath = "";

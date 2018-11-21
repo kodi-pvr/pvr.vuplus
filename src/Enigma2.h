@@ -21,6 +21,9 @@
  *
  */
 
+#include <atomic>
+#include <time.h>
+
 #include "client.h"
 #include "enigma2/Admin.h"
 #include "enigma2/Channels.h"
@@ -55,8 +58,8 @@ public:
   
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void) const;
-  PVR_ERROR    GetChannelGroups(ADDON_HANDLE handle);
-  PVR_ERROR    GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
+  PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool radio);
+  PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
   int GetChannelsAmount(void) const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
@@ -66,8 +69,8 @@ public:
   void CloseLiveStream();
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount();
-  PVR_ERROR    GetRecordings(ADDON_HANDLE handle);
-  PVR_ERROR    DeleteRecording(const PVR_RECORDING &recinfo);
+  PVR_ERROR GetRecordings(ADDON_HANDLE handle);
+  PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
   bool GetRecordingsFromLocation(std::string strRecordingFolder);
   enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
@@ -88,7 +91,9 @@ private:
   // members
   bool m_isConnected = false;
   unsigned int m_updateTimer = 0;
+  time_t m_lastUpdateTimeSeconds;
   int m_currentChannel = -1;
+  std::atomic_bool m_dueRecordingUpdate{true};
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;

@@ -19,37 +19,56 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) 
 {
   for (const auto& channel : m_channels)
   {
-    if (channel.IsRadio() == bRadio)
+    if (channel->IsRadio() == bRadio)
     {
-      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d'", __FUNCTION__, channel.GetChannelName().c_str(), channel.GetUniqueId());
+      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d'", __FUNCTION__, channel->GetChannelName().c_str(), channel->GetUniqueId());
       PVR_CHANNEL kodiChannel;
       memset(&kodiChannel, 0, sizeof(PVR_CHANNEL));
 
-      channel.UpdateTo(kodiChannel);
+      channel->UpdateTo(kodiChannel);
 
       kodiChannels.emplace_back(kodiChannel);
     }
   }
 }
 
-int Channels::GetChannelUniqueId(const std::string strServiceReference) const
+int Channels::GetChannelUniqueId(const std::string &channelServiceReference)
 {
-  for (const auto& channel : m_channels)
-  {
-    if (strServiceReference == channel.GetServiceReference())
-      return channel.GetUniqueId();
-  }
-  return -1;
+  std::shared_ptr<Channel> channel = GetChannel(channelServiceReference);
+  int uniqueId = -1;
+
+  if (channel)
+    uniqueId = channel->GetUniqueId();
+
+  return uniqueId;
 }
 
-enigma2::data::Channel& Channels::GetChannel(int uniqueId)
+std::shared_ptr<Channel> Channels::GetChannel(int uniqueId)
 {
   return m_channels.at(uniqueId - 1);
+}
+
+std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelServiceReference)
+{
+  std::shared_ptr<Channel> channel = nullptr;
+
+  auto channelPair = m_channelsServiceReferenceMap.find(channelServiceReference);
+  if (channelPair != m_channelsServiceReferenceMap.end()) 
+  {
+    channel = channelPair->second;
+  } 
+
+  return channel;
 }
 
 bool Channels::IsValid(int uniqueId) const
 {
   return (uniqueId - 1) < m_channels.size();
+}
+
+bool Channels::IsValid(const std::string &channelServiceReference)
+{
+  return GetChannel(channelServiceReference) != nullptr;
 }
 
 int Channels::GetNumChannels() const
@@ -62,15 +81,31 @@ void Channels::ClearChannels()
   m_channels.clear();
 }
 
-void Channels::AddChannel(Channel& newChannel)
+void Channels::AddChannel(Channel &newChannel, std::shared_ptr<ChannelGroup> &channelGroup)
 {
-  newChannel.SetUniqueId(m_channels.size() + 1);
-  newChannel.SetChannelNumber(m_channels.size() + 1);
+  std::shared_ptr<Channel> foundChannel = GetChannel(newChannel.GetServiceReference());
 
-  m_channels.emplace_back(newChannel);
+  if (!foundChannel)
+  {
+    newChannel.SetUniqueId(m_channels.size() + 1);
+    newChannel.SetChannelNumber(m_channels.size() + 1);
+
+    m_channels.emplace_back(new Channel(newChannel));
+
+    std::shared_ptr<Channel> channel = m_channels.back();
+    channel->AddChannelGroup(channelGroup);
+    channelGroup->AddChannel(channel);
+
+    m_channelsServiceReferenceMap.insert({channel->GetServiceReference(), channel});
+  }
+  else
+  {
+    foundChannel->AddChannelGroup(channelGroup);
+    channelGroup->AddChannel(foundChannel);
+  }
 }
 
-std::vector<enigma2::data::Channel>& Channels::GetChannelsList()
+std::vector<std::shared_ptr<Channel>>& Channels::GetChannelsList()
 {
   return m_channels;
 }
@@ -80,7 +115,7 @@ bool Channels::CheckIfAllChannelsHaveInitialEPG() const
   bool someChannelsStillNeedInitialEPG = false;
   for (const auto& channel : m_channels)
   {
-    if (channel.IsRequiresInitialEPG()) 
+    if (channel->RequiresInitialEPG()) 
     {
       someChannelsStillNeedInitialEPG = true;
     }
@@ -93,8 +128,8 @@ std::string Channels::GetChannelIconPath(std::string strChannelName)
 {
   for (const auto& channel : m_channels)
   {
-    if (strChannelName == channel.GetChannelName())
-      return channel.GetIconPath();
+    if (strChannelName == channel->GetChannelName())
+      return channel->GetIconPath();
   }
   return "";
 }
@@ -105,21 +140,16 @@ bool Channels::LoadChannels(ChannelGroups &channelGroups)
 
   ClearChannels();
   // Load Channels
-  for (const auto& group : channelGroups.GetChannelGroupsList())
+  for (auto& group : channelGroups.GetChannelGroupsList())
   {
-    if (LoadChannels(group.GetServiceReference(), group.GetGroupName()))
+    if (LoadChannels(group->GetServiceReference(), group->GetGroupName(), group))
       bOk = true;
   }
-
-  // Load the radio channels - continue if no channels are found 
-  std::string strTmp;
-  strTmp = StringUtils::Format("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
-  LoadChannels(strTmp, "radio");
 
   return bOk;
 }
 
-bool Channels::LoadChannels(std::string groupServiceReference, std::string groupName)
+bool Channels::LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<ChannelGroup> &channelGroup)
 {
   Logger::Log(LEVEL_INFO, "%s loading channel group: '%s'", __FUNCTION__, groupName.c_str());
 
@@ -157,21 +187,16 @@ bool Channels::LoadChannels(std::string groupServiceReference, std::string group
     return false;
   }
   
-  bool isRadio;
-
-  isRadio = (groupName == "radio");
-
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
     Channel newChannel;
-    newChannel.SetRadio(isRadio);
-    newChannel.SetGroupName(groupName);
+    newChannel.SetRadio(channelGroup->IsRadio());
 
     if (!newChannel.UpdateFrom(pNode, Settings::GetInstance().GetConnectionURL()))
       continue;
 
-    AddChannel(newChannel);
-    Logger::Log(LEVEL_INFO, "%s Loaded channel: %s, Icon: %s", __FUNCTION__, newChannel.GetChannelName().c_str(), newChannel.GetIconPath().c_str());
+    AddChannel(newChannel, channelGroup);
+    Logger::Log(LEVEL_DEBUG, "%s Loaded channel: %s, Group: %s, Icon: %s, ID: %d", __FUNCTION__, newChannel.GetChannelName().c_str(), groupName.c_str(), newChannel.GetIconPath().c_str(), newChannel.GetUniqueId());
   }
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());

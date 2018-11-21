@@ -70,6 +70,28 @@ bool FileUtils::CopyFile(const std::string &sourceFile, const std::string &targe
   return copySuccessful;
 }
 
+bool FileUtils::WriteStringToFile(const std::string &fileContents, const std::string &targetFile)
+{
+  bool writeSuccessful = true;
+
+  Logger::Log(LEVEL_DEBUG, "%s Writing strig to file: %s", __FUNCTION__, targetFile.c_str());
+
+  void* targetFileHandle = XBMC->OpenFileForWrite(targetFile.c_str(), true);
+
+  if (targetFileHandle)
+  {
+    XBMC->WriteFile(targetFileHandle, fileContents.c_str(), fileContents.length());
+    XBMC->CloseFile(targetFileHandle);
+  }
+  else
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not open target file to write to: %s", __FUNCTION__, targetFile.c_str());
+    writeSuccessful = false;
+  }
+
+  return writeSuccessful;
+}
+
 std::string FileUtils::ReadXmlFileToString(const std::string &sourceFile)
 {
   return ReadFileToString(sourceFile) + "\n";

@@ -159,7 +159,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
           return false;
         }
 
-        m_channelName = channels.GetChannel(m_channelId).GetChannelName();  
+        m_channelName = channels.GetChannel(m_channelId)->GetChannelName();  
       }
     }
     else //otherwise set to any channel

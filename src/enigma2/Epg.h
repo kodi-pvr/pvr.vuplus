@@ -46,8 +46,8 @@ namespace enigma2
   private:   
     void InitialiseEpgReadyFile();
 
-    bool GetInitialEPGForGroup(enigma2::data::ChannelGroup &group);
-    PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const enigma2::data::Channel &channel, time_t iStart, time_t iEnd);
+    bool GetInitialEPGForGroup(std::shared_ptr<enigma2::data::ChannelGroup> group);
+    PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<enigma2::data::Channel> &channel, time_t iStart, time_t iEnd);
     
     enigma2::Channels &m_channels;
     enigma2::ChannelGroups &m_channelGroups;  
