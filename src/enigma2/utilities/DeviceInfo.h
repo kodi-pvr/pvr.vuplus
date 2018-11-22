@@ -10,14 +10,15 @@ namespace enigma2
     {
     public:
       DeviceInfo() = default;
-      DeviceInfo(const std::string &serverName, const std::string &enigmaVersion, const std::string &imageVersion, 
+      DeviceInfo(const std::string &serverName, const std::string &enigmaVersion, const std::string &imageVersion, const std::string &distroVersion,
         const std::string &webIfVersion, unsigned int webIfVersionAsNum) 
-        : m_serverName(serverName), m_enigmaVersion(enigmaVersion), m_imageVersion(imageVersion), 
+        : m_serverName(serverName), m_enigmaVersion(enigmaVersion), m_imageVersion(imageVersion), m_distroVersion(distroVersion),
           m_webIfVersion(webIfVersion), m_webIfVersionAsNum(webIfVersionAsNum) {};
 
       const std::string& GetServerName() const { return m_serverName; }
       const std::string& GetEnigmaVersion() const { return m_enigmaVersion; }
       const std::string& GetImageVersion() const { return m_imageVersion; }
+      const std::string& GetDistroVersion() const { return m_distroVersion; }
       const std::string& GetWebIfVersion() const { return m_webIfVersion; }
       unsigned int GetWebIfVersionAsNum() const { return m_webIfVersionAsNum; }
 
@@ -25,6 +26,7 @@ namespace enigma2
       std::string m_serverName = "Enigma2";    
       std::string m_enigmaVersion;
       std::string m_imageVersion;
+      std::string m_distroVersion;
       std::string m_webIfVersion;
       unsigned int m_webIfVersionAsNum;      
     };
