@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Priečinok pre nahrávky v prijímači"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Vyvolať len jednu obľúbenú skupinu TV programov"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Povoliť automatickú konfiguráciu pre živé streamy"
@@ -120,6 +116,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Rôzne"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Rádio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Časový posun"
@@ -147,6 +151,22 @@ msgstr "Nahrávky"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Časovače"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/A"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Pravdivé"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Nepravdivé"
 
 msgctxt "#30410"
 msgid "Automatic"

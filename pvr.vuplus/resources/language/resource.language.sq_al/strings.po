@@ -72,10 +72,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Regjistër i regjistrimeve në resiverin"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Shkarko vetëm një TV buket"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Kurrë"
@@ -84,6 +80,14 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Gjithnjë"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Hequr"
@@ -91,6 +95,18 @@ msgstr "Hequr"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Rregjistrime"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "N'RREGULL"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Vërtetë"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "I pavërtetë"
 
 msgctxt "#30430"
 msgid "Disabled"

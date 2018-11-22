@@ -36,6 +36,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Off"
 
+msgctxt "#30085"
+msgid "OK"
+msgstr "Bone"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Disabled"

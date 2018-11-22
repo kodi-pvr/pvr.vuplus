@@ -16,6 +16,14 @@ msgstr ""
 "Language: cs_CZ\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Název hostitele nebo IP adresa Enigma2"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Port streamování"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Uživatelské jméno"
@@ -36,6 +44,10 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Časový limit odpovědi v sekundách"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Cesta k ikoně"
+
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Interval aktualizace"
@@ -43,6 +55,18 @@ msgstr "Interval aktualizace"
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Interval aktualizace v minutách"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Automatické čištění seznamu časovačů"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Port webového rozhraní"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Přepnout před přepnutím kanálu (např. pro jednotunerové přijímače)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -84,9 +108,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Složka s nahrávkami na přijímači"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Načíst pouze jednu skupinu oblíbených programů"
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "Skupina oblíbených programů"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Načíst ikony kanálů z webového rozhraní"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Použít zabezpečené HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -96,17 +128,45 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Zachovat strukturu složky pro nahrávky"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Sezóny a epizody"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "Televizní program"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Extrahovat informaci o sezóně, epizodě a roku, kde je to možné"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Povolit automatické časovače"
 
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr "Používat formát souboru picons.eu"
 
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Povolit generování opakujících se časovačů"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Webové rozhraní"
+
 msgctxt "#30039"
 msgid "Streaming"
 msgstr "Streamování"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Umístit stručné shrnutí (např. titulky) před obsah děje"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Velikost bloku dat čtení streamu"
 
 msgctxt "#30042"
 msgid "Never"
@@ -124,6 +184,10 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Vždy"
 
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Vlastní časový limit živého vysílání (0 pro použití výchozího)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Přihlášení"
@@ -132,13 +196,37 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Různé"
 
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Mapování ID žánru"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Povolit mapování ID žánru"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Soubor mapování ID žánru"
+
+msgctxt "#30056"
+msgid "TV"
+msgstr "Televize"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Rádio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Časový posun"
 
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Povolit časový posun"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Popis umístění vyrovnávací paměti časového posunu"
+msgstr "Cesta k vyrovnávací paměti časového posunu"
 
 msgctxt "#30063"
 msgid "Off"
@@ -152,6 +240,14 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Při pozastavení"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Použít zabezpečené HTTP (https) pro streamy"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Použít přihlášení pro streamy"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Nahrávky a časovače"
@@ -164,13 +260,33 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Časovače"
 
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Počet opakování časovačů ke generování"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Nezadáno"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Pravda"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Nepravda"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatické"
 
 msgctxt "#30420"
 msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Jednou (naplánováno pravidlem časovače)"
+msgstr "Jednou (Naplánováno pravidlem časovače na základě televizního programu)"
 
 msgctxt "#30421"
 msgid "One time (Scheduled by repeating timer rule)"
@@ -194,12 +310,12 @@ msgstr "Nahrávat, pokud se liší název a všechny popisy televizního program
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
-msgstr "Odpojeno od „%s“"
+msgstr "Odpojeno od '%s'"
 
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
-msgstr "Znovu připojeno k „%s“"
+msgstr "Znovu připojeno k '%s'"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "Popisované umístění pro vyrovnávací paměť časového posunu neexistuje"
+msgstr "Cesta k vyrovnávací paměti časového posunu neexistuje"

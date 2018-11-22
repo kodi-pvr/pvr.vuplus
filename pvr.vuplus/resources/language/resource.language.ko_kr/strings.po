@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "리시버 녹화 폴더"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "하나의 TV 묶음만 가져오기"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -116,6 +112,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "기타"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "라디오"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "타임시프트"
@@ -135,6 +139,18 @@ msgstr "녹화"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "녹화 예약"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "확인"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "사실"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "없음"
 
 msgctxt "#30410"
 msgid "Automatic"

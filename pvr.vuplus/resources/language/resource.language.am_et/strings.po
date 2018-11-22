@@ -88,6 +88,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "የተለያዩ "
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "ቲቪ "
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "ራዲዮ "
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "ማጥፊያ "
@@ -99,6 +107,18 @@ msgstr "መቅረጫ "
 msgctxt "#30072"
 msgid "Timers"
 msgstr "መቁጠሪያ"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "እሺ "
+
+msgctxt "#30095"
+msgid "True"
+msgstr "እውነት"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "ሀሰት"
 
 msgctxt "#30430"
 msgid "Disabled"

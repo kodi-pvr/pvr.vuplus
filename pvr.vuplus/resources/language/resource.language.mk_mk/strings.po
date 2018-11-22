@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка за снимање на ресиверот"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Превземи само еден TV пакет"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Никогаш"
@@ -104,6 +100,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Најави се"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Радио"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Пат за Timeshift buffer-от"
@@ -119,6 +123,18 @@ msgstr "Снимки"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Бројачи"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Во ред"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Вистина"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Неактивно"
 
 msgctxt "#30430"
 msgid "Disabled"

@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Optagelsesmappe på modtageren"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Hent kun én TV-buket"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -116,6 +112,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Diverse"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tidsforskydning"
@@ -139,6 +143,22 @@ msgstr "Optagelser"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Timeroptagelser"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/A"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Sandt"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Falsk"
 
 msgctxt "#30410"
 msgid "Automatic"

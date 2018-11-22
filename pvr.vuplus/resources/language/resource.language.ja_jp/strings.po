@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "レシーバーの録画フォルダー"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "ひとつのTV ブーケのみ取得"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "使用しない"
@@ -95,6 +91,14 @@ msgstr "常に"
 msgctxt "#30051"
 msgid "Login"
 msgstr "ログイン"
+
+msgctxt "#30056"
+msgid "TV"
+msgstr "テレビ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "ラジオ"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -111,6 +115,18 @@ msgstr "録音"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "タイマー"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "True"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "False"
 
 msgctxt "#30430"
 msgid "Disabled"

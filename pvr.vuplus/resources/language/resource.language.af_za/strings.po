@@ -84,10 +84,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Opname vouer op die ontvanger"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Gaan haal slegs een TV boeket"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Stel outomatiese konfigurasie in staat vir lewendige strome"
@@ -128,6 +124,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Diverse"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tydskuif"
@@ -159,6 +163,22 @@ msgstr "Opnames"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Tydhouers"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "NVT"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Waar"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Vals"
 
 msgctxt "#30410"
 msgid "Automatic"

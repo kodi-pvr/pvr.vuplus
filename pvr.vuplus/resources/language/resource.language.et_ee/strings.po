@@ -92,6 +92,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Logi sisse"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Raadio"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Ajanihke puhverduse rada"
@@ -107,6 +115,18 @@ msgstr "Salvestused"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Taimerid"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Nüüd saate lõõgastuda"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Ei ole"
 
 msgctxt "#30430"
 msgid "Disabled"

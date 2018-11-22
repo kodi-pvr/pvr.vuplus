@@ -68,6 +68,14 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Dejjem"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "Televixin"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radju"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Il-Buffer path tat-timeshift"
@@ -79,6 +87,18 @@ msgstr "Xejn"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Recordings"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Veru"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Falz"
 
 msgctxt "#30430"
 msgid "Disabled"

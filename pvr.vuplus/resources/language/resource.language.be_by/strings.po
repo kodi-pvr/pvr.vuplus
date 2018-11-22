@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Recording folder on the receiver"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Fetch only one TV bouquet"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Ніколі"
@@ -96,6 +92,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Login"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Радыё"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Не"
@@ -103,6 +107,18 @@ msgstr "Не"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Recordings"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Добра"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "True"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "False"
 
 msgctxt "#30410"
 msgid "Automatic"

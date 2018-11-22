@@ -76,10 +76,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Ierakstīšanas mape atskaņotājā"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Iegūt tikai vienu TV buķeti"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Nekad"
@@ -100,6 +96,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Pieteikšanās"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Laika nobīdes bufera ceļš"
@@ -111,6 +115,18 @@ msgstr "Izslēgts"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Ieraksti"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Skaidrs"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Patiess"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Nepatiess"
 
 msgctxt "#30430"
 msgid "Disabled"

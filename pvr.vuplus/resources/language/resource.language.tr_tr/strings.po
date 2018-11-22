@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Alıcıdaki kayıt klasörü"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Sadece tek TV destesi getir"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "Elektronik Program Rehberi"
@@ -112,6 +108,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Çeşitli"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radyo"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Zaman Kaydırma"
@@ -131,6 +135,18 @@ msgstr "Kayıtlar"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Zamanlayıcılar"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Tamam"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Doğru"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Yanlış"
 
 msgctxt "#30410"
 msgid "Automatic"

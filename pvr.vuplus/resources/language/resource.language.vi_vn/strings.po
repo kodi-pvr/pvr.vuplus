@@ -76,10 +76,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Thư mục lưu trên thiết bị"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Chỉ lấy một TV bouquet"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Không bao giờ"
@@ -92,6 +88,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Đăng nhập"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Đường dẫn bộ đệm Timeshift"
@@ -103,6 +107,14 @@ msgstr "Tắt"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Các bản ghi"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Đúng"
 
 msgctxt "#30430"
 msgid "Disabled"

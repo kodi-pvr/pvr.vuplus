@@ -36,6 +36,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "से"
 
+msgctxt "#30085"
+msgid "OK"
+msgstr "टेके"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "विकलांग"

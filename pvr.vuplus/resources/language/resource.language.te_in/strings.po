@@ -31,3 +31,7 @@ msgstr "సెకన్లలో స్పందన  టైమ్అవుట
 msgctxt "#30018"
 msgid "General"
 msgstr "సాధారణం"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "సరే"

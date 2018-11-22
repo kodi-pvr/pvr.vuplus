@@ -60,6 +60,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Hasi saioa"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TB"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Irratia"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Denbora aldaketa"
@@ -75,6 +83,18 @@ msgstr "Grabazioak"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Programazioak"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Ados"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Egia"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Gezurra"
 
 msgctxt "#30410"
 msgid "Automatic"

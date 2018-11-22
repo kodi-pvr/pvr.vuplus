@@ -56,6 +56,10 @@ msgctxt "#30071"
 msgid "Recordings"
 msgstr "පටිගතකිරීම්"
 
+msgctxt "#30085"
+msgid "OK"
+msgstr "හරි"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "අක්‍රිය කර ඇත."

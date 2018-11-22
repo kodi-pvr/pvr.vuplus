@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Fascikla za snimanje na prijemniku"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Preuzmi samo jedan TV bouquet"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -116,6 +112,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Ostalo"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Pomeraj vremena"
@@ -143,6 +147,18 @@ msgstr "Snimci"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Tajmeri"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "U redu"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Ispravno"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Netačno"
 
 msgctxt "#30410"
 msgid "Automatic"

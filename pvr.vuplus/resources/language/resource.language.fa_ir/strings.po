@@ -56,6 +56,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "ورود"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "تلویزیون"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "رادیو"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "خاموش"
@@ -63,6 +71,14 @@ msgstr "خاموش"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "ضبط شده ها"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "تایید"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "درست"
 
 msgctxt "#30430"
 msgid "Disabled"

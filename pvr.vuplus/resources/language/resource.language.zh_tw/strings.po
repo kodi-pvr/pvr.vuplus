@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "接收器上的錄影資料夾"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "只取單一電視節目群組"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "開啟即時串流的自動配置"
@@ -120,6 +116,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "雜項"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "電視"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "無線電廣播"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "時間平移"
@@ -147,6 +151,22 @@ msgstr "錄影檔"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "定時"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "確定"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/A"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "真實"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "錯誤"
 
 msgctxt "#30410"
 msgid "Automatic"

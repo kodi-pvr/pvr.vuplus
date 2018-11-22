@@ -16,6 +16,14 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Dirección IP o nombre de equipo Enigma2"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Puerto de emisión"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Usuario"
@@ -36,6 +44,10 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Tiempo de espera de respuesta en segundos"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Ruta de icono"
+
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Intervalo de Actualización"
@@ -43,6 +55,18 @@ msgstr "Intervalo de Actualización"
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Intervalo de actualización en minutos"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Limpiar automáticamente la lista de programaciones"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Puerto de la interfaz web"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Zap antes de cambio de canal (p.e. para sintonizadores únicos)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -84,9 +108,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta de grabaciones en el receptor"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Buscar sólo un bouquet de TV"
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "Ramo TV"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Conseguir picons de la interfaz web"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Usar HTTP Seguro (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -96,17 +128,49 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Mantener estructura de carpetas para las grabaciones"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Temporadas y Capítulos"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Extraer información de temporada, episodio y año cuando sea posible"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Activar programaciones automáticas"
 
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr "Usar formato de archivo picons.eu"
 
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Activar generación de programaciones repetidas"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Registrar cuando género esté vacío"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Interfaz Web"
+
 msgctxt "#30039"
 msgid "Streaming"
 msgstr "Streaming"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Poner frase (p.e. subtítulo) antes del argumento"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Tamaño de fragmento de lectura de emisión"
 
 msgctxt "#30042"
 msgid "Never"
@@ -124,6 +188,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Siempre"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Extraer fichero de información del programa"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Mapas Rytec para género"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "Activa los mapeados de Rytec para el género"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Fichero de mapas Rytec para género"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Apagado de TV en directo personalizado (0 por defecto)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Inicio de sesión"
@@ -132,9 +216,33 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Otros"
 
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Mapas de ID Género"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Activa los mapeados ID para el género"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Fichero de mapas ID para género"
+
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Activar timeshift"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -152,6 +260,14 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Pausado"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Usar HTTP seguro (https) para las emisiones"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Usar usuario para las emisiones"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Grabaciones y Programaciones"
@@ -163,6 +279,26 @@ msgstr "Grabaciones"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Programaciones"
+
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Número de repeticiones de programación a generar"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/D"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Sí"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Falso"
 
 msgctxt "#30410"
 msgid "Automatic"

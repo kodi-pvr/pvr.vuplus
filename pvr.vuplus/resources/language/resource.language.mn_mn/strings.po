@@ -40,6 +40,14 @@ msgctxt "#30021"
 msgid "HTTP"
 msgstr "HTTP"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Радио"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Хаах"
@@ -51,6 +59,10 @@ msgstr "Бичлэгүүд"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Цагалбарууд"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
 
 msgctxt "#30430"
 msgid "Disabled"

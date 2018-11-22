@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Dosarul de înregistrari în decodor"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Adună date doar pentru un buchet TV"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "Ghid program electronic"
@@ -116,6 +112,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Diverse"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "Televizor"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Decalaj temporal"
@@ -143,6 +147,18 @@ msgstr "Înregistrări"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Cronometre"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Bine"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Adevărat"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Fals"
 
 msgctxt "#30410"
 msgid "Automatic"

@@ -84,10 +84,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder rakaman pada penerima"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Hanya hantar satu TV bouquet"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Benarkan konfigurasi automatik untuk strim langsung"
@@ -128,6 +124,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Pelbagai"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Anjak Masa"
@@ -159,6 +163,22 @@ msgstr "Rakaman"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Pemasa"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "T/A"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Benar"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Palsu"
 
 msgctxt "#30410"
 msgid "Automatic"

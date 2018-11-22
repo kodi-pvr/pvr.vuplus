@@ -16,6 +16,14 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Enigma2 机器名或 IP 地址"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "流端口"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "用户名"
@@ -36,9 +44,29 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "响应超时（秒）"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "图标路径"
+
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "更新间隔"
+
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "更新间隔（分）"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "自动清除定时器列表"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Web 界面端口"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "频道切换前清屏（如单调谐器机顶盒）"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -80,9 +108,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "接收器上的录像文件夹"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "仅获取一个电视频道组"
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "电视频道组"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "从 Web 界面获取 picons"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "使用安全连接（https）"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -92,9 +128,41 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "保留录像文件夹结构"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "季和集"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "电子节目单"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "可能的情况下提取季、集和年信息"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "启用自动定时器"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "使用 picons.eu 文件格式"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "启用生成重复定时器"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Web 界面"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "串流中"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "流读取块大小"
 
 msgctxt "#30042"
 msgid "Never"
@@ -112,6 +180,10 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "总是"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "提取显示信息"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "登录"
@@ -120,9 +192,21 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "杂项"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "电视"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "电台"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "时光平移"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "启用时光平移"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -140,6 +224,18 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "暂停中"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "为流使用安全连接（https）"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "登录使用流"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "录像和定时器"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "录像"
@@ -148,13 +244,53 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "定时器"
 
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "生成的重复定时器数目"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "确定"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "不可用"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "真"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "假"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "自动"
 
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "单次（由基于指南的定时器规则计划）"
+
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "单次（由重复定时器计划）"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "已禁用"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "录制电子节目单标题不同的"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "录制电子节目单标题和简介不同的"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "录制电子节目单标题和全面介绍不同的"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
@@ -166,4 +302,4 @@ msgstr "重新连接到“%s”"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "TimeShift缓存路径不存在"
+msgstr "时光平移缓存路径不存在"

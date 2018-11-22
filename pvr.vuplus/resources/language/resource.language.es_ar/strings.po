@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta de grabaciones en el receptor"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Buscar sólo TV bouquet"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Nunca"
@@ -104,6 +100,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Ingresar"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -123,6 +127,18 @@ msgstr "Grabaciones"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporizadores"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Sí"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Falso"
 
 msgctxt "#30410"
 msgid "Automatic"

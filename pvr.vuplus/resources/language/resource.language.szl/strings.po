@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder nagrowaniŏ na dekoderze"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Sebiyrej ino jedyn puket"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -112,6 +108,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Roztōmajte"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "Telewizyjŏ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -131,6 +135,18 @@ msgstr "Spamiyntania"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Auftragi"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Prŏwda"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Fałsz"
 
 msgctxt "#30410"
 msgid "Automatic"

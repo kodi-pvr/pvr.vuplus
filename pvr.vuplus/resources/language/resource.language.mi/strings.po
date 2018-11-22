@@ -52,6 +52,14 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Tonu"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Weto"
@@ -59,6 +67,18 @@ msgstr "Weto"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Ngā pūhopu"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Āna"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Pono"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Teka"
 
 msgctxt "#30430"
 msgid "Disabled"

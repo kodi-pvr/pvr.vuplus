@@ -16,6 +16,14 @@ msgstr ""
 "Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Име на сървър или IP адрес на Enigma2"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Порт за поточно излъчване"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Потребител"
@@ -36,6 +44,10 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Време на изчакване за отговор (секунди)"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Път до иконките"
+
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Интервал на обновяване"
@@ -43,6 +55,18 @@ msgstr "Интервал на обновяване"
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Интервал на обновяване (минути)"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Автоматично почистване на броячите"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Порт на уеб интерфейса"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Нулиране преди превключване на канал (за устройства с един тунер)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -84,9 +108,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка за записите на приемника"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Извличане само на един ТВ букет"
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "ТВ букет"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Получаване на логата на каналите от уеб интерфейса"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Ползване на HTTPS"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -96,13 +128,49 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Запазване на структурата на папките за записите"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Сезони и епизоди"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "Справочник"
 
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Извличане на инф. за сезона, епизода и годината, когато е възможно"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Включване на авт. броячи"
+
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr "Използване на файловия форма на picons.eu"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Включване на създаването на повтарящи се броячи"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Извеждане на неуспешните текстови съвпадения за липсващи жанрове в журнала"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Уеб интерфейс"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Поточно излъчване"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Показване на резюмето (напр. субтитри) преди сюжета"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Размер на частите на потока за четене"
 
 msgctxt "#30042"
 msgid "Never"
@@ -120,6 +188,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Винаги"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Извличане на файл с инф. за предаването"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Текстови съвпадения на жанровете от Rytec"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "Включване на текстовите съвпадения на жанровете от Rytec"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Файл с текстови съвпадения на жанровете от Rytec"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Персонализирано време за изчакване на ТВ на живо (0 = по подразбиране)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Влизане"
@@ -128,8 +216,32 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Разни"
 
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Съвпадения на ид. на жанровете"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Включване на съвпаденията на ид. на жанровете"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Файл със съвпадения на ид. на жанровете"
+
+msgctxt "#30056"
+msgid "TV"
+msgstr "ТЕЛЕВИЗИЯ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Радио"
+
 msgctxt "#30060"
 msgid "Timeshift"
+msgstr "Изместване във времето"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
 msgstr "Изместване във времето"
 
 msgctxt "#30062"
@@ -148,6 +260,14 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "На пауза"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Ползване на HTTPS за потоците"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Използване на потребителско име и парола за потоците"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Записи и броячи"
@@ -159,6 +279,26 @@ msgstr "Записи"
 msgctxt "#30072"
 msgid "Timers"
 msgstr " Броячи"
+
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Брой повтарящи се броячи, които да се създадат"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Добре"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Няма"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Правилно"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Грешно"
 
 msgctxt "#30410"
 msgid "Automatic"

@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta d'enregistrament en el receptor"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Obté només un paquet de TV"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -112,6 +108,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Altres"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Ràdio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Salts en el temps"
@@ -139,6 +143,18 @@ msgstr "Enregistraments"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporitzadors"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "D'acord"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Cert"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Fals"
 
 msgctxt "#30410"
 msgid "Automatic"

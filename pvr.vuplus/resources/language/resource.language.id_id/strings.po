@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder rekaman di penerima"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Hanya ambil satu buket TV"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG "
@@ -112,6 +108,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Misc"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Pergeseran waktu"
@@ -127,6 +131,18 @@ msgstr "Matikan"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Perekaman"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Ya"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Salah"
 
 msgctxt "#30430"
 msgid "Disabled"

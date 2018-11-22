@@ -16,6 +16,14 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Enigma2 hostnaam of IP-adres"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Doorvoerpoort"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Gebruikersnaam"
@@ -36,9 +44,25 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Antwoordtimeout in seconden"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Iconenpad"
+
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Update-interval"
+
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Update-interval in minuten"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Automatisch opschonen van de timerlijst"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Webinterface-poort"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -80,9 +104,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Opnamemap op de ontvanger"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Haal slechts 1 TV-bouquet op"
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "TV bouquet"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Picons ophalen van de web-interface"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Gebruik beveiligd HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -92,13 +124,45 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Behoud folder structuur voor opnamen"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Seizoenen en afleveringen"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
 
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Seizoen-, afleverings- en jaarinformatie ophalen wanneer mogelijk"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Inschakelen van autotimers"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Gebruik picons.eu bestandsformaat"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Activeren van gegenereerde herhaaltimers"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Log van afwezige genre-tekstmappings"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Webinterface"
+
 msgctxt "#30039"
 msgid "Streaming"
 msgstr "Streaming"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Schets het verhaal (bijv. 2e titel) voor de plot"
 
 msgctxt "#30042"
 msgid "Never"
@@ -116,6 +180,10 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Altijd"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "TV-show-informatiebestand ophalen"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Gebruikersnaam"
@@ -123,6 +191,14 @@ msgstr "Gebruikersnaam"
 msgctxt "#30052"
 msgid "Misc"
 msgstr " Divers"
+
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
 
 msgctxt "#30060"
 msgid "Timeshift"
@@ -151,6 +227,22 @@ msgstr "Opnames"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Timers"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/B"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Waar"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Onwaar"
 
 msgctxt "#30410"
 msgid "Automatic"

@@ -60,6 +60,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Вуруд"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Радио"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Хомӯш"
@@ -67,6 +75,18 @@ msgstr "Хомӯш"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Сабтҳо"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Фаъол"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Ғайрифаъол"
 
 msgctxt "#30430"
 msgid "Disabled"

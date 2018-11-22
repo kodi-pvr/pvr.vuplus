@@ -52,6 +52,18 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Kirish"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "O'chirilgan"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"

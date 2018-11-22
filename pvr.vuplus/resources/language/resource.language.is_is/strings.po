@@ -16,6 +16,14 @@ msgstr ""
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Nafn eða IP-vistfang á Enigma2"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Gátt streymis"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Notandanafn"
@@ -36,9 +44,29 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Tímatakmörk svartíma í sekúndum"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Slóð táknmynda"
+
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Bið milli uppfærslna"
+
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Uppfærslutími í mínútum"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Sjálfvirk hreinsun á tímatökulista"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Gátt vefviðmóts"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Bið á milli rásaskipta (þ.e. fyrir box með einum móttakara)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -80,9 +108,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Upptökumappa á móttakaranum"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Sækja aðeins eitt sjónvarpsknippi"
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "Sjónvarps-knippi"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Sækja 'picon' frá vefviðmóti"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Nota öruggara HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -92,13 +128,29 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Halda möppuskipulagi fyrir plötur"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Þáttaraðir og þættir"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "Rafrænn EPG-sjónvarpsvísir"
 
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Vefviðmót"
+
 msgctxt "#30039"
 msgid "Streaming"
 msgstr "Streymi"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Setja upplýsingar (t.d. skjátexta) á undan söguþræði"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Stærð lesbúts streymis"
 
 msgctxt "#30042"
 msgid "Never"
@@ -116,6 +168,14 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Alltaf"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Veiða upplýsingar um myndskeið úr skrá"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Sérsniðin tímamörk beinnar sjónvarpsútsendingar (0 til að nota sjálfgefið)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Innskrá"
@@ -124,9 +184,21 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Ýmislegt"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "Sjónvarp"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Útvarp"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tímaflakk"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Virkja tímaflakk"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -144,6 +216,14 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Við bið"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Nota öruggara HTTP (https) fyrir streymi"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Upptökur og tímatökur"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Upptökur"
@@ -151,6 +231,22 @@ msgstr "Upptökur"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Tímatökur"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Í lagi"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "E/T"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Satt"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Ósatt"
 
 msgctxt "#30410"
 msgid "Automatic"
@@ -160,6 +256,10 @@ msgctxt "#30420"
 msgid "One time (Scheduled by guide-based timer rule)"
 msgstr "Eins-skiptis (sett á með tímatökureglu frá dagsrárvísi)"
 
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Eins-skiptis (sett á með endurtekinni tímatökureglu)"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Óvirkt"
@@ -167,6 +267,14 @@ msgstr "Óvirkt"
 msgctxt "#30431"
 msgid "Record if EPG title differs"
 msgstr "Taka upp ef titill í EPG-dagskrárvísi er öðruvísi"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Taka upp ef mismunur er á titli og lýsingu í EPG-dagskrárvísi"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Taka upp ef mismunur er á titli og lýsingum í EPG-dagskrárvísi"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

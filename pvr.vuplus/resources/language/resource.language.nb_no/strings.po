@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Opptaksmappe på mottaker"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Hen kun en TV bouquet"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Skru på automatisk oppsett for sanntids-strømmer"
@@ -120,6 +116,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Diverse"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tdsforskyvning"
@@ -147,6 +151,18 @@ msgstr "Opptak"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Tidsur"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Sant"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Usann"
 
 msgctxt "#30410"
 msgid "Automatic"

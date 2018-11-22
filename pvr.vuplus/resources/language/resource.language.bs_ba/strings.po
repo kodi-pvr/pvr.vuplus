@@ -48,6 +48,14 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Uvijek"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Isklj."
@@ -55,6 +63,18 @@ msgstr "Isklj."
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Snimci"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "U redu"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Ispravno"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Netačno"
 
 msgctxt "#30430"
 msgid "Disabled"

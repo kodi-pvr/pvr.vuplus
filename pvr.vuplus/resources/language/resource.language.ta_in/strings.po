@@ -60,6 +60,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "புகுபதிகை"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "தொலைக்காட்சி"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "வானொலி"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "நிறுத்து"
@@ -67,6 +75,18 @@ msgstr "நிறுத்து"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "பதிவகள்"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "சரி"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "உண்மை"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "தவறு"
 
 msgctxt "#30430"
 msgid "Disabled"

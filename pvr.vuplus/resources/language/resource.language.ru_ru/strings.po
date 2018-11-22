@@ -84,10 +84,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка для записей на ресивере"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Выбрать только один букет"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Включить автоматическую настройку для прямых трансляций"
@@ -128,6 +124,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Разное"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Радио"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Таймшифт"
@@ -159,6 +163,22 @@ msgstr "Записи"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Таймеры"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "ОК"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Не доступно"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Да"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Нет"
 
 msgctxt "#30410"
 msgid "Automatic"

@@ -19,3 +19,7 @@ msgstr ""
 msgctxt "#30018"
 msgid "General"
 msgstr "പോതുവായത്"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "ശരി"

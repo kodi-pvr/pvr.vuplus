@@ -76,10 +76,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Ffolder recordio ar y derbynnydd"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Estyn dim ond un bouquet Teledu"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Galluogi ffurfweddu awtomatig ar gyfer ffrydio'n fyw"
@@ -100,6 +96,14 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "Mewngofnodi"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "Teledu"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Llwybr byffro Symud Amser"
@@ -111,6 +115,22 @@ msgstr "Diffodd"
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Recordiadau"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Iawn"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Dim ar Gael"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Gwir"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Gau"
 
 msgctxt "#30430"
 msgid "Disabled"

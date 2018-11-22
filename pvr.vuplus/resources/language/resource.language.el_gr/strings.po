@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Φάκελος εγγραφών στο δέκτη"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Λήψη μόνο ενός μπουκέτου TV"
-
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -112,6 +108,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Διάφορα"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "Τηλεόραση"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Ραδιόφωνο"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -131,6 +135,22 @@ msgstr "Εγγραφές"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Χρονοδιακόπτες"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "Εντάξει"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Α/Α"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Αληθές"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Ψευδές"
 
 msgctxt "#30430"
 msgid "Disabled"

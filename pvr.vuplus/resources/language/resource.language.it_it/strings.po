@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Cartella per le registrazioni del ricevitore"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "Prendi un solo bouquet TV"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Abilita configurazione automatica per  trasmissioni in diretta"
@@ -120,6 +116,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "Varie"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "Radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -147,6 +151,22 @@ msgstr "Registrazioni"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Timer"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N.D"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "Vero"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "Falso"
 
 msgctxt "#30410"
 msgid "Automatic"

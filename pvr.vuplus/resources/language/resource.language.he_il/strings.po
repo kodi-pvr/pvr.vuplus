@@ -80,10 +80,6 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "תיקיית הקלטות בשרת אחורי"
 
-msgctxt "#30025"
-msgid "Fetch only one TV bouquet"
-msgstr "משוך סל ערוצים יחיד בלבד"
-
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "הפעל תצורה אוטומטית עבור הזרמת שידורים חיים"
@@ -120,6 +116,14 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "שונות"
 
+msgctxt "#30056"
+msgid "TV"
+msgstr "טלוויזיה"
+
+msgctxt "#30057"
+msgid "Radio"
+msgstr "רדיו"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "הסט זמן"
@@ -147,6 +151,18 @@ msgstr "הקלטות"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "תזמונים"
+
+msgctxt "#30085"
+msgid "OK"
+msgstr "אישור"
+
+msgctxt "#30095"
+msgid "True"
+msgstr "אמת"
+
+msgctxt "#30096"
+msgid "False"
+msgstr "שקר"
 
 msgctxt "#30410"
 msgid "Automatic"
