@@ -1,3 +1,7 @@
+v3.15.1
+- Fixed: since 3.15.0 pvr manager cant start #134
+- Added: Log Distro Version
+
 v3.15.0
 - Added: Support for Radio Groups
 - Added: Create unique list of channels instead of a copy of each channel per group, fixes #101
