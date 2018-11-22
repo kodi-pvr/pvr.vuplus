@@ -2,6 +2,7 @@
 
 #include "inttypes.h"
 #include "util/XMLUtils.h"
+#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -23,7 +24,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     return false;
 
   // Check if the current element is hidden, a separator or last scanned
-  if (groupName == "<n/a>" || groupName.compare(groupName.length() - 12, 12, " - Separator") == 0 || groupName == "Last Scanned")
+  if (groupName == "<n/a>" || StringUtils::EndsWith(groupName.c_str(), " - Separator") || groupName == "Last Scanned")
     return false;
 
   if (!radio && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP && 
