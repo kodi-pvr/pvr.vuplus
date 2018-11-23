@@ -38,7 +38,7 @@ bool FileUtils::CopyFile(const std::string &sourceFile, const std::string &targe
 {
   bool copySuccessful = true;
 
-  Logger::Log(LEVEL_DEBUG, "%s Copying file: %s, to $s", __FUNCTION__, sourceFile.c_str(), targetFile.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Copying file: %s, to %s", __FUNCTION__, sourceFile.c_str(), targetFile.c_str());
 
   void* sourceFileHandle = XBMC->OpenFile(sourceFile.c_str(), 0x08); //READ_NO_CACHE
 

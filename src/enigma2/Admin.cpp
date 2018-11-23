@@ -86,6 +86,7 @@ bool Admin::LoadDeviceInfo()
 
   std::string enigmaVersion;
   std::string imageVersion;
+  std::string distroVersion;
   std::string webIfVersion;
   std::string serverName = "Enigma2";    
   unsigned int webIfVersionAsNum;
@@ -124,6 +125,15 @@ bool Admin::LoadDeviceInfo()
   imageVersion = strTmp.c_str();
   Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
 
+  // Get DistroVersion
+  if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2distroversion from result!", __FUNCTION__);
+    return false;
+  }
+  distroVersion = strTmp.c_str();
+  Logger::Log(LEVEL_NOTICE, "%s - E2DistroVersion: %s", __FUNCTION__, distroVersion.c_str());
+
   // Get WebIfVersion
   if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp)) 
   {
@@ -144,7 +154,7 @@ bool Admin::LoadDeviceInfo()
   serverName = strTmp.c_str();
   Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, serverName.c_str());
 
-  m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, webIfVersion, webIfVersionAsNum);
+  m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
 
   return true;
 }

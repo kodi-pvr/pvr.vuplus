@@ -7,6 +7,7 @@
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
+#include "utilities/FileUtils.h"
 
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
@@ -159,9 +160,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
   if (Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {  
-    std::string strTmp; 
-
-    strTmp = StringUtils::Format("%sweb/getservices", Settings::GetInstance().GetConnectionURL().c_str());
+    std::string strTmp = StringUtils::Format("%sweb/getservices", Settings::GetInstance().GetConnectionURL().c_str());
 
     std::string strXML = WebUtils::GetHttpXML(strTmp);  
 
