@@ -10,9 +10,6 @@
 
 namespace enigma2
 {
-    static const std::string SHOW_INFO_DIR = "/showInfo";
-    static const std::string SHOW_INFO_ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus" + SHOW_INFO_DIR;
-
   namespace extract
   {
     // (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7)

@@ -13,8 +13,6 @@ using namespace enigma2::utilities;
 ShowInfoExtractor::ShowInfoExtractor() 
   : IExtractor()
 {
-  FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + SHOW_INFO_DIR, SHOW_INFO_ADDON_DATA_BASE_DIR, true);
-
   if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns))
     Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __FUNCTION__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
 }

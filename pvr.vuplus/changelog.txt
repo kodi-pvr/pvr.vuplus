@@ -1,3 +1,6 @@
+v3.15.2
+- Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
+
 v3.15.1
 - Fixed: since 3.15.0 pvr manager cant start #134
 - Added: Log Distro Version
