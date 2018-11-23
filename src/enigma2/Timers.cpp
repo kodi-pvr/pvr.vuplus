@@ -464,7 +464,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  if (!m_settings.GetRecordingPath().compare(""))
+  if (!m_settings.GetRecordingPath().empty())
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s", 
               WebUtils::URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, 
               WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, 
@@ -568,7 +568,6 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     
   Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
 
-  std::string strTmp;
   std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();  
 
   const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
@@ -586,7 +585,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     if (timer.state == PVR_TIMER_STATE_CANCELLED)
       iDisabled = 1;
 
-    strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", 
+    std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", 
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, 
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(), 
                                     WebUtils::URLEncodeInline(oldTimer.GetTags()).c_str(), iDisabled, timer.iWeekdays, 
@@ -734,14 +733,13 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
 
-  std::string strTmp;
   std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
+  std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
 
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult)) 
@@ -766,8 +764,7 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
   {
     AutoTimer timerToDelete = *it;
 
-    std::string strTmp;
-    strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
+    std::string strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult)) 

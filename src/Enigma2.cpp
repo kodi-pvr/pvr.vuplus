@@ -299,11 +299,10 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
       // Zapping is set to true, so send the zapping command to the PVR box
       std::string strServiceReference = m_channels.GetChannel(channelinfo.iUniqueId)->GetServiceReference().c_str();
 
-      std::string strTmp;
-      strTmp = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
+      std::string strCmd = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
 
       std::string strResult;
-      if(!WebUtils::SendSimpleCommand(strTmp, strResult))
+      if(!WebUtils::SendSimpleCommand(strCmd, strResult))
         return false;
     }
   }
@@ -340,10 +339,8 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
   */
 std::string Enigma2::GetStreamURL(const std::string& strM3uURL)
 {
-  std::string strTmp;
-  strTmp = strM3uURL;
-  std::string strM3U;
-  strM3U = WebUtils::GetHttpXML(strTmp);
+  std::string strTmp = strM3uURL;
+  std::string strM3U = WebUtils::GetHttpXML(strTmp);
   std::istringstream streamM3U(strM3U);
   std::string strURL = "";
   while (std::getline(streamM3U, strURL))
