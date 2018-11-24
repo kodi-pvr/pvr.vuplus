@@ -18,6 +18,8 @@ using namespace enigma2::utilities;
 
 void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannelGroups, bool radio) const
 {
+  Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroups for PVR", __FUNCTION__);
+
   for (const auto& channelGroup : m_channelGroups)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer channelGroup '%s', ChannelGroupIndex '%d'", __FUNCTION__, channelGroup->GetGroupName().c_str(), channelGroup->GetUniqueId());
@@ -32,6 +34,8 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannel
       kodiChannelGroups.emplace_back(kodiChannelGroup);
     }
   }
+
+  Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroups for PVR", __FUNCTION__);
 }
 
 PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER> &channelGroupMembers, const std::string &groupName)
@@ -39,7 +43,15 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
   std::shared_ptr<ChannelGroup> channelGroup = GetChannelGroup(groupName);
 
   if (!channelGroup)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+
     return PVR_ERROR_NO_ERROR;
+  }
+  else
+  {
+    Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+  }
 
   for (const auto& channel : channelGroup->GetChannelList())
   {
@@ -55,6 +67,8 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
     channelGroupMembers.emplace_back(tag);
   }
+
+  Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -151,6 +165,8 @@ bool ChannelGroups::LoadChannelGroups()
 
 bool ChannelGroups::LoadTVChannelGroups()
 {
+  int tempNumChannelGroups = m_channelGroups.size();
+
   if ((Settings::GetInstance().GetTVFavouritesMode() == FavouritesGroupMode::AS_FIRST_GROUP &&
       Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP) ||
       Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::FAVOURITES_GROUP)
@@ -212,12 +228,14 @@ bool ChannelGroups::LoadTVChannelGroups()
     AddTVFavouritesChannelGroup();
   }
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channelgroups", __FUNCTION__, m_channelGroups.size());
+  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
   return true;
 }
 
 bool ChannelGroups::LoadRadioChannelGroups()
 {
+  int tempNumChannelGroups = m_channelGroups.size();
+
   if ((Settings::GetInstance().GetRadioFavouritesMode() == FavouritesGroupMode::AS_FIRST_GROUP &&
       Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP) ||
       Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::FAVOURITES_GROUP)
@@ -279,7 +297,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
     AddRadioFavouritesChannelGroup();
   }
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __FUNCTION__, m_channelGroups.size());
+  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
   return true;
 }
 
