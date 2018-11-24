@@ -392,7 +392,7 @@
         </setting>
         <setting id="timeshiftbufferpath" type="path" parent="enabletimeshift" label="30062">
           <level>0</level>
-          <default></default>
+          <default>special://userdata/addon_data/pvr.vuplus</default>
           <constraints>
             <allowempty>true</allowempty>
             <writable>true</writable>
