@@ -179,6 +179,7 @@ v3.15.2
 - Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
 - Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
 - Fixed: Missing default value from timeshift buffer path, fixes #140
+- Fixed: Channel Group Member Order not preserved, fixes #141 
 
 v3.15.1
 - Fixed: since 3.15.0 pvr manager cant start #134

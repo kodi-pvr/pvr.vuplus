@@ -53,6 +53,8 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
     Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
   }
 
+  int channelNumberInGroup = 1;
+
   for (const auto& channel : channelGroup->GetChannelList())
   {
     PVR_CHANNEL_GROUP_MEMBER tag;
@@ -60,12 +62,14 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
     strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName));
     tag.iChannelUniqueId = channel->GetUniqueId();
-    tag.iChannelNumber   = channel->GetChannelNumber();
+    tag.iChannelNumber   = channelNumberInGroup; //Keep the channels in list order as per the groups on the STB
 
     Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d",
         __FUNCTION__, channel->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channel->GetChannelNumber());
 
     channelGroupMembers.emplace_back(tag);
+
+    channelNumberInGroup++;
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
