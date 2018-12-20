@@ -108,6 +108,14 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta de grabaciones en el receptor"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Enviar apagar al salir del add-on"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Modo de conseguir ramo de TV"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "Ramo TV"
@@ -236,6 +244,14 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Modo de conseguir ramo de radio"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Ramo de radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -268,6 +284,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Usar usuario para las emisiones"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Conseguir ramo de favoritos de TV"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Conseguir ramo de favoritos de radio"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Grabaciones y Programaciones"
@@ -284,9 +308,85 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Número de repeticiones de programación a generar"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Todos los ramos"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Solo un ramo"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Como primer ramo"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Como último ramo"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Grupo de favoritos"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Favoritos (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Favoritos (Radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "desconocido"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(¡No conectado!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "error de add-on"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Servidor de Contenido Enigma2"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Servidor"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Relleno de Grabación"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Relleno global al empezar"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Relleno global al terminar"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Info Dispositivo"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Version WebIf"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Etiqueta AutoTimer en etiquetas de programas"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Nombre AutoTimer en etiquetas de programas"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -299,6 +399,30 @@ msgstr "Sí"
 msgctxt "#30096"
 msgid "False"
 msgstr "Falso"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Modo de espera"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Modo de espera profundo"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Despertar, después modo de espera"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Modo de actualización"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Programas y grabaciones"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Solo programas"
 
 msgctxt "#30410"
 msgid "Automatic"

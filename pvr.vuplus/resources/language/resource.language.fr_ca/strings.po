@@ -108,6 +108,14 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Dossier d’enregistrement du récepteur"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Envoyer le mode d’alimentation en quittant l’addiciel"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Mode de récupération du bouquet télé"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "Bouquet télé"
@@ -236,6 +244,14 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Mode de récupération du bouquet radio"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Bouquet radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Décalage temporel"
@@ -268,6 +284,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Utiliser la connexion pour les flux"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Récupérer le bouquet des favoris télé"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Récupérer le bouquet des favoris radio"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Enregistrements et minuteries"
@@ -284,9 +308,85 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Nombre de minuteries de répétition à générer"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Tous les bouquets"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Un seul bouquet"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Comme premier bouquet"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Comme dernier bouquet"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Groupe de favoris"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Favoris (télé)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Favoris (radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "inconnu"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Non connecté)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "Erreur d’addiciel"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Serveur multimédia Enigma2"
+
 msgctxt "#30085"
 msgid "OK"
-msgstr "OK"
+msgstr "Valider"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Dorsale"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Début/fin de l’enregistrement avant/après la diffusion prévue"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Global — Début de l’enregistrement avant la diffusion prévue"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Global — Fin de l’enregistrement après la diffusion prévue"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Informations sur le périphérique"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Version de WebIf"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Étiquette de la minuterie automatique dans les étiquettes de minuterie"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Nom de la minuterie automatique dans les étiquettes de minuterie"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -299,6 +399,30 @@ msgstr "Vrai"
 msgctxt "#30096"
 msgid "False"
 msgstr "Faux"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Veille"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Veille prolongée"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Réveil, puis mise en veille"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Mode de mise à jour"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Minuteries et enregistrements"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Minuteries seulement"
 
 msgctxt "#30410"
 msgid "Automatic"

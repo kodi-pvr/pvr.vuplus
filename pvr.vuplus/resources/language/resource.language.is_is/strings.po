@@ -192,6 +192,10 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Útvarp"
 
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Útvarps-knippi"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tímaflakk"
@@ -220,6 +224,18 @@ msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
 msgstr "Nota öruggara HTTP (https) fyrir streymi"
 
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Nota innskráningu fyrir streymi"
+
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Sækja knippi af sjónvarpseftirlætum"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Sækja knippi af útvarpseftirlætum"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Upptökur og tímatökur"
@@ -232,9 +248,61 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Tímatökur"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Öll knippi"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Aðeins eitt knippi"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Sem fyrsta knippi"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Sem síðasta knippi"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Eftirlætahópur"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Eftirlæti (sjónvarp)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Eftirlæti (útvarp)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "óþekkt"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Engin tenging!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "villa í viðbót"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "Í lagi"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Bakendi"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Upplýsingar um tæki"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Útgáfa WebIf"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -247,6 +315,10 @@ msgstr "Satt"
 msgctxt "#30096"
 msgid "False"
 msgstr "Ósatt"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Biðstaða"
 
 msgctxt "#30410"
 msgid "Automatic"

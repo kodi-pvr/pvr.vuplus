@@ -108,6 +108,10 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Složka s nahrávkami na přijímači"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Při ukončení doplňku poslat režim stavu napájení"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "Skupina oblíbených programů"
@@ -264,9 +268,69 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Počet opakování časovačů ke generování"
 
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Skupina oblíbených"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Oblíbené (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Oblíbené (rádio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "neznámé"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(nepřipojeno!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "chyba doplňku"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Server médií Enigma2"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Podpůrná vrstva"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Zarovnání nahrávání"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Globální zarovnání začátku"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Globální zarovnání konce"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Informace o zařízení"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Verze WebIf"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Štítek automatického časovače v štítcích časovačů"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Název automatického časovače v štítcích časovačů"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -279,6 +343,30 @@ msgstr "Pravda"
 msgctxt "#30096"
 msgid "False"
 msgstr "Nepravda"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Pohotovostní režim"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Pohotovostní režim s nižší spotřebou"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Probudit, pak pohotovostní režim"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Režim aktualizace"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Časovače a nahrávání"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Pouze časovače"
 
 msgctxt "#30410"
 msgid "Automatic"

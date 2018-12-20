@@ -168,9 +168,17 @@ msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatski"
 
+msgctxt "#30420"
+msgid "One time (Scheduled by guide-based timer rule)"
+msgstr "Jednom (zakazano rasporedom EPG vodiča)"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Onemogućeno"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Snimi ako se EPG naslov razlikuje"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
@@ -179,3 +187,7 @@ msgstr "Odspojen s '%s'"
 msgctxt "#30501"
 msgid "Reconnected to '%s'"
 msgstr "Ponovno povezan s '%s'"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Putanja međuspremnika premotavanja u vremenu ne postoji"

@@ -108,9 +108,17 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка за записите на приемника"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Изпращане на инф. за режима на захранване при изход на добавката"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Режим на изтегляне на ТВ-букет"
+
 msgctxt "#30026"
 msgid "TV bouquet"
-msgstr "ТВ букет"
+msgstr "ТВ-букет"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -236,6 +244,14 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Радио"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Режим на изтегляне на радио-букет"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Радио-букет"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Изместване във времето"
@@ -268,6 +284,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Използване на потребителско име и парола за потоците"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Изтегляне на букет с любими ТВ"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Изтегляне на букет с любими радиа"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Записи и броячи"
@@ -284,9 +308,73 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Брой повтарящи се броячи, които да се създадат"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Всички букети"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Само един букет"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "При първия букет"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "При последния букет"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Група от любими"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Любими (ТВ)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Любими (Радио)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "неизвестно"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Няма връзка!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "грешка в добавката"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Медиен сървър „Enigma2“"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "Добре"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Сървър"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Информация за устройството"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Версия на „WebIf“"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Етикет за авт. брояч в етикетите на броячите"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Име на авт. брояч в етикетите на броячите"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -299,6 +387,18 @@ msgstr "Правилно"
 msgctxt "#30096"
 msgid "False"
 msgstr "Грешно"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Режим на обновяване"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Броячи и записи"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Само броячи"
 
 msgctxt "#30410"
 msgid "Automatic"

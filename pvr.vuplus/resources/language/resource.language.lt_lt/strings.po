@@ -108,6 +108,14 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Įrašymo aplankas į imtuvą"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Siųsti maitinimo būsenos režimą išjungiant priedą"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "TV puokštės gavimo būdas"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "TV puokštė"
@@ -236,6 +244,14 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radijas"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Radijo puokštės gavimo būdas"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Radijo puokštė"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Laiko poslinkis"
@@ -268,6 +284,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Naudoti prisijungimą srautams"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Gauti TV mėgstamiausiųjų puokštę"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Gauti radijo mėgstamiausiųjų puokštę"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Įrašai ir laikmačiai"
@@ -284,9 +308,85 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Kartojimo laikmačių skaičius generavimui"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Visos puokštės"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Tik viena puokštė"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Kaip pirma puokštė"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Kaip paskutinė puokštė"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Mėgstamiausiųjų grupė"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Mėgstamiausieji (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Mėgstamiausieji (radijas)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "nežinomas"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Neprisijungta!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "priedo klaida"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Enigma2 medijos serveris"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Posistemė"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Įrašo paraštė"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Globali pradžios paraštė"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Globali pabaigos paraštė"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Įrenginio informacija"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf versija"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Automatinio laikmačio žymė laikmačio žymėse"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Automatinio laikmačio pavadinimas laikmačio žymėse"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -299,6 +399,30 @@ msgstr "Taip"
 msgctxt "#30096"
 msgid "False"
 msgstr "Ne"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Budėjimo režimas"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Gilus budėjimo režimas"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Pažadinti, tada pereiti į budėjimo režimą"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Atnaujinimo režimas"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Laikmačiai ir įrašai"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Tik laikmačiai"
 
 msgctxt "#30410"
 msgid "Automatic"

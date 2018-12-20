@@ -16,6 +16,14 @@ msgstr ""
 "Language: es_MX\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Nombre de host o dirección IP de Enigma2"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Puerto de steaming"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Usuario"
@@ -36,9 +44,21 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Tiempo de respuesta en segundos"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Ruta del icono"
+
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Intervalo de actualización"
+
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Intervalo de actualización en minutos"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Puerto para interface web"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -80,9 +100,45 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Carpeta de grabación en el receptor"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Envía mode powerstate sobre la salida del complemento"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Usa HTTP seguro (https)"
+
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Activa configuración automática para live streams"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Mantiene estructura de carpetas para grabaciones"
+
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Temporadas y Episodios"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Extrae temporada, episodio e información del año donde sea posible"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Usa formato de archivo picons.eu"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Interface web"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Streaming"
 
 msgctxt "#30042"
 msgid "Never"
@@ -99,6 +155,10 @@ msgstr "solo en grabaciones"
 msgctxt "#30045"
 msgid "Always"
 msgstr "Siempre"
+
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Extrae información de  la serie del archivo"
 
 msgctxt "#30051"
 msgid "Login"
@@ -136,6 +196,14 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "En pausa"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Usa HTTPS seguro (https) para streams"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Usa login para streams"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Grabaciones"
@@ -144,9 +212,49 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporizadores"
 
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Grupo de favoritos"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Favoritos (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Favoritos (Radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "desconocido"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(No conectado!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "Error de complemento"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Media Server Enigma2"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Información del dispositivo"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Versión Weblf"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/A"
 
 msgctxt "#30095"
 msgid "True"
@@ -156,6 +264,22 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Falso"
 
+msgctxt "#30097"
+msgid "Standby"
+msgstr "En espera"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Espera profunda"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Despertar, entonces en espera"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Modo de actualización"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automático"
@@ -163,6 +287,18 @@ msgstr "Automático"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Deshabilitado"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Graba si los títulos son diferentes"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Graba si el titulo y la descripción corta del EPG son diferentes"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Graba si el título y todas las descripciones del EPG son diferentes"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"
