@@ -385,16 +385,19 @@ PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo)
 RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
 {
   CLockObject lock(m_mutex);
-  std::time_t now = std::time(nullptr), end = 0;
+  std::time_t now = std::time(nullptr), start = 0, end = 0;
   std::string channelName = recinfo.strChannelName;
   auto timer = m_timers.GetTimer([&](const Timer &timer)
       {
         return timer.isRunning(&now, &channelName);
       });
   if (timer)
+  {
+    start = timer->GetStartTime();
     end = timer->GetEndTime();
+  }
 
-  return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), end);
+  return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), start, end, recinfo.iDuration);
 }
 
 /***************************************************************************
