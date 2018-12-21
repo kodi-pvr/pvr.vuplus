@@ -461,7 +461,10 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   time_t startTime, endTime;
-  startTime = timer.startTime - (timer.iMarginStart * 60);
+  if ((timer.startTime - (timer.iMarginStart * 60)) < std::time(nullptr))
+    startTime = std::time(nullptr);
+  else 
+    startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
   if (!m_settings.GetRecordingPath().empty())
