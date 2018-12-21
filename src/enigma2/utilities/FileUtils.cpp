@@ -44,7 +44,7 @@ bool FileUtils::CopyFile(const std::string &sourceFile, const std::string &targe
 
   if (sourceFileHandle)
   {
-    std::string fileContents = ReadFileContents(sourceFileHandle);
+    const std::string fileContents = ReadFileContents(sourceFileHandle);
 
     XBMC->CloseFile(sourceFileHandle);
 

@@ -78,7 +78,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
 
     if (m_allChannelsHaveInitialEPG)
     {
-      std::string initialEPGReady = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
+      const std::string initialEPGReady = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
       m_writeHandle = XBMC->OpenFileForWrite(initialEPGReady.c_str(), true);
       XBMC->WriteFile(m_writeHandle, "N", 1);
       XBMC->CloseFile(m_writeHandle);

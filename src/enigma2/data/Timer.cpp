@@ -99,7 +99,7 @@ bool Timer::isChildOfParent(const Timer &parent) const
 
   time = m_startTime;
   timeinfo = *std::localtime(&time);
-  std::string childStartTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+  const std::string childStartTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
   int tmDayOfWeek = timeinfo.tm_wday - 1;
   if (tmDayOfWeek < 0)
     tmDayOfWeek = 6;
@@ -107,15 +107,15 @@ bool Timer::isChildOfParent(const Timer &parent) const
 
   time = m_endTime;
   timeinfo = *std::localtime(&time);
-  std::string childEndTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+  const std::string childEndTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
 
   time = parent.m_startTime;
   timeinfo = *std::localtime(&time);
-  std::string parentStartTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+  const std::string parentStartTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
 
   time = parent.m_endTime;
   timeinfo = *std::localtime(&time);
-  std::string parentEndTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+  const std::string parentEndTime = StringUtils::Format("%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
 
   bool isChild = true;
 

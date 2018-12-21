@@ -133,7 +133,7 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str()); 
 
-  std::string strXML = WebUtils::GetHttpXML(url);
+  const std::string strXML = WebUtils::GetHttpXML(url);
   
   if (!bIgnoreResult)
   {
@@ -184,7 +184,7 @@ bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str()); 
 
-  std::string strJson = WebUtils::PostHttpJson(url);
+  const std::string strJson = WebUtils::PostHttpJson(url);
   
   if (!bIgnoreResult)
   {

@@ -136,7 +136,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
 
   Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
 
-  std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
+  const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
 
   if (fileContents.empty())
   {
@@ -188,8 +188,8 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("mapping"))
   {
-    std::string targetIdString = pNode->Attribute("targetId");
-    std::string textMapping = pNode->GetText();
+    const std::string targetIdString = pNode->Attribute("targetId");
+    const std::string textMapping = pNode->GetText();
 
     int targetId = strtol(targetIdString.c_str(), nullptr, 16);
 

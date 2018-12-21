@@ -23,7 +23,7 @@ namespace enigma2
     static const int REOPEN_INTERVAL = 30;
     static const int REOPEN_INTERVAL_FAST = 10;
 
-    std::string m_streamURL;
+    const std::string &m_streamURL;
     void *m_readHandle;
 
     /*!< @brief end time of the recording in case this an ongoing recording */

@@ -180,9 +180,9 @@ bool ChannelGroups::LoadTVChannelGroups()
 
   if (Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {  
-    std::string strTmp = StringUtils::Format("%sweb/getservices", Settings::GetInstance().GetConnectionURL().c_str());
+    const std::string strTmp = StringUtils::Format("%sweb/getservices", Settings::GetInstance().GetConnectionURL().c_str());
 
-    std::string strXML = WebUtils::GetHttpXML(strTmp);  
+    const std::string strXML = WebUtils::GetHttpXML(strTmp);  
 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
@@ -249,9 +249,9 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
   if (Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {  
-    std::string strTmp = StringUtils::Format("%sweb/getallservices?type=radio&renameserviceforxbmc=yes", Settings::GetInstance().GetConnectionURL().c_str());
+    const std::string strTmp = StringUtils::Format("%sweb/getallservices?type=radio&renameserviceforxbmc=yes", Settings::GetInstance().GetConnectionURL().c_str());
 
-    std::string strXML = WebUtils::GetHttpXML(strTmp);  
+    const std::string strXML = WebUtils::GetHttpXML(strTmp);  
 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))

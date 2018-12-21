@@ -83,7 +83,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
 
   Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
 
-  std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
+  const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
 
   if (fileContents.empty())
   {
@@ -135,8 +135,8 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("mapping"))
   {
-    std::string sourceIdString = pNode->Attribute("sourceId");
-    std::string targetIdString = pNode->GetText();
+    const std::string sourceIdString = pNode->Attribute("sourceId");
+    const std::string targetIdString = pNode->GetText();
 
     int sourceId = strtol(sourceIdString.c_str(), nullptr, 16);
     int targetId = strtol(targetIdString.c_str(), nullptr, 16);

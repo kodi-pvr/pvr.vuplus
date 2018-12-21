@@ -338,7 +338,7 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
       && !settings.IsTimeshiftBufferPathValid())
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30514).c_str());
 
-  std::string streamURL = enigma->GetLiveStreamURL(channel);
+  const std::string streamURL = enigma->GetLiveStreamURL(channel);
   streamReader = new StreamReader(streamURL, settings.GetReadTimeoutSecs());
   if (settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
     streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
