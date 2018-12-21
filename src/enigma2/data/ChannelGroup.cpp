@@ -30,13 +30,13 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   if (!radio && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP && 
         Settings::GetInstance().GetOneTVGroupName() != groupName)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Only one TV group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, serviceReference.c_str(), Settings::GetInstance().GetOneTVGroupName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Only one TV group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, groupName.c_str(), Settings::GetInstance().GetOneTVGroupName().c_str());
     return false;
   } 
   else if (radio && Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP && 
             Settings::GetInstance().GetOneRadioGroupName() != groupName)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Only one Radio group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, serviceReference.c_str(), Settings::GetInstance().GetOneRadioGroupName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Only one Radio group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, groupName.c_str(), Settings::GetInstance().GetOneRadioGroupName().c_str());
     return false;
   }
 

@@ -175,6 +175,12 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v3.15.2
+- Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
+- Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
+- Fixed: Missing default value from timeshift buffer path, fixes #140
+- Fixed: Channel Group Member Order not preserved, fixes #141 
+
 v3.15.1
 - Fixed: since 3.15.0 pvr manager cant start #134
 - Added: Log Distro Version

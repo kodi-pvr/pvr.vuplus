@@ -128,10 +128,13 @@ bool Admin::LoadDeviceInfo()
   // Get DistroVersion
   if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp)) 
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not parse e2distroversion from result!", __FUNCTION__);
-    return false;
+    Logger::Log(LEVEL_NOTICE, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
+    strTmp = LocalizedString(60081); //unknown
   }
-  distroVersion = strTmp.c_str();
+  else
+  {
+    distroVersion = strTmp.c_str();
+  }
   Logger::Log(LEVEL_NOTICE, "%s - E2DistroVersion: %s", __FUNCTION__, distroVersion.c_str());
 
   // Get WebIfVersion

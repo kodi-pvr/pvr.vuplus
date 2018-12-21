@@ -14,10 +14,14 @@ EpgEntryExtractor::EpgEntryExtractor()
   : IExtractor()
 {
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + GENRE_DIR, GENRE_ADDON_DATA_BASE_DIR, true);
+  FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + SHOW_INFO_DIR, SHOW_INFO_ADDON_DATA_BASE_DIR, true);
   
-  m_extractors.emplace_back(new GenreIdMapper());
-  m_extractors.emplace_back(new GenreRytecTextMapper());
-  m_extractors.emplace_back(new ShowInfoExtractor());
+  if (Settings::GetInstance().GetMapGenreIds())
+    m_extractors.emplace_back(new GenreIdMapper());
+  if (Settings::GetInstance().GetMapRytecTextGenres())
+    m_extractors.emplace_back(new GenreRytecTextMapper());
+  if (Settings::GetInstance().GetExtractShowInfo())
+    m_extractors.emplace_back(new ShowInfoExtractor());
 
   m_anyExtractorEnabled = false;
   for (auto& extractor : m_extractors)

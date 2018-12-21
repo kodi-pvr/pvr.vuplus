@@ -153,8 +153,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 {
   Logger::Log(LEVEL_INFO, "%s loading channel group: '%s'", __FUNCTION__, groupName.c_str());
 
-  std::string strTmp;
-  strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
+  std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
 
   std::string strXML = WebUtils::GetHttpXML(strTmp);  
   
