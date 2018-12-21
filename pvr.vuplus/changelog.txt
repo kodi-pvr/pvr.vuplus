@@ -1,3 +1,7 @@
+v3.15.3
+- Fixed: GetStreamTimes not implemented for Recordings, fixes #148
+- Fixed: When starting a recording partway through start time is EPG start not recording start, fixes #147
+
 v3.15.2
 - Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
 - Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
