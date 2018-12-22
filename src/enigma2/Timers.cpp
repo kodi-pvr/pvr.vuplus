@@ -458,10 +458,13 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     tags = TAG_FOR_MANUAL_TIMER;
 
   std::string strTmp;
-  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   time_t startTime, endTime;
-  startTime = timer.startTime - (timer.iMarginStart * 60);
+  if ((timer.startTime - (timer.iMarginStart * 60)) < std::time(nullptr))
+    startTime = std::time(nullptr);
+  else 
+    startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
   if (!m_settings.GetRecordingPath().empty())
@@ -486,8 +489,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
 
 PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
 {
-  std::string strTmp;
-  strTmp = StringUtils::Format("autotimer/edit?");
+  std::string strTmp = StringUtils::Format("autotimer/edit?");
 
   strTmp += StringUtils::Format("name=%s", WebUtils::URLEncodeInline(timer.strTitle).c_str());
   strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.strEpgSearchString).c_str());
@@ -568,7 +570,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     
   Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
 
-  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();  
+  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();  
 
   const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
   {
@@ -578,14 +580,14 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   if (it != m_timers.cend())
   {
     Timer oldTimer = *it;
-    std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId())->GetServiceReference().c_str();  
+    const std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId())->GetServiceReference().c_str();  
     Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
     int iDisabled = 0;
     if (timer.state == PVR_TIMER_STATE_CANCELLED)
       iDisabled = 1;
 
-    std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", 
+    const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1", 
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime, 
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(), 
                                     WebUtils::URLEncodeInline(oldTimer.GetTags()).c_str(), iDisabled, timer.iWeekdays, 
@@ -733,13 +735,13 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
 
-  std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   time_t startTime, endTime;
   startTime = timer.startTime - (timer.iMarginStart * 60);
   endTime = timer.endTime + (timer.iMarginEnd * 60);
   
-  std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
+  const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
 
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult)) 
@@ -764,7 +766,7 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
   {
     AutoTimer timerToDelete = *it;
 
-    std::string strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
+    const std::string strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult)) 
@@ -968,7 +970,7 @@ bool Timers::TimerUpdatesAuto()
   {
     for (auto& timer : m_timers)
     {
-      std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.GetTitle());
+      const std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.GetTitle());
 
       if (timer.GetType() == Timer::EPG_AUTO_ONCE && timer.ContainsTag(TAG_FOR_AUTOTIMER)
             && timer.ContainsTag(autotimerTag))
@@ -986,7 +988,7 @@ bool Timers::TimerUpdatesAuto()
 
 void Timers::RunAutoTimerListCleanup()
 {
-  std::string strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
+  const std::string strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
   std::string strResult;
   if(!WebUtils::SendSimpleCommand(strTmp, strResult))
     Logger::Log(LEVEL_ERROR, "%s - AutomaticTimerlistCleanup failed!", __FUNCTION__);

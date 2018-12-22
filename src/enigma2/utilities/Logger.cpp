@@ -46,7 +46,7 @@ void Logger::Log(LogLevel level, const char *message, ...)
 
   char buffer[MESSAGE_BUFFER_SIZE];
   std::string logMessage = message;
-  std::string prefix = logger.m_prefix;
+  const std::string prefix = logger.m_prefix;
 
   // Prepend the prefix when set
   if (!prefix.empty())

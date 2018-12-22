@@ -25,13 +25,13 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 {
   for (const auto& patternSet : m_episodeSeasonPatterns)
   {
-    std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.masterRegex);
+    const std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.masterRegex);
 
     if (!masterText.empty())
     {
       if (patternSet.hasSeasonRegex && entry.GetSeasonNumber() == 0)
       {
-        std::string seasonText = GetMatchTextFromString(masterText, patternSet.seasonRegex);
+        const std::string seasonText = GetMatchTextFromString(masterText, patternSet.seasonRegex);
         if (!seasonText.empty())
         {
           entry.SetSeasonNumber(atoi(seasonText.c_str()));
@@ -40,7 +40,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 
       if (entry.GetEpisodeNumber() == 0)
       {
-        std::string episodeText = GetMatchTextFromString(masterText, patternSet.episodeRegex);      
+        const std::string episodeText = GetMatchTextFromString(masterText, patternSet.episodeRegex);      
         if (!episodeText.empty())
         {
           entry.SetEpisodeNumber(atoi(episodeText.c_str()));
@@ -55,7 +55,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 
   for (const auto& pattern : m_yearPatterns)
   {
-    std::string yearText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), pattern);
+    const std::string yearText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), pattern);
 
     if (!yearText.empty() && entry.GetYear() == 0)
     {
@@ -85,7 +85,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
 
   Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
 
-  std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
+  const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
 
   if (fileContents.empty())
   {
@@ -142,18 +142,18 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
 
     if (childNode)
     {
-      std::string masterPattern = childNode->Attribute("pattern");
+      const std::string masterPattern = childNode->Attribute("pattern");
 
       childNode = pNode->FirstChildElement("episode");
 
       if (childNode)
       {
-        std::string episodePattern = childNode->Attribute("pattern");
+        const std::string episodePattern = childNode->Attribute("pattern");
 
         childNode = pNode->FirstChildElement("season");
         if (childNode != nullptr)
         {
-          std::string seasonPattern = childNode->Attribute("pattern");
+          const std::string seasonPattern = childNode->Attribute("pattern");
 
           if (!masterPattern.empty() && !seasonPattern.empty() && !episodePattern.empty())
           {
@@ -202,7 +202,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("year"))
   {
-    std::string yearPattern = pNode->Attribute("pattern");
+    const std::string yearPattern = pNode->Attribute("pattern");
 
     yearPatterns.emplace_back(std::regex(yearPattern));
 

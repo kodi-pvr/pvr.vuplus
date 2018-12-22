@@ -61,7 +61,7 @@ bool Recordings::IsInRecordingFolder(const std::string &recordingFolder) const
 
 PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING &recinfo) 
 {
-  std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.strRecordingId).c_str());
+  const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.strRecordingId).c_str());
 
   std::string strResult;
   if(!WebUtils::SendSimpleCommand(strTmp, strResult)) 
@@ -133,7 +133,7 @@ bool Recordings::LoadLocations()
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2location"))
   {
-    std::string strTmp = pNode->GetText();
+    const std::string strTmp = pNode->GetText();
 
     m_locations.emplace_back(strTmp);
 
@@ -175,7 +175,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
     directory = recordingLocation;
   }
  
-  std::string strXML = WebUtils::GetHttpXML(url);
+  const std::string strXML = WebUtils::GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))

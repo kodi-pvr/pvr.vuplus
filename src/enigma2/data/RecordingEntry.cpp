@@ -75,7 +75,7 @@ long RecordingEntry::TimeStringToSeconds(const std::string &timeString)
   std::vector<std::string> tokens;
 
   std::string s = timeString;
-  std::string delimiter = ":";
+  const std::string delimiter = ":";
 
   size_t pos = 0;
   std::string token;

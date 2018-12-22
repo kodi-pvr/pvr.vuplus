@@ -338,7 +338,7 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
       && !settings.IsTimeshiftBufferPathValid())
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30514).c_str());
 
-  std::string streamURL = enigma->GetLiveStreamURL(channel);
+  const std::string streamURL = enigma->GetLiveStreamURL(channel);
   streamReader = new StreamReader(streamURL, settings.GetReadTimeoutSecs());
   if (settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
     streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
@@ -400,16 +400,27 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
 {
   if (!times)
     return PVR_ERROR_INVALID_PARAMETERS;
+
   if (streamReader)
   {
     times->startTime = streamReader->TimeStart();
-    times->ptsStart  = 0;
-    times->ptsBegin  = 0;
-    times->ptsEnd    = (!streamReader->IsTimeshifting()) ? 0
+    times->ptsStart = 0;
+    times->ptsBegin = 0;
+    times->ptsEnd = (!streamReader->IsTimeshifting()) ? 0
       : (streamReader->TimeEnd() - streamReader->TimeStart()) * DVD_TIME_BASE;
     
     return PVR_ERROR_NO_ERROR;
+  }  
+  else if (recordingReader)
+  {
+    times->startTime = 0;
+    times->ptsStart = 0;
+    times->ptsBegin = 0;
+    times->ptsEnd = static_cast<std::time_t>(recordingReader->CurrentDuration()) * DVD_TIME_BASE;
+
+    return PVR_ERROR_NO_ERROR;
   }
+
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 

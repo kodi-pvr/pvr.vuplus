@@ -10,7 +10,7 @@ namespace enigma2
   class RecordingReader
   {
   public:
-    RecordingReader(const std::string &streamURL, std::time_t end);
+    RecordingReader(const std::string &streamURL, std::time_t start, std::time_t end, int duration);
     ~RecordingReader(void);
 
     bool Start();
@@ -18,16 +18,22 @@ namespace enigma2
     int64_t Seek(long long position, int whence);
     int64_t Position();
     int64_t Length();
+    int CurrentDuration();
+
 
   private:
     static const int REOPEN_INTERVAL = 30;
     static const int REOPEN_INTERVAL_FAST = 10;
 
-    std::string m_streamURL;
+    const std::string &m_streamURL;
     void *m_readHandle;
 
-    /*!< @brief end time of the recording in case this an ongoing recording */
+    int m_duration;
+
+    /*!< @brief start and end time of the recording set only in case this an ongoing recording */
+    std::time_t m_start;
     std::time_t m_end;
+
     std::time_t m_nextReopen;
     uint64_t m_pos = { 0 };
     uint64_t m_len;

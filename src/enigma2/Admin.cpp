@@ -23,27 +23,27 @@ void Admin::SendPowerstate()
   {  
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
-      std::string strTmp = StringUtils::Format("web/powerstate?newstate=4"); //Wakeup
+      const std::string strCmd = StringUtils::Format("web/powerstate?newstate=4"); //Wakeup
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strTmp, strResult, true);
+      WebUtils::SendSimpleCommand(strCmd, strResult, true);
     }
 
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::STANDBY ||
       Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
-      std::string strTmp = StringUtils::Format("web/powerstate?newstate=5"); //Standby
+      const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=5"); //Standby
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strTmp, strResult, true);
+      WebUtils::SendSimpleCommand(strCmd, strResult, true);
     }    
 
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
     {
-      std::string strTmp = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
+      const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strTmp, strResult, true); 
+      WebUtils::SendSimpleCommand(strCmd, strResult, true); 
     }
   }
 }
@@ -382,7 +382,7 @@ bool Admin::SendAutoTimerSettings()
   if (!(m_deviceSettings.IsAddTagAutoTimerToTagsEnabled() && m_deviceSettings.IsAddAutoTimerNameToTagsEnabled()))
   {
     Logger::Log(LEVEL_DEBUG, "%s Setting AutoTimer Settings on Backend", __FUNCTION__);
-    std::string url = StringUtils::Format("%s", "autotimer/set?add_name_to_tags=true&add_autotimer_to_tags=true");
+    const std::string url = StringUtils::Format("%s", "autotimer/set?add_name_to_tags=true&add_autotimer_to_tags=true");
     std::string strResult;
 
     if (!WebUtils::SendSimpleCommand(url, strResult)) 
@@ -397,7 +397,7 @@ bool Admin::SendGlobalRecordingStartMarginSetting(int newValue)
   if (m_deviceSettings.GetGlobalRecordingStartMargin() != newValue)
   {
     Logger::Log(LEVEL_NOTICE, "%s Setting Global Recording Start Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingStartMargin(), newValue);
-    std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_before&value=", newValue);
+    const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_before&value=", newValue);
     std::string strResult;
 
     if (!WebUtils::SendSimpleJsonPostCommand(url, strResult)) 
@@ -414,7 +414,7 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
   if (m_deviceSettings.GetGlobalRecordingEndMargin() != newValue)
   {
     Logger::Log(LEVEL_NOTICE, "%s Setting Global Recording End Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingEndMargin(), newValue);
-    std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_after&value=", newValue);
+    const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_after&value=", newValue);
     std::string strResult;
 
     if (!WebUtils::SendSimpleJsonPostCommand(url, strResult)) 
