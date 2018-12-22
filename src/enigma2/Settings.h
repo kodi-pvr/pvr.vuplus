@@ -147,6 +147,7 @@ namespace enigma2
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo->GetWebIfVersionAsNum(); }
+    const std::string& GetWebIfVersion() const { return m_deviceInfo->GetWebIfVersion(); }
 
     const enigma2::utilities::DeviceInfo* GetDeviceInfo() const { return m_deviceInfo; }
     void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo) { m_deviceInfo = deviceInfo; }    
