@@ -77,6 +77,7 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/utilities/UpdateState.h
                    src/enigma2/utilities/FileUtils.h
                    src/enigma2/utilities/Logger.h
+                   src/enigma2/utilities/Tuner.h
                    src/enigma2/utilities/WebUtils.h)
 
 set(DEPLIBS ${kodiplatform_LIBRARIES}

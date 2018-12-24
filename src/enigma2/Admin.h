@@ -21,11 +21,13 @@
  *
  */
 
+#include <regex>
 #include <string>
 #include <vector>
 
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
+#include "utilities/Tuner.h"
 
 #include "libXBMC_pvr.h"
 
@@ -48,6 +50,7 @@ namespace enigma2
     const std::string& GetImageVersion() const { return m_deviceInfo.GetImageVersion(); }
     const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+    PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus);
 
   private:   
     bool LoadDeviceInfo();
@@ -55,8 +58,27 @@ namespace enigma2
     bool LoadRecordingMarginSettings();
     unsigned int ParseWebIfVersion(const std::string &webIfVersion);
     long long GetKbFromString(const std::string &stringInMbGbTb) const;
+    void GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus);
+
+    static std::string GetMatchTextFromString(const std::string &text, const std::regex &pattern)
+    {
+      std::string matchText = "";
+      std::smatch match;
+
+      if (regex_match(text, match, pattern))
+      {
+        if (match.size() == 2)
+        {
+          std::ssub_match base_sub_match = match[1];
+          matchText = base_sub_match.str();  
+        }
+      }
+
+      return matchText;
+    };    
 
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;
+    std::vector<enigma2::utilities::Tuner> m_tuners;
   };
 } //namespace enigma2

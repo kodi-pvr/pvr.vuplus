@@ -1,5 +1,6 @@
 #include "Admin.h"
 
+#include <map>
 #include <regex>
 
 #include "../client.h"
@@ -158,6 +159,41 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, serverName.c_str());
 
   m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
+
+  hRoot=TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2frontends").Element();
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_DEBUG, "Could not find <e2frontends> element");
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  TiXmlElement* tunerNode = pNode->FirstChildElement("e2frontend");
+
+  if (!tunerNode)
+  {
+    Logger::Log(LEVEL_DEBUG, "Could not find <e2frontend> element");
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  int tunerNumber = 0;
+
+  for (; tunerNode != nullptr; tunerNode = tunerNode->NextSiblingElement("e2frontend"))
+  {
+    std::string tunerName;
+    std::string tunerModel;
+
+    XMLUtils::GetString(tunerNode, "e2name", tunerName);
+    XMLUtils::GetString(tunerNode, "e2model", tunerModel);
+
+    m_tuners.emplace_back(Tuner(tunerNumber, tunerName, tunerModel));
+
+    Logger::Log(LEVEL_DEBUG, "%s Tuner Info Loaded - Tuner Number: %d, Tuner Name:%s Tuner Model: %s", __FUNCTION__, tunerNumber, tunerName.c_str(), tunerModel.c_str());
+
+    tunerNumber++;
+  }  
 
   return true;
 }
@@ -528,4 +564,125 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   }
 
   return sizeInKb;
+}
+
+PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
+{
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal"); 
+
+  const std::string strXML = WebUtils::GetHttpXML(url);
+  
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  std::string snrDb;
+  std::string snrPercentage;
+  std::string ber;
+  std::string signalStrength;
+
+  TiXmlHandle hDoc(&xmlDoc);
+  TiXmlElement* pElem;
+  TiXmlHandle hRoot(0);
+
+  pElem = hDoc.FirstChildElement("e2frontendstatus").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2frontendstatus> element!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  if (!XMLUtils::GetString(pElem, "e2snrdb", snrDb)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2snrdb from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  if (!XMLUtils::GetString(pElem, "e2snr", snrPercentage)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2snr from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }  
+
+  if (!XMLUtils::GetString(pElem, "e2ber", ber)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2ber from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }  
+
+  if (!XMLUtils::GetString(pElem, "e2acg", signalStrength)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2acg from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }  
+
+  std::regex regexReplacePercent (" %");
+  std::string regexReplace = "";
+
+  signalStatus.iSNR = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str());
+  signalStatus.iBER = atol(ber.c_str());
+  signalStatus.iSignal = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str());
+
+  GetTunerDetails(signalStatus);
+
+  return PVR_ERROR_NO_ERROR;
+}  
+
+void Admin::GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus)
+{  
+  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal"); 
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  std::vector<std::string> lines = StringUtils::Split(strJson, "\n");
+  std::map<std::string, std::string> signalMap; 
+
+  for (auto& line : lines)
+  {
+    std::regex regexKey (".*\"([^\"]*)\":.*$");
+    std::regex regexValueInt (".*\"[^\"]*\": ([0-9]+).*$");
+    std::regex regexValueString (".*\"[^\"]*\": \"(.*)\".*$");
+
+    std::string key = GetMatchTextFromString(line, regexKey);
+    std::string value;
+
+    if (!key.empty())
+    {
+      value = GetMatchTextFromString(line, regexValueInt);
+
+      if (value.empty())
+        value = GetMatchTextFromString(line, regexValueString);
+
+      if (!value.empty())
+        signalMap.insert({key, value});
+    }
+  }
+
+  int tunerNumber;
+  std::string tunerType;
+  std::string tunerName;
+
+  auto tunerNumberSearch = signalMap.find("tunernumber");
+  if (tunerNumberSearch != signalMap.end()) 
+  {
+    tunerNumber = atoi(tunerNumberSearch->second.c_str());
+
+    if (m_tuners.size() > tunerNumber)
+    {
+      Tuner &tuner = m_tuners.at(tunerNumber);
+
+      strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName));
+    }
+  }         
+
+  auto tunerTypeSearch = signalMap.find("tunertype");
+  if (tunerTypeSearch != signalMap.end()) 
+  {
+    tunerType = tunerTypeSearch->second;
+    strncpy(signalStatus.strAdapterStatus, tunerTypeSearch->second.c_str(), sizeof(signalStatus.strAdapterStatus));
+  }         
 }

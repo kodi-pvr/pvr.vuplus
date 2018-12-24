@@ -465,3 +465,17 @@ PVR_ERROR Enigma2::GetDriveSpace(long long *iTotal, long long *iUsed)
 {
   return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
 }
+
+PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
+{
+  if (m_currentChannel >= 0)
+  {
+    std::shared_ptr<Channel> channel = m_channels.GetChannel(m_currentChannel);
+
+    strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName));
+    //Waiting for WebIf API change
+    //strncpy(signalStatus.strProviderName, channel->GetChannelName().c_str(), sizeof(signalStatus.strProviderName));
+  }
+
+  return m_admin.GetTunerSignal(signalStatus);
+}
