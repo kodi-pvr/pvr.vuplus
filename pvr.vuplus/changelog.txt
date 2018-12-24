@@ -1,3 +1,6 @@
+v3.16.0
+- Added: Tuners and SignalStatus
+
 v3.15.4
 - Fixed: In 3.15.2 WebIf that is not OpenWebIf does not support auto timer API - Addon won't load Newnigma2 image, fixes #151
 
