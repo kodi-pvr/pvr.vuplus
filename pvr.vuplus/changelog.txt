@@ -1,3 +1,11 @@
+v3.16.0
+- Added: Tuners and SignalStatus
+- Added: Use Picon Path from OpenWebIf
+- Fixed: Change startup issue log statements from Debug to Error, fixes #157
+
+v3.15.5
+- Added: updated language files from Transifex
+
 v3.15.4
 - Fixed: In 3.15.2 WebIf that is not OpenWebIf does not support auto timer API - Addon won't load Newnigma2 image, fixes #151
 
