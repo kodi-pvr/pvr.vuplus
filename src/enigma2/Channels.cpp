@@ -4,7 +4,9 @@
 
 #include "../client.h"
 #include "../Enigma2.h"
+#include "Admin.h"
 #include "ChannelGroups.h"
+#include "utilities/json.hpp"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -14,6 +16,7 @@
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using json = nlohmann::json;
 
 void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) const
 {
@@ -199,5 +202,38 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   }
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());
+
+  if (Admin::CanUseJsonApi())
+  {
+    //We can use the JSON API so let's supplement the data with provider information
+
+    const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
+    const std::string strJson = WebUtils::GetHttpXML(jsonURL);  
+    auto jsonDoc = json::parse(strJson);
+
+    if (!jsonDoc)
+    {
+      Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
+          
+      return true;
+    }
+
+    if (!jsonDoc["services"].empty())
+    {
+      for (json::iterator it = jsonDoc["services"].begin(); it != jsonDoc["services"].end(); ++it) 
+      {
+        auto jsonChannel = it.value();
+
+        auto channel = GetChannel(it.value()["servicereference"].get<std::string>());
+
+        if (channel)
+        {
+          Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
+          channel->SetProviderlName(it.value()["provider"].get<std::string>());
+        }
+      }
+    }
+  }
+
   return true;
 }

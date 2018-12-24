@@ -73,6 +73,9 @@ namespace enigma2
       const std::string& GetIconPath() const { return m_iconPath; }
       void SetIconPath(const std::string& value ) { m_iconPath = value; }
 
+      const std::string& GetProviderName() const { return m_providerName; }
+      void SetProviderlName(const std::string& value ) { m_providerName = value; }      
+
       bool UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL); 
       void UpdateTo(PVR_CHANNEL &left) const;
 
@@ -89,6 +92,7 @@ namespace enigma2
       std::string m_streamURL;
       std::string m_m3uURL;
       std::string m_iconPath;
+      std::string m_providerName;
 
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupList;
     };
