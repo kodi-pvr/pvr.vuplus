@@ -218,7 +218,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
 bool Timers::CanAutoTimers() const
 {
-  return m_settings.GetWebIfVersionAsNum() >= m_settings.GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF");;
+  return m_settings.GetWebIfVersionAsNum() >= m_settings.GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF");
 }
 
 bool Timers::IsAutoTimer(const PVR_TIMER &timer) const
