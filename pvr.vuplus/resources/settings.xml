@@ -100,6 +100,14 @@
           </dependencies>
           <control type="toggle" />
         </setting>
+        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons" label="30103">
+          <level>0</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="onlinepicons">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
         <setting id="iconpath" type="path" label="30008">
           <level>0</level>
           <default></default>

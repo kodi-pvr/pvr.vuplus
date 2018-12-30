@@ -44,6 +44,7 @@ Within this tab general options are configured.
 
 * **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 set-top box.
 * **Use picons.eu file formate**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`
+* **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.x or higher.
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
 * **Update mode**: The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes:

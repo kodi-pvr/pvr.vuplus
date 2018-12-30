@@ -428,7 +428,11 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr ""
 
-#empty strings from id 30103 to 30409
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr ""
+
+#empty strings from id 30104 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

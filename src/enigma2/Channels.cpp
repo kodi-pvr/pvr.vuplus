@@ -230,6 +230,15 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
         {
           Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
           channel->SetProviderlName(it.value()["provider"].get<std::string>());
+
+          if (Settings::GetInstance().UseOpenWebIfPiconPath())
+          {
+            std::string connectionURL = Settings::GetInstance().GetConnectionURL();
+            connectionURL = connectionURL.substr(0, connectionURL.size()-1);
+            channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), it.value()["picon"].get<std::string>().c_str()));
+
+            Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
+          }
         }
       }
     }

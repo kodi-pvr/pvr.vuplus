@@ -102,6 +102,7 @@ namespace enigma2
     //General
     bool UseOnlinePicons() const { return m_onlinePicons; }
     bool UsePiconsEuFormat() const { return m_usePiconsEuFormat; }
+    bool UseOpenWebIfPiconPath() const { return m_useOpenWebIfPiconPath; }
     const std::string& GetIconPath() const { return m_iconPath; }
     unsigned int GetUpdateIntervalMins() const { return m_updateInterval; }
     UpdateMode GetUpdateMode() const { return m_updateMode; }
@@ -216,6 +217,7 @@ namespace enigma2
     //General
     bool m_onlinePicons = true;
     bool m_usePiconsEuFormat = false;
+    bool m_useOpenWebIfPiconPath = false;
     std::string m_iconPath = "";
     unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
