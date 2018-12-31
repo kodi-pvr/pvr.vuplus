@@ -101,6 +101,7 @@ bool Enigma2::Open()
   if (!m_isConnected)
   {
     Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __FUNCTION__);
+    XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30515).c_str());
     return false;
   }
 
@@ -113,11 +114,20 @@ bool Enigma2::Open()
   {
     // Load the TV channels - close connection if no channels are found
     if (!m_channelGroups.LoadChannelGroups())
+    {
+      Logger::Log(LEVEL_ERROR, "%s No channel groups (bouquets) found, please check the addon channel settings, exiting", __FUNCTION__);
+      XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30516).c_str());
+
       return false;
+    }
 
     if (!m_channels.LoadChannels(m_channelGroups))
-      return false;
+    {
+      Logger::Log(LEVEL_ERROR, "%s No channels found, please check the addon channel settings, exiting", __FUNCTION__);
+      XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30517).c_str());
 
+      return false;
+    }
   }
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
   m_timers.TimerUpdates();
