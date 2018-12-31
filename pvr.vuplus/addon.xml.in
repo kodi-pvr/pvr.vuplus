@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.15.4"
+  version="3.15.5"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -54,7 +54,7 @@
     <summary lang="sq_AL">Frontend i Kodi'së për Aparate VU+ / Enigma2 </summary>
     <summary lang="sr_RS">Kodi-јев интерфејс за VU+ / Enigma2 засноване settop кутије</summary>
     <summary lang="sr_RS@latin">Kodijev interfejs za VU+ / Enigma2 zasnovane settop kutije</summary>
-    <summary lang="sv_SE">Kodi Frontend för VU+/Enigma2 baserade dekodrar</summary>
+    <summary lang="sv_SE">Kodi Frontend för Enigma2 baserade digitalboxar</summary>
     <summary lang="szl">Klijynt telewizyjny dlŏ dekoderōw VU+ / Enigma2 </summary>
     <summary lang="tr_TR">VU+ / Enigma2 alıcı kutuları için Kodi ön ucu</summary>
     <summary lang="uk_UA">Накладка VU+ /  Enigma2 для Kodi</summary>
@@ -106,7 +106,7 @@
     <description lang="sq_AL">VU+ frontend, përkrahën transmetimin e Live TV's &amp; Regjistrime, EPG, timer.</description>
     <description lang="sr_RS">VU+ интерфејс; подржава стримовање ТВ Уживо &amp; Снимака, EPG, Тајмере</description>
     <description lang="sr_RS@latin">VU+ interfejs; podržava strimovanje TV Uživo &amp; Snimaka, EPG, Tajmere</description>
-    <description lang="sv_SE">VU+ frontend; stödjer strömning av Live-TV &amp; inspelningar, EPG, timers.</description>
+    <description lang="sv_SE">Enigma2 frontend; stödjer strömning av Live-TV &amp; inspelningar, EPG, timers, autotimers.&#10;    &#10;För dokumentationen besök https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md&#10;  </description>
     <description lang="szl">Klijynt telewizyjny dlŏ VU+  podpiyrŏ szpricowanie kanałōw radyjowych i telewizyjnych, nagrowanie i harmōnogram nagrań aji funkcyje EPG.</description>
     <description lang="tr_TR">VU+ ön ucu; Canlı TV akışı ve kayıt yapabilme, EPG ve zamanlayıcıları destekler.</description>
     <description lang="uk_UA">Накладка VU+; підтримує потоки Live TV, запис, програму передач, таймери.</description>

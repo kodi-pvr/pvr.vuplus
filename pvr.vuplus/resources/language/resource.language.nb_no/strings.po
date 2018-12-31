@@ -156,6 +156,10 @@ msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
 
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Ikke Tilgjengelig"
+
 msgctxt "#30095"
 msgid "True"
 msgstr "Sant"

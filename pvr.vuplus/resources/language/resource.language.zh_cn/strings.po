@@ -108,6 +108,14 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "接收器上的录像文件夹"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "在插件退出时发送电源状态模式"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "电视频道组获取模式"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "电视频道组"
@@ -152,6 +160,10 @@ msgctxt "#30036"
 msgid "Enable generate repeat timers"
 msgstr "启用生成重复定时器"
 
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "记录缺少的类型文本映射"
+
 msgctxt "#30038"
 msgid "Web Interface"
 msgstr "Web 界面"
@@ -184,6 +196,22 @@ msgctxt "#30046"
 msgid "Extract show info file"
 msgstr "提取显示信息"
 
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Rytec 类型文本映射"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "启用 Rytec 类型文本映射"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Rytec 类型文本映射文件"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "自定义直播电视超时（0为默认值）"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "登录"
@@ -192,6 +220,18 @@ msgctxt "#30052"
 msgid "Misc"
 msgstr "杂项"
 
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "类型ID映射"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "启用类型ID映射"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "类型 ID 映射文件"
+
 msgctxt "#30056"
 msgid "TV"
 msgstr "电视"
@@ -199,6 +239,14 @@ msgstr "电视"
 msgctxt "#30057"
 msgid "Radio"
 msgstr "电台"
+
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "电台列表获取模式"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "电台频道组"
 
 msgctxt "#30060"
 msgid "Timeshift"
@@ -232,6 +280,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "登录使用流"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "获取电视收藏列表"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "获取电台收藏列表"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "录像和定时器"
@@ -248,9 +304,81 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "生成的重复定时器数目"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "全部频道组"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "仅一个列表"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "作为第一个列表"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "作为最后一个列表"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "收藏夹组"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "收藏夹（电视）"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "收藏夹（电台）"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "未知"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "（未连接！）"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "插件错误"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Enigma2 媒体服务器"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "确定"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "后端"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "全局开始填充"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "全局结束填充"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "设备信息"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf 版本"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "定时器标签中的自动定时器标签"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "定时器标签中的自动定时器名称"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -263,6 +391,30 @@ msgstr "真"
 msgctxt "#30096"
 msgid "False"
 msgstr "假"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "待机"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "深度待机"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "唤醒，然后待机"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "更新模式"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "定时器和录像"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "仅限定时器"
 
 msgctxt "#30410"
 msgid "Automatic"
