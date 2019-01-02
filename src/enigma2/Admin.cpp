@@ -161,7 +161,7 @@ bool Admin::LoadDeviceInfo()
 
   m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
 
-  hRoot=TiXmlHandle(pElem);
+  hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2frontends").Element();
 
@@ -588,10 +588,9 @@ PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
   std::string signalStrength;
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
+  //TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2frontendstatus").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2frontendstatus").Element();
 
   if (!pElem)
   {
@@ -653,25 +652,25 @@ void Admin::GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus)
   {
     auto jsonDoc = json::parse(strJson);
 
-    for (json::iterator it = jsonDoc.begin(); it != jsonDoc.end(); ++it) 
+    for (const auto& element : jsonDoc.items())
     {
-      if (it.key() == "tunernumber")
+      if (element.key() == "tunernumber")
       { 
-        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %d", __FUNCTION__, it.key().c_str(), it.value().get<int>());
+        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %d", __FUNCTION__, element.key().c_str(), element.value().get<int>());
 
-        int tunerNumber = it.value().get<int>();
+        int tunerNumber = element.value().get<int>();
 
         if (m_tuners.size() > tunerNumber)
         {
           Tuner &tuner = m_tuners.at(tunerNumber);
 
-          strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName));
+          strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName) - 1);
         }
       }
-      else if (it.key() == "tunertype")
+      else if (element.key() == "tunertype")
       {
-        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, it.key().c_str(), it.value().get<std::string>().c_str());
-        strncpy(signalStatus.strAdapterStatus, it.value().get<std::string>().c_str(), sizeof(signalStatus.strAdapterStatus));
+        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, element.key().c_str(), element.value().get<std::string>().c_str());
+        strncpy(signalStatus.strAdapterStatus, element.value().get<std::string>().c_str(), sizeof(signalStatus.strAdapterStatus) - 1);
       }
     }
   }

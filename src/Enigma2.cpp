@@ -480,10 +480,10 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
 {
   if (m_currentChannel >= 0)
   {
-    std::shared_ptr<Channel> channel = m_channels.GetChannel(m_currentChannel);
+    const std::shared_ptr<Channel> channel = m_channels.GetChannel(m_currentChannel);
 
-    strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName));
-    strncpy(signalStatus.strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus.strProviderName));
+    strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName) - 1);
+    strncpy(signalStatus.strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus.strProviderName) - 1);
   }
 
   return m_admin.GetTunerSignal(signalStatus);

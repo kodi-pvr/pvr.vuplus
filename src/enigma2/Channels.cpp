@@ -216,22 +216,22 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
       if (!jsonDoc["services"].empty())
       {
-        for (json::iterator it = jsonDoc["services"].begin(); it != jsonDoc["services"].end(); ++it) 
+        for (const auto& it : jsonDoc["services"].items())
         {
           auto jsonChannel = it.value();
 
-          auto channel = GetChannel(it.value()["servicereference"].get<std::string>());
+          auto channel = GetChannel(jsonChannel["servicereference"].get<std::string>());
 
           if (channel)
           {
             Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
-            channel->SetProviderlName(it.value()["provider"].get<std::string>());
+            channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
 
             if (Settings::GetInstance().UseOpenWebIfPiconPath())
             {
               std::string connectionURL = Settings::GetInstance().GetConnectionURL();
               connectionURL = connectionURL.substr(0, connectionURL.size()-1);
-              channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), it.value()["picon"].get<std::string>().c_str()));
+              channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), jsonChannel["picon"].get<std::string>().c_str()));
 
               Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
             }
