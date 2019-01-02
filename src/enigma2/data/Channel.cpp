@@ -66,7 +66,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL
   std::replace(iconPath.begin(), iconPath.end(), ':', '_');
   iconPath = Settings::GetInstance().GetIconPath().c_str() + iconPath + ".png";
 
-  m_m3uURL = StringUtils::Format("%s/web/stream.m3u?ref=%s", enigmaURL.c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
+  m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", enigmaURL.c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
 
   m_streamURL = StringUtils::Format(
     "http%s://%s%s:%d/%s",

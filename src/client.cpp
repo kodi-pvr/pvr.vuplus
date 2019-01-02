@@ -245,13 +245,22 @@ PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 
 PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 {
-  // the RS api doesn't provide information about signal quality (yet)
+  // SNR = Signal to Noise Ratio - which means signal quality
+  // AGC = Automatic Gain Control - which means signal strength
+  // BER = Bit Error Rate - which shows the error rate of the signal.
+  // UNC = There is not notion of UNC on enigma devices
+  
+  // So, SNR and AGC should be as high as possible.
+  // BER should be as low as possible, like 0. It can be higher, if your other values are higher.
 
-  PVR_STRCPY(signalStatus.strAdapterName, LocalizedString(60084).c_str()); //Enigma2 Media Server
-  PVR_STRCPY(signalStatus.strAdapterStatus, LocalizedString(60085).c_str()); //OK
+  enigma->GetTunerSignal(signalStatus);
+
+  Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s", __FUNCTION__, signalStatus.strAdapterName, signalStatus.strAdapterStatus);
+  Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s", __FUNCTION__, signalStatus.strServiceName, signalStatus.strProviderName);
+  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __FUNCTION__, signalStatus.iSNR, signalStatus.iBER, signalStatus.iSignal);
+
   return PVR_ERROR_NO_ERROR;
 }
-
 
 /***************************************************************************
  * ChannelGroups

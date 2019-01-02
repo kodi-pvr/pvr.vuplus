@@ -6,6 +6,7 @@
 #include "../Enigma2.h"
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
+#include "utilities/json.hpp"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -16,6 +17,7 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+using json = nlohmann::json;
 
 void Admin::SendPowerstate()
 {
@@ -159,6 +161,43 @@ bool Admin::LoadDeviceInfo()
 
   m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
 
+  hRoot = TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2frontends").Element();
+
+  if (pNode)
+  {
+    TiXmlElement* tunerNode = pNode->FirstChildElement("e2frontend");
+
+    if (tunerNode)
+    {
+      int tunerNumber = 0;
+
+      for (; tunerNode != nullptr; tunerNode = tunerNode->NextSiblingElement("e2frontend"))
+      {
+        std::string tunerName;
+        std::string tunerModel;
+
+        XMLUtils::GetString(tunerNode, "e2name", tunerName);
+        XMLUtils::GetString(tunerNode, "e2model", tunerModel);
+
+        m_tuners.emplace_back(Tuner(tunerNumber, tunerName, tunerModel));
+
+        Logger::Log(LEVEL_DEBUG, "%s Tuner Info Loaded - Tuner Number: %d, Tuner Name:%s Tuner Model: %s", __FUNCTION__, tunerNumber, tunerName.c_str(), tunerModel.c_str());
+
+        tunerNumber++;
+      }
+    }  
+    else
+    {
+      Logger::Log(LEVEL_DEBUG, "Could not find <e2frontend> element");
+    }
+  }
+  else
+  {
+    Logger::Log(LEVEL_DEBUG, "Could not find <e2frontends> element");
+  }
+
   return true;
 }
 
@@ -257,10 +296,8 @@ bool Admin::LoadAutoTimerSettings()
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2settings").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2settings").Element();
 
   if (!pElem)
   {
@@ -268,7 +305,7 @@ bool Admin::LoadAutoTimerSettings()
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2setting").Element();
 
@@ -324,10 +361,8 @@ bool Admin::LoadRecordingMarginSettings()
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2settings").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2settings").Element();
 
   if (!pElem)
   {
@@ -335,7 +370,7 @@ bool Admin::LoadRecordingMarginSettings()
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2setting").Element();
 
@@ -443,10 +478,8 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
 
   if (!pElem)
   {
@@ -454,7 +487,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
     return PVR_ERROR_SERVER_ERROR;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2hdds").Element();
 
@@ -528,4 +561,115 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   }
 
   return sizeInKb;
+}
+
+PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
+{
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal"); 
+
+  const std::string strXML = WebUtils::GetHttpXML(url);
+  
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  std::string snrDb;
+  std::string snrPercentage;
+  std::string ber;
+  std::string signalStrength;
+
+  TiXmlHandle hDoc(&xmlDoc);
+  //TiXmlHandle hRoot(0);
+
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2frontendstatus").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2frontendstatus> element!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  if (!XMLUtils::GetString(pElem, "e2snrdb", snrDb)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2snrdb from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  if (!XMLUtils::GetString(pElem, "e2snr", snrPercentage)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2snr from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }  
+
+  if (!XMLUtils::GetString(pElem, "e2ber", ber)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2ber from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }  
+
+  if (!XMLUtils::GetString(pElem, "e2acg", signalStrength)) 
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not parse e2acg from result!", __FUNCTION__);
+    return PVR_ERROR_SERVER_ERROR;
+  }  
+
+  std::regex regexReplacePercent (" %");
+  std::string regexReplace = "";
+
+  signalStatus.iSNR = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str());
+  signalStatus.iBER = atol(ber.c_str());
+  signalStatus.iSignal = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str());
+
+  if (CanUseJsonApi())
+  {
+    GetTunerDetails(signalStatus);
+  }
+
+  return PVR_ERROR_NO_ERROR;
+}  
+
+bool Admin::CanUseJsonApi()
+{
+  return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
+}
+
+void Admin::GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus)
+{  
+  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal"); 
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    for (const auto& element : jsonDoc.items())
+    {
+      if (element.key() == "tunernumber")
+      { 
+        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %d", __FUNCTION__, element.key().c_str(), element.value().get<int>());
+
+        int tunerNumber = element.value().get<int>();
+
+        if (m_tuners.size() > tunerNumber)
+        {
+          Tuner &tuner = m_tuners.at(tunerNumber);
+
+          strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName) - 1);
+        }
+      }
+      else if (element.key() == "tunertype")
+      {
+        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, element.key().c_str(), element.value().get<std::string>().c_str());
+        strncpy(signalStatus.strAdapterStatus, element.value().get<std::string>().c_str(), sizeof(signalStatus.strAdapterStatus) - 1);
+      }
+    }
+  }
+  catch (nlohmann::detail::parse_error)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tunerdetails from OpenWebIf", __FUNCTION__);
+  }
 }

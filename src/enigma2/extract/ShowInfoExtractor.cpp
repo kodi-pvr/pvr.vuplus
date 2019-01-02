@@ -101,10 +101,8 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("showInfo").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("showInfo").Element();
 
   if (!pElem)
   {
@@ -117,7 +115,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   if (!XMLUtils::GetString(pElem, "name", name)) 
     return false;
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   //First we do the seasonEpisodes
   TiXmlElement* pNode = hRoot.FirstChildElement("seasonEpisodes").Element();

@@ -152,10 +152,8 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("genreTextMappings").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("genreTextMappings").Element();
 
   if (!pElem)
   {
@@ -168,7 +166,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
   if (!XMLUtils::GetString(pElem, "mapperName", mapperName)) 
     return false;
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("mappings").Element();
 

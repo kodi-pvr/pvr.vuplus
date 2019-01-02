@@ -26,6 +26,7 @@
 
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
+#include "utilities/Tuner.h"
 
 #include "libXBMC_pvr.h"
 
@@ -48,6 +49,9 @@ namespace enigma2
     const std::string& GetImageVersion() const { return m_deviceInfo.GetImageVersion(); }
     const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+    PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus);
+
+    static bool CanUseJsonApi();  
 
   private:   
     bool LoadDeviceInfo();
@@ -55,8 +59,10 @@ namespace enigma2
     bool LoadRecordingMarginSettings();
     unsigned int ParseWebIfVersion(const std::string &webIfVersion);
     long long GetKbFromString(const std::string &stringInMbGbTb) const;
+    void GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus);
 
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;
+    std::vector<enigma2::utilities::Tuner> m_tuners;
   };
 } //namespace enigma2

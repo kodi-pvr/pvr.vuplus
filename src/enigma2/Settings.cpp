@@ -61,6 +61,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("usepiconseuformat", &m_usePiconsEuFormat))
     m_usePiconsEuFormat = false;
 
+  if (!XBMC->GetSetting("useopenwebifpiconpath", &m_useOpenWebIfPiconPath))
+    m_useOpenWebIfPiconPath = false;
+
   if (XBMC->GetSetting("iconpath", buffer))
     m_iconPath = buffer;
   else
@@ -218,6 +221,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "usepiconseuformat")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_usePiconsEuFormat, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "useopenwebifpiconpath")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useOpenWebIfPiconPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "iconpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_iconPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "updateint")

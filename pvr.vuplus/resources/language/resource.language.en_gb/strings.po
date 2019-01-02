@@ -428,7 +428,11 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr ""
 
-#empty strings from id 30103 to 30409
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr ""
+
+#empty strings from id 30104 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"
@@ -477,4 +481,16 @@ msgstr ""
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
+msgstr ""
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr ""
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr ""
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
 msgstr ""

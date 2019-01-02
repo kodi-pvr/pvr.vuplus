@@ -102,10 +102,8 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2eventlist").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
  
   if (!pElem)
   {
@@ -114,7 +112,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
     return PVR_ERROR_NO_ERROR;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2event").Element();
 
@@ -168,10 +166,8 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2eventlist").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
  
   if (!pElem)
   {
@@ -180,7 +176,7 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2event").Element();
 

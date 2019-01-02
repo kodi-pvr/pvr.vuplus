@@ -4,7 +4,9 @@
 
 #include "../client.h"
 #include "../Enigma2.h"
+#include "Admin.h"
 #include "ChannelGroups.h"
+#include "utilities/json.hpp"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -14,6 +16,7 @@
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using json = nlohmann::json;
 
 void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) const
 {
@@ -165,10 +168,8 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2servicelist").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelist").Element();
 
   if (!pElem)
   {
@@ -176,7 +177,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2service").Element();
 
@@ -199,5 +200,48 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   }
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());
+
+  if (Admin::CanUseJsonApi())
+  {
+    //We can use the JSON API so let's supplement the data with provider information
+
+    const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
+    const std::string strJson = WebUtils::GetHttpXML(jsonURL);  
+    
+    try
+    {
+      auto jsonDoc = json::parse(strJson);
+
+      if (!jsonDoc["services"].empty())
+      {
+        for (const auto& it : jsonDoc["services"].items())
+        {
+          auto jsonChannel = it.value();
+
+          auto channel = GetChannel(jsonChannel["servicereference"].get<std::string>());
+
+          if (channel)
+          {
+            Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
+            channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
+
+            if (Settings::GetInstance().UseOpenWebIfPiconPath())
+            {
+              std::string connectionURL = Settings::GetInstance().GetConnectionURL();
+              connectionURL = connectionURL.substr(0, connectionURL.size()-1);
+              channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), jsonChannel["picon"].get<std::string>().c_str()));
+
+              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
+            }
+          }
+        }
+      }
+    }
+    catch (nlohmann::detail::parse_error)
+    {
+      Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
+    }
+  }
+
   return true;
 }
