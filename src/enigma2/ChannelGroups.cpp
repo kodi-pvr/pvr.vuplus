@@ -192,10 +192,8 @@ bool ChannelGroups::LoadTVChannelGroups()
     }
 
     TiXmlHandle hDoc(&xmlDoc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
 
-    pElem = hDoc.FirstChildElement("e2servicelist").Element();
+    TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelist").Element();
 
     if (!pElem)
     {
@@ -203,7 +201,7 @@ bool ChannelGroups::LoadTVChannelGroups()
       return false;
     }
 
-    hRoot=TiXmlHandle(pElem);
+    TiXmlHandle hRoot = TiXmlHandle(pElem);
 
     TiXmlElement* pNode = hRoot.FirstChildElement("e2service").Element();
 
@@ -261,10 +259,8 @@ bool ChannelGroups::LoadRadioChannelGroups()
     }
 
     TiXmlHandle hDoc(&xmlDoc);
-    TiXmlElement* pElem;
-    TiXmlHandle hRoot(0);
 
-    pElem = hDoc.FirstChildElement("e2servicelistrecursive").Element();
+    TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelistrecursive").Element();
 
     if (!pElem)
     {
@@ -272,7 +268,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
       return false;
     }
 
-    hRoot=TiXmlHandle(pElem);
+    TiXmlHandle hRoot = TiXmlHandle(pElem);
 
     TiXmlElement* pNode = hRoot.FirstChildElement("e2bouquet").Element();
 

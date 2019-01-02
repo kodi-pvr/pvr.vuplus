@@ -110,10 +110,8 @@ bool Recordings::LoadLocations()
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2locations").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2locations").Element();
 
   if (!pElem)
   {
@@ -121,7 +119,7 @@ bool Recordings::LoadLocations()
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2location").Element();
 
@@ -185,10 +183,8 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2movielist").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2movielist").Element();
 
   if (!pElem)
   {
@@ -196,7 +192,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2movie").Element();
 

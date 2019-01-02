@@ -47,10 +47,8 @@ std::vector<Timer> Timers::LoadTimers() const
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2timerlist").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2timerlist").Element();
 
   if (!pElem)
   {
@@ -58,7 +56,7 @@ std::vector<Timer> Timers::LoadTimers() const
     return timers;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2timer").Element();
 
@@ -179,10 +177,8 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("autotimer").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("autotimer").Element();
 
   if (!pElem)
   {
@@ -190,7 +186,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
     return autoTimers;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("timer").Element();
 

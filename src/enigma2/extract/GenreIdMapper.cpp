@@ -99,10 +99,8 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("genreIdMappings").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("genreIdMappings").Element();
 
   if (!pElem)
   {
@@ -115,7 +113,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
   if (!XMLUtils::GetString(pElem, "mapperName", mapperName)) 
     return false;
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("mappings").Element();
 

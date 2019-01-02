@@ -296,10 +296,8 @@ bool Admin::LoadAutoTimerSettings()
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2settings").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2settings").Element();
 
   if (!pElem)
   {
@@ -307,7 +305,7 @@ bool Admin::LoadAutoTimerSettings()
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2setting").Element();
 
@@ -363,10 +361,8 @@ bool Admin::LoadRecordingMarginSettings()
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2settings").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2settings").Element();
 
   if (!pElem)
   {
@@ -374,7 +370,7 @@ bool Admin::LoadRecordingMarginSettings()
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2setting").Element();
 
@@ -482,10 +478,8 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2deviceinfo").Element();
 
   if (!pElem)
   {
@@ -493,7 +487,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
     return PVR_ERROR_SERVER_ERROR;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2hdds").Element();
 

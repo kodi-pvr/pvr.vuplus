@@ -168,10 +168,8 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   }
 
   TiXmlHandle hDoc(&xmlDoc);
-  TiXmlElement* pElem;
-  TiXmlHandle hRoot(0);
 
-  pElem = hDoc.FirstChildElement("e2servicelist").Element();
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelist").Element();
 
   if (!pElem)
   {
@@ -179,7 +177,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     return false;
   }
 
-  hRoot=TiXmlHandle(pElem);
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2service").Element();
 
