@@ -649,34 +649,34 @@ void Admin::GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus)
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
-  auto jsonDoc = json::parse(strJson);
-
-  if (!jsonDoc)
-    {
-      Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tunerdetails from OpenWebIf", __FUNCTION__);
-          
-      return;
-    }
-
-  for (json::iterator it = jsonDoc.begin(); it != jsonDoc.end(); ++it) 
+  try
   {
-    if (it.key() == "tunernumber")
-    { 
-      Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %d", __FUNCTION__, it.key().c_str(), it.value().get<int>());
+    auto jsonDoc = json::parse(strJson);
 
-      int tunerNumber = it.value().get<int>();
+    for (json::iterator it = jsonDoc.begin(); it != jsonDoc.end(); ++it) 
+    {
+      if (it.key() == "tunernumber")
+      { 
+        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %d", __FUNCTION__, it.key().c_str(), it.value().get<int>());
 
-      if (m_tuners.size() > tunerNumber)
+        int tunerNumber = it.value().get<int>();
+
+        if (m_tuners.size() > tunerNumber)
+        {
+          Tuner &tuner = m_tuners.at(tunerNumber);
+
+          strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName));
+        }
+      }
+      else if (it.key() == "tunertype")
       {
-        Tuner &tuner = m_tuners.at(tunerNumber);
-
-        strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName));
+        Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, it.key().c_str(), it.value().get<std::string>().c_str());
+        strncpy(signalStatus.strAdapterStatus, it.value().get<std::string>().c_str(), sizeof(signalStatus.strAdapterStatus));
       }
     }
-    else if (it.key() == "tunertype")
-    {
-      Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, it.key().c_str(), it.value().get<std::string>().c_str());
-      strncpy(signalStatus.strAdapterStatus, it.value().get<std::string>().c_str(), sizeof(signalStatus.strAdapterStatus));
-    }
+  }
+  catch (nlohmann::detail::parse_error)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tunerdetails from OpenWebIf", __FUNCTION__);
   }
 }

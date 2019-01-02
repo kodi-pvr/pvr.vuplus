@@ -209,38 +209,39 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
     const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
     const std::string strJson = WebUtils::GetHttpXML(jsonURL);  
-    auto jsonDoc = json::parse(strJson);
-
-    if (!jsonDoc)
+    
+    try
     {
-      Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
-          
-      return true;
-    }
+      auto jsonDoc = json::parse(strJson);
 
-    if (!jsonDoc["services"].empty())
-    {
-      for (json::iterator it = jsonDoc["services"].begin(); it != jsonDoc["services"].end(); ++it) 
+      if (!jsonDoc["services"].empty())
       {
-        auto jsonChannel = it.value();
-
-        auto channel = GetChannel(it.value()["servicereference"].get<std::string>());
-
-        if (channel)
+        for (json::iterator it = jsonDoc["services"].begin(); it != jsonDoc["services"].end(); ++it) 
         {
-          Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
-          channel->SetProviderlName(it.value()["provider"].get<std::string>());
+          auto jsonChannel = it.value();
 
-          if (Settings::GetInstance().UseOpenWebIfPiconPath())
+          auto channel = GetChannel(it.value()["servicereference"].get<std::string>());
+
+          if (channel)
           {
-            std::string connectionURL = Settings::GetInstance().GetConnectionURL();
-            connectionURL = connectionURL.substr(0, connectionURL.size()-1);
-            channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), it.value()["picon"].get<std::string>().c_str()));
+            Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
+            channel->SetProviderlName(it.value()["provider"].get<std::string>());
 
-            Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
+            if (Settings::GetInstance().UseOpenWebIfPiconPath())
+            {
+              std::string connectionURL = Settings::GetInstance().GetConnectionURL();
+              connectionURL = connectionURL.substr(0, connectionURL.size()-1);
+              channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), it.value()["picon"].get<std::string>().c_str()));
+
+              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
+            }
           }
         }
       }
+    }
+    catch (nlohmann::detail::parse_error)
+    {
+      Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
     }
   }
 
