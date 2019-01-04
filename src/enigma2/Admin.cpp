@@ -563,7 +563,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   return sizeInKb;
 }
 
-PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
+bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::string &serviceReference)
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal"); 
 
@@ -573,7 +573,7 @@ PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
   if (!xmlDoc.Parse(strXML.c_str()))
   {
     Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }
 
   std::string snrDb;
@@ -582,54 +582,53 @@ PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
   std::string signalStrength;
 
   TiXmlHandle hDoc(&xmlDoc);
-  //TiXmlHandle hRoot(0);
 
   TiXmlElement* pElem = hDoc.FirstChildElement("e2frontendstatus").Element();
 
   if (!pElem)
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <e2frontendstatus> element!", __FUNCTION__);
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }
 
   if (!XMLUtils::GetString(pElem, "e2snrdb", snrDb)) 
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2snrdb from result!", __FUNCTION__);
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }
 
   if (!XMLUtils::GetString(pElem, "e2snr", snrPercentage)) 
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2snr from result!", __FUNCTION__);
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }  
 
   if (!XMLUtils::GetString(pElem, "e2ber", ber)) 
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2ber from result!", __FUNCTION__);
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }  
 
   if (!XMLUtils::GetString(pElem, "e2acg", signalStrength)) 
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2acg from result!", __FUNCTION__);
-    return PVR_ERROR_SERVER_ERROR;
+    return false;
   }  
 
   std::regex regexReplacePercent (" %");
   std::string regexReplace = "";
 
   // For some reason the iSNR and iSignal values need to multiplied by 655!
-  signalStatus.iSNR = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
-  signalStatus.iBER = atol(ber.c_str());
-  signalStatus.iSignal = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
+  signalStatus.m_snrPercentage = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
+  signalStatus.m_ber = atol(ber.c_str());
+  signalStatus.m_signalStrength = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
 
   if (CanUseJsonApi())
   {
-    GetTunerDetails(signalStatus);
+    GetTunerDetails(signalStatus, serviceReference);
   }
 
-  return PVR_ERROR_NO_ERROR;
+  return true;
 }  
 
 bool Admin::CanUseJsonApi()
@@ -637,7 +636,7 @@ bool Admin::CanUseJsonApi()
   return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
 }
 
-void Admin::GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus)
+void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::string &serviceReference)
 {  
   const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal"); 
 
@@ -659,13 +658,14 @@ void Admin::GetTunerDetails(PVR_SIGNAL_STATUS &signalStatus)
         {
           Tuner &tuner = m_tuners.at(tunerNumber);
 
-          strncpy(signalStatus.strAdapterName, (tuner.m_tunerName + " - " + tuner.m_tunerModel).c_str(), sizeof(signalStatus.strAdapterName) - 1);
+          signalStatus.m_adapterName = tuner.m_tunerName + " - " + tuner.m_tunerModel;
         }
       }
       else if (element.key() == "tunertype")
       {
         Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, element.key().c_str(), element.value().get<std::string>().c_str());
-        strncpy(signalStatus.strAdapterStatus, element.value().get<std::string>().c_str(), sizeof(signalStatus.strAdapterStatus) - 1);
+        
+        signalStatus.m_adapterStatus = element.value().get<std::string>();
       }
     }
   }

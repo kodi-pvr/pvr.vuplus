@@ -303,6 +303,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
   if (channelinfo.iUniqueId != m_currentChannel)
   {
     m_currentChannel = channelinfo.iUniqueId;
+    m_lastSignalStatusUpdateSeconds = 0;
 
     if (m_settings.GetZapBeforeChannelSwitch())
     {
@@ -484,7 +485,25 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
 
     strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName) - 1);
     strncpy(signalStatus.strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus.strProviderName) - 1);
+
+    time_t now = time(nullptr);
+    if ((now - m_lastSignalStatusUpdateSeconds) >= POLL_INTERVAL_SECONDS)
+    {
+      Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __FUNCTION__, POLL_INTERVAL_SECONDS);
+
+      if (!m_admin.GetTunerSignal(m_signalStatus, channel->GetServiceReference()))
+      {
+        return PVR_ERROR_SERVER_ERROR;
+      }
+      m_lastSignalStatusUpdateSeconds = now;
+    }
   }
 
-  return m_admin.GetTunerSignal(signalStatus);
+  signalStatus.iSNR = m_signalStatus.m_snrPercentage;
+  signalStatus.iBER = m_signalStatus.m_ber;
+  signalStatus.iSignal = m_signalStatus.m_signalStrength;
+  strncpy(signalStatus.strAdapterName, m_signalStatus.m_adapterName.c_str(), sizeof(signalStatus.strAdapterName) - 1);
+  strncpy(signalStatus.strAdapterStatus, m_signalStatus.m_adapterStatus.c_str(), sizeof(signalStatus.strAdapterStatus) - 1);
+
+  return PVR_ERROR_NO_ERROR;
 }
