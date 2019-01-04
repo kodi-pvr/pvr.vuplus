@@ -43,6 +43,10 @@
 #include "tinyxml.h"
 #include "p8-platform/threads/threads.h"
 
+#if defined(snprintf)
+#undef snprintf
+#endif
+
 class Enigma2  : public P8PLATFORM::CThread
 {
 public:
