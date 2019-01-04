@@ -43,6 +43,7 @@
 #include "tinyxml.h"
 #include "p8-platform/threads/threads.h"
 
+// The windows build defines this but it breaks nlohmann/json.hpp's reference to std::snprintf
 #if defined(snprintf)
 #undef snprintf
 #endif
