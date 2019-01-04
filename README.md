@@ -3,7 +3,13 @@
 
 Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers.
 
-This addon leverage the OpenWebIf project: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
+This addon leverages the OpenWebIf project to interact with the Enigma2 device via Restful APIs: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
+
+**Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that would not function include:
+* Autotimers
+* Drive Space Reporting
+* Embedded EPG Genre IDs
+* Full Tuner Signal Support (Including Service Providers) 
 
 # Enigma2 PVR
 VuPlus PVR client addon for [Kodi] (https://kodi.tv)
@@ -43,7 +49,7 @@ Webinterface Port: This option defines the port that should be used to access th
 Within this tab general options are configured.
 
 * **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 set-top box.
-* **Use picons.eu file formate**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`
+* **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`
 * **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.x or higher.
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
