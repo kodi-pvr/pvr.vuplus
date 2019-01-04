@@ -2,7 +2,8 @@ Source: kodi-pvr-vuplus
 Priority: extra
 Maintainer: Cristiano A. Silva <hudokkow@gmail.com>
 Build-Depends: debhelper (>= 9.0.0), cmake, libtinyxml-dev,
-               libkodiplatform-dev (>= 16.0.0), kodi-addon-dev
+               libkodiplatform-dev (>= 16.0.0), kodi-addon-dev,
+               nlohmann-json-dev
 Standards-Version: 3.9.4
 Section: libs
 

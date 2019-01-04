@@ -6,10 +6,10 @@
 #include "../Enigma2.h"
 #include "Admin.h"
 #include "ChannelGroups.h"
-#include "utilities/json.hpp"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <nlohmann/json.hpp>
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
