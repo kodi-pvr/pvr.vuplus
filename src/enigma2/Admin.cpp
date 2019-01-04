@@ -619,9 +619,10 @@ PVR_ERROR Admin::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
   std::regex regexReplacePercent (" %");
   std::string regexReplace = "";
 
-  signalStatus.iSNR = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str());
+  // For some reason the iSNR and iSignal values need to multiplied by 655!
+  signalStatus.iSNR = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
   signalStatus.iBER = atol(ber.c_str());
-  signalStatus.iSignal = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str());
+  signalStatus.iSignal = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
 
   if (CanUseJsonApi())
   {
