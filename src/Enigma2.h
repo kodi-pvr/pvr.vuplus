@@ -39,10 +39,12 @@
 #include "enigma2/data/EpgEntry.h"
 #include "enigma2/data/RecordingEntry.h"
 #include "enigma2/extract/EpgEntryExtractor.h"
+#include "enigma2/utilities/SignalStatus.h"
 
 #include "tinyxml.h"
 #include "p8-platform/threads/threads.h"
 
+// The windows build defines this but it breaks nlohmann/json.hpp's reference to std::snprintf
 #if defined(snprintf)
 #undef snprintf
 #endif
@@ -99,6 +101,7 @@ private:
   time_t m_lastUpdateTimeSeconds;
   int m_currentChannel = -1;
   std::atomic_bool m_dueRecordingUpdate{true};
+  time_t m_lastSignalStatusUpdateSeconds;
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
@@ -109,6 +112,7 @@ private:
   enigma2::Admin m_admin;
   enigma2::Epg m_epg = enigma2::Epg(m_channels, m_channelGroups, m_entryExtractor);
   enigma2::extract::EpgEntryExtractor m_entryExtractor;
+  enigma2::utilities::SignalStatus m_signalStatus;
 
   P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;

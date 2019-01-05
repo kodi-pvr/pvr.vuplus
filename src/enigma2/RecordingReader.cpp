@@ -18,6 +18,13 @@ RecordingReader::RecordingReader(const std::string &streamURL, std::time_t start
   (void)XBMC->CURLOpen(m_readHandle, XFILE::READ_NO_CACHE);
   m_len = XBMC->GetFileLength(m_readHandle);
   m_nextReopen = time(nullptr) + REOPEN_INTERVAL;
+
+  //If this is an ongoing recording set the duration to the eventual length of the recording
+  if (start > 0 && end > 0)
+  {
+    m_duration = static_cast<int>(end - start);
+  }
+
   Logger::Log(LEVEL_DEBUG, "RecordingReader: Started; url=%s, start=%u, end=%u, duration=%d",
       m_streamURL.c_str(), m_start, m_end, m_duration);
 }

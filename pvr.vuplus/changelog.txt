@@ -1,3 +1,9 @@
+v3.16.1
+- Fixed: Backend polled too often for Signal Quality, fixes #165
+- Fixed: SNR and Signal showing as zero in PVR info overlay, fixes #164
+- Fixed: When playing a current recording duration at end time is wrong, fixes #160
+- Fixed: Plugin won't load channels after upgrade to 3.16.0, fixes #161
+
 v3.16.0
 - Added: Tuners and SignalStatus
 - Added: Use Picon Path from OpenWebIf

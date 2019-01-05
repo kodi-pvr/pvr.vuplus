@@ -257,7 +257,8 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 
   Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s", __FUNCTION__, signalStatus.strAdapterName, signalStatus.strAdapterStatus);
   Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s", __FUNCTION__, signalStatus.strServiceName, signalStatus.strProviderName);
-  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __FUNCTION__, signalStatus.iSNR, signalStatus.iBER, signalStatus.iSignal);
+  // For some reason the iSNR and iSignal values need to multiplied by 655!
+  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __FUNCTION__, signalStatus.iSNR / 655, signalStatus.iBER, signalStatus.iSignal / 655);
 
   return PVR_ERROR_NO_ERROR;
 }
