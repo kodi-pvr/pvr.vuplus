@@ -633,7 +633,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::string &servic
 
 bool Admin::CanUseJsonApi()
 {
-  return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
+  return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 5) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
 }
 
 void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::string &serviceReference)
