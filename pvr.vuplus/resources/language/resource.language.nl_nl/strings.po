@@ -142,7 +142,7 @@ msgstr "Inschakelen van autotimers"
 
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr "Gebruik picons.eu bestandsformaat"
+msgstr "Gebruik picons.eu-bestandsformaat"
 
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
@@ -150,7 +150,7 @@ msgstr "Activeren van gegenereerde herhaaltimers"
 
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr "Log van afwezige genre-tekstmappings"
+msgstr "Log de afwezige genre-tekstmappings"
 
 msgctxt "#30038"
 msgid "Web Interface"
@@ -200,9 +200,17 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Radio-bouquet"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Timeshift inschakelen"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -220,6 +228,14 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "tijdens Pauze"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Gebruik beveiligde HTTP (https) voor streams"
+
+msgctxt "#30070"
+msgid "Recordings & Timers"
+msgstr "Opnames en timers"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Opnames"
@@ -228,9 +244,81 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Timers"
 
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Aantal herhaaltimers te genereren"
+
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Alle bouquets"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Slechts één bouquet"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Als eerste bouquet"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Als laatste bouquet"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Bladwijzergroep"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Bladwijzers (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Bladwijzers (Radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "onbekend"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Niet verbonden!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "Fout in add-on"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Enigma2 Media Server"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Backend"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Opname-opvulling"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Globale startopvulling"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Globale eindopvulling"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Apparaatinformatie"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf-versie"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -244,6 +332,18 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Onwaar"
 
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Update-modus"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Timers en opnames"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Alleen timers"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatisch"
@@ -252,6 +352,10 @@ msgctxt "#30420"
 msgid "One time (Scheduled by guide-based timer rule)"
 msgstr "Eenmalig (ingesteld door gidsgebaseerde tijdregel)"
 
+msgctxt "#30421"
+msgid "One time (Scheduled by repeating timer rule)"
+msgstr "Eenmaal (ingepland door herhaalde timerregel)"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Uitgeschakeld"
@@ -259,6 +363,14 @@ msgstr "Uitgeschakeld"
 msgctxt "#30431"
 msgid "Record if EPG title differs"
 msgstr "Opname indien EPG-titel afwijkt"
+
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Opnemen indien er verschillen in de EPG-titel en de korte omschrijving zijn"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Opnemen indien er verschillen in de EPG-titel en alle korte omschrijvingen zijn"
 
 msgctxt "#30500"
 msgid "Disconnected from '%s'"

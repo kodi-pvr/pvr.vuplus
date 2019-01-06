@@ -16,6 +16,14 @@ msgstr ""
 "Language: ms_MY\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Namahos atau alamat IP Enigma2 "
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Port penstriman"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Nama Pengguna"
@@ -36,6 +44,10 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Had masa tamat respons dalam saat"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Laluan ikon"
+
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Kemaskini Sela"
@@ -43,6 +55,18 @@ msgstr "Kemaskini Sela"
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Sela kemaskini dalam minit"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Pembersihan senarai pemasa berautomatik"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Port antaramuka sesawang"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Zap sebelum tukar saluran (cth. kotak penala tunggal)"
 
 msgctxt "#30014"
 msgid "Folder for channeldata"
@@ -84,6 +108,26 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder rakaman pada penerima"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Hantar mod keadaan kuasa ketika keluar dari tambahan"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Mod dapatkan jambak TV"
+
+msgctxt "#30026"
+msgid "TV bouquet"
+msgstr "Jambak TV"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Dapatkan picon dari antaramuka sesawang"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Guna HTTP selamat (https)"
+
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr "Benarkan konfigurasi automatik untuk strim langsung"
@@ -92,13 +136,49 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Kekalkan struktur folder untuk rekod"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Musim dan Episod"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
 
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Ekstrak maklumat musim, episod dan tahun jika ada"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Benarkan autopemasa"
+
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr "Guna format fail picons.eu"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Benarkan jana pemasa berulang"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Log pemetaan teks genre yang hilang"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Antaramuka Sesawang"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Penstriman"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Letak garis-luar (cth. sarikata) sebelum plot"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Saiz cebisan baca strim"
 
 msgctxt "#30042"
 msgid "Never"
@@ -116,6 +196,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Sentiasa"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Ekstrak fail maklumat rancangan"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Pemetaan teks genre Rytec"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "Benarkan pemetaan teks genre Rytec"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Fail pemetaan teks genre Rytec"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Had masa tamat TV langsung suai (0 untuk guna lalai)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Daftar Masuk"
@@ -123,6 +223,18 @@ msgstr "Daftar Masuk"
 msgctxt "#30052"
 msgid "Misc"
 msgstr "Pelbagai"
+
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Pemetaan ID Genre"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Benarkan Pemetaan ID Genre"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Fail pemetaan ID Genre"
 
 msgctxt "#30056"
 msgid "TV"
@@ -132,9 +244,21 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Mod dapatkan jambak radio"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Jambak radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Anjak Masa"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Benarkan anjak masa"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -152,6 +276,22 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Ketika dijeda"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Guna HTTP Selamat (https) untuk strim"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Guna daftar masuk untuk strim"
+
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Dapatkan jambak kegemaran TV"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Dapatkan jambak kegemaran radio"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Rakaman & Pemasa"
@@ -164,9 +304,89 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Pemasa"
 
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Bilangan pemasa ulang untuk dijana"
+
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Semua jambak"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Hanya satu jambak"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Sebagai jambak pertama"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Sebagai jambak terakhir"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Kumpulan kegemaran"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Kegemaran (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Kegemaran (Radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "tidak diketahui"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Tidak bersambung)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "ralat tambahan"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Pelayan Media Enigma2"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Bahagian belakang"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Pemadatan Rakaman"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Pemadatan mula sejagat"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Pemadatan tamat sejagat"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Maklumat Peranti"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Versi Webif"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Tag AutoPemasa dalam tag pemasa"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Nama AutoPemasa dalam tag pemasa"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -179,6 +399,30 @@ msgstr "Benar"
 msgctxt "#30096"
 msgid "False"
 msgstr "Palsu"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Sedia"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Sedia mendalam"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Bangun, kemudian sedia"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Mod kemaskini"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Pemasa dan rakaman"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Pemasa sahaja"
 
 msgctxt "#30410"
 msgid "Automatic"

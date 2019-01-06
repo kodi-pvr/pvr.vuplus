@@ -152,6 +152,10 @@ msgctxt "#30085"
 msgid "OK"
 msgstr "Bine"
 
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Nedisponibil"
+
 msgctxt "#30095"
 msgid "True"
 msgstr "Adevărat"
