@@ -490,7 +490,7 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
     {
       Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __FUNCTION__, POLL_INTERVAL_SECONDS);
 
-      if (!m_admin.GetTunerSignal(m_signalStatus, channel->GetServiceReference()))
+      if (!m_admin.GetTunerSignal(m_signalStatus, channel))
       {
         return PVR_ERROR_SERVER_ERROR;
       }

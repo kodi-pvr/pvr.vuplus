@@ -24,9 +24,11 @@
 #include <string>
 #include <vector>
 
+#include "data/Channel.h"
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 #include "utilities/SignalStatus.h"
+#include "utilities/StreamStatus.h"
 #include "utilities/Tuner.h"
 
 #include "libXBMC_pvr.h"
@@ -50,7 +52,7 @@ namespace enigma2
     const std::string& GetImageVersion() const { return m_deviceInfo.GetImageVersion(); }
     const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
-    bool GetTunerSignal(utilities::SignalStatus &signalStatus, const std::string &serviceReference);
+    bool GetTunerSignal(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
     static bool CanUseJsonApi();  
 
@@ -60,7 +62,8 @@ namespace enigma2
     bool LoadRecordingMarginSettings();
     unsigned int ParseWebIfVersion(const std::string &webIfVersion);
     long long GetKbFromString(const std::string &stringInMbGbTb) const;
-    void GetTunerDetails(utilities::SignalStatus &signalStatus, const std::string &serviceReference);
+    utilities::StreamStatus GetStreamDetails(const std::shared_ptr<data::Channel> &channel);
+    void GetTunerDetails(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;
