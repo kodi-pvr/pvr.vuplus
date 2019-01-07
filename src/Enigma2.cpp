@@ -35,7 +35,6 @@
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/WebUtils.h"
 
-
 #include "util/XMLUtils.h"
 #include <p8-platform/util/StringUtils.h>
 

@@ -92,7 +92,7 @@
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="usepiconseuformat" type="boolean" parent="onlinepicons" label="30035">
+        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons" label="30103">
           <level>0</level>
           <default>false</default>
           <dependencies>
@@ -100,12 +100,9 @@
           </dependencies>
           <control type="toggle" />
         </setting>
-        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons" label="30103">
+        <setting id="usepiconseuformat" type="boolean" label="30035">
           <level>0</level>
           <default>false</default>
-          <dependencies>
-            <dependency type="enable" setting="onlinepicons">true</dependency>
-          </dependencies>
           <control type="toggle" />
         </setting>
         <setting id="iconpath" type="path" label="30008">

@@ -671,6 +671,6 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::string &servi
   }
   catch (nlohmann::detail::parse_error)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tunerdetails from OpenWebIf", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tuner details from OpenWebIf", __FUNCTION__);
   }
 }

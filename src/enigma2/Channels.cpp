@@ -192,7 +192,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     Channel newChannel;
     newChannel.SetRadio(channelGroup->IsRadio());
 
-    if (!newChannel.UpdateFrom(pNode, Settings::GetInstance().GetConnectionURL()))
+    if (!newChannel.UpdateFrom(pNode))
       continue;
 
     AddChannel(newChannel, channelGroup);
