@@ -144,6 +144,7 @@ namespace enigma2
     PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
+    bool GetTraceDebug() const { return m_traceDebug; };
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
@@ -258,6 +259,7 @@ namespace enigma2
     PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
+    bool m_traceDebug = false;
 
     //Backend
     int m_globalStartPaddingStb = 0;

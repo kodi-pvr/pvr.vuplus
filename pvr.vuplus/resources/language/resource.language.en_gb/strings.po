@@ -432,7 +432,11 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr ""
 
-#empty strings from id 30104 to 30409
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr ""
+
+#empty strings from id 30105 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

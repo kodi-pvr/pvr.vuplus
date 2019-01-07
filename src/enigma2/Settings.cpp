@@ -183,6 +183,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("streamreadchunksize", &m_streamReadChunkSize))
     m_streamReadChunkSize = 0;
 
+  if (!XBMC->GetSetting("tracedebug", &m_traceDebug))
+    m_traceDebug = false;
+
   // Now that we've read all the settings construct the connection URL
   
   m_connectionURL.clear();
@@ -288,6 +291,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "tracedebug")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_traceDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Backend
   else if (settingName == "globalstartpaddingstb")
   {

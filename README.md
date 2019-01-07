@@ -127,6 +127,7 @@ Within this tab more uncommon and advanced options can be configured.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
 * **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide.
+* **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements
 
 ## Customising Config Files
 

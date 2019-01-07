@@ -467,6 +467,11 @@
             <formatlabel>14049</formatlabel>
           </control>
         </setting>
+        <setting id="tracedebug" type="boolean" label="30104">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
       </group>
     </category>
 

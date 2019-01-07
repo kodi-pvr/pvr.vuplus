@@ -106,8 +106,8 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     }
 
     /* Don't log trace messages unless told so */
-    //if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
-      //return;
+    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+      return;
 
     XBMC->Log(addonLevel, "%s", message);
   });
