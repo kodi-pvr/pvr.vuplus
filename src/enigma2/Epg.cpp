@@ -76,7 +76,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -86,7 +86,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
  
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s could not find <e2eventlist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
     // Return "NO_ERROR" as the EPG could be empty for this channel
     return PVR_ERROR_NO_ERROR;
   }
@@ -97,7 +97,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2event> element");
+    Logger::Log(LEVEL_NOTICE, "%s Could not find <e2event> element", __FUNCTION__);
     // RETURN "NO_ERROR" as the EPG could be empty for this channel
     return PVR_ERROR_SERVER_ERROR;
   }
@@ -121,7 +121,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
 
     iNumEPG++; 
 
-    Logger::Log(LEVEL_DEBUG, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __FUNCTION__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
+    Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __FUNCTION__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
   }
 
   Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for channel '%s'", __FUNCTION__, iNumEPG, channel.strChannelName);
@@ -140,7 +140,7 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -150,7 +150,7 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
  
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s could not find <e2eventlist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
     // Return "NO_ERROR" as the EPG could be empty for this channel
     return false;
   }
@@ -161,7 +161,7 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2event> element");
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2event> element", __FUNCTION__);
     // RETURN "NO_ERROR" as the EPG could be empty for this channel
     return false;
   }

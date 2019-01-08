@@ -429,7 +429,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
   for (auto &timerType : timerTypes)
     types[i++] = timerType;
   *size = timerTypes.size();
-  Logger::Log(LEVEL_NOTICE, "Transfered %u timer types", *size);
+  Logger::Log(LEVEL_NOTICE, "%s Transfered %u timer types", __FUNCTION__, *size);
 }
 
 int Enigma2::GetTimersAmount()

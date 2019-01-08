@@ -105,7 +105,7 @@ bool Recordings::LoadLocations()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -115,7 +115,7 @@ bool Recordings::LoadLocations()
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2locations> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2locations> element", __FUNCTION__);
     return false;
   }
 
@@ -125,7 +125,7 @@ bool Recordings::LoadLocations()
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2location> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2location> element", __FUNCTION__);
     return false;
   }
 
@@ -178,7 +178,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -188,7 +188,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movielist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2movielist> element!", __FUNCTION__);
     return false;
   }
 
@@ -200,7 +200,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2movie> element, no movies at location: %s", directory.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movie> element, no movies at location: %s", directory.c_str(), __FUNCTION__);
   }  
   else
   {  

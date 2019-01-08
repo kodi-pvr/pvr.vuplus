@@ -419,6 +419,8 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
     times->ptsEnd = (!streamReader->IsTimeshifting()) ? 0
       : (streamReader->TimeEnd() - streamReader->TimeStart()) * DVD_TIME_BASE;
     
+    Logger::Log(LEVEL_DEBUG, "%s Live StartTime: %ld, ptsStart: %ld, ptsBegin: %ld, ptsEnd: %ld", __FUNCTION__, times->startTime, times->ptsStart, times->ptsBegin, times->ptsEnd);
+
     return PVR_ERROR_NO_ERROR;
   }  
   else if (recordingReader)
@@ -427,6 +429,8 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
     times->ptsStart = 0;
     times->ptsBegin = 0;
     times->ptsEnd = static_cast<std::time_t>(recordingReader->CurrentDuration()) * DVD_TIME_BASE;
+
+    Logger::Log(LEVEL_DEBUG, "%s Playback StartTime: %ld, ptsStart: %ld, ptsBegin: %ld, ptsEnd: %ld", __FUNCTION__, times->startTime, times->ptsStart, times->ptsBegin, times->ptsEnd);
 
     return PVR_ERROR_NO_ERROR;
   }

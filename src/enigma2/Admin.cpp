@@ -82,7 +82,7 @@ bool Admin::LoadDeviceInfo()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -190,12 +190,12 @@ bool Admin::LoadDeviceInfo()
     }  
     else
     {
-      Logger::Log(LEVEL_DEBUG, "Could not find <e2frontend> element");
+      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2frontend> element", __FUNCTION__);
     }
   }
   else
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2frontends> element");
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2frontends> element", __FUNCTION__);
   }
 
   return true;
@@ -291,7 +291,7 @@ bool Admin::LoadAutoTimerSettings()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -311,7 +311,7 @@ bool Admin::LoadAutoTimerSettings()
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2setting> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2setting> element", __FUNCTION__);
     return false;
   }
 
@@ -356,7 +356,7 @@ bool Admin::LoadRecordingMarginSettings()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -366,7 +366,7 @@ bool Admin::LoadRecordingMarginSettings()
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2settings> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2settings> element!", __FUNCTION__);
     return false;
   }
 
@@ -376,7 +376,7 @@ bool Admin::LoadRecordingMarginSettings()
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2setting> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2setting> element", __FUNCTION__);
     return false;
   }
 
@@ -473,7 +473,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -493,7 +493,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2hdds> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2hdds> element", __FUNCTION__);
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -501,7 +501,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
 
   if (!hddNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2hdd> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2hdd> element", __FUNCTION__);
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -531,7 +531,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   *iTotal = totalKb;
   *iUsed = totalKb - freeKb;
 
-  Logger::Log(LEVEL_INFO, "GetDriveSpace Total: %lld, Used %lld", *iTotal, *iUsed);
+  Logger::Log(LEVEL_INFO, "%s Space Total: %lld, Used %lld", __FUNCTION__, *iTotal, *iUsed);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -572,7 +572,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -698,7 +698,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &chann
   }
   catch (nlohmann::detail::parse_error)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra stream details from OpenWebIf", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra stream details from OpenWebIf", __FUNCTION__);
   }
 
   return streamStatus;
@@ -739,6 +739,6 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
   }
   catch (nlohmann::detail::parse_error)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tuner details from OpenWebIf", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra tuner details from OpenWebIf", __FUNCTION__);
   }
 }

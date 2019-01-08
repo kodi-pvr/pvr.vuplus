@@ -147,7 +147,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(fileContents.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -193,7 +193,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
 
     map.insert({textMapping, targetId});
 
-    Logger::Log(LEVEL_DEBUG, "%s Read Text Mapping for: %s, text=%s, targetId=%#02X", __FUNCTION__, mapperName.c_str(), textMapping.c_str(), targetId);
+    Logger::Log(LEVEL_TRACE, "%s Read Text Mapping for: %s, text=%s, targetId=%#02X", __FUNCTION__, mapperName.c_str(), textMapping.c_str(), targetId);
   }
 
   return true;  

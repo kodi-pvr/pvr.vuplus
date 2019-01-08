@@ -92,7 +92,7 @@ std::string WebUtils::GetHttpXML(const std::string& url)
   CurlFile http;
   if(!http.Get(url, strTmp))
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Could not open webAPI.", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __FUNCTION__);
     return "";
   }
 
@@ -115,7 +115,7 @@ std::string WebUtils::PostHttpJson(const std::string& url)
   CurlFile http;
   if(!http.Post(url, strTmp))
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Could not open webAPI.", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __FUNCTION__);
     return "";
   }
 
@@ -141,7 +141,7 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
       return false;
     }
 
@@ -153,7 +153,7 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2simplexmlresult> element!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2simplexmlresult> element!", __FUNCTION__);
       return false;
     }
 

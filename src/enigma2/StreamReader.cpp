@@ -15,14 +15,14 @@ StreamReader::StreamReader(const std::string &streamURL,
     XBMC->CURLAddOption(m_streamHandle, XFILE::CURL_OPTION_PROTOCOL,
       "connection-timeout", std::to_string(0).c_str());
 
-  Logger::Log(LEVEL_DEBUG, "StreamReader: Started; url=%s", streamURL.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s StreamReader: Started; url=%s", __FUNCTION__, streamURL.c_str());
 }
 
 StreamReader::~StreamReader(void)
 {
   if (m_streamHandle)
     XBMC->CloseFile(m_streamHandle);
-  Logger::Log(LEVEL_DEBUG, "StreamReader: Stopped");
+  Logger::Log(LEVEL_DEBUG, "%s StreamReader: Stopped", __FUNCTION__);
 }
 
 bool StreamReader::Start()

@@ -44,7 +44,7 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
   if (!channelGroup)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+    Logger::Log(LEVEL_NOTICE, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
 
     return PVR_ERROR_NO_ERROR;
   }
@@ -187,7 +187,7 @@ bool ChannelGroups::LoadTVChannelGroups()
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
       return false;
     }
 
@@ -197,7 +197,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2servicelist> element!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
       return false;
     }
 
@@ -207,7 +207,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2service> element", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
       return false;
     }
 
@@ -254,7 +254,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
       return false;
     }
 
@@ -264,7 +264,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2servicelistrecursive> element!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelistrecursive> element for radio groups!", __FUNCTION__);
       return false;
     }
 
@@ -274,7 +274,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2bouquet> element", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2bouquet> element for radio groups", __FUNCTION__);
       return false;
     }
 

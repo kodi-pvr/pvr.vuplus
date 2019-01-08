@@ -96,7 +96,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(fileContents.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 

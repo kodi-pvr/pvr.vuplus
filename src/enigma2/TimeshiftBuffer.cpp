@@ -44,7 +44,7 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
     Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __FUNCTION__, m_bufferPath.c_str());
   
   SAFE_DELETE(m_streamReader);
-  Logger::Log(LEVEL_DEBUG, "Timeshift: Stopped");
+  Logger::Log(LEVEL_DEBUG, "%s Timeshift: Stopped", __FUNCTION__);
 }
 
 bool TimeshiftBuffer::Start()
@@ -56,7 +56,7 @@ bool TimeshiftBuffer::Start()
   if (m_running)
     return true;
 
-  Logger::Log(LEVEL_INFO, "Timeshift: Started");
+  Logger::Log(LEVEL_INFO, "%s Timeshift: Started", __FUNCTION__);
   m_start = time(nullptr);
   m_running = true;
   m_inputThread = std::thread([&] { DoReadWrite(); });
@@ -66,7 +66,7 @@ bool TimeshiftBuffer::Start()
 
 void TimeshiftBuffer::DoReadWrite()
 {
-  Logger::Log(LEVEL_DEBUG, "Timeshift: Thread started");
+  Logger::Log(LEVEL_DEBUG, "%s Timeshift: Thread started", __FUNCTION__);
   uint8_t buffer[BUFFER_SIZE];
 
   m_streamReader->Start();
@@ -82,7 +82,7 @@ void TimeshiftBuffer::DoReadWrite()
 
     m_condition.notify_one();
   }
-  Logger::Log(LEVEL_DEBUG, "Timeshift: Thread stopped");
+  Logger::Log(LEVEL_DEBUG, "%s Timeshift: Thread stopped", __FUNCTION__);
   return;
 }
 
@@ -112,7 +112,7 @@ ssize_t TimeshiftBuffer::ReadData(unsigned char *buffer, unsigned int size)
 
   if (!available)
   {
-    Logger::Log(LEVEL_DEBUG, "Timeshift: Read timed out; waited %d", m_readTimeout);
+    Logger::Log(LEVEL_DEBUG, "%s Timeshift: Read timed out; waited %d", __FUNCTION__, m_readTimeout);
     return -1;
   }
 
