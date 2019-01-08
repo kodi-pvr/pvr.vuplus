@@ -288,6 +288,9 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 
 PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
 {
+  if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
+    Sleep(m_settings.GetEPGDelayPerChannelDelay());
+
   return m_epg.GetEPGForChannel(handle, channel, iStart, iEnd);
 }
 

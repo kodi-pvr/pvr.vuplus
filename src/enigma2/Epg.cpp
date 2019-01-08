@@ -16,29 +16,13 @@ using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
 Epg::Epg (enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups, enigma2::extract::EpgEntryExtractor &entryExtractor)
-      : m_channels(channels), m_channelGroups(channelGroups), m_entryExtractor(entryExtractor)
-{
-  InitialiseEpgReadyFile();
-}
-
-void Epg::InitialiseEpgReadyFile()
-{
-  m_writeHandle = XBMC->OpenFileForWrite(INITIAL_EPG_READY_FILE.c_str(), true);
-  XBMC->WriteFile(m_writeHandle, "Y", 1);
-  XBMC->CloseFile(m_writeHandle);  
-}
+      : m_channels(channels), m_channelGroups(channelGroups), m_entryExtractor(entryExtractor) {}
 
 bool Epg::IsInitialEpgCompleted()
 {
-  m_readHandle = XBMC->OpenFile(INITIAL_EPG_READY_FILE.c_str(), 0);
-  char buf[1];
-  XBMC->ReadFile(m_readHandle, buf, 1);
-  XBMC->CloseFile(m_readHandle);
-  char buf2[] = { "N" };
-  if (buf[0] == buf2[0])
+  if (m_allChannelsHaveInitialEPG)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Intial EPG update COMPLETE!", __FUNCTION__);
-    return true;
+    return m_allChannelsHaveInitialEPG;
   }
   else
   {
@@ -77,12 +61,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
       m_allChannelsHaveInitialEPG = m_channels.CheckIfAllChannelsHaveInitialEPG();
 
     if (m_allChannelsHaveInitialEPG)
-    {
-      const std::string initialEPGReady = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
-      m_writeHandle = XBMC->OpenFileForWrite(initialEPGReady.c_str(), true);
-      XBMC->WriteFile(m_writeHandle, "N", 1);
-      XBMC->CloseFile(m_writeHandle);
-    }
+      Logger::Log(LEVEL_DEBUG, "%s - Intial EPG update COMPLETE!", __FUNCTION__);
 
     return GetInitialEPGForChannel(handle, myChannel, iStart, iEnd);
   }

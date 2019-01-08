@@ -124,6 +124,7 @@ namespace enigma2
     bool GetMapRytecTextGenres() const { return m_mapRytecTextGenres; }
     const std::string& GetMapRytecTextGenresFile() const { return m_mapRytecTextGenresFile; }
     bool GetLogMissingGenreMappings() const { return m_logMissingGenreMappings; }
+    int GetEPGDelayPerChannelDelay() const { return m_epgDelayPerChannel; }
 
     //Recordings and Timers
     const std::string& GetRecordingPath() const { return m_recordingPath; }
@@ -240,6 +241,7 @@ namespace enigma2
     bool m_mapRytecTextGenres = true;
     std::string m_mapRytecTextGenresFile;
     bool m_logMissingGenreMappings = true;
+    int m_epgDelayPerChannel;
 
     //Recordings and Timers
     std::string m_recordingPath = "";
