@@ -88,6 +88,9 @@ set(DEPLIBS ${kodiplatform_LIBRARIES}
             ${p8-platform_LIBRARIES}
             ${TINYXML_LIBRARIES})
 
+addon_version(pvr.vuplus VUPLUS)
+add_definitions(-DVUPLUS_VERSION=${VUPLUS_VERSION})
+
 build_addon(pvr.vuplus VUPLUS DEPLIBS)
 
 include(CPack)

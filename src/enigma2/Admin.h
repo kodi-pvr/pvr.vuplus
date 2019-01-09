@@ -35,10 +35,11 @@
 
 namespace enigma2
 {
-
   class Admin
   {
   public:
+    Admin() : m_addonVersion(STR(VUPLUS_VERSION)) {};
+
     void SendPowerstate();
     bool Initialise();
     bool LoadDeviceSettings();
@@ -52,6 +53,7 @@ namespace enigma2
     const std::string& GetImageVersion() const { return m_deviceInfo.GetImageVersion(); }
     const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
+    const std::string& GetAddonVersion() const { return m_addonVersion; }
     bool GetTunerSignal(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
     static bool CanUseJsonApi();  
@@ -65,6 +67,7 @@ namespace enigma2
     utilities::StreamStatus GetStreamDetails(const std::shared_ptr<data::Channel> &channel);
     void GetTunerDetails(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
+    const std::string m_addonVersion;
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;
     std::vector<enigma2::utilities::Tuner> m_tuners;
