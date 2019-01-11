@@ -170,20 +170,24 @@ void *Enigma2::Process()
     if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60)) 
     {
       m_updateTimer = 0;
- 
+
       // Trigger Timer and Recording updates acording to the addon settings
       CLockObject lock(m_mutex);
-      Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
-
-      if (m_settings.GetAutoTimerListCleanupEnabled()) 
+      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (!IsStopped()) 
       {
-        m_timers.RunAutoTimerListCleanup();
+        Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
+
+        if (m_settings.GetAutoTimerListCleanupEnabled()) 
+        {
+          m_timers.RunAutoTimerListCleanup();
+        }
+        m_timers.TimerUpdates();
+
+        m_dueRecordingUpdate = false;
+
+        PVR->TriggerRecordingUpdate();
       }
-      m_timers.TimerUpdates();
-
-      m_dueRecordingUpdate = false;
-
-      PVR->TriggerRecordingUpdate();
     }
   }
 

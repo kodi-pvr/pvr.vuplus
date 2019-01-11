@@ -133,6 +133,7 @@ int ChannelGroups::GetNumChannelGroups() const
 void ChannelGroups::ClearChannelGroups()
 {
   m_channelGroups.clear();
+  m_channelGroupsNameMap.clear();
 }
 
 void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)

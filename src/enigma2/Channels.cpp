@@ -82,6 +82,7 @@ int Channels::GetNumChannels() const
 void Channels::ClearChannels()
 {
   m_channels.clear();
+  m_channelsServiceReferenceMap.clear();
 }
 
 void Channels::AddChannel(Channel &newChannel, std::shared_ptr<ChannelGroup> &channelGroup)
