@@ -119,11 +119,13 @@ Information on customising the extraction and mapper configs can be found in the
 * **Automatic timerlist cleanup**: If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval.
 
 ### Timeshift
+Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped.
+
 * **Enable timeshift**: What timeshift option do you want:
     - `Disabled` - No timeshifting
     - `On Pause` - Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing.
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
-* **Timeshift buffer path**: The path used to store the timeshoft buffer. The default is the addon data folder in userdata
+* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. 
 
 ### Advanced
 Within this tab more uncommon and advanced options can be configured.
