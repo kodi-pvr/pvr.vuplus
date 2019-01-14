@@ -627,7 +627,8 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
 
   if (CanUseJsonApi())
   {
-    StreamStatus streamStatus = GetStreamDetails(channel);
+    //TODO: Cross reference against tuners once OpenWebIf API is updated. 
+    //StreamStatus streamStatus = GetStreamDetails(channel);
     GetTunerDetails(signalStatus, channel);
   }
 
