@@ -24,8 +24,8 @@
 #include "libXBMC_addon.h"
 #include "libXBMC_pvr.h"
 
-extern ADDON::CHelper_libXBMC_addon *   XBMC;
-extern CHelper_libXBMC_pvr *     PVR;
+extern ADDON::CHelper_libXBMC_addon *XBMC;
+extern CHelper_libXBMC_pvr *PVR;
 
 /*!
  * @brief PVR macros for string exchange

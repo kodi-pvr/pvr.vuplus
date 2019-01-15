@@ -82,6 +82,7 @@ int Channels::GetNumChannels() const
 void Channels::ClearChannels()
 {
   m_channels.clear();
+  m_channelsServiceReferenceMap.clear();
 }
 
 void Channels::AddChannel(Channel &newChannel, std::shared_ptr<ChannelGroup> &channelGroup)
@@ -163,7 +164,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -173,7 +174,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2servicelist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
     return false;
   }
 
@@ -183,7 +184,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2service> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
     return false;
   }
   
@@ -192,7 +193,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     Channel newChannel;
     newChannel.SetRadio(channelGroup->IsRadio());
 
-    if (!newChannel.UpdateFrom(pNode, Settings::GetInstance().GetConnectionURL()))
+    if (!newChannel.UpdateFrom(pNode))
       continue;
 
     AddChannel(newChannel, channelGroup);
@@ -245,7 +246,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     }
     catch (nlohmann::detail::parse_error)
     {
-      Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
     }
   }
 

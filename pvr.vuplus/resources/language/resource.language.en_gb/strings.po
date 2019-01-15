@@ -432,7 +432,19 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr ""
 
-#empty strings from id 30104 to 30409
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr ""
+
+msgctxt "#30105"
+msgid "Other"
+msgstr ""
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr ""
+
+#empty strings from id 30107 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

@@ -94,7 +94,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(fileContents.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -141,7 +141,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
 
     map.insert({sourceId, targetId});
 
-    Logger::Log(LEVEL_DEBUG, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __FUNCTION__, mapperName.c_str(), sourceId, targetId);
+    Logger::Log(LEVEL_TRACE, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __FUNCTION__, mapperName.c_str(), sourceId, targetId);
   }
 
   return true;  

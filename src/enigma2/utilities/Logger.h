@@ -34,8 +34,8 @@ namespace enigma2
     enum LogLevel
     {
       LEVEL_ERROR,
-      LEVEL_INFO,
       LEVEL_NOTICE,
+      LEVEL_INFO,
       LEVEL_DEBUG,
       LEVEL_TRACE
     };

@@ -35,7 +35,6 @@
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/WebUtils.h"
 
-
 #include "util/XMLUtils.h"
 #include <p8-platform/util/StringUtils.h>
 
@@ -171,20 +170,24 @@ void *Enigma2::Process()
     if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60)) 
     {
       m_updateTimer = 0;
- 
+
       // Trigger Timer and Recording updates acording to the addon settings
       CLockObject lock(m_mutex);
-      Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
-
-      if (m_settings.GetAutoTimerListCleanupEnabled()) 
+      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (!IsStopped()) 
       {
-        m_timers.RunAutoTimerListCleanup();
+        Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
+
+        if (m_settings.GetAutoTimerListCleanupEnabled()) 
+        {
+          m_timers.RunAutoTimerListCleanup();
+        }
+        m_timers.TimerUpdates();
+
+        m_dueRecordingUpdate = false;
+
+        PVR->TriggerRecordingUpdate();
       }
-      m_timers.TimerUpdates();
-
-      m_dueRecordingUpdate = false;
-
-      PVR->TriggerRecordingUpdate();
     }
   }
 
@@ -289,6 +292,9 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 
 PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
 {
+  if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
+    Sleep(m_settings.GetEPGDelayPerChannelDelay());
+
   return m_epg.GetEPGForChannel(handle, channel, iStart, iEnd);
 }
 
@@ -427,7 +433,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
   for (auto &timerType : timerTypes)
     types[i++] = timerType;
   *size = timerTypes.size();
-  Logger::Log(LEVEL_NOTICE, "Transfered %u timer types", *size);
+  Logger::Log(LEVEL_NOTICE, "%s Transfered %u timer types", __FUNCTION__, *size);
 }
 
 int Enigma2::GetTimersAmount()
@@ -491,7 +497,7 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
     {
       Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __FUNCTION__, POLL_INTERVAL_SECONDS);
 
-      if (!m_admin.GetTunerSignal(m_signalStatus, channel->GetServiceReference()))
+      if (!m_admin.GetTunerSignal(m_signalStatus, channel))
       {
         return PVR_ERROR_SERVER_ERROR;
       }

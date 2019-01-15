@@ -106,8 +106,8 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     }
 
     /* Don't log trace messages unless told so */
-    //if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
-      //return;
+    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+      return;
 
     XBMC->Log(addonLevel, "%s", message);
   });
@@ -426,7 +426,7 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
     times->startTime = 0;
     times->ptsStart = 0;
     times->ptsBegin = 0;
-    times->ptsEnd = static_cast<std::time_t>(recordingReader->CurrentDuration()) * DVD_TIME_BASE;
+    times->ptsEnd = static_cast<int64_t>(recordingReader->CurrentDuration()) * DVD_TIME_BASE;
 
     return PVR_ERROR_NO_ERROR;
   }

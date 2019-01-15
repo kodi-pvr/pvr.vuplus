@@ -82,7 +82,7 @@ bool Admin::LoadDeviceInfo()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -161,6 +161,8 @@ bool Admin::LoadDeviceInfo()
 
   m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
 
+  Logger::Log(LEVEL_NOTICE, "%s - AddonVersion: %s", __FUNCTION__, m_addonVersion.c_str());
+
   hRoot = TiXmlHandle(pElem);
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2frontends").Element();
@@ -190,12 +192,12 @@ bool Admin::LoadDeviceInfo()
     }  
     else
     {
-      Logger::Log(LEVEL_DEBUG, "Could not find <e2frontend> element");
+      Logger::Log(LEVEL_DEBUG, "%s Could not find <e2frontend> element", __FUNCTION__);
     }
   }
   else
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2frontends> element");
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2frontends> element", __FUNCTION__);
   }
 
   return true;
@@ -291,7 +293,7 @@ bool Admin::LoadAutoTimerSettings()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -311,7 +313,7 @@ bool Admin::LoadAutoTimerSettings()
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2setting> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2setting> element", __FUNCTION__);
     return false;
   }
 
@@ -356,7 +358,7 @@ bool Admin::LoadRecordingMarginSettings()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -366,7 +368,7 @@ bool Admin::LoadRecordingMarginSettings()
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2settings> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2settings> element!", __FUNCTION__);
     return false;
   }
 
@@ -376,7 +378,7 @@ bool Admin::LoadRecordingMarginSettings()
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2setting> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2setting> element", __FUNCTION__);
     return false;
   }
 
@@ -473,7 +475,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -493,7 +495,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2hdds> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2hdds> element", __FUNCTION__);
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -501,7 +503,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
 
   if (!hddNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2hdd> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2hdd> element", __FUNCTION__);
     return PVR_ERROR_SERVER_ERROR;
   }
 
@@ -531,7 +533,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   *iTotal = totalKb;
   *iUsed = totalKb - freeKb;
 
-  Logger::Log(LEVEL_INFO, "GetDriveSpace Total: %lld, Used %lld", *iTotal, *iUsed);
+  Logger::Log(LEVEL_INFO, "%s Space Total: %lld, Used %lld", __FUNCTION__, *iTotal, *iUsed);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -563,7 +565,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   return sizeInKb;
 }
 
-bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::string &serviceReference)
+bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal"); 
 
@@ -572,7 +574,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::string &servic
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -625,7 +627,9 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::string &servic
 
   if (CanUseJsonApi())
   {
-    GetTunerDetails(signalStatus, serviceReference);
+    //TODO: Cross reference against tuners once OpenWebIf API is updated. 
+    //StreamStatus streamStatus = GetStreamDetails(channel);
+    GetTunerDetails(signalStatus, channel);
   }
 
   return true;
@@ -633,10 +637,77 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::string &servic
 
 bool Admin::CanUseJsonApi()
 {
-  return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
+  return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 5) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
 }
 
-void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::string &serviceReference)
+StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &channel)
+{
+  StreamStatus streamStatus;
+
+  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/deviceinfo"); 
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    if (!jsonDoc["streams"].empty())
+    {
+      for (const auto& it : jsonDoc["streams"].items())
+      {
+        auto jsonStream = it.value();
+
+        if (jsonStream["ref"].get<std::string>() == channel->GetGenericServiceReference() &&
+            !jsonStream["ip"].get<std::string>().empty()) //TODO: Find out Kodi IP and compare
+        {
+          streamStatus.m_ipAddress = jsonStream["ip"].get<std::string>();
+          streamStatus.m_serviceReference = channel->GetServiceReference();
+          streamStatus.m_channelName = channel->GetChannelName(); //Use our channel name as from JSON is unreliable
+
+          if (jsonStream["type"].get<std::string>() == "S")
+            streamStatus.m_streamType = StreamType::DIRECTLY_STREAMED;
+          else
+            streamStatus.m_streamType = StreamType::TRANSCODED;
+
+          break;
+        }
+
+        Logger::Log(LEVEL_DEBUG, "%s Active Stream IP: %s, ref: %s, name: %s", __FUNCTION__, jsonStream["ip"].get<std::string>().c_str(), jsonStream["ref"].get<std::string>().c_str(), jsonStream["name"].get<std::string>().c_str());
+      }
+    }    
+
+    if (!streamStatus.m_channelName.empty())
+    {
+      if (!jsonDoc["tuners"].empty())
+      {
+        int tunerNumber = 0;
+
+        for (const auto& it : jsonDoc["tuners"].items())
+        {
+          auto jsonTuner = it.value();
+
+          if (jsonTuner["name"].get<std::string>() == streamStatus.m_channelName)
+          {
+            //TODO: Complete once API is available
+
+            break;
+          }
+
+          tunerNumber++;
+        }
+      }
+    }    
+  }
+  catch (nlohmann::detail::parse_error)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra stream details from OpenWebIf", __FUNCTION__);
+  }
+
+  return streamStatus;
+}
+
+void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
 {  
   const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal"); 
 
@@ -671,6 +742,6 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::string &servi
   }
   catch (nlohmann::detail::parse_error)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Invalid JSON received, cannot load extra tunerdetails from OpenWebIf", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra tuner details from OpenWebIf", __FUNCTION__);
   }
 }

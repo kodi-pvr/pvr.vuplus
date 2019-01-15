@@ -135,6 +135,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("logmissinggenremapping", &m_logMissingGenreMappings))
     m_logMissingGenreMappings = false;
 
+  if (!XBMC->GetSetting("epgdelayperchannel", &m_epgDelayPerChannel))
+    m_epgDelayPerChannel = 0;
+
   //Recording and Timers
   if (XBMC->GetSetting("recordingpath", buffer))
     m_recordingPath = buffer;
@@ -182,6 +185,9 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("streamreadchunksize", &m_streamReadChunkSize))
     m_streamReadChunkSize = 0;
+
+  if (!XBMC->GetSetting("tracedebug", &m_traceDebug))
+    m_traceDebug = false;
 
   // Now that we've read all the settings construct the connection URL
   
@@ -259,6 +265,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_mapRytecTextGenresFile, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "logmissinggenremapping")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "epgdelayperchannel")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_epgDelayPerChannel, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Recordings and Timers
   else if (settingName == "recordingpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -288,6 +296,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "tracedebug")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_traceDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Backend
   else if (settingName == "globalstartpaddingstb")
   {

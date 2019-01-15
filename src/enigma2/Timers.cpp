@@ -42,7 +42,7 @@ std::vector<Timer> Timers::LoadTimers() const
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return timers;
   }
 
@@ -52,7 +52,7 @@ std::vector<Timer> Timers::LoadTimers() const
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2timerlist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2timerlist> element!", __FUNCTION__);
     return timers;
   }
 
@@ -62,7 +62,7 @@ std::vector<Timer> Timers::LoadTimers() const
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <e2timer> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2timer> element", __FUNCTION__);
     return timers;
   }
   
@@ -172,7 +172,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_DEBUG, "Unable to parse XML: %s at line %d", xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return autoTimers;
   }
 
@@ -182,7 +182,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <autotimer> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <autotimer> element!", __FUNCTION__);
     return autoTimers;
   }
 
@@ -192,7 +192,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "Could not find <timer> element");
+    Logger::Log(LEVEL_ERROR, "%s Could not find <timer> element", __FUNCTION__);
     return autoTimers;
   }
 

@@ -1,3 +1,13 @@
+v3.16.2
+- Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
+- Fixed: Incorrectly used time_t instead int64 in GetStreamTimes, fixes #171
+- Added: Load Addon Version
+- Fixed: Clean up/partition addon debug log, fixes #159
+- Added: Add user defined delay between EPG Channel Updates, fixes #158
+- Added: Enable Trace Logging in debug mode
+- Added: Integrate Stream API details with Tuners
+- Fixed: JSON API requires version 1.3.5+ of OpenWebIf, fixes #169
+
 v3.16.1
 - Fixed: Backend polled too often for Signal Quality, fixes #165
 - Fixed: SNR and Signal showing as zero in PVR info overlay, fixes #164

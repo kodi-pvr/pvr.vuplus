@@ -37,8 +37,8 @@ namespace enigma2
     class Channel
     {
     public:
-      const std::string SERVICE_REF_ICON_PREFIX = "1:0:1:";
-      const std::string SERVICE_REF_ICON_POSTFIX = ":0:0:0";
+      const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
+      const std::string SERVICE_REF_GENERIC_POSTFIX = ":0:0:0";
 
       Channel() = default;
       Channel(Channel &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()), m_channelNumber(c.GetChannelNumber()),
@@ -64,6 +64,9 @@ namespace enigma2
       const std::string& GetServiceReference() const { return m_serviceReference; }
       void SetServiceReference(const std::string& value ) { m_serviceReference = value; }      
 
+      const std::string& GetGenericServiceReference() const { return m_genericServiceReference; }
+      void SetGenericServiceReference(const std::string& value ) { m_genericServiceReference = value; }      
+
       const std::string& GetStreamURL() const { return m_streamURL; }
       void SetStreamURL(const std::string& value ) { m_streamURL = value; }      
 
@@ -76,19 +79,24 @@ namespace enigma2
       const std::string& GetProviderName() const { return m_providerName; }
       void SetProviderlName(const std::string& value ) { m_providerName = value; }      
 
-      bool UpdateFrom(TiXmlElement* channelNode, const std::string &enigmaURL); 
+      bool UpdateFrom(TiXmlElement* channelNode); 
       void UpdateTo(PVR_CHANNEL &left) const;
 
       void AddChannelGroup(std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> GetChannelGroupList() { return m_channelGroupList; };
 
     private:   
+      std::string GetCommonServiceReference(const std::string &serviceReference);
+      std::string GetGenericServiceReference(const std::string &commonServiceReference);
+      std::string CreateIconPath(const std::string &commonServiceReference);
+
       bool m_radio;
       bool m_requiresInitialEPG = true;
       int m_uniqueId;
       int m_channelNumber;
       std::string m_channelName;
       std::string m_serviceReference;
+      std::string m_genericServiceReference;
       std::string m_streamURL;
       std::string m_m3uURL;
       std::string m_iconPath;

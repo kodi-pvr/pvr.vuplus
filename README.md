@@ -12,7 +12,7 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Full Tuner Signal Support (Including Service Providers) 
 
 # Enigma2 PVR
-VuPlus PVR client addon for [Kodi] (https://kodi.tv)
+VuPlus PVR client addon for [Kodi](https://kodi.tv)
 
 ## Build instructions
 
@@ -24,10 +24,19 @@ VuPlus PVR client addon for [Kodi] (https://kodi.tv)
 4. `cmake -DADDONS_TO_BUILD=pvr.vuplus -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
 5. `make`
 
-##### Useful links
+## Support 
 
-* [Kodi's PVR user support] (https://forum.kodi.tv/forumdisplay.php?fid=167)
-* [Kodi's PVR development support] (https://forum.kodi.tv/forumdisplay.php?fid=136)
+### Useful links
+
+* [Kodi's PVR user support forum](https://forum.kodi.tv/forumdisplay.php?fid=167)
+* [Report an issue on Github](https://github.com/kodi-pvr/pvr.vuplus/issues)
+* [Kodi's PVR development support forum](https://forum.kodi.tv/forumdisplay.php?fid=136)
+
+### Logging
+
+When reporting issues a debug log should always be supplied. You can use the following guide: [Easy way to submit Kodi debug logs](https://kodi.wiki/view/Log_file/Easy)
+
+For more detailed info on logging please see the appendix [here](#logging-detailed)
 
 ## Configuring the addon
 
@@ -92,6 +101,7 @@ Information on customising the extraction and mapper configs can be found in the
 * **Enable Rytec genre text mappings**: If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs. 
 * **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`. 
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
+* **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
 
 ### Recordings & Timers
 
@@ -109,11 +119,13 @@ Information on customising the extraction and mapper configs can be found in the
 * **Automatic timerlist cleanup**: If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval.
 
 ### Timeshift
+Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped.
+
 * **Enable timeshift**: What timeshift option do you want:
     - `Disabled` - No timeshifting
     - `On Pause` - Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing.
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
-* **Timeshift buffer path**: The path used to store the timeshoft buffer. The default is the addon data folder in userdata
+* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. 
 
 ### Advanced
 Within this tab more uncommon and advanced options can be configured.
@@ -127,6 +139,7 @@ Within this tab more uncommon and advanced options can be configured.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
 * **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide.
+* **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements
 
 ## Customising Config Files
 
@@ -169,3 +182,67 @@ The following files are currently available with the addon:
     - `Rytec-UK-Ireland.xml`
 
 Note: the config file can contain as many mappings as is required. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]. The config file maps the text to a kodi DVB genre ID. If the full text cannot be matched it attempts to match just the major genre, i.e. "TV Drama" in the previous example. If a mapping cannot be found the text between the brackets will be used instead. However there will be no colouring in the Kodi EPG in this case.
+
+## Appendix
+
+### Logging detailed
+
+Some of the most useful information in your log are the details output at the start of the log, both for Kodi and the addon.
+
+The first 5 lines of the log give details on the exact kodi flavour and version you are running:
+
+```
+01:10:45.744 T:140736264741760  NOTICE: -----------------------------------------------------------------------
+01:10:45.744 T:140736264741760  NOTICE: Starting Kodi (18.0-BETA2 Git:20180903-5d7e1dbd9c-dirty). Platform: OS X x86 64-bit
+01:10:45.744 T:140736264741760  NOTICE: Using Debug Kodi x64 build
+01:10:45.744 T:140736264741760  NOTICE: Kodi compiled Sep  5 2018 by Clang 9.1.0 (clang-902.0.39.2) for OS X x86 64-bit version 10.9.0 (1090)
+01:10:45.745 T:140736264741760  NOTICE: Running on Apple Inc. MacBook10,1 with OS X 10.13.6, kernel: Darwin x86 64-bit version 17.7.0
+```
+
+Secondly all the information of the Enigma2 image, web interface version etc. is also output:
+
+```
+12:36:55.888 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - Open - VU+ Addon Configuration options
+12:36:55.888 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - Open - Hostname: '192.168.1.201'
+12:36:55.888 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - Open - WebPort: '80'
+12:36:55.888 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - Open - StreamPort: '8001'
+12:36:55.888 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - Open Use HTTPS: 'false'
+12:36:56.308 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - LoadDeviceInfo - DeviceInfo
+12:36:56.308 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - LoadDeviceInfo - E2EnigmaVersion: 2019-01-03
+12:36:56.308 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - LoadDeviceInfo - E2ImageVersion: 5.2.022
+12:36:56.309 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - LoadDeviceInfo - E2DistroVersion: openvix
+12:36:56.309 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - LoadDeviceInfo - E2WebIfVersion: OWIF 1.3.5
+12:36:56.309 T:123145422725120  NOTICE: AddOnLog: Enigma2 Client: pvr.vuplus - LoadDeviceInfo - E2DeviceName: Ultimo4K
+```
+
+#### Description of Log levels
+
+* **Error**: Something that will require intervention to resolve
+* **Notice**: Could be an important piece of information or a warning that something has occurred that might be undesirable but has not affected normal operation
+* **Info**: Some information on normal operation
+* **Debug**: More detailed information that can aid in diagnosing issues.
+* **Trace**: Extremely verbose logging, should rarely be required. Note: can only be enabled from the addon settings in the ```Advanced``` section.
+
+#### Cleaning up the log
+
+(If you have a fresh install of version 3.15.0 or later you can ignore this)
+
+As the addon was upgraded over time some old settings are no longer required. These old settings can create a lot of extra logging on startup. To date there are four of these and they will present like this in your log:
+
+```
+23:17:22.696 T:3990016880   DEBUG: CSettingsManager: requested setting (extracteventinfo) was not found.
+23:17:22.696 T:3990016880   DEBUG: CAddonSettings[pvr.vuplus]: failed to find definition for setting extracteventinfo. Creating a setting on-the-fly...
+23:17:22.696 T:3990016880   DEBUG: CSettingsManager: requested setting (onegroup) was not found.
+23:17:22.696 T:3990016880   DEBUG: CAddonSettings[pvr.vuplus]: failed to find definition for setting onegroup. Creating a setting on-the-fly...
+23:17:22.696 T:3990016880   DEBUG: CSettingsManager: requested setting (onlyonegroup) was not found.
+23:17:22.696 T:3990016880   DEBUG: CAddonSettings[pvr.vuplus]: failed to find definition for setting onlyonegroup. Creating a setting on-the-fly...
+23:17:22.697 T:3990016880   DEBUG: CSettingsManager: requested setting (setpowerstate) was not found.
+23:17:22.697 T:3990016880   DEBUG: CAddonSettings[pvr.vuplus]: failed to find definition for setting setpowerstate. Creating a setting on-the-fly...
+```
+
+If you see these in debug mode and would like to clean them up you can either: 
+
+1. Remove the offending lines from you settings.xml file OR
+2. Delete you settings.xml and restart kodi. Note that if you use this option you will need to reconfigure the addon from scratch.
+
+Your settings.xml file can be found here: ```userdata/addon_data/pvr.vuplus/settings.xml```

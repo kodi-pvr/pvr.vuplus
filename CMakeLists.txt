@@ -80,12 +80,16 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/utilities/FileUtils.h
                    src/enigma2/utilities/Logger.h
                    src/enigma2/utilities/SignalStatus.h
+                   src/enigma2/utilities/StreamStatus.h
                    src/enigma2/utilities/Tuner.h
                    src/enigma2/utilities/WebUtils.h)
 
 set(DEPLIBS ${kodiplatform_LIBRARIES}
             ${p8-platform_LIBRARIES}
             ${TINYXML_LIBRARIES})
+
+addon_version(pvr.vuplus VUPLUS)
+add_definitions(-DVUPLUS_VERSION=${VUPLUS_VERSION})
 
 build_addon(pvr.vuplus VUPLUS DEPLIBS)
 
