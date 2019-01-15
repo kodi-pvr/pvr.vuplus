@@ -22,25 +22,25 @@ If you have changes either create a PR containing the changes or an issue with d
 <showInfo>
   <name>English Show Info</name>
   <seasonEpisodes>
-    <!-- (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7) -->
+    <!-- (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7) (S2 Ep 3) -->
     <seasonEpisode>
-      <master pattern="^.*\(?([sS]\.?[0-9]+ ?[eE][pP]?\.?[0-9]+/?[0-9]*)\)?[^]*$"/>
+      <master pattern="(?:^|.* )\(?([sS]\.?[0-9]+ ?[eE][pP]?\.? ?[0-9]+/?[0-9]*)\)?[^]*$"/>
       <season pattern="^.*[sS]\.?([0-9][0-9]*).*$"/>
-      <episode pattern="^.*[eE][pP]?\.?([0-9][0-9]*).*$"/>
+      <episode pattern="^.*[eE][pP]?\.? ?([0-9][0-9]*).*$"/>
     </seasonEpisode>
-    <!-- (E130) (Ep10) (E7/9) (Ep7/10) (Ep.25) -->
+    <!-- (E130) (Ep10) (E7/9) (Ep7/10) (Ep.25) (Ep 11)-->
     <seasonEpisode>
-      <master pattern="^.*\(?([eE][pP]?\.?[0-9]+/?[0-9]*)\)?[^]*$"/>
-      <episode pattern="^.*[eE][pP]?\.?([0-9][0-9]*).*$"/>
+      <master pattern="(?:^|.* )\(?([eE][pP]?\.? ?[0-9]+/?[0-9]*)\)?[^]*$"/>
+      <episode pattern="^.*[eE][pP]?\.? ?([0-9][0-9]*).*$"/>
     </seasonEpisode>
     <!-- (2015E22) (2007E3) (2007E3/6) -->
     <seasonEpisode>
-      <master pattern="^.*\(?([12][0-9][0-9][0-9][eE][pP]?\.?[0-9]+\.?/?[0-9]*)\)?[^]*$"/>
+      <master pattern="(?:^|.* )\(?([12][0-9][0-9][0-9][eE][pP]?\.?[0-9]+\.?/?[0-9]*)\)?[^]*$"/>
       <episode pattern="^.*[eE][pP]?\.?([0-9][0-9]*).*$"/>
     </seasonEpisode>
-    <!-- Starts with 2/4 6/6, no prefix -->
+    <!-- 2/4. 6/6, no prefix -->
     <seasonEpisode>
-      <master pattern="^.*([0-9]+/[0-9]+)\.? +[^]*$"/>
+      <master pattern="(?:^|.* )([0-9]+/[0-9]+)(?:(?:\.| )[^]*|$)"/>
       <episode pattern="^([0-9]+)/[0-9]+"/>
     </seasonEpisode>
   </seasonEpisodes>
