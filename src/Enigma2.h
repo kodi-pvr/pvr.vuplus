@@ -78,6 +78,7 @@ public:
   PVR_ERROR GetRecordings(ADDON_HANDLE handle);
   PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
   bool GetRecordingsFromLocation(std::string strRecordingFolder);
+  PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size);
   enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);

@@ -138,7 +138,7 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("epgdelayperchannel", &m_epgDelayPerChannel))
     m_epgDelayPerChannel = 0;
 
-  //Recording and Timers
+  //Recording
   if (XBMC->GetSetting("recordingpath", buffer))
     m_recordingPath = buffer;
   else
@@ -150,7 +150,17 @@ void Settings::ReadFromAddon()
   
   if (!XBMC->GetSetting("keepfolders", &m_keepFolders))
     m_keepFolders = false;
+
+  if (!XBMC->GetSetting("enablerecordingedls", &m_enableRecordingEDLs))
+    m_enableRecordingEDLs = false;
+
+  if (!XBMC->GetSetting("edlpaddingstart", &m_edlStartTimePadding))
+    m_edlStartTimePadding = 0;
+    
+  if (!XBMC->GetSetting("edlpaddingstop", &m_edlStopTimePadding))
+    m_edlStopTimePadding = 0;
   
+  //Timers
   if (!XBMC->GetSetting("enablegenrepeattimers", &m_enableGenRepeatTimers))
     m_enableGenRepeatTimers = true;
 
@@ -267,13 +277,20 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "epgdelayperchannel")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_epgDelayPerChannel, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  //Recordings and Timers
+  //Recordings
   else if (settingName == "recordingpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "enablerecordingedls")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableRecordingEDLs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "edlpaddingstart")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStartTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "edlpaddingstop")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStopTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  //Timers
   else if (settingName == "enablegenrepeattimers")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "numgenrepeattimers")

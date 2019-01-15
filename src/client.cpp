@@ -203,6 +203,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bHandlesDemuxing            = false;
   pCapabilities->bSupportsLastPlayedPosition = false;
   pCapabilities->bSupportsRecordingsRename   = false;
+  pCapabilities->bSupportsRecordingEdl       = true;
   pCapabilities->bSupportsRecordingsLifetimeChange = false;
   pCapabilities->bSupportsDescrambleInfo = false;
 
@@ -477,6 +478,20 @@ PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
   return enigma->DeleteRecording(recording);
 }
 
+PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size) 
+{ 
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (!settings.GetRecordingEDLsEnabled())
+  {
+    *size = 0;
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return enigma->GetRecordingEdl(recinfo, edl, size);
+}
+
 /***************************************************************************
  * Recording Streams
  **************************************************************************/
@@ -589,7 +604,6 @@ PVR_ERROR RenameRecording(const PVR_RECORDING &recording) { return PVR_ERROR_NOT
 PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition) { return PVR_ERROR_NOT_IMPLEMENTED; }
 int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR GetRecordingEdl(const PVR_RECORDING&, PVR_EDL_ENTRY[], int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 bool SeekTime(double,bool,double*) { return false; }
 void SetSpeed(int) {};
 PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording) { return PVR_ERROR_NOT_IMPLEMENTED; }

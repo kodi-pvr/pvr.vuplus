@@ -126,10 +126,15 @@ namespace enigma2
     bool GetLogMissingGenreMappings() const { return m_logMissingGenreMappings; }
     int GetEPGDelayPerChannelDelay() const { return m_epgDelayPerChannel; }
 
-    //Recordings and Timers
+    //Recordings
     const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
+    bool GetRecordingEDLsEnabled() const { return m_enableRecordingEDLs; }
+    int GetEDLStartTimePadding() const { return m_edlStartTimePadding; }
+    int GetEDLStopTimePadding() const { return m_edlStopTimePadding; }
+
+    //Timers
     bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
     int GetNumGenRepeatTimers() const { return m_numGenRepeatTimers; }
     bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
@@ -243,10 +248,15 @@ namespace enigma2
     bool m_logMissingGenreMappings = true;
     int m_epgDelayPerChannel;
 
-    //Recordings and Timers
+    //Recordings
     std::string m_recordingPath = "";
     bool m_onlyCurrentLocation = false;
     bool m_keepFolders = false;
+    bool m_enableRecordingEDLs = false;
+    int m_edlStartTimePadding = 0;
+    int m_edlStopTimePadding = 0;
+
+    //Timers
     bool m_enableGenRepeatTimers = true;
     int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
     bool m_enableAutoTimers = true;

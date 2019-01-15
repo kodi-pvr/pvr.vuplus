@@ -297,7 +297,7 @@ msgid "Fetch radio favourites bouquet"
 msgstr ""
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
+msgid "Recordings"
 msgstr ""
 
 msgctxt "#30071"
@@ -444,7 +444,23 @@ msgctxt "#30106"
 msgid "EPG update delay per channel"
 msgstr ""
 
-#empty strings from id 30107 to 30409
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr ""
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr ""
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr ""
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr ""
+
+#empty strings from id 30111 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

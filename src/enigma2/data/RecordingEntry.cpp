@@ -48,8 +48,13 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
 
   if (XMLUtils::GetString(recordingNode, "e2filename", strTmp)) 
   {
+    m_edlURL = strTmp;
+    
     strTmp = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(strTmp).c_str());
     m_streamURL = strTmp;
+
+    m_edlURL = m_edlURL.substr(0, m_edlURL.find_last_of('.')) + ".edl";
+    m_edlURL = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_edlURL).c_str());
   }
 
   ProcessPrependMode(PrependOutline::IN_RECORDINGS);

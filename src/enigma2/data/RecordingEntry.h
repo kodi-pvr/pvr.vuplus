@@ -51,6 +51,9 @@ namespace enigma2
       const std::string& GetStreamURL() const { return m_streamURL; }
       void SetStreamURL(const std::string& value ) { m_streamURL = value; }           
 
+      const std::string& GetEdlURL() const { return m_edlURL; }
+      void SetEdlURL(const std::string& value ) { m_edlURL = value; }           
+
       const std::string& GetChannelName() const { return m_channelName; }
       void SetChannelName(const std::string& value ) { m_channelName = value; }      
 
@@ -71,6 +74,7 @@ namespace enigma2
       int m_duration;
       int m_lastPlayedPosition;
       std::string m_streamURL;
+      std::string m_edlURL;
       std::string m_channelName;
       std::string m_directory;
       std::string m_iconPath;

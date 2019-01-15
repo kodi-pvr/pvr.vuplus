@@ -103,11 +103,17 @@ Information on customising the extraction and mapper configs can be found in the
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
 
-### Recordings & Timers
+### Recordings
 
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.
 * **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path
+* **Enable EDLs support**: EDLs are used to define commericals etc. in recordings. If a tool like [Comskip]() is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called ```my recording.ts``` the EDL file should be call ```my recording.edl```. Note: enabling this setting has no effect if the files are not present.
+* **EDL start time padding**: Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0.
+* **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
+
+### Timers
+
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
 * **Enable autotimers**: When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot. To set manually on the set-top box enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
