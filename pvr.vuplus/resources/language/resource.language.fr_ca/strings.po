@@ -122,7 +122,7 @@ msgstr "Bouquet télé"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr "Récupérer les picons de l’interface Web"
+msgstr "Récupérer les picônes de l’interface Web"
 
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
@@ -424,6 +424,10 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "Minuteries seulement"
 
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Utiliser le chemin des picônes d’OpenWebIf"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatiques"
@@ -463,3 +467,15 @@ msgstr "Se reconnecter à « %s »"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Le chemin du tampon de décalage temporel n’existe pas"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2 : l’interface Web est inaccessible"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2 : aucun groupe de chaînes n’a été trouvé"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2 : aucune chaîne n’a été trouvée"

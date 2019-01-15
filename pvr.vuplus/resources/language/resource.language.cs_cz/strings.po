@@ -114,7 +114,7 @@ msgstr "Při ukončení doplňku poslat režim stavu napájení"
 
 msgctxt "#30026"
 msgid "TV bouquet"
-msgstr "Skupina oblíbených programů"
+msgstr "TV buket"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -220,6 +220,10 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Rádio"
 
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Buket rádií"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Časový posun"
@@ -268,6 +272,22 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Počet opakování časovačů ke generování"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Všechny bukety"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Pouze jeden buket"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Jako první buket"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Jako poslední buket"
+
 msgctxt "#30078"
 msgid "Favourites group"
 msgstr "Skupina oblíbených"
@@ -286,7 +306,7 @@ msgstr "neznámé"
 
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr "(nepřipojeno!)"
+msgstr "(Nepřipojeno!)"
 
 msgctxt "#30083"
 msgid "addon error"
@@ -368,6 +388,10 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "Pouze časovače"
 
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Použij OpenWebIf cestu k pikonám"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatické"
@@ -407,3 +431,15 @@ msgstr "Znovu připojeno k '%s'"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Cesta k vyrovnávací paměti časového posunu neexistuje"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Nemohu se spojit s webovým rozhraním"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Nenalezeny skupiny kanálů"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Nenalezeny kanály"

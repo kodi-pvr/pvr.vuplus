@@ -424,6 +424,10 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "Solo programas"
 
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Usar ruta OpenWebIf"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automático"
@@ -463,3 +467,15 @@ msgstr "Reconectado a '%s'"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "La ruta para el buffer de timeshift no existe"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Interfaz web inalcanzable"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Ningún grupo de canales encontrado"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Ningún canal encontrado"

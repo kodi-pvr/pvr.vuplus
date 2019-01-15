@@ -412,6 +412,10 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "Vain ajastukset"
 
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Käytä OpenWebIf:n picon-polkua"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automaattinen"
@@ -451,3 +455,15 @@ msgstr "Yhdistetty palvelimeen '%s'"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Ajansiirtopuskurin polkua ei ole olemassa"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Web-käyttöliittymään ei saatu yhteyttä"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Kanavaryhmiä ei löytynyt"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Kanavia ei löytynyt"

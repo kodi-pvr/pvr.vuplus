@@ -108,6 +108,14 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Dossier d'enregistrement du récepteur"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Envoyer le mode « powerstate » quand une extension quitte"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Mode de récupération du bouquet TV"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "Bouquet TV"
@@ -126,7 +134,7 @@ msgstr "Activer la configuration automatique pour les flux en direct"
 
 msgctxt "#30030"
 msgid "Keep folder structure for records"
-msgstr "Conserver l'arborescence de dossiers pour les enregistrements"
+msgstr "Conserver la structure des dossiers pour les enregistrements"
 
 msgctxt "#30031"
 msgid "Seasons and Episodes"
@@ -138,7 +146,7 @@ msgstr "Guide électronique des programmes TV"
 
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr "Extraire les infos de saison, épisode et année si possible"
+msgstr "Extraire les infos de saison, d'épisode et d'année si possible"
 
 msgctxt "#30034"
 msgid "Enable autotimers"
@@ -236,6 +244,14 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Mode de récupération du bouquet radio"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Bouquet radio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Différé"
@@ -268,6 +284,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Utiliser la connexion pour la diffusion par flux"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Récupérer le bouquet des favoris TV"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Récupérer le bouquet des favoris radio"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Enregistrements et programmation"
@@ -284,9 +308,85 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "Nombre de programmations répétées à générer"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Tous les bouquets"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Un seul bouquet"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Comme premier bouquet"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Comme dernier bouquet"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Groupes des favoris"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Favoris (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Favoris (radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "inconnu"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Non connecté)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "erreur de l'extension"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Serveur de média Enigma2"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Serveur"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Remplissage de l'enregistrement"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Remplissage global de début"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Remplissage global de fin"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Infos sur le phériphérique"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Version WebIf"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Balise AutoTimer dans les balises de programmation"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Nom AutoTimer dans les balises de programmation"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -299,6 +399,34 @@ msgstr "Vrai"
 msgctxt "#30096"
 msgid "False"
 msgstr "Faux"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Mise en attente"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Mise en attente profonde"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Réveil puis mise en attendre"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Mode de mise à jour"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Programmations et enregistrements"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Programmations seules"
+
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Utiliser le chemin des picon OpenWebIf"
 
 msgctxt "#30410"
 msgid "Automatic"
@@ -339,3 +467,15 @@ msgstr "Reconnecté à « %s »"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Le chemin du tampon pour le différé n'existe pas"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2 : interface Web introuvable"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2 : aucun groupe de chaînes trouvé"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2 : aucune chaîne trouvée"

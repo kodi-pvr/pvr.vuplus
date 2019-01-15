@@ -36,6 +36,10 @@ msgctxt "#30007"
 msgid "Response timeout in seconds"
 msgstr "Tempo limite para resposta em segundos"
 
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Caminho para o ícone"
+
 msgctxt "#30010"
 msgid "Update Interval in minutes"
 msgstr "Intervalo de atualizações em minutos"
@@ -87,6 +91,10 @@ msgstr "Ativar configuração automática para streams ao vivo"
 msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Mantenha estrutura da pasta para gravações"
+
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Temporadas e Episódios"
 
 msgctxt "#30032"
 msgid "EPG"
@@ -148,6 +156,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Na pausa"
 
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Usar login para streams"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Gravações"
@@ -156,9 +168,37 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Agendamentos"
 
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Grupo de favoritos"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Favoritos (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Favoritos (Rádio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "desconhecido"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Não conectado!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "Erro no add-on"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Informações do dispositivo"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -171,6 +211,14 @@ msgstr "Verdadeiro"
 msgctxt "#30096"
 msgid "False"
 msgstr "Falso"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Agendamentos e gravações"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Somente agendamentos"
 
 msgctxt "#30410"
 msgid "Automatic"

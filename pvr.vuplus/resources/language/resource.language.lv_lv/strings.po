@@ -44,6 +44,10 @@ msgctxt "#30014"
 msgid "Folder for channeldata"
 msgstr "Mape kanāldatiem"
 
+msgctxt "#30015"
+msgid "Update interval"
+msgstr "Atjauninājuma intervāls"
+
 msgctxt "#30016"
 msgid "Check for channel updates"
 msgstr "Pārbaudīt kanāla atjauninājumus"
@@ -120,6 +124,10 @@ msgctxt "#30085"
 msgid "OK"
 msgstr "Skaidrs"
 
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/P"
+
 msgctxt "#30095"
 msgid "True"
 msgstr "Patiess"
@@ -127,6 +135,10 @@ msgstr "Patiess"
 msgctxt "#30096"
 msgid "False"
 msgstr "Nepatiess"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "Automātiski"
 
 msgctxt "#30430"
 msgid "Disabled"

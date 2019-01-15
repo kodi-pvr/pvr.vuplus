@@ -108,6 +108,14 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Felvételi mappa a vevőn"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Energiaellátási mód küldése kiegészítő kilépésekor"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "TV-csokor letöltési mód"
+
 msgctxt "#30026"
 msgid "TV bouquet"
 msgstr "TV csokor"
@@ -236,6 +244,14 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Rádió"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Rádió csokor letöltési mód"
+
+msgctxt "#30059"
+msgid "Radio bouquet"
+msgstr "Rádió csokor"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Csúsztatott felvétel"
@@ -268,6 +284,14 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Jelentkezzen be a streamekhez"
 
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Töltse le a TV-kedvencek csokorát"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Töltse le a rádió kedvencek csokorát"
+
 msgctxt "#30070"
 msgid "Recordings & Timers"
 msgstr "Felvételek és időzítők"
@@ -284,9 +308,85 @@ msgctxt "#30073"
 msgid "Number of repeat timers to generate"
 msgstr "A létrehozandó ismétlődő időzítők száma"
 
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Összes csokor"
+
+msgctxt "#30075"
+msgid "Only one bouquet"
+msgstr "Egyetlen csokor"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Az első csokor"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Utolsó csokor"
+
+msgctxt "#30078"
+msgid "Favourites group"
+msgstr "Kedvencek csoport"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Kedvencek (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Kedvencek (Rádió)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "ismeretlen"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr " (Nincs csatlakoztatva)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "Kiegészítő hiba"
+
+msgctxt "#30084"
+msgid "Enigma2 Media Server"
+msgstr "Enigma2 Média Szerver"
+
 msgctxt "#30085"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Háttér"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Rögzítés"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Globális kezdeti kitöltés"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Globális végső kitöltés"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Eszköz információ"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf verzió"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Automatikus időzítő címke az időzítő címkékben"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Automatikus időzítő neve időzítő címkékben"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -299,6 +399,34 @@ msgstr "Igaz"
 msgctxt "#30096"
 msgid "False"
 msgstr "Hamis"
+
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Készenléti állapot"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Mély készenléti állapot"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Ébrestés, majd készenléti állapot"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Frissítési mód"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Időzítők és felvételek"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Csak időzítők"
+
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Használja az OpenWebIf picon útvonalát"
 
 msgctxt "#30410"
 msgid "Automatic"
@@ -339,3 +467,15 @@ msgstr "'%s': Újrakapcsolódva"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "A Timeshift pufferút nem létezik"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Nem sikerült elérni a webes felületet"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Nincsenek csatornacsoportok"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Csatorna nem található"

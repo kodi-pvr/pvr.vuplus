@@ -92,6 +92,10 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Хранить структуру папок для записей"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Сезоны и серии"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
@@ -163,6 +167,10 @@ msgstr "Записи"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Таймеры"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "ошибка дополнения"
 
 msgctxt "#30085"
 msgid "OK"

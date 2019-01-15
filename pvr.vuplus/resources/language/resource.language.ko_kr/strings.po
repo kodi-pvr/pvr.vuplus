@@ -162,7 +162,7 @@ msgstr "반복 타이머 생성 사용"
 
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr "누락된 장르 텍스트 매핑 로그"
+msgstr "장르 텍스트 매핑 로그 없음"
 
 msgctxt "#30038"
 msgid "Web Interface"
@@ -424,13 +424,17 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "타이머만"
 
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "OpenWebIf picon 경로 사용"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "자동"
 
 msgctxt "#30420"
 msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "한 번 (안내 기반 타이머 규정으로 예약)"
+msgstr "한 번 (편성표 기반 타이머 규정으로 예약)"
 
 msgctxt "#30421"
 msgid "One time (Scheduled by repeating timer rule)"
@@ -463,3 +467,15 @@ msgstr "'%s'에 다시 연결됨"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "시간차 시청 버퍼 경로가 없습니다"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: 웹 인터페이스에 연결할 수 없음"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: 채널 그룹 없음"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: 채널 없음"

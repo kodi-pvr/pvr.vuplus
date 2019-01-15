@@ -360,6 +360,18 @@ msgctxt "#30086"
 msgid "Backend"
 msgstr "Сървър"
 
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Допълване на записа"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Глобално допълване в началото"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Глобално допълване в края"
+
 msgctxt "#30090"
 msgid "Device Info"
 msgstr "Информация за устройството"
@@ -388,6 +400,18 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Грешно"
 
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Готовност"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Дълбоко състояние на готовност"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Събуждане, след това преминаване в състояние на готовност"
+
 msgctxt "#30100"
 msgid "Update mode"
 msgstr "Режим на обновяване"
@@ -399,6 +423,10 @@ msgstr "Броячи и записи"
 msgctxt "#30102"
 msgid "Timers only"
 msgstr "Само броячи"
+
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Използване на пътя за picon на OpenWebIf"
 
 msgctxt "#30410"
 msgid "Automatic"
@@ -439,3 +467,15 @@ msgstr "Отново има връзка с „%s“"
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Пътят до буфера за изместване във времето не съществува"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Уеб-интерфейсът е недостъпен"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Няма намерени групи от канали"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Няма намерени канали"
