@@ -7,6 +7,7 @@ v3.16.2
 - Added: Enable Trace Logging in debug mode
 - Added: Integrate Stream API details with Tuners
 - Fixed: JSON API requires version 1.3.5+ of OpenWebIf, fixes #169
+- Added: updated language files from Transifex
 
 v3.16.1
 - Fixed: Backend polled too often for Signal Quality, fixes #165
