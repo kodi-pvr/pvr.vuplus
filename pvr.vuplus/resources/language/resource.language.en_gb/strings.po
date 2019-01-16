@@ -469,14 +469,34 @@ msgstr ""
 #empty strings from id 30411 to 30419
 
 msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
+msgid "Once off timer (set by auto guide-based rule)"
 msgstr ""
 
 msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
+msgid "Once off timer (set by repeating time/channel based rule)"
 msgstr ""
 
-#empty strings from id 30422 to 30429
+msgctxt "#30422"
+msgid "Once off time/channel based"
+msgstr ""
+
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr ""
+
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr ""
+
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr ""
+
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr ""
+
+#empty strings from id 30427 to 30429
 
 msgctxt "#30430"
 msgid "Disabled"

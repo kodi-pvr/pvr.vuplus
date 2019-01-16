@@ -5,11 +5,12 @@ Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS
 
 This addon leverages the OpenWebIf project to interact with the Enigma2 device via Restful APIs: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
 
-**Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that would not function include:
+**Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that may not function include:
 * Autotimers
 * Drive Space Reporting
 * Embedded EPG Genre IDs
 * Full Tuner Signal Support (Including Service Providers) 
+* Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 
 # Enigma2 PVR
 VuPlus PVR client addon for [Kodi](https://kodi.tv)
@@ -59,7 +60,7 @@ Within this tab general options are configured.
 
 * **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 set-top box.
 * **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`
-* **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.x or higher.
+* **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf.
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
 * **Update mode**: The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes:
@@ -104,6 +105,7 @@ Information on customising the extraction and mapper configs can be found in the
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
 
 ### Recordings
+The following configuration is available on the Recordings tab of the addon settings.
 
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.
@@ -113,6 +115,20 @@ Information on customising the extraction and mapper configs can be found in the
 * **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
 
 ### Timers
+The addon provides the following types of timers/rules that the user can create:
+
+* **Once off time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). If running OpenWebIf the timer will be populated with the EPG Entry (if available) at the start time for that channel.
+* **Repeating time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). This type is a timer rule and generates timers. The timers that are generated cannot be edited and will be of the type `Once off timer (set by repeating time/channel based rule)`.
+* **One time guide-based**: This timer can be created from the EPG UI as well as when playing a channel. It is the timer used when the user selects `Record` when accessing an EPG entry. It will create a timer that starts and ends as per the EPG entry. If playing back a channel it will start from now until the end of the current show. If using OpenWebIf, for providers that only use short description (plot outline) the addon will retrieve the correct description if available and use it in both the timer and resulting recording.
+* **Auto guide-based**: This is a search based timer rule, using the show name and other factors the Enigma2 device will create timers for EPG entries that satisfy the search. The timers it creates are not editable and will be of the type `Once off timer (set by auto guide-based rule)`.
+
+In addition there are some timers that can only be created by the addon and are read only:
+
+* **Once off timer (set by repeating time/channel based rule)**: Timer generated by a `Repeating time/channel based` timer rule.
+* **Once off timer (set by auto guide-based rule)**: Timer created by an `Auto guide-based` timer rule.
+* **Repeating guide-based**: This type can only be created directly on the Enigma2 device. The type exists to allow users to view the timers in the PVR UI.
+
+The following are the settings in the Timers tab:
 
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
