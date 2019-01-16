@@ -1,4 +1,11 @@
 v3.16.2
+v3.17.0
+- Added: Recording EDL support
+- Added: Update Timer Types to display correctly in Manual vs EPG UIs
+- Added: Updated show info regex's
+- Fixed: Timer Recording not displaying description - Not being stored on STB - AddTimer Call, fixes #174
+
+v3.16.2
 - Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
 - Fixed: Incorrectly used time_t instead int64 in GetStreamTimes, fixes #171
 - Added: Load Addon Version
