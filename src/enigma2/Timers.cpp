@@ -127,7 +127,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
           newTimer.SetState(PVR_TIMER_STATE_NEW); 
           newTimer.SetEpgId(timer->GetEpgId());
 
-          time_t now = time(0);
+          time_t now = std::time(nullptr);
           if (now < nextStartTime)
             newTimer.SetState(PVR_TIMER_STATE_SCHEDULED);
           else if (nextStartTime <= now && now <= nextEndTime)
@@ -447,31 +447,57 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return AddAutoTimer(timer);
 
-  Logger::Log(LEVEL_DEBUG, "%s - channelUid=%d title=%s epgid=%d", __FUNCTION__, timer.iClientChannelUid, timer.strTitle, timer.iEpgUid);
+  const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
   std::string tags = TAG_FOR_EPG_TIMER;
   if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
     tags = TAG_FOR_MANUAL_TIMER;
 
-  std::string strTmp;
-  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
-
+  bool alreadyStarted;
   time_t startTime, endTime;
   if ((timer.startTime - (timer.iMarginStart * 60)) < std::time(nullptr))
+  {
+    alreadyStarted = true;
     startTime = std::time(nullptr);
+  }
   else 
+  {
     startTime = timer.startTime - (timer.iMarginStart * 60);
+  }
   endTime = timer.endTime + (timer.iMarginEnd * 60);
+
+  std::string title = timer.strTitle;
+  std::string description = timer.strSummary;
+  unsigned int epgUid = timer.iEpgUid;
+  if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iTimerType == Timer::EPG_ONCE && 
+      timer.iEpgUid != PVR_TIMER_NO_EPG_UID)
+  {
+    // description is overwritten by the timeradd call for EPG ONCE so we need to retrieve the correct one first.
+    description = m_epg.LoadEPGEntryShortDescription(serviceReference, timer.iEpgUid);
+  }
+  else if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iTimerType == Timer::MANUAL_ONCE)
+  {
+    // Similar for MANUAL ONCE we try to find an EPG Entry and use it's details
+    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime);
+
+    if (partialEntry.EntryFound())
+    {
+      title = partialEntry.title;
+      description = partialEntry.shortDescription;
+      epgUid = partialEntry.epgUid;
+    }
+  }
   
+  std::string strTmp;
   if (!m_settings.GetRecordingPath().empty())
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s", 
-              WebUtils::URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, 
-              WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, 
+              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, startTime, endTime, 
+              WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid, 
               WebUtils::URLEncodeInline(tags).c_str(), WebUtils::URLEncodeInline(m_settings.GetRecordingPath()).c_str());
   else
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s", 
-              WebUtils::URLEncodeInline(strServiceReference).c_str(), timer.iWeekdays, startTime, endTime, 
-              WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(), timer.iEpgUid, 
+              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, startTime, endTime, 
+              WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid, 
               WebUtils::URLEncodeInline(tags).c_str());
 
   std::string strResult;
@@ -479,6 +505,9 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     return PVR_ERROR_SERVER_ERROR;
   
   TimerUpdates();
+
+  if (alreadyStarted)
+    PVR->TriggerRecordingUpdate();
 
   return PVR_ERROR_NO_ERROR;    
 }

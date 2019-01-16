@@ -26,6 +26,7 @@
 
 #include "Channels.h"
 #include "ChannelGroups.h"
+#include "data/EpgPartialEntry.h"
 #include "extract/EpgEntryExtractor.h"
 
 #include "libXBMC_pvr.h"
@@ -42,6 +43,8 @@ namespace enigma2
     bool IsInitialEpgCompleted();
     void TriggerEpgUpdatesForChannels();
     PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
+    std::string LoadEPGEntryShortDescription(const std::string &serviceReference, unsigned int epgUid);
+    data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime);
 
   private:   
     void InitialiseEpgReadyFile();
