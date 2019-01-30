@@ -11,11 +11,11 @@ using namespace enigma2;
 using namespace enigma2::utilities;
 
 TimeshiftBuffer::TimeshiftBuffer(IStreamReader *m_streamReader,
-    const std::string &m_timeshiftBufferPath, const unsigned int m_readTimeoutX)
+    const std::string &timeshiftBufferPath, const unsigned int readTimeout)
   : m_streamReader(m_streamReader)
 {
-  m_bufferPath = m_timeshiftBufferPath + "/tsbuffer.ts";
-  m_readTimeout = (m_readTimeoutX) ? m_readTimeout
+  m_bufferPath = timeshiftBufferPath + "/tsbuffer.ts";
+  m_readTimeout = (readTimeout) ? readTimeout
       : DEFAULT_READ_TIMEOUT;
 
   m_filebufferWriteHandle = XBMC->OpenFileForWrite(m_bufferPath.c_str(), true);

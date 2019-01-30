@@ -4,52 +4,50 @@
 
 #include <string>
 
-namespace VUPLUS
+namespace enigma2
 {
-
-class LocalizedString
-{
-public:
-  explicit LocalizedString(int id)
+  class LocalizedString
   {
-    Load(id);
-  }
-
-  bool Load(int id)
-  {
-    char *str;
-    if ((str = XBMC->GetLocalizedString(id)))
+  public:
+    explicit LocalizedString(int id)
     {
-      m_localizedString = str;
-      XBMC->FreeString(str);
-      return true;
+      Load(id);
     }
 
-    m_localizedString = "";
-    return false;
-  }
+    bool Load(int id)
+    {
+      char *str;
+      if ((str = XBMC->GetLocalizedString(id)))
+      {
+        m_localizedString = str;
+        XBMC->FreeString(str);
+        return true;
+      }
 
-  std::string Get()
-  {
-    return m_localizedString;
-  }
+      m_localizedString = "";
+      return false;
+    }
 
-  operator std::string()
-  {
-    return Get();
-  }
+    std::string Get()
+    {
+      return m_localizedString;
+    }
 
-  const char* c_str()
-  {
-    return m_localizedString.c_str();
-  }
+    operator std::string()
+    {
+      return Get();
+    }
 
-private:
-  LocalizedString() = delete;
-  LocalizedString(const LocalizedString&) = delete;
-  LocalizedString &operator =(const LocalizedString&) = delete;
+    const char* c_str()
+    {
+      return m_localizedString.c_str();
+    }
 
-  std::string m_localizedString;
-};
+  private:
+    LocalizedString() = delete;
+    LocalizedString(const LocalizedString&) = delete;
+    LocalizedString &operator =(const LocalizedString&) = delete;
 
-} //namespace VUPLUS
+    std::string m_localizedString;
+  };
+} //namespace enigma2
