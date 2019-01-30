@@ -460,7 +460,11 @@ msgctxt "#30110"
 msgid "EDL stop time padding"
 msgstr ""
 
-#empty strings from id 30111 to 30409
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr ""
+
+#empty strings from id 30112 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

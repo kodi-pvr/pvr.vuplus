@@ -9,11 +9,11 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Autotimers
 * Drive Space Reporting
 * Embedded EPG Genre IDs
-* Full Tuner Signal Support (Including Service Providers) 
+* Full Tuner Signal Support (Including Service Providers)
 * Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 
 # Enigma2 PVR
-VuPlus PVR client addon for [Kodi](https://kodi.tv)
+Enigma2 PVR client addon for [Kodi](https://kodi.tv)
 
 ## Build instructions
 
@@ -22,10 +22,12 @@ VuPlus PVR client addon for [Kodi](https://kodi.tv)
 1. `git clone https://github.com/xbmc/xbmc.git`
 2. `git clone https://github.com/kodi-pvr/pvr.vuplus.git`
 3. `cd pvr.vuplus && mkdir build && cd build`
-4. `cmake -DADDONS_TO_BUILD=pvr.vuplus -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
+4. `cmake -DADDONS_TO_BUILD=pvr.vuplus -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/build/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
 5. `make`
 
-## Support 
+The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi from source and run it directly the addon will be available as a system addon.
+
+## Support
 
 ### Useful links
 
@@ -95,12 +97,12 @@ Within this tab options that refer to EPG data can be set. Excluding logging mis
 
 Information on customising the extraction and mapper configs can be found in the next section of the README.
 
-* **Extract season, episode and year info where possible**: Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. 
-* **Extract show info file**: The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`. 
-* **Enable genre ID mappings**: If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi. 
-* **Genre ID mappings file**: The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`. 
-* **Enable Rytec genre text mappings**: If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs. 
-* **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`. 
+* **Extract season, episode and year info where possible**: Check the description fields in the EPG data and attempt to extract season, episode and year info where possible.
+* **Extract show info file**: The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`.
+* **Enable genre ID mappings**: If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi.
+* **Genre ID mappings file**: The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`.
+* **Enable Rytec genre text mappings**: If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs.
+* **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`.
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
 
@@ -147,7 +149,7 @@ Timeshifting allows you to pause live TV as well as move back and forward from y
     - `Disabled` - No timeshifting
     - `On Pause` - Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing.
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
-* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. 
+* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata.
 
 ### Advanced
 Within this tab more uncommon and advanced options can be configured.
@@ -159,9 +161,10 @@ Within this tab more uncommon and advanced options can be configured.
     - `Standby` - Send the standby command on exit
     - `Deep standby` - Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
-* **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams
+* **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds.
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide.
-* **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements
+* **Enable debug logging in normal mode**: Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level.
+* **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level.
 
 ## Customising Config Files
 
@@ -262,7 +265,7 @@ As the addon was upgraded over time some old settings are no longer required. Th
 23:17:22.697 T:3990016880   DEBUG: CAddonSettings[pvr.vuplus]: failed to find definition for setting setpowerstate. Creating a setting on-the-fly...
 ```
 
-If you see these in debug mode and would like to clean them up you can either: 
+If you see these in debug mode and would like to clean them up you can either:
 
 1. Remove the offending lines from you settings.xml file OR
 2. Delete you settings.xml and restart kodi. Note that if you use this option you will need to reconfigure the addon from scratch.

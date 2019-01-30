@@ -19,7 +19,7 @@
             <maximum>65535</maximum>
           </constraints>
           <control type="edit" format="integer" />
-        </setting>      
+        </setting>
         <setting id="use_secure" type="boolean" label="30028">
           <level>0</level>
           <default>false</default>
@@ -45,7 +45,7 @@
             <hidden>true</hidden>
           </control>
         </setting>
-      </group>      
+      </group>
       <group id="3" label="30039">
         <setting id="autoconfig" type="boolean" label="30029">
           <level>0</level>
@@ -64,7 +64,7 @@
             <dependency type="enable" setting="autoconfig">false</dependency>
           </dependencies>
           <control type="edit" format="integer" />
-        </setting>     
+        </setting>
         <setting id="use_secure_stream" type="boolean" label="30066">
           <level>0</level>
           <default>false</default>
@@ -118,7 +118,7 @@
           <control type="button" format="path">
             <heading>657</heading>
           </control>
-        </setting>        
+        </setting>
       </group>
 
       <group id="2" label="30009">
@@ -134,7 +134,7 @@
             <popup>true</popup>
             <formatlabel>14044</formatlabel>
           </control>
-        </setting>      
+        </setting>
         <setting id="updatemode" type="integer" label="30100">
           <level>0</level>
           <default>0</default>
@@ -170,7 +170,7 @@
             </options>
           </constraints>
           <control type="spinner" format="integer" />
-        </setting>        
+        </setting>
         <setting id="onetvgroup" type="string" parent="tvgroupmode" label="30026">
           <level>0</level>
           <default></default>
@@ -201,7 +201,7 @@
             </dependency>
           </dependencies>
           <control type="spinner" format="integer" />
-        </setting>        
+        </setting>
       </group>
       <group id="3" label="30057">
         <setting id="radiogroupmode" type="integer" label="30058">
@@ -215,7 +215,7 @@
             </options>
           </constraints>
           <control type="spinner" format="integer" />
-        </setting>        
+        </setting>
         <setting id="oneradiogroup" type="string" parent="radiogroupmode" label="30059">
           <level>0</level>
           <default></default>
@@ -246,8 +246,8 @@
             </dependency>
           </dependencies>
           <control type="spinner" format="integer" />
-        </setting>        
-      </group>      
+        </setting>
+      </group>
     </category>
 
     <!-- EPG -->
@@ -362,7 +362,7 @@
           <control type="toggle" />
         </setting>
       </group>
-      
+
       <group id="2" label="30107">
         <setting id="enablerecordingedls" type="boolean" label="30108">
           <level>0</level>
@@ -424,7 +424,7 @@
             <dependency type="enable" setting="enablegenrepeattimers">true</dependency>
           </dependencies>
           <control type="edit" format="integer" />
-        </setting>    
+        </setting>
         <setting id="enableautotimers" type="boolean" label="30034">
           <level>0</level>
           <default>true</default>
@@ -471,7 +471,7 @@
     </category>
 
     <!-- Advanced -->
-    <category id="advanced" label="30020">      
+    <category id="advanced" label="30020">
       <group id="1" label="30052">
         <setting id="prependoutline" type="integer" label="30040">
           <level>0</level>
@@ -525,6 +525,11 @@
             <formatlabel>14049</formatlabel>
           </control>
         </setting>
+        <setting id="debugnormal" type="boolean" label="30111">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
         <setting id="tracedebug" type="boolean" label="30104">
           <level>0</level>
           <default>false</default>
@@ -536,8 +541,8 @@
     <!-- Backend -->
     <!-- Add again one new addon API is supported -->
     <!--
-    <category id="backend" label="30086">      
-      <group id="1" label="30090"> 
+    <category id="backend" label="30086">
+      <group id="1" label="30090">
         <setting id="webifversion" type="string" label="30091">
           <level>0</level>
           <default>N/A</default>
@@ -564,7 +569,7 @@
         </setting>
       </group>
 
-      <group id="2" label="30087">   
+      <group id="2" label="30087">
         <setting id="globalstartpaddingstb" type="integer" label="30088">
           <level>0</level>
           <default>0</default>
@@ -591,8 +596,8 @@
             <formatlabel>14044</formatlabel>
           </control>
         </setting>
-      </group>   
-    </category>            
+      </group>
+    </category>
     -->
 
   </section>
