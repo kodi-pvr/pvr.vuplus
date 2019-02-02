@@ -112,9 +112,11 @@ namespace enigma2
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
     const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
+    bool ExcludeLastScannedTVGroup() const { return m_excludeLastScannedTVGroup; }
     const ChannelGroupMode& GetRadioChannelGroupMode() const { return m_radioChannelGroupMode; }
     const std::string& GetOneRadioGroupName() const { return m_oneRadioGroup; }
     const FavouritesGroupMode& GetRadioFavouritesMode() const { return m_radioFavouritesMode; }
+    bool ExcludeLastScannedRadioGroup() const { return m_excludeLastScannedRadioGroup; }
 
     //EPG
     bool GetExtractShowInfo() const { return m_extractShowInfo; }
@@ -235,9 +237,11 @@ namespace enigma2
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneTVGroup = "";
     FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
+    bool m_excludeLastScannedTVGroup = false;
     ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
     std::string m_oneRadioGroup = "";
     FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
+    bool m_excludeLastScannedRadioGroup = false;
 
     //EPG
     bool m_extractShowInfo = true;

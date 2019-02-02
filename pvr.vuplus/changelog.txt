@@ -1,9 +1,11 @@
-v3.16.2
 v3.17.0
 - Added: Recording EDL support
 - Added: Update Timer Types to display correctly in Manual vs EPG UIs
 - Added: Updated show info regex's
 - Fixed: Timer Recording not displaying description - Not being stored on STB - AddTimer Call, fixes #174
+- Fixed: Fix for uncaught type_error for nlohmann/json
+- Fixed: Include TV Favourites channels by default in settings
+- Added: Support Last Scanned for both TV and Radio, fixes #178
 
 v3.16.2
 - Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
@@ -41,7 +43,7 @@ v3.15.2
 - Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
 - Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
 - Fixed: Missing default value from timeshift buffer path, fixes #140
-- Fixed: Channel Group Member Order not preserved, fixes #141 
+- Fixed: Channel Group Member Order not preserved, fixes #141
 
 v3.15.1
 - Fixed: since 3.15.0 pvr manager cant start #134
@@ -162,7 +164,7 @@ v3.5.2
 - Fixed timer recording margins
 
 v3.5.1
-- Updated language files from Transifex 
+- Updated language files from Transifex
 
 v3.5.0
 - Updated to PVR addon API v5.7.0
@@ -381,7 +383,7 @@ v1.10.5
 
 0.3.1:
 - change: remove XMLParser
-- change: add enigma2 to the displayname  
+- change: add enigma2 to the displayname
 
 0.3.0:
 - change: remove curl dependancy
@@ -434,52 +436,52 @@ v1.10.5
 0.1.14
 - change: change .gitignores and copy current changelog into the addon folder. This will enable the user to view the changelog in the addon settings window
 
-0.1.13 
+0.1.13
 - add: option to set deepstandby powerstate on the DVB box on PVR-addon shutdown
 - fix: error in settings.xml, causing crashes on linux
 
-0.1.12 
+0.1.12
 - add: support to specify the folder for storing recordings
 
-0.1.11 
+0.1.11
 - fix: some unicode string errors in german language file
 - change: add categories to addon settings
 
-0.1.10 
-- add: support for using only the recording path currently active on the DVB box 
+0.1.10
+- add: support for using only the recording path currently active on the DVB box
 
-0.1.9 
+0.1.9
 - change: add addon icon (copyied from the openelec guys, thanks!)
 - fix: win32 release target (thanks to 'trans' for patch)
 
-0.1.8 
+0.1.8
 - change: fetch the recording locations and use these locations when querying the recordings
 - fix: Stop update thread when destroying the PVR addon - fixes shutdown issues
 
-0.1.7 
-- fix: Copy & Paste error                        
+0.1.7
+- fix: Copy & Paste error
 
-0.1.6 
+0.1.6
 - fix: Change the logic to determine the picon file name from the service reference.
 
-0.1.5 
+0.1.5
 - fix: Fix access violation errors on windows (thanks to 'trans' for finding the correct compiler / linker settings)
 - fix: do not return out of scope local variable for the streaming URL
 - fix: remove the last '_' character from the filename (if applicable). Should finally fix the picon path errors.
 
-0.1.4 
-- fix: limit length of the service reference part of the Icon-Path to 30 characters. 
+0.1.4
+- fix: limit length of the service reference part of the Icon-Path to 30 characters.
 - fix: Escape "&", "<" and ">" characters in XML channeldata file.
-- add: support to disable all bouquet or channel updates 
+- add: support to disable all bouquet or channel updates
 
-0.1.3 
-- fix: order of timerlist cleanup and timerlist updates 
+0.1.3
+- fix: order of timerlist cleanup and timerlist updates
 
-0.1.2 
+0.1.2
 - add: support for storing channel data into a file
 
-0.1.1 
+0.1.1
 - fix: URLEncode the service reference when fetching EPG
 
-0.1.0 
+0.1.0
 - Iniital Version

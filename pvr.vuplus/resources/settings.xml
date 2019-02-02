@@ -202,6 +202,14 @@
           </dependencies>
           <control type="spinner" format="integer" />
         </setting>
+        <setting id="excludelastscannedtv" type="boolean" label="30114">
+          <level>0</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">0</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
       </group>
       <group id="3" label="30057">
         <setting id="radiogroupmode" type="integer" label="30058">
@@ -246,6 +254,14 @@
             </dependency>
           </dependencies>
           <control type="spinner" format="integer" />
+        </setting>
+        <setting id="excludelastscannedradio" type="boolean" label="30114">
+          <level>0</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">0</dependency>
+          </dependencies>
+          <control type="toggle" />
         </setting>
       </group>
     </category>

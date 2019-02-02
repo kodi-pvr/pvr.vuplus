@@ -87,7 +87,7 @@ int ChannelGroups::GetChannelGroupUniqueId(const std::string &groupName) const
   return -1;
 }
 
-std::string ChannelGroups::GetChannelGroupServiceReference(const std::string &groupName)  
+std::string ChannelGroups::GetChannelGroupServiceReference(const std::string &groupName)
 {
   for (const auto& channelGroup : m_channelGroups)
   {
@@ -107,10 +107,10 @@ std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(std::string groupNa
   std::shared_ptr<ChannelGroup> channelGroup = nullptr;
 
   auto channelGroupPair = m_channelGroupsNameMap.find(groupName);
-  if (channelGroupPair != m_channelGroupsNameMap.end()) 
+  if (channelGroupPair != m_channelGroupsNameMap.end())
   {
     channelGroup = channelGroupPair->second;
-  } 
+  }
 
   return channelGroup;
 }
@@ -141,7 +141,7 @@ void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
   std::shared_ptr<ChannelGroup> foundChannelGroup = GetChannelGroup(newChannelGroup.GetGroupName());
 
   if (!foundChannelGroup)
-  {  
+  {
     newChannelGroup.SetUniqueId(m_channelGroups.size() + 1);
 
     m_channelGroups.emplace_back(new ChannelGroup(newChannelGroup));
@@ -180,10 +180,10 @@ bool ChannelGroups::LoadTVChannelGroups()
   }
 
   if (Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
-  {  
+  {
     const std::string strTmp = StringUtils::Format("%sweb/getservices", Settings::GetInstance().GetConnectionURL().c_str());
 
-    const std::string strXML = WebUtils::GetHttpXML(strTmp);  
+    const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
@@ -218,7 +218,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
       if (!newChannelGroup.UpdateFrom(pNode, false))
         continue;
-  
+
       AddChannelGroup(newChannelGroup);
 
       Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
@@ -230,6 +230,9 @@ bool ChannelGroups::LoadTVChannelGroups()
   {
     AddTVFavouritesChannelGroup();
   }
+
+  if (!Settings::GetInstance().ExcludeLastScannedTVGroup() && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ALL_GROUPS)
+    AddTVLastScannedChannelGroup();
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
   return true;
@@ -247,10 +250,10 @@ bool ChannelGroups::LoadRadioChannelGroups()
   }
 
   if (Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
-  {  
+  {
     const std::string strTmp = StringUtils::Format("%sweb/getallservices?type=radio&renameserviceforxbmc=yes", Settings::GetInstance().GetConnectionURL().c_str());
 
-    const std::string strXML = WebUtils::GetHttpXML(strTmp);  
+    const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
@@ -285,7 +288,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
       if (!newChannelGroup.UpdateFrom(pNode, true))
         continue;
-  
+
       AddChannelGroup(newChannelGroup);
 
       Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
@@ -298,6 +301,9 @@ bool ChannelGroups::LoadRadioChannelGroups()
     AddRadioFavouritesChannelGroup();
   }
 
+  if (!Settings::GetInstance().ExcludeLastScannedRadioGroup() && Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::ALL_GROUPS)
+    AddRadioLastScannedChannelGroup();
+
   Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
   return true;
 }
@@ -309,7 +315,7 @@ void ChannelGroups::AddTVFavouritesChannelGroup()
   newChannelGroup.SetGroupName(LocalizedString(30079)); //Favourites (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.tv\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
-  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());  
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::AddRadioFavouritesChannelGroup()
@@ -319,5 +325,26 @@ void ChannelGroups::AddRadioFavouritesChannelGroup()
   newChannelGroup.SetGroupName(LocalizedString(30080)); //Favourites (Radio)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
-  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());  
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+}
+
+void ChannelGroups::AddTVLastScannedChannelGroup()
+{
+  ChannelGroup newChannelGroup;
+  newChannelGroup.SetRadio(false);
+  newChannelGroup.SetGroupName(LocalizedString(30112)); //Last Scanned (TV)
+  newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
+  AddChannelGroup(newChannelGroup);
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+}
+
+void ChannelGroups::AddRadioLastScannedChannelGroup()
+{
+  ChannelGroup newChannelGroup;
+  newChannelGroup.SetRadio(true);
+  newChannelGroup.SetGroupName(LocalizedString(30113)); //Last Scanned (Radio)
+  //Hack used here, extra space in service reference so we can spearate TV and Radio, it must be unique
+  newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
+  AddChannelGroup(newChannelGroup);
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
 }

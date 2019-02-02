@@ -180,6 +180,9 @@ v3.17.0
 - Added: Update Timer Types to display correctly in Manual vs EPG UIs
 - Added: Updated show info regex's
 - Fixed: Timer Recording not displaying description - Not being stored on STB - AddTimer Call, fixes #174
+- Fixed: Fix for uncaught type_error for nlohmann/json
+- Fixed: Include TV Favourites channels by default in settings
+- Added: Support Last Scanned for both TV and Radio, fixes #178
 
 v3.16.2
 - Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
@@ -212,12 +215,12 @@ v3.15.4
 v3.15.3
 - Fixed: GetStreamTimes not implemented for Recordings, fixes #148
 - Fixed: When starting a recording partway through start time is EPG start not recording start, fixes #147
-    
+
 v3.15.2
 - Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
 - Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
 - Fixed: Missing default value from timeshift buffer path, fixes #140
-- Fixed: Channel Group Member Order not preserved, fixes #141 
+- Fixed: Channel Group Member Order not preserved, fixes #141
 
 v3.15.1
 - Fixed: since 3.15.0 pvr manager cant start #134

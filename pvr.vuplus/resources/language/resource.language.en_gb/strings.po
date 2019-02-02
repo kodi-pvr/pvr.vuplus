@@ -464,7 +464,19 @@ msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
 msgstr ""
 
-#empty strings from id 30112 to 30409
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr ""
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr ""
+
+#empty strings from id 30115 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

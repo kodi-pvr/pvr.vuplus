@@ -73,6 +73,7 @@ Within this tab general options are configured.
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
+* **Exclude last scanned bouquet**: By default the `Last Scanned` bouquet will be included with all bouquets. Enable this option to exclude it from the retrieved list. Note that last scanned applies to both TV and Radio channels.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option
@@ -82,6 +83,7 @@ Within this tab options that refer to channel data can be set. When changing bou
     - `Disabled` - Don't explicitly fetch TV favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
+* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is shown by default. Enable this option to exclude this group.
 * **Radio bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all Radio bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option
@@ -91,6 +93,7 @@ Within this tab options that refer to channel data can be set. When changing bou
     - `Disabled` - Don't explicitly fetch Radio favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
+* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (Radio)``` in Kodi. For Radio this group is excluded by default. Disable this option to show this group.
 
 ### EPG
 Within this tab options that refer to EPG data can be set. Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to `Settings->PVR & Live TV->Guide->Clear cache` in Kodi after the addon restarts.

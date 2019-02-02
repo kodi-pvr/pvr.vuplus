@@ -92,6 +92,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("tvfavouritesmode", &m_tvFavouritesMode))
     m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
 
+  if (!XBMC->GetSetting("excludelastscannedtv", &m_excludeLastScannedTVGroup))
+    m_excludeLastScannedTVGroup = false;
+
   if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
     m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
 
@@ -103,6 +106,9 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("radiofavouritesmode", &m_radioFavouritesMode))
     m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
+
+  if (!XBMC->GetSetting("excludelastscannedradio", &m_excludeLastScannedRadioGroup))
+    m_excludeLastScannedRadioGroup = false;
 
   //EPG
   if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))
@@ -257,12 +263,16 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tvfavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "excludelastscannedtv")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "radiogroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "oneradiogroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "radiofavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "excludelastscannedradio")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedRadioGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //EPG
   else if (settingName == "extractepginfoenabled")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);

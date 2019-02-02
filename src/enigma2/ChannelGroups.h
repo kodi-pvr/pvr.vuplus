@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -50,11 +50,13 @@ namespace enigma2
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>>& GetChannelGroupsList();
     bool LoadChannelGroups();
 
-  private:   
+  private:
     bool LoadTVChannelGroups();
     bool LoadRadioChannelGroups();
     void AddTVFavouritesChannelGroup();
     void AddRadioFavouritesChannelGroup();
+    void AddTVLastScannedChannelGroup();
+    void AddRadioLastScannedChannelGroup();
     void AddChannelGroup(enigma2::data::ChannelGroup& channelGroup);
 
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroups;
