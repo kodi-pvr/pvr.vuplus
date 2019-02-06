@@ -39,7 +39,7 @@ void EpgEntry::UpdateTo(EPG_TAG &left) const
 
 bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, Channels &channels)
 {
-  std::string strTmp; 
+  std::string strTmp;
 
   if(!XMLUtils::GetString(eventNode, "e2eventservicereference", strTmp))
     return false;
@@ -49,7 +49,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, Channels &channels)
     return false;
 
   m_serviceReference = strTmp;
-    
+
   m_channelId = channels.GetChannelUniqueId(m_serviceReference);
 
   if (m_channelId < 0)
@@ -71,7 +71,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel
   int iTmp;
 
   // check and set event starttime and endtimes
-  if (!XMLUtils::GetInt(eventNode, "e2eventstart", iTmpStart)) 
+  if (!XMLUtils::GetInt(eventNode, "e2eventstart", iTmpStart))
     return false;
 
   // Skip unneccessary events
@@ -83,21 +83,21 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel
 
   if ((iEnd > 1) && (iEnd < (iTmpStart + iTmp)))
     return false;
-  
+
   m_startTime = iTmpStart;
   m_endTime = iTmpStart + iTmp;
 
-  if (!XMLUtils::GetInt(eventNode, "e2eventid", iTmp))  
+  if (!XMLUtils::GetInt(eventNode, "e2eventid", iTmp))
     return false;
 
   m_eventId = iTmp;
   m_channelId = channel->GetUniqueId();
-  
+
   if(!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
     return false;
 
   m_title = strTmp;
-  
+
   m_serviceReference = channel->GetServiceReference().c_str();
 
   // Check that it's not an empty record
@@ -117,11 +117,14 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel
     m_genreDescription = strTmp;
 
     TiXmlElement* genreNode = eventNode->FirstChildElement("e2eventgenre");
-    int genreId = 0;
-    if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+    if (genreNode)
     {
-      m_genreType = genreId & 0xF0;
-      m_genreSubType = genreId & 0x0F;
+      int genreId = 0;
+      if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+      {
+        m_genreType = genreId & 0xF0;
+        m_genreSubType = genreId & 0x0F;
+      }
     }
   }
 

@@ -6,6 +6,7 @@ v3.17.0
 - Fixed: Fix for uncaught type_error for nlohmann/json
 - Fixed: Include TV Favourites channels by default in settings
 - Added: Support Last Scanned for both TV and Radio, fixes #178
+- Fixed: Null pointer check for Genre EPG data from XML
 
 v3.16.2
 - Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
