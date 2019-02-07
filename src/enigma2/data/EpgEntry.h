@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyleft (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -38,25 +38,25 @@ namespace enigma2
     {
     public:
       int GetEventId() const { return m_eventId; }
-      void SetEventId(int value) { m_eventId = value; }       
+      void SetEventId(int value) { m_eventId = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }          
+      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
 
       int GetChannelId() const { return m_channelId; }
-      void SetChannelId(int value) { m_channelId = value; }       
+      void SetChannelId(int value) { m_channelId = value; }
 
       time_t GetStartTime() const { return m_startTime; }
-      void SetStartTime(time_t value) { m_startTime = value; }      
+      void SetStartTime(time_t value) { m_startTime = value; }
 
       time_t GetEndTime() const { return m_endTime; }
-      void SetEndTime(time_t value) { m_endTime = value; }    
+      void SetEndTime(time_t value) { m_endTime = value; }
 
       void UpdateTo(EPG_TAG &left) const;
-      bool UpdateFrom(TiXmlElement* eventNode, enigma2::Channels &channels); 
+      bool UpdateFrom(TiXmlElement* eventNode, enigma2::Channels &channels);
       bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<enigma2::data::Channel> &channel, time_t iStart, time_t iEnd);
 
-    private:    
+    private:
       int m_eventId;
       std::string m_serviceReference;
       int m_channelId;

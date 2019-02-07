@@ -24,7 +24,7 @@ namespace enigma2
     {
       m_clientIndexCounter = 1;
     };
-    
+
     void GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const;
 
     int GetTimerCount() const;

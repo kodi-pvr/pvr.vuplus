@@ -27,7 +27,7 @@ namespace enigma2
       bool IsEnabled();
 
     private:
-      std::vector<std::unique_ptr<IExtractor>> m_extractors;  
+      std::vector<std::unique_ptr<IExtractor>> m_extractors;
       bool m_anyExtractorEnabled;
     };
   } //namespace extract

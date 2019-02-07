@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -29,38 +29,38 @@ namespace enigma2
 {
   namespace data
   {
-    class BaseEntry 
+    class BaseEntry
     {
     public:
       const std::string& GetTitle() const { return m_title; }
-      void SetTitle(const std::string& value ) { m_title = value; }           
+      void SetTitle(const std::string& value ) { m_title = value; }
 
       const std::string& GetPlotOutline() const { return m_plotOutline; }
-      void SetPlotOutline(const std::string& value ) { m_plotOutline = value; }           
+      void SetPlotOutline(const std::string& value ) { m_plotOutline = value; }
 
       const std::string& GetPlot() const { return m_plot; }
-      void SetPlot(const std::string& value ) { m_plot = value; }           
+      void SetPlot(const std::string& value ) { m_plot = value; }
 
       int GetGenreType() const { return m_genreType; }
-      void SetGenreType(int value) { m_genreType = value; }      
+      void SetGenreType(int value) { m_genreType = value; }
 
       int GetGenreSubType() const { return m_genreSubType; }
-      void SetGenreSubType(int value) { m_genreSubType = value; }      
+      void SetGenreSubType(int value) { m_genreSubType = value; }
 
       const std::string& GetGenreDescription() const { return m_genreDescription; }
-      void SetGenreDescription(const std::string& value ) { m_genreDescription = value; }           
+      void SetGenreDescription(const std::string& value ) { m_genreDescription = value; }
 
       int GetEpisodeNumber() const { return m_episodeNumber; }
-      void SetEpisodeNumber(int value) { m_episodeNumber = value; }      
+      void SetEpisodeNumber(int value) { m_episodeNumber = value; }
 
       int GetEpisodePartNumber() const { return m_episodePartNumber; }
-      void SetEpisodePartNumber(int value) { m_episodePartNumber = value; }      
+      void SetEpisodePartNumber(int value) { m_episodePartNumber = value; }
 
       int GetSeasonNumber() const { return m_seasonNumber; }
-      void SetSeasonNumber(int value) { m_seasonNumber = value; }      
+      void SetSeasonNumber(int value) { m_seasonNumber = value; }
 
       int GetYear() const { return m_year; }
-      void SetYear(int value) { m_year = value; }      
+      void SetYear(int value) { m_year = value; }
 
       void ProcessPrependMode(PrependOutline prependOutlineMode);
 

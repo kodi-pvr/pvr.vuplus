@@ -12,16 +12,16 @@ if(PKG_CONFIG_FOUND)
 endif()
 if(NOT TINYXML_FOUND)
   find_path( TINYXML_INCLUDE_DIRS "tinyxml.h"
-             PATH_SUFFIXES "tinyxml" )
+             PATH_SUFFIXES "tinyxml")
 
   find_library( TINYXML_LIBRARIES
                 NAMES "tinyxml"
-                PATH_SUFFIXES "tinyxml" )
+                PATH_SUFFIXES "tinyxml")
 endif()
 
 # handle the QUIETLY and REQUIRED arguments and set TINYXML_FOUND to TRUE if
 # all listed variables are TRUE
-include( "FindPackageHandleStandardArgs" )
-find_package_handle_standard_args(TinyXML DEFAULT_MSG TINYXML_INCLUDE_DIRS TINYXML_LIBRARIES )
+include("FindPackageHandleStandardArgs")
+find_package_handle_standard_args(TinyXML DEFAULT_MSG TINYXML_INCLUDE_DIRS TINYXML_LIBRARIES)
 
 mark_as_advanced(TINYXML_INCLUDE_DIRS TINYXML_LIBRARIES)

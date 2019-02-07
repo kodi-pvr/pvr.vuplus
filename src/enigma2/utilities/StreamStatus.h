@@ -11,7 +11,7 @@ namespace enigma2
     {
       DIRECTLY_STREAMED = 0,
       TRANSCODED
-    };    
+    };
 
     struct StreamStatus
     {

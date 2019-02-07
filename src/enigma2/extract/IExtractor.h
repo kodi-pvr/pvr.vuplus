@@ -28,7 +28,7 @@ namespace enigma2
           if (match.size() == 2)
           {
             std::ssub_match base_sub_match = match[1];
-            matchText = base_sub_match.str();  
+            matchText = base_sub_match.str();
           }
         }
 

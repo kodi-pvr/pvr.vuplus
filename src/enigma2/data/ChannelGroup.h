@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -35,7 +35,7 @@ namespace enigma2
 {
   namespace data
   {
-    class ChannelGroup 
+    class ChannelGroup
     {
     public:
       ChannelGroup() = default;
@@ -44,25 +44,25 @@ namespace enigma2
       ~ChannelGroup() = default;
 
       bool IsRadio() const { return m_radio; }
-      void SetRadio(bool value) { m_radio = value; }      
+      void SetRadio(bool value) { m_radio = value; }
 
       int GetUniqueId() const { return m_uniqueId; }
-      void SetUniqueId(int value) { m_uniqueId = value; }  
+      void SetUniqueId(int value) { m_uniqueId = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }          
+      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
 
       const std::string& GetGroupName() const { return m_groupName; }
-      void SetGroupName(const std::string& value ) { m_groupName = value; }        
+      void SetGroupName(const std::string& value ) { m_groupName = value; }
 
       int GetGroupState() const { return m_groupState; }
-      void SetGroupState(int value) { m_groupState = value; }      
+      void SetGroupState(int value) { m_groupState = value; }
 
       void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
 
       std::vector<EpgEntry>& GetInitialEPG() { return m_initialEPG; }
 
-      bool UpdateFrom(TiXmlElement* groupNode, bool radio); 
+      bool UpdateFrom(TiXmlElement* groupNode, bool radio);
       void UpdateTo(PVR_CHANNEL_GROUP &left) const;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
@@ -73,7 +73,7 @@ namespace enigma2
       std::string m_serviceReference;
       std::string m_groupName;
       int m_groupState;
-      std::vector<EpgEntry> m_initialEPG; 
+      std::vector<EpgEntry> m_initialEPG;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> m_channelList;
     };

@@ -17,20 +17,20 @@ bool AutoTimer::operator==(const AutoTimer &right) const
 {
   bool bChanged = true;
   bChanged = bChanged && (!m_title.compare(right.m_title));
-  bChanged = bChanged && (m_startTime == right.m_startTime); 
-  bChanged = bChanged && (m_endTime == right.m_endTime); 
-  bChanged = bChanged && (m_channelId == right.m_channelId); 
-  bChanged = bChanged && (m_weekdays == right.m_weekdays); 
+  bChanged = bChanged && (m_startTime == right.m_startTime);
+  bChanged = bChanged && (m_endTime == right.m_endTime);
+  bChanged = bChanged && (m_channelId == right.m_channelId);
+  bChanged = bChanged && (m_weekdays == right.m_weekdays);
 
-  bChanged = bChanged && (m_searchPhrase == right.m_searchPhrase); 
-  bChanged = bChanged && (m_searchType == right.m_searchType); 
-  bChanged = bChanged && (m_searchCase == right.m_searchCase); 
-  bChanged = bChanged && (m_state == right.m_state); 
-  bChanged = bChanged && (m_searchFulltext == right.m_searchFulltext); 
-  bChanged = bChanged && (m_startAnyTime == right.m_startAnyTime); 
-  bChanged = bChanged && (m_endAnyTime == right.m_endAnyTime); 
-  bChanged = bChanged && (m_anyChannel == right.m_anyChannel); 
-  bChanged = bChanged && (m_deDup == right.m_deDup); 
+  bChanged = bChanged && (m_searchPhrase == right.m_searchPhrase);
+  bChanged = bChanged && (m_searchType == right.m_searchType);
+  bChanged = bChanged && (m_searchCase == right.m_searchCase);
+  bChanged = bChanged && (m_state == right.m_state);
+  bChanged = bChanged && (m_searchFulltext == right.m_searchFulltext);
+  bChanged = bChanged && (m_startAnyTime == right.m_startAnyTime);
+  bChanged = bChanged && (m_endAnyTime == right.m_endAnyTime);
+  bChanged = bChanged && (m_anyChannel == right.m_anyChannel);
+  bChanged = bChanged && (m_deDup == right.m_deDup);
 
   return bChanged;
 }
@@ -95,7 +95,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
 
   if (autoTimerNode->QueryStringAttribute("match", &strTmp) == TIXML_SUCCESS)
     m_searchPhrase = strTmp;
-  
+
   if (autoTimerNode->QueryStringAttribute("enabled", &strTmp) == TIXML_SUCCESS)
   {
     if (strTmp == AUTOTIMER_ENABLED_NO)
@@ -159,23 +159,23 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
           return false;
         }
 
-        m_channelName = channels.GetChannel(m_channelId)->GetChannelName();  
+        m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
       }
     }
     else //otherwise set to any channel
     {
       m_channelId = PVR_TIMER_ANY_CHANNEL;
-      m_anyChannel = true; 
+      m_anyChannel = true;
     }
-  } 
+  }
   else //otherwise set to any channel
   {
     m_channelId = PVR_TIMER_ANY_CHANNEL;
-    m_anyChannel = true; 
+    m_anyChannel = true;
   }
 
   m_weekdays = 0;
-  
+
   TiXmlElement* includeNode = autoTimerNode->FirstChildElement("include");
 
   if (includeNode)

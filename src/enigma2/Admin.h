@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -56,9 +56,9 @@ namespace enigma2
     const std::string& GetAddonVersion() const { return m_addonVersion; }
     bool GetTunerSignal(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
-    static bool CanUseJsonApi();  
+    static bool CanUseJsonApi();
 
-  private:   
+  private:
     bool LoadDeviceInfo();
     bool LoadAutoTimerSettings();
     bool LoadRecordingMarginSettings();

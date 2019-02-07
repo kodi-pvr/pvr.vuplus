@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -46,14 +46,14 @@ namespace enigma2
     std::string LoadEPGEntryShortDescription(const std::string &serviceReference, unsigned int epgUid);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime);
 
-  private:   
+  private:
     void InitialiseEpgReadyFile();
 
     bool GetInitialEPGForGroup(std::shared_ptr<enigma2::data::ChannelGroup> group);
     PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<enigma2::data::Channel> &channel, time_t iStart, time_t iEnd);
-    
+
     enigma2::Channels &m_channels;
-    enigma2::ChannelGroups &m_channelGroups;  
+    enigma2::ChannelGroups &m_channelGroups;
     enigma2::extract::EpgEntryExtractor &m_entryExtractor;
 
     void *m_writeHandle;

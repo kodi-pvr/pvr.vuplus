@@ -63,7 +63,7 @@ bool CurlFile::Post(const std::string &strURL, std::string &strResult)
   char buffer[1024];
   while (XBMC->ReadFileString(fileHandle, buffer, 1024))
     strResult.append(buffer);
-  XBMC->CloseFile(fileHandle);  
+  XBMC->CloseFile(fileHandle);
 
   if (!strResult.empty())
     return true;

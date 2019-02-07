@@ -11,7 +11,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreRytecTextMapper::GenreRytecTextMapper() 
+GenreRytecTextMapper::GenreRytecTextMapper()
   : IExtractor()
 {
   LoadGenreTextMappingFiles();
@@ -75,21 +75,21 @@ int GenreRytecTextMapper::GetGenreTypeFromText(const std::string &genreText, con
 {
   int genreType = LookupGenreValueInMaps(genreText);
 
-  if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED) 
+  if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
   {
     if (m_settings.GetLogMissingGenreMappings())
       Logger::Log(LEVEL_NOTICE, "%s: Tried to find genre text but no value: '%s', show - '%s'", __FUNCTION__, genreText.c_str(), showName.c_str());
 
     std::string genreMajorText = GetMatchTextFromString(genreText, genreMajorPattern);
-    
+
     if (!genreMajorText.empty())
     {
       genreType = LookupGenreValueInMaps(genreMajorText);
 
       if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && m_settings.GetLogMissingGenreMappings())
-        Logger::Log(LEVEL_NOTICE, "%s: Tried to find major genre text but no value: '%s', show - '%s'", __FUNCTION__, genreMajorText.c_str(), showName.c_str());  
+        Logger::Log(LEVEL_NOTICE, "%s: Tried to find major genre text but no value: '%s', show - '%s'", __FUNCTION__, genreMajorText.c_str(), showName.c_str());
     }
-  } 
+  }
 
   return genreType;
 }
@@ -99,17 +99,17 @@ int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string &genreText)
   int genreType = EPG_EVENT_CONTENTMASK_UNDEFINED;
 
   auto genreMapSearch = genreMap.find(genreText);
-  if (genreMapSearch != genreMap.end()) 
+  if (genreMapSearch != genreMap.end())
   {
     genreType = genreMapSearch->second;
-  } 
+  }
   else
   {
     auto kodiGenreMapSearch = kodiGenreTextToDvbIdMap.find(genreText);
-    if (kodiGenreMapSearch != kodiGenreTextToDvbIdMap.end()) 
+    if (kodiGenreMapSearch != kodiGenreTextToDvbIdMap.end())
     {
       genreType = kodiGenreMapSearch->second;
-    }     
+    }
   }
 
   return genreType;
@@ -163,7 +163,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
 
   std::string mapperName;
 
-  if (!XMLUtils::GetString(pElem, "mapperName", mapperName)) 
+  if (!XMLUtils::GetString(pElem, "mapperName", mapperName))
     return false;
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);
@@ -174,7 +174,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <mappings> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   pNode = pNode->FirstChildElement("mapping");
 
@@ -182,7 +182,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <mapping> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("mapping"))
   {
@@ -196,5 +196,5 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
     Logger::Log(LEVEL_TRACE, "%s Read Text Mapping for: %s, text=%s, targetId=%#02X", __FUNCTION__, mapperName.c_str(), textMapping.c_str(), targetId);
   }
 
-  return true;  
+  return true;
 }

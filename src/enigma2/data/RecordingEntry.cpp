@@ -23,22 +23,22 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
 
   if (XMLUtils::GetString(recordingNode, "e2title", strTmp))
     m_title = strTmp;
-  
+
   if (XMLUtils::GetString(recordingNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
   if (XMLUtils::GetString(recordingNode, "e2descriptionextended", strTmp))
     m_plot = strTmp;
-  
+
   if (XMLUtils::GetString(recordingNode, "e2servicename", strTmp))
     m_channelName = strTmp;
 
   m_iconPath = channels.GetChannelIconPath(strTmp.c_str());
 
-  if (XMLUtils::GetInt(recordingNode, "e2time", iTmp)) 
+  if (XMLUtils::GetInt(recordingNode, "e2time", iTmp))
     m_startTime = iTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2length", strTmp)) 
+  if (XMLUtils::GetString(recordingNode, "e2length", strTmp))
   {
     iTmp = TimeStringToSeconds(strTmp.c_str());
     m_duration = iTmp;
@@ -46,10 +46,10 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
   else
     m_duration = 0;
 
-  if (XMLUtils::GetString(recordingNode, "e2filename", strTmp)) 
+  if (XMLUtils::GetString(recordingNode, "e2filename", strTmp))
   {
     m_edlURL = strTmp;
-    
+
     strTmp = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(strTmp).c_str());
     m_streamURL = strTmp;
 
@@ -84,7 +84,7 @@ long RecordingEntry::TimeStringToSeconds(const std::string &timeString)
 
   size_t pos = 0;
   std::string token;
-  while ((pos = s.find(delimiter)) != std::string::npos) 
+  while ((pos = s.find(delimiter)) != std::string::npos)
   {
     token = s.substr(0, pos);
     tokens.emplace_back(token);
