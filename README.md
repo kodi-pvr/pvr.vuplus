@@ -5,14 +5,15 @@ Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS
 
 This addon leverages the OpenWebIf project to interact with the Enigma2 device via Restful APIs: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
 
-**Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that would not function include:
+**Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that may not function include:
 * Autotimers
 * Drive Space Reporting
 * Embedded EPG Genre IDs
-* Full Tuner Signal Support (Including Service Providers) 
+* Full Tuner Signal Support (Including Service Providers)
+* Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 
 # Enigma2 PVR
-VuPlus PVR client addon for [Kodi](https://kodi.tv)
+Enigma2 PVR client addon for [Kodi](https://kodi.tv)
 
 ## Build instructions
 
@@ -21,10 +22,12 @@ VuPlus PVR client addon for [Kodi](https://kodi.tv)
 1. `git clone https://github.com/xbmc/xbmc.git`
 2. `git clone https://github.com/kodi-pvr/pvr.vuplus.git`
 3. `cd pvr.vuplus && mkdir build && cd build`
-4. `cmake -DADDONS_TO_BUILD=pvr.vuplus -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
+4. `cmake -DADDONS_TO_BUILD=pvr.vuplus -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/build/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
 5. `make`
 
-## Support 
+The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi from source and run it directly the addon will be available as a system addon.
+
+## Support
 
 ### Useful links
 
@@ -59,7 +62,7 @@ Within this tab general options are configured.
 
 * **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 set-top box.
 * **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`
-* **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.x or higher.
+* **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf.
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
 * **Update mode**: The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes:
@@ -70,6 +73,7 @@ Within this tab general options are configured.
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
+* **Exclude last scanned bouquet**: By default the `Last Scanned` bouquet will be included with all bouquets. Enable this option to exclude it from the retrieved list. Note that last scanned applies to both TV and Radio channels.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option
@@ -79,6 +83,7 @@ Within this tab options that refer to channel data can be set. When changing bou
     - `Disabled` - Don't explicitly fetch TV favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
+* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is shown by default. Enable this option to exclude this group.
 * **Radio bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all Radio bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option
@@ -88,26 +93,48 @@ Within this tab options that refer to channel data can be set. When changing bou
     - `Disabled` - Don't explicitly fetch Radio favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
+* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (Radio)``` in Kodi. For Radio this group is excluded by default. Disable this option to show this group.
 
 ### EPG
 Within this tab options that refer to EPG data can be set. Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to `Settings->PVR & Live TV->Guide->Clear cache` in Kodi after the addon restarts.
 
 Information on customising the extraction and mapper configs can be found in the next section of the README.
 
-* **Extract season, episode and year info where possible**: Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. 
-* **Extract show info file**: The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`. 
-* **Enable genre ID mappings**: If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi. 
-* **Genre ID mappings file**: The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`. 
-* **Enable Rytec genre text mappings**: If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs. 
-* **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`. 
+* **Extract season, episode and year info where possible**: Check the description fields in the EPG data and attempt to extract season, episode and year info where possible.
+* **Extract show info file**: The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`.
+* **Enable genre ID mappings**: If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi.
+* **Genre ID mappings file**: The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`.
+* **Enable Rytec genre text mappings**: If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs.
+* **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`.
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
 
-### Recordings & Timers
+### Recordings
+The following configuration is available on the Recordings tab of the addon settings.
 
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.
 * **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path
+* **Enable EDLs support**: EDLs are used to define commericals etc. in recordings. If a tool like [Comskip]() is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called ```my recording.ts``` the EDL file should be call ```my recording.edl```. Note: enabling this setting has no effect if the files are not present.
+* **EDL start time padding**: Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0.
+* **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
+
+### Timers
+The addon provides the following types of timers/rules that the user can create:
+
+* **Once off time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). If running OpenWebIf the timer will be populated with the EPG Entry (if available) at the start time for that channel.
+* **Repeating time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). This type is a timer rule and generates timers. The timers that are generated cannot be edited and will be of the type `Once off timer (set by repeating time/channel based rule)`.
+* **One time guide-based**: This timer can be created from the EPG UI as well as when playing a channel. It is the timer used when the user selects `Record` when accessing an EPG entry. It will create a timer that starts and ends as per the EPG entry. If playing back a channel it will start from now until the end of the current show. If using OpenWebIf, for providers that only use short description (plot outline) the addon will retrieve the correct description if available and use it in both the timer and resulting recording.
+* **Auto guide-based**: This is a search based timer rule, using the show name and other factors the Enigma2 device will create timers for EPG entries that satisfy the search. The timers it creates are not editable and will be of the type `Once off timer (set by auto guide-based rule)`.
+
+In addition there are some timers that can only be created by the addon and are read only:
+
+* **Once off timer (set by repeating time/channel based rule)**: Timer generated by a `Repeating time/channel based` timer rule.
+* **Once off timer (set by auto guide-based rule)**: Timer created by an `Auto guide-based` timer rule.
+* **Repeating guide-based**: This type can only be created directly on the Enigma2 device. The type exists to allow users to view the timers in the PVR UI.
+
+The following are the settings in the Timers tab:
+
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
 * **Enable autotimers**: When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot. To set manually on the set-top box enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
@@ -125,7 +152,7 @@ Timeshifting allows you to pause live TV as well as move back and forward from y
     - `Disabled` - No timeshifting
     - `On Pause` - Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing.
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
-* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. 
+* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata.
 
 ### Advanced
 Within this tab more uncommon and advanced options can be configured.
@@ -137,9 +164,10 @@ Within this tab more uncommon and advanced options can be configured.
     - `Standby` - Send the standby command on exit
     - `Deep standby` - Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
-* **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams
+* **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds.
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide.
-* **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements
+* **Enable debug logging in normal mode**: Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level.
+* **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level.
 
 ## Customising Config Files
 
@@ -240,7 +268,7 @@ As the addon was upgraded over time some old settings are no longer required. Th
 23:17:22.697 T:3990016880   DEBUG: CAddonSettings[pvr.vuplus]: failed to find definition for setting setpowerstate. Creating a setting on-the-fly...
 ```
 
-If you see these in debug mode and would like to clean them up you can either: 
+If you see these in debug mode and would like to clean them up you can either:
 
 1. Remove the offending lines from you settings.xml file OR
 2. Delete you settings.xml and restart kodi. Note that if you use this option you will need to reconfigure the addon from scratch.

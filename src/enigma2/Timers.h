@@ -7,8 +7,9 @@
 #include <string>
 #include <type_traits>
 
-#include "data/Timer.h"
+#include "Epg.h"
 #include "data/AutoTimer.h"
+#include "data/Timer.h"
 
 #include "libXBMC_pvr.h"
 #include "tinyxml.h"
@@ -18,8 +19,8 @@ namespace enigma2
   class Timers
   {
   public:
-    Timers(Channels &channels, std::vector<std::string> &locations)
-      : m_channels(channels), m_locations(locations)
+    Timers(Channels &channels, std::vector<std::string> &locations, Epg &epg)
+      : m_channels(channels), m_locations(locations), m_epg(epg)
     {
       m_clientIndexCounter = 1;
     };
@@ -76,5 +77,6 @@ namespace enigma2
 
     Channels &m_channels;
     std::vector<std::string> &m_locations;
+    Epg &m_epg;
   };
 } // namespace enigma2

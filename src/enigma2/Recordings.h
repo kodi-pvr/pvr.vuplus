@@ -22,6 +22,7 @@
  */
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "Channels.h"
@@ -40,6 +41,7 @@ namespace enigma2
     void GetRecordings(std::vector<PVR_RECORDING> &recordings);
     int GetNumRecordings() const;
     void ClearRecordings();
+    void GetRecordingEdl(const std::string &recordingId, std::vector<PVR_EDL_ENTRY> &edlEntries) const;
     bool IsInRecordingFolder(const std::string &strRecordingFolder) const;
     const std::string GetRecordingURL(const PVR_RECORDING &recinfo);
     PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
@@ -51,9 +53,13 @@ namespace enigma2
     void LoadRecordings();
 
   private:   
+    static const std::string FILE_NOT_FOUND_RESPONSE_SUFFIX;
+
     bool GetRecordingsFromLocation(std::string recordingFolder);
+    data::RecordingEntry GetRecording(const std::string &recordingId) const;
 
     std::vector<enigma2::data::RecordingEntry> m_recordings;
+    std::unordered_map<std::string, enigma2::data::RecordingEntry> m_recordingsIdMap;
     std::vector<std::string> m_locations;
 
     Channels &m_channels;

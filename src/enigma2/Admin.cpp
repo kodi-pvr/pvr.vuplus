@@ -22,7 +22,7 @@ using json = nlohmann::json;
 void Admin::SendPowerstate()
 {
   if (Settings::GetInstance().GetPowerstateModeOnAddonExit() != PowerstateMode::DISABLED)
-  {  
+  {
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
       const std::string strCmd = StringUtils::Format("web/powerstate?newstate=4"); //Wakeup
@@ -38,14 +38,14 @@ void Admin::SendPowerstate()
 
       std::string strResult;
       WebUtils::SendSimpleCommand(strCmd, strResult, true);
-    }    
+    }
 
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
     {
       const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strCmd, strResult, true); 
+      WebUtils::SendSimpleCommand(strCmd, strResult, true);
     }
   }
 }
@@ -75,10 +75,10 @@ bool Admin::Initialise()
 
 bool Admin::LoadDeviceInfo()
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo"); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
-  
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -90,7 +90,7 @@ bool Admin::LoadDeviceInfo()
   std::string imageVersion;
   std::string distroVersion;
   std::string webIfVersion;
-  std::string serverName = "Enigma2";    
+  std::string serverName = "Enigma2";
   unsigned int webIfVersionAsNum;
 
   TiXmlHandle hDoc(&xmlDoc);
@@ -110,7 +110,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_NOTICE, "%s - DeviceInfo", __FUNCTION__);
 
   // Get EnigmaVersion
-  if (!XMLUtils::GetString(pElem, "e2enigmaversion", strTmp)) 
+  if (!XMLUtils::GetString(pElem, "e2enigmaversion", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2enigmaversion from result!", __FUNCTION__);
     return false;
@@ -119,7 +119,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_NOTICE, "%s - E2EnigmaVersion: %s", __FUNCTION__, enigmaVersion.c_str());
 
   // Get ImageVersion
-  if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp)) 
+  if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2imageversion from result!", __FUNCTION__);
     return false;
@@ -128,7 +128,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
 
   // Get DistroVersion
-  if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp)) 
+  if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_NOTICE, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
     strTmp = LocalizedString(60081); //unknown
@@ -140,18 +140,18 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_NOTICE, "%s - E2DistroVersion: %s", __FUNCTION__, distroVersion.c_str());
 
   // Get WebIfVersion
-  if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp)) 
+  if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2webifversion from result!", __FUNCTION__);
     return false;
   }
   webIfVersion = strTmp.c_str();
   webIfVersionAsNum = ParseWebIfVersion(webIfVersion);
-  
+
   Logger::Log(LEVEL_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, webIfVersion.c_str());
 
   // Get DeviceName
-  if (!XMLUtils::GetString(pElem, "e2devicename", strTmp)) 
+  if (!XMLUtils::GetString(pElem, "e2devicename", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2devicename from result!", __FUNCTION__);
     return false;
@@ -189,7 +189,7 @@ bool Admin::LoadDeviceInfo()
 
         tunerNumber++;
       }
-    }  
+    }
     else
     {
       Logger::Log(LEVEL_DEBUG, "%s Could not find <e2frontend> element", __FUNCTION__);
@@ -213,7 +213,7 @@ unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
     int count = 0;
     unsigned int versionPart = 0;
     std::regex pattern("([0-9]+)");
-    for (auto i = std::sregex_iterator(webIfVersion.begin(), webIfVersion.end(), pattern); i != std::sregex_iterator(); ++i) 
+    for (auto i = std::sregex_iterator(webIfVersion.begin(), webIfVersion.end(), pattern); i != std::sregex_iterator(); ++i)
     {
         switch (count)
         {
@@ -224,12 +224,12 @@ unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
           case 1:
               versionPart = atoi(i->str().c_str());
               webIfVersionAsNum |= versionPart << 8;
-            break;     
+            break;
           case 2:
               versionPart = atoi(i->str().c_str());
               webIfVersionAsNum |= versionPart;
-            break;      
-        }      
+            break;
+        }
 
         count++;
     }
@@ -286,10 +286,10 @@ bool Admin::LoadDeviceSettings()
 
 bool Admin::LoadAutoTimerSettings()
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "autotimer/get"); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "autotimer/get");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
-  
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -323,20 +323,20 @@ bool Admin::LoadAutoTimerSettings()
   bool setAutoTimerNameToTags = false;
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2setting"))
   {
-    if (!XMLUtils::GetString(pNode, "e2settingname", settingName)) 
+    if (!XMLUtils::GetString(pNode, "e2settingname", settingName))
       return false;
 
-    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue)) 
-      return false;          
+    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue))
+      return false;
 
     if (settingName == "config.plugins.autotimer.add_autotimer_to_tags")
     {
       m_deviceSettings.SetAddTagAutoTimerToTagsEnabled(settingValue == "True");
       setAutoTimerToTags = true;
-    }  
+    }
     else if (settingName == "config.plugins.autotimer.add_name_to_tags")
     {
-       m_deviceSettings.SetAddAutoTimerNameToTagsEnabled(settingValue == "True"); 
+       m_deviceSettings.SetAddAutoTimerNameToTagsEnabled(settingValue == "True");
        setAutoTimerNameToTags = true;
     }
 
@@ -351,10 +351,10 @@ bool Admin::LoadAutoTimerSettings()
 
 bool Admin::LoadRecordingMarginSettings()
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/settings"); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/settings");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
-  
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -388,20 +388,20 @@ bool Admin::LoadRecordingMarginSettings()
   bool readMarginAfter = false;
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2setting"))
   {
-    if (!XMLUtils::GetString(pNode, "e2settingname", settingName)) 
+    if (!XMLUtils::GetString(pNode, "e2settingname", settingName))
       continue;
 
-    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue)) 
-      continue;          
+    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue))
+      continue;
 
     if (settingName == "config.recording.margin_before")
     {
       m_deviceSettings.SetGlobalRecordingStartMargin(atoi(settingValue.c_str()));
       readMarginBefore = true;
-    }  
+    }
     else if (settingName == "config.recording.margin_after")
     {
-       m_deviceSettings.SetGlobalRecordingEndMargin(atoi(settingValue.c_str())); 
+       m_deviceSettings.SetGlobalRecordingEndMargin(atoi(settingValue.c_str()));
        readMarginAfter = true;
     }
 
@@ -422,7 +422,7 @@ bool Admin::SendAutoTimerSettings()
     const std::string url = StringUtils::Format("%s", "autotimer/set?add_name_to_tags=true&add_autotimer_to_tags=true");
     std::string strResult;
 
-    if (!WebUtils::SendSimpleCommand(url, strResult)) 
+    if (!WebUtils::SendSimpleCommand(url, strResult))
       return false;
   }
 
@@ -437,7 +437,7 @@ bool Admin::SendGlobalRecordingStartMarginSetting(int newValue)
     const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_before&value=", newValue);
     std::string strResult;
 
-    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult)) 
+    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult))
       return false;
     else
       m_deviceSettings.SetGlobalRecordingStartMargin(newValue);
@@ -454,7 +454,7 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
     const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_after&value=", newValue);
     std::string strResult;
 
-    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult)) 
+    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult))
       return false;
     else
       m_deviceSettings.SetGlobalRecordingEndMargin(newValue);
@@ -468,10 +468,10 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   long long totalKb = 0;
   long long freeKb = 0;
 
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo"); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
-  
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -519,7 +519,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
 
     if (!mount.empty())
     {
-      auto it = std::find_if(locations.begin(), locations.end(), 
+      auto it = std::find_if(locations.begin(), locations.end(),
         [&mount](std::string& location) { return location.find(mount) != std::string::npos; });
 
       if (it == locations.end())
@@ -567,10 +567,10 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
 
 bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal"); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
-  
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -593,29 +593,29 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
     return false;
   }
 
-  if (!XMLUtils::GetString(pElem, "e2snrdb", snrDb)) 
+  if (!XMLUtils::GetString(pElem, "e2snrdb", snrDb))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2snrdb from result!", __FUNCTION__);
     return false;
   }
 
-  if (!XMLUtils::GetString(pElem, "e2snr", snrPercentage)) 
+  if (!XMLUtils::GetString(pElem, "e2snr", snrPercentage))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2snr from result!", __FUNCTION__);
     return false;
-  }  
+  }
 
-  if (!XMLUtils::GetString(pElem, "e2ber", ber)) 
+  if (!XMLUtils::GetString(pElem, "e2ber", ber))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2ber from result!", __FUNCTION__);
     return false;
-  }  
+  }
 
-  if (!XMLUtils::GetString(pElem, "e2acg", signalStrength)) 
+  if (!XMLUtils::GetString(pElem, "e2acg", signalStrength))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2acg from result!", __FUNCTION__);
     return false;
-  }  
+  }
 
   std::regex regexReplacePercent (" %");
   std::string regexReplace = "";
@@ -627,13 +627,13 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
 
   if (CanUseJsonApi())
   {
-    //TODO: Cross reference against tuners once OpenWebIf API is updated. 
+    //TODO: Cross reference against tuners once OpenWebIf API is updated.
     //StreamStatus streamStatus = GetStreamDetails(channel);
     GetTunerDetails(signalStatus, channel);
   }
 
   return true;
-}  
+}
 
 bool Admin::CanUseJsonApi()
 {
@@ -644,7 +644,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &chann
 {
   StreamStatus streamStatus;
 
-  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/deviceinfo"); 
+  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/deviceinfo");
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -675,7 +675,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &chann
 
         Logger::Log(LEVEL_DEBUG, "%s Active Stream IP: %s, ref: %s, name: %s", __FUNCTION__, jsonStream["ip"].get<std::string>().c_str(), jsonStream["ref"].get<std::string>().c_str(), jsonStream["name"].get<std::string>().c_str());
       }
-    }    
+    }
 
     if (!streamStatus.m_channelName.empty())
     {
@@ -697,19 +697,23 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &chann
           tunerNumber++;
         }
       }
-    }    
+    }
   }
-  catch (nlohmann::detail::parse_error)
+  catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra stream details from OpenWebIf", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra stream details from OpenWebIf - JSON parse error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
   }
 
   return streamStatus;
 }
 
 void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
-{  
-  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal"); 
+{
+  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal");
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -720,7 +724,7 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
     for (const auto& element : jsonDoc.items())
     {
       if (element.key() == "tunernumber")
-      { 
+      {
         Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %d", __FUNCTION__, element.key().c_str(), element.value().get<int>());
 
         int tunerNumber = element.value().get<int>();
@@ -735,13 +739,17 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
       else if (element.key() == "tunertype")
       {
         Logger::Log(LEVEL_DEBUG, "%s Json API - %s : %s", __FUNCTION__, element.key().c_str(), element.value().get<std::string>().c_str());
-        
+
         signalStatus.m_adapterStatus = element.value().get<std::string>();
       }
     }
   }
-  catch (nlohmann::detail::parse_error)
+  catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra tuner details from OpenWebIf", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load extra tuner details from OpenWebIf - JSON parse error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
   }
 }

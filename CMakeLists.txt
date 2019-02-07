@@ -64,6 +64,7 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/data/Channel.h
                    src/enigma2/data/ChannelGroup.h
                    src/enigma2/data/EpgEntry.h
+                   src/enigma2/data/EpgPartialEntry.h
                    src/enigma2/data/RecordingEntry.h
                    src/enigma2/data/Timer.h
                    src/enigma2/extract/IExtractor.h

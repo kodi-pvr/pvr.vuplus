@@ -8,12 +8,12 @@ using namespace enigma2;
 using namespace enigma2::utilities;
 
 StreamReader::StreamReader(const std::string &streamURL,
-  const unsigned int m_readTimeout)
+  const unsigned int readTimeout)
 {
   m_streamHandle = XBMC->CURLCreate(streamURL.c_str());
-  if (m_readTimeout > 0)
+  if (readTimeout > 0)
     XBMC->CURLAddOption(m_streamHandle, XFILE::CURL_OPTION_PROTOCOL,
-      "connection-timeout", std::to_string(0).c_str());
+      "connection-timeout", std::to_string(readTimeout).c_str());
 
   Logger::Log(LEVEL_DEBUG, "%s StreamReader: Started; url=%s", __FUNCTION__, streamURL.c_str());
 }

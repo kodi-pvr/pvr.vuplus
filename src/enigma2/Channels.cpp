@@ -56,10 +56,10 @@ std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelServiceR
   std::shared_ptr<Channel> channel = nullptr;
 
   auto channelPair = m_channelsServiceReferenceMap.find(channelServiceReference);
-  if (channelPair != m_channelsServiceReferenceMap.end()) 
+  if (channelPair != m_channelsServiceReferenceMap.end())
   {
     channel = channelPair->second;
-  } 
+  }
 
   return channel;
 }
@@ -119,7 +119,7 @@ bool Channels::CheckIfAllChannelsHaveInitialEPG() const
   bool someChannelsStillNeedInitialEPG = false;
   for (const auto& channel : m_channels)
   {
-    if (channel->RequiresInitialEPG()) 
+    if (channel->RequiresInitialEPG())
     {
       someChannelsStillNeedInitialEPG = true;
     }
@@ -128,7 +128,7 @@ bool Channels::CheckIfAllChannelsHaveInitialEPG() const
   return !someChannelsStillNeedInitialEPG;
 }
 
-std::string Channels::GetChannelIconPath(std::string strChannelName)  
+std::string Channels::GetChannelIconPath(std::string strChannelName)
 {
   for (const auto& channel : m_channels)
   {
@@ -159,8 +159,8 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
 
-  const std::string strXML = WebUtils::GetHttpXML(strTmp);  
-  
+  const std::string strXML = WebUtils::GetHttpXML(strTmp);
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -187,7 +187,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
     return false;
   }
-  
+
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
     Channel newChannel;
@@ -207,8 +207,8 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     //We can use the JSON API so let's supplement the data with provider information
 
     const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
-    const std::string strJson = WebUtils::GetHttpXML(jsonURL);  
-    
+    const std::string strJson = WebUtils::GetHttpXML(jsonURL);
+
     try
     {
       auto jsonDoc = json::parse(strJson);
@@ -225,7 +225,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
           {
             if (!jsonChannel["provider"].empty())
             {
-              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());          
+              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());
               channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
             }
 
@@ -244,9 +244,13 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
         }
       }
     }
-    catch (nlohmann::detail::parse_error)
+    catch (nlohmann::detail::parse_error& e)
     {
-      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf - JSON parse error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+    }
+    catch (nlohmann::detail::type_error& e)
+    {
+      Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
     }
   }
 

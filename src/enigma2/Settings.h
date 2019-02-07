@@ -112,10 +112,12 @@ namespace enigma2
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
     const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
+    bool ExcludeLastScannedTVGroup() const { return m_excludeLastScannedTVGroup; }
     const ChannelGroupMode& GetRadioChannelGroupMode() const { return m_radioChannelGroupMode; }
     const std::string& GetOneRadioGroupName() const { return m_oneRadioGroup; }
     const FavouritesGroupMode& GetRadioFavouritesMode() const { return m_radioFavouritesMode; }
-   
+    bool ExcludeLastScannedRadioGroup() const { return m_excludeLastScannedRadioGroup; }
+
     //EPG
     bool GetExtractShowInfo() const { return m_extractShowInfo; }
     const std::string& GetExtractShowInfoFile() const { return m_extractShowInfoFile; }
@@ -126,10 +128,15 @@ namespace enigma2
     bool GetLogMissingGenreMappings() const { return m_logMissingGenreMappings; }
     int GetEPGDelayPerChannelDelay() const { return m_epgDelayPerChannel; }
 
-    //Recordings and Timers
+    //Recordings
     const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
+    bool GetRecordingEDLsEnabled() const { return m_enableRecordingEDLs; }
+    int GetEDLStartTimePadding() const { return m_edlStartTimePadding; }
+    int GetEDLStopTimePadding() const { return m_edlStopTimePadding; }
+
+    //Timers
     bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
     int GetNumGenRepeatTimers() const { return m_numGenRepeatTimers; }
     bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
@@ -145,6 +152,7 @@ namespace enigma2
     PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
+    bool GetDebugNormal() const { return m_debugNormal; };
     bool GetTraceDebug() const { return m_traceDebug; };
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
@@ -153,17 +161,17 @@ namespace enigma2
     const std::string& GetWebIfVersion() const { return m_deviceInfo->GetWebIfVersion(); }
 
     const enigma2::utilities::DeviceInfo* GetDeviceInfo() const { return m_deviceInfo; }
-    void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo) { m_deviceInfo = deviceInfo; }    
+    void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo) { m_deviceInfo = deviceInfo; }
 
     const enigma2::utilities::DeviceSettings* GetDeviceSettings() const { return m_deviceSettings; }
-    void SetDeviceSettings(enigma2::utilities::DeviceSettings* deviceSettings) 
-    { 
-      m_deviceSettings = deviceSettings; 
+    void SetDeviceSettings(enigma2::utilities::DeviceSettings* deviceSettings)
+    {
+      m_deviceSettings = deviceSettings;
       m_globalStartPaddingStb = deviceSettings->GetGlobalRecordingStartMargin();
       m_globalEndPaddingStb = deviceSettings->GetGlobalRecordingEndMargin();
-    }    
+    }
 
-    void SetAdmin(enigma2::Admin* admin) { m_admin = admin; }    
+    void SetAdmin(enigma2::Admin* admin) { m_admin = admin; }
 
     inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
     {
@@ -172,7 +180,7 @@ namespace enigma2
 
   private:
     Settings() = default;
-    
+
     Settings(Settings const &) = delete;
     void operator=(Settings const &) = delete;
 
@@ -223,15 +231,17 @@ namespace enigma2
     std::string m_iconPath = "";
     unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
-    
+
     //Channel
     bool m_zap = false;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneTVGroup = "";
     FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
+    bool m_excludeLastScannedTVGroup = false;
     ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
     std::string m_oneRadioGroup = "";
     FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
+    bool m_excludeLastScannedRadioGroup = false;
 
     //EPG
     bool m_extractShowInfo = true;
@@ -243,10 +253,15 @@ namespace enigma2
     bool m_logMissingGenreMappings = true;
     int m_epgDelayPerChannel;
 
-    //Recordings and Timers
+    //Recordings
     std::string m_recordingPath = "";
     bool m_onlyCurrentLocation = false;
     bool m_keepFolders = false;
+    bool m_enableRecordingEDLs = false;
+    int m_edlStartTimePadding = 0;
+    int m_edlStopTimePadding = 0;
+
+    //Timers
     bool m_enableGenRepeatTimers = true;
     int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
     bool m_enableAutoTimers = true;
@@ -261,6 +276,7 @@ namespace enigma2
     PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
+    bool m_debugNormal = false;
     bool m_traceDebug = false;
 
     //Backend

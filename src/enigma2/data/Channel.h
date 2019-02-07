@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -39,6 +39,7 @@ namespace enigma2
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
       const std::string SERVICE_REF_GENERIC_POSTFIX = ":0:0:0";
+      const std::string RADIO_SERVICE_TYPE = "2";
 
       Channel() = default;
       Channel(Channel &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()), m_channelNumber(c.GetChannelNumber()),
@@ -47,48 +48,49 @@ namespace enigma2
       ~Channel() = default;
 
       bool IsRadio() const { return m_radio; }
-      void SetRadio(bool value) { m_radio = value; }      
+      void SetRadio(bool value) { m_radio = value; }
 
       bool RequiresInitialEPG() const { return m_requiresInitialEPG; }
-      void SetRequiresInitialEPG(bool value) { m_requiresInitialEPG = value; }      
+      void SetRequiresInitialEPG(bool value) { m_requiresInitialEPG = value; }
 
       int GetUniqueId() const { return m_uniqueId; }
-      void SetUniqueId(int value) { m_uniqueId = value; }      
+      void SetUniqueId(int value) { m_uniqueId = value; }
 
       int GetChannelNumber() const { return m_channelNumber; }
-      void SetChannelNumber(int value) { m_channelNumber = value; }      
+      void SetChannelNumber(int value) { m_channelNumber = value; }
 
       const std::string& GetChannelName() const { return m_channelName; }
-      void SetChannelName(const std::string& value ) { m_channelName = value; }      
+      void SetChannelName(const std::string& value ) { m_channelName = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }      
+      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
 
       const std::string& GetGenericServiceReference() const { return m_genericServiceReference; }
-      void SetGenericServiceReference(const std::string& value ) { m_genericServiceReference = value; }      
+      void SetGenericServiceReference(const std::string& value ) { m_genericServiceReference = value; }
 
       const std::string& GetStreamURL() const { return m_streamURL; }
-      void SetStreamURL(const std::string& value ) { m_streamURL = value; }      
+      void SetStreamURL(const std::string& value ) { m_streamURL = value; }
 
       const std::string& GetM3uURL() const { return m_m3uURL; }
-      void SetM3uURL(const std::string& value ) { m_m3uURL = value; }      
+      void SetM3uURL(const std::string& value ) { m_m3uURL = value; }
 
       const std::string& GetIconPath() const { return m_iconPath; }
       void SetIconPath(const std::string& value ) { m_iconPath = value; }
 
       const std::string& GetProviderName() const { return m_providerName; }
-      void SetProviderlName(const std::string& value ) { m_providerName = value; }      
+      void SetProviderlName(const std::string& value ) { m_providerName = value; }
 
-      bool UpdateFrom(TiXmlElement* channelNode); 
+      bool UpdateFrom(TiXmlElement* channelNode);
       void UpdateTo(PVR_CHANNEL &left) const;
 
       void AddChannelGroup(std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> GetChannelGroupList() { return m_channelGroupList; };
 
-    private:   
+    private:
       std::string GetCommonServiceReference(const std::string &serviceReference);
       std::string GetGenericServiceReference(const std::string &commonServiceReference);
       std::string CreateIconPath(const std::string &commonServiceReference);
+      bool HasRadioServiceType();
 
       bool m_radio;
       bool m_requiresInitialEPG = true;

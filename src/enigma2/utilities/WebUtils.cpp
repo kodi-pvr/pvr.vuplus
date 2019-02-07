@@ -83,7 +83,7 @@ std::string WebUtils::URLEncodeInline(const std::string &sSrc)
   return sResult;
 }
 
-std::string WebUtils::GetHttpXML(const std::string& url)
+std::string WebUtils::GetHttp(const std::string& url)
 {
   Logger::Log(LEVEL_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
 
@@ -96,12 +96,19 @@ std::string WebUtils::GetHttpXML(const std::string& url)
     return "";
   }
 
+  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
+  
+  return strTmp;
+}
+
+std::string WebUtils::GetHttpXML(const std::string& url)
+{
+  std::string strTmp = GetHttp(url);
+
   // If there is no newline add it as it not being there will cause a parse error
   // TODO: Remove once bug is fixed in Open WebIf
   if (strTmp.back() != '\n')
     strTmp += "\n";
-
-  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
   
   return strTmp;
 }

@@ -1,6 +1,8 @@
 #include "Recordings.h"
 
+#include <iostream>
 #include <regex>
+#include <sstream>
 
 #include "../client.h"
 #include "../Enigma2.h"
@@ -14,6 +16,8 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+
+const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";
 
 void Recordings::GetRecordings(std::vector<PVR_RECORDING> &kodiRecordings)
 {
@@ -37,6 +41,69 @@ int Recordings::GetNumRecordings() const
 void Recordings::ClearRecordings()
 {
   m_recordings.clear();
+  m_recordingsIdMap.clear();
+}
+
+void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR_EDL_ENTRY> &edlEntries) const
+{
+  const RecordingEntry recordingEntry = GetRecording(recordingId);
+
+  if (!recordingEntry.GetEdlURL().empty())
+  {
+    const std::string edlFile = WebUtils::GetHttp(recordingEntry.GetEdlURL());
+
+    if (!StringUtils::EndsWith(edlFile, FILE_NOT_FOUND_RESPONSE_SUFFIX))
+    {
+      std::istringstream stream(edlFile);
+      std::string line;    
+      int lineNumber = 0;
+      while (std::getline(stream, line)) 
+      {
+        Logger::Log(LEVEL_NOTICE, "RNL YesV '%s'", line.c_str());
+
+        float start = 0.0f, stop = 0.0f;
+        unsigned int type = PVR_EDL_TYPE_CUT;
+        lineNumber++;
+        if (std::sscanf(line.c_str(), "%f %f %u", &start, &stop, &type) < 2 || type > PVR_EDL_TYPE_COMBREAK)
+        {
+          Logger::Log(LEVEL_NOTICE, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber);
+          continue;
+        }        
+
+        Logger::Log(LEVEL_NOTICE, "RNL start: %f, stop: %f, %d", start, stop, type);
+
+        start += static_cast<float>(Settings::GetInstance().GetEDLStartTimePadding()) / 1000.0f;
+        stop  += static_cast<float>(Settings::GetInstance().GetEDLStopTimePadding()) / 1000.0f;
+
+        start = std::max(start, 0.0f);
+        stop  = std::max(stop,  0.0f);
+        start = std::min(start, stop);
+        stop  = std::max(start, stop);
+
+        Logger::Log(LEVEL_NOTICE, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
+
+        PVR_EDL_ENTRY edlEntry;
+        edlEntry.start = static_cast<int64_t>(start * 1000.0f);
+        edlEntry.end   = static_cast<int64_t>(stop  * 1000.0f);
+        edlEntry.type  = static_cast<PVR_EDL_TYPE>(type);    
+
+        edlEntries.emplace_back(edlEntry);
+      }  
+    }
+  }
+}
+
+RecordingEntry Recordings::GetRecording(const std::string &recordingId) const
+{
+  RecordingEntry entry;
+
+  auto recordingPair = m_recordingsIdMap.find(recordingId);
+  if (recordingPair != m_recordingsIdMap.end()) 
+  {
+    entry = recordingPair->second;
+  }
+
+  return entry;
 }
 
 bool Recordings::IsInRecordingFolder(const std::string &recordingFolder) const
@@ -218,6 +285,7 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
       iNumRecordings++;
 
       m_recordings.emplace_back(recordingEntry);
+      m_recordingsIdMap.insert({recordingEntry.GetRecordingId(), recordingEntry});
 
       Logger::Log(LEVEL_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetStartTime(), recordingEntry.GetDuration());
     }

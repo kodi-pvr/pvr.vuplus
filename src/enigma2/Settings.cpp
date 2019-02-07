@@ -26,25 +26,25 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("webport", &m_portWeb))
     m_portWeb = DEFAULT_WEB_PORT;
-  
+
   if (!XBMC->GetSetting("use_secure", &m_useSecureHTTP))
     m_useSecureHTTP = false;
-  
+
   if (XBMC->GetSetting("user", buffer))
     m_username = buffer;
   else
     m_username = "";
   buffer[0] = 0;
-  
+
   if (XBMC->GetSetting("pass", buffer))
     m_password = buffer;
   else
     m_password = "";
   buffer[0] = 0;
-  
+
   if (!XBMC->GetSetting("autoconfig", &m_autoConfig))
     m_autoConfig = false;
-  
+
   if (!XBMC->GetSetting("streamport", &m_portStream))
     m_portStream = DEFAULT_STREAM_PORT;
 
@@ -57,7 +57,7 @@ void Settings::ReadFromAddon()
   //General
   if (!XBMC->GetSetting("onlinepicons", &m_onlinePicons))
     m_onlinePicons = true;
-  
+
   if (!XBMC->GetSetting("usepiconseuformat", &m_usePiconsEuFormat))
     m_usePiconsEuFormat = false;
 
@@ -82,7 +82,7 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("tvgroupmode", &m_tvChannelGroupMode))
     m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
-  
+
   if (XBMC->GetSetting("onetvgroup", buffer))
     m_oneTVGroup = buffer;
   else
@@ -92,9 +92,12 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("tvfavouritesmode", &m_tvFavouritesMode))
     m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
 
+  if (!XBMC->GetSetting("excludelastscannedtv", &m_excludeLastScannedTVGroup))
+    m_excludeLastScannedTVGroup = false;
+
   if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
     m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
-  
+
   if (XBMC->GetSetting("oneradiogroup", buffer))
     m_oneRadioGroup = buffer;
   else
@@ -103,6 +106,9 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("radiofavouritesmode", &m_radioFavouritesMode))
     m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
+
+  if (!XBMC->GetSetting("excludelastscannedradio", &m_excludeLastScannedRadioGroup))
+    m_excludeLastScannedRadioGroup = false;
 
   //EPG
   if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))
@@ -138,7 +144,7 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("epgdelayperchannel", &m_epgDelayPerChannel))
     m_epgDelayPerChannel = 0;
 
-  //Recording and Timers
+  //Recording
   if (XBMC->GetSetting("recordingpath", buffer))
     m_recordingPath = buffer;
   else
@@ -147,10 +153,20 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("onlycurrent", &m_onlyCurrentLocation))
     m_onlyCurrentLocation = false;
-  
+
   if (!XBMC->GetSetting("keepfolders", &m_keepFolders))
     m_keepFolders = false;
-  
+
+  if (!XBMC->GetSetting("enablerecordingedls", &m_enableRecordingEDLs))
+    m_enableRecordingEDLs = false;
+
+  if (!XBMC->GetSetting("edlpaddingstart", &m_edlStartTimePadding))
+    m_edlStartTimePadding = 0;
+
+  if (!XBMC->GetSetting("edlpaddingstop", &m_edlStopTimePadding))
+    m_edlStopTimePadding = 0;
+
+  //Timers
   if (!XBMC->GetSetting("enablegenrepeattimers", &m_enableGenRepeatTimers))
     m_enableGenRepeatTimers = true;
 
@@ -179,18 +195,21 @@ void Settings::ReadFromAddon()
 
   if (!XBMC->GetSetting("powerstatemode", &m_powerstateMode))
     m_powerstateMode = PowerstateMode::DISABLED;
-  
+
   if (!XBMC->GetSetting("readtimeout", &m_readTimeout))
     m_readTimeout = 0;
 
   if (!XBMC->GetSetting("streamreadchunksize", &m_streamReadChunkSize))
     m_streamReadChunkSize = 0;
 
+  if (!XBMC->GetSetting("debugnormal", &m_debugNormal))
+    m_traceDebug = false;
+
   if (!XBMC->GetSetting("tracedebug", &m_traceDebug))
     m_traceDebug = false;
 
   // Now that we've read all the settings construct the connection URL
-  
+
   m_connectionURL.clear();
   // simply add user@pass in front of the URL if username/password is set
   if ((m_username.length() > 0) && (m_password.length() > 0))
@@ -198,7 +217,7 @@ void Settings::ReadFromAddon()
   if (!m_useSecureHTTP)
     m_connectionURL = StringUtils::Format("http://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
   else
-    m_connectionURL = StringUtils::Format("https://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);  
+    m_connectionURL = StringUtils::Format("https://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
 }
 
 ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *settingValue)
@@ -244,12 +263,16 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tvfavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "excludelastscannedtv")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "radiogroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "oneradiogroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "radiofavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "excludelastscannedradio")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedRadioGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //EPG
   else if (settingName == "extractepginfoenabled")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -267,13 +290,20 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "epgdelayperchannel")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_epgDelayPerChannel, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  //Recordings and Timers
+  //Recordings
   else if (settingName == "recordingpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "enablerecordingedls")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableRecordingEDLs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "edlpaddingstart")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStartTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "edlpaddingstop")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStopTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  //Timers
   else if (settingName == "enablegenrepeattimers")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "numgenrepeattimers")
@@ -296,6 +326,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "debugnormal")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_debugNormal, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tracedebug")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_traceDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Backend

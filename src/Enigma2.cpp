@@ -399,6 +399,34 @@ PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo)
   return m_recordings.DeleteRecording(recinfo);
 }
 
+PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
+{
+  std::vector<PVR_EDL_ENTRY> edlEntries;
+  {
+    CLockObject lock(m_mutex);
+    m_recordings.GetRecordingEdl(recinfo.strRecordingId, edlEntries);
+  }  
+
+  Logger::Log(LEVEL_DEBUG, "%s - recording '%s' has '%d' EDL entries available", __FUNCTION__, recinfo.strTitle, edlEntries.size());
+
+  int index = 0;
+  int maxSize = *size;
+  for (auto &edlEntry : edlEntries)
+  {
+    if (index >= maxSize)
+      break;
+
+    edl[index].start = edlEntry.start;
+    edl[index].end = edlEntry.end;
+    edl[index].type = edlEntry.type;
+
+    index++;
+  }
+  *size = edlEntries.size();
+
+  return PVR_ERROR_NO_ERROR;
+}
+
 RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
 {
   CLockObject lock(m_mutex);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.16.2"
+  version="3.17.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -175,6 +175,16 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v3.17.0
+- Added: Recording EDL support
+- Added: Update Timer Types to display correctly in Manual vs EPG UIs
+- Added: Updated show info regex's
+- Fixed: Timer Recording not displaying description - Not being stored on STB - AddTimer Call, fixes #174
+- Fixed: Fix for uncaught type_error for nlohmann/json
+- Fixed: Include TV Favourites channels by default in settings
+- Added: Support Last Scanned for both TV and Radio, fixes #178
+- Fixed: Null pointer check for Genre EPG data processed XML
+
 v3.16.2
 - Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
 - Fixed: Incorrectly used time_t instead int64 in GetStreamTimes, fixes #171
@@ -206,12 +216,12 @@ v3.15.4
 v3.15.3
 - Fixed: GetStreamTimes not implemented for Recordings, fixes #148
 - Fixed: When starting a recording partway through start time is EPG start not recording start, fixes #147
-    
+
 v3.15.2
 - Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
 - Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
 - Fixed: Missing default value from timeshift buffer path, fixes #140
-- Fixed: Channel Group Member Order not preserved, fixes #141 
+- Fixed: Channel Group Member Order not preserved, fixes #141
 
 v3.15.1
 - Fixed: since 3.15.0 pvr manager cant start #134

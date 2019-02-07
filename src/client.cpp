@@ -109,17 +109,20 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
       return;
 
+    if (Settings::GetInstance().GetDebugNormal() && level == LogLevel::LEVEL_DEBUG)
+      addonLevel = addon_log_t::LOG_NOTICE;
+
     XBMC->Log(addonLevel, "%s", message);
   });
 
   Logger::GetInstance().SetPrefix("pvr.vuplus");
 
-  Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __FUNCTION__);  
+  Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __FUNCTION__);
 
   settings.ReadFromAddon();
 
   enigma = new Enigma2();
-  if (!enigma->Open()) 
+  if (!enigma->Open())
   {
     SAFE_DELETE(enigma);
     SAFE_DELETE(PVR);
@@ -153,7 +156,7 @@ void ADDON_Destroy()
   {
     enigma->SendPowerstate();
   }
-  
+
   SAFE_DELETE(enigma);
   SAFE_DELETE(PVR);
   SAFE_DELETE(XBMC);
@@ -203,6 +206,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bHandlesDemuxing            = false;
   pCapabilities->bSupportsLastPlayedPosition = false;
   pCapabilities->bSupportsRecordingsRename   = false;
+  pCapabilities->bSupportsRecordingEdl       = true;
   pCapabilities->bSupportsRecordingsLifetimeChange = false;
   pCapabilities->bSupportsDescrambleInfo = false;
 
@@ -249,7 +253,7 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
   // AGC = Automatic Gain Control - which means signal strength
   // BER = Bit Error Rate - which shows the error rate of the signal.
   // UNC = There is not notion of UNC on enigma devices
-  
+
   // So, SNR and AGC should be as high as possible.
   // BER should be as low as possible, like 0. It can be higher, if your other values are higher.
 
@@ -352,7 +356,7 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
   streamReader = new StreamReader(streamURL, settings.GetReadTimeoutSecs());
   if (settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
     streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
-  
+
   return streamReader->Start();
 }
 
@@ -418,9 +422,9 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
     times->ptsBegin = 0;
     times->ptsEnd = (!streamReader->IsTimeshifting()) ? 0
       : (streamReader->TimeEnd() - streamReader->TimeStart()) * DVD_TIME_BASE;
-    
+
     return PVR_ERROR_NO_ERROR;
-  }  
+  }
   else if (recordingReader)
   {
     times->startTime = 0;
@@ -475,6 +479,20 @@ PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
     return PVR_ERROR_SERVER_ERROR;
 
   return enigma->DeleteRecording(recording);
+}
+
+PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (!settings.GetRecordingEDLsEnabled())
+  {
+    *size = 0;
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return enigma->GetRecordingEdl(recinfo, edl, size);
 }
 
 /***************************************************************************
@@ -572,7 +590,7 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
 }
 
 /** UNUSED API FUNCTIONS */
-PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; } 
+PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxAbort(void) { return; }
 DemuxPacket* DemuxRead(void) { return nullptr; }
@@ -589,7 +607,6 @@ PVR_ERROR RenameRecording(const PVR_RECORDING &recording) { return PVR_ERROR_NOT
 PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition) { return PVR_ERROR_NOT_IMPLEMENTED; }
 int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR GetRecordingEdl(const PVR_RECORDING&, PVR_EDL_ENTRY[], int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 bool SeekTime(double,bool,double*) { return false; }
 void SetSpeed(int) {};
 PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording) { return PVR_ERROR_NOT_IMPLEMENTED; }

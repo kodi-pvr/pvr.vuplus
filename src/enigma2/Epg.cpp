@@ -7,6 +7,7 @@
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <nlohmann/json.hpp>
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
@@ -14,6 +15,7 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+using json = nlohmann::json;
 
 Epg::Epg (enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups, enigma2::extract::EpgEntryExtractor &entryExtractor)
       : m_channels(channels), m_channelGroups(channelGroups), m_entryExtractor(entryExtractor) {}
@@ -37,7 +39,7 @@ void Epg::TriggerEpgUpdatesForChannels()
   {
     Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel '%d'", __FUNCTION__, channel->GetUniqueId());
     PVR->TriggerEpgUpdate(channel->GetUniqueId());
-  }  
+  }
 }
 
 PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
@@ -66,9 +68,9 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
     return GetInitialEPGForChannel(handle, myChannel, iStart, iEnd);
   }
 
-  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgservice?sRef=",  
+  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgservice?sRef=",
                                               WebUtils::URLEncodeInline(myChannel->GetServiceReference()).c_str());
- 
+
   const std::string strXML = WebUtils::GetHttpXML(url);
 
   int iNumEPG = 0;
@@ -83,7 +85,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
   TiXmlHandle hDoc(&xmlDoc);
 
   TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
- 
+
   if (!pElem)
   {
     Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
@@ -101,7 +103,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
     // RETURN "NO_ERROR" as the EPG could be empty for this channel
     return PVR_ERROR_SERVER_ERROR;
   }
-  
+
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
   {
     EpgEntry entry;
@@ -119,7 +121,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
 
     PVR->TransferEpgEntry(handle, &broadcast);
 
-    iNumEPG++; 
+    iNumEPG++;
 
     Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __FUNCTION__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
   }
@@ -130,13 +132,13 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel,
 
 bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
 {
-  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",  
+  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",
                                                 WebUtils::URLEncodeInline(group->GetServiceReference()).c_str());
- 
+
   const std::string strXML = WebUtils::GetHttpXML(url);
 
   int iNumEPG = 0;
-  
+
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
@@ -147,7 +149,7 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
   TiXmlHandle hDoc(&xmlDoc);
 
   TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
- 
+
   if (!pElem)
   {
     Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
@@ -165,7 +167,7 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
     // RETURN "NO_ERROR" as the EPG could be empty for this channel
     return false;
   }
-  
+
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
   {
     EpgEntry entry;
@@ -176,8 +178,8 @@ bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
     if (m_entryExtractor.IsEnabled())
       m_entryExtractor.ExtractFromEntry(entry);
 
-    iNumEPG++; 
-    
+    iNumEPG++;
+
     group->GetInitialEPG().emplace_back(entry);
   }
 
@@ -225,7 +227,7 @@ PVR_ERROR Epg::GetInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_pt
 
   for (const auto& entry : myGroupPtr->GetInitialEPG())
   {
-    if (channel->GetServiceReference() == entry.GetServiceReference()) 
+    if (channel->GetServiceReference() == entry.GetServiceReference())
     {
       EPG_TAG broadcast;
       memset(&broadcast, 0, sizeof(EPG_TAG));
@@ -237,4 +239,87 @@ PVR_ERROR Epg::GetInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_pt
   }
 
   return PVR_ERROR_NO_ERROR;
+}
+
+std::string Epg::LoadEPGEntryShortDescription(const std::string &serviceReference, unsigned int epgUid)
+{
+  std::string shortDescription;
+
+  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    if (!jsonDoc["event"].empty())
+    {
+      for (const auto& element : jsonDoc["event"].items())
+      {
+        if (element.key() == "shortdesc")
+        {
+          Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event short description for sref: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), epgUid, element.value().get<std::string>().c_str());
+          shortDescription = element.value().get<std::string>();
+        }
+      }
+    }
+  }
+  catch (nlohmann::detail::parse_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load short descrption from OpenWebIf for sref: %s, epgId: %u - JSON parse error - message: %s, exception id: %d", __FUNCTION__, serviceReference.c_str(), epgUid, e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+
+  return shortDescription;
+}
+
+EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime)
+{
+  EpgPartialEntry partialEntry;
+
+  const std::string jsonUrl = StringUtils::Format("%sapi/epgservice?sRef=%s&time=%ld&endTime=1", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), startTime);
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    if (!jsonDoc["events"].empty())
+    {
+      for (const auto& event : jsonDoc["events"].items())
+      {
+        for (const auto& element : event.value().items())
+        {
+          if (element.key() == "shortdesc")
+            partialEntry.shortDescription = element.value().get<std::string>();
+          else if (element.key() == "title")
+            partialEntry.title = element.value().get<std::string>();
+          else if (element.key() == "id")
+            partialEntry.epgUid = element.value().get<unsigned int>();
+        }
+
+        if (partialEntry.EntryFound())
+        {
+          Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.title.c_str(), partialEntry.epgUid, partialEntry.shortDescription.c_str());
+        }
+
+        break; //We only want first event
+      }
+    }
+  }
+  catch (nlohmann::detail::parse_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot event details from OpenWebIf for sref: %s, time: %ld - JSON parse error - message: %s, exception id: %d", __FUNCTION__, serviceReference.c_str(), startTime, e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+
+  return partialEntry;
 }

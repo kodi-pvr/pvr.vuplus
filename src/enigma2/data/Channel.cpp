@@ -18,12 +18,15 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
 {
   if (!XMLUtils::GetString(channelNode, "e2servicereference", m_serviceReference))
     return false;
-  
+
   // Check whether the current element is not just a label
   if (m_serviceReference.compare(0,5,"1:64:") == 0)
     return false;
 
-  if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName)) 
+  if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
+    return false;
+
+  if (m_radio != HasRadioServiceType())
     return false;
 
   const std::string commonServiceReference = GetCommonServiceReference(m_serviceReference);
@@ -69,7 +72,7 @@ std::string Channel::GetCommonServiceReference(const std::string &serviceReferen
   if (*it == ':')
   {
     commonServiceReference.erase(it);
-  }  
+  }
 
   return commonServiceReference;
 }
@@ -84,7 +87,7 @@ std::string Channel::GetGenericServiceReference(const std::string &commonService
   genericServiceReference = regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
   std::regex endPostfixRegex (":\\d+:\\d+:\\d+$");
   genericServiceReference = regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
-  genericServiceReference = SERVICE_REF_GENERIC_PREFIX + genericServiceReference + SERVICE_REF_GENERIC_POSTFIX;  
+  genericServiceReference = SERVICE_REF_GENERIC_PREFIX + genericServiceReference + SERVICE_REF_GENERIC_POSTFIX;
 
   return genericServiceReference;
 }
@@ -106,6 +109,16 @@ std::string Channel::CreateIconPath(const std::string &commonServiceReference)
     iconPath = Settings::GetInstance().GetIconPath().c_str() + iconPath + ".png";
 
   return iconPath;
+}
+
+bool Channel::HasRadioServiceType()
+{
+  std::string radioServiceType = m_serviceReference.substr(4, m_serviceReference.size());
+  size_t found = radioServiceType.find(':');
+  if (found != std::string::npos)
+    radioServiceType = radioServiceType.substr(0, found);
+
+  return radioServiceType == RADIO_SERVICE_TYPE;
 }
 
 void Channel::UpdateTo(PVR_CHANNEL &left) const
