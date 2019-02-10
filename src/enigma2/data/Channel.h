@@ -25,6 +25,8 @@
 #include <string>
 #include <vector>
 
+#include "BaseChannel.h"
+
 #include "libXBMC_pvr.h"
 #include "tinyxml.h"
 
@@ -34,7 +36,7 @@ namespace enigma2
   {
     class ChannelGroup;
 
-    class Channel
+    class Channel : public BaseChannel
     {
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
@@ -42,28 +44,12 @@ namespace enigma2
       const std::string RADIO_SERVICE_TYPE = "2";
 
       Channel() = default;
-      Channel(Channel &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()), m_channelNumber(c.GetChannelNumber()),
-        m_channelName(c.GetChannelName()), m_serviceReference(c.GetServiceReference()),
+      Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()) {};
       ~Channel() = default;
 
-      bool IsRadio() const { return m_radio; }
-      void SetRadio(bool value) { m_radio = value; }
-
-      bool RequiresInitialEPG() const { return m_requiresInitialEPG; }
-      void SetRequiresInitialEPG(bool value) { m_requiresInitialEPG = value; }
-
-      int GetUniqueId() const { return m_uniqueId; }
-      void SetUniqueId(int value) { m_uniqueId = value; }
-
       int GetChannelNumber() const { return m_channelNumber; }
       void SetChannelNumber(int value) { m_channelNumber = value; }
-
-      const std::string& GetChannelName() const { return m_channelName; }
-      void SetChannelName(const std::string& value ) { m_channelName = value; }
-
-      const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
 
       const std::string& GetGenericServiceReference() const { return m_genericServiceReference; }
       void SetGenericServiceReference(const std::string& value ) { m_genericServiceReference = value; }
@@ -92,12 +78,7 @@ namespace enigma2
       std::string CreateIconPath(const std::string &commonServiceReference);
       bool HasRadioServiceType();
 
-      bool m_radio;
-      bool m_requiresInitialEPG = true;
-      int m_uniqueId;
       int m_channelNumber;
-      std::string m_channelName;
-      std::string m_serviceReference;
       std::string m_genericServiceReference;
       std::string m_streamURL;
       std::string m_m3uURL;

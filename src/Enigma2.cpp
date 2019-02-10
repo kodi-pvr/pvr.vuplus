@@ -128,6 +128,9 @@ bool Enigma2::Open()
       return false;
     }
   }
+
+  m_epg.Initialise(m_channels, m_channelGroups);
+
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
   m_timers.TimerUpdates();
 
@@ -156,7 +159,8 @@ void *Enigma2::Process()
       Sleep(5 * 1000);
   }
 
-  // Trigger "Real" EPG updates
+  // Whether or not initial EPG updates occurred now Trigger "Real" EPG updates
+  // This will regard Initial EPG as completed anyway.
   m_epg.TriggerEpgUpdatesForChannels();
 
   while(!IsStopped())
@@ -295,7 +299,13 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
     Sleep(m_settings.GetEPGDelayPerChannelDelay());
 
-  return m_epg.GetEPGForChannel(handle, channel, iStart, iEnd);
+  if (!m_channels.IsValid(channel.iUniqueId))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  return m_epg.GetEPGForChannel(handle, m_channels.GetChannel(channel.iUniqueId)->GetServiceReference(), iStart, iEnd);
 }
 
 /***************************************************************************

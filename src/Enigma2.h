@@ -108,7 +108,7 @@ private:
   enigma2::ChannelGroups m_channelGroups;
   enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg = enigma2::Epg(m_channels, m_channelGroups, m_entryExtractor);
+  enigma2::Epg m_epg = enigma2::Epg(m_entryExtractor);
   enigma2::Timers m_timers = enigma2::Timers(m_channels, m_locations, m_epg);
   enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;

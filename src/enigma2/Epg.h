@@ -21,43 +21,54 @@
  *
  */
 
+#include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "Channels.h"
 #include "ChannelGroups.h"
 #include "data/EpgPartialEntry.h"
+#include "data/EpgChannel.h"
 #include "extract/EpgEntryExtractor.h"
 
 #include "libXBMC_pvr.h"
 
+#include "p8-platform/threads/threads.h"
+
 namespace enigma2
 {
-  static const std::string INITIAL_EPG_READY_FILE = "special://userdata/addon_data/pvr.vuplus/initialEPGReady";
+  static const float LAST_SCANNED_INITIAL_EPG_SUCCESS_PERCENT = 0.99f;
 
   class Epg
   {
   public:
-    Epg (enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups, enigma2::extract::EpgEntryExtractor &entryExtractor);
+    Epg(enigma2::extract::EpgEntryExtractor &entryExtractor);
+    Epg(const enigma2::Epg& epg);
 
+    bool Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups);
     bool IsInitialEpgCompleted();
     void TriggerEpgUpdatesForChannels();
-    PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
+    PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const std::string serviceReference, time_t iStart, time_t iEnd);
     std::string LoadEPGEntryShortDescription(const std::string &serviceReference, unsigned int epgUid);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime);
 
   private:
-    void InitialiseEpgReadyFile();
+    PVR_ERROR TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<data::EpgChannel> &epgChannel, time_t iStart, time_t iEnd);
+    std::shared_ptr<data::EpgChannel> GetEpgChannel(const std::string serviceReference);
+    bool LoadInitialEPGForGroup(const std::shared_ptr<enigma2::data::ChannelGroup> group);
+    bool ChannelNeedsInitialEpg(const std::string serviceReference);
+    bool InitialEpgLoadedForChannel(const std::string serviceReference);
+    bool InitialEpgReadForChannel(const std::string serviceReference);
+    std::shared_ptr<data::EpgChannel> GetEpgChannelNeedingInitialEpg(const std::string serviceReference);
 
-    bool GetInitialEPGForGroup(std::shared_ptr<enigma2::data::ChannelGroup> group);
-    PVR_ERROR GetInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<enigma2::data::Channel> &channel, time_t iStart, time_t iEnd);
-
-    enigma2::Channels &m_channels;
-    enigma2::ChannelGroups &m_channelGroups;
     enigma2::extract::EpgEntryExtractor &m_entryExtractor;
 
-    void *m_writeHandle;
-    void *m_readHandle;
-    bool m_allChannelsHaveInitialEPG = false;
+    bool m_initialEpgReady = false;
+
+    std::vector<std::shared_ptr<data::EpgChannel>> m_epgChannels;
+    std::map<std::string, std::shared_ptr<data::EpgChannel>> m_epgChannelsMap;
+    std::map<std::string, std::shared_ptr<data::EpgChannel>> m_readInitialEpgChannelsMap;
+    std::map<std::string, std::shared_ptr<data::EpgChannel>> m_needsInitialEpgChannelsMap;
   };
 } //namespace enigma2

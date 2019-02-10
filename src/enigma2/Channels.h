@@ -52,7 +52,6 @@ namespace enigma2
     int GetNumChannels() const;
     void ClearChannels();
     std::vector<std::shared_ptr<enigma2::data::Channel>>& GetChannelsList();
-    bool CheckIfAllChannelsHaveInitialEPG() const;
     std::string GetChannelIconPath(std::string strChannelName);
     bool LoadChannels(enigma2::ChannelGroups &channelGroups);
 
