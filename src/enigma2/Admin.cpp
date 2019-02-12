@@ -19,6 +19,12 @@ using namespace enigma2::extract;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
+Admin::Admin() : m_addonVersion(STR(VUPLUS_VERSION))
+{
+  m_serverName[0] = '\0';
+  m_serverVersion[0] = '\0';
+};
+
 void Admin::SendPowerstate()
 {
   if (Settings::GetInstance().GetPowerstateModeOnAddonExit() != PowerstateMode::DISABLED)
@@ -52,6 +58,10 @@ void Admin::SendPowerstate()
 
 bool Admin::Initialise()
 {
+  std::string unknown = LocalizedString(60081).c_str();
+  SetCharString(m_serverName, unknown);
+  SetCharString(m_serverVersion, unknown);
+
   Settings::GetInstance().SetAdmin(this);
 
   bool deviceInfoLoaded = LoadDeviceInfo();
@@ -88,9 +98,9 @@ bool Admin::LoadDeviceInfo()
 
   std::string enigmaVersion;
   std::string imageVersion;
-  std::string distroVersion;
+  std::string distroName;
   std::string webIfVersion;
-  std::string serverName = "Enigma2";
+  std::string deviceName = "Enigma2";
   unsigned int webIfVersionAsNum;
 
   TiXmlHandle hDoc(&xmlDoc);
@@ -127,7 +137,7 @@ bool Admin::LoadDeviceInfo()
   imageVersion = strTmp.c_str();
   Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
 
-  // Get DistroVersion
+  // Get distroName
   if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_NOTICE, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
@@ -135,9 +145,9 @@ bool Admin::LoadDeviceInfo()
   }
   else
   {
-    distroVersion = strTmp.c_str();
+    distroName = strTmp.c_str();
   }
-  Logger::Log(LEVEL_NOTICE, "%s - E2DistroVersion: %s", __FUNCTION__, distroVersion.c_str());
+  Logger::Log(LEVEL_NOTICE, "%s - E2DistroName: %s", __FUNCTION__, distroName.c_str());
 
   // Get WebIfVersion
   if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp))
@@ -156,10 +166,16 @@ bool Admin::LoadDeviceInfo()
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2devicename from result!", __FUNCTION__);
     return false;
   }
-  serverName = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, serverName.c_str());
+  deviceName = strTmp.c_str();
+  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, deviceName.c_str());
 
-  m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
+  m_deviceInfo = DeviceInfo(deviceName, enigmaVersion, imageVersion, distroName, webIfVersion, webIfVersionAsNum);
+
+  std::string version = webIfVersion + " - " + distroName + " (" + imageVersion + "/" + enigmaVersion + ")";
+  SetCharString(m_serverName, deviceName);
+  SetCharString(m_serverVersion, version);
+
+  Logger::Log(LEVEL_NOTICE, "%s - ServerVersion: %s", __FUNCTION__, m_serverVersion);
 
   Logger::Log(LEVEL_NOTICE, "%s - AddonVersion: %s", __FUNCTION__, m_addonVersion.c_str());
 
@@ -752,4 +768,10 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
   {
     Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
   }
+}
+
+void Admin::SetCharString(char* target, const std::string value)
+{
+  std::copy(value.begin(), value.end(), target);
+  target[value.size()] = '\0';
 }

@@ -38,7 +38,7 @@ namespace enigma2
   class Admin
   {
   public:
-    Admin() : m_addonVersion(STR(VUPLUS_VERSION)) {};
+    Admin();
 
     void SendPowerstate();
     bool Initialise();
@@ -48,7 +48,10 @@ namespace enigma2
     bool SendGlobalRecordingEndMarginSetting(int newValue);
     const utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
     PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations);
-    const std::string& GetServerName() const { return m_deviceInfo.GetServerName(); }
+    const char* GetServerName() const { return m_serverName; }
+    const char* GetServerVersion() const { return m_serverVersion; }
+    const std::string& GetDeviceName() const { return m_deviceInfo.GetServerName(); }
+    const std::string& GetDistroName() const { return m_deviceInfo.GetDistroName(); }
     const std::string& GetEnigmaVersion() const { return m_deviceInfo.GetEnigmaVersion(); }
     const std::string& GetImageVersion() const { return m_deviceInfo.GetImageVersion(); }
     const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
@@ -59,6 +62,7 @@ namespace enigma2
     static bool CanUseJsonApi();
 
   private:
+    static void SetCharString(char* target, const std::string value);
     bool LoadDeviceInfo();
     bool LoadAutoTimerSettings();
     bool LoadRecordingMarginSettings();
@@ -67,6 +71,8 @@ namespace enigma2
     utilities::StreamStatus GetStreamDetails(const std::shared_ptr<data::Channel> &channel);
     void GetTunerDetails(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
+    char m_serverName[256];
+    char m_serverVersion[256];
     const std::string m_addonVersion;
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;

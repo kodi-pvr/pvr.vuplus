@@ -210,12 +210,12 @@ void Enigma2::SendPowerstate()
 
 const char * Enigma2::GetServerName() const
 {
-  return m_admin.GetServerName().c_str();
+  return m_admin.GetServerName();
 }
 
 const char * Enigma2::GetServerVersion() const
 {
-  return m_admin.GetWebIfVersion().c_str();
+  return m_admin.GetServerVersion();
 }
 
 bool Enigma2::IsConnected() const
