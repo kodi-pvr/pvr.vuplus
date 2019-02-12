@@ -93,6 +93,10 @@ protected:
   virtual void *Process(void);
 
 private:
+  static const int INITIAL_EPG_WAIT_SECS = 60;
+  static const int INITIAL_EPG_STEP_SECS = 5;
+  static const int PROCESS_LOOP_WAIT_SECS = 5;
+
   // helper functions
   std::string GetStreamURL(const std::string& strM3uURL);
 

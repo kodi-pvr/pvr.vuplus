@@ -145,27 +145,22 @@ void *Enigma2::Process()
   Logger::Log(LEVEL_DEBUG, "%s - starting", __FUNCTION__);
 
   // Wait for the initial EPG update to complete
-  bool bwait = true;
-  int cycles = 0;
-
-  while (bwait)
+  int totalWaitSecs = 0;
+  while (totalWaitSecs < INITIAL_EPG_WAIT_SECS)
   {
-    if (cycles == 30)
-      bwait = false;
-
-    cycles++;
+    totalWaitSecs += INITIAL_EPG_STEP_SECS;
 
     if (!m_epg.IsInitialEpgCompleted())
-      Sleep(5 * 1000);
+      Sleep(INITIAL_EPG_STEP_SECS * 1000);
   }
 
   // Whether or not initial EPG updates occurred now Trigger "Real" EPG updates
   // This will regard Initial EPG as completed anyway.
   m_epg.TriggerEpgUpdatesForChannels();
 
-  while(!IsStopped())
+  while(!IsStopped() && m_isConnected)
   {
-    Sleep(5 * 1000);
+    Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
 
     time_t currentUpdateTimeSeconds = time(nullptr);
     m_updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - m_lastUpdateTimeSeconds);
