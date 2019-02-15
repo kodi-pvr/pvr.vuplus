@@ -107,6 +107,7 @@ private:
   int m_currentChannel = -1;
   std::atomic_bool m_dueRecordingUpdate{true};
   time_t m_lastSignalStatusUpdateSeconds;
+  bool m_skipInitialEpgLoad;
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;

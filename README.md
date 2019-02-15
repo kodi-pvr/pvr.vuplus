@@ -108,6 +108,7 @@ Information on customising the extraction and mapper configs can be found in the
 * **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`.
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
+* **Skip intial EPG load**: Ignore the intial EPG load (now and next). Enabled by default as can cause issues on LibreElec/CoreElec
 
 ### Recordings
 The following configuration is available on the Recordings tab of the addon settings.

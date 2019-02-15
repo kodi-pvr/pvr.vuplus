@@ -154,6 +154,18 @@ void Epg::TriggerEpgUpdatesForChannels()
   }
 }
 
+void Epg::MarkChannelAsInitialEpgRead(const std::string serviceReference)
+{
+  std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
+
+  if (epgChannel->RequiresInitialEpg())
+  {
+    epgChannel->SetRequiresInitialEpg(false);
+    epgChannel->GetInitialEPG().clear();
+    m_readInitialEpgChannelsMap.erase(epgChannel->GetServiceReference());
+  }
+}
+
 PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string serviceReference, time_t iStart, time_t iEnd)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
@@ -202,7 +214,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string serviceRe
     {
       Logger::Log(LEVEL_NOTICE, "%s Could not find <e2event> element", __FUNCTION__);
       // RETURN "NO_ERROR" as the EPG could be empty for this channel
-      return PVR_ERROR_SERVER_ERROR;
+      return PVR_ERROR_NO_ERROR;
     }
 
     for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))

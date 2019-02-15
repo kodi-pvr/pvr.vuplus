@@ -1,6 +1,7 @@
 v3.17.1
 - Fixed: Ensure only one call to GetEPGForChannel happens at one time, fixes #181
 - Added: Update/fix server version for pvr addon
+- Added: Option to skip initial EPG Load
 
 v3.17.0
 - Added: Recording EDL support

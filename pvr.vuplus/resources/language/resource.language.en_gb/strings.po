@@ -476,7 +476,11 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr ""
 
-#empty strings from id 30115 to 30409
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr ""
+
+#empty strings from id 30116 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

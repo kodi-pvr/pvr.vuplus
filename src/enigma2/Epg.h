@@ -49,6 +49,7 @@ namespace enigma2
     bool Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups);
     bool IsInitialEpgCompleted();
     void TriggerEpgUpdatesForChannels();
+    void MarkChannelAsInitialEpgRead(const std::string serviceReference);
     PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const std::string serviceReference, time_t iStart, time_t iEnd);
     std::string LoadEPGEntryShortDescription(const std::string &serviceReference, unsigned int epgUid);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime);
