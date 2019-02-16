@@ -335,7 +335,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
       const std::string strCmd = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
 
       std::string strResult;
-      if(!WebUtils::SendSimpleCommand(strCmd, strResult))
+      if(!WebUtils::SendSimpleCommand(strCmd, strResult, true))
         return false;
     }
   }
