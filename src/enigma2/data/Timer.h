@@ -38,6 +38,7 @@ namespace enigma2
     static const std::string TAG_FOR_AUTOTIMER = "AutoTimer";
     static const std::string TAG_FOR_MANUAL_TIMER = "Manual";
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
+    static const std::string TAG_FOR_PADDING = "Padding";
 
     class Timer
     {
@@ -82,6 +83,9 @@ namespace enigma2
       time_t GetEndTime() const { return m_endTime; }
       void SetEndTime(time_t value) { m_endTime = value; }
 
+      time_t GetRealStartTime() const { return m_startTime - (m_paddingStartMins * 60); }
+      time_t GetRealEndTime() const { return m_endTime + (m_paddingEndMins * 60); }
+
       int GetWeekdays() const { return m_weekdays; }
       void SetWeekdays(int value) { m_weekdays = value; }
 
@@ -103,9 +107,15 @@ namespace enigma2
       const std::string& GetTags() const { return m_tags; }
       void SetTags(const std::string& value ) { m_tags = value; }
 
-      bool isScheduled() const;
-      bool isRunning(std::time_t *now, std::string *channelName = nullptr) const;
-      bool isChildOfParent(const Timer &parent) const;
+      int GetPaddingStartMins() const { return m_paddingStartMins; }
+      void SetPaddingStartMins(int value) { m_paddingStartMins = value; }
+
+      int GetPaddingEndMins() const { return m_paddingEndMins; }
+      void SetPaddingEndMins(int value) { m_paddingEndMins = value; }
+
+      bool IsScheduled() const;
+      bool IsRunning(std::time_t *now, std::string *channelName = nullptr) const;
+      bool IsChildOfParent(const Timer &parent) const;
 
       bool Like(const Timer &right) const;
       bool operator==(const Timer &right) const;
@@ -113,6 +123,7 @@ namespace enigma2
       void UpdateTo(PVR_TIMER &right) const;
       bool UpdateFrom(TiXmlElement* timerNode, Channels &channels);
       bool ContainsTag(const std::string &tag) const;
+      std::string ReadTag(const std::string &tag) const;
 
     protected:
       Type m_type = Type::MANUAL_ONCE;
@@ -129,6 +140,8 @@ namespace enigma2
       unsigned int m_clientIndex;
       unsigned int m_parentClientIndex;
       std::string m_tags;
+      unsigned int m_paddingStartMins = 0;
+      unsigned int m_paddingEndMins = 0;
     };
   } //namespace data
 } //namespace enigma2

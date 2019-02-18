@@ -30,6 +30,8 @@ bool Timer::operator==(const Timer &right) const
   bChanged = bChanged && (m_channelId == right.m_channelId);
   bChanged = bChanged && (m_weekdays == right.m_weekdays);
   bChanged = bChanged && (m_epgId == right.m_epgId);
+  bChanged = bChanged && (m_paddingStartMins == right.m_paddingStartMins);
+  bChanged = bChanged && (m_paddingEndMins == right.m_paddingEndMins);
   bChanged = bChanged && (m_state == right.m_state);
   bChanged = bChanged && (m_title == right.m_title);
   bChanged = bChanged && (m_plot == right.m_plot);
@@ -49,6 +51,8 @@ void Timer::UpdateFrom(const Timer &right)
   m_epgId = right.m_epgId;
   m_tags = right.m_tags;
   m_state = right.m_state;
+  m_paddingStartMins = right.m_paddingStartMins;
+  m_paddingEndMins = right.m_paddingEndMins;
 }
 
 void Timer::UpdateTo(PVR_TIMER &left) const
@@ -66,32 +70,32 @@ void Timer::UpdateTo(PVR_TIMER &left) const
   left.firstDay            = 0;     // unused
   left.iWeekdays           = m_weekdays;
   left.iEpgUid             = m_epgId;
-  left.iMarginStart        = 0;     // unused
-  left.iMarginEnd          = 0;     // unused
+  left.iMarginStart        = m_paddingStartMins;
+  left.iMarginEnd          = m_paddingEndMins;
   left.iGenreType          = 0;     // unused
   left.iGenreSubType       = 0;     // unused
   left.iClientIndex        = m_clientIndex;
   left.iParentClientIndex  = m_parentClientIndex;
 }
 
-bool Timer::isScheduled() const
+bool Timer::IsScheduled() const
 {
   return m_state == PVR_TIMER_STATE_SCHEDULED
       || m_state == PVR_TIMER_STATE_RECORDING;
 }
 
-bool Timer::isRunning(std::time_t *now, std::string *channelName) const
+bool Timer::IsRunning(std::time_t *now, std::string *channelName) const
 {
-  if (!isScheduled())
+  if (!IsScheduled())
     return false;
-  if (now && !(m_startTime <= *now && *now <= m_endTime))
+  if (now && !(GetRealStartTime() <= *now && *now <= GetRealEndTime()))
     return false;
   if (channelName && m_channelName != *channelName)
     return false;
   return true;
 }
 
-bool Timer::isChildOfParent(const Timer &parent) const
+bool Timer::IsChildOfParent(const Timer &parent) const
 {
   time_t time;
   std::tm timeinfo;
@@ -122,6 +126,8 @@ bool Timer::isChildOfParent(const Timer &parent) const
   isChild = isChild && (m_title == parent.m_title);
   isChild = isChild && (childStartTime == parentStartTime);
   isChild = isChild && (childEndTime == parentEndTime);
+  isChild = isChild && (m_paddingStartMins == parent.m_paddingStartMins);
+  isChild = isChild && (m_paddingEndMins == parent.m_paddingEndMins);
   isChild = isChild && (m_channelId == parent.m_channelId);
   isChild = isChild && (weekday & parent.m_weekdays);
 
@@ -252,6 +258,14 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
       if (ContainsTag(TAG_FOR_AUTOTIMER))
       {
         m_type = Timer::EPG_AUTO_ONCE;
+
+        if (!ContainsTag(TAG_FOR_PADDING))
+        {
+          //We need to add this as these timers are created by the backend so won't have a padding to read
+          m_tags.append(StringUtils::Format(" Padding=%u,%u",
+            Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin(),
+            Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin()));
+        }
       }
       else
       {
@@ -260,12 +274,46 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     }
   }
 
+  if (ContainsTag(TAG_FOR_PADDING))
+  {
+    if (std::sscanf(ReadTag(TAG_FOR_PADDING).c_str(), "Padding=%u,%u", &m_paddingStartMins, &m_paddingEndMins) != 2)
+    {
+      m_paddingStartMins = 0;
+      m_paddingEndMins = 0;
+    }
+  }
+
+  if (m_paddingStartMins > 0)
+    m_startTime += m_paddingStartMins * 60;
+
+  if (m_paddingEndMins > 0)
+    m_endTime -= m_paddingEndMins * 60;
+
   return true;
 }
 
 bool Timer::ContainsTag(const std::string &tag) const
 {
-    std::regex regex ("^.* ?" + tag + " ?.*$");
+  std::regex regex("^.* ?" + tag + " ?.*$");
 
-    return (regex_match(m_tags, regex));
+  return (regex_match(m_tags, regex));
+}
+
+std::string Timer::ReadTag(const std::string &tagName) const
+{
+  std::string tag;
+
+  size_t found = m_tags.find(tagName);
+  if (found != std::string::npos)
+  {
+    tag = m_tags.substr(found, m_tags.size());
+
+    found = tag.find(" ");
+    if (found != std::string::npos)
+      tag = tag.substr(0, found);
+
+    tag = StringUtils::Trim(tag);
+  }
+
+  return tag;
 }

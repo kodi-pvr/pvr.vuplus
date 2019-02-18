@@ -180,6 +180,7 @@ v3.17.1
 - Added: Update/fix server version for pvr addon
 - Added: Option to skip initial EPG Load
 - Fixed: Fix for zap on channel change for dreamboxes
+- Added: Support for padding in certain timer types
 
 v3.17.0
 - Added: Recording EDL support

@@ -70,12 +70,13 @@ bool Admin::Initialise()
   {
     Settings::GetInstance().SetDeviceInfo(&m_deviceInfo);
 
-    if (LoadDeviceSettings())
-    {
-      Settings::GetInstance().SetDeviceSettings(&m_deviceSettings);
+    bool deviceSettingsLoaded = LoadDeviceSettings();
+    Settings::GetInstance().SetDeviceSettings(&m_deviceSettings);
 
+    if (deviceSettingsLoaded)
+    {
       //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-      if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0))
+      if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF"))
         SendAutoTimerSettings();
     }
   }
@@ -259,17 +260,13 @@ bool Admin::LoadDeviceSettings()
   //TODO: Include once addon starts to use new API
   //kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
 
-  if (!LoadAutoTimerSettings())
-  {
-    return false;
-  }
-  else
-  {
-    std::string autoTimerTagInTags = LocalizedString(30094); // N/A
-    std::string autoTimerNameInTags = LocalizedString(30094); // N/A
+  std::string autoTimerTagInTags = LocalizedString(30094); // N/A
+  std::string autoTimerNameInTags = LocalizedString(30094); // N/A
 
-    //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-    if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0))
+  //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
+  if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF"))
+  {
+    if (LoadAutoTimerSettings())
     {
       if (m_deviceSettings.IsAddTagAutoTimerToTagsEnabled())
         autoTimerTagInTags = LocalizedString(30095); // True
@@ -280,11 +277,11 @@ bool Admin::LoadDeviceSettings()
       else
         autoTimerNameInTags = LocalizedString(30096); //False
     }
-
-    //TODO: Include once addon starts to use new API
-    //kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
-    //kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
   }
+
+  //TODO: Include once addon starts to use new API
+  //kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
+  //kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
 
   if (!LoadRecordingMarginSettings())
   {

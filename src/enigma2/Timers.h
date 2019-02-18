@@ -60,6 +60,7 @@ namespace enigma2
     std::vector<enigma2::data::Timer> LoadTimers() const;
     void GenerateChildManualRepeatingTimers(std::vector<enigma2::data::Timer> *timers, enigma2::data::Timer *timer) const;
     static std::string ConvertToAutoTimerTag(std::string tag);
+    static std::string RemovePaddingTag(std::string tag);
     std::vector<enigma2::data::AutoTimer> LoadAutoTimers() const;
     bool CanAutoTimers() const;
     bool IsAutoTimer(const PVR_TIMER &timer) const;

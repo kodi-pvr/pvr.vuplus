@@ -1,5 +1,6 @@
 #include "Timers.h"
 
+#include <cstdlib>
 #include <algorithm>
 #include <regex>
 
@@ -81,8 +82,8 @@ std::vector<Timer> Timers::LoadTimers() const
       GenerateChildManualRepeatingTimers(&timers, &newTimer);
     }
 
-    Logger::Log(LEVEL_INFO, "%s fetched Timer entry '%s', begin '%d', end '%d'",
-                __FUNCTION__, newTimer.GetTitle().c_str(), newTimer.GetStartTime(), newTimer.GetEndTime());
+    Logger::Log(LEVEL_INFO, "%s fetched Timer entry '%s', begin '%d', end '%d', start padding mins '%u', end padding mins '%u'",
+                __FUNCTION__, newTimer.GetTitle().c_str(), newTimer.GetStartTime(), newTimer.GetEndTime(), newTimer.GetPaddingStartMins(), newTimer.GetPaddingEndMins());
   }
 
   Logger::Log(LEVEL_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
@@ -126,6 +127,8 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
           newTimer.SetWeekdays(0);
           newTimer.SetState(PVR_TIMER_STATE_NEW);
           newTimer.SetEpgId(timer->GetEpgId());
+          newTimer.SetPaddingStartMins(timer->GetPaddingStartMins());
+          newTimer.SetPaddingEndMins(timer->GetPaddingEndMins());
 
           time_t now = std::time(nullptr);
           if (now < nextStartTime)
@@ -155,10 +158,10 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Time
 
 std::string Timers::ConvertToAutoTimerTag(std::string tag)
 {
-    std::regex regex (" ");
-    std::string replaceWith = "_";
+  std::regex regex(" ");
+  std::string replaceWith = "_";
 
-    return regex_replace(tag, regex, replaceWith);
+  return regex_replace(tag, regex, replaceWith);
 }
 
 std::vector<AutoTimer> Timers::LoadAutoTimers() const
@@ -344,8 +347,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
     PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
     PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
     PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-    PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS         |
-    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN,
+    PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
     LocalizedString(30425)); // Repeating guide-based
   types.emplace_back(*t);
   delete t;
@@ -373,7 +375,6 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       PVR_TIMER_TYPE_SUPPORTS_START_ANYTIME      |
       PVR_TIMER_TYPE_SUPPORTS_END_ANYTIME        |
       PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS           |
-      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN   |
       PVR_TIMER_TYPE_SUPPORTS_TITLE_EPG_MATCH    |
       PVR_TIMER_TYPE_SUPPORTS_FULLTEXT_EPG_MATCH |
       PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP    |
@@ -463,18 +464,31 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
     tags = TAG_FOR_MANUAL_TIMER;
 
+  unsigned int startPadding = timer.iMarginStart;
+  unsigned int endPadding = timer.iMarginEnd;
+
+  if (startPadding == 0 && endPadding == 0)
+  {
+    startPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin();
+    endPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin();
+  }
+
   bool alreadyStarted;
   time_t startTime, endTime;
-  if ((timer.startTime - (timer.iMarginStart * 60)) < std::time(nullptr))
+  if ((timer.startTime - (startPadding * 60)) < std::time(nullptr))
   {
     alreadyStarted = true;
     startTime = std::time(nullptr);
+    startPadding = 0;
   }
   else
   {
-    startTime = timer.startTime - (timer.iMarginStart * 60);
+    startTime = timer.startTime - (startPadding * 60);
   }
-  endTime = timer.endTime + (timer.iMarginEnd * 60);
+  endTime = timer.endTime + (endPadding * 60);
+  endPadding = endPadding;
+
+  tags.append(StringUtils::Format(" Padding=%u,%u", startPadding, endPadding));
 
   std::string title = timer.strTitle;
   std::string description = timer.strSummary;
@@ -622,12 +636,39 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     if (timer.state == PVR_TIMER_STATE_CANCELLED)
       iDisabled = 1;
 
+    unsigned int startPadding = timer.iMarginStart;
+    unsigned int endPadding = timer.iMarginEnd;
+
+    if (startPadding == 0 && endPadding == 0)
+    {
+      startPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin();
+      endPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin();
+    }
+
+    bool alreadyStarted;
+    time_t startTime, endTime;
+    if ((timer.startTime - (startPadding * 60)) < std::time(nullptr))
+    {
+      alreadyStarted = true;
+      startTime = std::time(nullptr);
+      startPadding = 0;
+    }
+    else
+    {
+      startTime = timer.startTime - (startPadding * 60);
+    }
+    endTime = timer.endTime + (endPadding * 60);
+    endPadding = endPadding;
+
+    std::string tags = RemovePaddingTag(oldTimer.GetTags());
+    tags.append(StringUtils::Format(" Padding=%u,%u", startPadding, endPadding));
+
     const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1",
-                                    WebUtils::URLEncodeInline(strServiceReference).c_str(), timer.startTime, timer.endTime,
+                                    WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime,
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(),
-                                    WebUtils::URLEncodeInline(oldTimer.GetTags()).c_str(), iDisabled, timer.iWeekdays,
-                                    WebUtils::URLEncodeInline(strOldServiceReference).c_str(), oldTimer.GetStartTime(),
-                                    oldTimer.GetEndTime());
+                                    WebUtils::URLEncodeInline(tags).c_str(), iDisabled, timer.iWeekdays,
+                                    WebUtils::URLEncodeInline(strOldServiceReference).c_str(), oldTimer.GetRealStartTime(),
+                                    oldTimer.GetRealEndTime());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
@@ -635,10 +676,21 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
 
     TimerUpdates();
 
+    if (alreadyStarted)
+      PVR->TriggerRecordingUpdate();
+
     return PVR_ERROR_NO_ERROR;
   }
 
   return PVR_ERROR_SERVER_ERROR;
+}
+
+std::string Timers::RemovePaddingTag(std::string tag)
+{
+  std::regex regex(" Padding=[0-9]+,[0-9]+ *");
+  std::string replaceWith = "";
+
+  return regex_replace(tag, regex, replaceWith);
 }
 
 PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
@@ -908,7 +960,7 @@ bool Timers::TimerUpdatesRegular()
     if(newTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {
       newTimer.SetClientIndex(m_clientIndexCounter);
-      Logger::Log(LEVEL_INFO, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.GetTitle().c_str(), m_clientIndexCounter);
+      Logger::Log(LEVEL_DEBUG, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.GetTitle().c_str(), m_clientIndexCounter);
       m_timers.emplace_back(newTimer);
       m_clientIndexCounter++;
       iNew++;
@@ -921,7 +973,7 @@ bool Timers::TimerUpdatesRegular()
     for (auto& readonlyRepeatingOnceTimer : m_timers)
     {
       if ((repeatingTimer.GetType() == Timer::MANUAL_REPEATING || repeatingTimer.GetType() == Timer::EPG_REPEATING) &&
-          readonlyRepeatingOnceTimer.GetType() == Timer::READONLY_REPEATING_ONCE && readonlyRepeatingOnceTimer.isChildOfParent(repeatingTimer))
+          readonlyRepeatingOnceTimer.GetType() == Timer::READONLY_REPEATING_ONCE && readonlyRepeatingOnceTimer.IsChildOfParent(repeatingTimer))
       {
         readonlyRepeatingOnceTimer.SetParentClientIndex(repeatingTimer.GetClientIndex());
         continue;
@@ -929,7 +981,7 @@ bool Timers::TimerUpdatesRegular()
     }
   }
 
-  Logger::Log(LEVEL_INFO , "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
+  Logger::Log(LEVEL_DEBUG, "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
 
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }

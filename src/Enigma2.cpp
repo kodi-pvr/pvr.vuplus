@@ -450,12 +450,12 @@ RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
   std::string channelName = recinfo.strChannelName;
   auto timer = m_timers.GetTimer([&](const Timer &timer)
       {
-        return timer.isRunning(&now, &channelName);
+        return timer.IsRunning(&now, &channelName);
       });
   if (timer)
   {
-    start = timer->GetStartTime();
-    end = timer->GetEndTime();
+    start = timer->GetRealStartTime();
+    end = timer->GetRealEndTime();
   }
 
   return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), start, end, recinfo.iDuration);
