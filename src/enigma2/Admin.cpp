@@ -580,7 +580,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
 
 bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal");
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/signal");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 

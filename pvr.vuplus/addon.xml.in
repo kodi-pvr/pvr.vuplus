@@ -181,6 +181,7 @@ v3.17.1
 - Added: Option to skip initial EPG Load
 - Fixed: Fix for zap on channel change for dreamboxes
 - Added: Support for padding in certain timer types
+- Fixed: Change the call web/tunersignal to web/signal so it also works on DreamOS
 
 v3.17.0
 - Added: Recording EDL support
