@@ -29,7 +29,7 @@ namespace enigma2
       bool LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int, int> &map);
       void CreateGenreAddonDataDirectories();
 
-      std::map<int, int> genreIdToDvbIdMap;
+      std::map<int, int> m_genreIdToDvbIdMap;
     };
   } //namespace extract
 } //namespace enigma2

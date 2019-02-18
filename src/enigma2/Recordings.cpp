@@ -59,8 +59,6 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
       int lineNumber = 0;
       while (std::getline(stream, line))
       {
-        Logger::Log(LEVEL_NOTICE, "RNL YesV '%s'", line.c_str());
-
         float start = 0.0f, stop = 0.0f;
         unsigned int type = PVR_EDL_TYPE_CUT;
         lineNumber++;
@@ -69,8 +67,6 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
           Logger::Log(LEVEL_NOTICE, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber);
           continue;
         }
-
-        Logger::Log(LEVEL_NOTICE, "RNL start: %f, stop: %f, %d", start, stop, type);
 
         start += static_cast<float>(Settings::GetInstance().GetEDLStartTimePadding()) / 1000.0f;
         stop  += static_cast<float>(Settings::GetInstance().GetEDLStopTimePadding()) / 1000.0f;

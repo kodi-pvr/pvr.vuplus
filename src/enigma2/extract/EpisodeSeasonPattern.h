@@ -10,23 +10,23 @@ namespace enigma2
     {
       EpisodeSeasonPattern(const std::string &masterPattern, const std::string &seasonPattern, const std::string &episodePattern)
       {
-        masterRegex = std::regex(masterPattern);
-        seasonRegex = std::regex(seasonPattern);
-        episodeRegex = std::regex(episodePattern);
-        hasSeasonRegex = true;
+        m_masterRegex = std::regex(masterPattern);
+        m_seasonRegex = std::regex(seasonPattern);
+        m_episodeRegex = std::regex(episodePattern);
+        m_hasSeasonRegex = true;
       }
 
       EpisodeSeasonPattern(const std::string &masterPattern, const std::string &episodePattern)
       {
-        masterRegex = std::regex(masterPattern);
-        episodeRegex = std::regex(episodePattern);
-        hasSeasonRegex = false;
+        m_masterRegex = std::regex(masterPattern);
+        m_episodeRegex = std::regex(episodePattern);
+        m_hasSeasonRegex = false;
       }
 
-      std::regex masterRegex;
-      std::regex seasonRegex;
-      std::regex episodeRegex;
-      bool hasSeasonRegex;
+      std::regex m_masterRegex;
+      std::regex m_seasonRegex;
+      std::regex m_episodeRegex;
+      bool m_hasSeasonRegex;
     };
   } //namespace extract
 } //namespace enigma2

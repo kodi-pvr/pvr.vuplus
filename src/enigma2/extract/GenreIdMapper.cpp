@@ -56,8 +56,8 @@ int GenreIdMapper::LookupGenreIdInMap(const int combinedGenreType)
 {
   int genreType = EPG_EVENT_CONTENTMASK_UNDEFINED;
 
-  auto genreMapSearch = genreIdToDvbIdMap.find(combinedGenreType);
-  if (genreMapSearch != genreIdToDvbIdMap.end())
+  auto genreMapSearch = m_genreIdToDvbIdMap.find(combinedGenreType);
+  if (genreMapSearch != m_genreIdToDvbIdMap.end())
   {
     genreType = genreMapSearch->second;
   }
@@ -67,7 +67,7 @@ int GenreIdMapper::LookupGenreIdInMap(const int combinedGenreType)
 
 void GenreIdMapper::LoadGenreIdMapFile()
 {
-  if (!LoadIdToIdGenreFile(Settings::GetInstance().GetMapGenreIdsFile(), genreIdToDvbIdMap))
+  if (!LoadIdToIdGenreFile(Settings::GetInstance().GetMapGenreIdsFile(), m_genreIdToDvbIdMap))
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
 }
 

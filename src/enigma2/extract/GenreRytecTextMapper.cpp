@@ -16,13 +16,13 @@ GenreRytecTextMapper::GenreRytecTextMapper()
 {
   LoadGenreTextMappingFiles();
 
-  for (const auto& genreMapEntry : kodiGenreTextToDvbIdMap)
+  for (const auto& genreMapEntry : m_kodiGenreTextToDvbIdMap)
   {
-    kodiDvbIdToGenreTextMap.insert({genreMapEntry.second, genreMapEntry.first});
+    m_kodiDvbIdToGenreTextMap.insert({genreMapEntry.second, genreMapEntry.first});
   }
 
-  genrePattern = std::regex(GENRE_PATTERN);
-  genreMajorPattern = std::regex(GENRE_MAJOR_PATTERN);
+  m_genrePattern = std::regex(GENRE_PATTERN);
+  m_genreMajorPattern = std::regex(GENRE_MAJOR_PATTERN);
 }
 
 GenreRytecTextMapper::~GenreRytecTextMapper(void)
@@ -33,7 +33,7 @@ void GenreRytecTextMapper::ExtractFromEntry(BaseEntry &entry)
 {
   if (entry.GetGenreType() == 0)
   {
-    const std::string genreText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), genrePattern);
+    const std::string genreText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), m_genrePattern);
 
     if (!genreText.empty() && genreText != GENRE_RESERVED_IGNORE)
     {
@@ -80,7 +80,7 @@ int GenreRytecTextMapper::GetGenreTypeFromText(const std::string &genreText, con
     if (m_settings.GetLogMissingGenreMappings())
       Logger::Log(LEVEL_NOTICE, "%s: Tried to find genre text but no value: '%s', show - '%s'", __FUNCTION__, genreText.c_str(), showName.c_str());
 
-    std::string genreMajorText = GetMatchTextFromString(genreText, genreMajorPattern);
+    std::string genreMajorText = GetMatchTextFromString(genreText, m_genreMajorPattern);
 
     if (!genreMajorText.empty())
     {
@@ -98,15 +98,15 @@ int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string &genreText)
 {
   int genreType = EPG_EVENT_CONTENTMASK_UNDEFINED;
 
-  auto genreMapSearch = genreMap.find(genreText);
-  if (genreMapSearch != genreMap.end())
+  auto genreMapSearch = m_genreMap.find(genreText);
+  if (genreMapSearch != m_genreMap.end())
   {
     genreType = genreMapSearch->second;
   }
   else
   {
-    auto kodiGenreMapSearch = kodiGenreTextToDvbIdMap.find(genreText);
-    if (kodiGenreMapSearch != kodiGenreTextToDvbIdMap.end())
+    auto kodiGenreMapSearch = m_kodiGenreTextToDvbIdMap.find(genreText);
+    if (kodiGenreMapSearch != m_kodiGenreTextToDvbIdMap.end())
     {
       genreType = kodiGenreMapSearch->second;
     }
@@ -117,10 +117,10 @@ int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string &genreText)
 
 void GenreRytecTextMapper::LoadGenreTextMappingFiles()
 {
-  if (!LoadTextToIdGenreFile(GENRE_KODI_DVB_FILEPATH, kodiGenreTextToDvbIdMap))
+  if (!LoadTextToIdGenreFile(GENRE_KODI_DVB_FILEPATH, m_kodiGenreTextToDvbIdMap))
     Logger::Log(LEVEL_ERROR, "%s Could not load text to genre id file: %s", __FUNCTION__, GENRE_KODI_DVB_FILEPATH.c_str());
 
-  if (!LoadTextToIdGenreFile(Settings::GetInstance().GetMapRytecTextGenresFile(), genreMap))
+  if (!LoadTextToIdGenreFile(Settings::GetInstance().GetMapRytecTextGenresFile(), m_genreMap))
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapRytecTextGenresFile().c_str());
 }
 

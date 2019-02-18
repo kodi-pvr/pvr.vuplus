@@ -25,13 +25,13 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 {
   for (const auto& patternSet : m_episodeSeasonPatterns)
   {
-    const std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.masterRegex);
+    const std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.m_masterRegex);
 
     if (!masterText.empty())
     {
-      if (patternSet.hasSeasonRegex && entry.GetSeasonNumber() == 0)
+      if (patternSet.m_hasSeasonRegex && entry.GetSeasonNumber() == 0)
       {
-        const std::string seasonText = GetMatchTextFromString(masterText, patternSet.seasonRegex);
+        const std::string seasonText = GetMatchTextFromString(masterText, patternSet.m_seasonRegex);
         if (!seasonText.empty())
         {
           entry.SetSeasonNumber(atoi(seasonText.c_str()));
@@ -40,7 +40,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 
       if (entry.GetEpisodeNumber() == 0)
       {
-        const std::string episodeText = GetMatchTextFromString(masterText, patternSet.episodeRegex);
+        const std::string episodeText = GetMatchTextFromString(masterText, patternSet.m_episodeRegex);
         if (!episodeText.empty())
         {
           entry.SetEpisodeNumber(atoi(episodeText.c_str()));
