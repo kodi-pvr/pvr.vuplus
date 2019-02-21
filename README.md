@@ -27,6 +27,40 @@ Enigma2 PVR client addon for [Kodi](https://kodi.tv)
 
 The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi from source and run it directly the addon will be available as a system addon.
 
+### Mac OSX
+
+In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi.
+
+**Build Tools and initial addon build**
+
+1. Get the repos
+ * `cd $HOME`
+ * `git clone https://github.com/xbmc/xbmc`
+ * `git clone https://github.com/kodi-pvr/pvr.vuplus`
+2. Build the kodi tools
+ * `cd $HOME/xbmc/tools/depends`
+ * `./bootstrap`
+ * `./configure --host=x86_64-apple-darwin`
+ * `make -j$(getconf _NPROCESSORS_ONLN)`
+3. Build the addon
+ * `cd $HOME/xbmc`
+ * `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+
+**To rebuild the addon after changes**
+
+1. `rm tools/depends/target/binary-addons/.installed-macosx*`
+2. `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+
+or
+
+1. `cd tools/depends/target/binary-addons/macosx*`
+2. `make`
+
+**Copy the addon to the Kodi addon directory on Mac**
+
+1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
+2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
+
 ## Support
 
 ### Useful links
