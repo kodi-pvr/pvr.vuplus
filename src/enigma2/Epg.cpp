@@ -1,7 +1,7 @@
 #include "Epg.h"
 
 #include <chrono>
-#include <math.h>
+#include <cmath>
 #include <regex>
 
 #include "../client.h"
@@ -40,30 +40,31 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
   //add an initial EPG data per channel uId, sref and initial EPG
   for (auto& channel : channels.GetChannelsList())
   {
-    EpgChannel newEpgChannel;
+    std::shared_ptr<data::EpgChannel> newEpgChannel;
 
-    newEpgChannel.SetRadio(channel->IsRadio());
-    newEpgChannel.SetUniqueId(channel->GetUniqueId());
-    newEpgChannel.SetChannelName(channel->GetChannelName());
-    newEpgChannel.SetServiceReference(channel->GetServiceReference());
+    newEpgChannel->SetRadio(channel->IsRadio());
+    newEpgChannel->SetUniqueId(channel->GetUniqueId());
+    newEpgChannel->SetChannelName(channel->GetChannelName());
+    newEpgChannel->SetServiceReference(channel->GetServiceReference());
 
-    m_epgChannels.emplace_back(new EpgChannel(newEpgChannel));
-    std::shared_ptr<EpgChannel> epgChannel = m_epgChannels.back();
+    m_epgChannels.emplace_back(newEpgChannel);
 
-    m_epgChannelsMap.insert({epgChannel->GetServiceReference(), epgChannel});
-    m_readInitialEpgChannelsMap.insert({epgChannel->GetServiceReference(), epgChannel});
-    m_needsInitialEpgChannelsMap.insert({epgChannel->GetServiceReference(), epgChannel});
+    m_epgChannelsMap.insert({newEpgChannel->GetServiceReference(), newEpgChannel});
+    m_readInitialEpgChannelsMap.insert({newEpgChannel->GetServiceReference(), newEpgChannel});
+    m_needsInitialEpgChannelsMap.insert({newEpgChannel->GetServiceReference(), newEpgChannel});
   }
 
-  int lastScannedIgnoreSuccessCount = round((1 - LAST_SCANNED_INITIAL_EPG_SUCCESS_PERCENT) * m_epgChannels.size());
+  int lastScannedIgnoreSuccessCount = std::round((1 - LAST_SCANNED_INITIAL_EPG_SUCCESS_PERCENT) * m_epgChannels.size());
 
   std::vector<std::shared_ptr<ChannelGroup>> groupList;
-  ChannelGroup newChannelGroup;
-  newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName("Last Scanned"); //Name not important
-  newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
-  newChannelGroup.SetLastScannedGroup(true);
-  groupList.emplace_back(new ChannelGroup(newChannelGroup));
+
+  std::shared_ptr<ChannelGroup> newChannelGroup;
+  newChannelGroup->SetRadio(false);
+  newChannelGroup->SetGroupName("Last Scanned"); //Name not important
+  newChannelGroup->SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
+  newChannelGroup->SetLastScannedGroup(true);
+
+  groupList.emplace_back(newChannelGroup);
   for (auto& group : channelGroups.GetChannelGroupsList())
   {
     if (!group->IsLastScannedGroup())
@@ -96,7 +97,7 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
   return true;
 }
 
-std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string serviceReference)
+std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string &serviceReference)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
@@ -107,7 +108,7 @@ std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string serviceRe
   return epgChannel;
 }
 
-std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std::string serviceReference)
+std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std::string &serviceReference)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
@@ -118,14 +119,14 @@ std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std:
   return epgChannel;
 }
 
-bool Epg::ChannelNeedsInitialEpg(const std::string serviceReference)
+bool Epg::ChannelNeedsInitialEpg(const std::string &serviceReference)
 {
   auto needsInitialEpgSearch = m_needsInitialEpgChannelsMap.find(serviceReference);
 
   return needsInitialEpgSearch != m_needsInitialEpgChannelsMap.end();
 }
 
-bool Epg::InitialEpgLoadedForChannel(const std::string serviceReference)
+bool Epg::InitialEpgLoadedForChannel(const std::string &serviceReference)
 {
   return m_needsInitialEpgChannelsMap.erase(serviceReference) == 1;
 }
@@ -154,7 +155,7 @@ void Epg::TriggerEpgUpdatesForChannels()
   }
 }
 
-void Epg::MarkChannelAsInitialEpgRead(const std::string serviceReference)
+void Epg::MarkChannelAsInitialEpgRead(const std::string &serviceReference)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
 
@@ -166,7 +167,7 @@ void Epg::MarkChannelAsInitialEpgRead(const std::string serviceReference)
   }
 }
 
-PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string serviceReference, time_t iStart, time_t iEnd)
+PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceReference, time_t iStart, time_t iEnd)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
 

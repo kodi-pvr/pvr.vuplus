@@ -37,10 +37,8 @@ void EpgEntry::UpdateTo(EPG_TAG &left) const
   left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>> &m_epgChannelsMap)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>> &epgChannelsMap)
 {
-  std::string m_serviceReference;
-
   if(!XMLUtils::GetString(eventNode, "e2eventservicereference", m_serviceReference))
     return false;
 
@@ -50,8 +48,8 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
 
   std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
-  auto epgChannelSearch = m_epgChannelsMap.find(m_serviceReference);
-  if (epgChannelSearch != m_epgChannelsMap.end())
+  auto epgChannelSearch = epgChannelsMap.find(m_serviceReference);
+  if (epgChannelSearch != epgChannelsMap.end())
     epgChannel = epgChannelSearch->second;
 
   if (!epgChannel)
