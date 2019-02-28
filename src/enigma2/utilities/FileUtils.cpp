@@ -137,7 +137,7 @@ bool FileUtils::CopyDirectory(const std::string &sourceDir, const std::string &t
 {
   bool copySuccessful = true;
 
-  XBMC->CreateDirectory(targetDir.c_str());  
+  XBMC->CreateDirectory(targetDir.c_str());
 
   VFSDirEntry* entries;
   unsigned int numEntries;

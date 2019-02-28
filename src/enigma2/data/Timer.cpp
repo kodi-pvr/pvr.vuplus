@@ -13,11 +13,11 @@ using namespace enigma2::utilities;
 bool Timer::Like(const Timer &right) const
 {
   bool bChanged = true;
-  bChanged = bChanged && (m_startTime == right.m_startTime); 
-  bChanged = bChanged && (m_endTime == right.m_endTime); 
-  bChanged = bChanged && (m_channelId == right.m_channelId); 
-  bChanged = bChanged && (m_weekdays == right.m_weekdays); 
-  bChanged = bChanged && (m_epgId == right.m_epgId); 
+  bChanged = bChanged && (m_startTime == right.m_startTime);
+  bChanged = bChanged && (m_endTime == right.m_endTime);
+  bChanged = bChanged && (m_channelId == right.m_channelId);
+  bChanged = bChanged && (m_weekdays == right.m_weekdays);
+  bChanged = bChanged && (m_epgId == right.m_epgId);
 
   return bChanged;
 }
@@ -25,12 +25,14 @@ bool Timer::Like(const Timer &right) const
 bool Timer::operator==(const Timer &right) const
 {
   bool bChanged = true;
-  bChanged = bChanged && (m_startTime == right.m_startTime); 
-  bChanged = bChanged && (m_endTime == right.m_endTime); 
-  bChanged = bChanged && (m_channelId == right.m_channelId); 
-  bChanged = bChanged && (m_weekdays == right.m_weekdays); 
-  bChanged = bChanged && (m_epgId == right.m_epgId); 
-  bChanged = bChanged && (m_state == right.m_state); 
+  bChanged = bChanged && (m_startTime == right.m_startTime);
+  bChanged = bChanged && (m_endTime == right.m_endTime);
+  bChanged = bChanged && (m_channelId == right.m_channelId);
+  bChanged = bChanged && (m_weekdays == right.m_weekdays);
+  bChanged = bChanged && (m_epgId == right.m_epgId);
+  bChanged = bChanged && (m_paddingStartMins == right.m_paddingStartMins);
+  bChanged = bChanged && (m_paddingEndMins == right.m_paddingEndMins);
+  bChanged = bChanged && (m_state == right.m_state);
   bChanged = bChanged && (m_title == right.m_title);
   bChanged = bChanged && (m_plot == right.m_plot);
 
@@ -49,6 +51,8 @@ void Timer::UpdateFrom(const Timer &right)
   m_epgId = right.m_epgId;
   m_tags = right.m_tags;
   m_state = right.m_state;
+  m_paddingStartMins = right.m_paddingStartMins;
+  m_paddingEndMins = right.m_paddingEndMins;
 }
 
 void Timer::UpdateTo(PVR_TIMER &left) const
@@ -66,32 +70,32 @@ void Timer::UpdateTo(PVR_TIMER &left) const
   left.firstDay            = 0;     // unused
   left.iWeekdays           = m_weekdays;
   left.iEpgUid             = m_epgId;
-  left.iMarginStart        = 0;     // unused
-  left.iMarginEnd          = 0;     // unused
+  left.iMarginStart        = m_paddingStartMins;
+  left.iMarginEnd          = m_paddingEndMins;
   left.iGenreType          = 0;     // unused
   left.iGenreSubType       = 0;     // unused
   left.iClientIndex        = m_clientIndex;
   left.iParentClientIndex  = m_parentClientIndex;
 }
 
-bool Timer::isScheduled() const
+bool Timer::IsScheduled() const
 {
   return m_state == PVR_TIMER_STATE_SCHEDULED
       || m_state == PVR_TIMER_STATE_RECORDING;
 }
 
-bool Timer::isRunning(std::time_t *now, std::string *channelName) const
+bool Timer::IsRunning(std::time_t *now, std::string *channelName) const
 {
-  if (!isScheduled())
+  if (!IsScheduled())
     return false;
-  if (now && !(m_startTime <= *now && *now <= m_endTime))
+  if (now && !(GetRealStartTime() <= *now && *now <= GetRealEndTime()))
     return false;
   if (channelName && m_channelName != *channelName)
     return false;
   return true;
 }
 
-bool Timer::isChildOfParent(const Timer &parent) const
+bool Timer::IsChildOfParent(const Timer &parent) const
 {
   time_t time;
   std::tm timeinfo;
@@ -119,13 +123,15 @@ bool Timer::isChildOfParent(const Timer &parent) const
 
   bool isChild = true;
 
-  isChild = isChild && (m_title == parent.m_title);  
-  isChild = isChild && (childStartTime == parentStartTime); 
-  isChild = isChild && (childEndTime == parentEndTime); 
-  isChild = isChild && (m_channelId == parent.m_channelId); 
-  isChild = isChild && (weekday & parent.m_weekdays); 
+  isChild = isChild && (m_title == parent.m_title);
+  isChild = isChild && (childStartTime == parentStartTime);
+  isChild = isChild && (childEndTime == parentEndTime);
+  isChild = isChild && (m_paddingStartMins == parent.m_paddingStartMins);
+  isChild = isChild && (m_paddingEndMins == parent.m_paddingEndMins);
+  isChild = isChild && (m_channelId == parent.m_channelId);
+  isChild = isChild && (weekday & parent.m_weekdays);
 
-  return isChild; 
+  return isChild;
 }
 
 bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
@@ -135,11 +141,11 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   int iTmp;
   bool bTmp;
   int iDisabled;
-  
-  if (XMLUtils::GetString(timerNode, "e2name", strTmp)) 
+
+  if (XMLUtils::GetString(timerNode, "e2name", strTmp))
     Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __FUNCTION__, strTmp.c_str());
 
-  if (!XMLUtils::GetInt(timerNode, "e2state", iTmp)) 
+  if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
     return false;
 
   if (!XMLUtils::GetInt(timerNode, "e2disabled", iDisabled))
@@ -157,29 +163,29 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     return false;
   }
 
-  m_channelName = channels.GetChannel(m_channelId)->GetChannelName();  
+  m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
 
-  if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp)) 
-    return false; 
+  if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp))
+    return false;
 
   m_startTime = iTmp;
-  
-  if (!XMLUtils::GetInt(timerNode, "e2timeend", iTmp)) 
-    return false; 
+
+  if (!XMLUtils::GetInt(timerNode, "e2timeend", iTmp))
+    return false;
 
   m_endTime = iTmp;
-  
+
   if (XMLUtils::GetString(timerNode, "e2description", strTmp))
     m_plot = strTmp;
 
   if (XMLUtils::GetInt(timerNode, "e2repeated", iTmp))
     m_weekdays = iTmp;
-  else 
+  else
     m_weekdays = 0;
 
   if (XMLUtils::GetInt(timerNode, "e2eit", iTmp))
     m_epgId = iTmp;
-  else 
+  else
     m_epgId = 0;
 
   m_state = PVR_TIMER_STATE_NEW;
@@ -189,34 +195,34 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
 
   Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __FUNCTION__, iTmp);
 
-  if (iTmp == 0) 
+  if (iTmp == 0)
   {
     m_state = PVR_TIMER_STATE_SCHEDULED;
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: SCHEDULED", __FUNCTION__);
   }
-  
-  if (iTmp == 2) 
+
+  if (iTmp == 2)
   {
     m_state = PVR_TIMER_STATE_RECORDING;
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: RECORDING", __FUNCTION__);
   }
-  
-  if (iTmp == 3 && iDisabled == 0) 
+
+  if (iTmp == 3 && iDisabled == 0)
   {
     m_state = PVR_TIMER_STATE_COMPLETED;
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __FUNCTION__);
   }
 
-  if (XMLUtils::GetBoolean(timerNode, "e2cancled", bTmp)) 
+  if (XMLUtils::GetBoolean(timerNode, "e2cancled", bTmp))
   {
-    if (bTmp)  
+    if (bTmp)
     {
       m_state = PVR_TIMER_STATE_ABORTED;
       Logger::Log(LEVEL_DEBUG, "%s Timer state is: ABORTED", __FUNCTION__);
     }
   }
 
-  if (iDisabled == 1) 
+  if (iDisabled == 1)
   {
     m_state = PVR_TIMER_STATE_CANCELLED;
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: Cancelled", __FUNCTION__);
@@ -252,6 +258,14 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
       if (ContainsTag(TAG_FOR_AUTOTIMER))
       {
         m_type = Timer::EPG_AUTO_ONCE;
+
+        if (!ContainsTag(TAG_FOR_PADDING))
+        {
+          //We need to add this as these timers are created by the backend so won't have a padding to read
+          m_tags.append(StringUtils::Format(" Padding=%u,%u",
+            Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin(),
+            Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin()));
+        }
       }
       else
       {
@@ -260,12 +274,46 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     }
   }
 
+  if (ContainsTag(TAG_FOR_PADDING))
+  {
+    if (std::sscanf(ReadTag(TAG_FOR_PADDING).c_str(), "Padding=%u,%u", &m_paddingStartMins, &m_paddingEndMins) != 2)
+    {
+      m_paddingStartMins = 0;
+      m_paddingEndMins = 0;
+    }
+  }
+
+  if (m_paddingStartMins > 0)
+    m_startTime += m_paddingStartMins * 60;
+
+  if (m_paddingEndMins > 0)
+    m_endTime -= m_paddingEndMins * 60;
+
   return true;
 }
 
 bool Timer::ContainsTag(const std::string &tag) const
 {
-    std::regex regex ("^.* ?" + tag + " ?.*$");
+  std::regex regex("^.* ?" + tag + " ?.*$");
 
-    return (regex_match(m_tags, regex));
+  return (regex_match(m_tags, regex));
+}
+
+std::string Timer::ReadTag(const std::string &tagName) const
+{
+  std::string tag;
+
+  size_t found = m_tags.find(tagName);
+  if (found != std::string::npos)
+  {
+    tag = m_tags.substr(found, m_tags.size());
+
+    found = tag.find(" ");
+    if (found != std::string::npos)
+      tag = tag.substr(0, found);
+
+    tag = StringUtils::Trim(tag);
+  }
+
+  return tag;
 }

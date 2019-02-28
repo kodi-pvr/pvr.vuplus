@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -45,7 +45,7 @@ namespace enigma2
   static const std::string AUTOTIMER_SEARCH_TYPE_START = "start";
   static const std::string AUTOTIMER_SEARCH_TYPE_PARTIAL = "";
 
-  static const std::string AUTOTIMER_AVOID_DUPLICATE_DISABLED = "";                       //Require Description to be unique - No 
+  static const std::string AUTOTIMER_AVOID_DUPLICATE_DISABLED = "";                       //Require Description to be unique - No
   static const std::string AUTOTIMER_AVOID_DUPLICATE_SAME_SERVICE = "1";                  //Require Description to be unique - On same service
   static const std::string AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE = "2";                   //Require Description to be unique - On any service
   static const std::string AUTOTIMER_AVOID_DUPLICATE_ANY_SERVICE_OR_RECORDING = "3";      //Require Description to be unique - On any service/recording
@@ -88,8 +88,8 @@ namespace enigma2
       void SetSearchType(const std::string& value ) { m_searchType = value; }
 
       unsigned int GetBackendId() const { return m_backendId; }
-      void SetBackendId(unsigned int value) { m_backendId = value; }      
-      
+      void SetBackendId(unsigned int value) { m_backendId = value; }
+
       bool GetSearchFulltext() const { return m_searchFulltext; }
       void SetSearchFulltext(bool value) { m_searchFulltext = value; }
 

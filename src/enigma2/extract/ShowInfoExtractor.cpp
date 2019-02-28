@@ -10,7 +10,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-ShowInfoExtractor::ShowInfoExtractor() 
+ShowInfoExtractor::ShowInfoExtractor()
   : IExtractor()
 {
   if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns))
@@ -25,13 +25,13 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 {
   for (const auto& patternSet : m_episodeSeasonPatterns)
   {
-    const std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.masterRegex);
+    const std::string masterText = GetMatchedText(entry.GetPlotOutline(), entry.GetPlot(), patternSet.m_masterRegex);
 
     if (!masterText.empty())
     {
-      if (patternSet.hasSeasonRegex && entry.GetSeasonNumber() == 0)
+      if (patternSet.m_hasSeasonRegex && entry.GetSeasonNumber() == 0)
       {
-        const std::string seasonText = GetMatchTextFromString(masterText, patternSet.seasonRegex);
+        const std::string seasonText = GetMatchTextFromString(masterText, patternSet.m_seasonRegex);
         if (!seasonText.empty())
         {
           entry.SetSeasonNumber(atoi(seasonText.c_str()));
@@ -40,7 +40,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 
       if (entry.GetEpisodeNumber() == 0)
       {
-        const std::string episodeText = GetMatchTextFromString(masterText, patternSet.episodeRegex);      
+        const std::string episodeText = GetMatchTextFromString(masterText, patternSet.m_episodeRegex);
         if (!episodeText.empty())
         {
           entry.SetEpisodeNumber(atoi(episodeText.c_str()));
@@ -112,7 +112,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
 
   std::string name;
 
-  if (!XMLUtils::GetString(pElem, "name", name)) 
+  if (!XMLUtils::GetString(pElem, "name", name))
     return false;
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);
@@ -124,7 +124,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <seasonEpisodes> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   pNode = pNode->FirstChildElement("seasonEpisode");
 
@@ -132,7 +132,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <seasonEpisode> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("seasonEpisode"))
   {
@@ -188,7 +188,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <years> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   pNode = pNode->FirstChildElement("year");
 
@@ -196,7 +196,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <year> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("year"))
   {
@@ -207,5 +207,5 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std
     Logger::Log(LEVEL_DEBUG, "%s Adding year pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), yearPattern.c_str());
   }
 
-  return true;    
+  return true;
 }

@@ -23,13 +23,13 @@
 #include "Enigma2.h"
 
 #include <algorithm>
-#include <iostream> 
-#include <fstream> 
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <regex>
 #include <stdlib.h>
 
-#include "client.h" 
+#include "client.h"
 #include "enigma2/utilities/CurlFile.h"
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
@@ -45,26 +45,26 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-Enigma2::Enigma2() 
+Enigma2::Enigma2()
 {
   m_lastUpdateTimeSeconds = time(nullptr);
 }
 
-Enigma2::~Enigma2() 
+Enigma2::~Enigma2()
 {
   CLockObject lock(m_mutex);
   Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
   StopThread();
-  
+
   Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
-  m_channels.ClearChannels();  
-  
+  m_channels.ClearChannels();
+
   Logger::Log(LEVEL_DEBUG, "%s Removing internal timers list...", __FUNCTION__);
   m_timers.ClearTimers();
-  
+
   Logger::Log(LEVEL_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
   m_recordings.ClearRecordings();
-  
+
   Logger::Log(LEVEL_DEBUG, "%s Removing internal group list...", __FUNCTION__);
   m_channelGroups.ClearChannelGroups();
   m_isConnected = false;
@@ -86,7 +86,7 @@ bool Enigma2::Open()
     Logger::Log(LEVEL_NOTICE, "%s Use HTTPS: 'false'", __FUNCTION__);
   else
     Logger::Log(LEVEL_NOTICE, "%s Use HTTPS: 'true'", __FUNCTION__);
-  
+
   if ((m_settings.GetUsername().length() > 0) && (m_settings.GetPassword().length() > 0))
   {
     if ((m_settings.GetUsername().find("@") != std::string::npos) || (m_settings.GetPassword().find("@") != std::string::npos))
@@ -94,7 +94,7 @@ bool Enigma2::Open()
       Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuraton!", __FUNCTION__);
       return false;
     }
-  } 
+  }
   m_isConnected = m_admin.Initialise();
 
   if (!m_isConnected)
@@ -109,7 +109,7 @@ bool Enigma2::Open()
   m_recordings.ClearLocations();
   m_recordings.LoadLocations();
 
-  if (m_channels.GetNumChannels() == 0) 
+  if (m_channels.GetNumChannels() == 0)
   {
     // Load the TV channels - close connection if no channels are found
     if (!m_channelGroups.LoadChannelGroups())
@@ -128,57 +128,60 @@ bool Enigma2::Open()
       return false;
     }
   }
+
+  m_skipInitialEpgLoad = m_settings.SkipInitialEpgLoad();
+
+  m_epg.Initialise(m_channels, m_channelGroups);
+
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
   m_timers.TimerUpdates();
 
   Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __FUNCTION__);
-  CreateThread(); 
+  CreateThread();
 
-  return IsRunning(); 
+  return IsRunning();
 }
 
 void *Enigma2::Process()
 {
   Logger::Log(LEVEL_DEBUG, "%s - starting", __FUNCTION__);
 
-  // Wait for the initial EPG update to complete 
-  bool bwait = true;
-  int cycles = 0;
-
-  while (bwait)
+  // Wait for the initial EPG update to complete
+  int totalWaitSecs = 0;
+  while (totalWaitSecs < INITIAL_EPG_WAIT_SECS)
   {
-    if (cycles == 30)
-      bwait = false;
-
-    cycles++;
+    totalWaitSecs += INITIAL_EPG_STEP_SECS;
 
     if (!m_epg.IsInitialEpgCompleted())
-      Sleep(5 * 1000);
+      Sleep(INITIAL_EPG_STEP_SECS * 1000);
   }
 
-  // Trigger "Real" EPG updates 
+  m_skipInitialEpgLoad = false;
+
+  // Whether or not initial EPG updates occurred now Trigger "Real" EPG updates
+  // This will regard Initial EPG as completed anyway.
   m_epg.TriggerEpgUpdatesForChannels();
 
-  while(!IsStopped())
+  while(!IsStopped() && m_isConnected)
   {
-    Sleep(5 * 1000);
-     
+    Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
+
     time_t currentUpdateTimeSeconds = time(nullptr);
     m_updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - m_lastUpdateTimeSeconds);
     m_lastUpdateTimeSeconds = currentUpdateTimeSeconds;
 
-    if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60)) 
+    if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60))
     {
       m_updateTimer = 0;
 
       // Trigger Timer and Recording updates acording to the addon settings
       CLockObject lock(m_mutex);
       // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped()) 
+      if (!IsStopped())
       {
         Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
 
-        if (m_settings.GetAutoTimerListCleanupEnabled()) 
+        if (m_settings.GetAutoTimerListCleanupEnabled())
         {
           m_timers.RunAutoTimerListCleanup();
         }
@@ -206,12 +209,12 @@ void Enigma2::SendPowerstate()
 
 const char * Enigma2::GetServerName() const
 {
-  return m_admin.GetServerName().c_str();  
+  return m_admin.GetServerName();
 }
 
 const char * Enigma2::GetServerVersion() const
 {
-  return m_admin.GetWebIfVersion().c_str();  
+  return m_admin.GetServerVersion();
 }
 
 bool Enigma2::IsConnected() const
@@ -295,7 +298,20 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
     Sleep(m_settings.GetEPGDelayPerChannelDelay());
 
-  return m_epg.GetEPGForChannel(handle, channel, iStart, iEnd);
+  if (!m_channels.IsValid(channel.iUniqueId))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  if (m_skipInitialEpgLoad)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Skipping Initial EPG for channel: %s", __FUNCTION__, m_channels.GetChannel(channel.iUniqueId)->GetChannelName().c_str());
+    m_epg.MarkChannelAsInitialEpgRead(m_channels.GetChannel(channel.iUniqueId)->GetServiceReference());
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return m_epg.GetEPGForChannel(handle, m_channels.GetChannel(channel.iUniqueId)->GetServiceReference(), iStart, iEnd);
 }
 
 /***************************************************************************
@@ -319,7 +335,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
       const std::string strCmd = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
 
       std::string strResult;
-      if(!WebUtils::SendSimpleCommand(strCmd, strResult))
+      if(!WebUtils::SendSimpleCommand(strCmd, strResult, true))
         return false;
     }
   }
@@ -371,7 +387,7 @@ std::string Enigma2::GetStreamURL(const std::string& strM3uURL)
  * Recordings
  **************************************************************************/
 
-unsigned int Enigma2::GetRecordingsAmount() 
+unsigned int Enigma2::GetRecordingsAmount()
 {
   return m_recordings.GetNumRecordings();
 }
@@ -394,7 +410,7 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo) 
+PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo)
 {
   return m_recordings.DeleteRecording(recinfo);
 }
@@ -405,7 +421,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY e
   {
     CLockObject lock(m_mutex);
     m_recordings.GetRecordingEdl(recinfo.strRecordingId, edlEntries);
-  }  
+  }
 
   Logger::Log(LEVEL_DEBUG, "%s - recording '%s' has '%d' EDL entries available", __FUNCTION__, recinfo.strTitle, edlEntries.size());
 
@@ -434,12 +450,12 @@ RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
   std::string channelName = recinfo.strChannelName;
   auto timer = m_timers.GetTimer([&](const Timer &timer)
       {
-        return timer.isRunning(&now, &channelName);
+        return timer.IsRunning(&now, &channelName);
       });
   if (timer)
   {
-    start = timer->GetStartTime();
-    end = timer->GetEndTime();
+    start = timer->GetRealStartTime();
+    end = timer->GetRealEndTime();
   }
 
   return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), start, end, recinfo.iDuration);

@@ -21,20 +21,40 @@
  *
  */
 
+#include <memory>
 #include <string>
+#include <vector>
 
-#include "../data/BaseEntry.h"
+#include "BaseChannel.h"
+#include "EpgEntry.h"
+
+#include "libXBMC_pvr.h"
+#include "tinyxml.h"
 
 namespace enigma2
 {
-  namespace utilities
+  namespace data
   {
-    typedef enum UPDATE_STATE
+    class EpgEntry;
+
+    class EpgChannel : public BaseChannel
     {
-        UPDATE_STATE_NONE,
-        UPDATE_STATE_FOUND,
-        UPDATE_STATE_UPDATED,
-        UPDATE_STATE_NEW
-    } UPDATE_STATE;
+    public:
+
+      EpgChannel() = default;
+      EpgChannel(const EpgChannel &e) : BaseChannel(e) {};
+      ~EpgChannel() = default;
+
+      bool RequiresInitialEpg() const { return m_requiresInitialEpg; }
+      void SetRequiresInitialEpg(bool value) { m_requiresInitialEpg = value; }
+
+      std::vector<EpgEntry>& GetInitialEPG() { return m_initialEPG; }
+
+    private:
+
+      bool m_requiresInitialEpg = true;
+
+      std::vector<EpgEntry> m_initialEPG;
+    };
   } //namespace data
 } //namespace enigma2

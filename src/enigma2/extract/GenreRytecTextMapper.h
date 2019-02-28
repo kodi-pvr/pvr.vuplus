@@ -37,11 +37,11 @@ namespace enigma2
       bool LoadTextToIdGenreFile(const std::string &xmlFile, std::map<std::string, int> &map);
       void CreateGenreAddonDataDirectories();
 
-      std::regex genrePattern;
-      std::regex genreMajorPattern;
-      std::map<std::string, int> kodiGenreTextToDvbIdMap;
-      std::map<int, std::string> kodiDvbIdToGenreTextMap;
-      std::map<std::string, int> genreMap;
+      std::regex m_genrePattern;
+      std::regex m_genreMajorPattern;
+      std::map<std::string, int> m_kodiGenreTextToDvbIdMap;
+      std::map<int, std::string> m_kodiDvbIdToGenreTextMap;
+      std::map<std::string, int> m_genreMap;
     };
   } //namespace extract
 } //namespace enigma2

@@ -353,6 +353,11 @@
             <formatlabel>14046</formatlabel>
           </control>
         </setting>
+        <setting id="skipinitialepg" type="boolean" label="30115">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
       </group>
     </category>
 

@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -38,6 +38,7 @@ namespace enigma2
     static const std::string TAG_FOR_AUTOTIMER = "AutoTimer";
     static const std::string TAG_FOR_MANUAL_TIMER = "Manual";
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
+    static const std::string TAG_FOR_PADDING = "Padding";
 
     class Timer
     {
@@ -51,8 +52,8 @@ namespace enigma2
         READONLY_REPEATING_ONCE = PVR_TIMER_TYPE_NONE + 3,
         EPG_ONCE                = PVR_TIMER_TYPE_NONE + 4,
         EPG_REPEATING           = PVR_TIMER_TYPE_NONE + 5, //Can't be created on Kodi, only on the engima2 box
-        EPG_AUTO_SEARCH         = PVR_TIMER_TYPE_NONE + 6, 
-        EPG_AUTO_ONCE           = PVR_TIMER_TYPE_NONE + 7, 
+        EPG_AUTO_SEARCH         = PVR_TIMER_TYPE_NONE + 6,
+        EPG_AUTO_ONCE           = PVR_TIMER_TYPE_NONE + 7,
       };
 
       Timer()
@@ -71,51 +72,61 @@ namespace enigma2
       void SetPlot(const std::string& value ) { m_plot = value; }
 
       int GetChannelId() const { return m_channelId; }
-      void SetChannelId(int value) { m_channelId = value; }      
+      void SetChannelId(int value) { m_channelId = value; }
 
       const std::string& GetChannelName() const { return m_channelName; }
       void SetChannelName(const std::string& value ) { m_channelName = value; }
 
       time_t GetStartTime() const { return m_startTime; }
-      void SetStartTime(time_t value) { m_startTime = value; }      
+      void SetStartTime(time_t value) { m_startTime = value; }
 
       time_t GetEndTime() const { return m_endTime; }
-      void SetEndTime(time_t value) { m_endTime = value; }      
+      void SetEndTime(time_t value) { m_endTime = value; }
+
+      time_t GetRealStartTime() const { return m_startTime - (m_paddingStartMins * 60); }
+      time_t GetRealEndTime() const { return m_endTime + (m_paddingEndMins * 60); }
 
       int GetWeekdays() const { return m_weekdays; }
-      void SetWeekdays(int value) { m_weekdays = value; }  
+      void SetWeekdays(int value) { m_weekdays = value; }
 
       unsigned int GetEpgId() const { return m_epgId; }
-      void SetEpgId(unsigned int value) { m_epgId = value; }       
+      void SetEpgId(unsigned int value) { m_epgId = value; }
 
       PVR_TIMER_STATE GetState() const { return m_state; }
-      void SetState(PVR_TIMER_STATE value) { m_state = value; }  
+      void SetState(PVR_TIMER_STATE value) { m_state = value; }
 
       int GetUpdateState() const { return m_updateState; }
-      void SetUpdateState(int value) { m_updateState = value; }  
+      void SetUpdateState(int value) { m_updateState = value; }
 
       unsigned int GetClientIndex() const { return m_clientIndex; }
-      void SetClientIndex(unsigned int value) { m_clientIndex = value; }   
+      void SetClientIndex(unsigned int value) { m_clientIndex = value; }
 
       unsigned int GetParentClientIndex() const { return m_parentClientIndex; }
-      void SetParentClientIndex(unsigned int value) { m_parentClientIndex = value; }   
+      void SetParentClientIndex(unsigned int value) { m_parentClientIndex = value; }
 
       const std::string& GetTags() const { return m_tags; }
       void SetTags(const std::string& value ) { m_tags = value; }
 
-      bool isScheduled() const;
-      bool isRunning(std::time_t *now, std::string *channelName = nullptr) const;
-      bool isChildOfParent(const Timer &parent) const;
+      int GetPaddingStartMins() const { return m_paddingStartMins; }
+      void SetPaddingStartMins(int value) { m_paddingStartMins = value; }
+
+      int GetPaddingEndMins() const { return m_paddingEndMins; }
+      void SetPaddingEndMins(int value) { m_paddingEndMins = value; }
+
+      bool IsScheduled() const;
+      bool IsRunning(std::time_t *now, std::string *channelName = nullptr) const;
+      bool IsChildOfParent(const Timer &parent) const;
 
       bool Like(const Timer &right) const;
       bool operator==(const Timer &right) const;
       void UpdateFrom(const Timer &right);
       void UpdateTo(PVR_TIMER &right) const;
-      bool UpdateFrom(TiXmlElement* timerNode, Channels &channels); 
+      bool UpdateFrom(TiXmlElement* timerNode, Channels &channels);
       bool ContainsTag(const std::string &tag) const;
+      std::string ReadTag(const std::string &tag) const;
 
     protected:
-      Type m_type = Type::MANUAL_ONCE; 
+      Type m_type = Type::MANUAL_ONCE;
       std::string m_title;
       std::string m_plot;
       int m_channelId;
@@ -124,11 +135,13 @@ namespace enigma2
       time_t m_endTime;
       int m_weekdays;
       unsigned int m_epgId;
-      PVR_TIMER_STATE m_state; 
+      PVR_TIMER_STATE m_state;
       int m_updateState;
-      unsigned int m_clientIndex;  
-      unsigned int m_parentClientIndex;  
+      unsigned int m_clientIndex;
+      unsigned int m_parentClientIndex;
       std::string m_tags;
+      unsigned int m_paddingStartMins = 0;
+      unsigned int m_paddingEndMins = 0;
     };
   } //namespace data
 } //namespace enigma2

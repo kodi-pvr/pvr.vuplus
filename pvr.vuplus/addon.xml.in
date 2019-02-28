@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.17.0"
+  version="3.18.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -175,6 +175,14 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v3.18.0
+- Fixed: Ensure only one call to GetEPGForChannel happens at one time, fixes #181
+- Added: Update/fix server version for pvr addon
+- Added: Option to skip initial EPG Load
+- Fixed: Fix for zap on channel change for dreamboxes
+- Added: Support for padding in certain timer types
+- Fixed: Change the call web/tunersignal to web/signal so it also works on DreamOS
+
 v3.17.0
 - Added: Recording EDL support
 - Added: Update Timer Types to display correctly in Manual vs EPG UIs

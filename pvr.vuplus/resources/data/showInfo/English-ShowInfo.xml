@@ -1,4 +1,4 @@
-<!-- 
+<!--
 
 <name> element
  - This must exist, and only once
@@ -11,13 +11,13 @@
  - This element must have a pattern attrbute.
  - There is no limit to the number of <year> elements but there must be at least one.
 
-If you are creating yoru own patterns make a copy of this file in the same directory so it's not overwritten. 
+If you are creating yoru own patterns make a copy of this file in the same directory so it's not overwritten.
 
 NOTE: IF YOU MODIFY THIS FILE IT WILL BE OVERWRITTEN NEXT TIME THE ADDON IS STARTED
 
 If you have changes either create a PR containing the changes or an issue with details at:
   https://github.com/kodi-pvr/pvr.vuplus
--->      
+-->
 
 <showInfo>
   <name>English Show Info</name>

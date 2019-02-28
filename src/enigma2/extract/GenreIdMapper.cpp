@@ -11,7 +11,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreIdMapper::GenreIdMapper() 
+GenreIdMapper::GenreIdMapper()
   : IExtractor()
 {
   LoadGenreIdMapFile();
@@ -26,7 +26,7 @@ void GenreIdMapper::ExtractFromEntry(BaseEntry &entry)
   if (entry.GetGenreType() != 0)
   {
     int combinedGenreType = entry.GetGenreType() | entry.GetGenreSubType();
-    
+
     const int mappedGenreId = LookupGenreIdInMap(combinedGenreType);
 
     if (mappedGenreId != EPG_EVENT_CONTENTMASK_UNDEFINED)
@@ -56,18 +56,18 @@ int GenreIdMapper::LookupGenreIdInMap(const int combinedGenreType)
 {
   int genreType = EPG_EVENT_CONTENTMASK_UNDEFINED;
 
-  auto genreMapSearch = genreIdToDvbIdMap.find(combinedGenreType);
-  if (genreMapSearch != genreIdToDvbIdMap.end()) 
+  auto genreMapSearch = m_genreIdToDvbIdMap.find(combinedGenreType);
+  if (genreMapSearch != m_genreIdToDvbIdMap.end())
   {
     genreType = genreMapSearch->second;
-  } 
+  }
 
   return genreType;
 }
 
 void GenreIdMapper::LoadGenreIdMapFile()
 {
-  if (!LoadIdToIdGenreFile(Settings::GetInstance().GetMapGenreIdsFile(), genreIdToDvbIdMap))
+  if (!LoadIdToIdGenreFile(Settings::GetInstance().GetMapGenreIdsFile(), m_genreIdToDvbIdMap))
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
 }
 
@@ -110,7 +110,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
 
   std::string mapperName;
 
-  if (!XMLUtils::GetString(pElem, "mapperName", mapperName)) 
+  if (!XMLUtils::GetString(pElem, "mapperName", mapperName))
     return false;
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);
@@ -121,7 +121,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <mappings> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   pNode = pNode->FirstChildElement("mapping");
 
@@ -129,7 +129,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <mapping> element", __FUNCTION__);
     return false;
-  }    
+  }
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("mapping"))
   {
@@ -144,5 +144,5 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
     Logger::Log(LEVEL_TRACE, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __FUNCTION__, mapperName.c_str(), sourceId, targetId);
   }
 
-  return true;  
+  return true;
 }

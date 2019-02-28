@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -52,7 +52,7 @@ namespace enigma2
     bool LoadLocations();
     void LoadRecordings();
 
-  private:   
+  private:
     static const std::string FILE_NOT_FOUND_RESPONSE_SUFFIX;
 
     bool GetRecordingsFromLocation(std::string recordingFolder);

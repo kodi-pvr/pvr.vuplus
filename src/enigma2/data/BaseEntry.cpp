@@ -14,11 +14,11 @@ void BaseEntry::ProcessPrependMode(PrependOutline prependOutlineMode)
       m_plot = m_plotOutline;
       m_plotOutline.clear();
     }
-    else if ((Settings::GetInstance().GetPrependOutline() == prependOutlineMode || 
+    else if ((Settings::GetInstance().GetPrependOutline() == prependOutlineMode ||
               Settings::GetInstance().GetPrependOutline() == PrependOutline::ALWAYS)
               && !m_plotOutline.empty())
     {
       m_plot.insert(0, m_plotOutline + "\n");
       m_plotOutline.clear();
-    }        
+    }
 }

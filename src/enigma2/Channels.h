@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -52,11 +52,10 @@ namespace enigma2
     int GetNumChannels() const;
     void ClearChannels();
     std::vector<std::shared_ptr<enigma2::data::Channel>>& GetChannelsList();
-    bool CheckIfAllChannelsHaveInitialEPG() const;
     std::string GetChannelIconPath(std::string strChannelName);
     bool LoadChannels(enigma2::ChannelGroups &channelGroups);
 
-  private:   
+  private:
     void AddChannel(enigma2::data::Channel &channel, std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
     bool LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
 

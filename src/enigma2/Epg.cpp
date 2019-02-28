@@ -1,5 +1,7 @@
 #include "Epg.h"
 
+#include <chrono>
+#include <cmath>
 #include <regex>
 
 #include "../client.h"
@@ -15,228 +17,254 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+using namespace P8PLATFORM;
 using json = nlohmann::json;
 
-Epg::Epg (enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups, enigma2::extract::EpgEntryExtractor &entryExtractor)
-      : m_channels(channels), m_channelGroups(channelGroups), m_entryExtractor(entryExtractor) {}
+Epg::Epg(enigma2::extract::EpgEntryExtractor &entryExtractor)
+      : m_entryExtractor(entryExtractor) {}
+
+Epg::Epg(const Epg &epg) : m_entryExtractor(epg.m_entryExtractor) {}
+
+bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups)
+{
+  auto started = std::chrono::high_resolution_clock::now();
+  Logger::Log(LEVEL_DEBUG, "%s Initial EPG Load Start", __FUNCTION__);
+
+  //clear current data structures
+  m_epgChannels.clear();
+  m_epgChannelsMap.clear();
+  m_readInitialEpgChannelsMap.clear();
+  m_needsInitialEpgChannelsMap.clear();
+  m_initialEpgReady = false;
+
+  //add an initial EPG data per channel uId, sref and initial EPG
+  for (auto& channel : channels.GetChannelsList())
+  {
+    std::shared_ptr<data::EpgChannel> newEpgChannel;
+
+    newEpgChannel->SetRadio(channel->IsRadio());
+    newEpgChannel->SetUniqueId(channel->GetUniqueId());
+    newEpgChannel->SetChannelName(channel->GetChannelName());
+    newEpgChannel->SetServiceReference(channel->GetServiceReference());
+
+    m_epgChannels.emplace_back(newEpgChannel);
+
+    m_epgChannelsMap.insert({newEpgChannel->GetServiceReference(), newEpgChannel});
+    m_readInitialEpgChannelsMap.insert({newEpgChannel->GetServiceReference(), newEpgChannel});
+    m_needsInitialEpgChannelsMap.insert({newEpgChannel->GetServiceReference(), newEpgChannel});
+  }
+
+  int lastScannedIgnoreSuccessCount = std::round((1 - LAST_SCANNED_INITIAL_EPG_SUCCESS_PERCENT) * m_epgChannels.size());
+
+  std::vector<std::shared_ptr<ChannelGroup>> groupList;
+
+  std::shared_ptr<ChannelGroup> newChannelGroup;
+  newChannelGroup->SetRadio(false);
+  newChannelGroup->SetGroupName("Last Scanned"); //Name not important
+  newChannelGroup->SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
+  newChannelGroup->SetLastScannedGroup(true);
+
+  groupList.emplace_back(newChannelGroup);
+  for (auto& group : channelGroups.GetChannelGroupsList())
+  {
+    if (!group->IsLastScannedGroup())
+      groupList.emplace_back(group);
+  }
+
+  //load each group and if we don't already have it's intial EPG then load those entries
+  for (auto& group : groupList)
+  {
+    LoadInitialEPGForGroup(group);
+
+    //Remove channels that now have an initial EPG
+    for (auto& epgChannel : m_epgChannels)
+    {
+      if (epgChannel->GetInitialEPG().size() > 0)
+        InitialEpgLoadedForChannel(epgChannel->GetServiceReference());
+    }
+
+    if (group->IsLastScannedGroup() && m_needsInitialEpgChannelsMap.size() <= lastScannedIgnoreSuccessCount)
+      break;
+  }
+
+  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+                      std::chrono::high_resolution_clock::now() - started).count();
+
+  Logger::Log(LEVEL_NOTICE, "%s Initial EPG Loaded - %d (ms)", __FUNCTION__, milliseconds);
+
+  m_initialEpgReady = true;
+
+  return true;
+}
+
+std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string &serviceReference)
+{
+  std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
+
+  auto epgChannelSearch = m_epgChannelsMap.find(serviceReference);
+  if (epgChannelSearch != m_epgChannelsMap.end())
+    epgChannel = epgChannelSearch->second;
+
+  return epgChannel;
+}
+
+std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std::string &serviceReference)
+{
+  std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
+
+  auto initialEpgChannelSearch = m_needsInitialEpgChannelsMap.find(serviceReference);
+  if (initialEpgChannelSearch != m_needsInitialEpgChannelsMap.end())
+    epgChannel = initialEpgChannelSearch->second;
+
+  return epgChannel;
+}
+
+bool Epg::ChannelNeedsInitialEpg(const std::string &serviceReference)
+{
+  auto needsInitialEpgSearch = m_needsInitialEpgChannelsMap.find(serviceReference);
+
+  return needsInitialEpgSearch != m_needsInitialEpgChannelsMap.end();
+}
+
+bool Epg::InitialEpgLoadedForChannel(const std::string &serviceReference)
+{
+  return m_needsInitialEpgChannelsMap.erase(serviceReference) == 1;
+}
 
 bool Epg::IsInitialEpgCompleted()
 {
-  if (m_allChannelsHaveInitialEPG)
-  {
-    return m_allChannelsHaveInitialEPG;
-  }
-  else
-  {
-    Logger::Log(LEVEL_DEBUG, "%s - Intial EPG update not completed yet.", __FUNCTION__);
-    return false;
-  }
+  Logger::Log(LEVEL_DEBUG, "%s Waiting to Get Initial EPG for %d remaining channels", __FUNCTION__, m_readInitialEpgChannelsMap.size());
+
+  return m_readInitialEpgChannelsMap.size() == 0;
 }
 
 void Epg::TriggerEpgUpdatesForChannels()
 {
-  for (auto& channel : m_channels.GetChannelsList())
+  for (auto& epgChannel : m_epgChannels)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel '%d'", __FUNCTION__, channel->GetUniqueId());
-    PVR->TriggerEpgUpdate(channel->GetUniqueId());
-  }
-}
-
-PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
-{
-  if (!m_channels.IsValid(channel.iUniqueId))
-  {
-    Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
-    return PVR_ERROR_NO_ERROR;
-  }
-
-  std::shared_ptr<Channel> myChannel = m_channels.GetChannel(channel.iUniqueId);
-
-  Logger::Log(LEVEL_DEBUG, "%s Getting EPG for channel '%s'", __FUNCTION__, myChannel->GetChannelName().c_str());
-
-  // Check if the initial short import has already been done for this channel
-  if (myChannel->RequiresInitialEPG())
-  {
-    myChannel->SetRequiresInitialEPG(false);
-
-    if (!m_allChannelsHaveInitialEPG)
-      m_allChannelsHaveInitialEPG = m_channels.CheckIfAllChannelsHaveInitialEPG();
-
-    if (m_allChannelsHaveInitialEPG)
-      Logger::Log(LEVEL_DEBUG, "%s - Intial EPG update COMPLETE!", __FUNCTION__);
-
-    return GetInitialEPGForChannel(handle, myChannel, iStart, iEnd);
-  }
-
-  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgservice?sRef=",
-                                              WebUtils::URLEncodeInline(myChannel->GetServiceReference()).c_str());
-
-  const std::string strXML = WebUtils::GetHttpXML(url);
-
-  int iNumEPG = 0;
-
-  TiXmlDocument xmlDoc;
-  if (!xmlDoc.Parse(strXML.c_str()))
-  {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return PVR_ERROR_SERVER_ERROR;
-  }
-
-  TiXmlHandle hDoc(&xmlDoc);
-
-  TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
-
-  if (!pElem)
-  {
-    Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
-    // Return "NO_ERROR" as the EPG could be empty for this channel
-    return PVR_ERROR_NO_ERROR;
-  }
-
-  TiXmlHandle hRoot = TiXmlHandle(pElem);
-
-  TiXmlElement* pNode = hRoot.FirstChildElement("e2event").Element();
-
-  if (!pNode)
-  {
-    Logger::Log(LEVEL_NOTICE, "%s Could not find <e2event> element", __FUNCTION__);
-    // RETURN "NO_ERROR" as the EPG could be empty for this channel
-    return PVR_ERROR_SERVER_ERROR;
-  }
-
-  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
-  {
-    EpgEntry entry;
-
-    if (!entry.UpdateFrom(pNode, myChannel, iStart, iEnd))
-      continue;
-
-    if (m_entryExtractor.IsEnabled())
-      m_entryExtractor.ExtractFromEntry(entry);
-
-    EPG_TAG broadcast;
-    memset(&broadcast, 0, sizeof(EPG_TAG));
-
-    entry.UpdateTo(broadcast);
-
-    PVR->TransferEpgEntry(handle, &broadcast);
-
-    iNumEPG++;
-
-    Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __FUNCTION__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
-  }
-
-  Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for channel '%s'", __FUNCTION__, iNumEPG, channel.strChannelName);
-  return PVR_ERROR_NO_ERROR;
-}
-
-bool Epg::GetInitialEPGForGroup(std::shared_ptr<ChannelGroup> group)
-{
-  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",
-                                                WebUtils::URLEncodeInline(group->GetServiceReference()).c_str());
-
-  const std::string strXML = WebUtils::GetHttpXML(url);
-
-  int iNumEPG = 0;
-
-  TiXmlDocument xmlDoc;
-  if (!xmlDoc.Parse(strXML.c_str()))
-  {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return false;
-  }
-
-  TiXmlHandle hDoc(&xmlDoc);
-
-  TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
-
-  if (!pElem)
-  {
-    Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
-    // Return "NO_ERROR" as the EPG could be empty for this channel
-    return false;
-  }
-
-  TiXmlHandle hRoot = TiXmlHandle(pElem);
-
-  TiXmlElement* pNode = hRoot.FirstChildElement("e2event").Element();
-
-  if (!pNode)
-  {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2event> element", __FUNCTION__);
-    // RETURN "NO_ERROR" as the EPG could be empty for this channel
-    return false;
-  }
-
-  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
-  {
-    EpgEntry entry;
-
-    if (!entry.UpdateFrom(pNode, m_channels))
-      continue;
-
-    if (m_entryExtractor.IsEnabled())
-      m_entryExtractor.ExtractFromEntry(entry);
-
-    iNumEPG++;
-
-    group->GetInitialEPG().emplace_back(entry);
-  }
-
-  Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for group '%s'", __FUNCTION__, iNumEPG, group->GetGroupName().c_str());
-  return true;
-}
-
-PVR_ERROR Epg::GetInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<Channel> &channel, time_t iStart, time_t iEnd)
-{
-  if (m_channelGroups.GetNumChannelGroups() < 1)
-    return PVR_ERROR_SERVER_ERROR;
-
-  if (channel->IsRadio())
-  {
-    Logger::Log(LEVEL_DEBUG, "%s Channel '%s' is a radio channel so no Initial EPG", __FUNCTION__, channel->GetChannelName().c_str());
-    return PVR_ERROR_NO_ERROR;
-  }
-
-  std::shared_ptr<ChannelGroup> myGroupPtr = nullptr;
-  for (auto& group : channel->GetChannelGroupList())
-  {
-    bool retrievedInitialEPGForGroup = false;
-
-    Logger::Log(LEVEL_DEBUG, "%s Checking for initialEPG for group '%s', num groups %d, channel %s", __FUNCTION__, group->GetGroupName().c_str(), m_channelGroups.GetNumChannelGroups(), channel->GetChannelName().c_str());
-
-    myGroupPtr = group;
-
-    if (group->GetInitialEPG().size() == 0)
+    //We want to trigger full updates only so let's make sure it's not an initialEpg
+    if (epgChannel->RequiresInitialEpg())
     {
-      Logger::Log(LEVEL_DEBUG, "%s Fetching initialEPG for group '%s'", __FUNCTION__, group->GetGroupName().c_str());
-      retrievedInitialEPGForGroup = GetInitialEPGForGroup(group);
+      epgChannel->SetRequiresInitialEpg(false);
+      epgChannel->GetInitialEPG().clear();
+      m_readInitialEpgChannelsMap.erase(epgChannel->GetServiceReference());
     }
 
-    if (retrievedInitialEPGForGroup)
-      Logger::Log(LEVEL_DEBUG, "%s InitialEPG size for group '%s' is now '%d'", __FUNCTION__, group->GetGroupName().c_str(), myGroupPtr->GetInitialEPG().size());
-    else
-      Logger::Log(LEVEL_DEBUG, "%s Already have initialEPG for group '%s', it's size is '%d'", __FUNCTION__, group->GetGroupName().c_str(), myGroupPtr->GetInitialEPG().size());
+    Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel: %s (%d)", __FUNCTION__, epgChannel->GetChannelName().c_str(), epgChannel->GetUniqueId());
+    PVR->TriggerEpgUpdate(epgChannel->GetUniqueId());
   }
+}
 
-  if (!myGroupPtr)
+void Epg::MarkChannelAsInitialEpgRead(const std::string &serviceReference)
+{
+  std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
+
+  if (epgChannel->RequiresInitialEpg())
   {
-    Logger::Log(LEVEL_DEBUG, "%s No groups found for channel '%s' so no Initial EPG",  __FUNCTION__, channel->GetChannelName().c_str());
-    return PVR_ERROR_NO_ERROR;
+    epgChannel->SetRequiresInitialEpg(false);
+    epgChannel->GetInitialEPG().clear();
+    m_readInitialEpgChannelsMap.erase(epgChannel->GetServiceReference());
   }
+}
 
-  for (const auto& entry : myGroupPtr->GetInitialEPG())
+PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceReference, time_t iStart, time_t iEnd)
+{
+  std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
+
+  if (epgChannel)
   {
-    if (channel->GetServiceReference() == entry.GetServiceReference())
+    Logger::Log(LEVEL_DEBUG, "%s Getting EPG for channel '%s'", __FUNCTION__, epgChannel->GetChannelName().c_str());
+
+    if (epgChannel->RequiresInitialEpg())
     {
+      epgChannel->SetRequiresInitialEpg(false);
+
+      return TransferInitialEPGForChannel(handle, epgChannel, iStart, iEnd);
+    }
+
+    const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgservice?sRef=",
+                                                WebUtils::URLEncodeInline(serviceReference).c_str());
+
+    const std::string strXML = WebUtils::GetHttpXML(url);
+
+    int iNumEPG = 0;
+
+    TiXmlDocument xmlDoc;
+    if (!xmlDoc.Parse(strXML.c_str()))
+    {
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      return PVR_ERROR_SERVER_ERROR;
+    }
+
+    TiXmlHandle hDoc(&xmlDoc);
+
+    TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
+
+    if (!pElem)
+    {
+      Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
+      // Return "NO_ERROR" as the EPG could be empty for this channel
+      return PVR_ERROR_NO_ERROR;
+    }
+
+    TiXmlHandle hRoot = TiXmlHandle(pElem);
+
+    TiXmlElement* pNode = hRoot.FirstChildElement("e2event").Element();
+
+    if (!pNode)
+    {
+      Logger::Log(LEVEL_NOTICE, "%s Could not find <e2event> element", __FUNCTION__);
+      // RETURN "NO_ERROR" as the EPG could be empty for this channel
+      return PVR_ERROR_NO_ERROR;
+    }
+
+    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
+    {
+      EpgEntry entry;
+
+      if (!entry.UpdateFrom(pNode, epgChannel, iStart, iEnd))
+        continue;
+
+      if (m_entryExtractor.IsEnabled())
+        m_entryExtractor.ExtractFromEntry(entry);
+
       EPG_TAG broadcast;
       memset(&broadcast, 0, sizeof(EPG_TAG));
 
       entry.UpdateTo(broadcast);
 
       PVR->TransferEpgEntry(handle, &broadcast);
+
+      iNumEPG++;
+
+      Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __FUNCTION__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
     }
+
+    Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for channel '%s'", __FUNCTION__, iNumEPG, epgChannel->GetChannelName().c_str());
   }
+  else
+  {
+    Logger::Log(LEVEL_NOTICE, "%s EPG requested for unknown channel reference: '%s'", __FUNCTION__, serviceReference.c_str());
+  }
+
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<EpgChannel> &epgChannel, time_t iStart, time_t iEnd)
+{
+  for (const auto& entry : epgChannel->GetInitialEPG())
+  {
+    EPG_TAG broadcast;
+    memset(&broadcast, 0, sizeof(EPG_TAG));
+
+    entry.UpdateTo(broadcast);
+
+    PVR->TransferEpgEntry(handle, &broadcast);
+  }
+
+  epgChannel->GetInitialEPG().clear();
+  m_readInitialEpgChannelsMap.erase(epgChannel->GetServiceReference());
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -322,4 +350,64 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceRefere
   }
 
   return partialEntry;
+}
+
+bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
+{
+  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",
+                                                WebUtils::URLEncodeInline(group->GetServiceReference()).c_str());
+
+  const std::string strXML = WebUtils::GetHttpXML(url);
+
+  int iNumEPG = 0;
+
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2eventlist").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
+    // Return "NO_ERROR" as the EPG could be empty for this channel
+    return false;
+  }
+
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("e2event").Element();
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2event> element", __FUNCTION__);
+    // RETURN "NO_ERROR" as the EPG could be empty for this channel
+    return false;
+  }
+
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
+  {
+    EpgEntry entry;
+
+    if (!entry.UpdateFrom(pNode, m_needsInitialEpgChannelsMap))
+      continue;
+
+    std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannelNeedingInitialEpg(entry.GetServiceReference());
+
+    if (m_entryExtractor.IsEnabled())
+      m_entryExtractor.ExtractFromEntry(entry);
+
+    iNumEPG++;
+
+    epgChannel->GetInitialEPG().emplace_back(entry);
+    Logger::Log(LEVEL_TRACE, "%s Added Initial EPG Entry for: %s, %d, %s", __FUNCTION__, epgChannel->GetChannelName().c_str(), epgChannel->GetUniqueId(), epgChannel->GetServiceReference().c_str());
+  }
+
+  Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for group '%s'", __FUNCTION__, iNumEPG, group->GetGroupName().c_str());
+  return true;
 }

@@ -55,12 +55,10 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
     if (!StringUtils::EndsWith(edlFile, FILE_NOT_FOUND_RESPONSE_SUFFIX))
     {
       std::istringstream stream(edlFile);
-      std::string line;    
+      std::string line;
       int lineNumber = 0;
-      while (std::getline(stream, line)) 
+      while (std::getline(stream, line))
       {
-        Logger::Log(LEVEL_NOTICE, "RNL YesV '%s'", line.c_str());
-
         float start = 0.0f, stop = 0.0f;
         unsigned int type = PVR_EDL_TYPE_CUT;
         lineNumber++;
@@ -68,9 +66,7 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
         {
           Logger::Log(LEVEL_NOTICE, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber);
           continue;
-        }        
-
-        Logger::Log(LEVEL_NOTICE, "RNL start: %f, stop: %f, %d", start, stop, type);
+        }
 
         start += static_cast<float>(Settings::GetInstance().GetEDLStartTimePadding()) / 1000.0f;
         stop  += static_cast<float>(Settings::GetInstance().GetEDLStopTimePadding()) / 1000.0f;
@@ -85,10 +81,10 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
         PVR_EDL_ENTRY edlEntry;
         edlEntry.start = static_cast<int64_t>(start * 1000.0f);
         edlEntry.end   = static_cast<int64_t>(stop  * 1000.0f);
-        edlEntry.type  = static_cast<PVR_EDL_TYPE>(type);    
+        edlEntry.type  = static_cast<PVR_EDL_TYPE>(type);
 
         edlEntries.emplace_back(edlEntry);
-      }  
+      }
     }
   }
 }
@@ -98,7 +94,7 @@ RecordingEntry Recordings::GetRecording(const std::string &recordingId) const
   RecordingEntry entry;
 
   auto recordingPair = m_recordingsIdMap.find(recordingId);
-  if (recordingPair != m_recordingsIdMap.end()) 
+  if (recordingPair != m_recordingsIdMap.end())
   {
     entry = recordingPair->second;
   }
@@ -118,7 +114,7 @@ bool Recordings::IsInRecordingFolder(const std::string &recordingFolder) const
       if (iMatches > 1)
       {
         Logger::Log(LEVEL_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __FUNCTION__, recordingFolder.c_str());
-        return true;    
+        return true;
       }
     }
   }
@@ -126,12 +122,12 @@ bool Recordings::IsInRecordingFolder(const std::string &recordingFolder) const
   return false;
 }
 
-PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING &recinfo) 
+PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING &recinfo)
 {
   const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.strRecordingId).c_str());
 
   std::string strResult;
-  if(!WebUtils::SendSimpleCommand(strTmp, strResult)) 
+  if(!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_FAILED;
 
   PVR->TriggerRecordingUpdate();
@@ -163,10 +159,10 @@ bool Recordings::LoadLocations()
 {
   std::string url;
   if (Settings::GetInstance().GetRecordingsFromCurrentLocationOnly())
-    url = StringUtils::Format("%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/getcurrlocation"); 
-  else 
-    url = StringUtils::Format("%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/getlocations"); 
- 
+    url = StringUtils::Format("%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/getcurrlocation");
+  else
+    url = StringUtils::Format("%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/getlocations");
+
   const std::string strXML = WebUtils::GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
@@ -230,16 +226,16 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
 
   if (recordingLocation == "default")
   {
-    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist"); 
+    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist");
     directory = StringUtils::Format("/");
   }
-  else 
+  else
   {
-    url = StringUtils::Format("%s%s?dirname=%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist", 
-                                          WebUtils::URLEncodeInline(recordingLocation).c_str()); 
+    url = StringUtils::Format("%s%s?dirname=%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist",
+                                          WebUtils::URLEncodeInline(recordingLocation).c_str());
     directory = recordingLocation;
   }
- 
+
   const std::string strXML = WebUtils::GetHttpXML(url);
 
   TiXmlDocument xmlDoc;
@@ -263,14 +259,14 @@ bool Recordings::GetRecordingsFromLocation(std::string recordingLocation)
 
   TiXmlElement* pNode = hRoot.FirstChildElement("e2movie").Element();
 
-  int iNumRecordings = 0; 
+  int iNumRecordings = 0;
 
   if (!pNode)
   {
     Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movie> element, no movies at location: %s", directory.c_str(), __FUNCTION__);
-  }  
+  }
   else
-  {  
+  {
     for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2movie"))
     {
 

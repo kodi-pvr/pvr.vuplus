@@ -334,6 +334,7 @@ void ChannelGroups::AddTVLastScannedChannelGroup()
   newChannelGroup.SetRadio(false);
   newChannelGroup.SetGroupName(LocalizedString(30112)); //Last Scanned (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
+  newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
 }
@@ -345,6 +346,7 @@ void ChannelGroups::AddRadioLastScannedChannelGroup()
   newChannelGroup.SetGroupName(LocalizedString(30113)); //Last Scanned (Radio)
   //Hack used here, extra space in service reference so we can spearate TV and Radio, it must be unique
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
+  newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
 }

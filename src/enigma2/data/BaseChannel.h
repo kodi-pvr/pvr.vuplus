@@ -25,9 +25,6 @@
 #include <string>
 #include <vector>
 
-#include "Channel.h"
-#include "EpgEntry.h"
-
 #include "libXBMC_pvr.h"
 #include "tinyxml.h"
 
@@ -35,13 +32,13 @@ namespace enigma2
 {
   namespace data
   {
-    class ChannelGroup
+    class BaseChannel
     {
     public:
-      ChannelGroup() = default;
-      ChannelGroup(ChannelGroup &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
-        m_groupName(c.GetGroupName()), m_serviceReference(c.GetServiceReference()), m_lastScannedGroup(c.IsLastScannedGroup()) {};
-      ~ChannelGroup() = default;
+      BaseChannel() = default;
+      BaseChannel(const BaseChannel &b) : m_radio(b.IsRadio()), m_uniqueId(b.GetUniqueId()),
+        m_channelName(b.GetChannelName()), m_serviceReference(b.GetServiceReference()) {};
+      ~BaseChannel() = default;
 
       bool IsRadio() const { return m_radio; }
       void SetRadio(bool value) { m_radio = value; }
@@ -49,34 +46,17 @@ namespace enigma2
       int GetUniqueId() const { return m_uniqueId; }
       void SetUniqueId(int value) { m_uniqueId = value; }
 
+      const std::string& GetChannelName() const { return m_channelName; }
+      void SetChannelName(const std::string& value ) { m_channelName = value; }
+
       const std::string& GetServiceReference() const { return m_serviceReference; }
       void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
 
-      const std::string& GetGroupName() const { return m_groupName; }
-      void SetGroupName(const std::string& value ) { m_groupName = value; }
-
-      bool IsLastScannedGroup() const { return m_lastScannedGroup; }
-      void SetLastScannedGroup(bool value) { m_lastScannedGroup = value; }
-
-      int GetGroupState() const { return m_groupState; }
-      void SetGroupState(int value) { m_groupState = value; }
-
-      void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
-
-      bool UpdateFrom(TiXmlElement* groupNode, bool radio);
-      void UpdateTo(PVR_CHANNEL_GROUP &left) const;
-
-      std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
-
-    private:
+    protected:
       bool m_radio;
-      int m_uniqueId;
+      int m_uniqueId = -1;
+      std::string m_channelName;
       std::string m_serviceReference;
-      std::string m_groupName;
-      bool m_lastScannedGroup;
-      int m_groupState;
-
-      std::vector<std::shared_ptr<enigma2::data::Channel>> m_channelList;
     };
   } //namespace data
 } //namespace enigma2

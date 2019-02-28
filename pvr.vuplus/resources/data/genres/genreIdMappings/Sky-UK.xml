@@ -1,12 +1,12 @@
-<!-- 
+<!--
 Note: the first 4 bits is genre and last is sub genre
 
 Kodi DVB Genres can be found here: usersdata/genres/kodiDVBGenres.xml
 
 Mapping ID Genres:
- - The end result is to map to one of the DVB Genres for Kodi PVR. 
- - This enables Kodi PVR to colour the EPG entries accordingly. 
- - Mapping are done of the Hex value of the genre ID. 
+ - The end result is to map to one of the DVB Genres for Kodi PVR.
+ - This enables Kodi PVR to colour the EPG entries accordingly.
+ - Mapping are done of the Hex value of the genre ID.
  - SourceId is the genre id from the feed.
  - Mapping element content is the DVB genre ID
  - If a mapping can't be found it defaults to 0x00 (Undefined). However all possible 256 values detailed below.
@@ -17,7 +17,7 @@ NOTE: IF YOU MODIFY THIS FILE IT WILL BE OVERWRITTEN NEXT TIME THE ADDON IS STAR
 
 If you have changes either create a PR containing the changes or an issue with details at:
   https://github.com/kodi-pvr/pvr.vuplus
--->      
+-->
 
 <genreIdMappings>
   <mapperName>Sky-UK</mapperName>

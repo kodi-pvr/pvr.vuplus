@@ -144,6 +144,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("epgdelayperchannel", &m_epgDelayPerChannel))
     m_epgDelayPerChannel = 0;
 
+  if (!XBMC->GetSetting("skipinitialepg", &m_skipInitialEpgLoad))
+    m_skipInitialEpgLoad = true;
+
   //Recording
   if (XBMC->GetSetting("recordingpath", buffer))
     m_recordingPath = buffer;
@@ -290,6 +293,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "epgdelayperchannel")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_epgDelayPerChannel, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "skipinitialepg")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_skipInitialEpgLoad, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Recordings
   else if (settingName == "recordingpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);

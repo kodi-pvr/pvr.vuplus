@@ -12,16 +12,16 @@ namespace enigma2
       DeviceSettings() = default;
 
       bool IsAddTagAutoTimerToTagsEnabled() const { return m_addTagAutoTimerToTagsEnabled; }
-      void SetAddTagAutoTimerToTagsEnabled(bool value) { m_addTagAutoTimerToTagsEnabled = value; }      
+      void SetAddTagAutoTimerToTagsEnabled(bool value) { m_addTagAutoTimerToTagsEnabled = value; }
 
       bool IsAddAutoTimerNameToTagsEnabled() const { return m_addAutoTimerNameToTagsEnabled; }
-      void SetAddAutoTimerNameToTagsEnabled(bool value) { m_addAutoTimerNameToTagsEnabled = value; }    
+      void SetAddAutoTimerNameToTagsEnabled(bool value) { m_addAutoTimerNameToTagsEnabled = value; }
 
       int GetGlobalRecordingStartMargin() const { return m_globalRecrordingStartMargin; }
-      void SetGlobalRecordingStartMargin(int value) { m_globalRecrordingStartMargin = value; }    
+      void SetGlobalRecordingStartMargin(int value) { m_globalRecrordingStartMargin = value; }
 
       int GetGlobalRecordingEndMargin() const { return m_globalRecrordingEndMargin; }
-      void SetGlobalRecordingEndMargin(int value) { m_globalRecrordingEndMargin = value; }    
+      void SetGlobalRecordingEndMargin(int value) { m_globalRecrordingEndMargin = value; }
 
     private:
       bool m_addTagAutoTimerToTagsEnabled = false;

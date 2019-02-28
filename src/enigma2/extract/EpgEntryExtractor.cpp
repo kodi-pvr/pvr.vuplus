@@ -15,7 +15,7 @@ EpgEntryExtractor::EpgEntryExtractor()
 {
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + GENRE_DIR, GENRE_ADDON_DATA_BASE_DIR, true);
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + SHOW_INFO_DIR, SHOW_INFO_ADDON_DATA_BASE_DIR, true);
-  
+
   if (Settings::GetInstance().GetMapGenreIds())
     m_extractors.emplace_back(new GenreIdMapper());
   if (Settings::GetInstance().GetMapRytecTextGenres())
@@ -28,7 +28,7 @@ EpgEntryExtractor::EpgEntryExtractor()
   {
     if (extractor->IsEnabled())
       m_anyExtractorEnabled = true;
-  }  
+  }
 }
 
 EpgEntryExtractor::~EpgEntryExtractor(void)
@@ -41,7 +41,7 @@ void EpgEntryExtractor::ExtractFromEntry(BaseEntry &entry)
   {
     if (extractor->IsEnabled())
       extractor->ExtractFromEntry(entry);
-  }  
+  }
 }
 
 bool EpgEntryExtractor::IsEnabled()

@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -60,8 +60,8 @@ public:
   void SendPowerstate();
   const char * GetServerName() const;
   const char * GetServerVersion() const;
-  bool IsConnected() const; 
-  
+  bool IsConnected() const;
+
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void) const;
   PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool radio);
@@ -93,6 +93,10 @@ protected:
   virtual void *Process(void);
 
 private:
+  static const int INITIAL_EPG_WAIT_SECS = 60;
+  static const int INITIAL_EPG_STEP_SECS = 5;
+  static const int PROCESS_LOOP_WAIT_SECS = 5;
+
   // helper functions
   std::string GetStreamURL(const std::string& strM3uURL);
 
@@ -103,12 +107,13 @@ private:
   int m_currentChannel = -1;
   std::atomic_bool m_dueRecordingUpdate{true};
   time_t m_lastSignalStatusUpdateSeconds;
+  bool m_skipInitialEpgLoad;
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
   enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg = enigma2::Epg(m_channels, m_channelGroups, m_entryExtractor);
+  enigma2::Epg m_epg = enigma2::Epg(m_entryExtractor);
   enigma2::Timers m_timers = enigma2::Timers(m_channels, m_locations, m_epg);
   enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;

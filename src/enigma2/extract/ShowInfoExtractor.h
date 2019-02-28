@@ -44,7 +44,7 @@ namespace enigma2
 
     private:
       bool LoadShowInfoPatternsFile(const std::string &xmlFile, std::vector<EpisodeSeasonPattern> &episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
-      
+
       std::vector<EpisodeSeasonPattern> m_episodeSeasonPatterns;
       std::vector<std::regex> m_yearPatterns;
     };

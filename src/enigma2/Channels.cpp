@@ -114,20 +114,6 @@ std::vector<std::shared_ptr<Channel>>& Channels::GetChannelsList()
   return m_channels;
 }
 
-bool Channels::CheckIfAllChannelsHaveInitialEPG() const
-{
-  bool someChannelsStillNeedInitialEPG = false;
-  for (const auto& channel : m_channels)
-  {
-    if (channel->RequiresInitialEPG())
-    {
-      someChannelsStillNeedInitialEPG = true;
-    }
-  }
-
-  return !someChannelsStillNeedInitialEPG;
-}
-
 std::string Channels::GetChannelIconPath(std::string strChannelName)
 {
   for (const auto& channel : m_channels)

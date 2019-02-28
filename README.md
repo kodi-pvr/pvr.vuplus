@@ -27,6 +27,40 @@ Enigma2 PVR client addon for [Kodi](https://kodi.tv)
 
 The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi from source and run it directly the addon will be available as a system addon.
 
+### Mac OSX
+
+In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi.
+
+**Build Tools and initial addon build**
+
+1. Get the repos
+ * `cd $HOME`
+ * `git clone https://github.com/xbmc/xbmc`
+ * `git clone https://github.com/kodi-pvr/pvr.vuplus`
+2. Build the kodi tools
+ * `cd $HOME/xbmc/tools/depends`
+ * `./bootstrap`
+ * `./configure --host=x86_64-apple-darwin`
+ * `make -j$(getconf _NPROCESSORS_ONLN)`
+3. Build the addon
+ * `cd $HOME/xbmc`
+ * `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+
+**To rebuild the addon after changes**
+
+1. `rm tools/depends/target/binary-addons/.installed-macosx*`
+2. `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+
+or
+
+1. `cd tools/depends/target/binary-addons/macosx*`
+2. `make`
+
+**Copy the addon to the Kodi addon directory on Mac**
+
+1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
+2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
+
 ## Support
 
 ### Useful links
@@ -108,6 +142,7 @@ Information on customising the extraction and mapper configs can be found in the
 * **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`.
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
+* **Skip intial EPG load**: Ignore the intial EPG load (now and next). Enabled by default as can cause issues on LibreElec/CoreElec
 
 ### Recordings
 The following configuration is available on the Recordings tab of the addon settings.
@@ -120,7 +155,20 @@ The following configuration is available on the Recordings tab of the addon sett
 * **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
 
 ### Timers
-The addon provides the following types of timers/rules that the user can create:
+
+**Using Padding for Timers in Kodi PVR**
+
+Using padding for timers allows you to start a recording some time earlier and finish later in case the actual start and/or run time of a show is incorrect. It's important to note that Enigma2 devices allow you set a padding for all timers, both regular timers and autotimers but it only applies to timers created on the Enigma2 device directly. In the case of autotimers it does not matter if they are created from Kodi or directly on the Enigma2 device as new once off timers are generated on the device so will use this default device padding. It is not possible to set padding for autotimers directly in Kodi PVR at present. You can change these settings on your Enigma2 device as follows:
+  1. Hit `Menu` on the remote and go to `Setup->Recordings, playback & timeshift->Recording & playback`
+  2. Set the following options to your chosen values:
+    * `Margin before recording (minutes)`
+    * `Margin after recording (minutes)`
+
+If setting padding in Kodi PVR it's only supported on certain timer types, i.e. `Once off time/channel based`, `Repeating time/channel based` and `One time guide-based`. As the Enigma2 device does not support padding per Timer the `tags` field is used to store the padding set in Kodi PVR. If a padding value is not set for these timer types the addon will use the Enigma2 devices default padding value instead. So if you have set a value on the Enigma2 device, this can be overidden in the Kodi UI (note, the default from the Enigma2 device does not display in the Add Timer UI, it won't show until after the timer is created and only if no padding values are set).
+
+**Timer Types**
+
+The addon provides the following types of timers and timer rules that the user can create:
 
 * **Once off time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). If running OpenWebIf the timer will be populated with the EPG Entry (if available) at the start time for that channel.
 * **Repeating time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). This type is a timer rule and generates timers. The timers that are generated cannot be edited and will be of the type `Once off timer (set by repeating time/channel based rule)`.
@@ -129,9 +177,11 @@ The addon provides the following types of timers/rules that the user can create:
 
 In addition there are some timers that can only be created by the addon and are read only:
 
-* **Once off timer (set by repeating time/channel based rule)**: Timer generated by a `Repeating time/channel based` timer rule.
+* **Once off timer (set by repeating time/channel based rule)**: Timer generated by a `Repeating time/channel based` timer rule. Will contain padding that can't be modified the same as the parent timer rule.
 * **Once off timer (set by auto guide-based rule)**: Timer created by an `Auto guide-based` timer rule.
 * **Repeating guide-based**: This type can only be created directly on the Enigma2 device. The type exists to allow users to view the timers in the PVR UI.
+
+**Timer settings**
 
 The following are the settings in the Timers tab:
 

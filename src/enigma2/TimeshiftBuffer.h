@@ -16,7 +16,7 @@ namespace enigma2
     TimeshiftBuffer(IStreamReader *strReader,
         const std::string &m_timeshiftBufferPath, const unsigned int m_readTimeoutX);
     ~TimeshiftBuffer(void);
-    
+
     bool Start() override;
     ssize_t ReadData(unsigned char *buffer, unsigned int size) override;
     int64_t Seek(long long position, int whence) override;

@@ -19,6 +19,12 @@ using namespace enigma2::extract;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
+Admin::Admin() : m_addonVersion(STR(VUPLUS_VERSION))
+{
+  m_serverName[0] = '\0';
+  m_serverVersion[0] = '\0';
+};
+
 void Admin::SendPowerstate()
 {
   if (Settings::GetInstance().GetPowerstateModeOnAddonExit() != PowerstateMode::DISABLED)
@@ -52,6 +58,10 @@ void Admin::SendPowerstate()
 
 bool Admin::Initialise()
 {
+  std::string unknown = LocalizedString(60081).c_str();
+  SetCharString(m_serverName, unknown);
+  SetCharString(m_serverVersion, unknown);
+
   Settings::GetInstance().SetAdmin(this);
 
   bool deviceInfoLoaded = LoadDeviceInfo();
@@ -60,12 +70,13 @@ bool Admin::Initialise()
   {
     Settings::GetInstance().SetDeviceInfo(&m_deviceInfo);
 
-    if (LoadDeviceSettings())
-    {
-      Settings::GetInstance().SetDeviceSettings(&m_deviceSettings);
+    bool deviceSettingsLoaded = LoadDeviceSettings();
+    Settings::GetInstance().SetDeviceSettings(&m_deviceSettings);
 
+    if (deviceSettingsLoaded)
+    {
       //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-      if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0))
+      if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF"))
         SendAutoTimerSettings();
     }
   }
@@ -88,9 +99,9 @@ bool Admin::LoadDeviceInfo()
 
   std::string enigmaVersion;
   std::string imageVersion;
-  std::string distroVersion;
+  std::string distroName;
   std::string webIfVersion;
-  std::string serverName = "Enigma2";
+  std::string deviceName = "Enigma2";
   unsigned int webIfVersionAsNum;
 
   TiXmlHandle hDoc(&xmlDoc);
@@ -127,7 +138,7 @@ bool Admin::LoadDeviceInfo()
   imageVersion = strTmp.c_str();
   Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
 
-  // Get DistroVersion
+  // Get distroName
   if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_NOTICE, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
@@ -135,9 +146,9 @@ bool Admin::LoadDeviceInfo()
   }
   else
   {
-    distroVersion = strTmp.c_str();
+    distroName = strTmp.c_str();
   }
-  Logger::Log(LEVEL_NOTICE, "%s - E2DistroVersion: %s", __FUNCTION__, distroVersion.c_str());
+  Logger::Log(LEVEL_NOTICE, "%s - E2DistroName: %s", __FUNCTION__, distroName.c_str());
 
   // Get WebIfVersion
   if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp))
@@ -156,10 +167,16 @@ bool Admin::LoadDeviceInfo()
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2devicename from result!", __FUNCTION__);
     return false;
   }
-  serverName = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, serverName.c_str());
+  deviceName = strTmp.c_str();
+  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, deviceName.c_str());
 
-  m_deviceInfo = DeviceInfo(serverName, enigmaVersion, imageVersion, distroVersion, webIfVersion, webIfVersionAsNum);
+  m_deviceInfo = DeviceInfo(deviceName, enigmaVersion, imageVersion, distroName, webIfVersion, webIfVersionAsNum);
+
+  std::string version = webIfVersion + " - " + distroName + " (" + imageVersion + "/" + enigmaVersion + ")";
+  SetCharString(m_serverName, deviceName);
+  SetCharString(m_serverVersion, version);
+
+  Logger::Log(LEVEL_NOTICE, "%s - ServerVersion: %s", __FUNCTION__, m_serverVersion);
 
   Logger::Log(LEVEL_NOTICE, "%s - AddonVersion: %s", __FUNCTION__, m_addonVersion.c_str());
 
@@ -243,17 +260,13 @@ bool Admin::LoadDeviceSettings()
   //TODO: Include once addon starts to use new API
   //kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
 
-  if (!LoadAutoTimerSettings())
-  {
-    return false;
-  }
-  else
-  {
-    std::string autoTimerTagInTags = LocalizedString(30094); // N/A
-    std::string autoTimerNameInTags = LocalizedString(30094); // N/A
+  std::string autoTimerTagInTags = LocalizedString(30094); // N/A
+  std::string autoTimerNameInTags = LocalizedString(30094); // N/A
 
-    //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-    if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0))
+  //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
+  if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF"))
+  {
+    if (LoadAutoTimerSettings())
     {
       if (m_deviceSettings.IsAddTagAutoTimerToTagsEnabled())
         autoTimerTagInTags = LocalizedString(30095); // True
@@ -264,11 +277,11 @@ bool Admin::LoadDeviceSettings()
       else
         autoTimerNameInTags = LocalizedString(30096); //False
     }
-
-    //TODO: Include once addon starts to use new API
-    //kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
-    //kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
   }
+
+  //TODO: Include once addon starts to use new API
+  //kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
+  //kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
 
   if (!LoadRecordingMarginSettings())
   {
@@ -567,7 +580,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
 
 bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/tunersignal");
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/signal");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -752,4 +765,10 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
   {
     Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
   }
+}
+
+void Admin::SetCharString(char* target, const std::string value)
+{
+  std::copy(value.begin(), value.end(), target);
+  target[value.size()] = '\0';
 }

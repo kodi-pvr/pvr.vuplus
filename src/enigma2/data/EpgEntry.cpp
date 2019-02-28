@@ -37,33 +37,33 @@ void EpgEntry::UpdateTo(EPG_TAG &left) const
   left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, Channels &channels)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>> &epgChannelsMap)
 {
-  std::string strTmp;
-
-  if(!XMLUtils::GetString(eventNode, "e2eventservicereference", strTmp))
+  if(!XMLUtils::GetString(eventNode, "e2eventservicereference", m_serviceReference))
     return false;
 
   // Check whether the current element is not just a label or that it's not an empty record
-  if (strTmp.compare(0,5,"1:64:") == 0)
+  if (m_serviceReference.compare(0,5,"1:64:") == 0)
     return false;
 
-  m_serviceReference = strTmp;
+  std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
-  m_channelId = channels.GetChannelUniqueId(m_serviceReference);
+  auto epgChannelSearch = epgChannelsMap.find(m_serviceReference);
+  if (epgChannelSearch != epgChannelsMap.end())
+    epgChannel = epgChannelSearch->second;
 
-  if (m_channelId < 0)
+  if (!epgChannel)
   {
-    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping entry: '%s'", __FUNCTION__, m_title.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping entry", __FUNCTION__);
     return false;
   }
 
-  const std::shared_ptr<Channel> myChannel = channels.GetChannel(m_channelId);;
+  m_channelId = epgChannel->GetUniqueId();
 
-  return UpdateFrom(eventNode, myChannel, 0, 0);
+  return UpdateFrom(eventNode, epgChannel, 0, 0);
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel> &channel, time_t iStart, time_t iEnd)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel> &epgChannel, time_t iStart, time_t iEnd)
 {
   std::string strTmp;
 
@@ -91,14 +91,14 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel
     return false;
 
   m_eventId = iTmp;
-  m_channelId = channel->GetUniqueId();
+  m_channelId = epgChannel->GetUniqueId();
 
   if(!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
     return false;
 
   m_title = strTmp;
 
-  m_serviceReference = channel->GetServiceReference().c_str();
+  m_serviceReference = epgChannel->GetServiceReference().c_str();
 
   // Check that it's not an empty record
   if (m_eventId == 0 && m_title == "None")

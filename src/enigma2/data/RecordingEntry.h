@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 /*
  *      Copyright (C) 2005-2015 Team XBMC
  *      http://xbmc.org
@@ -37,33 +37,33 @@ namespace enigma2
     {
     public:
       const std::string& GetRecordingId() const { return m_recordingId; }
-      void SetRecordingId(const std::string& value ) { m_recordingId = value; }      
+      void SetRecordingId(const std::string& value ) { m_recordingId = value; }
 
       time_t GetStartTime() const { return m_startTime; }
-      void SetStartTime(time_t value) { m_startTime = value; }  
-      
+      void SetStartTime(time_t value) { m_startTime = value; }
+
       int GetDuration() const { return m_duration; }
-      void SetDuration(int value) { m_duration = value; }      
+      void SetDuration(int value) { m_duration = value; }
 
       int GetLastPlayedPosition() const { return m_lastPlayedPosition; }
-      void SetLastPlayedPosition(int value) { m_lastPlayedPosition = value; }      
+      void SetLastPlayedPosition(int value) { m_lastPlayedPosition = value; }
 
       const std::string& GetStreamURL() const { return m_streamURL; }
-      void SetStreamURL(const std::string& value ) { m_streamURL = value; }           
+      void SetStreamURL(const std::string& value ) { m_streamURL = value; }
 
       const std::string& GetEdlURL() const { return m_edlURL; }
-      void SetEdlURL(const std::string& value ) { m_edlURL = value; }           
+      void SetEdlURL(const std::string& value ) { m_edlURL = value; }
 
       const std::string& GetChannelName() const { return m_channelName; }
-      void SetChannelName(const std::string& value ) { m_channelName = value; }      
+      void SetChannelName(const std::string& value ) { m_channelName = value; }
 
       const std::string& GetDirectory() const { return m_directory; }
-      void SetDirectory(const std::string& value ) { m_directory = value; }      
+      void SetDirectory(const std::string& value ) { m_directory = value; }
 
       const std::string& GetIconPath() const { return m_iconPath; }
-      void SetIconPath(const std::string& value ) { m_iconPath = value; }    
+      void SetIconPath(const std::string& value ) { m_iconPath = value; }
 
-      bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, enigma2::Channels &channels); 
+      bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, enigma2::Channels &channels);
       void UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder);
 
     private:

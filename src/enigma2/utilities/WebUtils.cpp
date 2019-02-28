@@ -97,7 +97,7 @@ std::string WebUtils::GetHttp(const std::string& url)
   }
 
   Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
-  
+
   return strTmp;
 }
 
@@ -109,7 +109,7 @@ std::string WebUtils::GetHttpXML(const std::string& url)
   // TODO: Remove once bug is fixed in Open WebIf
   if (strTmp.back() != '\n')
     strTmp += "\n";
-  
+
   return strTmp;
 }
 
@@ -132,16 +132,16 @@ std::string WebUtils::PostHttpJson(const std::string& url)
     strTmp += "\n";
 
   Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
-  
+
   return strTmp;
 }
 
 bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str()); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
 
   const std::string strXML = WebUtils::GetHttpXML(url);
-  
+
   if (!bIgnoreResult)
   {
 
@@ -166,14 +166,14 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 
     bool bTmp;
 
-    if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp)) 
+    if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp))
     {
       Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
       strResultText = StringUtils::Format("Could not parse e2state!");
       return false;
     }
 
-    if (!XMLUtils::GetString(pElem, "e2statetext", strResultText)) 
+    if (!XMLUtils::GetString(pElem, "e2statetext", strResultText))
     {
       Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
       return false;
@@ -189,13 +189,13 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 
 bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str()); 
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
 
   const std::string strJson = WebUtils::PostHttpJson(url);
-  
+
   if (!bIgnoreResult)
   {
-    if (strJson.find("true") != std::string::npos) 
+    if (strJson.find("true") != std::string::npos)
     {
       strResultText = "Success!";
     }
@@ -211,10 +211,10 @@ bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::
 }
 
 std::string& WebUtils::Escape(std::string &s, const std::string from, const std::string to)
-{ 
+{
   std::string::size_type pos = -1;
-  while ( (pos = s.find(from, pos+1) ) != std::string::npos)         
-    s.erase(pos, from.length()).insert(pos, to);        
+  while ( (pos = s.find(from, pos+1) ) != std::string::npos)
+    s.erase(pos, from.length()).insert(pos, to);
 
-  return s;     
-} 
+  return s;
+}
