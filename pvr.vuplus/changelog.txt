@@ -1,3 +1,6 @@
+v3.18.1
+- Fixed: Crash on addon start, fixes #191
+
 v3.18.0
 - Fixed: Ensure only one call to GetEPGForChannel happens at one time, fixes #181
 - Added: Update/fix server version for pvr addon
