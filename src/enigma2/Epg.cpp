@@ -40,7 +40,7 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
   //add an initial EPG data per channel uId, sref and initial EPG
   for (auto& channel : channels.GetChannelsList())
   {
-    std::shared_ptr<data::EpgChannel> newEpgChannel;
+    std::shared_ptr<data::EpgChannel> newEpgChannel = std::make_shared<EpgChannel>();
 
     newEpgChannel->SetRadio(channel->IsRadio());
     newEpgChannel->SetUniqueId(channel->GetUniqueId());
@@ -58,7 +58,7 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
 
   std::vector<std::shared_ptr<ChannelGroup>> groupList;
 
-  std::shared_ptr<ChannelGroup> newChannelGroup;
+  std::shared_ptr<ChannelGroup> newChannelGroup = std::make_shared<ChannelGroup>();
   newChannelGroup->SetRadio(false);
   newChannelGroup->SetGroupName("Last Scanned"); //Name not important
   newChannelGroup->SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
