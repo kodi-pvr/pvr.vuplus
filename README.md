@@ -31,7 +31,7 @@ The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi
 
 In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi.
 
-**Build Tools and initial addon build**
+#### Build tools and initial addon build
 
 1. Get the repos
  * `cd $HOME`
@@ -46,20 +46,14 @@ In order to build the addon on mac the steps are different to Linux and Windows 
  * `cd $HOME/xbmc`
  * `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
 
-**To rebuild the addon after changes**
+Note that the steps in the following section need to be performed before the addon is installed and you ca run it in Kodi.
 
-1. `rm tools/depends/target/binary-addons/.installed-macosx*`
-2. `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+#### To rebuild the addon and copy to kodi after changes (after the initial addon build)
 
-or
+1. `cd $HOME/pvr.vuplus`
+2. `./build-install-mac.sh ../xbmc`
 
-1. `cd tools/depends/target/binary-addons/macosx*`
-2. `make`
-
-**Copy the addon to the Kodi addon directory on Mac**
-
-1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
-2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
+If you would prefer to run the rebuild steps manually instead of using the above helper script check the appendix [here](#manual-steps-to-rebuild-the-addon-on-macosx)
 
 ## Support
 
@@ -262,6 +256,25 @@ The following files are currently available with the addon:
 Note: the config file can contain as many mappings as is required. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]. The config file maps the text to a kodi DVB genre ID. If the full text cannot be matched it attempts to match just the major genre, i.e. "TV Drama" in the previous example. If a mapping cannot be found the text between the brackets will be used instead. However there will be no colouring in the Kodi EPG in this case.
 
 ## Appendix
+
+### Manual Steps to rebuild the addon on MacOSX
+
+The following steps can be followed manually instead of using the `build-install-mac.sh` in the root of the addon repo after the [initial addon build](#build-tools-and-initial-addon-build) has been completed.
+
+**To rebuild the addon after changes**
+
+1. `rm tools/depends/target/binary-addons/.installed-macosx*`
+2. `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+
+or
+
+1. `cd tools/depends/target/binary-addons/macosx*`
+2. `make`
+
+**Copy the addon to the Kodi addon directory on Mac**
+
+1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
+2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
 
 ### Logging detailed
 
