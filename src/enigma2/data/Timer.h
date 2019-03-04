@@ -129,6 +129,7 @@ namespace enigma2
       Type m_type = Type::MANUAL_ONCE;
       std::string m_title;
       std::string m_plot;
+      std::string m_plotOutline;
       int m_channelId;
       std::string m_channelName;
       time_t m_startTime;

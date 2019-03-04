@@ -493,22 +493,18 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   std::string title = timer.strTitle;
   std::string description = timer.strSummary;
   unsigned int epgUid = timer.iEpgUid;
-  if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iTimerType == Timer::EPG_ONCE &&
-      timer.iEpgUid != PVR_TIMER_NO_EPG_UID)
+
+  if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") &&
+      (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
   {
-    // description is overwritten by the timeradd call for EPG ONCE so we need to retrieve the correct one first.
-    description = m_epg.LoadEPGEntryShortDescription(serviceReference, timer.iEpgUid);
-  }
-  else if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iTimerType == Timer::MANUAL_ONCE)
-  {
-    // Similar for MANUAL ONCE we try to find an EPG Entry and use it's details
+    // We try to find the EPG Entry and use it's details
     EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime);
 
     if (partialEntry.EntryFound())
     {
-      title = partialEntry.title;
-      description = partialEntry.shortDescription;
-      epgUid = partialEntry.epgUid;
+      title = partialEntry.GetTitle();
+      description = partialEntry.GetPlotOutline();
+      epgUid = partialEntry.GetEpgUid();
     }
   }
 
