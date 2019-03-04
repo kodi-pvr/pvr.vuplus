@@ -12,31 +12,29 @@ using namespace enigma2::utilities;
 
 bool Timer::Like(const Timer &right) const
 {
-  bool bChanged = true;
-  bChanged = bChanged && (m_startTime == right.m_startTime);
-  bChanged = bChanged && (m_endTime == right.m_endTime);
-  bChanged = bChanged && (m_channelId == right.m_channelId);
-  bChanged = bChanged && (m_weekdays == right.m_weekdays);
-  bChanged = bChanged && (m_epgId == right.m_epgId);
+  bool isLike = (m_startTime == right.m_startTime);
+  isLike &= (m_endTime == right.m_endTime);
+  isLike &= (m_channelId == right.m_channelId);
+  isLike &= (m_weekdays == right.m_weekdays);
+  isLike &= (m_epgId == right.m_epgId);
 
-  return bChanged;
+  return isLike;
 }
 
 bool Timer::operator==(const Timer &right) const
 {
-  bool bChanged = true;
-  bChanged = bChanged && (m_startTime == right.m_startTime);
-  bChanged = bChanged && (m_endTime == right.m_endTime);
-  bChanged = bChanged && (m_channelId == right.m_channelId);
-  bChanged = bChanged && (m_weekdays == right.m_weekdays);
-  bChanged = bChanged && (m_epgId == right.m_epgId);
-  bChanged = bChanged && (m_paddingStartMins == right.m_paddingStartMins);
-  bChanged = bChanged && (m_paddingEndMins == right.m_paddingEndMins);
-  bChanged = bChanged && (m_state == right.m_state);
-  bChanged = bChanged && (m_title == right.m_title);
-  bChanged = bChanged && (m_plot == right.m_plot);
+  bool isEqual = (m_startTime == right.m_startTime);
+  isEqual &= (m_endTime == right.m_endTime);
+  isEqual &= (m_channelId == right.m_channelId);
+  isEqual &= (m_weekdays == right.m_weekdays);
+  isEqual &= (m_epgId == right.m_epgId);
+  isEqual &= (m_paddingStartMins == right.m_paddingStartMins);
+  isEqual &= (m_paddingEndMins == right.m_paddingEndMins);
+  isEqual &= (m_state == right.m_state);
+  isEqual &= (m_title == right.m_title);
+  isEqual &= (m_plot == right.m_plot);
 
-  return bChanged;
+  return isEqual;
 }
 
 void Timer::UpdateFrom(const Timer &right)

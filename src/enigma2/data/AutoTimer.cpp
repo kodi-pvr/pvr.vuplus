@@ -15,24 +15,24 @@ bool AutoTimer::Like(const AutoTimer &right) const
 
 bool AutoTimer::operator==(const AutoTimer &right) const
 {
-  bool bChanged = true;
-  bChanged = bChanged && (!m_title.compare(right.m_title));
-  bChanged = bChanged && (m_startTime == right.m_startTime);
-  bChanged = bChanged && (m_endTime == right.m_endTime);
-  bChanged = bChanged && (m_channelId == right.m_channelId);
-  bChanged = bChanged && (m_weekdays == right.m_weekdays);
+  bool isEqual = true;
+  isEqual = isEqual && (!m_title.compare(right.m_title));
+  isEqual = isEqual && (m_startTime == right.m_startTime);
+  isEqual = isEqual && (m_endTime == right.m_endTime);
+  isEqual = isEqual && (m_channelId == right.m_channelId);
+  isEqual = isEqual && (m_weekdays == right.m_weekdays);
 
-  bChanged = bChanged && (m_searchPhrase == right.m_searchPhrase);
-  bChanged = bChanged && (m_searchType == right.m_searchType);
-  bChanged = bChanged && (m_searchCase == right.m_searchCase);
-  bChanged = bChanged && (m_state == right.m_state);
-  bChanged = bChanged && (m_searchFulltext == right.m_searchFulltext);
-  bChanged = bChanged && (m_startAnyTime == right.m_startAnyTime);
-  bChanged = bChanged && (m_endAnyTime == right.m_endAnyTime);
-  bChanged = bChanged && (m_anyChannel == right.m_anyChannel);
-  bChanged = bChanged && (m_deDup == right.m_deDup);
+  isEqual = isEqual && (m_searchPhrase == right.m_searchPhrase);
+  isEqual = isEqual && (m_searchType == right.m_searchType);
+  isEqual = isEqual && (m_searchCase == right.m_searchCase);
+  isEqual = isEqual && (m_state == right.m_state);
+  isEqual = isEqual && (m_searchFulltext == right.m_searchFulltext);
+  isEqual = isEqual && (m_startAnyTime == right.m_startAnyTime);
+  isEqual = isEqual && (m_endAnyTime == right.m_endAnyTime);
+  isEqual = isEqual && (m_anyChannel == right.m_anyChannel);
+  isEqual = isEqual && (m_deDup == right.m_deDup);
 
-  return bChanged;
+  return isEqual;
 }
 
 void AutoTimer::UpdateFrom(const AutoTimer &right)
