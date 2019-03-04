@@ -324,16 +324,24 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceRefere
         for (const auto& element : event.value().items())
         {
           if (element.key() == "shortdesc")
-            partialEntry.shortDescription = element.value().get<std::string>();
+            partialEntry.SetPlotOutline(element.value().get<std::string>());
+          if (element.key() == "longdesc")
+            partialEntry.SetPlot(element.value().get<std::string>());
           else if (element.key() == "title")
-            partialEntry.title = element.value().get<std::string>();
+            partialEntry.SetTitle(element.value().get<std::string>());
           else if (element.key() == "id")
-            partialEntry.epgUid = element.value().get<unsigned int>();
+            partialEntry.SetEpgUid(element.value().get<unsigned int>());
+          else if (element.key() == "genreid")
+          {
+            int genreId = element.value().get<int>();
+            partialEntry.SetGenreType(genreId & 0xF0);
+            partialEntry.SetGenreSubType(genreId & 0x0F);
+          }
         }
 
         if (partialEntry.EntryFound())
         {
-          Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.title.c_str(), partialEntry.epgUid, partialEntry.shortDescription.c_str());
+          Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
         }
 
         break; //We only want first event
