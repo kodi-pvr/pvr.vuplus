@@ -14,6 +14,33 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
+bool Channel::Like(const Channel &right) const
+{
+  bool isLike = (m_serviceReference == right.m_serviceReference);
+  isLike &= (m_channelName == right.m_channelName);
+
+  return isLike;
+}
+
+bool Channel::operator==(const Channel &right) const
+{
+  bool isEqual = (m_serviceReference == right.m_serviceReference);
+  isEqual &= (m_channelName == right.m_channelName);
+  isEqual &= (m_radio == right.m_radio);
+  isEqual &= (m_genericServiceReference == right.m_genericServiceReference);
+  isEqual &= (m_streamURL == right.m_streamURL);
+  isEqual &= (m_m3uURL == right.m_m3uURL);
+  isEqual &= (m_iconPath == right.m_iconPath);
+  isEqual &= (m_providerName == right.m_providerName);
+
+  return isEqual;
+}
+
+bool Channel::operator!=(const Channel &right) const
+{
+  return !(*this == right);
+}
+
 bool Channel::UpdateFrom(TiXmlElement* channelNode)
 {
   if (!XMLUtils::GetString(channelNode, "e2servicereference", m_serviceReference))

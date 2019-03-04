@@ -96,6 +96,11 @@ Within this tab general options are configured.
 * **Update mode**: The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes:
     - `Timers and Recordings` - Update all timers and recordings.
     - `Timers only` - Only update the timers.
+* **Channel and groups update mode**: The mode used when the hour in the next settings is reached. Choose from one of the following three modes:
+    - `Disabled` - Never check for channel and group changes.
+    - `Notify on UI and Log` - Display a notice in the UI and log the fact that a change was detectetd.
+    - `Reload Channels and Groups` - Disconnect and reconnect with E2 device to reload channels.
+* **Channel and group update hour (24h)**: The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM.
 
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.

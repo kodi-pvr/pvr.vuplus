@@ -58,9 +58,6 @@ namespace enigma2
       bool IsLastScannedGroup() const { return m_lastScannedGroup; }
       void SetLastScannedGroup(bool value) { m_lastScannedGroup = value; }
 
-      int GetGroupState() const { return m_groupState; }
-      void SetGroupState(int value) { m_groupState = value; }
-
       void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
 
       bool UpdateFrom(TiXmlElement* groupNode, bool radio);
@@ -68,13 +65,16 @@ namespace enigma2
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
 
+      bool Like(const ChannelGroup &right) const;
+      bool operator==(const ChannelGroup &right) const;
+      bool operator!=(const ChannelGroup &right) const;
+
     private:
       bool m_radio;
       int m_uniqueId;
       std::string m_serviceReference;
       std::string m_groupName;
       bool m_lastScannedGroup;
-      int m_groupState;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> m_channelList;
     };

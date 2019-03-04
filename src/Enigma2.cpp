@@ -47,7 +47,6 @@ using namespace enigma2::utilities;
 
 Enigma2::Enigma2()
 {
-  m_lastUpdateTimeSeconds = time(nullptr);
 }
 
 Enigma2::~Enigma2()
@@ -162,22 +161,27 @@ void *Enigma2::Process()
   // This will regard Initial EPG as completed anyway.
   m_epg.TriggerEpgUpdatesForChannels();
 
+  unsigned int updateTimer = 0;
+  time_t lastUpdateTimeSeconds = time(nullptr);
+  int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
+
   while(!IsStopped() && m_isConnected)
   {
     Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
 
     time_t currentUpdateTimeSeconds = time(nullptr);
-    m_updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - m_lastUpdateTimeSeconds);
-    m_lastUpdateTimeSeconds = currentUpdateTimeSeconds;
+    std::tm timeInfo = *std::localtime(&currentUpdateTimeSeconds);
+    updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - lastUpdateTimeSeconds);
+    lastUpdateTimeSeconds = currentUpdateTimeSeconds;
 
-    if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60))
+    if (m_dueRecordingUpdate || updateTimer >= (m_settings.GetUpdateIntervalMins() * 60))
     {
-      m_updateTimer = 0;
+      updateTimer = 0;
 
-      // Trigger Timer and Recording updates acording to the addon settings
+      // Trigger Timer and Recording updates according to the addon settings
       CLockObject lock(m_mutex);
       // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped())
+      if (!IsStopped() && m_isConnected)
       {
         Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
 
@@ -187,17 +191,62 @@ void *Enigma2::Process()
         }
         m_timers.TimerUpdates();
 
-        m_dueRecordingUpdate = false;
-
-        PVR->TriggerRecordingUpdate();
+        if (m_dueRecordingUpdate || m_settings.GetUpdateMode() == UpdateMode::TIMERS_AND_RECORDINGS)
+        {
+          m_dueRecordingUpdate = false;
+          PVR->TriggerRecordingUpdate();
+        }
       }
     }
+
+    if (lastUpdateHour != timeInfo.tm_hour && timeInfo.tm_hour == m_settings.GetChannelAndGroupUpdateHour())
+    {
+      // Trigger Channel and Group updates according to the addon settings
+      CLockObject lock(m_mutex);
+      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (!IsStopped() && m_isConnected)
+      {
+        if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::DISABLED)
+        {
+          Logger::Log(LEVEL_INFO, "%s Perform Channel and Group Updates!", __FUNCTION__);
+
+          CheckForChannelAndGroupChanges();
+        }
+      }
+    }
+    lastUpdateHour = timeInfo.tm_hour;
   }
 
   //CLockObject lock(m_mutex);
   m_started.Broadcast();
 
   return nullptr;
+}
+
+void Enigma2::CheckForChannelAndGroupChanges()
+{
+  //Now check for any channel or group changes
+  ChannelGroups latestChannelGroups;
+  Channels latestChannels;
+  // Load the TV channels - close connection if no channels are found
+  if (latestChannelGroups.LoadChannelGroups())
+  {
+    if (latestChannels.LoadChannels(latestChannelGroups))
+    {
+      ChannelsChangeState changeType = m_channels.CheckForChannelAndGroupChanges(latestChannelGroups, latestChannels);
+
+      if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
+      {
+        Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
+        XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30518).c_str());
+      }
+      else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
+      {
+        Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
+        XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30519).c_str());
+      }
+    }
+  }
 }
 
 void Enigma2::SendPowerstate()

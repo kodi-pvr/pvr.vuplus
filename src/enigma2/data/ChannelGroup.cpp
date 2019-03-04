@@ -8,6 +8,37 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
+bool ChannelGroup::Like(const ChannelGroup &right) const
+{
+  bool isLike = (m_serviceReference == right.m_serviceReference);
+  isLike &= (m_groupName == right.m_groupName);
+
+  return isLike;
+}
+
+bool ChannelGroup::operator==(const ChannelGroup &right) const
+{
+  bool isEqual = (m_serviceReference == right.m_serviceReference);
+  isEqual &= (m_groupName == right.m_groupName);
+  isEqual &= (m_radio == right.m_radio);
+  isEqual &= (m_lastScannedGroup == right.m_lastScannedGroup);
+
+  for (int i = 0; i < m_channelList.size(); i++)
+  {
+    isEqual &= (*(m_channelList.at(i)) == *(right.m_channelList.at(i)));
+
+    if (!isEqual)
+      break;
+  }
+
+  return isEqual;
+}
+
+bool ChannelGroup::operator!=(const ChannelGroup &right) const
+{
+  return !(*this == right);
+}
+
 bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
 {
   std::string serviceReference;

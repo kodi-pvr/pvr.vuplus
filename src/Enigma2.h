@@ -90,7 +90,7 @@ public:
   PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus);
 
 protected:
-  virtual void *Process(void);
+  void* Process() override;
 
 private:
   static const int INITIAL_EPG_WAIT_SECS = 60;
@@ -99,11 +99,10 @@ private:
 
   // helper functions
   std::string GetStreamURL(const std::string& strM3uURL);
+  void CheckForChannelAndGroupChanges();
 
   // members
   bool m_isConnected = false;
-  unsigned int m_updateTimer = 0;
-  time_t m_lastUpdateTimeSeconds;
   int m_currentChannel = -1;
   std::atomic_bool m_dueRecordingUpdate{true};
   time_t m_lastSignalStatusUpdateSeconds;

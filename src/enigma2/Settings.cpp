@@ -76,6 +76,12 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("updatemode", &m_updateMode))
     m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
 
+  if (!XBMC->GetSetting("channelandgroupupdatemode", &m_channelAndGroupUpdateMode))
+    m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::DISABLED;
+
+  if (!XBMC->GetSetting("channelandgroupupdatehour", &m_channelAndGroupUpdateHour))
+    m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
+
   //Channels
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
@@ -257,6 +263,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "updatemode")
     return SetSetting<UpdateMode, ADDON_STATUS>(settingName, settingValue, m_updateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "channelandgroupupdatemode")
+    return SetSetting<ChannelAndGroupUpdateMode, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "channelandgroupupdatehour")
+    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateHour, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
