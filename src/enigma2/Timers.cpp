@@ -505,6 +505,8 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
       title = partialEntry.GetTitle();
       description = partialEntry.GetPlotOutline();
       epgUid = partialEntry.GetEpgUid();
+
+      tags.append(StringUtils::Format(" GenreId=0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType()));
     }
   }
 
@@ -590,8 +592,21 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
 
   if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
   {
+    std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference();
+
     //single channel
-    strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference()).c_str());
+    strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(serviceReference).c_str());
+
+    //Load the epg details
+    if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iEpgUid != PVR_TIMER_NO_EPG_UID)
+    {
+      EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.iEpgUid);
+
+      if (partialEntry.EntryFound())
+      {
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("GenreId=0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType())).c_str());
+      }
+    }
   }
 
   strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);

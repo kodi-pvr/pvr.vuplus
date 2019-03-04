@@ -246,7 +246,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   if (m_state == PVR_TIMER_STATE_NEW)
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
 
-  m_tags = "";
+  m_tags.clear();
   if (XMLUtils::GetString(timerNode, "e2tags", strTmp))
     m_tags = strTmp;
 
@@ -304,31 +304,20 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   if (m_paddingEndMins > 0)
     m_endTime -= m_paddingEndMins * 60;
 
-  return true;
-}
-
-bool Timer::ContainsTag(const std::string &tag) const
-{
-  std::regex regex("^.* ?" + tag + " ?.*$");
-
-  return (regex_match(m_tags, regex));
-}
-
-std::string Timer::ReadTag(const std::string &tagName) const
-{
-  std::string tag;
-
-  size_t found = m_tags.find(tagName);
-  if (found != std::string::npos)
+  if (ContainsTag(TAG_FOR_GENRE_ID))
   {
-    tag = m_tags.substr(found, m_tags.size());
-
-    found = tag.find(" ");
-    if (found != std::string::npos)
-      tag = tag.substr(0, found);
-
-    tag = StringUtils::Trim(tag);
+    int genreId = 0;
+    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    {
+      m_genreType = genreId & 0xF0;
+      m_genreSubType = genreId & 0x0F;
+    }
+    else
+    {
+      m_genreType = 0;
+      m_genreSubType = 0;
+    }
   }
 
-  return tag;
+  return true;
 }

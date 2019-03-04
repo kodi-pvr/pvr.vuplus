@@ -305,6 +305,56 @@ std::string Epg::LoadEPGEntryShortDescription(const std::string &serviceReferenc
   return shortDescription;
 }
 
+EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceReference, unsigned int epgUid)
+{
+  EpgPartialEntry partialEntry;
+
+  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    if (!jsonDoc["event"].empty())
+    {
+      for (const auto& element : jsonDoc["event"].items())
+      {
+        if (element.key() == "shortdesc")
+          partialEntry.SetPlotOutline(element.value().get<std::string>());
+        if (element.key() == "longdesc")
+          partialEntry.SetPlot(element.value().get<std::string>());
+        else if (element.key() == "title")
+          partialEntry.SetTitle(element.value().get<std::string>());
+        else if (element.key() == "id")
+          partialEntry.SetEpgUid(element.value().get<unsigned int>());
+        else if (element.key() == "genreid")
+        {
+          int genreId = element.value().get<int>();
+          partialEntry.SetGenreType(genreId & 0xF0);
+          partialEntry.SetGenreSubType(genreId & 0x0F);
+        }
+      }
+
+      if (partialEntry.EntryFound())
+      {
+        Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, epgId: %u - title: %s - '%s'", __FUNCTION__, serviceReference.c_str(), epgUid, partialEntry.GetTitle().c_str(), partialEntry.GetPlotOutline().c_str());
+      }
+    }
+  }
+  catch (nlohmann::detail::parse_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot event details from OpenWebIf for sref: %s, epgId: %u - JSON parse error - message: %s, exception id: %d", __FUNCTION__, serviceReference.c_str(), epgUid, e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+
+  return partialEntry;
+}
+
 EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime)
 {
   EpgPartialEntry partialEntry;

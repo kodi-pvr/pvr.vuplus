@@ -90,6 +90,10 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
   //this is an auto timer so the state is always scheduled unless it's disabled
   m_state = PVR_TIMER_STATE_SCHEDULED;
 
+  m_tags.clear();
+  if (XMLUtils::GetString(autoTimerNode, "e2tags", strTmp))
+    m_tags = strTmp;
+
   if (autoTimerNode->QueryStringAttribute("name", &strTmp) == TIXML_SUCCESS)
     m_title = strTmp;
 
@@ -224,6 +228,21 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
     }
     m_startAnyTime = true;
     m_endAnyTime = true;
+  }
+
+  if (ContainsTag(TAG_FOR_GENRE_ID))
+  {
+    int genreId = 0;
+    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    {
+      m_genreType = genreId & 0xF0;
+      m_genreSubType = genreId & 0x0F;
+    }
+    else
+    {
+      m_genreType = 0;
+      m_genreSubType = 0;
+    }
   }
 
   return true;
