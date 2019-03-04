@@ -28,7 +28,9 @@
 #include "enigma2/Admin.h"
 #include "enigma2/Channels.h"
 #include "enigma2/ChannelGroups.h"
+#include "enigma2/ConnectionManager.h"
 #include "enigma2/Epg.h"
+#include "enigma2/IConnectionListener.h"
 #include "enigma2/RecordingReader.h"
 #include "enigma2/Recordings.h"
 #include "enigma2/Settings.h"
@@ -49,14 +51,21 @@
 #undef snprintf
 #endif
 
-class Enigma2  : public P8PLATFORM::CThread
+class Enigma2  : public P8PLATFORM::CThread, public enigma2::IConnectionListener
 {
 public:
   Enigma2();
   ~Enigma2();
 
+  // IConnectionListener implementation
+  void ConnectionLost() override;
+  void ConnectionEstablished() override;
+
+  void OnSleep();
+  void OnWake();
+
   //device and helper functions
-  bool Open();
+  bool Start();
   void SendPowerstate();
   const char * GetServerName() const;
   const char * GetServerVersion() const;
@@ -98,6 +107,7 @@ private:
   static const int PROCESS_LOOP_WAIT_SECS = 5;
 
   // helper functions
+  void Reset();
   std::string GetStreamURL(const std::string& strM3uURL);
   void CheckForChannelAndGroupChanges();
 
@@ -118,7 +128,8 @@ private:
   enigma2::Admin m_admin;
   enigma2::extract::EpgEntryExtractor m_entryExtractor;
   enigma2::utilities::SignalStatus m_signalStatus;
+  enigma2::ConnectionManager *connectionManager;
 
-  P8PLATFORM::CMutex m_mutex;
+  mutable P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;
 };

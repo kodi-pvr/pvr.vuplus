@@ -23,6 +23,7 @@ set(VUPLUS_SOURCES src/client.cpp
                    src/enigma2/Admin.cpp
                    src/enigma2/Channels.cpp
                    src/enigma2/ChannelGroups.cpp
+                   src/enigma2/ConnectionManager.cpp
                    src/enigma2/Epg.cpp
                    src/enigma2/RecordingReader.cpp
                    src/enigma2/Recordings.cpp
@@ -51,7 +52,9 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/Admin.h
                    src/enigma2/Channels.h
                    src/enigma2/ChannelGroups.h
+                   src/enigma2/ConnectionManager.h
                    src/enigma2/Epg.h
+                   src/enigma2/IConnectionListener.h
                    src/enigma2/IStreamReader.h
                    src/enigma2/RecordingReader.h
                    src/enigma2/Recordings.h

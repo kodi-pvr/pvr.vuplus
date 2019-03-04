@@ -1,7 +1,7 @@
 #pragma once
 
 /*
- *      Copyright (C) 2005-2015 Team Kodi
+ *      Copyright (C) 2017 Team Kodi
  *      http://kodi.tv
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,25 +21,14 @@
  *
  */
 
-#include <string>
-
-#include "../../client.h"
-
 namespace enigma2
 {
-  namespace utilities
+  class IConnectionListener
   {
-    static const int CHECK_TIMEOUT_SECS = 10;
+  public:
+    virtual ~IConnectionListener() = default;
 
-    class CurlFile
-    {
-    public:
-      CurlFile(void) {};
-      ~CurlFile(void) {};
-
-      bool Get(const std::string &strURL, std::string &strResult);
-      bool Post(const std::string &strURL, std::string &strResult);
-      bool Check(const std::string &strURL);
-    };
-  }
-}
+    virtual void ConnectionLost() = 0;
+    virtual void ConnectionEstablished() = 0;
+  };
+} // namespace enigma2

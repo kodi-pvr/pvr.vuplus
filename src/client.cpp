@@ -61,7 +61,7 @@ extern "C" {
 ADDON_STATUS ADDON_Create(void* hdl, void* props)
 {
   if (!hdl || !props)
-    return ADDON_STATUS_UNKNOWN;
+    return m_currentStatus;
 
   PVR_PROPERTIES* pvrprops = (PVR_PROPERTIES*)props;
 
@@ -69,7 +69,8 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!XBMC->RegisterMe(hdl))
   {
     SAFE_DELETE(XBMC);
-    return ADDON_STATUS_PERMANENT_FAILURE;
+    m_currentStatus = ADDON_STATUS_PERMANENT_FAILURE;
+    return m_currentStatus;
   }
 
   PVR = new CHelper_libXBMC_pvr;
@@ -77,7 +78,8 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   {
     SAFE_DELETE(PVR);
     SAFE_DELETE(XBMC);
-    return ADDON_STATUS_PERMANENT_FAILURE;
+    m_currentStatus = ADDON_STATUS_PERMANENT_FAILURE;
+    return m_currentStatus;
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __FUNCTION__);
@@ -122,14 +124,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   settings.ReadFromAddon();
 
   enigma = new Enigma2();
-  if (!enigma->Open())
-  {
-    SAFE_DELETE(enigma);
-    SAFE_DELETE(PVR);
-    SAFE_DELETE(XBMC);
-    m_currentStatus = ADDON_STATUS_LOST_CONNECTION;
-    return m_currentStatus;
-  }
+  enigma->Start();
 
   m_currentStatus = ADDON_STATUS_OK;
   m_created = true;
@@ -138,10 +133,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
 ADDON_STATUS ADDON_GetStatus()
 {
-  /* check whether we're still connected */
-  if (m_currentStatus == ADDON_STATUS_OK && !enigma->IsConnected())
-    m_currentStatus = ADDON_STATUS_LOST_CONNECTION;
-
   return m_currentStatus;
 }
 
@@ -178,10 +169,20 @@ ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
 
 void OnSystemSleep()
 {
+  if (!enigma || !enigma->IsConnected())
+    return;
+
+  if (enigma)
+    enigma->OnSleep();
 }
 
 void OnSystemWake()
 {
+  if (!enigma || !enigma->IsConnected())
+    return;
+
+  if (enigma)
+    enigma->OnWake();
 }
 
 void OnPowerSavingActivated()
@@ -236,13 +237,16 @@ const char *GetConnectionString(void)
   return connectionString.c_str();
 }
 
-const char *GetBackendHostname(void)
+const char* GetBackendHostname(void)
 {
   return settings.GetHostname().c_str();
 }
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 {
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return enigma->GetDriveSpace(iTotal, iUsed);
 }
 
@@ -274,7 +278,7 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 int GetChannelGroupsAmount(void)
 {
   if (!enigma || !enigma->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
+    return 0;
 
   return enigma->GetNumChannelGroups();
 }
@@ -362,7 +366,8 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
 
 void CloseLiveStream(void)
 {
-  enigma->CloseLiveStream();
+  if (enigma)
+    enigma->CloseLiveStream();
   SAFE_DELETE(streamReader);
 }
 
@@ -373,7 +378,7 @@ bool IsRealTimeStream()
 
 bool CanPauseStream(void)
 {
-  if (!enigma)
+  if (!enigma || !enigma->IsConnected())
     return false;
 
   if (settings.GetTimeshift() != Timeshift::OFF && streamReader)
@@ -384,7 +389,7 @@ bool CanPauseStream(void)
 
 bool CanSeekStream(void)
 {
-  if (!enigma)
+  if (!enigma || !enigma->IsConnected())
     return false;
 
   return (settings.GetTimeshift() != Timeshift::OFF);
@@ -440,7 +445,7 @@ PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
 
 void PauseStream(bool paused)
 {
-  if (!enigma)
+  if (!enigma || !enigma->IsConnected())
     return;
 
   /* start timeshift on pause */
@@ -460,7 +465,7 @@ void PauseStream(bool paused)
 int GetRecordingsAmount(bool deleted)
 {
   if (!enigma || !enigma->IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
+    return 0;
 
   return enigma->GetRecordingsAmount();
 }
@@ -503,6 +508,10 @@ bool OpenRecordedStream(const PVR_RECORDING &recording)
 {
   if (recordingReader)
     SAFE_DELETE(recordingReader);
+
+  if (!enigma || !enigma->IsConnected())
+    return false;
+
   recordingReader = enigma->OpenRecordedStream(recording);
   return recordingReader->Start();
 }
