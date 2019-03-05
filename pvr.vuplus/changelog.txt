@@ -1,3 +1,10 @@
+v3.19.0
+- Added: Async Connection - Reconnect if Enigma2 device was or becomes unavailable, closes #154, closes #184
+- Added: Notify when Channel/ChannelGroups changes are detected, closes #179
+- Added: Support genres for Recordings and Timers, fixes #186
+- Fixed: Instant recordings may be missing show info depending on last EPG update, fixes #185
+- Added: Helper build script for MacOSX
+
 v3.18.1
 - Fixed: Crash on addon start, fixes #191
 

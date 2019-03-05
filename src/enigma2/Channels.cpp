@@ -126,6 +126,8 @@ std::string Channels::GetChannelIconPath(std::string strChannelName)
 
 bool Channels::LoadChannels(ChannelGroups &channelGroups)
 {
+  m_channelGroups = channelGroups;
+
   bool bOk = false;
 
   ClearChannels();
@@ -241,4 +243,54 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   }
 
   return true;
+}
+
+ChannelsChangeState Channels::CheckForChannelAndGroupChanges(enigma2::ChannelGroups &latestChannelGroups, enigma2::Channels &latestChannels)
+{
+  if (GetNumChannels() != latestChannels.GetNumChannels())
+    return ChannelsChangeState::CHANNELS_CHANGED;
+
+  int foundCount = 0;
+  for (const auto& channel : m_channels)
+  {
+    const std::shared_ptr<Channel> channelPtr = latestChannels.GetChannel(channel->GetServiceReference());
+
+    if (channelPtr)
+    {
+      foundCount++;
+
+      if (*channelPtr != *channel)
+      {
+        return ChannelsChangeState::CHANNELS_CHANGED;
+      }
+    }
+  }
+
+  if (foundCount != GetNumChannels())
+    return ChannelsChangeState::CHANNELS_CHANGED;
+
+  // Now check the groups
+  if (m_channelGroups.GetNumChannelGroups() != latestChannelGroups.GetNumChannelGroups())
+    return ChannelsChangeState::CHANNEL_GROUPS_CHANGED;
+
+  foundCount = 0;
+  for (const auto& group : m_channelGroups.GetChannelGroupsList())
+  {
+    const std::shared_ptr<ChannelGroup> channelGroupPtr = latestChannelGroups.GetChannelGroup(group->GetGroupName());
+
+    if (channelGroupPtr)
+    {
+      foundCount++;
+
+      if (*channelGroupPtr != *group)
+      {
+        return ChannelsChangeState::CHANNEL_GROUPS_CHANGED;
+      }
+    }
+  }
+
+  if (foundCount != m_channelGroups.GetNumChannelGroups())
+    return ChannelsChangeState::CHANNEL_GROUPS_CHANGED;
+
+  return ChannelsChangeState::NO_CHANGE;
 }

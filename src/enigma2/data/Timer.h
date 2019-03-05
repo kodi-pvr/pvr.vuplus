@@ -25,6 +25,7 @@
 #include <ctime>
 #include <type_traits>
 
+#include "Tags.h"
 #include "../Channels.h"
 #include "../utilities/UpdateState.h"
 
@@ -40,7 +41,7 @@ namespace enigma2
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
     static const std::string TAG_FOR_PADDING = "Padding";
 
-    class Timer
+    class Timer : public Tags
     {
     public:
 
@@ -104,9 +105,6 @@ namespace enigma2
       unsigned int GetParentClientIndex() const { return m_parentClientIndex; }
       void SetParentClientIndex(unsigned int value) { m_parentClientIndex = value; }
 
-      const std::string& GetTags() const { return m_tags; }
-      void SetTags(const std::string& value ) { m_tags = value; }
-
       int GetPaddingStartMins() const { return m_paddingStartMins; }
       void SetPaddingStartMins(int value) { m_paddingStartMins = value; }
 
@@ -122,13 +120,12 @@ namespace enigma2
       void UpdateFrom(const Timer &right);
       void UpdateTo(PVR_TIMER &right) const;
       bool UpdateFrom(TiXmlElement* timerNode, Channels &channels);
-      bool ContainsTag(const std::string &tag) const;
-      std::string ReadTag(const std::string &tag) const;
 
     protected:
       Type m_type = Type::MANUAL_ONCE;
       std::string m_title;
       std::string m_plot;
+      std::string m_plotOutline;
       int m_channelId;
       std::string m_channelName;
       time_t m_startTime;
@@ -139,9 +136,10 @@ namespace enigma2
       int m_updateState;
       unsigned int m_clientIndex;
       unsigned int m_parentClientIndex;
-      std::string m_tags;
       unsigned int m_paddingStartMins = 0;
       unsigned int m_paddingEndMins = 0;
+      int m_genreType = 0;
+      int m_genreSubType = 0;
     };
   } //namespace data
 } //namespace enigma2

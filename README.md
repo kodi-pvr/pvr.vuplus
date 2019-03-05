@@ -31,7 +31,7 @@ The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi
 
 In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi.
 
-**Build Tools and initial addon build**
+#### Build tools and initial addon build
 
 1. Get the repos
  * `cd $HOME`
@@ -46,20 +46,14 @@ In order to build the addon on mac the steps are different to Linux and Windows 
  * `cd $HOME/xbmc`
  * `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
 
-**To rebuild the addon after changes**
+Note that the steps in the following section need to be performed before the addon is installed and you ca run it in Kodi.
 
-1. `rm tools/depends/target/binary-addons/.installed-macosx*`
-2. `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+#### To rebuild the addon and copy to kodi after changes (after the initial addon build)
 
-or
+1. `cd $HOME/pvr.vuplus`
+2. `./build-install-mac.sh ../xbmc`
 
-1. `cd tools/depends/target/binary-addons/macosx*`
-2. `make`
-
-**Copy the addon to the Kodi addon directory on Mac**
-
-1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
-2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
+If you would prefer to run the rebuild steps manually instead of using the above helper script check the appendix [here](#manual-steps-to-rebuild-the-addon-on-macosx)
 
 ## Support
 
@@ -102,6 +96,11 @@ Within this tab general options are configured.
 * **Update mode**: The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes:
     - `Timers and Recordings` - Update all timers and recordings.
     - `Timers only` - Only update the timers.
+* **Channel and groups update mode**: The mode used when the hour in the next settings is reached. Choose from one of the following three modes:
+    - `Disabled` - Never check for channel and group changes.
+    - `Notify on UI and Log` - Display a notice in the UI and log the fact that a change was detectetd.
+    - `Reload Channels and Groups` - Disconnect and reconnect with E2 device to reload channels.
+* **Channel and group update hour (24h)**: The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM.
 
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
@@ -262,6 +261,25 @@ The following files are currently available with the addon:
 Note: the config file can contain as many mappings as is required. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]. The config file maps the text to a kodi DVB genre ID. If the full text cannot be matched it attempts to match just the major genre, i.e. "TV Drama" in the previous example. If a mapping cannot be found the text between the brackets will be used instead. However there will be no colouring in the Kodi EPG in this case.
 
 ## Appendix
+
+### Manual Steps to rebuild the addon on MacOSX
+
+The following steps can be followed manually instead of using the `build-install-mac.sh` in the root of the addon repo after the [initial addon build](#build-tools-and-initial-addon-build) has been completed.
+
+**To rebuild the addon after changes**
+
+1. `rm tools/depends/target/binary-addons/.installed-macosx*`
+2. `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
+
+or
+
+1. `cd tools/depends/target/binary-addons/macosx*`
+2. `make`
+
+**Copy the addon to the Kodi addon directory on Mac**
+
+1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
+2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
 
 ### Logging detailed
 

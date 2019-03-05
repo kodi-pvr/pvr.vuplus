@@ -493,22 +493,22 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   std::string title = timer.strTitle;
   std::string description = timer.strSummary;
   unsigned int epgUid = timer.iEpgUid;
-  if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iTimerType == Timer::EPG_ONCE &&
-      timer.iEpgUid != PVR_TIMER_NO_EPG_UID)
+
+  if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") &&
+      (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
   {
-    // description is overwritten by the timeradd call for EPG ONCE so we need to retrieve the correct one first.
-    description = m_epg.LoadEPGEntryShortDescription(serviceReference, timer.iEpgUid);
-  }
-  else if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iTimerType == Timer::MANUAL_ONCE)
-  {
-    // Similar for MANUAL ONCE we try to find an EPG Entry and use it's details
+    // We try to find the EPG Entry and use it's details
     EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime);
 
     if (partialEntry.EntryFound())
     {
-      title = partialEntry.title;
-      description = partialEntry.shortDescription;
-      epgUid = partialEntry.epgUid;
+      /* Note that plot (log desc) is automatically written to a timer entry by the backend
+         therefore we only need to send outline as description to preserve both */
+      title = partialEntry.GetTitle();
+      description = partialEntry.GetPlotOutline();
+      epgUid = partialEntry.GetEpgUid();
+
+      tags.append(StringUtils::Format(" GenreId=0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType()));
     }
   }
 
@@ -594,8 +594,21 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
 
   if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
   {
+    std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference();
+
     //single channel
-    strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference()).c_str());
+    strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(serviceReference).c_str());
+
+    //Load the epg details
+    if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") && timer.iEpgUid != PVR_TIMER_NO_EPG_UID)
+    {
+      EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.iEpgUid);
+
+      if (partialEntry.EntryFound())
+      {
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("GenreId=0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType())).c_str());
+      }
+    }
   }
 
   strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);

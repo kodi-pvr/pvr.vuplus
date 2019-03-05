@@ -18,6 +18,7 @@ namespace enigma2
   static const int DEFAULT_STREAM_PORT = 8001;
   static const int DEFAULT_WEB_PORT = 80;
   static const int DEFAULT_UPDATE_INTERVAL = 2;
+  static const int DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR = 4;
   static const std::string DEFAULT_TSBUFFERPATH = "special://userdata/addon_data/pvr.vuplus";
   static const std::string DEFAULT_SHOW_INFO_FILE = "special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml";
   static const std::string DEFAULT_GENRE_ID_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml";
@@ -29,6 +30,14 @@ namespace enigma2
   {
     TIMERS_AND_RECORDINGS = 0,
     TIMERS_ONLY
+  };
+
+  enum class ChannelAndGroupUpdateMode
+    : int // same type as addon settings
+  {
+    DISABLED = 0,
+    NOTIFY_AND_LOG,
+    RELOAD_CHANNELS_AND_GROUPS
   };
 
   enum class ChannelGroupMode
@@ -106,6 +115,8 @@ namespace enigma2
     const std::string& GetIconPath() const { return m_iconPath; }
     unsigned int GetUpdateIntervalMins() const { return m_updateInterval; }
     UpdateMode GetUpdateMode() const { return m_updateMode; }
+    unsigned int GetChannelAndGroupUpdateHour() const { return m_channelAndGroupUpdateHour; }
+    ChannelAndGroupUpdateMode GetChannelAndGroupUpdateMode() const { return m_channelAndGroupUpdateMode; }
 
     //Channel
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
@@ -232,6 +243,8 @@ namespace enigma2
     std::string m_iconPath = "";
     unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
+    ChannelAndGroupUpdateMode m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::DISABLED;
+    unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel
     bool m_zap = false;

@@ -72,6 +72,10 @@ namespace enigma2
       void AddChannelGroup(std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> GetChannelGroupList() { return m_channelGroupList; };
 
+      bool Like(const Channel &right) const;
+      bool operator==(const Channel &right) const;
+      bool operator!=(const Channel &right) const;
+
     private:
       std::string GetCommonServiceReference(const std::string &serviceReference);
       std::string GetGenericServiceReference(const std::string &commonServiceReference);

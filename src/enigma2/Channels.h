@@ -26,6 +26,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ChannelGroups.h"
 #include "data/Channel.h"
 
 #include "libXBMC_pvr.h"
@@ -38,6 +39,14 @@ namespace enigma2
   {
     class ChannelGroup;
   }
+
+  enum class ChannelsChangeState
+    : int // same type as addon settings
+  {
+    NO_CHANGE = 0,
+    CHANNEL_GROUPS_CHANGED,
+    CHANNELS_CHANGED
+  };
 
   class Channels
   {
@@ -55,11 +64,15 @@ namespace enigma2
     std::string GetChannelIconPath(std::string strChannelName);
     bool LoadChannels(enigma2::ChannelGroups &channelGroups);
 
+    ChannelsChangeState CheckForChannelAndGroupChanges(enigma2::ChannelGroups &latestChannelGroups, enigma2::Channels &latestChannels);
+
   private:
     void AddChannel(enigma2::data::Channel &channel, std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
     bool LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
 
     std::vector<std::shared_ptr<enigma2::data::Channel>> m_channels;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>> m_channelsServiceReferenceMap;
+
+    ChannelGroups m_channelGroups;
   };
 } //namespace enigma2

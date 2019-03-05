@@ -83,6 +83,22 @@ std::string WebUtils::URLEncodeInline(const std::string &sSrc)
   return sResult;
 }
 
+bool WebUtils::CheckHttp(const std::string& url)
+{
+  Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+
+  CurlFile http;
+  if(!http.Check(url))
+  {
+    Logger::Log(LEVEL_TRACE, "%s - Could not open webAPI.", __FUNCTION__);
+    return false;
+  }
+
+  Logger::Log(LEVEL_TRACE, "%s WebAPI available", __FUNCTION__);
+
+  return true;
+}
+
 std::string WebUtils::GetHttp(const std::string& url)
 {
   Logger::Log(LEVEL_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());

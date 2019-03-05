@@ -47,15 +47,37 @@ using namespace enigma2::utilities;
 
 Enigma2::Enigma2()
 {
-  m_lastUpdateTimeSeconds = time(nullptr);
+  m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
+
+  connectionManager = new ConnectionManager(*this);
 }
 
 Enigma2::~Enigma2()
 {
+  if (connectionManager)
+    connectionManager->Stop();
+  delete connectionManager;
+}
+
+/* **************************************************************************
+ * Connection
+ * *************************************************************************/
+
+void Enigma2::ConnectionLost()
+{
   CLockObject lock(m_mutex);
+
+  Logger::Log(LEVEL_NOTICE, "%s Lost connection with Enigma2 device...", __FUNCTION__);
+
   Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
   StopThread();
 
+  m_currentChannel = -1;
+  m_isConnected = false;
+}
+
+void Enigma2::Reset()
+{
   Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
   m_channels.ClearChannels();
 
@@ -67,16 +89,15 @@ Enigma2::~Enigma2()
 
   Logger::Log(LEVEL_DEBUG, "%s Removing internal group list...", __FUNCTION__);
   m_channelGroups.ClearChannelGroups();
-  m_isConnected = false;
 }
 
-/***************************************************************************
- * Device and helpers
- **************************************************************************/
-
-bool Enigma2::Open()
+void Enigma2::ConnectionEstablished()
 {
   CLockObject lock(m_mutex);
+
+  Reset();
+
+  Logger::Log(LEVEL_NOTICE, "%s Connection Established with Enigma2 device...", __FUNCTION__);
 
   Logger::Log(LEVEL_NOTICE, "%s - VU+ Addon Configuration options", __FUNCTION__);
   Logger::Log(LEVEL_NOTICE, "%s - Hostname: '%s'", __FUNCTION__, m_settings.GetHostname().c_str());
@@ -92,7 +113,7 @@ bool Enigma2::Open()
     if ((m_settings.GetUsername().find("@") != std::string::npos) || (m_settings.GetPassword().find("@") != std::string::npos))
     {
       Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuraton!", __FUNCTION__);
-      return false;
+      return;
     }
   }
   m_isConnected = m_admin.Initialise();
@@ -101,7 +122,7 @@ bool Enigma2::Open()
   {
     Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __FUNCTION__);
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30515).c_str());
-    return false;
+    return;
   }
 
   m_settings.ReadFromAddon();
@@ -117,7 +138,7 @@ bool Enigma2::Open()
       Logger::Log(LEVEL_ERROR, "%s No channel groups (bouquets) found, please check the addon channel settings, exiting", __FUNCTION__);
       XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30516).c_str());
 
-      return false;
+      return;
     }
 
     if (!m_channels.LoadChannels(m_channelGroups))
@@ -125,7 +146,7 @@ bool Enigma2::Open()
       Logger::Log(LEVEL_ERROR, "%s No channels found, please check the addon channel settings, exiting", __FUNCTION__);
       XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30517).c_str());
 
-      return false;
+      return;
     }
   }
 
@@ -133,13 +154,37 @@ bool Enigma2::Open()
 
   m_epg.Initialise(m_channels, m_channelGroups);
 
-  m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
   m_timers.TimerUpdates();
 
   Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __FUNCTION__);
   CreateThread();
+}
 
-  return IsRunning();
+/* **************************************************************************
+ * Connection
+ * *************************************************************************/
+
+void Enigma2::OnSleep()
+{
+  connectionManager->OnSleep();
+}
+
+void Enigma2::OnWake()
+{
+  connectionManager->OnWake();
+}
+
+/***************************************************************************
+ * Device and helpers
+ **************************************************************************/
+
+bool Enigma2::Start()
+{
+  CLockObject lock(m_mutex);
+
+  connectionManager->Start();
+
+  return true;
 }
 
 void *Enigma2::Process()
@@ -162,22 +207,27 @@ void *Enigma2::Process()
   // This will regard Initial EPG as completed anyway.
   m_epg.TriggerEpgUpdatesForChannels();
 
+  unsigned int updateTimer = 0;
+  time_t lastUpdateTimeSeconds = time(nullptr);
+  int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
+
   while(!IsStopped() && m_isConnected)
   {
     Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
 
     time_t currentUpdateTimeSeconds = time(nullptr);
-    m_updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - m_lastUpdateTimeSeconds);
-    m_lastUpdateTimeSeconds = currentUpdateTimeSeconds;
+    std::tm timeInfo = *std::localtime(&currentUpdateTimeSeconds);
+    updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - lastUpdateTimeSeconds);
+    lastUpdateTimeSeconds = currentUpdateTimeSeconds;
 
-    if (m_dueRecordingUpdate || m_updateTimer >= (m_settings.GetUpdateIntervalMins() * 60))
+    if (m_dueRecordingUpdate || updateTimer >= (m_settings.GetUpdateIntervalMins() * 60))
     {
-      m_updateTimer = 0;
+      updateTimer = 0;
 
-      // Trigger Timer and Recording updates acording to the addon settings
+      // Trigger Timer and Recording updates according to the addon settings
       CLockObject lock(m_mutex);
       // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped())
+      if (!IsStopped() && m_isConnected)
       {
         Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
 
@@ -187,17 +237,62 @@ void *Enigma2::Process()
         }
         m_timers.TimerUpdates();
 
-        m_dueRecordingUpdate = false;
-
-        PVR->TriggerRecordingUpdate();
+        if (m_dueRecordingUpdate || m_settings.GetUpdateMode() == UpdateMode::TIMERS_AND_RECORDINGS)
+        {
+          m_dueRecordingUpdate = false;
+          PVR->TriggerRecordingUpdate();
+        }
       }
     }
+
+    if (lastUpdateHour != timeInfo.tm_hour && timeInfo.tm_hour == m_settings.GetChannelAndGroupUpdateHour())
+    {
+      // Trigger Channel and Group updates according to the addon settings
+      CLockObject lock(m_mutex);
+      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (!IsStopped() && m_isConnected)
+      {
+        if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::DISABLED)
+        {
+          Logger::Log(LEVEL_INFO, "%s Perform Channel and Group Updates!", __FUNCTION__);
+
+          CheckForChannelAndGroupChanges();
+        }
+      }
+    }
+    lastUpdateHour = timeInfo.tm_hour;
   }
 
   //CLockObject lock(m_mutex);
   m_started.Broadcast();
 
   return nullptr;
+}
+
+void Enigma2::CheckForChannelAndGroupChanges()
+{
+  //Now check for any channel or group changes
+  ChannelGroups latestChannelGroups;
+  Channels latestChannels;
+  // Load the TV channels - close connection if no channels are found
+  if (latestChannelGroups.LoadChannelGroups())
+  {
+    if (latestChannels.LoadChannels(latestChannelGroups))
+    {
+      ChannelsChangeState changeType = m_channels.CheckForChannelAndGroupChanges(latestChannelGroups, latestChannels);
+
+      if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
+      {
+        Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
+        XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30518).c_str());
+      }
+      else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
+      {
+        Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
+        XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30519).c_str());
+      }
+    }
+  }
 }
 
 void Enigma2::SendPowerstate()
@@ -207,12 +302,12 @@ void Enigma2::SendPowerstate()
   m_admin.SendPowerstate();
 }
 
-const char * Enigma2::GetServerName() const
+const char* Enigma2::GetServerName() const
 {
   return m_admin.GetServerName();
 }
 
-const char * Enigma2::GetServerVersion() const
+const char* Enigma2::GetServerVersion() const
 {
   return m_admin.GetServerVersion();
 }
@@ -272,7 +367,6 @@ int Enigma2::GetChannelsAmount() const
   return m_channels.GetNumChannels();
 }
 
-
 PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 {
   std::vector<PVR_CHANNEL> channels;
@@ -298,20 +392,28 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
     Sleep(m_settings.GetEPGDelayPerChannelDelay());
 
-  if (!m_channels.IsValid(channel.iUniqueId))
+  //Have a lock while getting the channel. Then we don't have to worry about a disconnection while retrieving the EPG data.
+  std::shared_ptr<Channel> myChannel;
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
-    return PVR_ERROR_SERVER_ERROR;
+    CLockObject lock(m_mutex);
+
+    if (!m_channels.IsValid(channel.iUniqueId))
+    {
+      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
+      return PVR_ERROR_SERVER_ERROR;
+    }
+
+    myChannel = m_channels.GetChannel(channel.iUniqueId);
   }
 
   if (m_skipInitialEpgLoad)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Skipping Initial EPG for channel: %s", __FUNCTION__, m_channels.GetChannel(channel.iUniqueId)->GetChannelName().c_str());
-    m_epg.MarkChannelAsInitialEpgRead(m_channels.GetChannel(channel.iUniqueId)->GetServiceReference());
+    Logger::Log(LEVEL_DEBUG, "%s Skipping Initial EPG for channel: %s", __FUNCTION__, myChannel->GetChannelName().c_str());
+    m_epg.MarkChannelAsInitialEpgRead(myChannel->GetServiceReference());
     return PVR_ERROR_NO_ERROR;
   }
 
-  return m_epg.GetEPGForChannel(handle, m_channels.GetChannel(channel.iUniqueId)->GetServiceReference(), iStart, iEnd);
+  return m_epg.GetEPGForChannel(handle, myChannel->GetServiceReference(), iStart, iEnd);
 }
 
 /***************************************************************************

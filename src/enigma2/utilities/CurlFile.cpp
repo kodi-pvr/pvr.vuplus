@@ -70,3 +70,28 @@ bool CurlFile::Post(const std::string &strURL, std::string &strResult)
 
   return false;
 }
+
+bool CurlFile::Check(const std::string &strURL)
+{
+  void *fileHandle = XBMC->CURLCreate(strURL.c_str());
+
+  if (!fileHandle)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __FUNCTION__, strURL.c_str());
+    return false;
+  }
+
+  XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL,
+    "connection-timeout", std::to_string(CHECK_TIMEOUT_SECS).c_str());
+
+  if (!XBMC->CURLOpen(fileHandle, XFILE::READ_NO_CACHE))
+  {
+    Logger::Log(LEVEL_TRACE, "%s Unable to open url: %s", __FUNCTION__, strURL.c_str());
+    XBMC->CloseFile(fileHandle);
+    return false;
+  }
+
+  XBMC->CloseFile(fileHandle);
+
+  return true;
+}

@@ -59,16 +59,22 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
 
   ProcessPrependMode(PrependOutline::IN_RECORDINGS);
 
-  if (XMLUtils::GetString(recordingNode, "e2eventgenre", strTmp))
-  {
-    m_genreDescription = strTmp;
+  m_tags.clear();
+  if (XMLUtils::GetString(recordingNode, "e2tags", strTmp))
+    m_tags = strTmp;
 
-    TiXmlElement* genreNode = recordingNode->FirstChildElement("e2eventgenre");
+  if (ContainsTag(TAG_FOR_GENRE_ID))
+  {
     int genreId = 0;
-    if (genreNode->QueryIntAttribute("id", &genreId) == TIXML_SUCCESS)
+    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
     {
       m_genreType = genreId & 0xF0;
       m_genreSubType = genreId & 0x0F;
+    }
+    else
+    {
+      m_genreType = 0;
+      m_genreSubType = 0;
     }
   }
 

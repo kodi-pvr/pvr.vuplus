@@ -32,6 +32,7 @@ namespace enigma2
     public:
 
       static std::string URLEncodeInline(const std::string &sStr);
+      static bool CheckHttp(const std::string& url);
       static std::string GetHttp(const std::string& url);
       static std::string GetHttpXML(const std::string& url);
       static std::string PostHttpJson(const std::string& url);

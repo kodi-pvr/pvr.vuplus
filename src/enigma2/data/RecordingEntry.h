@@ -25,6 +25,7 @@
 
 #include "BaseEntry.h"
 #include "Channel.h"
+#include "Tags.h"
 #include "../Channels.h"
 
 #include "libXBMC_pvr.h"
@@ -33,7 +34,7 @@ namespace enigma2
 {
   namespace data
   {
-    class RecordingEntry : public BaseEntry
+    class RecordingEntry : public BaseEntry, public Tags
     {
     public:
       const std::string& GetRecordingId() const { return m_recordingId; }

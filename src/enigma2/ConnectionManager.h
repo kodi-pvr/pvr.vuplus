@@ -1,7 +1,7 @@
 #pragma once
 
 /*
- *      Copyright (C) 2005-2015 Team Kodi
+ *      Copyright (C) 2017 Team Kodi
  *      http://kodi.tv
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -23,23 +23,35 @@
 
 #include <string>
 
-#include "../../client.h"
+#include "libXBMC_pvr.h"
+
+#include "p8-platform/threads/mutex.h"
+#include "p8-platform/threads/threads.h"
 
 namespace enigma2
 {
-  namespace utilities
+  class IConnectionListener;
+
+  class ConnectionManager : public P8PLATFORM::CThread
   {
-    static const int CHECK_TIMEOUT_SECS = 10;
+  public:
+    ConnectionManager(IConnectionListener& connectionListener);
+    ~ConnectionManager() override;
 
-    class CurlFile
-    {
-    public:
-      CurlFile(void) {};
-      ~CurlFile(void) {};
+    void Start();
+    void Stop();
+    void Disconnect();
 
-      bool Get(const std::string &strURL, std::string &strResult);
-      bool Post(const std::string &strURL, std::string &strResult);
-      bool Check(const std::string &strURL);
-    };
-  }
-}
+    void OnSleep();
+    void OnWake();
+
+  private:
+    void* Process() override;
+    void SetState(PVR_CONNECTION_STATE state);
+
+    IConnectionListener& m_connectionListener;
+    mutable P8PLATFORM::CMutex m_mutex;
+    bool m_suspended;
+    PVR_CONNECTION_STATE m_state;
+  };
+} // namespace enigma2

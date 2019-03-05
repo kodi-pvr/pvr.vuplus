@@ -2,17 +2,22 @@
 
 #include <string>
 
+#include "BaseEntry.h"
+
 namespace enigma2
 {
   namespace data
   {
-    struct EpgPartialEntry
+    class EpgPartialEntry : public BaseEntry
     {
-      std::string title;
-      std::string shortDescription;
-      unsigned int epgUid;
+      public:
+        unsigned int GetEpgUid() const { return m_epgUid; }
+        void SetEpgUid(unsigned int value) { m_epgUid = value; }
 
-      bool EntryFound() { return epgUid != 0; };
+        bool EntryFound() const { return m_epgUid != 0; };
+
+      private:
+        unsigned int m_epgUid;
     };
   } //namespace data
 } //namespace enigma2
