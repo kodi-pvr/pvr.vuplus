@@ -185,10 +185,9 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     m_plot = m_plotOutline;
     m_plotOutline.clear();
   }
-  else if (!m_plotOutline.empty() && m_plotOutline != "N/A")
+  else if (Settings::GetInstance().GetPrependOutline() == PrependOutline::ALWAYS &&
+          !m_plotOutline.empty() && m_plotOutline != "N/A")
   {
-    //There is only a summary field for timers so if we have both plot and plot outline combine the two into plot
-
     m_plot.insert(0, m_plotOutline + "\n");
     m_plotOutline.clear();
   }

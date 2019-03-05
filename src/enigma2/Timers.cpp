@@ -502,6 +502,8 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
 
     if (partialEntry.EntryFound())
     {
+      /* Note that plot (log desc) is automatically written to a timer entry by the backend
+         therefore we only need to send outline as description to preserve both */
       title = partialEntry.GetTitle();
       description = partialEntry.GetPlotOutline();
       epgUid = partialEntry.GetEpgUid();
