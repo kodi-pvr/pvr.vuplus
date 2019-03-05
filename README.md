@@ -29,29 +29,29 @@ The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi
 
 ### Mac OSX
 
-In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi.
+In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi. Note that we checkout kodi to a separate directory as this repo will only only be used to build the addon and nothing else.
 
 #### Build tools and initial addon build
 
 1. Get the repos
  * `cd $HOME`
- * `git clone https://github.com/xbmc/xbmc`
+ * `git clone https://github.com/xbmc/xbmc xbmc-addon`
  * `git clone https://github.com/kodi-pvr/pvr.vuplus`
 2. Build the kodi tools
- * `cd $HOME/xbmc/tools/depends`
+ * `cd $HOME/xbmc-addon/tools/depends`
  * `./bootstrap`
  * `./configure --host=x86_64-apple-darwin`
  * `make -j$(getconf _NPROCESSORS_ONLN)`
 3. Build the addon
- * `cd $HOME/xbmc`
+ * `cd $HOME/xbmc-addon`
  * `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
 
-Note that the steps in the following section need to be performed before the addon is installed and you ca run it in Kodi.
+Note that the steps in the following section need to be performed before the addon is installed and you can run it in Kodi.
 
 #### To rebuild the addon and copy to kodi after changes (after the initial addon build)
 
 1. `cd $HOME/pvr.vuplus`
-2. `./build-install-mac.sh ../xbmc`
+2. `./build-install-mac.sh ../xbmc-addon`
 
 If you would prefer to run the rebuild steps manually instead of using the above helper script check the appendix [here](#manual-steps-to-rebuild-the-addon-on-macosx)
 
@@ -279,7 +279,7 @@ or
 **Copy the addon to the Kodi addon directory on Mac**
 
 1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
-2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
+2. `cp -rf $HOME/xbmc-addon/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
 
 ### Logging detailed
 
