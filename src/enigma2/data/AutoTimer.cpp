@@ -104,7 +104,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
   {
     if (strTmp == AUTOTIMER_ENABLED_NO)
     {
-      m_state = PVR_TIMER_STATE_CANCELLED;
+      m_state = PVR_TIMER_STATE_DISABLED;
     }
   }
 

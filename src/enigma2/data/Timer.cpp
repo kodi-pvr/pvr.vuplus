@@ -231,15 +231,18 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   {
     if (bTmp)
     {
-      m_state = PVR_TIMER_STATE_ABORTED;
-      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ABORTED", __FUNCTION__);
+      // If a timer is cancelled by the backend mark it as an error so it will show as such in the UI
+      // We don't use CANCELLED or ABORTED as they are synonymous with DISABLED and we won't use them at all
+      // Note there is no user/API action to change to cancelled
+      m_state = PVR_TIMER_STATE_ERROR;
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ERROR", __FUNCTION__);
     }
   }
 
   if (iDisabled == 1)
   {
-    m_state = PVR_TIMER_STATE_CANCELLED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Cancelled", __FUNCTION__);
+    m_state = PVR_TIMER_STATE_DISABLED;
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Disabled", __FUNCTION__);
   }
 
   if (m_state == PVR_TIMER_STATE_NEW)

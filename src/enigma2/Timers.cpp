@@ -549,7 +549,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   strTmp += StringUtils::Format("name=%s", WebUtils::URLEncodeInline(timer.strTitle).c_str());
   strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.strEpgSearchString).c_str());
 
-  if (timer.state != PVR_TIMER_STATE_CANCELLED)
+  if (timer.state != PVR_TIMER_STATE_DISABLED)
     strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
   else
     strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
@@ -643,7 +643,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
     int iDisabled = 0;
-    if (timer.state == PVR_TIMER_STATE_CANCELLED)
+    if (timer.state == PVR_TIMER_STATE_DISABLED)
       iDisabled = 1;
 
     unsigned int startPadding = timer.iMarginStart;
@@ -719,7 +719,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
     strTmp += StringUtils::Format("&name=%s", WebUtils::URLEncodeInline(timer.strTitle).c_str());
     strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.strEpgSearchString).c_str());
 
-    if (timer.state != PVR_TIMER_STATE_CANCELLED)
+    if (timer.state != PVR_TIMER_STATE_DISABLED)
       strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
     else
       strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
