@@ -338,6 +338,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   types.emplace_back(*t);
   delete t;
 
+  // This type can only be created on the Enigma2 device.
   /* Repeating epg based */
   t = new TimerType(
     Timer::Type::EPG_REPEATING,
@@ -391,6 +392,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       PVR_TIMER_TYPE_IS_MANUAL                 |
       PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
       PVR_TIMER_TYPE_IS_READONLY               |
+      PVR_TIMER_TYPE_SUPPORTS_READONLY_DELETE  |
       PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
       PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
       PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
