@@ -109,7 +109,7 @@ private:
   // helper functions
   void Reset();
   std::string GetStreamURL(const std::string& strM3uURL);
-  void CheckForChannelAndGroupChanges();
+  enigma2::ChannelsChangeState CheckForChannelAndGroupChanges();
 
   // members
   bool m_isConnected = false;

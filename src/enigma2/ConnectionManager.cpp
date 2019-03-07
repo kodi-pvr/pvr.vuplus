@@ -129,6 +129,13 @@ void ConnectionManager::Disconnect()
   m_connectionListener.ConnectionLost();
 }
 
+void ConnectionManager::Reconnect()
+{
+  // Setting this state will cause Enigma2 to receive a connetionLost event
+  // The connection manager will then connect again causeing a reload of all state
+  SetState(PVR_CONNECTION_STATE_SERVER_UNREACHABLE);
+}
+
 void* ConnectionManager::Process()
 {
   static bool log = false;

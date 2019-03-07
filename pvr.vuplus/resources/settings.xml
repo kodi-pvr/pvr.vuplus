@@ -153,7 +153,7 @@
             <options>
               <option label="30117">0</option> <!-- DISABLED -->
               <option label="30118">1</option> <!-- NOTIFY_AND_LOG -->
-              <!--<option label="30119">2</option>--> <!-- RELOAD_CHANNELS_AND_GROUPS -->
+              <option label="30119">2</option> <!-- RELOAD_CHANNELS_AND_GROUPS -->
             </options>
           </constraints>
           <control type="list" format="integer" />
