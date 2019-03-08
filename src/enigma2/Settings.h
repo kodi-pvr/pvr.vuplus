@@ -17,6 +17,8 @@ namespace enigma2
   static const int DEFAULT_CONNECT_TIMEOUT = 30;
   static const int DEFAULT_STREAM_PORT = 8001;
   static const int DEFAULT_WEB_PORT = 80;
+  static const int DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS = 10;
+  static const int DEFAULT_CONNECTION_CHECK_INTERVAL_SECS = 1;
   static const int DEFAULT_UPDATE_INTERVAL = 2;
   static const int DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR = 4;
   static const std::string DEFAULT_TSBUFFERPATH = "special://userdata/addon_data/pvr.vuplus";
@@ -107,6 +109,8 @@ namespace enigma2
     int GetStreamPortNum() const { return m_portStream; }
     bool UseSecureConnectionStream() const { return m_useSecureHTTPStream; }
     bool UseLoginStream() const { return m_useLoginStream; }
+    int GetConectioncCheckTimeoutSecs() const { return m_conectioncCheckTimeoutSecs; }
+    int GetConectioncCheckIntervalSecs() const { return m_conectioncCheckIntervalSecs; }
 
     //General
     bool UseOnlinePicons() const { return m_onlinePicons; }
@@ -235,6 +239,8 @@ namespace enigma2
     int m_portStream = DEFAULT_STREAM_PORT;
     bool m_useSecureHTTPStream = false;
     bool m_useLoginStream = false;
+    int m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+    int m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
     //General
     bool m_onlinePicons = true;

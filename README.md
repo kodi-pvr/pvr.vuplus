@@ -84,6 +84,8 @@ Within this tab the connection options need to be configured before it can be su
 Webinterface Port: This option defines the port that should be used to access the webinterface of the set-top box.
 * **Use secure HTTP (https) for streams**: Use https to connect to streams
 * **Use login for streams**: Use the login username and password for streams
+* **Connection check timeout**: The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices.
+* **Connection check interval**: The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices.
 
 ### General
 Within this tab general options are configured.

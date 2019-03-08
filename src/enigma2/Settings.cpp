@@ -54,6 +54,12 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("use_login_stream", &m_useLoginStream))
     m_useLoginStream = false;
 
+  if (!XBMC->GetSetting("conectionchecktimeout", &m_conectioncCheckTimeoutSecs))
+    m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+
+  if (!XBMC->GetSetting("conectioncheckinterval", &m_conectioncCheckIntervalSecs))
+    m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
+
   //General
   if (!XBMC->GetSetting("onlinepicons", &m_onlinePicons))
     m_onlinePicons = true;
@@ -250,6 +256,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useSecureHTTPStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "use_login_stream")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useLoginStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "conectionchecktimeout")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_conectioncCheckTimeoutSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "conectioncheckinterval")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_conectioncCheckIntervalSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //General
   else if (settingName == "onlinepicons")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);

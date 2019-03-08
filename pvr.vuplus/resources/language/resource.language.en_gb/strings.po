@@ -500,6 +500,14 @@ msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
 msgstr ""
 
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr ""
+
 #empty strings from id 30121 to 30409
 
 msgctxt "#30410"
