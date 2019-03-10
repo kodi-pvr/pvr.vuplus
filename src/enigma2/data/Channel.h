@@ -45,7 +45,8 @@ namespace enigma2
 
       Channel() = default;
       Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()),
-        m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()) {};
+        m_genericServiceReference(c.GetGenericServiceReference()),
+        m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()), m_providerName(c.GetProviderName()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
@@ -77,8 +78,8 @@ namespace enigma2
       bool operator!=(const Channel &right) const;
 
     private:
-      std::string GetCommonServiceReference(const std::string &serviceReference);
-      std::string GetGenericServiceReference(const std::string &commonServiceReference);
+      std::string CreateCommonServiceReference(const std::string &serviceReference);
+      std::string CreateGenericServiceReference(const std::string &commonServiceReference);
       std::string CreateIconPath(const std::string &commonServiceReference);
       bool HasRadioServiceType();
 

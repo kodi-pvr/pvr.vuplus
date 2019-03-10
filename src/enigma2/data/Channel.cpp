@@ -56,8 +56,8 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (m_radio != HasRadioServiceType())
     return false;
 
-  const std::string commonServiceReference = GetCommonServiceReference(m_serviceReference);
-  m_genericServiceReference = GetGenericServiceReference(commonServiceReference);
+  const std::string commonServiceReference = CreateCommonServiceReference(m_serviceReference);
+  m_genericServiceReference = CreateGenericServiceReference(commonServiceReference);
   m_iconPath = CreateIconPath(commonServiceReference);
 
   Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str());
@@ -76,7 +76,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   return true;
 }
 
-std::string Channel::GetCommonServiceReference(const std::string &serviceReference)
+std::string Channel::CreateCommonServiceReference(const std::string &serviceReference)
 {
   //The common service reference contains only the first 10 groups of digits with colon's in between
   std::string commonServiceReference = serviceReference;
@@ -104,7 +104,7 @@ std::string Channel::GetCommonServiceReference(const std::string &serviceReferen
   return commonServiceReference;
 }
 
-std::string Channel::GetGenericServiceReference(const std::string &commonServiceReference)
+std::string Channel::CreateGenericServiceReference(const std::string &commonServiceReference)
 {
   //Same as common service reference but starts with SERVICE_REF_GENERIC_PREFIX and ends with SERVICE_REF_GENERIC_POSTFIX
   std::string genericServiceReference = commonServiceReference;

@@ -233,7 +233,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
   if (ContainsTag(TAG_FOR_GENRE_ID))
   {
     int genreId = 0;
-    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    if (std::sscanf(ReadTagValue(TAG_FOR_GENRE_ID).c_str(), "0x%02X", &genreId) == 1)
     {
       m_genreType = genreId & 0xF0;
       m_genreSubType = genreId & 0x0F;

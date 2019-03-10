@@ -293,7 +293,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
 
   if (ContainsTag(TAG_FOR_PADDING))
   {
-    if (std::sscanf(ReadTag(TAG_FOR_PADDING).c_str(), "Padding=%u,%u", &m_paddingStartMins, &m_paddingEndMins) != 2)
+    if (std::sscanf(ReadTagValue(TAG_FOR_PADDING).c_str(), "%u,%u", &m_paddingStartMins, &m_paddingEndMins) != 2)
     {
       m_paddingStartMins = 0;
       m_paddingEndMins = 0;
@@ -309,7 +309,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   if (ContainsTag(TAG_FOR_GENRE_ID))
   {
     int genreId = 0;
-    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    if (std::sscanf(ReadTagValue(TAG_FOR_GENRE_ID).c_str(), "0x%02X", &genreId) == 1)
     {
       m_genreType = genreId & 0xF0;
       m_genreSubType = genreId & 0x0F;

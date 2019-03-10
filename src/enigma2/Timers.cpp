@@ -461,10 +461,12 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     return AddAutoTimer(timer);
 
   const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  Tags tags;
 
-  std::string tags = TAG_FOR_EPG_TIMER;
   if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
-    tags = TAG_FOR_MANUAL_TIMER;
+    tags.AddTag(TAG_FOR_MANUAL_TIMER);
+  else
+    tags.AddTag(TAG_FOR_EPG_TIMER);
 
   unsigned int startPadding = timer.iMarginStart;
   unsigned int endPadding = timer.iMarginEnd;
@@ -490,7 +492,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   endTime = timer.endTime + (endPadding * 60);
   endPadding = endPadding;
 
-  tags.append(StringUtils::Format(" Padding=%u,%u", startPadding, endPadding));
+  tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
   std::string title = timer.strTitle;
   std::string description = timer.strSummary;
@@ -513,24 +515,24 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
       description = partialEntry.GetPlotOutline();
       epgUid = partialEntry.GetEpgUid();
 
-      tags.append(StringUtils::Format(" GenreId=0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType()));
+      tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType()));
     }
   }
 
   if (!foundEntry)
-    tags.append(StringUtils::Format(" GenreId=0x%02X", timer.iGenreType | timer.iGenreSubType));
+    tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", timer.iGenreType | timer.iGenreSubType));
 
   std::string strTmp;
   if (!m_settings.GetRecordingPath().empty())
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s",
               WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, startTime, endTime,
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
-              WebUtils::URLEncodeInline(tags).c_str(), WebUtils::URLEncodeInline(m_settings.GetRecordingPath()).c_str());
+              WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings.GetRecordingPath()).c_str());
   else
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s",
               WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, startTime, endTime,
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
-              WebUtils::URLEncodeInline(tags).c_str());
+              WebUtils::URLEncodeInline(tags.GetTags()).c_str());
 
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
@@ -672,13 +674,13 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     endTime = timer.endTime + (endPadding * 60);
     endPadding = endPadding;
 
-    std::string tags = RemovePaddingTag(oldTimer.GetTags());
-    tags.append(StringUtils::Format(" Padding=%u,%u", startPadding, endPadding));
+    Tags tags(oldTimer.GetTags());
+    tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
     const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1",
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime,
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(),
-                                    WebUtils::URLEncodeInline(tags).c_str(), iDisabled, timer.iWeekdays,
+                                    WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.iWeekdays,
                                     WebUtils::URLEncodeInline(strOldServiceReference).c_str(), oldTimer.GetRealStartTime(),
                                     oldTimer.GetRealEndTime());
 

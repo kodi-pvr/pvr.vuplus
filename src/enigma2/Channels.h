@@ -61,7 +61,7 @@ namespace enigma2
     int GetNumChannels() const;
     void ClearChannels();
     std::vector<std::shared_ptr<enigma2::data::Channel>>& GetChannelsList();
-    std::string GetChannelIconPath(std::string strChannelName);
+    std::string GetChannelIconPath(std::string &channelName);
     bool LoadChannels(enigma2::ChannelGroups &channelGroups);
 
     ChannelsChangeState CheckForChannelAndGroupChanges(enigma2::ChannelGroups &latestChannelGroups, enigma2::Channels &latestChannels);

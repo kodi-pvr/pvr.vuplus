@@ -33,7 +33,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
   if (XMLUtils::GetString(recordingNode, "e2servicename", strTmp))
     m_channelName = strTmp;
 
-  m_iconPath = channels.GetChannelIconPath(strTmp.c_str());
+  m_iconPath = channels.GetChannelIconPath(strTmp);
 
   if (XMLUtils::GetInt(recordingNode, "e2time", iTmp))
     m_startTime = iTmp;
@@ -66,7 +66,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
   if (ContainsTag(TAG_FOR_GENRE_ID))
   {
     int genreId = 0;
-    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    if (std::sscanf(ReadTagValue(TAG_FOR_GENRE_ID).c_str(), "0x%02X", &genreId) == 1)
     {
       m_genreType = genreId & 0xF0;
       m_genreSubType = genreId & 0x0F;

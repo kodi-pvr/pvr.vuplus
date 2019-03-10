@@ -114,11 +114,11 @@ std::vector<std::shared_ptr<Channel>>& Channels::GetChannelsList()
   return m_channels;
 }
 
-std::string Channels::GetChannelIconPath(std::string strChannelName)
+std::string Channels::GetChannelIconPath(std::string &channelName)
 {
   for (const auto& channel : m_channels)
   {
-    if (strChannelName == channel->GetChannelName())
+    if (channelName == channel->GetChannelName())
       return channel->GetIconPath();
   }
   return "";
