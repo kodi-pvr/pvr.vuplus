@@ -56,6 +56,7 @@ namespace enigma2
     int GetChannelUniqueId(const std::string &channelServiceReference);
     std::shared_ptr<enigma2::data::Channel> GetChannel(int uniqueId);
     std::shared_ptr<enigma2::data::Channel> GetChannel(const std::string &channelServiceReference);
+    std::shared_ptr<enigma2::data::Channel> GetChannel(const std::string &channelName, bool isRadio);
     bool IsValid(int uniqueId) const;
     bool IsValid(const std::string &channelServiceReference);
     int GetNumChannels() const;

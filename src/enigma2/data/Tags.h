@@ -31,6 +31,11 @@ namespace enigma2
   namespace data
   {
     static const std::string TAG_FOR_GENRE_ID = "GenreId";
+    static const std::string TAG_FOR_CHANNEL_REFERENCE = "ChannelRef";
+    static const std::string TAG_FOR_CHANNEL_TYPE = "ChannelType";
+    static const std::string TAG_FOR_ANY_CHANNEL = "AnyChannel";
+    static const std::string VALUE_FOR_CHANNEL_TYPE_TV = "TV";
+    static const std::string VALUE_FOR_CHANNEL_TYPE_RADIO = "Radio";
 
     class Tags
     {
@@ -48,7 +53,7 @@ namespace enigma2
         return (regex_match(m_tags, regex));
       }
 
-      void AddTag(const std::string &tagName, const std::string &tagValue = "")
+      void AddTag(const std::string &tagName, std::string tagValue = "", bool replaceUnderscores = false)
       {
         RemoveTag(tagName);
 
@@ -58,10 +63,14 @@ namespace enigma2
         m_tags.append(tagName);
 
         if (!tagValue.empty())
+        {
+          if (replaceUnderscores)
+            std::replace(tagValue.begin(), tagValue.end(), ' ', '_');
           m_tags.append(StringUtils::Format("=%s", tagValue.c_str()));
+        }
       }
 
-      std::string ReadTagValue(const std::string &tagName) const
+      std::string ReadTagValue(const std::string &tagName, bool replaceUnderscores = false) const
       {
         std::string tagValue;
 
@@ -75,6 +84,9 @@ namespace enigma2
             tagValue = tagValue.substr(0, found);
 
           tagValue = StringUtils::Trim(tagValue);
+
+          if (replaceUnderscores)
+            std::replace(tagValue.begin(), tagValue.end(), '_', ' ');
         }
 
         return tagValue;

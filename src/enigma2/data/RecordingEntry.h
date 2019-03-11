@@ -58,11 +58,17 @@ namespace enigma2
       const std::string& GetChannelName() const { return m_channelName; }
       void SetChannelName(const std::string& value ) { m_channelName = value; }
 
+      int GetChannelUniqueId() const { return m_channelUniqueId; }
+      void SetChannelUniqueId(int value) { m_channelUniqueId = value; }
+
       const std::string& GetDirectory() const { return m_directory; }
       void SetDirectory(const std::string& value ) { m_directory = value; }
 
       const std::string& GetIconPath() const { return m_iconPath; }
       void SetIconPath(const std::string& value ) { m_iconPath = value; }
+
+      bool IsRadio() const { return m_radio; }
+      void SetRadio(bool value) { m_radio = value; }
 
       bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, enigma2::Channels &channels);
       void UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder);
@@ -70,15 +76,24 @@ namespace enigma2
     private:
       long TimeStringToSeconds(const std::string &timeString);
 
+      std::shared_ptr<Channel> FindChannel(enigma2::Channels &channels);
+      std::shared_ptr<Channel> GetChannelFromChannelReferenceTag(enigma2::Channels &channels);
+      std::shared_ptr<Channel> GetChannelFromChannelNameSearch(enigma2::Channels &channels);
+      std::shared_ptr<Channel> GetChannelFromChannelNameFuzzySearch(enigma2::Channels &channels);
+
       std::string m_recordingId;
       time_t m_startTime;
       int m_duration;
       int m_lastPlayedPosition;
       std::string m_streamURL;
       std::string m_edlURL;
-      std::string m_channelName;
+      std::string m_channelName = "";
+      int m_channelUniqueId = PVR_CHANNEL_INVALID_UID;
       std::string m_directory;
-      std::string m_iconPath;
+      std::string m_iconPath = "";
+      bool m_radio = false;
+      bool m_haveChannelType = false;
+      bool m_anyChannelTimerSource = false;
     };
   } //namespace data
 } //namespace enigma2

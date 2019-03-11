@@ -64,6 +64,17 @@ std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelServiceR
   return channel;
 }
 
+std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelName, bool isRadio)
+{
+  for (const auto& channel : m_channels)
+  {
+    if (channelName == channel->GetChannelName() && isRadio == channel->IsRadio())
+      return channel;
+  }
+
+  return nullptr;
+}
+
 bool Channels::IsValid(int uniqueId) const
 {
   return (uniqueId - 1) < m_channels.size();

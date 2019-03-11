@@ -468,6 +468,13 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   else
     tags.AddTag(TAG_FOR_EPG_TIMER);
 
+  if (m_channels.GetChannel(timer.iClientChannelUid)->IsRadio())
+    tags.AddTag(TAG_FOR_CHANNEL_TYPE, VALUE_FOR_CHANNEL_TYPE_RADIO);
+  else
+    tags.AddTag(TAG_FOR_CHANNEL_TYPE, VALUE_FOR_CHANNEL_TYPE_TV);
+
+  tags.AddTag(TAG_FOR_CHANNEL_REFERENCE, serviceReference, true);
+
   unsigned int startPadding = timer.iMarginStart;
   unsigned int endPadding = timer.iMarginEnd;
 
@@ -608,6 +615,19 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
 
     //single channel
     strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(serviceReference).c_str());
+
+    if (m_channels.GetChannel(timer.iClientChannelUid)->IsRadio())
+      strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_RADIO.c_str())).c_str());
+    else
+      strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_TV.c_str())).c_str());
+
+    std::string tagValue = serviceReference;
+    std::replace(tagValue.begin(), tagValue.end(), ' ', '_');
+    strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_REFERENCE.c_str(), tagValue.c_str())).c_str());
+  }
+  else
+  {
+    strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s", TAG_FOR_ANY_CHANNEL.c_str())).c_str());
   }
 
   strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("GenreId=0x%02X", timer.iGenreType | timer.iGenreSubType)).c_str());
@@ -646,6 +666,9 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     const std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId())->GetServiceReference().c_str();
     Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
+    Tags tags(oldTimer.GetTags());
+    tags.AddTag(TAG_FOR_CHANNEL_REFERENCE, strServiceReference, true);
+
     int iDisabled = 0;
     if (timer.state == PVR_TIMER_STATE_DISABLED)
       iDisabled = 1;
@@ -674,7 +697,6 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
     endTime = timer.endTime + (endPadding * 60);
     endPadding = endPadding;
 
-    Tags tags(oldTimer.GetTags());
     tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
     const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1",
@@ -776,13 +798,41 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
 
     if (timerToUpdate.GetAnyChannel() && timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
     {
+      std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference();
+
       //move to single channel
-      strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference()).c_str());
+      strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(serviceReference).c_str());
+
+      //Update tags
+      strTmp += StringUtils::Format("&tag=");
+
+      if (m_channels.GetChannel(timer.iClientChannelUid)->IsRadio())
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_RADIO.c_str())).c_str());
+      else
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_TV.c_str())).c_str());
+
+      std::string tagValue = serviceReference;
+      std::replace(tagValue.begin(), tagValue.end(), ' ', '_');
+      strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_REFERENCE.c_str(), tagValue.c_str())).c_str());
+
+      if (timerToUpdate.ContainsTag(TAG_FOR_GENRE_ID))
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_GENRE_ID.c_str(), timerToUpdate.ReadTagValue(TAG_FOR_GENRE_ID).c_str())).c_str());
     }
     else if (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
     {
       //Move to any channel
       strTmp += StringUtils::Format("&services=");
+
+      //Update tags
+      strTmp += StringUtils::Format("&tag=");
+
+      if (timerToUpdate.ContainsTag(TAG_FOR_CHANNEL_TYPE))
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), timerToUpdate.ReadTagValue(TAG_FOR_CHANNEL_TYPE).c_str())).c_str());
+
+      strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s", TAG_FOR_ANY_CHANNEL.c_str())).c_str());
+
+      if (timerToUpdate.ContainsTag(TAG_FOR_GENRE_ID))
+        strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_GENRE_ID.c_str(), timerToUpdate.ReadTagValue(TAG_FOR_GENRE_ID).c_str())).c_str());
     }
 
     strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);

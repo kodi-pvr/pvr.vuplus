@@ -33,6 +33,7 @@ bool Timer::operator==(const Timer &right) const
   isEqual &= (m_state == right.m_state);
   isEqual &= (m_title == right.m_title);
   isEqual &= (m_plot == right.m_plot);
+  isEqual &= (m_tags == right.m_tags);
 
   return isEqual;
 }

@@ -48,6 +48,7 @@ void AutoTimer::UpdateFrom(const AutoTimer &right)
   m_endAnyTime = right.m_endAnyTime;
   m_anyChannel = right.m_anyChannel;
   m_deDup = right.m_deDup;
+  m_tags = right.m_tags;
 }
 
 void AutoTimer::UpdateTo(PVR_TIMER &left) const

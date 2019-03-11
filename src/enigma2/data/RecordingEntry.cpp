@@ -33,8 +33,6 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
   if (XMLUtils::GetString(recordingNode, "e2servicename", strTmp))
     m_channelName = strTmp;
 
-  m_iconPath = channels.GetChannelIconPath(strTmp);
-
   if (XMLUtils::GetInt(recordingNode, "e2time", iTmp))
     m_startTime = iTmp;
 
@@ -76,6 +74,16 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
       m_genreType = 0;
       m_genreSubType = 0;
     }
+  }
+
+  auto channel = FindChannel(channels);
+
+  if (channel)
+  {
+    m_radio = channel->IsRadio();
+    m_channelUniqueId = channel->GetUniqueId();
+    m_iconPath = channel->GetIconPath();
+    m_haveChannelType = true;
   }
 
   return true;
@@ -133,22 +141,15 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   left.recordingTime     = m_startTime;
   left.iDuration         = m_duration;
 
-  left.iChannelUid = PVR_CHANNEL_INVALID_UID;
+  left.iChannelUid = m_channelUniqueId;
   left.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
 
-  for (const auto& channel : channels.GetChannelsList())
+  if (m_haveChannelType)
   {
-    if (m_channelName == channel->GetChannelName())
-    {
-      /* PVR API 5.0.0: iChannelUid in recordings */
-      left.iChannelUid = channel->GetUniqueId();
-
-      /* PVR API 5.1.0: Support channel type in recordings */
-      if (channel->IsRadio())
-        left.channelType = PVR_RECORDING_CHANNEL_TYPE_RADIO;
-      else
-        left.channelType = PVR_RECORDING_CHANNEL_TYPE_TV;
-    }
+    if (m_radio)
+      left.channelType = PVR_RECORDING_CHANNEL_TYPE_RADIO;
+    else
+      left.channelType = PVR_RECORDING_CHANNEL_TYPE_TV;
   }
 
   left.iSeriesNumber = m_seasonNumber;
@@ -157,4 +158,77 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   left.iGenreType = m_genreType;
   left.iGenreSubType = m_genreSubType;
   strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription));
+}
+
+std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels)
+{
+  std::shared_ptr<Channel> channel = GetChannelFromChannelReferenceTag(channels);
+
+  if (channel)
+    return channel;
+
+  if (ContainsTag(TAG_FOR_CHANNEL_TYPE))
+  {
+    m_radio = ReadTagValue(TAG_FOR_CHANNEL_TYPE) == VALUE_FOR_CHANNEL_TYPE_RADIO;
+    m_haveChannelType = true;
+
+  }
+
+  m_anyChannelTimerSource = ContainsTag(TAG_FOR_ANY_CHANNEL);
+
+  channel = GetChannelFromChannelNameSearch(channels);
+
+  if (channel)
+    return channel;
+
+  channel = GetChannelFromChannelNameFuzzySearch(channels);
+
+  return channel;
+}
+
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels &channels)
+{
+  std::string channelServiceReference;
+
+  if (ContainsTag(TAG_FOR_CHANNEL_REFERENCE))
+  {
+    channelServiceReference = ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true);
+  }
+
+  return channels.GetChannel(channelServiceReference);
+}
+
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels &channels)
+{
+  //search for channel name using exact match
+  for (const auto& channel : channels.GetChannelsList())
+  {
+    if (m_channelName == channel->GetChannelName() &&
+        (!m_haveChannelType || (channel->IsRadio() == m_radio)))
+    {
+      return channel;
+    }
+  }
+
+  return nullptr;
+}
+
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels &channels)
+{
+  std::string fuzzyRecordingChannelName;
+
+  //search for channel name using fuzzy match
+  for (const auto& channel : channels.GetChannelsList())
+  {
+    fuzzyRecordingChannelName = m_channelName;
+    fuzzyRecordingChannelName.erase(remove_if(fuzzyRecordingChannelName.begin(), fuzzyRecordingChannelName.end(), isspace), fuzzyRecordingChannelName.end());
+
+    if (fuzzyRecordingChannelName == channel->GetFuzzyChannelName() &&
+        (!m_haveChannelType || (channel->IsRadio() == m_radio)))
+    {
+      return channel;
+    }
+  }
+
+  return nullptr;
 }

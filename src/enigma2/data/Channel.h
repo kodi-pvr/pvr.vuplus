@@ -46,7 +46,8 @@ namespace enigma2
       Channel() = default;
       Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()),
         m_genericServiceReference(c.GetGenericServiceReference()),
-        m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()), m_providerName(c.GetProviderName()) {};
+        m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
+        m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
@@ -66,6 +67,9 @@ namespace enigma2
 
       const std::string& GetProviderName() const { return m_providerName; }
       void SetProviderlName(const std::string& value ) { m_providerName = value; }
+
+      const std::string& GetFuzzyChannelName() const { return m_fuzzyChannelName; }
+      void SetFuzzyChannelName(const std::string& value ) { m_fuzzyChannelName = value; }
 
       bool UpdateFrom(TiXmlElement* channelNode);
       void UpdateTo(PVR_CHANNEL &left) const;
@@ -89,6 +93,7 @@ namespace enigma2
       std::string m_m3uURL;
       std::string m_iconPath;
       std::string m_providerName;
+      std::string m_fuzzyChannelName;
 
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupList;
     };

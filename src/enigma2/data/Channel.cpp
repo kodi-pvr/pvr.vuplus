@@ -53,6 +53,9 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
     return false;
 
+  m_fuzzyChannelName = m_channelName;
+  m_fuzzyChannelName.erase(remove_if(m_fuzzyChannelName.begin(), m_fuzzyChannelName.end(), isspace), m_fuzzyChannelName.end());
+
   if (m_radio != HasRadioServiceType())
     return false;
 
