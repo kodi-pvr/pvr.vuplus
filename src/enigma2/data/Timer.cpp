@@ -157,7 +157,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
   if (m_channelId < 0)
   {
-    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, m_title.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping timer: '%s' - sRef: '%s'", __FUNCTION__, m_title.c_str(), strTmp.c_str());
     return false;
   }
 

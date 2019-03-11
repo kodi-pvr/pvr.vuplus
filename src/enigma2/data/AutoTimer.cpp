@@ -15,22 +15,22 @@ bool AutoTimer::Like(const AutoTimer &right) const
 
 bool AutoTimer::operator==(const AutoTimer &right) const
 {
-  bool isEqual = true;
-  isEqual = isEqual && (!m_title.compare(right.m_title));
-  isEqual = isEqual && (m_startTime == right.m_startTime);
-  isEqual = isEqual && (m_endTime == right.m_endTime);
-  isEqual = isEqual && (m_channelId == right.m_channelId);
-  isEqual = isEqual && (m_weekdays == right.m_weekdays);
+  bool isEqual = (!m_title.compare(right.m_title));
+  isEqual &= (m_startTime == right.m_startTime);
+  isEqual &= (m_endTime == right.m_endTime);
+  isEqual &= (m_channelId == right.m_channelId);
+  isEqual &= (m_weekdays == right.m_weekdays);
 
-  isEqual = isEqual && (m_searchPhrase == right.m_searchPhrase);
-  isEqual = isEqual && (m_searchType == right.m_searchType);
-  isEqual = isEqual && (m_searchCase == right.m_searchCase);
-  isEqual = isEqual && (m_state == right.m_state);
-  isEqual = isEqual && (m_searchFulltext == right.m_searchFulltext);
-  isEqual = isEqual && (m_startAnyTime == right.m_startAnyTime);
-  isEqual = isEqual && (m_endAnyTime == right.m_endAnyTime);
-  isEqual = isEqual && (m_anyChannel == right.m_anyChannel);
-  isEqual = isEqual && (m_deDup == right.m_deDup);
+  isEqual &= (m_searchPhrase == right.m_searchPhrase);
+  isEqual &= (m_searchType == right.m_searchType);
+  isEqual &= (m_searchCase == right.m_searchCase);
+  isEqual &= (m_state == right.m_state);
+  isEqual &= (m_searchFulltext == right.m_searchFulltext);
+  isEqual &= (m_startAnyTime == right.m_startAnyTime);
+  isEqual &= (m_endAnyTime == right.m_endAnyTime);
+  isEqual &= (m_anyChannel == right.m_anyChannel);
+  isEqual &= (m_deDup == right.m_deDup);
+  isEqual &= (m_tags == right.m_tags);
 
   return isEqual;
 }
