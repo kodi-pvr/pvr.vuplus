@@ -194,6 +194,9 @@ namespace enigma2
       return (major << 16 | minor << 8 | patch);
     };
 
+    bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
+    void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
+
   private:
     Settings() = default;
 
@@ -303,6 +306,9 @@ namespace enigma2
     //Backend
     int m_globalStartPaddingStb = 0;
     int m_globalEndPaddingStb = 0;
+
+    //Last Scanned
+    bool m_usesLastScannedChannelGroup = false;
 
     std::string m_connectionURL;
     enigma2::utilities::DeviceInfo* m_deviceInfo;

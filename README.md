@@ -118,7 +118,7 @@ Within this tab options that refer to channel data can be set. When changing bou
     - `Disabled` - Don't explicitly fetch TV favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
-* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is shown by default. Enable this option to exclude this group.
+* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting.
 * **Radio bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all Radio bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option

@@ -265,7 +265,7 @@
         </setting>
         <setting id="excludelastscannedtv" type="boolean" label="30114">
           <level>0</level>
-          <default>false</default>
+          <default>true</default>
           <dependencies>
             <dependency type="visible" setting="tvgroupmode" operator="is">0</dependency>
           </dependencies>
