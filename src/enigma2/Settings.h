@@ -155,8 +155,10 @@ namespace enigma2
     //Timers
     bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
     int GetNumGenRepeatTimers() const { return m_numGenRepeatTimers; }
-    bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
     bool GetAutoTimerListCleanupEnabled() const { return m_automaticTimerlistCleanup; }
+    bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
+    bool GetLimitAnyChannelAutoTimers() const { return m_limitAnyChannelAutoTimers; }
+    bool GetLimitAnyChannelAutoTimersToChannelGroups() const { return m_limitAnyChannelAutoTimersToChannelGroups; }
 
     //Timeshift
     const Timeshift& GetTimeshift() const { return m_timeshift; }
@@ -288,8 +290,10 @@ namespace enigma2
     //Timers
     bool m_enableGenRepeatTimers = true;
     int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
-    bool m_enableAutoTimers = true;
     bool m_automaticTimerlistCleanup = false;
+    bool m_enableAutoTimers = true;
+    bool m_limitAnyChannelAutoTimers = true;
+    bool m_limitAnyChannelAutoTimersToChannelGroups = false;
 
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;

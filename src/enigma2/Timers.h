@@ -19,8 +19,8 @@ namespace enigma2
   class Timers
   {
   public:
-    Timers(Channels &channels, std::vector<std::string> &locations, Epg &epg)
-      : m_channels(channels), m_locations(locations), m_epg(epg)
+    Timers(Channels &channels, ChannelGroups &channelGroups, std::vector<std::string> &locations, Epg &epg)
+      : m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg)
     {
       m_clientIndexCounter = 1;
     };
@@ -66,6 +66,7 @@ namespace enigma2
     bool IsAutoTimer(const PVR_TIMER &timer) const;
     bool TimerUpdatesRegular();
     bool TimerUpdatesAuto();
+    std::string BuildAddUpdateAutoTimerLimitGroupsParams(const std::shared_ptr<data::Channel> &channel);
     static std::string BuildAddUpdateAutoTimerIncludeParams(int weekdays);
 
     // members
@@ -77,6 +78,7 @@ namespace enigma2
     std::vector<enigma2::data::AutoTimer> m_autotimers;
 
     Channels &m_channels;
+    ChannelGroups &m_channelGroups;
     std::vector<std::string> &m_locations;
     Epg &m_epg;
   };

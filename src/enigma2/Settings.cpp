@@ -188,11 +188,17 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("numgenrepeattimers", &m_numGenRepeatTimers))
     m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
 
+  if (!XBMC->GetSetting("timerlistcleanup", &m_automaticTimerlistCleanup))
+    m_automaticTimerlistCleanup = false;
+
   if (!XBMC->GetSetting("enableautotimers", &m_enableAutoTimers))
     m_enableAutoTimers = true;
 
-  if (!XBMC->GetSetting("timerlistcleanup", &m_automaticTimerlistCleanup))
-    m_automaticTimerlistCleanup = false;
+  if (!XBMC->GetSetting("limitanychannelautotimers", &m_limitAnyChannelAutoTimers))
+    m_limitAnyChannelAutoTimers = true;
+
+  if (!XBMC->GetSetting("limitanychannelautotimerstogroups", &m_limitAnyChannelAutoTimersToChannelGroups))
+    m_limitAnyChannelAutoTimersToChannelGroups = true;
 
   //Timeshift
   if (!XBMC->GetSetting("enabletimeshift", &m_timeshift))
@@ -287,7 +293,7 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "tvfavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "excludelastscannedtv")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "radiogroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "oneradiogroup")
@@ -295,7 +301,7 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "radiofavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "excludelastscannedradio")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedRadioGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //EPG
   else if (settingName == "extractepginfoenabled")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -333,11 +339,15 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "numgenrepeattimers")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  else if (settingName == "enableautotimers")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timerlistcleanup")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_automaticTimerlistCleanup, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  //Timeshift
+  else if (settingName == "enableautotimers")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "limitanychannelautotimers")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_limitAnyChannelAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "limitanychannelautotimerstogroups")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_limitAnyChannelAutoTimersToChannelGroups, ADDON_STATUS_OK, ADDON_STATUS_OK);
+   //Timeshift
   else if (settingName == "enabletimeshift")
     return SetSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")

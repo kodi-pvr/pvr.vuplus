@@ -507,14 +507,33 @@
           </dependencies>
           <control type="edit" format="integer" />
         </setting>
+        <setting id="timerlistcleanup" type="boolean" label="30011">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="2" label="30123">
         <setting id="enableautotimers" type="boolean" label="30034">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="timerlistcleanup" type="boolean" label="30011">
+        <setting id="limitanychannelautotimers" type="boolean" label="30124">
           <level>0</level>
-          <default>false</default>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="enableautotimers" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="limitanychannelautotimerstogroups" type="boolean" parent="limitanychannelautotimers" label="30125">
+          <level>0</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="enableautotimers" operator="is">true</dependency>
+            <dependency type="enable" setting="limitanychannelautotimers">true</dependency>
+          </dependencies>
           <control type="toggle" />
         </setting>
       </group>

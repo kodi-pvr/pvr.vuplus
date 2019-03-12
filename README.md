@@ -188,13 +188,15 @@ The following are the settings in the Timers tab:
 
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
+* **Automatic timerlist cleanup**: If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval.
 * **Enable autotimers**: When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot. To set manually on the set-top box enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
   1. Hit `Menu` on the remote and go to `Timers->AutoTimers`
   2. Hit `Menu` again and then select `6 Setup`
   3. Set the following to option to `yes`
     * `Include "AutoTimer" in tags`
     * `Include AutoTimer name in tags`
-* **Automatic timerlist cleanup**: If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval.
+* **Limit 'Any Channel' autotimers to TV or Radio**: If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored.
+* **Limit to groups of original EPG channel**: For the channel used to create the autotimer limit to channel groups that this channel is a member of.
 
 ### Timeshift
 Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped.

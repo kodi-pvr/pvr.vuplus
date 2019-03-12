@@ -508,7 +508,19 @@ msgctxt "#30122"
 msgid "Connection check interval"
 msgstr ""
 
-#empty strings from id 30121 to 30409
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Limit 'Any Channel' autotimers to TV or Radio"
+msgstr ""
+
+msgctxt "#30125"
+msgid "Limit to groups of original EPG channel"
+msgstr ""
+
+#empty strings from id 30126 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

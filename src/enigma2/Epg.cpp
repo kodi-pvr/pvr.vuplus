@@ -410,6 +410,53 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceRefere
   return partialEntry;
 }
 
+std::string Epg::FindServiceReference(const std::string &title, int epgUid, time_t startTime, time_t endTime)
+{
+  std::string serviceReference;
+
+  const auto started = std::chrono::high_resolution_clock::now();
+
+  const std::string jsonUrl = StringUtils::Format("%sapi/epgsearch?search=%s&endtime=%ld", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(title).c_str(), endTime);
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    if (!jsonDoc["events"].empty())
+    {
+      for (const auto& event : jsonDoc["events"].items())
+      {
+        if (event.value()["title"].get<std::string>() == title &&
+            event.value()["id"].get<int>() == epgUid &&
+            event.value()["begin_timestamp"].get<time_t>() == startTime &&
+            event.value()["duration_sec"].get<int>() == (endTime - startTime))
+        {
+          serviceReference = event.value()["sref"].get<std::string>();
+
+          break; //We only want first event
+        }
+      }
+    }
+  }
+  catch (nlohmann::detail::parse_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot service reference from OpenWebIf for: %s, epgUid: %d, start time: %ld, end time: %ld  - JSON parse error - message: %s, exception id: %d", __FUNCTION__, title.c_str(), epgUid, startTime, endTime, e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+
+  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+                      std::chrono::high_resolution_clock::now() - started).count();
+
+  Logger::Log(LEVEL_DEBUG, "%s Service reference search time - %d (ms)", __FUNCTION__, milliseconds);
+
+  return serviceReference;
+}
+
 bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 {
   const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",
