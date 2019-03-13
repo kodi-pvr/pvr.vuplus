@@ -105,10 +105,10 @@ void Settings::ReadFromAddon()
     m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
 
   if (!XBMC->GetSetting("excludelastscannedtv", &m_excludeLastScannedTVGroup))
-    m_excludeLastScannedTVGroup = false;
+    m_excludeLastScannedTVGroup = true;
 
   if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
-    m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+    m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
 
   if (XBMC->GetSetting("oneradiogroup", buffer))
     m_oneRadioGroup = buffer;
@@ -120,7 +120,7 @@ void Settings::ReadFromAddon()
     m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
 
   if (!XBMC->GetSetting("excludelastscannedradio", &m_excludeLastScannedRadioGroup))
-    m_excludeLastScannedRadioGroup = false;
+    m_excludeLastScannedRadioGroup = true;
 
   //EPG
   if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))

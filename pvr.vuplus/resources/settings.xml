@@ -245,7 +245,7 @@
         </setting>
         <setting id="tvfavouritesmode" type="integer" label="30068">
           <level>0</level>
-          <default>1</default>
+          <default>0</default>
           <constraints>
             <options>
               <option label="30430">0</option> <!-- DISABLED -->
@@ -275,7 +275,7 @@
       <group id="3" label="30057">
         <setting id="radiogroupmode" type="integer" label="30058">
           <level>0</level>
-          <default>2</default>
+          <default>0</default>
           <constraints>
             <options>
               <option label="30074">0</option> <!-- ALL_GROUPS -->

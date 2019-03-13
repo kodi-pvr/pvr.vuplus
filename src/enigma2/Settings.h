@@ -262,11 +262,11 @@ namespace enigma2
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneTVGroup = "";
     FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
-    bool m_excludeLastScannedTVGroup = false;
-    ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+    bool m_excludeLastScannedTVGroup = true;
+    ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneRadioGroup = "";
     FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
-    bool m_excludeLastScannedRadioGroup = false;
+    bool m_excludeLastScannedRadioGroup = true;
 
     //EPG
     bool m_extractShowInfo = true;
