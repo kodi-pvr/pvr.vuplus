@@ -83,6 +83,11 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
         InitialEpgLoadedForChannel(epgChannel->GetServiceReference());
     }
 
+    Logger::Log(LEVEL_DEBUG, "%s Initial EPG Progress - Remaining channels %d, Min Channels for completion %d", __FUNCTION__, m_needsInitialEpgChannelsMap.size(), lastScannedIgnoreSuccessCount);
+
+    for (auto pair : m_needsInitialEpgChannelsMap)
+      Logger::Log(LEVEL_DEBUG, "%s - Initial EPG Progress - Remaining channel: %s - sref: %s", __FUNCTION__, pair.second->GetChannelName().c_str(), pair.first.c_str());
+
     if (group->IsLastScannedGroup() && m_needsInitialEpgChannelsMap.size() <= lastScannedIgnoreSuccessCount)
       break;
   }
