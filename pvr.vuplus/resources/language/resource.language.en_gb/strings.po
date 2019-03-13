@@ -614,3 +614,7 @@ msgstr ""
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
 msgstr ""
+
+msgctxt "#30520"
+msgid "Invalid Channel"
+msgstr ""

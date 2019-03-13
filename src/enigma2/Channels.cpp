@@ -38,7 +38,7 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) 
 int Channels::GetChannelUniqueId(const std::string &channelServiceReference)
 {
   std::shared_ptr<Channel> channel = GetChannel(channelServiceReference);
-  int uniqueId = -1;
+  int uniqueId = PVR_CHANNEL_INVALID_UID;
 
   if (channel)
     uniqueId = channel->GetUniqueId();

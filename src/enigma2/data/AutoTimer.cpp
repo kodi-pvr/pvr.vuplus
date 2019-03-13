@@ -1,5 +1,7 @@
 #include "AutoTimer.h"
 
+#include "../utilities/LocalizedString.h"
+
 #include "inttypes.h"
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
@@ -158,13 +160,18 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
         m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 
         // Skip autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
-        if (m_channelId < 0)
+        if (m_channelId == PVR_CHANNEL_INVALID_UID)
         {
-          Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, m_title.c_str());
-          return false;
+          // Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, m_title.c_str());
+          // return false;
+          m_state = PVR_TIMER_STATE_ERROR;
+          Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __FUNCTION__);
+          m_channelName = LocalizedString(30520); // Invalid Channel
         }
-
-        m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
+        else
+        {
+          m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
+        }
       }
     }
     else //otherwise set to any channel
