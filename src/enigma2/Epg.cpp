@@ -438,7 +438,7 @@ std::string Epg::FindServiceReference(const std::string &title, int epgUid, time
             event.value()["begin_timestamp"].get<time_t>() == startTime &&
             event.value()["duration_sec"].get<int>() == (endTime - startTime))
         {
-          serviceReference = event.value()["sref"].get<std::string>();
+          serviceReference = Channel::NormaliseServiceReference(event.value()["sref"].get<std::string>());
 
           break; //We only want first event
         }

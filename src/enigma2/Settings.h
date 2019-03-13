@@ -123,6 +123,7 @@ namespace enigma2
     ChannelAndGroupUpdateMode GetChannelAndGroupUpdateMode() const { return m_channelAndGroupUpdateMode; }
 
     //Channel
+    bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
@@ -258,6 +259,7 @@ namespace enigma2
     unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel
+    bool m_useStandardServiceReference = true;
     bool m_zap = false;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneTVGroup = "";

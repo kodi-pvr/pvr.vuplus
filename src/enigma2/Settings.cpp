@@ -89,6 +89,9 @@ void Settings::ReadFromAddon()
     m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
   //Channels
+  if (!XBMC->GetSetting("usestandardserviceref", &m_useStandardServiceReference))
+    m_useStandardServiceReference = true;
+
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
 
@@ -284,6 +287,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "channelandgroupupdatehour")
     return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateHour, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
+  else if (settingName == "usestandardserviceref")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useStandardServiceReference, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tvgroupmode")

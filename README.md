@@ -107,6 +107,7 @@ Within this tab general options are configured.
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
+* **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled the all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
 * **Exclude last scanned bouquet**: By default the `Last Scanned` bouquet will be included with all bouquets. Enable this option to exclude it from the retrieved list. Note that last scanned applies to both TV and Radio channels.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:

@@ -153,7 +153,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   m_title = strTmp;
 
   if (XMLUtils::GetString(timerNode, "e2servicereference", strTmp))
-    m_channelId = channels.GetChannelUniqueId(strTmp.c_str());
+    m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
   if (m_channelId < 0)

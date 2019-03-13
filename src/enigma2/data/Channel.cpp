@@ -59,9 +59,14 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (m_radio != HasRadioServiceType())
     return false;
 
+  m_extendedServiceReference = m_serviceReference;
   const std::string commonServiceReference = CreateCommonServiceReference(m_serviceReference);
+  m_standardServiceReference = commonServiceReference + ":";
   m_genericServiceReference = CreateGenericServiceReference(commonServiceReference);
   m_iconPath = CreateIconPath(commonServiceReference);
+
+  if (Settings::GetInstance().UseStandardServiceReference())
+    m_serviceReference = m_standardServiceReference;
 
   Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str());
 
@@ -79,6 +84,19 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   return true;
 }
 
+std::string Channel::NormaliseServiceReference(const std::string &serviceReference)
+{
+  if (Settings::GetInstance().UseStandardServiceReference())
+    return CreateStandardServiceReference(serviceReference);
+  else
+    return serviceReference;
+}
+
+std::string Channel::CreateStandardServiceReference(const std::string &serviceReference)
+{
+  return CreateCommonServiceReference(serviceReference) + ":";
+}
+
 std::string Channel::CreateCommonServiceReference(const std::string &serviceReference)
 {
   //The common service reference contains only the first 10 groups of digits with colon's in between
@@ -94,7 +112,7 @@ std::string Channel::CreateCommonServiceReference(const std::string &serviceRefe
 
     it++;
   }
-  std::string::size_type index = it-commonServiceReference.begin();
+  std::string::size_type index = it - commonServiceReference.begin();
 
   commonServiceReference = commonServiceReference.substr(0, index);
 

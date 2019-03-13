@@ -44,14 +44,20 @@ namespace enigma2
       const std::string RADIO_SERVICE_TYPE = "2";
 
       Channel() = default;
-      Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()),
-        m_genericServiceReference(c.GetGenericServiceReference()),
+      Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
+        m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
         m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
       void SetChannelNumber(int value) { m_channelNumber = value; }
+
+      const std::string& GetStandardServiceReference() const { return m_standardServiceReference; }
+      void SetStandardServiceReference(const std::string& value ) { m_standardServiceReference = value; }
+
+      const std::string& GetExtendedServiceReference() const { return m_extendedServiceReference; }
+      void SetExtendedServiceReference(const std::string& value ) { m_extendedServiceReference = value; }
 
       const std::string& GetGenericServiceReference() const { return m_genericServiceReference; }
       void SetGenericServiceReference(const std::string& value ) { m_genericServiceReference = value; }
@@ -81,13 +87,18 @@ namespace enigma2
       bool operator==(const Channel &right) const;
       bool operator!=(const Channel &right) const;
 
+      static std::string NormaliseServiceReference(const std::string &serviceReference);
+
     private:
-      std::string CreateCommonServiceReference(const std::string &serviceReference);
+      static std::string CreateStandardServiceReference(const std::string &serviceReference);
+      static std::string CreateCommonServiceReference(const std::string &serviceReference);
       std::string CreateGenericServiceReference(const std::string &commonServiceReference);
       std::string CreateIconPath(const std::string &commonServiceReference);
       bool HasRadioServiceType();
 
       int m_channelNumber;
+      std::string m_standardServiceReference;
+      std::string m_extendedServiceReference;
       std::string m_genericServiceReference;
       std::string m_streamURL;
       std::string m_m3uURL;

@@ -46,6 +46,8 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
   if (m_serviceReference.compare(0,5,"1:64:") == 0)
     return false;
 
+  m_serviceReference = Channel::NormaliseServiceReference(m_serviceReference);
+
   std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
   auto epgChannelSearch = epgChannelsMap.find(m_serviceReference);

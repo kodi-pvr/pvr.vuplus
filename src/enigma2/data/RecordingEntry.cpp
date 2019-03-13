@@ -192,7 +192,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
 
   if (ContainsTag(TAG_FOR_CHANNEL_REFERENCE))
   {
-    channelServiceReference = ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true);
+    channelServiceReference = Channel::NormaliseServiceReference(ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true));
   }
 
   return channels.GetChannel(channelServiceReference);

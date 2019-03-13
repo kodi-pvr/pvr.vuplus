@@ -155,7 +155,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
       //If we only have one channel
       if (XMLUtils::GetString(serviceNode, "e2servicereference", strTmp))
       {
-        m_channelId = channels.GetChannelUniqueId(strTmp.c_str());
+        m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 
         // Skip autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
         if (m_channelId < 0)

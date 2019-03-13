@@ -213,6 +213,11 @@
     <!-- Channels -->
     <category id="channels" label="30019">
       <group id="1" label="30018">
+        <setting id="usestandardserviceref" type="boolean" label="30126">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
         <setting id="zap" type="boolean" label="30013">
           <level>0</level>
           <default>false</default>

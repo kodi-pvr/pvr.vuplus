@@ -520,7 +520,11 @@ msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
 msgstr ""
 
-#empty strings from id 30126 to 30409
+msgctxt "#30126"
+msgid "Use standard channel service reference"
+msgstr ""
+
+#empty strings from id 30127 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"
