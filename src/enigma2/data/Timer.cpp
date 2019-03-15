@@ -85,13 +85,15 @@ bool Timer::IsScheduled() const
       || m_state == PVR_TIMER_STATE_RECORDING;
 }
 
-bool Timer::IsRunning(std::time_t *now, std::string *channelName) const
+bool Timer::IsRunning(std::time_t *now, std::string *channelName, std::time_t startTime) const
 {
   if (!IsScheduled())
     return false;
   if (now && !(GetRealStartTime() <= *now && *now <= GetRealEndTime()))
     return false;
   if (channelName && m_channelName != *channelName)
+    return false;
+  if (GetRealStartTime() != startTime)
     return false;
   return true;
 }
