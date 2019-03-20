@@ -76,10 +76,10 @@ namespace enigma2
     private:
       long TimeStringToSeconds(const std::string &timeString);
 
-      std::shared_ptr<Channel> FindChannel(enigma2::Channels &channels);
-      std::shared_ptr<Channel> GetChannelFromChannelReferenceTag(enigma2::Channels &channels);
-      std::shared_ptr<Channel> GetChannelFromChannelNameSearch(enigma2::Channels &channels);
-      std::shared_ptr<Channel> GetChannelFromChannelNameFuzzySearch(enigma2::Channels &channels);
+      std::shared_ptr<Channel> FindChannel(enigma2::Channels &channels) const;
+      std::shared_ptr<Channel> GetChannelFromChannelReferenceTag(enigma2::Channels &channels) const;
+      std::shared_ptr<Channel> GetChannelFromChannelNameSearch(enigma2::Channels &channels) const;
+      std::shared_ptr<Channel> GetChannelFromChannelNameFuzzySearch(enigma2::Channels &channels) const;
 
       std::string m_recordingId;
       time_t m_startTime;
@@ -87,13 +87,13 @@ namespace enigma2
       int m_lastPlayedPosition;
       std::string m_streamURL;
       std::string m_edlURL;
-      std::string m_channelName = "";
+      std::string m_channelName;
       int m_channelUniqueId = PVR_CHANNEL_INVALID_UID;
       std::string m_directory;
-      std::string m_iconPath = "";
-      bool m_radio = false;
-      bool m_haveChannelType = false;
-      bool m_anyChannelTimerSource = false;
+      std::string m_iconPath;
+      mutable bool m_radio = false;
+      mutable bool m_haveChannelType = false;
+      mutable bool m_anyChannelTimerSource = false;
     };
   } //namespace data
 } //namespace enigma2

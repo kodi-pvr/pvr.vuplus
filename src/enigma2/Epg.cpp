@@ -415,7 +415,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceRefere
   return partialEntry;
 }
 
-std::string Epg::FindServiceReference(const std::string &title, int epgUid, time_t startTime, time_t endTime)
+std::string Epg::FindServiceReference(const std::string &title, int epgUid, time_t startTime, time_t endTime) const
 {
   std::string serviceReference;
 

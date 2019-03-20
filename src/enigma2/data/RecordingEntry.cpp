@@ -160,7 +160,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription));
 }
 
-std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels)
+std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
 {
   std::shared_ptr<Channel> channel = GetChannelFromChannelReferenceTag(channels);
 
@@ -186,7 +186,7 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels)
   return channel;
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels &channels)
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels &channels) const
 {
   std::string channelServiceReference;
 
@@ -198,7 +198,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
   return channels.GetChannel(channelServiceReference);
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels &channels)
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels &channels) const
 {
   //search for channel name using exact match
   for (const auto& channel : channels.GetChannelsList())
@@ -213,7 +213,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channel
   return nullptr;
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels &channels)
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels &channels) const
 {
   std::string fuzzyRecordingChannelName;
 

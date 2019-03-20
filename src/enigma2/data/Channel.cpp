@@ -54,7 +54,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
     return false;
 
   m_fuzzyChannelName = m_channelName;
-  m_fuzzyChannelName.erase(remove_if(m_fuzzyChannelName.begin(), m_fuzzyChannelName.end(), isspace), m_fuzzyChannelName.end());
+  m_fuzzyChannelName.erase(std::remove_if(m_fuzzyChannelName.begin(), m_fuzzyChannelName.end(), isspace), m_fuzzyChannelName.end());
 
   if (m_radio != HasRadioServiceType())
     return false;
