@@ -267,7 +267,7 @@ namespace enigma2
     std::string m_iconPath = "";
     unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
-    ChannelAndGroupUpdateMode m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::DISABLED;
+    ChannelAndGroupUpdateMode m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS;
     unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel

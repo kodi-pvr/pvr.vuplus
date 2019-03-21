@@ -83,7 +83,7 @@ void Settings::ReadFromAddon()
     m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
 
   if (!XBMC->GetSetting("channelandgroupupdatemode", &m_channelAndGroupUpdateMode))
-    m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::DISABLED;
+    m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS;
 
   if (!XBMC->GetSetting("channelandgroupupdatehour", &m_channelAndGroupUpdateHour))
     m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;

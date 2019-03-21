@@ -101,7 +101,7 @@ Within this tab general options are configured.
 * **Channel and groups update mode**: The mode used when the hour in the next settings is reached. Choose from one of the following three modes:
     - `Disabled` - Never check for channel and group changes.
     - `Notify on UI and Log` - Display a notice in the UI and log the fact that a change was detectetd.
-    - `Reload Channels and Groups` - Disconnect and reconnect with E2 device to reload channels.
+    - `Reload Channels and Groups` - Disconnect and reconnect with E2 device to reload channels only if a change is detected.
 * **Channel and group update hour (24h)**: The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM.
 
 ### Channels
