@@ -83,7 +83,7 @@
         </setting>
       </group>
       <group id="4" label="30020">
-        <setting id="conectionchecktimeout" type="integer" label="30121">
+        <setting id="connectionchecktimeout" type="integer" label="30121">
           <level>0</level>
           <default>10</default>
           <constraints>
@@ -96,7 +96,7 @@
             <formatlabel>14045</formatlabel>
           </control>
         </setting>
-        <setting id="conectioncheckinterval" type="integer" label="30122">
+        <setting id="connectioncheckinterval" type="integer" label="30122">
           <level>0</level>
           <default>1</default>
           <constraints>

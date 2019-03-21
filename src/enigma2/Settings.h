@@ -110,8 +110,8 @@ namespace enigma2
     int GetStreamPortNum() const { return m_portStream; }
     bool UseSecureConnectionStream() const { return m_useSecureHTTPStream; }
     bool UseLoginStream() const { return m_useLoginStream; }
-    int GetConectioncCheckTimeoutSecs() const { return m_conectioncCheckTimeoutSecs; }
-    int GetConectioncCheckIntervalSecs() const { return m_conectioncCheckIntervalSecs; }
+    int GetConnectioncCheckTimeoutSecs() const { return m_connectioncCheckTimeoutSecs; }
+    int GetConnectioncCheckIntervalSecs() const { return m_connectioncCheckIntervalSecs; }
 
     //General
     bool UseOnlinePicons() const { return m_onlinePicons; }
@@ -257,8 +257,8 @@ namespace enigma2
     int m_portStream = DEFAULT_STREAM_PORT;
     bool m_useSecureHTTPStream = false;
     bool m_useLoginStream = false;
-    int m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
-    int m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
+    int m_connectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+    int m_connectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
     //General
     bool m_onlinePicons = true;

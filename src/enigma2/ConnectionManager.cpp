@@ -140,8 +140,8 @@ void* ConnectionManager::Process()
 {
   static bool log = false;
   static unsigned int retryAttempt = 0;
-  int fastReconnectIntervalMs = (Settings::GetInstance().GetConectioncCheckTimeoutSecs() * 1000) / 2;
-  int intervalMs = Settings::GetInstance().GetConectioncCheckTimeoutSecs() * 1000;
+  int fastReconnectIntervalMs = (Settings::GetInstance().GetConnectioncCheckTimeoutSecs() * 1000) / 2;
+  int intervalMs = Settings::GetInstance().GetConnectioncCheckTimeoutSecs() * 1000;
 
   while (!IsStopped())
   {
