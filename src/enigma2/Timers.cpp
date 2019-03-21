@@ -215,11 +215,6 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   return autoTimers;
 }
 
-bool Timers::CanAutoTimers() const
-{
-  return m_settings.GetWebIfVersionAsNum() >= m_settings.GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF");
-}
-
 bool Timers::IsAutoTimer(const PVR_TIMER &timer) const
 {
   return timer.iTimerType == Timer::Type::EPG_AUTO_SEARCH;
@@ -353,7 +348,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   types.emplace_back(*t);
   delete t;
 
-  if (CanAutoTimers() && m_settings.GetAutoTimersEnabled())
+  if (Settings::GetInstance().SupportsAutoTimers() && m_settings.GetAutoTimersEnabled())
   {
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
     static std::vector<std::pair<int, std::string>> deDupValues =
@@ -506,7 +501,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   unsigned int epgUid = timer.iEpgUid;
   bool foundEntry = false;
 
-  if (StringUtils::StartsWith(m_settings.GetWebIfVersion(), "OWIF") &&
+  if (Settings::GetInstance().IsOpenWebIf() &&
       (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
   {
     // We try to find the EPG Entry and use it's details
@@ -1011,7 +1006,7 @@ bool Timers::TimerUpdates()
   bool regularTimersChanged = TimerUpdatesRegular();
   bool autoTimersChanged = false;
 
-  if (CanAutoTimers() && m_settings.GetAutoTimersEnabled())
+  if (Settings::GetInstance().SupportsAutoTimers() && m_settings.GetAutoTimersEnabled())
     autoTimersChanged = TimerUpdatesAuto();
 
   if (regularTimersChanged || autoTimersChanged)

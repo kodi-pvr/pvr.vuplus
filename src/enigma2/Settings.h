@@ -7,6 +7,7 @@
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 
+#include <p8-platform/util/StringUtils.h>
 #include "xbmc_addon_types.h"
 
 class Vu;
@@ -188,14 +189,25 @@ namespace enigma2
       m_deviceSettings = deviceSettings;
       m_globalStartPaddingStb = deviceSettings->GetGlobalRecordingStartMargin();
       m_globalEndPaddingStb = deviceSettings->GetGlobalRecordingEndMargin();
+      m_deviceSettingsSet = true;
     }
 
     void SetAdmin(enigma2::Admin* admin) { m_admin = admin; }
 
-    inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
+    inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch) const
     {
       return (major << 16 | minor << 8 | patch);
     };
+
+    bool CheckOpenWebIfVersion(unsigned int major, unsigned int minor, unsigned int patch) const
+    {
+      return m_deviceSettingsSet ? GetWebIfVersionAsNum() >= GenerateWebIfVersionAsNum(major, minor, patch) && StringUtils::StartsWith(GetWebIfVersion(), "OWIF") : m_deviceSettingsSet;
+    }
+
+    bool IsOpenWebIf() const { return StringUtils::StartsWith(GetWebIfVersion(), "OWIF"); }
+    bool SupportsAutoTimers() const { return CheckOpenWebIfVersion(1, 3, 0); }
+    bool SupportsTunerDetails() const { return CheckOpenWebIfVersion(1, 3, 5); }
+    bool SupportsProviderAndPiconForChannels() const { return CheckOpenWebIfVersion(1, 3, 5); }
 
     bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
     void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
@@ -320,6 +332,7 @@ namespace enigma2
     enigma2::utilities::DeviceInfo* m_deviceInfo;
     enigma2::utilities::DeviceSettings* m_deviceSettings;
     enigma2::Admin* m_admin;
+    bool m_deviceSettingsSet = false;
 
     //PVR Props
     std::string m_szUserPath = "";
