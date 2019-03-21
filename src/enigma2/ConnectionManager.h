@@ -41,6 +41,7 @@ namespace enigma2
     void Start();
     void Stop();
     void Disconnect();
+    void Reconnect();
 
     void OnSleep();
     void OnWake();

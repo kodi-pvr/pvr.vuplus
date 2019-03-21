@@ -112,7 +112,7 @@ namespace enigma2
       void SetPaddingEndMins(int value) { m_paddingEndMins = value; }
 
       bool IsScheduled() const;
-      bool IsRunning(std::time_t *now, std::string *channelName = nullptr) const;
+      bool IsRunning(std::time_t *now, std::string *channelName, std::time_t startTime) const;
       bool IsChildOfParent(const Timer &parent) const;
 
       bool Like(const Timer &right) const;

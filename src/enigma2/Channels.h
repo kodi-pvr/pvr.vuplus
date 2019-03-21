@@ -56,12 +56,13 @@ namespace enigma2
     int GetChannelUniqueId(const std::string &channelServiceReference);
     std::shared_ptr<enigma2::data::Channel> GetChannel(int uniqueId);
     std::shared_ptr<enigma2::data::Channel> GetChannel(const std::string &channelServiceReference);
+    std::shared_ptr<enigma2::data::Channel> GetChannel(const std::string &channelName, bool isRadio);
     bool IsValid(int uniqueId) const;
     bool IsValid(const std::string &channelServiceReference);
     int GetNumChannels() const;
     void ClearChannels();
     std::vector<std::shared_ptr<enigma2::data::Channel>>& GetChannelsList();
-    std::string GetChannelIconPath(std::string strChannelName);
+    std::string GetChannelIconPath(std::string &channelName);
     bool LoadChannels(enigma2::ChannelGroups &channelGroups);
 
     ChannelsChangeState CheckForChannelAndGroupChanges(enigma2::ChannelGroups &latestChannelGroups, enigma2::Channels &latestChannels);

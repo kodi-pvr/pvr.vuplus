@@ -82,6 +82,34 @@
           <control type="toggle" />
         </setting>
       </group>
+      <group id="4" label="30020">
+        <setting id="conectionchecktimeout" type="integer" label="30121">
+          <level>0</level>
+          <default>10</default>
+          <constraints>
+            <minimum>10</minimum>
+            <step>10</step>
+            <maximum>60</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14045</formatlabel>
+          </control>
+        </setting>
+        <setting id="conectioncheckinterval" type="integer" label="30122">
+          <level>0</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>10</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14045</formatlabel>
+          </control>
+        </setting>
+      </group>
     </category>
 
     <!-- General -->
@@ -153,7 +181,7 @@
             <options>
               <option label="30117">0</option> <!-- DISABLED -->
               <option label="30118">1</option> <!-- NOTIFY_AND_LOG -->
-              <!--<option label="30119">2</option>--> <!-- RELOAD_CHANNELS_AND_GROUPS -->
+              <option label="30119">2</option> <!-- RELOAD_CHANNELS_AND_GROUPS -->
             </options>
           </constraints>
           <control type="list" format="integer" />
@@ -185,6 +213,11 @@
     <!-- Channels -->
     <category id="channels" label="30019">
       <group id="1" label="30018">
+        <setting id="usestandardserviceref" type="boolean" label="30126">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
         <setting id="zap" type="boolean" label="30013">
           <level>0</level>
           <default>false</default>
@@ -217,7 +250,7 @@
         </setting>
         <setting id="tvfavouritesmode" type="integer" label="30068">
           <level>0</level>
-          <default>1</default>
+          <default>0</default>
           <constraints>
             <options>
               <option label="30430">0</option> <!-- DISABLED -->
@@ -237,7 +270,7 @@
         </setting>
         <setting id="excludelastscannedtv" type="boolean" label="30114">
           <level>0</level>
-          <default>false</default>
+          <default>true</default>
           <dependencies>
             <dependency type="visible" setting="tvgroupmode" operator="is">0</dependency>
           </dependencies>
@@ -247,7 +280,7 @@
       <group id="3" label="30057">
         <setting id="radiogroupmode" type="integer" label="30058">
           <level>0</level>
-          <default>2</default>
+          <default>0</default>
           <constraints>
             <options>
               <option label="30074">0</option> <!-- ALL_GROUPS -->
@@ -479,14 +512,33 @@
           </dependencies>
           <control type="edit" format="integer" />
         </setting>
+        <setting id="timerlistcleanup" type="boolean" label="30011">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="2" label="30123">
         <setting id="enableautotimers" type="boolean" label="30034">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="timerlistcleanup" type="boolean" label="30011">
+        <setting id="limitanychannelautotimers" type="boolean" label="30124">
           <level>0</level>
-          <default>false</default>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="enableautotimers" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="limitanychannelautotimerstogroups" type="boolean" parent="limitanychannelautotimers" label="30125">
+          <level>0</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="enableautotimers" operator="is">true</dependency>
+            <dependency type="enable" setting="limitanychannelautotimers">true</dependency>
+          </dependencies>
           <control type="toggle" />
         </setting>
       </group>

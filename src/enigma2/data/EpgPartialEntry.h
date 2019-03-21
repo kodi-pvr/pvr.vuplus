@@ -17,7 +17,7 @@ namespace enigma2
         bool EntryFound() const { return m_epgUid != 0; };
 
       private:
-        unsigned int m_epgUid;
+        unsigned int m_epgUid = 0;
     };
   } //namespace data
 } //namespace enigma2

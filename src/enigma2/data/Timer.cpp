@@ -2,6 +2,8 @@
 
 #include <regex>
 
+#include "../utilities/LocalizedString.h"
+
 #include "inttypes.h"
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
@@ -33,6 +35,7 @@ bool Timer::operator==(const Timer &right) const
   isEqual &= (m_state == right.m_state);
   isEqual &= (m_title == right.m_title);
   isEqual &= (m_plot == right.m_plot);
+  isEqual &= (m_tags == right.m_tags);
 
   return isEqual;
 }
@@ -82,13 +85,15 @@ bool Timer::IsScheduled() const
       || m_state == PVR_TIMER_STATE_RECORDING;
 }
 
-bool Timer::IsRunning(std::time_t *now, std::string *channelName) const
+bool Timer::IsRunning(std::time_t *now, std::string *channelName, std::time_t startTime) const
 {
   if (!IsScheduled())
     return false;
   if (now && !(GetRealStartTime() <= *now && *now <= GetRealEndTime()))
     return false;
   if (channelName && m_channelName != *channelName)
+    return false;
+  if (GetRealStartTime() != startTime)
     return false;
   return true;
 }
@@ -152,16 +157,18 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   m_title = strTmp;
 
   if (XMLUtils::GetString(timerNode, "e2servicereference", strTmp))
-    m_channelId = channels.GetChannelUniqueId(strTmp.c_str());
+    m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
-  if (m_channelId < 0)
+  if (m_channelId == PVR_CHANNEL_INVALID_UID)
   {
-    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping timer: '%s'", __FUNCTION__, m_title.c_str());
-    return false;
+    m_channelName = LocalizedString(30520); // Invalid Channel
+  }
+  else
+  {
+    m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
   }
 
-  m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
 
   if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp))
     return false;
@@ -231,19 +238,28 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   {
     if (bTmp)
     {
-      m_state = PVR_TIMER_STATE_ABORTED;
-      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ABORTED", __FUNCTION__);
+      // If a timer is cancelled by the backend mark it as an error so it will show as such in the UI
+      // We don't use CANCELLED or ABORTED as they are synonymous with DISABLED and we won't use them at all
+      // Note there is no user/API action to change to cancelled
+      m_state = PVR_TIMER_STATE_ERROR;
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ERROR", __FUNCTION__);
     }
   }
 
   if (iDisabled == 1)
   {
-    m_state = PVR_TIMER_STATE_CANCELLED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Cancelled", __FUNCTION__);
+    m_state = PVR_TIMER_STATE_DISABLED;
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Disabled", __FUNCTION__);
   }
 
   if (m_state == PVR_TIMER_STATE_NEW)
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
+
+  if (m_channelId == PVR_CHANNEL_INVALID_UID)
+  {
+    m_state = PVR_TIMER_STATE_ERROR;
+    Logger::Log(LEVEL_DEBUG, "%s Overriding Timer as channel not found, state is: ERROR", __FUNCTION__);
+  }
 
   m_tags.clear();
   if (XMLUtils::GetString(timerNode, "e2tags", strTmp))
@@ -290,7 +306,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
 
   if (ContainsTag(TAG_FOR_PADDING))
   {
-    if (std::sscanf(ReadTag(TAG_FOR_PADDING).c_str(), "Padding=%u,%u", &m_paddingStartMins, &m_paddingEndMins) != 2)
+    if (std::sscanf(ReadTagValue(TAG_FOR_PADDING).c_str(), "%u,%u", &m_paddingStartMins, &m_paddingEndMins) != 2)
     {
       m_paddingStartMins = 0;
       m_paddingEndMins = 0;
@@ -306,7 +322,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   if (ContainsTag(TAG_FOR_GENRE_ID))
   {
     int genreId = 0;
-    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    if (std::sscanf(ReadTagValue(TAG_FOR_GENRE_ID).c_str(), "0x%02X", &genreId) == 1)
     {
       m_genreType = genreId & 0xF0;
       m_genreSubType = genreId & 0x0F;

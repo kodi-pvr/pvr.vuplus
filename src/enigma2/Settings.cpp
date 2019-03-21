@@ -54,6 +54,12 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("use_login_stream", &m_useLoginStream))
     m_useLoginStream = false;
 
+  if (!XBMC->GetSetting("conectionchecktimeout", &m_conectioncCheckTimeoutSecs))
+    m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+
+  if (!XBMC->GetSetting("conectioncheckinterval", &m_conectioncCheckIntervalSecs))
+    m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
+
   //General
   if (!XBMC->GetSetting("onlinepicons", &m_onlinePicons))
     m_onlinePicons = true;
@@ -83,6 +89,9 @@ void Settings::ReadFromAddon()
     m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
   //Channels
+  if (!XBMC->GetSetting("usestandardserviceref", &m_useStandardServiceReference))
+    m_useStandardServiceReference = true;
+
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
 
@@ -99,10 +108,10 @@ void Settings::ReadFromAddon()
     m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
 
   if (!XBMC->GetSetting("excludelastscannedtv", &m_excludeLastScannedTVGroup))
-    m_excludeLastScannedTVGroup = false;
+    m_excludeLastScannedTVGroup = true;
 
   if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
-    m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+    m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
 
   if (XBMC->GetSetting("oneradiogroup", buffer))
     m_oneRadioGroup = buffer;
@@ -114,7 +123,7 @@ void Settings::ReadFromAddon()
     m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
 
   if (!XBMC->GetSetting("excludelastscannedradio", &m_excludeLastScannedRadioGroup))
-    m_excludeLastScannedRadioGroup = false;
+    m_excludeLastScannedRadioGroup = true;
 
   //EPG
   if (!XBMC->GetSetting("extractshowinfoenabled", &m_extractShowInfo))
@@ -182,11 +191,17 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("numgenrepeattimers", &m_numGenRepeatTimers))
     m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
 
+  if (!XBMC->GetSetting("timerlistcleanup", &m_automaticTimerlistCleanup))
+    m_automaticTimerlistCleanup = false;
+
   if (!XBMC->GetSetting("enableautotimers", &m_enableAutoTimers))
     m_enableAutoTimers = true;
 
-  if (!XBMC->GetSetting("timerlistcleanup", &m_automaticTimerlistCleanup))
-    m_automaticTimerlistCleanup = false;
+  if (!XBMC->GetSetting("limitanychannelautotimers", &m_limitAnyChannelAutoTimers))
+    m_limitAnyChannelAutoTimers = true;
+
+  if (!XBMC->GetSetting("limitanychannelautotimerstogroups", &m_limitAnyChannelAutoTimersToChannelGroups))
+    m_limitAnyChannelAutoTimersToChannelGroups = true;
 
   //Timeshift
   if (!XBMC->GetSetting("enabletimeshift", &m_timeshift))
@@ -250,6 +265,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useSecureHTTPStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "use_login_stream")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useLoginStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "conectionchecktimeout")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_conectioncCheckTimeoutSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "conectioncheckinterval")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_conectioncCheckIntervalSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //General
   else if (settingName == "onlinepicons")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -268,6 +287,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "channelandgroupupdatehour")
     return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateHour, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
+  else if (settingName == "usestandardserviceref")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useStandardServiceReference, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tvgroupmode")
@@ -277,7 +298,7 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "tvfavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "excludelastscannedtv")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "radiogroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "oneradiogroup")
@@ -285,7 +306,7 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "radiofavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "excludelastscannedradio")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedRadioGroup, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //EPG
   else if (settingName == "extractepginfoenabled")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_extractShowInfo, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -323,11 +344,15 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "numgenrepeattimers")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  else if (settingName == "enableautotimers")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timerlistcleanup")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_automaticTimerlistCleanup, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  //Timeshift
+  else if (settingName == "enableautotimers")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "limitanychannelautotimers")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_limitAnyChannelAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "limitanychannelautotimerstogroups")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_limitAnyChannelAutoTimersToChannelGroups, ADDON_STATUS_OK, ADDON_STATUS_OK);
+   //Timeshift
   else if (settingName == "enabletimeshift")
     return SetSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")

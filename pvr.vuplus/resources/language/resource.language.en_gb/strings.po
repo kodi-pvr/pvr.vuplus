@@ -500,7 +500,31 @@ msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
 msgstr ""
 
-#empty strings from id 30121 to 30409
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr ""
+
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Limit 'Any Channel' autotimers to TV or Radio"
+msgstr ""
+
+msgctxt "#30125"
+msgid "Limit to groups of original EPG channel"
+msgstr ""
+
+msgctxt "#30126"
+msgid "Use standard channel service reference"
+msgstr ""
+
+#empty strings from id 30127 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"
@@ -589,4 +613,8 @@ msgstr ""
 
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
+msgstr ""
+
+msgctxt "#30520"
+msgid "Invalid Channel"
 msgstr ""

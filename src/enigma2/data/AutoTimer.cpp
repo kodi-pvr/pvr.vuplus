@@ -1,5 +1,7 @@
 #include "AutoTimer.h"
 
+#include "../utilities/LocalizedString.h"
+
 #include "inttypes.h"
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
@@ -15,22 +17,22 @@ bool AutoTimer::Like(const AutoTimer &right) const
 
 bool AutoTimer::operator==(const AutoTimer &right) const
 {
-  bool isEqual = true;
-  isEqual = isEqual && (!m_title.compare(right.m_title));
-  isEqual = isEqual && (m_startTime == right.m_startTime);
-  isEqual = isEqual && (m_endTime == right.m_endTime);
-  isEqual = isEqual && (m_channelId == right.m_channelId);
-  isEqual = isEqual && (m_weekdays == right.m_weekdays);
+  bool isEqual = (!m_title.compare(right.m_title));
+  isEqual &= (m_startTime == right.m_startTime);
+  isEqual &= (m_endTime == right.m_endTime);
+  isEqual &= (m_channelId == right.m_channelId);
+  isEqual &= (m_weekdays == right.m_weekdays);
 
-  isEqual = isEqual && (m_searchPhrase == right.m_searchPhrase);
-  isEqual = isEqual && (m_searchType == right.m_searchType);
-  isEqual = isEqual && (m_searchCase == right.m_searchCase);
-  isEqual = isEqual && (m_state == right.m_state);
-  isEqual = isEqual && (m_searchFulltext == right.m_searchFulltext);
-  isEqual = isEqual && (m_startAnyTime == right.m_startAnyTime);
-  isEqual = isEqual && (m_endAnyTime == right.m_endAnyTime);
-  isEqual = isEqual && (m_anyChannel == right.m_anyChannel);
-  isEqual = isEqual && (m_deDup == right.m_deDup);
+  isEqual &= (m_searchPhrase == right.m_searchPhrase);
+  isEqual &= (m_searchType == right.m_searchType);
+  isEqual &= (m_searchCase == right.m_searchCase);
+  isEqual &= (m_state == right.m_state);
+  isEqual &= (m_searchFulltext == right.m_searchFulltext);
+  isEqual &= (m_startAnyTime == right.m_startAnyTime);
+  isEqual &= (m_endAnyTime == right.m_endAnyTime);
+  isEqual &= (m_anyChannel == right.m_anyChannel);
+  isEqual &= (m_deDup == right.m_deDup);
+  isEqual &= (m_tags == right.m_tags);
 
   return isEqual;
 }
@@ -48,6 +50,7 @@ void AutoTimer::UpdateFrom(const AutoTimer &right)
   m_endAnyTime = right.m_endAnyTime;
   m_anyChannel = right.m_anyChannel;
   m_deDup = right.m_deDup;
+  m_tags = right.m_tags;
 }
 
 void AutoTimer::UpdateTo(PVR_TIMER &left) const
@@ -104,7 +107,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
   {
     if (strTmp == AUTOTIMER_ENABLED_NO)
     {
-      m_state = PVR_TIMER_STATE_CANCELLED;
+      m_state = PVR_TIMER_STATE_DISABLED;
     }
   }
 
@@ -154,16 +157,19 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
       //If we only have one channel
       if (XMLUtils::GetString(serviceNode, "e2servicereference", strTmp))
       {
-        m_channelId = channels.GetChannelUniqueId(strTmp.c_str());
+        m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 
         // Skip autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
-        if (m_channelId < 0)
+        if (m_channelId == PVR_CHANNEL_INVALID_UID)
         {
-          Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping autotimer: '%s'", __FUNCTION__, m_title.c_str());
-          return false;
+          m_state = PVR_TIMER_STATE_ERROR;
+          Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __FUNCTION__);
+          m_channelName = LocalizedString(30520); // Invalid Channel
         }
-
-        m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
+        else
+        {
+          m_channelName = channels.GetChannel(m_channelId)->GetChannelName();
+        }
       }
     }
     else //otherwise set to any channel
@@ -233,7 +239,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
   if (ContainsTag(TAG_FOR_GENRE_ID))
   {
     int genreId = 0;
-    if (std::sscanf(ReadTag(TAG_FOR_GENRE_ID).c_str(), "GenreId=0x%02X", &genreId) == 1)
+    if (std::sscanf(ReadTagValue(TAG_FOR_GENRE_ID).c_str(), "0x%02X", &genreId) == 1)
     {
       m_genreType = genreId & 0xF0;
       m_genreSubType = genreId & 0x0F;

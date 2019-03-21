@@ -31,10 +31,18 @@ namespace enigma2
   namespace data
   {
     static const std::string TAG_FOR_GENRE_ID = "GenreId";
+    static const std::string TAG_FOR_CHANNEL_REFERENCE = "ChannelRef";
+    static const std::string TAG_FOR_CHANNEL_TYPE = "ChannelType";
+    static const std::string TAG_FOR_ANY_CHANNEL = "AnyChannel";
+    static const std::string VALUE_FOR_CHANNEL_TYPE_TV = "TV";
+    static const std::string VALUE_FOR_CHANNEL_TYPE_RADIO = "Radio";
 
     class Tags
     {
     public:
+      Tags() = default;
+      Tags(const std::string& tags) : m_tags(tags) {};
+
       const std::string& GetTags() const { return m_tags; }
       void SetTags(const std::string& value ) { m_tags = value; }
 
@@ -43,26 +51,54 @@ namespace enigma2
         std::regex regex("^.* ?" + tag + " ?.*$");
 
         return (regex_match(m_tags, regex));
-      };
+      }
 
-      std::string ReadTag(const std::string &tagName) const
+      void AddTag(const std::string &tagName, std::string tagValue = "", bool replaceUnderscores = false)
       {
-        std::string tag;
+        RemoveTag(tagName);
 
-        size_t found = m_tags.find(tagName);
+        if (!m_tags.empty())
+          m_tags.append(" ");
+
+        m_tags.append(tagName);
+
+        if (!tagValue.empty())
+        {
+          if (replaceUnderscores)
+            std::replace(tagValue.begin(), tagValue.end(), ' ', '_');
+          m_tags.append(StringUtils::Format("=%s", tagValue.c_str()));
+        }
+      }
+
+      std::string ReadTagValue(const std::string &tagName, bool replaceUnderscores = false) const
+      {
+        std::string tagValue;
+
+        size_t found = m_tags.find(tagName + "=");
         if (found != std::string::npos)
         {
-          tag = m_tags.substr(found, m_tags.size());
+          tagValue = m_tags.substr(found + tagName.size() + 1, m_tags.size());
 
-          found = tag.find(" ");
+          found = tagValue.find(" ");
           if (found != std::string::npos)
-            tag = tag.substr(0, found);
+            tagValue = tagValue.substr(0, found);
 
-          tag = StringUtils::Trim(tag);
+          tagValue = StringUtils::Trim(tagValue);
+
+          if (replaceUnderscores)
+            std::replace(tagValue.begin(), tagValue.end(), '_', ' ');
         }
 
-        return tag;
-      };
+        return tagValue;
+      }
+
+      void RemoveTag(const std::string &tagName)
+      {
+        std::regex regex(" *" + tagName + "=?[^\\s-]*");
+        std::string replaceWith = "";
+
+        m_tags = regex_replace(m_tags, regex, replaceWith);
+      }
 
     protected:
       std::string m_tags;

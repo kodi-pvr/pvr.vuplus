@@ -129,11 +129,19 @@ void ConnectionManager::Disconnect()
   m_connectionListener.ConnectionLost();
 }
 
+void ConnectionManager::Reconnect()
+{
+  // Setting this state will cause Enigma2 to receive a connetionLost event
+  // The connection manager will then connect again causeing a reload of all state
+  SetState(PVR_CONNECTION_STATE_SERVER_UNREACHABLE);
+}
+
 void* ConnectionManager::Process()
 {
   static bool log = false;
   static unsigned int retryAttempt = 0;
-  const Settings &settings = Settings::GetInstance();
+  int fastReconnectIntervalMs = (Settings::GetInstance().GetConectioncCheckTimeoutSecs() * 1000) / 2;
+  int intervalMs = Settings::GetInstance().GetConectioncCheckTimeoutSecs() * 1000;
 
   while (!IsStopped())
   {
@@ -142,7 +150,7 @@ void* ConnectionManager::Process()
       Logger::Log(LogLevel::LEVEL_DEBUG, "%s - suspended, waiting for wakeup...", __FUNCTION__);
 
       /* Wait for wakeup */
-      Sleep(1000);
+      Sleep(intervalMs);
     }
 
     const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
@@ -157,9 +165,9 @@ void* ConnectionManager::Process()
 
       // Retry a few times with a short interval, after that with the default timeout
       if (++retryAttempt <= FAST_RECONNECT_ATTEMPTS)
-        Sleep(FAST_RECONNECT_INTERVAL);
+        Sleep(fastReconnectIntervalMs);
       else
-        Sleep(1000);
+        Sleep(intervalMs);
 
       continue;
     }
@@ -167,7 +175,7 @@ void* ConnectionManager::Process()
     SetState(PVR_CONNECTION_STATE_CONNECTED);
     retryAttempt = 0;
 
-    Sleep(1000);
+    Sleep(intervalMs);
   }
 
   return nullptr;

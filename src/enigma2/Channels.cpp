@@ -38,7 +38,7 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) 
 int Channels::GetChannelUniqueId(const std::string &channelServiceReference)
 {
   std::shared_ptr<Channel> channel = GetChannel(channelServiceReference);
-  int uniqueId = -1;
+  int uniqueId = PVR_CHANNEL_INVALID_UID;
 
   if (channel)
     uniqueId = channel->GetUniqueId();
@@ -62,6 +62,17 @@ std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelServiceR
   }
 
   return channel;
+}
+
+std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelName, bool isRadio)
+{
+  for (const auto& channel : m_channels)
+  {
+    if (channelName == channel->GetChannelName() && isRadio == channel->IsRadio())
+      return channel;
+  }
+
+  return nullptr;
 }
 
 bool Channels::IsValid(int uniqueId) const
@@ -114,11 +125,11 @@ std::vector<std::shared_ptr<Channel>>& Channels::GetChannelsList()
   return m_channels;
 }
 
-std::string Channels::GetChannelIconPath(std::string strChannelName)
+std::string Channels::GetChannelIconPath(std::string &channelName)
 {
   for (const auto& channel : m_channels)
   {
-    if (strChannelName == channel->GetChannelName())
+    if (channelName == channel->GetChannelName())
       return channel->GetIconPath();
   }
   return "";

@@ -29,29 +29,29 @@ The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi
 
 ### Mac OSX
 
-In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi.
+In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi. Note that we checkout kodi to a separate directory as this repo will only only be used to build the addon and nothing else.
 
 #### Build tools and initial addon build
 
 1. Get the repos
  * `cd $HOME`
- * `git clone https://github.com/xbmc/xbmc`
+ * `git clone https://github.com/xbmc/xbmc xbmc-addon`
  * `git clone https://github.com/kodi-pvr/pvr.vuplus`
 2. Build the kodi tools
- * `cd $HOME/xbmc/tools/depends`
+ * `cd $HOME/xbmc-addon/tools/depends`
  * `./bootstrap`
  * `./configure --host=x86_64-apple-darwin`
  * `make -j$(getconf _NPROCESSORS_ONLN)`
 3. Build the addon
- * `cd $HOME/xbmc`
+ * `cd $HOME/xbmc-addon`
  * `make -j$(getconf _NPROCESSORS_ONLN) -C tools/depends/target/binary-addons ADDONS="pvr.vuplus" ADDON_SRC_PREFIX=$HOME`
 
-Note that the steps in the following section need to be performed before the addon is installed and you ca run it in Kodi.
+Note that the steps in the following section need to be performed before the addon is installed and you can run it in Kodi.
 
 #### To rebuild the addon and copy to kodi after changes (after the initial addon build)
 
 1. `cd $HOME/pvr.vuplus`
-2. `./build-install-mac.sh ../xbmc`
+2. `./build-install-mac.sh ../xbmc-addon`
 
 If you would prefer to run the rebuild steps manually instead of using the above helper script check the appendix [here](#manual-steps-to-rebuild-the-addon-on-macosx)
 
@@ -84,6 +84,8 @@ Within this tab the connection options need to be configured before it can be su
 Webinterface Port: This option defines the port that should be used to access the webinterface of the set-top box.
 * **Use secure HTTP (https) for streams**: Use https to connect to streams
 * **Use login for streams**: Use the login username and password for streams
+* **Connection check timeout**: The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices.
+* **Connection check interval**: The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices.
 
 ### General
 Within this tab general options are configured.
@@ -105,6 +107,7 @@ Within this tab general options are configured.
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
+* **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled the all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
 * **Exclude last scanned bouquet**: By default the `Last Scanned` bouquet will be included with all bouquets. Enable this option to exclude it from the retrieved list. Note that last scanned applies to both TV and Radio channels.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
@@ -116,7 +119,7 @@ Within this tab options that refer to channel data can be set. When changing bou
     - `Disabled` - Don't explicitly fetch TV favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
-* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is shown by default. Enable this option to exclude this group.
+* **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting.
 * **Radio bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all Radio bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option
@@ -186,13 +189,15 @@ The following are the settings in the Timers tab:
 
 * **Enable generate repeat timers**: Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer.
 * **Number of repeat timers to generate**: The number of Kodi PVR timers to generate.
+* **Automatic timerlist cleanup**: If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval.
 * **Enable autotimers**: When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot. To set manually on the set-top box enable the following options (note that this feature supports OpenWebIf 1.3.x and higher):
   1. Hit `Menu` on the remote and go to `Timers->AutoTimers`
   2. Hit `Menu` again and then select `6 Setup`
   3. Set the following to option to `yes`
     * `Include "AutoTimer" in tags`
     * `Include AutoTimer name in tags`
-* **Automatic timerlist cleanup**: If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval.
+* **Limit 'Any Channel' autotimers to TV or Radio**: If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored.
+* **Limit to groups of original EPG channel**: For the channel used to create the autotimer limit to channel groups that this channel is a member of.
 
 ### Timeshift
 Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped.
@@ -279,7 +284,7 @@ or
 **Copy the addon to the Kodi addon directory on Mac**
 
 1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
-2. `cp -rf $HOME/xbmc/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
+2. `cp -rf $HOME/xbmc-addon/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
 
 ### Logging detailed
 

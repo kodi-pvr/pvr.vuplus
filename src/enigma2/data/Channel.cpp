@@ -53,12 +53,20 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
     return false;
 
+  m_fuzzyChannelName = m_channelName;
+  m_fuzzyChannelName.erase(std::remove_if(m_fuzzyChannelName.begin(), m_fuzzyChannelName.end(), isspace), m_fuzzyChannelName.end());
+
   if (m_radio != HasRadioServiceType())
     return false;
 
-  const std::string commonServiceReference = GetCommonServiceReference(m_serviceReference);
-  m_genericServiceReference = GetGenericServiceReference(commonServiceReference);
+  m_extendedServiceReference = m_serviceReference;
+  const std::string commonServiceReference = CreateCommonServiceReference(m_serviceReference);
+  m_standardServiceReference = commonServiceReference + ":";
+  m_genericServiceReference = CreateGenericServiceReference(commonServiceReference);
   m_iconPath = CreateIconPath(commonServiceReference);
+
+  if (Settings::GetInstance().UseStandardServiceReference())
+    m_serviceReference = m_standardServiceReference;
 
   Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str());
 
@@ -76,7 +84,20 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   return true;
 }
 
-std::string Channel::GetCommonServiceReference(const std::string &serviceReference)
+std::string Channel::NormaliseServiceReference(const std::string &serviceReference)
+{
+  if (Settings::GetInstance().UseStandardServiceReference())
+    return CreateStandardServiceReference(serviceReference);
+  else
+    return serviceReference;
+}
+
+std::string Channel::CreateStandardServiceReference(const std::string &serviceReference)
+{
+  return CreateCommonServiceReference(serviceReference) + ":";
+}
+
+std::string Channel::CreateCommonServiceReference(const std::string &serviceReference)
 {
   //The common service reference contains only the first 10 groups of digits with colon's in between
   std::string commonServiceReference = serviceReference;
@@ -91,7 +112,7 @@ std::string Channel::GetCommonServiceReference(const std::string &serviceReferen
 
     it++;
   }
-  std::string::size_type index = it-commonServiceReference.begin();
+  std::string::size_type index = it - commonServiceReference.begin();
 
   commonServiceReference = commonServiceReference.substr(0, index);
 
@@ -104,7 +125,7 @@ std::string Channel::GetCommonServiceReference(const std::string &serviceReferen
   return commonServiceReference;
 }
 
-std::string Channel::GetGenericServiceReference(const std::string &commonServiceReference)
+std::string Channel::CreateGenericServiceReference(const std::string &commonServiceReference)
 {
   //Same as common service reference but starts with SERVICE_REF_GENERIC_PREFIX and ends with SERVICE_REF_GENERIC_POSTFIX
   std::string genericServiceReference = commonServiceReference;

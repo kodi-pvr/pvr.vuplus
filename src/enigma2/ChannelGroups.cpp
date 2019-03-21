@@ -134,6 +134,8 @@ void ChannelGroups::ClearChannelGroups()
 {
   m_channelGroups.clear();
   m_channelGroupsNameMap.clear();
+
+  Settings::GetInstance().SetUsesLastScannedChannelGroup(false);
 }
 
 void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
@@ -158,7 +160,7 @@ std::vector<std::shared_ptr<ChannelGroup>>& ChannelGroups::GetChannelGroupsList(
 
 bool ChannelGroups::LoadChannelGroups()
 {
-  m_channelGroups.clear();
+  ClearChannelGroups();
 
   bool successful = LoadTVChannelGroups();
 
@@ -231,7 +233,8 @@ bool ChannelGroups::LoadTVChannelGroups()
     AddTVFavouritesChannelGroup();
   }
 
-  if (!Settings::GetInstance().ExcludeLastScannedTVGroup() && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ALL_GROUPS)
+  if ((!Settings::GetInstance().ExcludeLastScannedTVGroup() && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ALL_GROUPS) ||
+      m_channelGroups.empty()) //If there are no channel groups default to including the last scanned group for TV Only
     AddTVLastScannedChannelGroup();
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
@@ -336,6 +339,7 @@ void ChannelGroups::AddTVLastScannedChannelGroup()
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
+  Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
 }
 
@@ -348,5 +352,6 @@ void ChannelGroups::AddRadioLastScannedChannelGroup()
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
+  Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
 }

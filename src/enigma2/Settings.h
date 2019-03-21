@@ -17,6 +17,8 @@ namespace enigma2
   static const int DEFAULT_CONNECT_TIMEOUT = 30;
   static const int DEFAULT_STREAM_PORT = 8001;
   static const int DEFAULT_WEB_PORT = 80;
+  static const int DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS = 10;
+  static const int DEFAULT_CONNECTION_CHECK_INTERVAL_SECS = 1;
   static const int DEFAULT_UPDATE_INTERVAL = 2;
   static const int DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR = 4;
   static const std::string DEFAULT_TSBUFFERPATH = "special://userdata/addon_data/pvr.vuplus";
@@ -107,6 +109,8 @@ namespace enigma2
     int GetStreamPortNum() const { return m_portStream; }
     bool UseSecureConnectionStream() const { return m_useSecureHTTPStream; }
     bool UseLoginStream() const { return m_useLoginStream; }
+    int GetConectioncCheckTimeoutSecs() const { return m_conectioncCheckTimeoutSecs; }
+    int GetConectioncCheckIntervalSecs() const { return m_conectioncCheckIntervalSecs; }
 
     //General
     bool UseOnlinePicons() const { return m_onlinePicons; }
@@ -119,6 +123,7 @@ namespace enigma2
     ChannelAndGroupUpdateMode GetChannelAndGroupUpdateMode() const { return m_channelAndGroupUpdateMode; }
 
     //Channel
+    bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
@@ -151,8 +156,10 @@ namespace enigma2
     //Timers
     bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
     int GetNumGenRepeatTimers() const { return m_numGenRepeatTimers; }
-    bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
     bool GetAutoTimerListCleanupEnabled() const { return m_automaticTimerlistCleanup; }
+    bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
+    bool GetLimitAnyChannelAutoTimers() const { return m_limitAnyChannelAutoTimers; }
+    bool GetLimitAnyChannelAutoTimersToChannelGroups() const { return m_limitAnyChannelAutoTimersToChannelGroups; }
 
     //Timeshift
     const Timeshift& GetTimeshift() const { return m_timeshift; }
@@ -189,6 +196,9 @@ namespace enigma2
     {
       return (major << 16 | minor << 8 | patch);
     };
+
+    bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
+    void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
 
   private:
     Settings() = default;
@@ -235,6 +245,8 @@ namespace enigma2
     int m_portStream = DEFAULT_STREAM_PORT;
     bool m_useSecureHTTPStream = false;
     bool m_useLoginStream = false;
+    int m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+    int m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
     //General
     bool m_onlinePicons = true;
@@ -247,15 +259,16 @@ namespace enigma2
     unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel
+    bool m_useStandardServiceReference = true;
     bool m_zap = false;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneTVGroup = "";
     FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
-    bool m_excludeLastScannedTVGroup = false;
-    ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::FAVOURITES_GROUP;
+    bool m_excludeLastScannedTVGroup = true;
+    ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     std::string m_oneRadioGroup = "";
     FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
-    bool m_excludeLastScannedRadioGroup = false;
+    bool m_excludeLastScannedRadioGroup = true;
 
     //EPG
     bool m_extractShowInfo = true;
@@ -279,8 +292,10 @@ namespace enigma2
     //Timers
     bool m_enableGenRepeatTimers = true;
     int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
-    bool m_enableAutoTimers = true;
     bool m_automaticTimerlistCleanup = false;
+    bool m_enableAutoTimers = true;
+    bool m_limitAnyChannelAutoTimers = true;
+    bool m_limitAnyChannelAutoTimersToChannelGroups = false;
 
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
@@ -297,6 +312,9 @@ namespace enigma2
     //Backend
     int m_globalStartPaddingStb = 0;
     int m_globalEndPaddingStb = 0;
+
+    //Last Scanned
+    bool m_usesLastScannedChannelGroup = false;
 
     std::string m_connectionURL;
     enigma2::utilities::DeviceInfo* m_deviceInfo;

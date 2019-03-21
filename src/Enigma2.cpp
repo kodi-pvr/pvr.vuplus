@@ -252,11 +252,10 @@ void *Enigma2::Process()
       // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
       if (!IsStopped() && m_isConnected)
       {
-        if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::DISABLED)
+        if (CheckForChannelAndGroupChanges() != ChannelsChangeState::NO_CHANGE &&
+            m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
         {
-          Logger::Log(LEVEL_INFO, "%s Perform Channel and Group Updates!", __FUNCTION__);
-
-          CheckForChannelAndGroupChanges();
+          connectionManager->Reconnect();
         }
       }
     }
@@ -269,30 +268,50 @@ void *Enigma2::Process()
   return nullptr;
 }
 
-void Enigma2::CheckForChannelAndGroupChanges()
+ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
 {
-  //Now check for any channel or group changes
-  ChannelGroups latestChannelGroups;
-  Channels latestChannels;
-  // Load the TV channels - close connection if no channels are found
-  if (latestChannelGroups.LoadChannelGroups())
-  {
-    if (latestChannels.LoadChannels(latestChannelGroups))
-    {
-      ChannelsChangeState changeType = m_channels.CheckForChannelAndGroupChanges(latestChannelGroups, latestChannels);
+  ChannelsChangeState changeType = ChannelsChangeState::NO_CHANGE;
 
-      if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
+  if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::DISABLED)
+  {
+    Logger::Log(LEVEL_INFO, "%s Checking for Channel and Group Changes!", __FUNCTION__);
+
+    //Now check for any channel or group changes
+    ChannelGroups latestChannelGroups;
+    Channels latestChannels;
+
+    // Load the TV channels - close connection if no channels are found
+    if (latestChannelGroups.LoadChannelGroups())
+    {
+      if (latestChannels.LoadChannels(latestChannelGroups))
       {
-        Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
-        XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30518).c_str());
-      }
-      else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
-      {
-        Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
-        XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30519).c_str());
+        changeType = m_channels.CheckForChannelAndGroupChanges(latestChannelGroups, latestChannels);
+
+        if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::NOTIFY_AND_LOG)
+        {
+          if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
+          {
+            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
+            XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30518).c_str());
+          }
+          else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
+          {
+            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
+            XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30519).c_str());
+          }
+        }
+        else // RELOAD_CHANNELS_AND_GROUPS
+        {
+          if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
+            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, auto reconnecting to load changes", __FUNCTION__);
+          else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
+            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, , auto reconnecting to load changes", __FUNCTION__);
+        }
       }
     }
   }
+
+  return changeType;
 }
 
 void Enigma2::SendPowerstate()
@@ -552,7 +571,7 @@ RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
   std::string channelName = recinfo.strChannelName;
   auto timer = m_timers.GetTimer([&](const Timer &timer)
       {
-        return timer.IsRunning(&now, &channelName);
+        return timer.IsRunning(&now, &channelName, recinfo.recordingTime);
       });
   if (timer)
   {
