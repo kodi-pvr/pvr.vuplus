@@ -54,11 +54,11 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("use_login_stream", &m_useLoginStream))
     m_useLoginStream = false;
 
-  if (!XBMC->GetSetting("conectionchecktimeout", &m_conectioncCheckTimeoutSecs))
-    m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+  if (!XBMC->GetSetting("connectionchecktimeout", &m_connectioncCheckTimeoutSecs))
+    m_connectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
 
-  if (!XBMC->GetSetting("conectioncheckinterval", &m_conectioncCheckIntervalSecs))
-    m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
+  if (!XBMC->GetSetting("connectioncheckinterval", &m_connectioncCheckIntervalSecs))
+    m_connectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
   //General
   if (!XBMC->GetSetting("onlinepicons", &m_onlinePicons))
@@ -83,7 +83,7 @@ void Settings::ReadFromAddon()
     m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
 
   if (!XBMC->GetSetting("channelandgroupupdatemode", &m_channelAndGroupUpdateMode))
-    m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::DISABLED;
+    m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS;
 
   if (!XBMC->GetSetting("channelandgroupupdatehour", &m_channelAndGroupUpdateHour))
     m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
@@ -163,6 +163,12 @@ void Settings::ReadFromAddon()
     m_skipInitialEpgLoad = true;
 
   //Recording
+  if (!XBMC->GetSetting("storeextrarecordinginfo", &m_storeLastPlayedAndCount))
+    m_storeLastPlayedAndCount = false;
+
+  if (!XBMC->GetSetting("sharerecordinglastplayed", &m_recordingLastPlayedMode))
+    m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
+
   if (XBMC->GetSetting("recordingpath", buffer))
     m_recordingPath = buffer;
   else
@@ -265,10 +271,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useSecureHTTPStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "use_login_stream")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useLoginStream, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
-  else if (settingName == "conectionchecktimeout")
-    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_conectioncCheckTimeoutSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
-  else if (settingName == "conectioncheckinterval")
-    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_conectioncCheckIntervalSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "connectionchecktimeout")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_connectioncCheckTimeoutSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "connectioncheckinterval")
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_connectioncCheckIntervalSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //General
   else if (settingName == "onlinepicons")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -327,6 +333,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "skipinitialepg")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_skipInitialEpgLoad, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Recordings
+  else if (settingName == "storeextrarecordinginfo")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_storeLastPlayedAndCount, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "sharerecordinglastplayed")
+    return SetSetting<RecordingLastPlayedMode, ADDON_STATUS>(settingName, settingValue, m_recordingLastPlayedMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "recordingpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")

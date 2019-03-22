@@ -37,6 +37,7 @@ namespace enigma2
       static std::string GetHttpXML(const std::string& url);
       static std::string PostHttpJson(const std::string& url);
       static bool SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult=false);
+      static bool SendSimpleJsonCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult=false);
       static bool SendSimpleJsonPostCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult=false);
       static std::string& Escape(std::string &s, const std::string from, const std::string to);
     };

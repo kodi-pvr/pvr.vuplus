@@ -7,6 +7,7 @@
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 
+#include <p8-platform/util/StringUtils.h>
 #include "xbmc_addon_types.h"
 
 class Vu;
@@ -56,6 +57,13 @@ namespace enigma2
     DISABLED = 0,
     AS_FIRST_GROUP,
     AS_LAST_GROUP
+  };
+
+  enum class RecordingLastPlayedMode
+    : int // same type as addon settings
+  {
+    ACROSS_KODI_INSTANCES = 0,
+    ACROSS_KODI_AND_E2_INSTANCES
   };
 
   enum class Timeshift
@@ -109,8 +117,8 @@ namespace enigma2
     int GetStreamPortNum() const { return m_portStream; }
     bool UseSecureConnectionStream() const { return m_useSecureHTTPStream; }
     bool UseLoginStream() const { return m_useLoginStream; }
-    int GetConectioncCheckTimeoutSecs() const { return m_conectioncCheckTimeoutSecs; }
-    int GetConectioncCheckIntervalSecs() const { return m_conectioncCheckIntervalSecs; }
+    int GetConnectioncCheckTimeoutSecs() const { return m_connectioncCheckTimeoutSecs; }
+    int GetConnectioncCheckIntervalSecs() const { return m_connectioncCheckIntervalSecs; }
 
     //General
     bool UseOnlinePicons() const { return m_onlinePicons; }
@@ -146,6 +154,8 @@ namespace enigma2
     bool SkipInitialEpgLoad() const { return m_skipInitialEpgLoad; }
 
     //Recordings
+    bool GetStoreRecordingLastPlayedAndCount() const { return m_storeLastPlayedAndCount; }
+    const RecordingLastPlayedMode& GetRecordingLastPlayedMode() const { return m_recordingLastPlayedMode; }
     const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
@@ -188,14 +198,26 @@ namespace enigma2
       m_deviceSettings = deviceSettings;
       m_globalStartPaddingStb = deviceSettings->GetGlobalRecordingStartMargin();
       m_globalEndPaddingStb = deviceSettings->GetGlobalRecordingEndMargin();
+      m_deviceSettingsSet = true;
     }
 
     void SetAdmin(enigma2::Admin* admin) { m_admin = admin; }
 
-    inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch)
+    inline unsigned int GenerateWebIfVersionAsNum(unsigned int major, unsigned int minor, unsigned int patch) const
     {
       return (major << 16 | minor << 8 | patch);
     };
+
+    bool CheckOpenWebIfVersion(unsigned int major, unsigned int minor, unsigned int patch) const
+    {
+      return m_deviceSettingsSet ? GetWebIfVersionAsNum() >= GenerateWebIfVersionAsNum(major, minor, patch) && StringUtils::StartsWith(GetWebIfVersion(), "OWIF") : m_deviceSettingsSet;
+    }
+
+    bool IsOpenWebIf() const { return StringUtils::StartsWith(GetWebIfVersion(), "OWIF"); }
+    bool SupportsEditingRecordings() const { return CheckOpenWebIfVersion(1, 3, 6); }
+    bool SupportsAutoTimers() const { return CheckOpenWebIfVersion(1, 3, 0); }
+    bool SupportsTunerDetails() const { return CheckOpenWebIfVersion(1, 3, 5); }
+    bool SupportsProviderAndPiconForChannels() const { return CheckOpenWebIfVersion(1, 3, 5); }
 
     bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
     void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
@@ -245,8 +267,8 @@ namespace enigma2
     int m_portStream = DEFAULT_STREAM_PORT;
     bool m_useSecureHTTPStream = false;
     bool m_useLoginStream = false;
-    int m_conectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
-    int m_conectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
+    int m_connectioncCheckTimeoutSecs = DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS;
+    int m_connectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
     //General
     bool m_onlinePicons = true;
@@ -255,7 +277,7 @@ namespace enigma2
     std::string m_iconPath = "";
     unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
-    ChannelAndGroupUpdateMode m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::DISABLED;
+    ChannelAndGroupUpdateMode m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS;
     unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel
@@ -282,6 +304,8 @@ namespace enigma2
     bool m_skipInitialEpgLoad = true;
 
     //Recordings
+    bool m_storeLastPlayedAndCount = true;
+    RecordingLastPlayedMode m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
     std::string m_recordingPath = "";
     bool m_onlyCurrentLocation = false;
     bool m_keepFolders = false;
@@ -320,6 +344,7 @@ namespace enigma2
     enigma2::utilities::DeviceInfo* m_deviceInfo;
     enigma2::utilities::DeviceSettings* m_deviceSettings;
     enigma2::Admin* m_admin;
+    bool m_deviceSettingsSet = false;
 
     //PVR Props
     std::string m_szUserPath = "";

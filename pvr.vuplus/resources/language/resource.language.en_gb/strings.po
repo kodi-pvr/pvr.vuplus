@@ -524,7 +524,23 @@ msgctxt "#30126"
 msgid "Use standard channel service reference"
 msgstr ""
 
-#empty strings from id 30127 to 30409
+msgctxt "#30127"
+msgid "Store last played/play count on the backend"
+msgstr ""
+
+msgctxt "#30128"
+msgid "Share last played across:"
+msgstr ""
+
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr ""
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr ""
+
+#empty strings from id 30131 to 30409
 
 msgctxt "#30410"
 msgid "Automatic"

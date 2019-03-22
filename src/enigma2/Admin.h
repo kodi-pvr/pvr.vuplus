@@ -59,8 +59,6 @@ namespace enigma2
     const std::string& GetAddonVersion() const { return m_addonVersion; }
     bool GetTunerSignal(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
 
-    static bool CanUseJsonApi();
-
   private:
     static void SetCharString(char* target, const std::string value);
     bool LoadDeviceInfo();

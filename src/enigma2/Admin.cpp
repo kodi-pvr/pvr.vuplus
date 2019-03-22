@@ -76,7 +76,7 @@ bool Admin::Initialise()
     if (deviceSettingsLoaded)
     {
       //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-      if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF"))
+      if (Settings::GetInstance().SupportsAutoTimers())
         SendAutoTimerSettings();
     }
   }
@@ -264,7 +264,7 @@ bool Admin::LoadDeviceSettings()
   std::string autoTimerNameInTags = LocalizedString(30094); // N/A
 
   //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-  if (Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 0) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF"))
+  if (Settings::GetInstance().SupportsAutoTimers())
   {
     if (LoadAutoTimerSettings())
     {
@@ -638,7 +638,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
   signalStatus.m_ber = atol(ber.c_str());
   signalStatus.m_signalStrength = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
 
-  if (CanUseJsonApi())
+  if (Settings::GetInstance().SupportsTunerDetails())
   {
     //TODO: Cross reference against tuners once OpenWebIf API is updated.
     //StreamStatus streamStatus = GetStreamDetails(channel);
@@ -646,11 +646,6 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
   }
 
   return true;
-}
-
-bool Admin::CanUseJsonApi()
-{
-  return Settings::GetInstance().GetWebIfVersionAsNum() >= Settings::GetInstance().GenerateWebIfVersionAsNum(1, 3, 5) && StringUtils::StartsWith(Settings::GetInstance().GetWebIfVersion(), "OWIF");
 }
 
 StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &channel)

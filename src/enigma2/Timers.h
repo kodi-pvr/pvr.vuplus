@@ -62,7 +62,6 @@ namespace enigma2
     static std::string ConvertToAutoTimerTag(std::string tag);
     static std::string RemovePaddingTag(std::string tag);
     std::vector<enigma2::data::AutoTimer> LoadAutoTimers() const;
-    bool CanAutoTimers() const;
     bool IsAutoTimer(const PVR_TIMER &timer) const;
     bool TimerUpdatesRegular();
     bool TimerUpdatesAuto();

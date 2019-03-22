@@ -88,6 +88,10 @@ public:
   PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
   bool GetRecordingsFromLocation(std::string strRecordingFolder);
   PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size);
+  PVR_ERROR RenameRecording(const PVR_RECORDING &recording);
+  PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count);
+  PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition);
+  int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording);
   enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);

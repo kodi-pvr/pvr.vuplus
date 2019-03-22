@@ -201,7 +201,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());
 
-  if (Admin::CanUseJsonApi())
+  if (Settings::GetInstance().SupportsProviderAndPiconForChannels())
   {
     //We can use the JSON API so let's supplement the data with provider information
 

@@ -53,7 +53,7 @@ namespace enigma2
         return (regex_match(m_tags, regex));
       }
 
-      void AddTag(const std::string &tagName, std::string tagValue = "", bool replaceUnderscores = false)
+      void AddTag(const std::string &tagName, const std::string &tagValue = "", bool replaceUnderscores = false)
       {
         RemoveTag(tagName);
 
@@ -64,9 +64,10 @@ namespace enigma2
 
         if (!tagValue.empty())
         {
+          std::string val = tagValue;
           if (replaceUnderscores)
-            std::replace(tagValue.begin(), tagValue.end(), ' ', '_');
-          m_tags.append(StringUtils::Format("=%s", tagValue.c_str()));
+            std::replace(val.begin(), val.end(), ' ', '_');
+          m_tags.append(StringUtils::Format("=%s", val.c_str()));
         }
       }
 

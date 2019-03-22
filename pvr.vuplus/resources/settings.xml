@@ -83,7 +83,7 @@
         </setting>
       </group>
       <group id="4" label="30020">
-        <setting id="conectionchecktimeout" type="integer" label="30121">
+        <setting id="connectionchecktimeout" type="integer" label="30121">
           <level>0</level>
           <default>10</default>
           <constraints>
@@ -96,7 +96,7 @@
             <formatlabel>14045</formatlabel>
           </control>
         </setting>
-        <setting id="conectioncheckinterval" type="integer" label="30122">
+        <setting id="connectioncheckinterval" type="integer" label="30122">
           <level>0</level>
           <default>1</default>
           <constraints>
@@ -176,7 +176,7 @@
         </setting>
         <setting id="channelandgroupupdatemode" type="integer" label="30116">
           <level>0</level>
-          <default>0</default>
+          <default>2</default>
           <constraints>
             <options>
               <option label="30117">0</option> <!-- DISABLED -->
@@ -430,6 +430,25 @@
     <!-- Recordings -->
     <category id="recordings" label="30070">
       <group id="1" label="30071">
+        <setting id="storeextrarecordinginfo" type="boolean" label="30127">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="sharerecordinglastplayed" type="integer" parent="storeextrarecordinginfo" label="30128">
+          <level>0</level>
+          <default>0</default>
+          <dependencies>
+            <dependency type="enable" setting="storeextrarecordinginfo" operator="is">true</dependency>
+          </dependencies>
+          <constraints>
+            <options>
+              <option label="30129">0</option> <!-- ACROSS_KODI_INSTANCES -->
+              <option label="30130">1</option> <!-- ACROSS_KODI_AND_E2_INSTANCES -->
+            </options>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
         <setting id="recordingpath" type="string" label="30023">
           <level>0</level>
           <default></default>

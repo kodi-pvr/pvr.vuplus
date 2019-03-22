@@ -11,6 +11,7 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Embedded EPG Genre IDs
 * Full Tuner Signal Support (Including Service Providers)
 * Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
+* Edit recording name, last played position and play count for recordings
 
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv)
@@ -101,7 +102,7 @@ Within this tab general options are configured.
 * **Channel and groups update mode**: The mode used when the hour in the next settings is reached. Choose from one of the following three modes:
     - `Disabled` - Never check for channel and group changes.
     - `Notify on UI and Log` - Display a notice in the UI and log the fact that a change was detectetd.
-    - `Reload Channels and Groups` - Disconnect and reconnect with E2 device to reload channels.
+    - `Reload Channels and Groups` - Disconnect and reconnect with E2 device to reload channels only if a change is detected.
 * **Channel and group update hour (24h)**: The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM.
 
 ### Channels
@@ -149,6 +150,10 @@ Information on customising the extraction and mapper configs can be found in the
 ### Recordings
 The following configuration is available on the Recordings tab of the addon settings.
 
+* **Store last played/play count on the backend**: Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+.
+* **Share last played across**: The options are:
+    - `Kodi instances` - Only use the value in kodi and will not affect last played on the E2 device.
+    - `Kodi/E2 instances` - Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled.
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.
 * **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path
