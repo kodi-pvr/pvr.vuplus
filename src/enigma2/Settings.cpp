@@ -163,6 +163,12 @@ void Settings::ReadFromAddon()
     m_skipInitialEpgLoad = true;
 
   //Recording
+  if (!XBMC->GetSetting("storeextrarecordinginfo", &m_storeLastPlayedAndCount))
+    m_storeLastPlayedAndCount = false;
+
+  if (!XBMC->GetSetting("sharerecordinglastplayed", &m_recordingLastPlayedMode))
+    m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
+
   if (XBMC->GetSetting("recordingpath", buffer))
     m_recordingPath = buffer;
   else
@@ -327,6 +333,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "skipinitialepg")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_skipInitialEpgLoad, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Recordings
+  else if (settingName == "storeextrarecordinginfo")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_storeLastPlayedAndCount, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "sharerecordinglastplayed")
+    return SetSetting<RecordingLastPlayedMode, ADDON_STATUS>(settingName, settingValue, m_recordingLastPlayedMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "recordingpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")

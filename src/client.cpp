@@ -196,6 +196,7 @@ void OnPowerSavingDeactivated()
 PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 {
   pCapabilities->bSupportsEPG                = true;
+  pCapabilities->bSupportsEPGEdl             = false;
   pCapabilities->bSupportsTV                 = true;
   pCapabilities->bSupportsRadio              = true;
   pCapabilities->bSupportsRecordings         = true;
@@ -203,13 +204,16 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bSupportsTimers             = true;
   pCapabilities->bSupportsChannelGroups      = true;
   pCapabilities->bSupportsChannelScan        = false;
+  pCapabilities->bSupportsChannelSettings    = false;
   pCapabilities->bHandlesInputStream         = true;
   pCapabilities->bHandlesDemuxing            = false;
-  pCapabilities->bSupportsLastPlayedPosition = false;
-  pCapabilities->bSupportsRecordingsRename   = false;
+  pCapabilities->bSupportsRecordingPlayCount = settings.SupportsEditingRecordings() && settings.GetStoreRecordingLastPlayedAndCount();
+  pCapabilities->bSupportsLastPlayedPosition = settings.SupportsEditingRecordings() && settings.GetStoreRecordingLastPlayedAndCount();
   pCapabilities->bSupportsRecordingEdl       = true;
+  pCapabilities->bSupportsRecordingsRename   = settings.SupportsEditingRecordings();
   pCapabilities->bSupportsRecordingsLifetimeChange = false;
   pCapabilities->bSupportsDescrambleInfo = false;
+  pCapabilities->bSupportsAsyncEPGTransfer = false;
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -500,6 +504,38 @@ PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int
   return enigma->GetRecordingEdl(recinfo, edl, size);
 }
 
+PVR_ERROR RenameRecording(const PVR_RECORDING &recording)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->RenameRecording(recording);
+}
+
+PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->SetRecordingPlayCount(recording, count);
+}
+
+PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastPlayedPosition)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->SetRecordingLastPlayedPosition(recording, lastPlayedPosition);
+}
+
+int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->GetRecordingLastPlayedPosition(recording);
+}
+
 /***************************************************************************
  * Recording Streams
  **************************************************************************/
@@ -612,10 +648,6 @@ PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL &channel) { return PVR_ERROR_NO
 PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxReset(void) {}
 void DemuxFlush(void) {}
-PVR_ERROR RenameRecording(const PVR_RECORDING &recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition) { return PVR_ERROR_NOT_IMPLEMENTED; }
-int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
 bool SeekTime(double,bool,double*) { return false; }
 void SetSpeed(int) {};
 PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording) { return PVR_ERROR_NOT_IMPLEMENTED; }

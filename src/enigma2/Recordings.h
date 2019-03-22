@@ -21,6 +21,7 @@
  *
  */
 
+#include <random>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -33,15 +34,23 @@
 
 namespace enigma2
 {
+  static int64_t PTS_PER_SECOND = 90000;
+  static int CUTS_LAST_PLAYED_TYPE = 3;
+  static int E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MIN = 300;
+  static int E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MAX = 600;
+
   class Recordings
   {
   public:
-    Recordings(Channels &channels, enigma2::extract::EpgEntryExtractor &entryExtractor)
-      : m_channels(channels), m_entryExtractor(entryExtractor) {};
+    Recordings(Channels &channels, enigma2::extract::EpgEntryExtractor &entryExtractor);
     void GetRecordings(std::vector<PVR_RECORDING> &recordings);
     int GetNumRecordings() const;
     void ClearRecordings();
     void GetRecordingEdl(const std::string &recordingId, std::vector<PVR_EDL_ENTRY> &edlEntries) const;
+    PVR_ERROR RenameRecording(const PVR_RECORDING &recording);
+    PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count);
+    PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition);
+    int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording);
     bool IsInRecordingFolder(const std::string &strRecordingFolder) const;
     const std::string GetRecordingURL(const PVR_RECORDING &recinfo);
     PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
@@ -55,8 +64,14 @@ namespace enigma2
   private:
     static const std::string FILE_NOT_FOUND_RESPONSE_SUFFIX;
 
-    bool GetRecordingsFromLocation(std::string recordingFolder);
+    bool GetRecordingsFromLocation(const std::string recordingFolder);
     data::RecordingEntry GetRecording(const std::string &recordingId) const;
+    bool ReadExtaRecordingCutsInfo(const data::RecordingEntry &recordingEntry, std::vector<std::pair<int, int64_t>> &cuts, std::vector<std::string> &tags);
+    bool ReadExtraRecordingPlayCountInfo(const data::RecordingEntry &recordingEntry, std::vector<std::string> &tags);
+    void SetRecordingNextSyncTime(data::RecordingEntry &recordingEntry, time_t nextSyncTime, std::vector<std::string> &oldTags);
+
+    std::mt19937 m_randomGenerator;
+    std::uniform_int_distribution<> m_randomDistribution;
 
     std::vector<enigma2::data::RecordingEntry> m_recordings;
     std::unordered_map<std::string, enigma2::data::RecordingEntry> m_recordingsIdMap;

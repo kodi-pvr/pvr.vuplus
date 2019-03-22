@@ -203,6 +203,29 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
   return true;
 }
 
+bool WebUtils::SendSimpleJsonCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
+{
+  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
+
+  const std::string strJson = WebUtils::GetHttp(url);
+
+  if (!bIgnoreResult)
+  {
+    if (strJson.find("\"result\": true") != std::string::npos)
+    {
+      strResultText = "Success!";
+    }
+    else
+    {
+      strResultText = StringUtils::Format("Invalid Command");
+      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
+      return false;
+    }
+  }
+
+  return true;
+}
+
 bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
@@ -211,7 +234,7 @@ bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::
 
   if (!bIgnoreResult)
   {
-    if (strJson.find("true") != std::string::npos)
+    if (strJson.find("\"result\": true") != std::string::npos)
     {
       strResultText = "Success!";
     }

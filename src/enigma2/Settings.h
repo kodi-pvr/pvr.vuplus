@@ -59,6 +59,13 @@ namespace enigma2
     AS_LAST_GROUP
   };
 
+  enum class RecordingLastPlayedMode
+    : int // same type as addon settings
+  {
+    ACROSS_KODI_INSTANCES = 0,
+    ACROSS_KODI_AND_E2_INSTANCES
+  };
+
   enum class Timeshift
     : int // same type as addon settings
   {
@@ -147,6 +154,8 @@ namespace enigma2
     bool SkipInitialEpgLoad() const { return m_skipInitialEpgLoad; }
 
     //Recordings
+    bool GetStoreRecordingLastPlayedAndCount() const { return m_storeLastPlayedAndCount; }
+    const RecordingLastPlayedMode& GetRecordingLastPlayedMode() const { return m_recordingLastPlayedMode; }
     const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
@@ -205,6 +214,7 @@ namespace enigma2
     }
 
     bool IsOpenWebIf() const { return StringUtils::StartsWith(GetWebIfVersion(), "OWIF"); }
+    bool SupportsEditingRecordings() const { return CheckOpenWebIfVersion(1, 3, 6); }
     bool SupportsAutoTimers() const { return CheckOpenWebIfVersion(1, 3, 0); }
     bool SupportsTunerDetails() const { return CheckOpenWebIfVersion(1, 3, 5); }
     bool SupportsProviderAndPiconForChannels() const { return CheckOpenWebIfVersion(1, 3, 5); }
@@ -294,6 +304,8 @@ namespace enigma2
     bool m_skipInitialEpgLoad = true;
 
     //Recordings
+    bool m_storeLastPlayedAndCount = true;
+    RecordingLastPlayedMode m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
     std::string m_recordingPath = "";
     bool m_onlyCurrentLocation = false;
     bool m_keepFolders = false;

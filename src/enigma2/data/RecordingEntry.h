@@ -34,6 +34,10 @@ namespace enigma2
 {
   namespace data
   {
+    static const std::string TAG_FOR_PLAY_COUNT = "PlayCount";
+    static const std::string TAG_FOR_LAST_PLAYED = "LastPlayed";
+    static const std::string TAG_FOR_NEXT_SYNC_TIME = "NextSyncTime";
+
     class RecordingEntry : public BaseEntry, public Tags
     {
     public:
@@ -46,8 +50,14 @@ namespace enigma2
       int GetDuration() const { return m_duration; }
       void SetDuration(int value) { m_duration = value; }
 
+      int GetPlayCount() const { return m_playCount; }
+      void SetPlayCount(int value) { m_playCount = value; }
+
       int GetLastPlayedPosition() const { return m_lastPlayedPosition; }
       void SetLastPlayedPosition(int value) { m_lastPlayedPosition = value; }
+
+      time_t GetNextSyncTime() const { return m_nextSyncTime; }
+      void SetNextSyncTime(time_t value) { m_nextSyncTime = value; }
 
       const std::string& GetStreamURL() const { return m_streamURL; }
       void SetStreamURL(const std::string& value ) { m_streamURL = value; }
@@ -84,7 +94,9 @@ namespace enigma2
       std::string m_recordingId;
       time_t m_startTime;
       int m_duration;
-      int m_lastPlayedPosition;
+      int m_playCount = 0;
+      int m_lastPlayedPosition = 0;
+      time_t m_nextSyncTime = 0;
       std::string m_streamURL;
       std::string m_edlURL;
       std::string m_channelName;

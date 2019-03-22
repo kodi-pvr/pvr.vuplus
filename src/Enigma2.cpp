@@ -582,6 +582,30 @@ RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
   return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), start, end, recinfo.iDuration);
 }
 
+PVR_ERROR Enigma2::RenameRecording(const PVR_RECORDING &recording)
+{
+  CLockObject lock(m_mutex);
+  return m_recordings.RenameRecording(recording);
+}
+
+PVR_ERROR Enigma2::SetRecordingPlayCount(const PVR_RECORDING &recording, int count)
+{
+  CLockObject lock(m_mutex);
+  return m_recordings.SetRecordingPlayCount(recording, count);
+}
+
+PVR_ERROR Enigma2::SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastPlayedPosition)
+{
+  CLockObject lock(m_mutex);
+  return m_recordings.SetRecordingLastPlayedPosition(recording, lastPlayedPosition);
+}
+
+int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
+{
+  CLockObject lock(m_mutex);
+  return m_recordings.GetRecordingLastPlayedPosition(recording);
+}
+
 /***************************************************************************
  * Timers
  **************************************************************************/

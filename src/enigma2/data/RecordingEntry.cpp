@@ -17,7 +17,6 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
 
   m_directory = directory;
 
-  m_lastPlayedPosition = 0;
   if (XMLUtils::GetString(recordingNode, "e2servicereference", strTmp))
     m_recordingId = strTmp;
 
@@ -74,6 +73,24 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
       m_genreType = 0;
       m_genreSubType = 0;
     }
+  }
+
+  if (ContainsTag(TAG_FOR_PLAY_COUNT))
+  {
+    if (std::sscanf(ReadTagValue(TAG_FOR_PLAY_COUNT).c_str(), "%d", &m_playCount) != 1)
+      m_playCount = 0;
+  }
+
+  if (ContainsTag(TAG_FOR_LAST_PLAYED))
+  {
+    if (std::sscanf(ReadTagValue(TAG_FOR_LAST_PLAYED).c_str(), "%d", &m_lastPlayedPosition) != 1)
+      m_lastPlayedPosition = 0;
+  }
+
+  if (ContainsTag(TAG_FOR_NEXT_SYNC_TIME))
+  {
+    if (std::sscanf(ReadTagValue(TAG_FOR_NEXT_SYNC_TIME).c_str(), "%ld", &m_nextSyncTime) != 1)
+      m_nextSyncTime = 0;
   }
 
   auto channel = FindChannel(channels);
@@ -152,6 +169,8 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
       left.channelType = PVR_RECORDING_CHANNEL_TYPE_TV;
   }
 
+  left.iPlayCount = m_playCount;
+  left.iLastPlayedPosition = m_lastPlayedPosition;
   left.iSeriesNumber = m_seasonNumber;
   left.iEpisodeNumber = m_episodeNumber;
   left.iYear = m_year;
