@@ -3,14 +3,14 @@
   <section id="pvr.vuplus">
 
     <!-- Connection -->
-    <category id="connection" label="30005">
+    <category id="connection" label="30005" help="30600">
       <group id="1" label="30038">
-        <setting id="host" type="string" label="30000">
+        <setting id="host" type="string" label="30000" help="30601">
           <level>0</level>
           <default>127.0.0.1</default>
           <control type="edit" format="string" />
         </setting>
-        <setting id="webport" type="integer" label="30012">
+        <setting id="webport" type="integer" label="30012" help="30602">
           <level>0</level>
           <default>80</default>
           <constraints>
@@ -20,14 +20,14 @@
           </constraints>
           <control type="edit" format="integer" />
         </setting>
-        <setting id="use_secure" type="boolean" label="30028">
+        <setting id="use_secure" type="boolean" label="30028" help="30603">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
       </group>
       <group id="2" label="30051">
-        <setting id="user" type="string" label="30003">
+        <setting id="user" type="string" label="30003" help="30604">
           <level>0</level>
           <default></default>
           <constraints>
@@ -35,7 +35,7 @@
           </constraints>
           <control type="edit" format="string" />
         </setting>
-        <setting id="pass" type="string" label="30004">
+        <setting id="pass" type="string" label="30004" help="30605">
           <level>0</level>
           <default></default>
           <constraints>
@@ -47,12 +47,12 @@
         </setting>
       </group>
       <group id="3" label="30039">
-        <setting id="autoconfig" type="boolean" label="30029">
+        <setting id="autoconfig" type="boolean" label="30029" help="30606">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="streamport" type="integer" label="30002">
+        <setting id="streamport" type="integer" label="30002" help="30607">
           <level>0</level>
           <default>8001</default>
           <constraints>
@@ -65,7 +65,7 @@
           </dependencies>
           <control type="edit" format="integer" />
         </setting>
-        <setting id="use_secure_stream" type="boolean" label="30066">
+        <setting id="use_secure_stream" type="boolean" label="30066" help="30608">
           <level>0</level>
           <default>false</default>
           <dependencies>
@@ -73,7 +73,7 @@
           </dependencies>
           <control type="toggle" />
         </setting>
-        <setting id="use_login_stream" type="boolean" label="30067">
+        <setting id="use_login_stream" type="boolean" label="30067" help="30609">
           <level>0</level>
           <default>false</default>
           <dependencies>
@@ -83,7 +83,7 @@
         </setting>
       </group>
       <group id="4" label="30020">
-        <setting id="connectionchecktimeout" type="integer" label="30121">
+        <setting id="connectionchecktimeout" type="integer" label="30121" help="30610">
           <level>0</level>
           <default>10</default>
           <constraints>
@@ -96,7 +96,7 @@
             <formatlabel>14045</formatlabel>
           </control>
         </setting>
-        <setting id="connectioncheckinterval" type="integer" label="30122">
+        <setting id="connectioncheckinterval" type="integer" label="30122" help="30611">
           <level>0</level>
           <default>1</default>
           <constraints>
@@ -113,14 +113,14 @@
     </category>
 
     <!-- General -->
-    <category id="general" label="30018">
+    <category id="general" label="30018" help="30620">
       <group id="1" label="30006">
-        <setting id="onlinepicons" type="boolean" label="30027">
+        <setting id="onlinepicons" type="boolean" label="30027" help="30621">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons" label="30103">
+        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons" label="30103" help="30622">
           <level>0</level>
           <default>false</default>
           <dependencies>
@@ -128,12 +128,12 @@
           </dependencies>
           <control type="toggle" />
         </setting>
-        <setting id="usepiconseuformat" type="boolean" label="30035">
+        <setting id="usepiconseuformat" type="boolean" label="30035" help="30623">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="iconpath" type="path" label="30008">
+        <setting id="iconpath" type="path" label="30008" help="30624">
           <level>0</level>
           <default></default>
           <constraints>
@@ -150,7 +150,7 @@
       </group>
 
       <group id="2" label="30009">
-        <setting id="updateint" type="integer" label="30015">
+        <setting id="updateint" type="integer" label="30015" help="30625">
           <level>0</level>
           <default>2</default>
           <constraints>
@@ -163,7 +163,7 @@
             <formatlabel>14044</formatlabel>
           </control>
         </setting>
-        <setting id="updatemode" type="integer" label="30100">
+        <setting id="updatemode" type="integer" label="30100" help="30626">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -174,7 +174,7 @@
           </constraints>
           <control type="list" format="integer" />
         </setting>
-        <setting id="channelandgroupupdatemode" type="integer" label="30116">
+        <setting id="channelandgroupupdatemode" type="integer" label="30116" help="30627">
           <level>0</level>
           <default>2</default>
           <constraints>
@@ -186,7 +186,7 @@
           </constraints>
           <control type="list" format="integer" />
         </setting>
-        <setting id="channelandgroupupdatehour" type="integer" label="30120">
+        <setting id="channelandgroupupdatehour" type="integer" label="30120" help="30628">
           <level>0</level>
           <default>4</default>
           <constraints>
@@ -211,21 +211,21 @@
     </category>
 
     <!-- Channels -->
-    <category id="channels" label="30019">
+    <category id="channels" label="30019" help="30640">
       <group id="1" label="30018">
-        <setting id="usestandardserviceref" type="boolean" label="30126">
+        <setting id="usestandardserviceref" type="boolean" label="30126" help="30641">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="zap" type="boolean" label="30013">
+        <setting id="zap" type="boolean" label="30013" help="30642">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
       </group>
       <group id="2" label="30056">
-        <setting id="tvgroupmode" type="integer" label="30025">
+        <setting id="tvgroupmode" type="integer" label="30025" help="30643">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -237,7 +237,7 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="onetvgroup" type="string" parent="tvgroupmode" label="30026">
+        <setting id="onetvgroup" type="string" parent="tvgroupmode" label="30026" help="30644">
           <level>0</level>
           <default></default>
           <constraints>
@@ -248,7 +248,7 @@
           </dependencies>
           <control type="edit" format="string" />
         </setting>
-        <setting id="tvfavouritesmode" type="integer" label="30068">
+        <setting id="tvfavouritesmode" type="integer" label="30068" help="30645">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -268,7 +268,7 @@
           </dependencies>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="excludelastscannedtv" type="boolean" label="30114">
+        <setting id="excludelastscannedtv" type="boolean" label="30114" help="30646">
           <level>0</level>
           <default>true</default>
           <dependencies>
@@ -278,7 +278,7 @@
         </setting>
       </group>
       <group id="3" label="30057">
-        <setting id="radiogroupmode" type="integer" label="30058">
+        <setting id="radiogroupmode" type="integer" label="30058" help="30647">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -290,7 +290,7 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="oneradiogroup" type="string" parent="radiogroupmode" label="30059">
+        <setting id="oneradiogroup" type="string" parent="radiogroupmode" label="30059" help="30648">
           <level>0</level>
           <default></default>
           <constraints>
@@ -301,7 +301,7 @@
           </dependencies>
           <control type="edit" format="string" />
         </setting>
-        <setting id="radiofavouritesmode" type="integer" label="30069">
+        <setting id="radiofavouritesmode" type="integer" label="30069" help="30649">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -321,7 +321,7 @@
           </dependencies>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="excludelastscannedradio" type="boolean" label="30114">
+        <setting id="excludelastscannedradio" type="boolean" label="30114" help="30650">
           <level>0</level>
           <default>true</default>
           <dependencies>
@@ -333,14 +333,14 @@
     </category>
 
     <!-- EPG -->
-    <category id="epg" label="30032">
+    <category id="epg" label="30032" help="30660">
       <group id="1" label="30031">
-        <setting id="extractshowinfoenabled" type="boolean" label="30033">
+        <setting id="extractshowinfoenabled" type="boolean" label="30033" help="30661">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="extractshowinfofile" type="path" parent="extractshowinfoenabled" label="30046">
+        <setting id="extractshowinfofile" type="path" parent="extractshowinfoenabled" label="30046" help="30662">
           <level>0</level>
           <default>special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml</default>
           <constraints>
@@ -356,12 +356,12 @@
         </setting>
       </group>
       <group id="2" label="30053">
-        <setting id="genreidmapenabled" type="boolean" label="30054">
+        <setting id="genreidmapenabled" type="boolean" label="30054" help="30663">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="genreidmapfile" type="path" parent="genreidmapenabled" label="30055">
+        <setting id="genreidmapfile" type="path" parent="genreidmapenabled" label="30055" help="30664">
           <level>0</level>
           <default>special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml</default>
           <constraints>
@@ -377,12 +377,12 @@
         </setting>
       </group>
       <group id="3" label="30047">
-        <setting id="rytecgenretextmapenabled" type="boolean" label="30048">
+        <setting id="rytecgenretextmapenabled" type="boolean" label="30048" help="30665">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="rytecgenretextmapfile" type="path" parent="rytecgenretextmapenabled" label="30049">
+        <setting id="rytecgenretextmapfile" type="path" parent="rytecgenretextmapenabled" label="30049" help="30666">
           <level>0</level>
           <default>special://userdata/addon_data/pvr.vuplus/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml</default>
           <constraints>
@@ -396,7 +396,7 @@
             <heading>1033</heading>
           </control>
         </setting>
-        <setting id="logmissinggenremapping" type="boolean" parent="rytecgenretextmapenabled" label="30037">
+        <setting id="logmissinggenremapping" type="boolean" parent="rytecgenretextmapenabled" label="30037" help="30667">
           <level>0</level>
           <default>false</default>
           <dependencies>
@@ -406,7 +406,7 @@
         </setting>
       </group>
       <group id="4" label="30105">
-        <setting id="epgdelayperchannel" type="integer" label="30106">
+        <setting id="epgdelayperchannel" type="integer" label="30106" help="30668">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -419,7 +419,7 @@
             <formatlabel>14046</formatlabel>
           </control>
         </setting>
-        <setting id="skipinitialepg" type="boolean" label="30115">
+        <setting id="skipinitialepg" type="boolean" label="30115" help="30669">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
@@ -428,14 +428,14 @@
     </category>
 
     <!-- Recordings -->
-    <category id="recordings" label="30070">
+    <category id="recordings" label="30070" help="30680">
       <group id="1" label="30071">
-        <setting id="storeextrarecordinginfo" type="boolean" label="30127">
+        <setting id="storeextrarecordinginfo" type="boolean" label="30127" help="30681">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="sharerecordinglastplayed" type="integer" parent="storeextrarecordinginfo" label="30128">
+        <setting id="sharerecordinglastplayed" type="integer" parent="storeextrarecordinginfo" label="30128" help="30682">
           <level>0</level>
           <default>0</default>
           <dependencies>
@@ -449,7 +449,7 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="recordingpath" type="string" label="30023">
+        <setting id="recordingpath" type="string" label="30023" help="30683">
           <level>0</level>
           <default></default>
           <constraints>
@@ -457,12 +457,12 @@
           </constraints>
           <control type="edit" format="string" />
         </setting>
-        <setting id="onlycurrent" type="boolean" label="30017">
+        <setting id="onlycurrent" type="boolean" label="30017" help="30684">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="keepfolders" type="boolean" label="30030">
+        <setting id="keepfolders" type="boolean" label="30030" help="30685">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
@@ -470,12 +470,12 @@
       </group>
 
       <group id="2" label="30107">
-        <setting id="enablerecordingedls" type="boolean" label="30108">
+        <setting id="enablerecordingedls" type="boolean" label="30108" help="30686">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="edlpaddingstart" type="integer" parent="enablerecordingedls" label="30109">
+        <setting id="edlpaddingstart" type="integer" parent="enablerecordingedls" label="30109" help="30687">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -491,7 +491,7 @@
             <formatlabel>14046</formatlabel>
           </control>
         </setting>
-        <setting id="edlpaddingstop" type="integer" parent="enablerecordingedls" label="30110">
+        <setting id="edlpaddingstop" type="integer" parent="enablerecordingedls" label="30110" help="30688">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -511,14 +511,14 @@
     </category>
 
     <!-- Timers-->
-    <category id="timers" label="30072">
+    <category id="timers" label="30072" help="30700">
       <group id="1" label="30072">
-        <setting id="enablegenrepeattimers" type="boolean" label="30036">
+        <setting id="enablegenrepeattimers" type="boolean" label="30036" help="30701">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="numgenrepeattimers" type="integer" parent="enablegenrepeattimers" label="30073">
+        <setting id="numgenrepeattimers" type="integer" parent="enablegenrepeattimers" label="30073" help="30702">
           <level>0</level>
           <default>1</default>
           <constraints>
@@ -531,19 +531,19 @@
           </dependencies>
           <control type="edit" format="integer" />
         </setting>
-        <setting id="timerlistcleanup" type="boolean" label="30011">
+        <setting id="timerlistcleanup" type="boolean" label="30011" help="30703">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
       </group>
       <group id="2" label="30123">
-        <setting id="enableautotimers" type="boolean" label="30034">
+        <setting id="enableautotimers" type="boolean" label="30034" help="30704">
           <level>0</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
-        <setting id="limitanychannelautotimers" type="boolean" label="30124">
+        <setting id="limitanychannelautotimers" type="boolean" label="30124" help="30705">
           <level>0</level>
           <default>true</default>
           <dependencies>
@@ -551,7 +551,7 @@
           </dependencies>
           <control type="toggle" />
         </setting>
-        <setting id="limitanychannelautotimerstogroups" type="boolean" parent="limitanychannelautotimers" label="30125">
+        <setting id="limitanychannelautotimerstogroups" type="boolean" parent="limitanychannelautotimers" label="30125" help="30706">
           <level>0</level>
           <default>true</default>
           <dependencies>
@@ -564,9 +564,9 @@
     </category>
 
     <!-- Timeshift -->
-    <category id="timeshift" label="30060">
+    <category id="timeshift" label="30060" help="30720">
       <group id="1" label="30060">
-        <setting id="enabletimeshift" type="integer" label="30061">
+        <setting id="enabletimeshift" type="integer" label="30061" help="30721">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -578,7 +578,7 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="timeshiftbufferpath" type="path" parent="enabletimeshift" label="30062">
+        <setting id="timeshiftbufferpath" type="path" parent="enabletimeshift" label="30062" help="30722">
           <level>0</level>
           <default>special://userdata/addon_data/pvr.vuplus</default>
           <constraints>
@@ -596,9 +596,9 @@
     </category>
 
     <!-- Advanced -->
-    <category id="advanced" label="30020">
+    <category id="advanced" label="30020" help="30740">
       <group id="1" label="30052">
-        <setting id="prependoutline" type="integer" label="30040">
+        <setting id="prependoutline" type="integer" label="30040" help="30741">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -611,7 +611,7 @@
           </constraints>
           <control type="list" format="integer" />
         </setting>
-        <setting id="powerstatemode" type="integer" label="30024">
+        <setting id="powerstatemode" type="integer" label="30024" help="30742">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -624,7 +624,7 @@
           </constraints>
           <control type="list" format="integer" />
         </setting>
-        <setting id="readtimeout" type="integer" label="30050">
+        <setting id="readtimeout" type="integer" label="30050" help="30743">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -637,7 +637,7 @@
             <formatlabel>14045</formatlabel>
           </control>
         </setting>
-        <setting id="streamreadchunksize" type="integer" label="30041">
+        <setting id="streamreadchunksize" type="integer" label="30041" help="30744">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -650,12 +650,12 @@
             <formatlabel>14049</formatlabel>
           </control>
         </setting>
-        <setting id="debugnormal" type="boolean" label="30111">
+        <setting id="debugnormal" type="boolean" label="30111" help="30745">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="tracedebug" type="boolean" label="30104">
+        <setting id="tracedebug" type="boolean" label="30104" help="30746">
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
@@ -666,9 +666,9 @@
     <!-- Backend -->
     <!-- Add again one new addon API is supported -->
     <!--
-    <category id="backend" label="30086">
+    <category id="backend" label="30086" help="30760">
       <group id="1" label="30090">
-        <setting id="webifversion" type="string" label="30091">
+        <setting id="webifversion" type="string" label="30091" help="30761">
           <level>0</level>
           <default>N/A</default>
           <dependencies>
@@ -676,7 +676,7 @@
           </dependencies>
           <control type="edit" format="string" />
         </setting>
-        <setting id="autotimertagintags" type="string" label="30092">
+        <setting id="autotimertagintags" type="string" label="30092" help="30762">
           <level>0</level>
           <default>N/A</default>
           <dependencies>
@@ -684,7 +684,7 @@
           </dependencies>
           <control type="edit" format="string" />
         </setting>
-        <setting id="autotimernameintags" type="string" label="30093">
+        <setting id="autotimernameintags" type="string" label="30093" help="30763">
           <level>0</level>
           <default>N/A</default>
           <dependencies>
@@ -695,7 +695,7 @@
       </group>
 
       <group id="2" label="30087">
-        <setting id="globalstartpaddingstb" type="integer" label="30088">
+        <setting id="globalstartpaddingstb" type="integer" label="30088" help="30764">
           <level>0</level>
           <default>0</default>
           <constraints>
@@ -708,7 +708,7 @@
             <formatlabel>14044</formatlabel>
           </control>
         </setting>
-        <setting id="globalendpaddingstb" type="integer" label="30089">
+        <setting id="globalendpaddingstb" type="integer" label="30089" help="30765">
           <level>0</level>
           <default>0</default>
           <constraints>

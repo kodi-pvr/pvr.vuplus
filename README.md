@@ -76,15 +76,14 @@ For more detailed info on logging please see the appendix [here](#logging-detail
 Within this tab the connection options need to be configured before it can be successfully enabled.
 
 * **Enigma2 hostname or IP address**: The IP address or hostname of your enigma2 based set-top box.
-* **Web interface port**: The port used to connect to the web interface
-* **Use secure HTTP (https)**: Use https to connect to the web interface
-* **Username**: If the webinterface of the set-top box is protected with a username / password combination this needs to be set in this option.
-* **Password**: If the webinterface of the set-top box is protected with a username / password combination this needs to be set in this option.
+* **Web interface port**: The port used to connect to the web interface.
+* **Use secure HTTP (https)**: Use https to connect to the web interface.
+* **Username**: If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option.
+* **Password**: If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option.
 * **Enable automatic configuration for live streams**: When enabled the stream URL will be read from an M3U file. When disabled it is constructed based on the filename.
 * **Streaming port**: This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface.
-Webinterface Port: This option defines the port that should be used to access the webinterface of the set-top box.
-* **Use secure HTTP (https) for streams**: Use https to connect to streams
-* **Use login for streams**: Use the login username and password for streams
+* **Use secure HTTP (https) for streams**: Use https to connect to streams.
+* **Use login for streams**: Use the login username and password for streams.
 * **Connection check timeout**: The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices.
 * **Connection check interval**: The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices.
 
@@ -92,7 +91,7 @@ Webinterface Port: This option defines the port that should be used to access th
 Within this tab general options are configured.
 
 * **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 set-top box.
-* **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`
+* **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`.
 * **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf.
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property.
 * **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
@@ -108,9 +107,8 @@ Within this tab general options are configured.
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
-* **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled the all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
+* **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
-* **Exclude last scanned bouquet**: By default the `Last Scanned` bouquet will be included with all bouquets. Enable this option to exclude it from the retrieved list. Note that last scanned applies to both TV and Radio channels.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
     - `Only one bouquet` - Only fetch the bouquet specified in the next option
@@ -145,7 +143,7 @@ Information on customising the extraction and mapper configs can be found in the
 * **Rytec genre text mappings file**: The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`.
 * **Log missing genre text mappings**: If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]
 * **EPG update delay per channel**: For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts.
-* **Skip intial EPG load**: Ignore the intial EPG load (now and next). Enabled by default as can cause issues on LibreElec/CoreElec
+* **Skip intial EPG load**: Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec.
 
 ### Recordings
 The following configuration is available on the Recordings tab of the addon settings.
@@ -156,7 +154,7 @@ The following configuration is available on the Recordings tab of the addon sett
     - `Kodi/E2 instances` - Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled.
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.
-* **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path
+* **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path.
 * **Enable EDLs support**: EDLs are used to define commericals etc. in recordings. If a tool like [Comskip]() is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called ```my recording.ts``` the EDL file should be call ```my recording.edl```. Note: enabling this setting has no effect if the files are not present.
 * **EDL start time padding**: Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0.
 * **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
@@ -216,8 +214,7 @@ Timeshifting allows you to pause live TV as well as move back and forward from y
 ### Advanced
 Within this tab more uncommon and advanced options can be configured.
 
-* **Put outline (e.g. sub-title) before plot**: By default plot outline (short description on Enigma2) is not displayed in the UI. Can be
- displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect.
+* **Put outline (e.g. sub-title) before plot**: By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect.
 * **Send powerstate mode on addon exit**: If this option is set to a value other than `DISABLED` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated).
     - `Disabled` - No command sent when the addon exits
     - `Standby` - Send the standby command on exit
