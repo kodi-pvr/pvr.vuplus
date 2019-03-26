@@ -220,13 +220,13 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 
 const char *GetBackendName(void)
 {
-  static const char *backendName = enigma ? enigma->GetServerName() : LocalizedString(60081).c_str(); //unknown
+  static const char *backendName = enigma ? enigma->GetServerName() : LocalizedString(30081).c_str(); //unknown
   return backendName;
 }
 
 const char *GetBackendVersion(void)
 {
-  static const char *backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(60081).c_str(); //unknown
+  static const char *backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(30081).c_str(); //unknown
   return backendVersion;
 }
 
@@ -235,9 +235,9 @@ static std::string connectionString;
 const char *GetConnectionString(void)
 {
   if (enigma)
-    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : LocalizedString(60082).c_str()); // (Not connected!)
+    connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : LocalizedString(30082).c_str()); // (Not connected!)
   else
-    connectionString = StringUtils::Format("%s (%s!)", settings.GetHostname().c_str(), LocalizedString(60083).c_str()); //addon error
+    connectionString = StringUtils::Format("%s (%s!)", settings.GetHostname().c_str(), LocalizedString(30083).c_str()); //addon error
   return connectionString.c_str();
 }
 
