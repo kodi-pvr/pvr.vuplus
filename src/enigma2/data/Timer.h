@@ -69,6 +69,9 @@ namespace enigma2
       const std::string& GetTitle() const { return m_title; }
       void SetTitle(const std::string& value ) { m_title = value; }
 
+      const std::string& GetServiceReference() const { return m_serviceReference; }
+      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
+
       const std::string& GetPlot() const { return m_plot; }
       void SetPlot(const std::string& value ) { m_plot = value; }
 
@@ -124,6 +127,7 @@ namespace enigma2
     protected:
       Type m_type = Type::MANUAL_ONCE;
       std::string m_title;
+      std::string m_serviceReference;
       std::string m_plot;
       std::string m_plotOutline;
       int m_channelId;

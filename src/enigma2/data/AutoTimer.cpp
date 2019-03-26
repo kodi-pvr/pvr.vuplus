@@ -159,12 +159,15 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
       {
         m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 
-        // Skip autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
+        // For autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
+        // we'll default to any channel (as that is what kodi PVR does) and leave in ERROR state
         if (m_channelId == PVR_CHANNEL_INVALID_UID)
         {
           m_state = PVR_TIMER_STATE_ERROR;
           Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __FUNCTION__);
           m_channelName = LocalizedString(30520); // Invalid Channel
+          m_channelId = PVR_TIMER_ANY_CHANNEL;
+          m_anyChannel = true;
         }
         else
         {

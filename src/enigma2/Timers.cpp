@@ -681,7 +681,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   if (it != m_timers.cend())
   {
     Timer oldTimer = *it;
-    const std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId())->GetServiceReference().c_str();
+
     Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
     Tags tags(oldTimer.GetTags());
@@ -721,7 +721,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime,
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(),
                                     WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.iWeekdays,
-                                    WebUtils::URLEncodeInline(strOldServiceReference).c_str(), oldTimer.GetRealStartTime(),
+                                    WebUtils::URLEncodeInline(oldTimer.GetServiceReference()).c_str(), oldTimer.GetRealStartTime(),
                                     oldTimer.GetRealEndTime());
 
     std::string strResult;
@@ -941,24 +941,30 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
 
-  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
+  {
+    return myTimer.GetClientIndex() == timer.iClientIndex;
+  });
 
-  time_t startTime, endTime;
-  startTime = timer.startTime - (timer.iMarginStart * 60);
-  endTime = timer.endTime + (timer.iMarginEnd * 60);
+  if (it != m_timers.cend())
+  {
+    Timer timerToDelete = *it;
 
-  const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
+    const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(timerToDelete.GetServiceReference()).c_str(), timerToDelete.GetRealStartTime(), timerToDelete.GetRealEndTime());
 
-  std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
-    return PVR_ERROR_SERVER_ERROR;
+    std::string strResult;
+    if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+      return PVR_ERROR_SERVER_ERROR;
 
-  if (timer.state == PVR_TIMER_STATE_RECORDING)
-    PVR->TriggerRecordingUpdate();
+    if (timer.state == PVR_TIMER_STATE_RECORDING)
+      PVR->TriggerRecordingUpdate();
 
-  TimerUpdates();
+    TimerUpdates();
 
-  return PVR_ERROR_NO_ERROR;
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return PVR_ERROR_SERVER_ERROR;
 }
 
 PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
