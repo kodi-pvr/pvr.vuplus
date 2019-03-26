@@ -978,13 +978,29 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
   {
     AutoTimer timerToDelete = *it;
 
+    //remove any child timers
+    bool childTimerIsRecording = false;
+    for (auto &childTimer : m_timers)
+    {
+      if (childTimer.GetParentClientIndex() == timerToDelete.GetClientIndex())
+      {
+        const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(childTimer.GetServiceReference()).c_str(), childTimer.GetRealStartTime(), childTimer.GetRealEndTime());
+
+        std::string strResult;
+        WebUtils::SendSimpleCommand(strTmp, strResult, true);
+
+        if (childTimer.GetState() == PVR_TIMER_STATE_RECORDING)
+          childTimerIsRecording = true;
+      }
+    }
+
     const std::string strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
       return PVR_ERROR_SERVER_ERROR;
 
-    if (timer.state == PVR_TIMER_STATE_RECORDING)
+    if (timer.state == PVR_TIMER_STATE_RECORDING || childTimerIsRecording)
       PVR->TriggerRecordingUpdate();
 
     TimerUpdates();
