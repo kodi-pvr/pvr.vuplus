@@ -25,6 +25,7 @@
 #include <ctime>
 #include <type_traits>
 
+#include "BaseEntry.h"
 #include "Tags.h"
 #include "../Channels.h"
 #include "../utilities/UpdateState.h"
@@ -41,7 +42,7 @@ namespace enigma2
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
     static const std::string TAG_FOR_PADDING = "Padding";
 
-    class Timer : public Tags
+    class Timer : public BaseEntry, public Tags
     {
     public:
 
@@ -66,14 +67,8 @@ namespace enigma2
       Type GetType() const { return m_type; }
       void SetType(const Type value ) { m_type = value; }
 
-      const std::string& GetTitle() const { return m_title; }
-      void SetTitle(const std::string& value ) { m_title = value; }
-
       const std::string& GetServiceReference() const { return m_serviceReference; }
       void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
-
-      const std::string& GetPlot() const { return m_plot; }
-      void SetPlot(const std::string& value ) { m_plot = value; }
 
       int GetChannelId() const { return m_channelId; }
       void SetChannelId(int value) { m_channelId = value; }
@@ -126,10 +121,7 @@ namespace enigma2
 
     protected:
       Type m_type = Type::MANUAL_ONCE;
-      std::string m_title;
       std::string m_serviceReference;
-      std::string m_plot;
-      std::string m_plotOutline;
       int m_channelId;
       std::string m_channelName;
       time_t m_startTime;
@@ -142,8 +134,6 @@ namespace enigma2
       unsigned int m_parentClientIndex;
       unsigned int m_paddingStartMins = 0;
       unsigned int m_paddingEndMins = 0;
-      int m_genreType = 0;
-      int m_genreSubType = 0;
     };
   } //namespace data
 } //namespace enigma2

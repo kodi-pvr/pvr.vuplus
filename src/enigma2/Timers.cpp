@@ -74,6 +74,9 @@ std::vector<Timer> Timers::LoadTimers() const
     if (!newTimer.UpdateFrom(pNode, m_channels))
       continue;
 
+    if (m_entryExtractor.IsEnabled())
+      m_entryExtractor.ExtractFromEntry(newTimer);
+
     timers.emplace_back(newTimer);
 
     if ((newTimer.GetType() == Timer::MANUAL_REPEATING || newTimer.GetType() == Timer::EPG_REPEATING)
