@@ -91,10 +91,17 @@ void Timer::UpdateTo(PVR_TIMER &left) const
   left.iEpgUid             = m_epgId;
   left.iMarginStart        = m_paddingStartMins;
   left.iMarginEnd          = m_paddingEndMins;
-  left.iGenreType          = 0;     // unused
-  left.iGenreSubType       = 0;     // unused
   left.iClientIndex        = m_clientIndex;
   left.iParentClientIndex  = m_parentClientIndex;
+  left.iGenreType          = m_genreType;
+  left.iGenreSubType       = m_genreSubType;
+  strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription));
+  strncpy(left.strPlotOutline, m_plotOutline.c_str(), sizeof(left.strPlotOutline));
+  strncpy(left.strPlot, m_plot.c_str(), sizeof(left.strPlot));
+  left.iYear = m_year;
+  left.iSeriesNumber = m_seasonNumber;
+  left.iEpisodeNumber = m_episodeNumber;
+  left.iEpisodePartNumber = m_episodePartNumber;
 }
 
 bool Timer::IsScheduled() const
