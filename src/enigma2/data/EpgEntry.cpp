@@ -110,7 +110,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
     m_plot = strTmp;
 
   if (XMLUtils::GetString(eventNode, "e2eventdescription", strTmp))
-      m_plotOutline = strTmp;
+    m_plotOutline = strTmp;
 
   ProcessPrependMode(PrependOutline::IN_EPG);
 

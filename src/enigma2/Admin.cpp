@@ -58,7 +58,7 @@ void Admin::SendPowerstate()
 
 bool Admin::Initialise()
 {
-  std::string unknown = LocalizedString(60081).c_str();
+  std::string unknown = LocalizedString(30081).c_str();
   SetCharString(m_serverName, unknown);
   SetCharString(m_serverVersion, unknown);
 
@@ -142,7 +142,7 @@ bool Admin::LoadDeviceInfo()
   if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_NOTICE, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
-    strTmp = LocalizedString(60081); //unknown
+    strTmp = LocalizedString(30081); //unknown
   }
   else
   {

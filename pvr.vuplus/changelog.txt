@@ -1,3 +1,11 @@
+v3.22.0
+- Added: Help info for addon settings
+- Added: Delete child timers when deleting autotimers
+- Added: Set max connection check interval to 60 seconds
+- Fixed: Incorrect localisation IDs
+- Fixed: Timers in error state cause crash on delete
+- Added: Support show info fields for Timers
+
 v3.21.0
 - Added: Support Edit Recording name, last played and play count
 - Fixed: Use v3.6.1 of nlohmann/json to relax cmake version dependency for OSMC, fixes #194

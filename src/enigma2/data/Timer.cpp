@@ -36,6 +36,15 @@ bool Timer::operator==(const Timer &right) const
   isEqual &= (m_title == right.m_title);
   isEqual &= (m_plot == right.m_plot);
   isEqual &= (m_tags == right.m_tags);
+  isEqual &= (m_plotOutline == right.m_plotOutline);
+  isEqual &= (m_plot == right.m_plot);
+  isEqual &= (m_genreType == right.m_genreType);
+  isEqual &= (m_genreSubType == right.m_genreSubType);
+  isEqual &= (m_genreDescription == right.m_genreDescription);
+  isEqual &= (m_episodeNumber == right.m_episodeNumber);
+  isEqual &= (m_episodePartNumber == right.m_episodePartNumber);
+  isEqual &= (m_seasonNumber == right.m_seasonNumber);
+  isEqual &= (m_year == right.m_year);
 
   return isEqual;
 }
@@ -54,6 +63,15 @@ void Timer::UpdateFrom(const Timer &right)
   m_state = right.m_state;
   m_paddingStartMins = right.m_paddingStartMins;
   m_paddingEndMins = right.m_paddingEndMins;
+  m_plotOutline = right.m_plotOutline;
+  m_plot = right.m_plot;
+  m_genreType = right.m_genreType;
+  m_genreSubType = right.m_genreSubType;
+  m_genreDescription = right.m_genreDescription;
+  m_episodeNumber = right.m_episodeNumber;
+  m_episodePartNumber = right.m_episodePartNumber;
+  m_seasonNumber = right.m_seasonNumber;
+  m_year = right.m_year;
 }
 
 void Timer::UpdateTo(PVR_TIMER &left) const
@@ -157,7 +175,10 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   m_title = strTmp;
 
   if (XMLUtils::GetString(timerNode, "e2servicereference", strTmp))
+  {
+    m_serviceReference = strTmp;
     m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
+  }
 
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
   if (m_channelId == PVR_CHANNEL_INVALID_UID)
@@ -180,10 +201,10 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
 
   m_endTime = iTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2description", strTmp))
+  if (XMLUtils::GetString(timerNode, "e2descriptionextended", strTmp))
     m_plot = strTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2descriptionextended", strTmp))
+  if (XMLUtils::GetString(timerNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
   // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them

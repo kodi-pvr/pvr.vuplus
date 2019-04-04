@@ -74,6 +74,9 @@ std::vector<Timer> Timers::LoadTimers() const
     if (!newTimer.UpdateFrom(pNode, m_channels))
       continue;
 
+    if (m_entryExtractor.IsEnabled())
+      m_entryExtractor.ExtractFromEntry(newTimer);
+
     timers.emplace_back(newTimer);
 
     if ((newTimer.GetType() == Timer::MANUAL_REPEATING || newTimer.GetType() == Timer::EPG_REPEATING)
@@ -244,7 +247,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       if ((iRecordingGroupSize = groupValues.size()))
         iRecordingGroupDefault = groupValues[0].first;
       i = 0;
-      for (auto &group : groupValues)
+      for (const auto &group : groupValues)
       {
         recordingGroup[i].iValue = group.first;
         strncpy(recordingGroup[i].strDescription, group.second.c_str(), sizeof(recordingGroup[i].strDescription) - 1);
@@ -254,7 +257,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       if ((iPreventDuplicateEpisodesSize = deDupValues.size()))
         iPreventDuplicateEpisodesDefault = preventDuplicateEpisodesDefault;
       i = 0;
-      for (auto &deDup : deDupValues)
+      for (const auto &deDup : deDupValues)
       {
         preventDuplicateEpisodes[i].iValue = deDup.first;
         strncpy(preventDuplicateEpisodes[i].strDescription, deDup.second.c_str(), sizeof(preventDuplicateEpisodes[i].strDescription) - 1);
@@ -267,7 +270,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   std::vector<std::pair<int, std::string>> groupValues = {
     { 0, LocalizedString(30410) }, //automatic
   };
-  for (auto &recf : m_locations)
+  for (const auto &recf : m_locations)
     groupValues.emplace_back(groupValues.size(), recf);
 
   /* One-shot manual (time and channel based) */
@@ -673,7 +676,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
 
   const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
-  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
+  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [&timer](const Timer& myTimer)
   {
     return myTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -681,7 +684,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
   if (it != m_timers.cend())
   {
     Timer oldTimer = *it;
-    const std::string strOldServiceReference = m_channels.GetChannel(oldTimer.GetChannelId())->GetServiceReference().c_str();
+
     Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
 
     Tags tags(oldTimer.GetTags());
@@ -721,7 +724,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime,
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(),
                                     WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.iWeekdays,
-                                    WebUtils::URLEncodeInline(strOldServiceReference).c_str(), oldTimer.GetRealStartTime(),
+                                    WebUtils::URLEncodeInline(oldTimer.GetServiceReference()).c_str(), oldTimer.GetRealStartTime(),
                                     oldTimer.GetRealEndTime());
 
     std::string strResult;
@@ -749,7 +752,7 @@ std::string Timers::RemovePaddingTag(std::string tag)
 
 PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
 {
-  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
+  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
     return autoTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -941,29 +944,35 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
 
-  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [&timer](const Timer& myTimer)
+  {
+    return myTimer.GetClientIndex() == timer.iClientIndex;
+  });
 
-  time_t startTime, endTime;
-  startTime = timer.startTime - (timer.iMarginStart * 60);
-  endTime = timer.endTime + (timer.iMarginEnd * 60);
+  if (it != m_timers.cend())
+  {
+    Timer timerToDelete = *it;
 
-  const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime);
+    const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(timerToDelete.GetServiceReference()).c_str(), timerToDelete.GetRealStartTime(), timerToDelete.GetRealEndTime());
 
-  std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
-    return PVR_ERROR_SERVER_ERROR;
+    std::string strResult;
+    if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+      return PVR_ERROR_SERVER_ERROR;
 
-  if (timer.state == PVR_TIMER_STATE_RECORDING)
-    PVR->TriggerRecordingUpdate();
+    if (timer.state == PVR_TIMER_STATE_RECORDING)
+      PVR->TriggerRecordingUpdate();
 
-  TimerUpdates();
+    TimerUpdates();
 
-  return PVR_ERROR_NO_ERROR;
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return PVR_ERROR_SERVER_ERROR;
 }
 
 PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
 {
-  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
+  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
     return autoTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -972,13 +981,29 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
   {
     AutoTimer timerToDelete = *it;
 
+    //remove any child timers
+    bool childTimerIsRecording = false;
+    for (const auto &childTimer : m_timers)
+    {
+      if (childTimer.GetParentClientIndex() == timerToDelete.GetClientIndex())
+      {
+        const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(childTimer.GetServiceReference()).c_str(), childTimer.GetRealStartTime(), childTimer.GetRealEndTime());
+
+        std::string strResult;
+        WebUtils::SendSimpleCommand(strTmp, strResult, true);
+
+        if (childTimer.GetState() == PVR_TIMER_STATE_RECORDING)
+          childTimerIsRecording = true;
+      }
+    }
+
     const std::string strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
       return PVR_ERROR_SERVER_ERROR;
 
-    if (timer.state == PVR_TIMER_STATE_RECORDING)
+    if (timer.state == PVR_TIMER_STATE_RECORDING || childTimerIsRecording)
       PVR->TriggerRecordingUpdate();
 
     TimerUpdates();

@@ -10,6 +10,7 @@
 #include "Epg.h"
 #include "data/AutoTimer.h"
 #include "data/Timer.h"
+#include "extract/EpgEntryExtractor.h"
 
 #include "libXBMC_pvr.h"
 #include "tinyxml.h"
@@ -19,8 +20,8 @@ namespace enigma2
   class Timers
   {
   public:
-    Timers(Channels &channels, ChannelGroups &channelGroups, std::vector<std::string> &locations, Epg &epg)
-      : m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg)
+    Timers(Channels &channels, ChannelGroups &channelGroups, std::vector<std::string> &locations, Epg &epg, enigma2::extract::EpgEntryExtractor &entryExtractor)
+      : m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg), m_entryExtractor(entryExtractor)
     {
       m_clientIndexCounter = 1;
     };
@@ -71,6 +72,8 @@ namespace enigma2
     // members
     unsigned int m_clientIndexCounter;
     std::vector<std::atomic_bool*> m_timerChangeWatchers;
+
+    enigma2::extract::EpgEntryExtractor &m_entryExtractor;
 
     enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
     std::vector<enigma2::data::Timer> m_timers;
