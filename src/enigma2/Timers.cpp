@@ -247,7 +247,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       if ((iRecordingGroupSize = groupValues.size()))
         iRecordingGroupDefault = groupValues[0].first;
       i = 0;
-      for (auto &group : groupValues)
+      for (const auto &group : groupValues)
       {
         recordingGroup[i].iValue = group.first;
         strncpy(recordingGroup[i].strDescription, group.second.c_str(), sizeof(recordingGroup[i].strDescription) - 1);
@@ -257,7 +257,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       if ((iPreventDuplicateEpisodesSize = deDupValues.size()))
         iPreventDuplicateEpisodesDefault = preventDuplicateEpisodesDefault;
       i = 0;
-      for (auto &deDup : deDupValues)
+      for (const auto &deDup : deDupValues)
       {
         preventDuplicateEpisodes[i].iValue = deDup.first;
         strncpy(preventDuplicateEpisodes[i].strDescription, deDup.second.c_str(), sizeof(preventDuplicateEpisodes[i].strDescription) - 1);
@@ -270,7 +270,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   std::vector<std::pair<int, std::string>> groupValues = {
     { 0, LocalizedString(30410) }, //automatic
   };
-  for (auto &recf : m_locations)
+  for (const auto &recf : m_locations)
     groupValues.emplace_back(groupValues.size(), recf);
 
   /* One-shot manual (time and channel based) */
@@ -676,7 +676,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
 
   const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
-  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
+  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [&timer](const Timer& myTimer)
   {
     return myTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -752,7 +752,7 @@ std::string Timers::RemovePaddingTag(std::string tag)
 
 PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
 {
-  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
+  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
     return autoTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -944,7 +944,7 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
 
-  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [timer](const Timer& myTimer)
+  const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [&timer](const Timer& myTimer)
   {
     return myTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -972,7 +972,7 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
 
 PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
 {
-  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [timer](const AutoTimer& autoTimer)
+  const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
     return autoTimer.GetClientIndex() == timer.iClientIndex;
   });
@@ -983,7 +983,7 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
 
     //remove any child timers
     bool childTimerIsRecording = false;
-    for (auto &childTimer : m_timers)
+    for (const auto &childTimer : m_timers)
     {
       if (childTimer.GetParentClientIndex() == timerToDelete.GetClientIndex())
       {
