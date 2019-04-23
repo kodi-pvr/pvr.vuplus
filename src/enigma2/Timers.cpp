@@ -1127,6 +1127,9 @@ bool Timers::TimerUpdatesRegular()
 
   Logger::Log(LEVEL_DEBUG, "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
 
+  std::vector<EpgEntry> timerBaseEntries(m_timers.begin(), m_timers.end());
+  m_epg.UpdateTimerEPGFallbackEntries(timerBaseEntries);
+
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }
 

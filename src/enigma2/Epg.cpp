@@ -20,13 +20,15 @@ using namespace enigma2::utilities;
 using namespace P8PLATFORM;
 using json = nlohmann::json;
 
-Epg::Epg(enigma2::extract::EpgEntryExtractor &entryExtractor)
-      : m_entryExtractor(entryExtractor) {}
+Epg::Epg(enigma2::extract::EpgEntryExtractor &entryExtractor, int epgMaxDays)
+      : m_entryExtractor(entryExtractor), m_epgMaxDays(epgMaxDays) {}
 
 Epg::Epg(const Epg &epg) : m_entryExtractor(epg.m_entryExtractor) {}
 
 bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups)
 {
+  m_epgMaxDaysSeconds = m_epgMaxDays * 24 * 60 * 60;
+
   auto started = std::chrono::high_resolution_clock::now();
   Logger::Log(LEVEL_DEBUG, "%s Initial EPG Load Start", __FUNCTION__);
 
@@ -245,6 +247,8 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceR
       Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __FUNCTION__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
     }
 
+    iNumEPG += TransferTimerBasedEntries(handle, epgChannel->GetUniqueId());
+
     Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for channel '%s'", __FUNCTION__, iNumEPG, epgChannel->GetChannelName().c_str());
   }
   else
@@ -270,6 +274,8 @@ PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shar
 
   epgChannel->GetInitialEPG().clear();
   m_readInitialEpgChannelsMap.erase(epgChannel->GetServiceReference());
+
+  TransferTimerBasedEntries(handle, epgChannel->GetUniqueId());
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -520,4 +526,42 @@ bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 
   Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for group '%s'", __FUNCTION__, iNumEPG, group->GetGroupName().c_str());
   return true;
+}
+
+void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry> &timerBasedEntries)
+{
+  CLockObject lock(m_mutex);
+  time_t now = time(nullptr);
+  time_t until = now + m_epgMaxDaysSeconds;
+
+  m_timerBasedEntries.clear();
+
+  for (auto& timerBasedEntry : timerBasedEntries)
+  {
+    if (timerBasedEntry.GetEndTime() < now || timerBasedEntry.GetEndTime() > until)
+      m_timerBasedEntries.emplace_back(timerBasedEntry);
+  }
+}
+
+int Epg::TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId)
+{
+  int numTransferred = 0;
+
+  CLockObject lock(m_mutex);
+  for (auto& timerBasedEntry : m_timerBasedEntries)
+  {
+    if (epgChannelId == timerBasedEntry.GetChannelId())
+    {
+      EPG_TAG broadcast;
+      memset(&broadcast, 0, sizeof(EPG_TAG));
+
+      timerBasedEntry.UpdateTo(broadcast);
+
+      PVR->TransferEpgEntry(handle, &broadcast);
+
+      numTransferred++;
+    }
+  }
+
+  return numTransferred;
 }
