@@ -72,6 +72,9 @@ For more detailed info on logging please see the appendix [here](#logging-detail
 
 ## Configuring the addon
 
+### Settings Levels
+In Kodi 18.2 the level of settings shown will correspond to the level set in the main kodi settings UI: `Basic`, `Standard`, `Advanced` and `Expert`. From Kodi 19 it will be possible to change the settingds level from within the addon settings itself.
+
 ### Connection
 Within this tab the connection options need to be configured before it can be successfully enabled.
 
