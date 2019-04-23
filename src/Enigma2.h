@@ -77,7 +77,7 @@ public:
   PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
   int GetChannelsAmount(void) const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
-  PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
+  PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd);
 
   //live streams, recordings and Timers
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);

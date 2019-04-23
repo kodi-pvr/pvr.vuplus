@@ -29,7 +29,6 @@ void EpgEntry::UpdateTo(EPG_TAG &left) const
   left.firstAired          = 0;  // unused
   left.iParentalRating     = 0;  // unused
   left.iStarRating         = 0;  // unused
-  left.bNotify             = false;
   left.iSeriesNumber       = m_seasonNumber;
   left.iEpisodeNumber      = m_episodeNumber;
   left.iEpisodePartNumber  = m_episodePartNumber;
