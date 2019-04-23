@@ -45,7 +45,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-Enigma2::Enigma2()
+Enigma2::Enigma2(PVR_PROPERTIES *pvrProps) : m_epgMaxDays(pvrProps->iEpgMaxDays)
 {
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
 

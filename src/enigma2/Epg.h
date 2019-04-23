@@ -43,7 +43,7 @@ namespace enigma2
   class Epg
   {
   public:
-    Epg(enigma2::extract::EpgEntryExtractor &entryExtractor);
+    Epg(enigma2::extract::EpgEntryExtractor &entryExtractor, int epgMaxDays);
     Epg(const enigma2::Epg& epg);
 
     bool Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups);
@@ -55,6 +55,7 @@ namespace enigma2
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string &serviceReference, unsigned int epgUid);
     std::string FindServiceReference(const std::string &title, int epgUid, time_t startTime, time_t endTime) const;
+    void UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry> &timerBasedEntries);
 
   private:
     PVR_ERROR TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<data::EpgChannel> &epgChannel, time_t iStart, time_t iEnd);
@@ -64,14 +65,21 @@ namespace enigma2
     bool InitialEpgLoadedForChannel(const std::string &serviceReference);
     bool InitialEpgReadForChannel(const std::string &serviceReference);
     std::shared_ptr<data::EpgChannel> GetEpgChannelNeedingInitialEpg(const std::string &serviceReference);
+    int TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId);
 
     enigma2::extract::EpgEntryExtractor &m_entryExtractor;
 
     bool m_initialEpgReady = false;
+    int m_epgMaxDays;
+    long m_epgMaxDaysSeconds;
 
     std::vector<std::shared_ptr<data::EpgChannel>> m_epgChannels;
     std::map<std::string, std::shared_ptr<data::EpgChannel>> m_epgChannelsMap;
     std::map<std::string, std::shared_ptr<data::EpgChannel>> m_readInitialEpgChannelsMap;
     std::map<std::string, std::shared_ptr<data::EpgChannel>> m_needsInitialEpgChannelsMap;
+
+    std::vector<data::EpgEntry> m_timerBasedEntries;
+
+    mutable P8PLATFORM::CMutex m_mutex;
   };
 } //namespace enigma2
