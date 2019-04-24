@@ -406,7 +406,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
  * EPG
  **************************************************************************/
 
-PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
 {
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
     Sleep(m_settings.GetEPGDelayPerChannelDelay());
@@ -416,13 +416,13 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
   {
     CLockObject lock(m_mutex);
 
-    if (!m_channels.IsValid(channel.iUniqueId))
+    if (!m_channels.IsValid(iChannelUid))
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, channel.iUniqueId);
+      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, iChannelUid);
       return PVR_ERROR_SERVER_ERROR;
     }
 
-    myChannel = m_channels.GetChannel(channel.iUniqueId);
+    myChannel = m_channels.GetChannel(iChannelUid);
   }
 
   if (m_skipInitialEpgLoad)

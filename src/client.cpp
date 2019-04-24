@@ -307,12 +307,12 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &g
  * EPG and Channels
  **************************************************************************/
 
-PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return enigma->GetEPGForChannel(handle, channel, iStart, iEnd);
+  return enigma->GetEPGForChannel(handle, iChannelUid, iStart, iEnd);
 }
 
 int GetChannelsAmount(void)
@@ -412,11 +412,6 @@ long long SeekLiveStream(long long position, int whence)
 long long LengthLiveStream(void)
 {
   return (streamReader) ? streamReader->Length() : -1;
-}
-
-bool IsTimeshifting(void)
-{
-  return (streamReader && streamReader->IsTimeshifting());
 }
 
 PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
@@ -639,6 +634,7 @@ PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_E
 PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxAbort(void) { return; }
 DemuxPacket* DemuxRead(void) { return nullptr; }
+void FillBuffer(bool mode) {}
 PVR_ERROR OpenDialogChannelScan(void) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR CallMenuHook(const PVR_MENUHOOK &menuhook, const PVR_MENUHOOK_DATA &item) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR DeleteChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
