@@ -47,7 +47,7 @@ namespace enigma2
       Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
         m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
-        m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()) {};
+        m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
@@ -77,6 +77,9 @@ namespace enigma2
       const std::string& GetFuzzyChannelName() const { return m_fuzzyChannelName; }
       void SetFuzzyChannelName(const std::string& value ) { m_fuzzyChannelName = value; }
 
+      bool UsingDefaultChannelNumber() const { return m_usingDefaultChannelNumber; }
+      void SetUsingDefaultChannelNumber(bool value) { m_usingDefaultChannelNumber = value; }
+
       bool UpdateFrom(TiXmlElement* channelNode);
       void UpdateTo(PVR_CHANNEL &left) const;
 
@@ -88,15 +91,16 @@ namespace enigma2
       bool operator!=(const Channel &right) const;
 
       static std::string NormaliseServiceReference(const std::string &serviceReference);
+      static std::string CreateStandardServiceReference(const std::string &serviceReference);
 
     private:
-      static std::string CreateStandardServiceReference(const std::string &serviceReference);
       static std::string CreateCommonServiceReference(const std::string &serviceReference);
       std::string CreateGenericServiceReference(const std::string &commonServiceReference);
       std::string CreateIconPath(const std::string &commonServiceReference);
       bool HasRadioServiceType();
 
       int m_channelNumber;
+      bool m_usingDefaultChannelNumber = true;
       std::string m_standardServiceReference;
       std::string m_extendedServiceReference;
       std::string m_genericServiceReference;
