@@ -200,7 +200,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());
 
-  if (Settings::GetInstance().SupportsProviderAndPiconForChannels())
+  if (Settings::GetInstance().SupportsProviderNumberAndPiconForChannels())
   {
     //We can use the JSON API so let's supplement the data with provider information
 
@@ -217,7 +217,13 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
         {
           auto jsonChannel = it.value();
 
-          auto channel = GetChannel(jsonChannel["servicereference"].get<std::string>());
+          std::string serviceReference = jsonChannel["servicereference"].get<std::string>();
+          if (Settings::GetInstance().UseStandardServiceReference())
+          {
+            serviceReference = Channel::CreateStandardServiceReference(serviceReference);
+          }
+
+          auto channel = GetChannel(serviceReference);
 
           if (channel)
           {
@@ -225,6 +231,13 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
             {
               Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());
               channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
+            }
+
+            if (!jsonChannel["pos"].empty() && channel->UsingDefaultChannelNumber())
+            {
+              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["pos"].get<int>());
+              channel->SetChannelNumber(jsonChannel["pos"].get<int>());
+              channel->SetUsingDefaultChannelNumber(false);
             }
 
             if (Settings::GetInstance().UseOpenWebIfPiconPath())

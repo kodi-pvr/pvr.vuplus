@@ -12,6 +12,7 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Full Tuner Signal Support (Including Service Providers)
 * Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 * Edit recording name, last played position and play count for recordings
+* Bouquet Backend Channel Numbers
 
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv)
