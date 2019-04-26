@@ -235,8 +235,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceR
       if (m_entryExtractor.IsEnabled())
         m_entryExtractor.ExtractFromEntry(entry);
 
-      EPG_TAG broadcast;
-      memset(&broadcast, 0, sizeof(EPG_TAG));
+      EPG_TAG broadcast = {0};
 
       entry.UpdateTo(broadcast);
 
@@ -264,8 +263,7 @@ PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shar
 {
   for (const auto& entry : epgChannel->GetInitialEPG())
   {
-    EPG_TAG broadcast;
-    memset(&broadcast, 0, sizeof(EPG_TAG));
+    EPG_TAG broadcast = {0};
 
     entry.UpdateTo(broadcast);
 
@@ -552,8 +550,7 @@ int Epg::TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId)
   {
     if (epgChannelId == timerBasedEntry.GetChannelId())
     {
-      EPG_TAG broadcast;
-      memset(&broadcast, 0, sizeof(EPG_TAG));
+      EPG_TAG broadcast = {0};
 
       timerBasedEntry.UpdateTo(broadcast);
 

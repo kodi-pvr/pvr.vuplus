@@ -25,8 +25,7 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) 
     if (channel->IsRadio() == bRadio)
     {
       Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d'", __FUNCTION__, channel->GetChannelName().c_str(), channel->GetUniqueId());
-      PVR_CHANNEL kodiChannel;
-      memset(&kodiChannel, 0, sizeof(PVR_CHANNEL));
+      PVR_CHANNEL kodiChannel = {0};
 
       channel->UpdateTo(kodiChannel);
 

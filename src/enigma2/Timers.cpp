@@ -420,8 +420,7 @@ void Timers::GetTimers(std::vector<PVR_TIMER> &timers) const
   for (const auto& timer : m_timers)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.GetTitle().c_str(), timer.GetClientIndex());
-    PVR_TIMER tag;
-    memset(&tag, 0, sizeof(PVR_TIMER));
+    PVR_TIMER tag = {0};
 
     timer.UpdateTo(tag);
 
@@ -434,8 +433,7 @@ void Timers::GetAutoTimers(std::vector<PVR_TIMER> &timers) const
   for (const auto& autoTimer : m_autotimers)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.GetTitle().c_str(), autoTimer.GetClientIndex());
-    PVR_TIMER tag;
-    memset(&tag, 0, sizeof(PVR_TIMER));
+    PVR_TIMER tag = {0};
 
     autoTimer.UpdateTo(tag);
 

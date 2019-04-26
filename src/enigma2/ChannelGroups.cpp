@@ -26,8 +26,7 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannel
 
     if (channelGroup->IsRadio() == radio)
     {
-      PVR_CHANNEL_GROUP kodiChannelGroup;
-      memset(&kodiChannelGroup, 0 , sizeof(PVR_CHANNEL_GROUP));
+      PVR_CHANNEL_GROUP kodiChannelGroup = {0};
 
       channelGroup->UpdateTo(kodiChannelGroup);
 
@@ -57,8 +56,7 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
   for (const auto& channel : channelGroup->GetChannelList())
   {
-    PVR_CHANNEL_GROUP_MEMBER tag;
-    memset(&tag,0 , sizeof(PVR_CHANNEL_GROUP_MEMBER));
+    PVR_CHANNEL_GROUP_MEMBER tag = {0};
 
     strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName));
     tag.iChannelUniqueId = channel->GetUniqueId();
