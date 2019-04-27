@@ -1,3 +1,6 @@
+v4.1.1
+- Fixed: Valid XML in addon.xml
+
 v4.1.0
 - Added: Support settings levels via the current kodi settings level
 - Added: Fallback EPG Entries for Timers
