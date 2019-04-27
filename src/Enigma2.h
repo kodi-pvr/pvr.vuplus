@@ -54,7 +54,7 @@
 class Enigma2  : public P8PLATFORM::CThread, public enigma2::IConnectionListener
 {
 public:
-  Enigma2();
+  Enigma2(PVR_PROPERTIES *pvrProps);
   ~Enigma2();
 
   // IConnectionListener implementation
@@ -121,12 +121,13 @@ private:
   std::atomic_bool m_dueRecordingUpdate{true};
   time_t m_lastSignalStatusUpdateSeconds;
   bool m_skipInitialEpgLoad;
+  int m_epgMaxDays;
 
   enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
   enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg = enigma2::Epg(m_entryExtractor);
+  enigma2::Epg m_epg = enigma2::Epg(m_entryExtractor, m_epgMaxDays);
   enigma2::Timers m_timers = enigma2::Timers(m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor);
   enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;

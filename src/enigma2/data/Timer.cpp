@@ -207,6 +207,9 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
   if (XMLUtils::GetString(timerNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
+  if (m_plot == "N/A")
+    m_plot.clear();
+
   // Some providers only use PlotOutline (e.g. freesat) and Kodi does not display it, if this is the case swap them
   if (m_plot.empty())
   {

@@ -63,7 +63,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!hdl || !props)
     return m_currentStatus;
 
-  PVR_PROPERTIES* pvrprops = (PVR_PROPERTIES*)props;
+  PVR_PROPERTIES* pvrProps = reinterpret_cast<PVR_PROPERTIES*>(props);
 
   XBMC = new CHelper_libXBMC_addon;
   if (!XBMC->RegisterMe(hdl))
@@ -123,7 +123,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   settings.ReadFromAddon();
 
-  enigma = new Enigma2();
+  enigma = new Enigma2(pvrProps);
   enigma->Start();
 
   m_currentStatus = ADDON_STATUS_OK;

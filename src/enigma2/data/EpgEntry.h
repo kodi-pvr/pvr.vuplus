@@ -37,8 +37,8 @@ namespace enigma2
     class EpgEntry : public BaseEntry
     {
     public:
-      int GetEventId() const { return m_eventId; }
-      void SetEventId(int value) { m_eventId = value; }
+      unsigned int GetEpgId() const { return m_epgId; }
+      void SetEpgId(int value) { m_epgId = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
       void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
@@ -56,8 +56,8 @@ namespace enigma2
       bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>> &m_epgChannelsMap);
       bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel> &epgChannel, time_t iStart, time_t iEnd);
 
-    private:
-      int m_eventId;
+    protected:
+      unsigned int m_epgId;
       std::string m_serviceReference;
       int m_channelId;
       time_t m_startTime;

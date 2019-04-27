@@ -34,8 +34,7 @@ void Recordings::GetRecordings(std::vector<PVR_RECORDING> &kodiRecordings)
   for (auto& recording : m_recordings)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer recording '%s', Recording Id '%s'", __FUNCTION__, recording.GetTitle().c_str(), recording.GetRecordingId().c_str());
-    PVR_RECORDING kodiRecording;
-    memset(&kodiRecording, 0, sizeof(PVR_RECORDING));
+    PVR_RECORDING kodiRecording = {0};
 
     recording.UpdateTo(kodiRecording, m_channels, IsInRecordingFolder(recording.GetTitle()));
 
