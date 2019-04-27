@@ -21,3 +21,6 @@ pvr.vuplus/addon.xml
 .cproject
 .project
 .settings/
+
+# VSCode
+.vscode

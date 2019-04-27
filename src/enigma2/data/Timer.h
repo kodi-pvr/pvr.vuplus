@@ -42,7 +42,7 @@ namespace enigma2
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
     static const std::string TAG_FOR_PADDING = "Padding";
 
-    class Timer : public BaseEntry, public Tags
+    class Timer : public EpgEntry, public Tags
     {
     public:
 
@@ -121,13 +121,8 @@ namespace enigma2
 
     protected:
       Type m_type = Type::MANUAL_ONCE;
-      std::string m_serviceReference;
-      int m_channelId;
       std::string m_channelName;
-      time_t m_startTime;
-      time_t m_endTime;
       int m_weekdays;
-      unsigned int m_epgId;
       PVR_TIMER_STATE m_state;
       int m_updateState;
       unsigned int m_clientIndex;

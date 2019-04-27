@@ -12,6 +12,7 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Full Tuner Signal Support (Including Service Providers)
 * Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 * Edit recording name, last played position and play count for recordings
+* Bouquet Backend Channel Numbers
 
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv)
@@ -71,6 +72,9 @@ When reporting issues a debug log should always be supplied. You can use the fol
 For more detailed info on logging please see the appendix [here](#logging-detailed)
 
 ## Configuring the addon
+
+### Settings Levels
+In Kodi 18.2 the level of settings shown will correspond to the level set in the main kodi settings UI: `Basic`, `Standard`, `Advanced` and `Expert`. From Kodi 19 it will be possible to change the settingds level from within the addon settings itself.
 
 ### Connection
 Within this tab the connection options need to be configured before it can be successfully enabled.

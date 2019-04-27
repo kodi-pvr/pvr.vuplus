@@ -9,7 +9,7 @@ using namespace enigma2::utilities;
 
 void EpgEntry::UpdateTo(EPG_TAG &left) const
 {
-  left.iUniqueBroadcastId  = m_eventId;
+  left.iUniqueBroadcastId  = m_epgId;
   left.strTitle            = m_title.c_str();
   left.iUniqueChannelId    = m_channelId;
   left.startTime           = m_startTime;
@@ -91,7 +91,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
   if (!XMLUtils::GetInt(eventNode, "e2eventid", iTmp))
     return false;
 
-  m_eventId = iTmp;
+  m_epgId = iTmp;
   m_channelId = epgChannel->GetUniqueId();
 
   if(!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
@@ -102,7 +102,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
   m_serviceReference = epgChannel->GetServiceReference().c_str();
 
   // Check that it's not an empty record
-  if (m_eventId == 0 && m_title == "None")
+  if (m_epgId == 0 && m_title == "None")
     return false;
 
   if (XMLUtils::GetString(eventNode, "e2eventdescriptionextended", strTmp))
