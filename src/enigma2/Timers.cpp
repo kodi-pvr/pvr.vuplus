@@ -512,11 +512,18 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
     {
       foundEntry = true;
 
-      /* Note that plot (log desc) is automatically written to a timer entry by the backend
-         therefore we only need to send outline as description to preserve both */
+      /* Note that plot (long desc) is automatically written to a timer entry by the backend
+         therefore we only need to send outline as description to preserve both.
+         Once a timer completes, long description will be cleared so if description
+         is not populated we set it to the value of long description
+         */
       title = partialEntry.GetTitle();
       description = partialEntry.GetPlotOutline();
       epgUid = partialEntry.GetEpgUid();
+
+      // Very important for providers that only use the plot field.
+      if (description.empty())
+        description = partialEntry.GetPlot();
 
       tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType()));
     }
