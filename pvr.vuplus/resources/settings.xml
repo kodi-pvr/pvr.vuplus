@@ -85,7 +85,7 @@
       <group id="4" label="30020">
         <setting id="connectionchecktimeout" type="integer" label="30121" help="30610">
           <level>3</level>
-          <default>10</default>
+          <default>30</default>
           <constraints>
             <minimum>10</minimum>
             <step>10</step>
@@ -98,7 +98,7 @@
         </setting>
         <setting id="connectioncheckinterval" type="integer" label="30122" help="30611">
           <level>3</level>
-          <default>1</default>
+          <default>10</default>
           <constraints>
             <minimum>1</minimum>
             <step>1</step>

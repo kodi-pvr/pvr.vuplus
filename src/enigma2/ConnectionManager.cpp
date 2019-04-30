@@ -34,10 +34,6 @@ using namespace P8PLATFORM;
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-#define FAST_RECONNECT_ATTEMPTS     (5)
-#define FAST_RECONNECT_INTERVAL   (500) // ms
-#define SLOW_RECONNECT_INTERVAL  (5000) // ms
-
 /*
  * Enigma2 Connection handler
  */
@@ -140,8 +136,8 @@ void* ConnectionManager::Process()
 {
   static bool log = false;
   static unsigned int retryAttempt = 0;
-  int fastReconnectIntervalMs = (Settings::GetInstance().GetConnectioncCheckTimeoutSecs() * 1000) / 2;
-  int intervalMs = Settings::GetInstance().GetConnectioncCheckTimeoutSecs() * 1000;
+  int fastReconnectIntervalMs = (Settings::GetInstance().GetConnectioncCheckIntervalSecs() * 1000) / 2;
+  int intervalMs = Settings::GetInstance().GetConnectioncCheckIntervalSecs() * 1000;
 
   while (!IsStopped())
   {
@@ -150,10 +146,10 @@ void* ConnectionManager::Process()
       Logger::Log(LogLevel::LEVEL_DEBUG, "%s - suspended, waiting for wakeup...", __FUNCTION__);
 
       /* Wait for wakeup */
-      Sleep(intervalMs);
+      SteppedSleep(intervalMs);
     }
 
-    const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
+    const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/currenttime");
 
     /* Connect */
     if (!WebUtils::CheckHttp(url))
@@ -165,9 +161,9 @@ void* ConnectionManager::Process()
 
       // Retry a few times with a short interval, after that with the default timeout
       if (++retryAttempt <= FAST_RECONNECT_ATTEMPTS)
-        Sleep(fastReconnectIntervalMs);
+        SteppedSleep(fastReconnectIntervalMs);
       else
-        Sleep(intervalMs);
+        SteppedSleep(intervalMs);
 
       continue;
     }
@@ -175,8 +171,21 @@ void* ConnectionManager::Process()
     SetState(PVR_CONNECTION_STATE_CONNECTED);
     retryAttempt = 0;
 
-    Sleep(intervalMs);
+    SteppedSleep(intervalMs);
   }
 
   return nullptr;
+}
+
+void ConnectionManager::SteppedSleep(int intervalMs)
+{
+  int sleepCountMs = 0;
+
+  while (sleepCountMs <= intervalMs)
+  {
+    if (!IsStopped())
+      Sleep(SLEEP_INTERVAL_STEP_MS);
+
+    sleepCountMs += SLEEP_INTERVAL_STEP_MS;
+  }
 }

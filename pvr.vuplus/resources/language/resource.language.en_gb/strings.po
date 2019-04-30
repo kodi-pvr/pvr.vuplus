@@ -832,12 +832,12 @@ msgstr ""
 
 #help: Connection - connectionchecktimeout
 msgctxt "#30610"
-msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices."
+msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
 msgstr ""
 
 #help: Connection - connectioncheckinterval
 msgctxt "#30611"
-msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices."
+msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
 msgstr ""
 
 #empty strings from id 30612 to 30619
