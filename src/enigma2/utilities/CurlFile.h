@@ -29,8 +29,6 @@ namespace enigma2
 {
   namespace utilities
   {
-    static const int CHECK_TIMEOUT_SECS = 10;
-
     class CurlFile
     {
     public:

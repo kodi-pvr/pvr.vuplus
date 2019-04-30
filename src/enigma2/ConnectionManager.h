@@ -30,6 +30,9 @@
 
 namespace enigma2
 {
+  static const int FAST_RECONNECT_ATTEMPTS = 5;
+  static const int SLEEP_INTERVAL_STEP_MS = 500;
+
   class IConnectionListener;
 
   class ConnectionManager : public P8PLATFORM::CThread
@@ -49,6 +52,7 @@ namespace enigma2
   private:
     void* Process() override;
     void SetState(PVR_CONNECTION_STATE state);
+    void SteppedSleep(int intervalMs);
 
     IConnectionListener& m_connectionListener;
     mutable P8PLATFORM::CMutex m_mutex;

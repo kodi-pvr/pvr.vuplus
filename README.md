@@ -88,8 +88,8 @@ Within this tab the connection options need to be configured before it can be su
 * **Streaming port**: This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface.
 * **Use secure HTTP (https) for streams**: Use https to connect to streams.
 * **Use login for streams**: Use the login username and password for streams.
-* **Connection check timeout**: The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices.
-* **Connection check interval**: The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices.
+* **Connection check timeout**: The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds.
+* **Connection check interval**: The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds.
 
 ### General
 Within this tab general options are configured.
@@ -224,7 +224,7 @@ Within this tab more uncommon and advanced options can be configured.
     - `Standby` - Send the standby command on exit
     - `Deep standby` - Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
-* **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds.
+* **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams. Default for live streams is 0. Default for timeshifting is 10 seconds.
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide.
 * **Enable debug logging in normal mode**: Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level.
 * **Enable trace logging in debug mode**: Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level.
