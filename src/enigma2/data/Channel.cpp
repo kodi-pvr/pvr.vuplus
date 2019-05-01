@@ -46,8 +46,8 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (!XMLUtils::GetString(channelNode, "e2servicereference", m_serviceReference))
     return false;
 
-  // Check whether the current element is not just a label
-  if (m_serviceReference.compare(0,5,"1:64:") == 0)
+  // Check whether the current element is not just a label or that it's not a hidden entry
+  if (m_serviceReference.compare(0, 5, "1:64:") == 0 || m_serviceReference.compare(0, 6, "1:320:") == 0)
     return false;
 
   if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
