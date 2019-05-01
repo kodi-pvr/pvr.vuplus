@@ -1,3 +1,9 @@
+v3.24.0
+- Added: Custom Channel Groups, closes #209
+- Added: Connection manager improvements
+- Added: Support hidden entries for backend channel numbers
+- Fixed: Timer descprition for providers who only use long descrption
+
 v3.23.0
 - Added: Support settings levels via the current kodi settings level
 - Added: Fallback EPG Entries for Timers
