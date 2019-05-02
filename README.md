@@ -115,9 +115,12 @@ Within this tab options that refer to channel data can be set. When changing bou
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
-    - `Only one bouquet` - Only fetch the bouquet specified in the next option
-    - `Favourites group` - Only fetch the system bouquet for TV favourites.
-* **TV bouquet**: If the previous option has been has been set to `Only one bouquet` you need to specify the TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. "Favourites (TV)"). This setting is case-sensitive.
+    - `Some bouquets` - Only fetch the bouquet specified in the next option
+    - `Favourites bouquet` - Only fetch the system bouquet for TV favourites.
+    - `Custom bouquets` - Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file.
+* **Number of TV bouquets**: The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the `Custom bouquets` fetch mode should be used instead.
+* **TV bouquet 1-5**: If the previous option has been has been set to `Some bouquets` you need to specify a TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. "Favourites (TV)"). This setting is case-sensitive.
+* **Custom TV Groups file**: The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`. Details on how to customise can be found in the next section of the README.
 * **Fetch TV favourites bouquet**: If the fetch mode is `All bouquets` or `Only one bouquet` depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are:
     - `Disabled` - Don't explicitly fetch TV favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
@@ -125,9 +128,12 @@ Within this tab options that refer to channel data can be set. When changing bou
 * **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (TV)``` in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting.
 * **Radio bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all Radio bouquets from the set-top box.
-    - `Only one bouquet` - Only fetch the bouquet specified in the next option
-    - `Favourites group` - Only fetch the system bouquet for Radio favourites.
-* **Radio bouquet**: If the previous option has been has been set to `Only one bouquet` you need to specify the Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. "Favourites (Radio)"). This setting is case-sensitive.
+    - `Some bouquets` - Only fetch the bouquet specified in the next option
+    - `Favourites bouquet` - Only fetch the system bouquet for Radio favourites.
+    - `Custom bouquets` - Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file.
+* **Number of radio bouquets**: The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the `Custom bouquets` fetch mode should be used instead.
+* **Radio bouquet 1-5**: If the previous option has been has been set to `Some bouquets` you need to specify a Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. "Favourites (Radio)"). This setting is case-sensitive.
+* **Custom Radio Groups file**: The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`. Details on how to customise can be found in the next section of the README.
 * **Fetch Radio favourites bouquet**: If the fetch mode is `All bouquets` or `Only one bouquet` depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are:
     - `Disabled` - Don't explicitly fetch Radio favourites.
     - `As first bouquet` - Explicitly fetch them as the first bouquet.
@@ -231,17 +237,29 @@ Within this tab more uncommon and advanced options can be configured.
 
 ## Customising Config Files
 
-The various config files allow users to create their own, making it possible to support other languages and formats. Each different type of config file is detailed below. Best way to learn about them is to read the config files themselves. Each contains details of how the config file works.
+The various config files have examples allowing users to create their own, making it possible to support custom config, other languages and formats. Each different type of config file is detailed below. Best way to learn about them is to read the config files themselves. Each contains details of how the config file works.
 
 All of the files listed below are overwritten each time the addon starts. Therefore if you are customising files please create new copies with different file names. Note: that only the files below are overwritten any new files you create will not be touched.
 
-After adding and selecting new config files you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect.
+After adding and selecting new config files you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect in the case of EPG relatd config and for channel related config will need to clear the full cache `Settings->PVR & Live TV->General->Clear cache`.
 
 If you would like to support other formats/languages please raise an issue at the github project https://github.com/kodi-pvr/pvr.vuplus, where you can either create a PR or request your new configs be shipped with the addon.
 
 There is one config file located here: `userdata/addon_data/pvr.vuplus/genres/kodiDvbGenres.xml`. This simply contains the DVB genre IDs that Kodi supports. Can be a useful reference if creating your own configs. This file is also overwritten each time the addon restarts.
 
-### Season, Episode and Year Show Info
+### Custom Channel Groups (Channels)
+
+Config files are located in the `userdata/addon_data/pvr.vuplus/channelGroups` folder.
+
+The following files are currently available with the addon:
+    - `customTVGroups-example.xml`
+    - `customRadioGroups-example.xml`
+
+Note that both these files are provided as examples and are overwritten each time the addon starts. Therefore you should make copies and use those for your custom config.
+
+The format is quite simple, containing a number of channel group/bouquet names.
+
+### Season, Episode and Year Show Info (EPG_)
 
 Config files are located in the `userdata/addon_data/pvr.vuplus/showInfo` folder.
 
@@ -250,7 +268,7 @@ The following files are currently available with the addon:
 
 Note: the config file can contain as many pattern matches as are required. So if you need to support multiple languages in a single file that is possible. However there must be at least one <seasonEpisode> pattern and at least one <year> pattern. Proficiency in regular exressions is required!
 
-### Genre ID Mappings
+### Genre ID Mappings (EPG)
 
 Config files are located in the `userdata/addon_data/pvr.vuplus/genres/genreIdMappings` folder.
 
@@ -262,7 +280,7 @@ The following files are currently available with the addon:
 
 Note: that each source genre ID can be mapped to a DVB ID. However multiple source IDs can be mapped to the same DVB ID. Therefore there are exactly 256 <mapping> elements in each file as a genre ID is 8 bits. All values are in Hex. The first fours bits are the genreType in Kodi PVR and the last four bits are the genreSubType.
 
-### Rytec Genre Text Mappings
+### Rytec Genre Text Mappings (EPG)
 
 Config files are located in the `userdata/addon_data/pvr.vuplus/genres/genreRytecTextMappings` folder.
 

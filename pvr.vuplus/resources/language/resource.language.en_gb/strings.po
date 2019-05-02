@@ -131,7 +131,7 @@ msgstr ""
 
 #label: Channels - onetvgroup
 msgctxt "#30026"
-msgid "TV bouquet"
+msgid "TV bouquet 1"
 msgstr ""
 
 #label: General - onlinepicons
@@ -296,7 +296,7 @@ msgstr ""
 
 #label: Channels - oneradiogroup
 msgctxt "#30059"
-msgid "Radio bouquet"
+msgid "Radio bouquet 1"
 msgstr ""
 
 #label-category: timeshift
@@ -380,7 +380,7 @@ msgstr ""
 #label-option: Channels - tvgroupmode
 #label-option: Channels - radiogroupmode
 msgctxt "#30075"
-msgid "Only one bouquet"
+msgid "Some bouquets"
 msgstr ""
 
 #label-option: Channels - tvfavouritesmode
@@ -398,7 +398,7 @@ msgstr ""
 #label-option: Channels - tvgroupmode
 #label-option: Channels - radiogroupmode
 msgctxt "#30078"
-msgid "Favourites group"
+msgid "Favourites bouquet"
 msgstr ""
 
 #application: ChannelGroups
@@ -655,7 +655,73 @@ msgctxt "#30130"
 msgid "Kodi/E2 instances"
 msgstr ""
 
-#empty strings from id 30131 to 30409
+#label-option: Channels - tvgroupmode
+#label-option: Channels - radiogroupmode
+msgctxt "#30131"
+msgid "Custom bouquets"
+msgstr ""
+
+#label: Channels - customtvgroupsfile
+msgctxt "#30132"
+msgid "Custom TV bouquets file"
+msgstr ""
+
+#label: Channels - customradiogroupsfile
+msgctxt "#30133"
+msgid "Custom Radio bouquets file"
+msgstr ""
+
+#label: Channels - numtvgroups
+msgctxt "#30134"
+msgid "Number of TV bouquets"
+msgstr ""
+
+#label: Channels - twotvgroup
+msgctxt "#30135"
+msgid "TV bouquet 2"
+msgstr ""
+
+#label: Channels - threetvgroup
+msgctxt "#30136"
+msgid "TV bouquet 3"
+msgstr ""
+
+#label: Channels - fourtvgroup
+msgctxt "#30137"
+msgid "TV bouquet 4"
+msgstr ""
+
+#label: Channels - fivetvgroup
+msgctxt "#30138"
+msgid "TV bouquet 5"
+msgstr ""
+
+#label: Channels - numradiogroups
+msgctxt "#30139"
+msgid "Number of radio bouquets"
+msgstr ""
+
+#label: Channels - tworadiogroup
+msgctxt "#30140"
+msgid "Radio bouquet 2"
+msgstr ""
+
+#label: Channels - threeradiogroup
+msgctxt "#30141"
+msgid "Radio bouquet 3"
+msgstr ""
+
+#label: Channels - fourradiogroup
+msgctxt "#30142"
+msgid "Radio bouquet 4"
+msgstr ""
+
+#label: Channels - fiveradiogroup
+msgctxt "#30143"
+msgid "Radio bouquet 5"
+msgstr ""
+
+#empty strings from id 30144 to 30409
 
 ###############
 # application #
@@ -910,17 +976,21 @@ msgstr ""
 
 #help: Channels - tvgroupmode
 msgctxt "#30643"
-msgid "Choose from one of the following three modes: [All bouquets] Fetch all TV bouquets from the set-top box; [Only one bouquet] Only fetch the bouquet specified in the next option; [Favourites group] Only fetch the system bouquet for TV favourites."
+msgid "Choose from one of the following three modes: [All bouquets] Fetch all TV bouquets from the set-top box; [Some bouquets] Only fetch the bouquets specified in the next options; [Favourites group] Only fetch the system bouquet for TV favourites; [Custom groups] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
 msgstr ""
 
 #help: Channels - onetvgroup
+#help: Channels - twotvgroup
+#help: Channels - threetvgroup
+#help: Channels - fourtvgroup
+#help: Channels - fivetvgroup
 msgctxt "#30644"
-msgid "If the previous option has been has been set to 'Only one bouquet' you need to specify the TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
+msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
 msgstr ""
 
 #help: Channels - tvfavouritesmode
 msgctxt "#30645"
-msgid "If the fetch mode is 'All bouquets' or 'Only one bouquet' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch TV favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
+msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch TV favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
 msgstr ""
 
 #help: Channels - excludelastscannedtv
@@ -930,17 +1000,21 @@ msgstr ""
 
 #help: Channels - radiogroupmode
 msgctxt "#30647"
-msgid "Choose from one of the following three modes: [All bouquets] Fetch all Radio bouquets from the set-top box]; [Only one bouquet] Only fetch the bouquet specified in the next option; [Favourites group] Only fetch the system bouquet for Radio favourites."
+msgid "Choose from one of the following three modes: [All bouquets] Fetch all Radio bouquets from the set-top box]; [Some bouquets] Only fetch the bouquets specified in the next options; [Favourites group] Only fetch the system bouquet for Radio favourites; [Custom groups] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
 msgstr ""
 
 #help: Channels - oneradiogroup
+#help: Channels - tworadiogroup
+#help: Channels - threeradiogroup
+#help: Channels - fourradiogroup
+#help: Channels - fiveradiogroup
 msgctxt "#30648"
-msgid "If the previous option has been has been set to 'Only one bouquet' you need to specify the Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
+msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
 msgstr ""
 
 #help: Channels - radiofavouritesmode
 msgctxt "#30649"
-msgid "If the fetch mode is 'All bouquets' or 'Only one bouquet' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch Radio favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
+msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch Radio favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
 msgstr ""
 
 #help: Channels - excludelastscannedradio
@@ -948,7 +1022,27 @@ msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
 msgstr ""
 
-#empty strings from id 30651 to 30659
+#help: Channels - customtvgroupsfile
+msgctxt "#30651"
+msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
+msgstr ""
+
+#help: Channels - customradiogroupsfile
+msgctxt "#30652"
+msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
+msgstr ""
+
+#help: Channels - numtvgroups
+msgctxt "#30653"
+msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
+msgstr ""
+
+#help: Channels - numradiogroups
+msgctxt "#30654"
+msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
+msgstr ""
+
+#empty strings from id 30655 to 30659
 
 #help info - EPG
 
