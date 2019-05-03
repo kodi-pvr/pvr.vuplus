@@ -47,7 +47,8 @@ namespace enigma2
       Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
         m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
-        m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()) {};
+        m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()),
+        m_streamProgramNumber(c.GetStreamProgramNumber()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
@@ -76,6 +77,9 @@ namespace enigma2
 
       const std::string& GetFuzzyChannelName() const { return m_fuzzyChannelName; }
       void SetFuzzyChannelName(const std::string& value ) { m_fuzzyChannelName = value; }
+
+      int GetStreamProgramNumber() const { return m_streamProgramNumber; }
+      void SetStreamProgramNumber(int value) { m_streamProgramNumber = value; }
 
       bool UsingDefaultChannelNumber() const { return m_usingDefaultChannelNumber; }
       void SetUsingDefaultChannelNumber(bool value) { m_usingDefaultChannelNumber = value; }
@@ -109,6 +113,7 @@ namespace enigma2
       std::string m_iconPath;
       std::string m_providerName;
       std::string m_fuzzyChannelName;
+      int m_streamProgramNumber;
 
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupList;
     };

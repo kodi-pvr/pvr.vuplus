@@ -85,7 +85,7 @@
       <group id="4" label="30020">
         <setting id="connectionchecktimeout" type="integer" label="30121" help="30610">
           <level>3</level>
-          <default>10</default>
+          <default>30</default>
           <constraints>
             <minimum>10</minimum>
             <step>10</step>
@@ -98,7 +98,7 @@
         </setting>
         <setting id="connectioncheckinterval" type="integer" label="30122" help="30611">
           <level>3</level>
-          <default>1</default>
+          <default>10</default>
           <constraints>
             <minimum>1</minimum>
             <step>1</step>
@@ -231,10 +231,25 @@
           <constraints>
             <options>
               <option label="30074">0</option> <!-- ALL_GROUPS -->
-              <option label="30075">1</option> <!-- ONLY_ONE_GROUP -->
+              <option label="30075">1</option> <!-- SOME_GROUPS -->
               <option label="30078">2</option> <!-- FAVOURITES_GROUP -->
+              <option label="30131">3</option> <!-- CUSTOM_GROUPS -->
             </options>
           </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+
+        <setting id="numtvgroups" type="integer" parent="tvgroupmode" label="30134" help="30653">
+          <level>0</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>5</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">1</dependency>
+          </dependencies>
           <control type="spinner" format="integer" />
         </setting>
         <setting id="onetvgroup" type="string" parent="tvgroupmode" label="30026" help="30644">
@@ -247,6 +262,85 @@
             <dependency type="visible" setting="tvgroupmode" operator="is">1</dependency>
           </dependencies>
           <control type="edit" format="string" />
+        </setting>
+        <setting id="twotvgroup" type="string" parent="tvgroupmode" label="30135" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">1</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="threetvgroup" type="string" parent="tvgroupmode" label="30136" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">2</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fourtvgroup" type="string" parent="tvgroupmode" label="30137" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">3</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fivetvgroup" type="string" parent="tvgroupmode" label="30138" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">4</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+
+        <setting id="customtvgroupsfile" type="path" parent="tvgroupmode" label="30132" help="30651">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/channelGroups/customTVGroups-example.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">3</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
         </setting>
         <setting id="tvfavouritesmode" type="integer" label="30068" help="30645">
           <level>2</level>
@@ -284,10 +378,25 @@
           <constraints>
             <options>
               <option label="30074">0</option> <!-- ALL_GROUPS -->
-              <option label="30075">1</option> <!-- ONLY_ONE_GROUP -->
+              <option label="30075">1</option> <!-- SOME_GROUPS -->
               <option label="30078">2</option> <!-- FAVOURITES_GROUP -->
+              <option label="30131">3</option> <!-- CUSTOM_GROUPS -->
             </options>
           </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+
+        <setting id="numradiogroups" type="integer" parent="tvgroupmode" label="30139" help="30654">
+          <level>0</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>5</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">1</dependency>
+          </dependencies>
           <control type="spinner" format="integer" />
         </setting>
         <setting id="oneradiogroup" type="string" parent="radiogroupmode" label="30059" help="30648">
@@ -300,6 +409,85 @@
             <dependency type="visible" setting="radiogroupmode" operator="is">1</dependency>
           </dependencies>
           <control type="edit" format="string" />
+        </setting>
+        <setting id="tworadiogroup" type="string" parent="radiogroupmode" label="30140" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">1</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="threeradiogroup" type="string" parent="radiogroupmode" label="30141" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">2</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fourradiogroup" type="string" parent="radiogroupmode" label="30142" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">3</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fiveradiogroup" type="string" parent="radiogroupmode" label="30143" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">4</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+
+        <setting id="customradiogroupsfile" type="path" parent="radiogroupmode" label="30133" help="30652">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/channelGroups/customRadioGroups-example.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">3</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
         </setting>
         <setting id="radiofavouritesmode" type="integer" label="30069" help="30649">
           <level>2</level>

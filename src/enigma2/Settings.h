@@ -22,11 +22,17 @@ namespace enigma2
   static const int DEFAULT_CONNECTION_CHECK_INTERVAL_SECS = 1;
   static const int DEFAULT_UPDATE_INTERVAL = 2;
   static const int DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR = 4;
-  static const std::string DEFAULT_TSBUFFERPATH = "special://userdata/addon_data/pvr.vuplus";
-  static const std::string DEFAULT_SHOW_INFO_FILE = "special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml";
-  static const std::string DEFAULT_GENRE_ID_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml";
-  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = "special://userdata/addon_data/pvr.vuplus/genres/genreTextMappings/Rytec-UK-Ireland";
+  static const int DEFAULT_NUM_GROUPS = 1;
+  static const std::string ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus";
+  static const std::string DEFAULT_SHOW_INFO_FILE = ADDON_DATA_BASE_DIR + "/showInfo/English-ShowInfo.xml";
+  static const std::string DEFAULT_GENRE_ID_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreIdMappings/Sky-UK.xml";
+  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreTextMappings/Rytec-UK-Ireland.xml";
+  static const std::string DEFAULT_CUSTOM_TV_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
+  static const std::string DEFAULT_CUSTOM_RADIO_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
+
+  static const std::string CHANNEL_GROUPS_DIR = "/channelGroups";
+  static const std::string CHANNEL_GROUPS_ADDON_DATA_BASE_DIR = ADDON_DATA_BASE_DIR + CHANNEL_GROUPS_DIR;
 
   enum class UpdateMode
     : int // same type as addon settings
@@ -47,8 +53,9 @@ namespace enigma2
     : int // same type as addon settings
   {
     ALL_GROUPS = 0,
-    ONLY_ONE_GROUP,
-    FAVOURITES_GROUP
+    SOME_GROUPS,
+    FAVOURITES_GROUP,
+    CUSTOM_GROUPS
   };
 
   enum class FavouritesGroupMode
@@ -134,11 +141,11 @@ namespace enigma2
     bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
-    const std::string& GetOneTVGroupName() const { return m_oneTVGroup; }
+    const std::string& GetCustomTVGroupsFile() const { return m_customTVGroupsFile; }
     const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
     bool ExcludeLastScannedTVGroup() const { return m_excludeLastScannedTVGroup; }
     const ChannelGroupMode& GetRadioChannelGroupMode() const { return m_radioChannelGroupMode; }
-    const std::string& GetOneRadioGroupName() const { return m_oneRadioGroup; }
+    const std::string& GetCustomRadioGroupsFile() const { return m_customRadioGroupsFile; }
     const FavouritesGroupMode& GetRadioFavouritesMode() const { return m_radioFavouritesMode; }
     bool ExcludeLastScannedRadioGroup() const { return m_excludeLastScannedRadioGroup; }
 
@@ -222,6 +229,9 @@ namespace enigma2
     bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
     void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
 
+    std::vector<std::string>& GetCustomTVChannelGroupNameList() { return m_customTVChannelGroupNameList; }
+    std::vector<std::string>& GetCustomRadioChannelGroupNameList() { return m_customRadioChannelGroupNameList; }
+
   private:
     Settings() = default;
 
@@ -257,6 +267,8 @@ namespace enigma2
       return defaultReturnValue;
     }
 
+    static bool LoadCustomChannelGroupFile(std::string &file, std::vector<std::string> &channelGroupNameList);
+
     //Connection
     std::string m_hostname = DEFAULT_HOST;
     int m_portWeb = DEFAULT_WEB_PORT;
@@ -284,11 +296,23 @@ namespace enigma2
     bool m_useStandardServiceReference = true;
     bool m_zap = false;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
+    unsigned int m_numTVGroups = DEFAULT_NUM_GROUPS;
     std::string m_oneTVGroup = "";
+    std::string m_twoTVGroup = "";
+    std::string m_threeTVGroup = "";
+    std::string m_fourTVGroup = "";
+    std::string m_fiveTVGroup = "";
+    std::string m_customTVGroupsFile;
     FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
     bool m_excludeLastScannedTVGroup = true;
     ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
+    unsigned int m_numRadioGroups = DEFAULT_NUM_GROUPS;
     std::string m_oneRadioGroup = "";
+    std::string m_twoRadioGroup = "";
+    std::string m_threeRadioGroup = "";
+    std::string m_fourRadioGroup = "";
+    std::string m_fiveRadioGroup = "";
+    std::string m_customRadioGroupsFile;
     FavouritesGroupMode m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
     bool m_excludeLastScannedRadioGroup = true;
 
@@ -323,7 +347,7 @@ namespace enigma2
 
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
-    std::string m_timeshiftBufferPath = DEFAULT_TSBUFFERPATH;
+    std::string m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
 
     //Advanced
     PrependOutline m_prependOutline = PrependOutline::IN_EPG;
@@ -345,6 +369,9 @@ namespace enigma2
     enigma2::utilities::DeviceSettings* m_deviceSettings;
     enigma2::Admin* m_admin;
     bool m_deviceSettingsSet = false;
+
+    std::vector<std::string> m_customTVChannelGroupNameList;
+    std::vector<std::string> m_customRadioChannelGroupNameList;
 
     //PVR Props
     std::string m_szUserPath = "";

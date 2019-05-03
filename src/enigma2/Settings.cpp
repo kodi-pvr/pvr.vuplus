@@ -1,8 +1,11 @@
 #include "Settings.h"
 
 #include "../client.h"
+#include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 
+#include "tinyxml.h"
+#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
 using namespace ADDON;
@@ -14,6 +17,8 @@ using namespace enigma2::utilities;
  **************************************************************************/
 void Settings::ReadFromAddon()
 {
+  FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + CHANNEL_GROUPS_DIR, CHANNEL_GROUPS_ADDON_DATA_BASE_DIR, true);
+
   char buffer[1024];
   buffer[0] = 0;
 
@@ -98,11 +103,62 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("tvgroupmode", &m_tvChannelGroupMode))
     m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
 
+  if (!XBMC->GetSetting("numtvgroups", &m_numTVGroups))
+    m_numTVGroups = DEFAULT_NUM_GROUPS;
+
   if (XBMC->GetSetting("onetvgroup", buffer))
     m_oneTVGroup = buffer;
   else
     m_oneTVGroup = "";
   buffer[0] = 0;
+
+  if (XBMC->GetSetting("twotvgroup", buffer))
+    m_twoTVGroup = buffer;
+  else
+    m_twoTVGroup = "";
+  buffer[0] = 0;
+
+  if (XBMC->GetSetting("threetvgroup", buffer))
+    m_threeTVGroup = buffer;
+  else
+    m_threeTVGroup = "";
+  buffer[0] = 0;
+
+  if (XBMC->GetSetting("fourtvgroup", buffer))
+    m_fourTVGroup = buffer;
+  else
+    m_fourTVGroup = "";
+  buffer[0] = 0;
+
+  if (XBMC->GetSetting("fivetvgroup", buffer))
+    m_fiveTVGroup = buffer;
+  else
+    m_fiveTVGroup = "";
+  buffer[0] = 0;
+
+  if (m_tvChannelGroupMode == ChannelGroupMode::SOME_GROUPS)
+  {
+    m_customTVChannelGroupNameList.clear();
+
+    if (!m_oneTVGroup.empty() && m_numTVGroups >= 1)
+      m_customTVChannelGroupNameList.emplace_back(m_oneTVGroup);
+    if (!m_twoTVGroup.empty() && m_numTVGroups >= 2)
+      m_customTVChannelGroupNameList.emplace_back(m_twoTVGroup);
+    if (!m_threeTVGroup.empty() && m_numTVGroups >= 3)
+      m_customTVChannelGroupNameList.emplace_back(m_threeTVGroup);
+    if (!m_fourTVGroup.empty() && m_numTVGroups >= 4)
+      m_customTVChannelGroupNameList.emplace_back(m_fourTVGroup);
+    if (!m_fiveTVGroup.empty() && m_numTVGroups >= 5)
+      m_customTVChannelGroupNameList.emplace_back(m_fiveTVGroup);
+  }
+
+  if (XBMC->GetSetting("customtvgroupsfile", buffer))
+    m_customTVGroupsFile = buffer;
+  else
+    m_customTVGroupsFile = DEFAULT_CUSTOM_TV_GROUPS_FILE;
+  buffer[0] = 0;
+  if (m_tvChannelGroupMode == ChannelGroupMode::CUSTOM_GROUPS)
+    LoadCustomChannelGroupFile(m_customTVGroupsFile, m_customTVChannelGroupNameList);
 
   if (!XBMC->GetSetting("tvfavouritesmode", &m_tvFavouritesMode))
     m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
@@ -113,11 +169,62 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("radiogroupmode", &m_radioChannelGroupMode))
     m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
 
+  if (!XBMC->GetSetting("numradiogroups", &m_numRadioGroups))
+    m_numRadioGroups = DEFAULT_NUM_GROUPS;
+
   if (XBMC->GetSetting("oneradiogroup", buffer))
     m_oneRadioGroup = buffer;
   else
     m_oneRadioGroup = "";
   buffer[0] = 0;
+
+  if (XBMC->GetSetting("tworadiogroup", buffer))
+    m_twoRadioGroup = buffer;
+  else
+    m_twoRadioGroup = "";
+  buffer[0] = 0;
+
+  if (XBMC->GetSetting("threeradiogroup", buffer))
+    m_threeRadioGroup = buffer;
+  else
+    m_threeRadioGroup = "";
+  buffer[0] = 0;
+
+  if (XBMC->GetSetting("fourradiogroup", buffer))
+    m_fourRadioGroup = buffer;
+  else
+    m_fourRadioGroup = "";
+  buffer[0] = 0;
+
+  if (XBMC->GetSetting("fiveradiogroup", buffer))
+    m_fiveRadioGroup = buffer;
+  else
+    m_fiveRadioGroup = "";
+  buffer[0] = 0;
+
+  if (m_radioChannelGroupMode == ChannelGroupMode::SOME_GROUPS)
+  {
+    m_customRadioChannelGroupNameList.clear();
+
+    if (!m_oneRadioGroup.empty() && m_numRadioGroups >= 1)
+      m_customRadioChannelGroupNameList.emplace_back(m_oneRadioGroup);
+    if (!m_twoRadioGroup.empty() && m_numRadioGroups >= 2)
+      m_customRadioChannelGroupNameList.emplace_back(m_twoRadioGroup);
+    if (!m_threeRadioGroup.empty() && m_numRadioGroups >= 3)
+      m_customRadioChannelGroupNameList.emplace_back(m_threeRadioGroup);
+    if (!m_fourRadioGroup.empty() && m_numRadioGroups >= 4)
+      m_customRadioChannelGroupNameList.emplace_back(m_fourRadioGroup);
+    if (!m_fiveRadioGroup.empty() && m_numRadioGroups >= 5)
+      m_customRadioChannelGroupNameList.emplace_back(m_fiveRadioGroup);
+  }
+
+  if (XBMC->GetSetting("customradiogroupsfile", buffer))
+    m_customRadioGroupsFile = buffer;
+  else
+    m_customRadioGroupsFile = DEFAULT_CUSTOM_RADIO_GROUPS_FILE;
+  buffer[0] = 0;
+  if (m_radioChannelGroupMode == ChannelGroupMode::CUSTOM_GROUPS)
+    LoadCustomChannelGroupFile(m_customRadioGroupsFile, m_customRadioChannelGroupNameList);
 
   if (!XBMC->GetSetting("radiofavouritesmode", &m_radioFavouritesMode))
     m_radioFavouritesMode = FavouritesGroupMode::DISABLED;
@@ -216,7 +323,7 @@ void Settings::ReadFromAddon()
   if (XBMC->GetSetting("timeshiftbufferpath", buffer) && !std::string(buffer).empty())
     m_timeshiftBufferPath = buffer;
   else
-    m_timeshiftBufferPath = DEFAULT_TSBUFFERPATH;
+    m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
   buffer[0] = 0;
 
   //Advanced
@@ -299,16 +406,40 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tvgroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "numtvgroups")
+    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_numTVGroups, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onetvgroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "twotvgroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_twoTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "threetvgroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_threeTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "twotvgroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_fourTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "fivetvgroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_fiveTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "customtvgroupsfile")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_customTVGroupsFile, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tvfavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "excludelastscannedtv")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_excludeLastScannedTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "radiogroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "numradiogroups")
+    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_numRadioGroups, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "oneradiogroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "tworadiogroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_twoRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "threeradiogroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_threeRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "fourradiogroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_fourRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "fiveradiogroup")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_fiveRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "customradiogroupsfile")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_customRadioGroupsFile, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "radiofavouritesmode")
     return SetSetting<FavouritesGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioFavouritesMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "excludelastscannedradio")
@@ -398,4 +529,63 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
 bool Settings::IsTimeshiftBufferPathValid() const
 {
   return XBMC->DirectoryExists(m_timeshiftBufferPath.c_str());
+}
+
+bool Settings::LoadCustomChannelGroupFile(std::string &xmlFile, std::vector<std::string> &channelGroupNameList)
+{
+  channelGroupNameList.clear();
+
+  if (!FileUtils::FileExists(xmlFile.c_str()))
+  {
+    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __FUNCTION__, xmlFile.c_str());
+    return false;
+  }
+
+  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
+
+  const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
+
+  if (fileContents.empty())
+  {
+    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __FUNCTION__, xmlFile.c_str());
+    return false;
+  }
+
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(fileContents.c_str()))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+
+  TiXmlElement* pElem = hDoc.FirstChildElement("customChannelGroups").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <customChannelGroups> element!", __FUNCTION__);
+    return false;
+  }
+
+  TiXmlHandle hRoot = TiXmlHandle(pElem);
+
+  TiXmlElement* pNode = hRoot.FirstChildElement("channelGroupName").Element();
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <channelGroupName> element", __FUNCTION__);
+    return false;
+  }
+
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("channelGroupName"))
+  {
+    const std::string channelGroupName = pNode->GetText();
+
+    channelGroupNameList.emplace_back(channelGroupName);
+
+    Logger::Log(LEVEL_TRACE, "%s Read Custom ChannelGroup Name: %s, from file: %s", __FUNCTION__, channelGroupName.c_str(), xmlFile.c_str());
+  }
+
+  return true;
 }

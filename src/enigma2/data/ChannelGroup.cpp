@@ -58,21 +58,29 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   if (groupName == "<n/a>" || StringUtils::EndsWith(groupName.c_str(), " - Separator"))
     return false;
 
-  if (!radio && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP)
+  if (!radio && (Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
+                 Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    if (Settings::GetInstance().GetOneTVGroupName() != groupName)
-    {
-      Logger::Log(LEVEL_DEBUG, "%s Only one TV group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, groupName.c_str(), Settings::GetInstance().GetOneTVGroupName().c_str());
+    auto &customGroupNamelist = Settings::GetInstance().GetCustomTVChannelGroupNameList();
+    auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
+      [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
+
+    if (it == customGroupNamelist.end())
       return false;
-    }
+    else
+      Logger::Log(LEVEL_DEBUG, "%s Custom TV groups are set, current e2servicename '%s' matched", __FUNCTION__, groupName.c_str());
   }
-  else if (radio && Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::ONLY_ONE_GROUP)
+  else if (radio && (Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
+                     Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    if (Settings::GetInstance().GetOneRadioGroupName() != groupName)
-    {
-      Logger::Log(LEVEL_DEBUG, "%s Only one Radio group is set, but current e2servicename '%s' does not match requested name '%s'", __FUNCTION__, groupName.c_str(), Settings::GetInstance().GetOneRadioGroupName().c_str());
+    auto &customGroupNamelist = Settings::GetInstance().GetCustomRadioChannelGroupNameList();
+    auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
+      [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
+
+    if (it == customGroupNamelist.end())
       return false;
-    }
+    else
+      Logger::Log(LEVEL_DEBUG, "%s Custom Radio groups are set, current e2servicename '%s' matched", __FUNCTION__, groupName.c_str());
   }
   else if (groupName == "Last Scanned")
   {
