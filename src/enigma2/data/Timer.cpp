@@ -217,7 +217,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
     m_plotOutline.clear();
   }
   else if (Settings::GetInstance().GetPrependOutline() == PrependOutline::ALWAYS &&
-          !m_plotOutline.empty() && m_plotOutline != "N/A")
+           m_plot != m_plotOutline && !m_plotOutline.empty() && m_plotOutline != "N/A")
   {
     m_plot.insert(0, m_plotOutline + "\n");
     m_plotOutline.clear();

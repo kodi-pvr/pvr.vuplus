@@ -46,8 +46,8 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (!XMLUtils::GetString(channelNode, "e2servicereference", m_serviceReference))
     return false;
 
-  // Check whether the current element is not just a label
-  if (m_serviceReference.compare(0,5,"1:64:") == 0)
+  // Check whether the current element is not just a label or that it's not a hidden entry
+  if (m_serviceReference.compare(0, 5, "1:64:") == 0 || m_serviceReference.compare(0, 6, "1:320:") == 0)
     return false;
 
   if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
@@ -68,7 +68,9 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   if (Settings::GetInstance().UseStandardServiceReference())
     m_serviceReference = m_standardServiceReference;
 
-  Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str());
+  std::sscanf(m_serviceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
+
+  Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s, program number: %d", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str(), m_streamProgramNumber);
 
   m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
 

@@ -24,6 +24,7 @@
 #include <cstdarg>
 
 #include "Logger.h"
+#include "../Settings.h"
 
 using namespace enigma2::utilities;
 
@@ -82,7 +83,7 @@ bool CurlFile::Check(const std::string &strURL)
   }
 
   XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL,
-    "connection-timeout", std::to_string(CHECK_TIMEOUT_SECS).c_str());
+    "connection-timeout", std::to_string(Settings::GetInstance().GetConnectioncCheckTimeoutSecs()).c_str());
 
   if (!XBMC->CURLOpen(fileHandle, XFILE::READ_NO_CACHE))
   {
