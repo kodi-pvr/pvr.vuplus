@@ -14,6 +14,18 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Edit recording name, last played position and play count for recordings
 * Bouquet Backend Channel Numbers
 
+Some features are only available with at least certain OpenWebIf versions:
+* 1.3.0
+  * AutoTimers
+* 1.3.5
+  * Embedded EPG Genres
+  * Tuner Details
+  * Provider Name
+  * Backend Channel Numbers
+  * Picon URLs
+* 1.3.6
+  * Editing Recordings
+
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv)
 
@@ -98,10 +110,10 @@ Within this tab general options are configured.
 * **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`.
 * **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf.
 * **Icon path**: In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property.
-* **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates.
+* **Update interval**: As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically.
 * **Update mode**: The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes:
     - `Timers and Recordings` - Update all timers and recordings.
-    - `Timers only` - Only update the timers.
+    - `Timers only` - Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs.
 * **Channel and groups update mode**: The mode used when the hour in the next settings is reached. Choose from one of the following three modes:
     - `Disabled` - Never check for channel and group changes.
     - `Notify on UI and Log` - Display a notice in the UI and log the fact that a change was detectetd.
@@ -110,6 +122,10 @@ Within this tab general options are configured.
 
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
+
+Note that channel numbers are set in the addon based on their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet that is loaded, any subsequent channel numbers will be ignored. Therefore if you use a master bouquet it should be the first bouquet loaded assuming it has the channel numbering/order you require.
+
+If Kodi PVR is set to use the channel numbers from the backend the numbers will match those on your STB. If this is not enabled each unique instance of a channel will be given the next free number starting from 1 (i.e. the 17th unique channel will be channel 17). Backend channel numbers will only work for OpenWebIf 1.3.5 and later and they have been tested using ABM (AutoBouquetsMaker).
 
 * **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
