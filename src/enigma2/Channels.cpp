@@ -213,24 +213,15 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
       if (!jsonDoc["services"].empty())
       {
-        int hiddenEntryCount = 0;
-
         for (const auto& it : jsonDoc["services"].items())
         {
           auto jsonChannel = it.value();
 
           std::string serviceReference = jsonChannel["servicereference"].get<std::string>();
 
-          // Check whether the current element is not just a label
-          if (serviceReference.compare(0, 5, "1:64:") == 0)
+          // Check whether the current element is not just a label or that it's not a hidden entry
+          if (serviceReference.compare(0, 5, "1:64:") == 0 || serviceReference.compare(0, 6, "1:320:") == 0)
             continue;
-
-          // Check whether the current element is a hidden entry
-          if (serviceReference.compare(0, 6, "1:320:") == 0)
-          {
-            hiddenEntryCount++;
-            continue;
-          }
 
           if (Settings::GetInstance().UseStandardServiceReference())
           {
@@ -250,7 +241,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
             if (!jsonChannel["pos"].empty() && channel->UsingDefaultChannelNumber())
             {
               Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["pos"].get<int>());
-              channel->SetChannelNumber(jsonChannel["pos"].get<int>() + hiddenEntryCount);
+              channel->SetChannelNumber(jsonChannel["pos"].get<int>());
               channel->SetUsingDefaultChannelNumber(false);
             }
 
