@@ -1,3 +1,7 @@
+v3.24.1
+- Added: Readme updates
+- Fixed: Revert support hidden entries for backend channel numbers
+
 v3.24.0
 - Added: Custom Channel Groups, closes #209
 - Added: Connection manager improvements
