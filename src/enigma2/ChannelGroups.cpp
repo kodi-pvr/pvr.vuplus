@@ -133,6 +133,8 @@ void ChannelGroups::ClearChannelGroups()
   m_channelGroups.clear();
   m_channelGroupsNameMap.clear();
 
+  m_extraDataChannelGroups.clear();
+
   Settings::GetInstance().SetUsesLastScannedChannelGroup(false);
 }
 
@@ -216,7 +218,7 @@ bool ChannelGroups::LoadTVChannelGroups()
     {
       ChannelGroup newChannelGroup;
 
-      if (!newChannelGroup.UpdateFrom(pNode, false))
+      if (!newChannelGroup.UpdateFrom(pNode, false, m_extraDataChannelGroups))
         continue;
 
       AddChannelGroup(newChannelGroup);
@@ -287,7 +289,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
     {
       ChannelGroup newChannelGroup;
 
-      if (!newChannelGroup.UpdateFrom(pNode, true))
+      if (!newChannelGroup.UpdateFrom(pNode, true, m_extraDataChannelGroups))
         continue;
 
       AddChannelGroup(newChannelGroup);

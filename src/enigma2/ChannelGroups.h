@@ -49,6 +49,7 @@ namespace enigma2
     void ClearChannelGroups();
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>>& GetChannelGroupsList();
     bool LoadChannelGroups();
+    const std::vector<std::shared_ptr<enigma2::data::ChannelGroup>>& GetExtraDataChannelGroupsList() const { return m_extraDataChannelGroups; };
 
   private:
     bool LoadTVChannelGroups();
@@ -61,5 +62,9 @@ namespace enigma2
 
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroups;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupsNameMap;
+
+    // This is a special vector containing all channel groups even ones we don't require
+    // This is needed to calculate the backend channel numbers and they work in an unusual way on enigma2
+    std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_extraDataChannelGroups;
   };
 } //namespace enigma2
