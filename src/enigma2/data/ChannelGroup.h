@@ -60,7 +60,7 @@ namespace enigma2
 
       void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
 
-      bool UpdateFrom(TiXmlElement* groupNode, bool radio);
+      bool UpdateFrom(TiXmlElement* groupNode, bool radio, std::vector<std::shared_ptr<ChannelGroup>> &extraDataChannelGroups);
       void UpdateTo(PVR_CHANNEL_GROUP &left) const;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
