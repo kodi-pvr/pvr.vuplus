@@ -197,6 +197,8 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
     return false;
   }
 
+  bool emptyGroup = true;
+
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
     Channel newChannel;
@@ -204,10 +206,14 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
     if (!newChannel.UpdateFrom(pNode))
       continue;
+    else
+      emptyGroup = false;
 
     AddChannel(newChannel, channelGroup);
     Logger::Log(LEVEL_DEBUG, "%s Loaded channel: %s, Group: %s, Icon: %s, ID: %d", __FUNCTION__, newChannel.GetChannelName().c_str(), groupName.c_str(), newChannel.GetIconPath().c_str(), newChannel.GetUniqueId());
   }
+
+  channelGroup->SetEmptyGroup(emptyGroup);
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());
 
