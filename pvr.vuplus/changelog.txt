@@ -1,3 +1,10 @@
+v4.3.0
+- Added: Support backend channel numbers for all channel groups not just the first
+- Added: Ignore empty channel groups
+- Added: Readme and help info updates
+- Fixed: Revert support hidden entries for backend channel numbers
+- Fixed: Fix hanging on deleting multiple recordings at once
+
 v4.2.0
 - Added: Custom Channel Groups, closes #209
 - Added: Connection manager improvements
