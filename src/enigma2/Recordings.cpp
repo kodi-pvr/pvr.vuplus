@@ -418,7 +418,8 @@ PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING &recinfo)
   if(!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_FAILED;
 
-  PVR->TriggerRecordingUpdate();
+  // No need to call PVR->TriggerRecordingUpdate() as it is handled by kodi PVR.
+  // In fact when multiple recordings are removed at once, calling it here can cause hanging issues
 
   return PVR_ERROR_NO_ERROR;
 }
