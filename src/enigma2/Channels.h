@@ -70,6 +70,7 @@ namespace enigma2
   private:
     void AddChannel(enigma2::data::Channel &channel, std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
     bool LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
+    int LoadChannelsExtraData(const std::string groupServiceReference, const std::string groupName, bool requiredGroup, int channelPositionOffset);
 
     std::vector<std::shared_ptr<enigma2::data::Channel>> m_channels;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>> m_channelsServiceReferenceMap;
