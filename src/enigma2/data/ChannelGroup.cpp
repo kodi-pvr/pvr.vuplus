@@ -39,7 +39,7 @@ bool ChannelGroup::operator!=(const ChannelGroup &right) const
   return !(*this == right);
 }
 
-bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
+bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio, std::vector<std::shared_ptr<ChannelGroup>> &extraDataChannelGroups)
 {
   std::string serviceReference;
   std::string groupName;
@@ -57,6 +57,13 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   // Check if the current element is hidden or a separator
   if (groupName == "<n/a>" || StringUtils::EndsWith(groupName.c_str(), " - Separator"))
     return false;
+
+  m_serviceReference = serviceReference;
+  m_groupName = groupName;
+  m_radio = radio;
+
+  // we keep this group even if it get's discarded so we can calculate backend channel numbers later on
+  extraDataChannelGroups.emplace_back(new ChannelGroup(*this));
 
   if (!radio && (Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                  Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
@@ -90,10 +97,6 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     // as it is never supplied as a radio group from Enigma2
     return false;
   }
-
-  m_serviceReference = serviceReference;
-  m_groupName = groupName;
-  m_radio = radio;
 
   return true;
 }
