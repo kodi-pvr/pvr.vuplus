@@ -721,7 +721,12 @@ msgctxt "#30143"
 msgid "Radio bouquet 5"
 msgstr ""
 
-#empty strings from id 30144 to 30409
+#label: Advanced - ignoredebug
+msgctxt "#30144"
+msgid "Ignore debug logging in debug mode"
+msgstr ""
+
+#empty strings from id 30145 to 30409
 
 ###############
 # application #
@@ -1242,7 +1247,12 @@ msgctxt "#30746"
 msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
 msgstr ""
 
-#empty strings from id 30747 to 30759
+#help: Advanced - ignoredebug
+msgctxt "#30747"
+msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
+msgstr ""
+
+#empty strings from id 30748 to 30759
 
 #help info - Backend
 
