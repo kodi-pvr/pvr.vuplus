@@ -89,6 +89,10 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   /* Configure the logger */
   Logger::GetInstance().SetImplementation([](LogLevel level, const char *message)
   {
+    /* Don't log trace messages unless told so */
+    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+      return;
+
     /* Convert the log level */
     addon_log_t addonLevel;
 
@@ -107,11 +111,10 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
         addonLevel = addon_log_t::LOG_DEBUG;
     }
 
-    /* Don't log trace messages unless told so */
-    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+    if (addonLevel == addon_log_t::LOG_DEBUG && Settings::GetInstance().GetNoDebug())
       return;
 
-    if (Settings::GetInstance().GetDebugNormal() && level == LogLevel::LEVEL_DEBUG)
+    if (addonLevel == addon_log_t::LOG_DEBUG && Settings::GetInstance().GetDebugNormal())
       addonLevel = addon_log_t::LOG_NOTICE;
 
     XBMC->Log(addonLevel, "%s", message);

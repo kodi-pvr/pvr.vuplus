@@ -838,14 +838,25 @@
             <formatlabel>14049</formatlabel>
           </control>
         </setting>
-        <setting id="debugnormal" type="boolean" label="30111" help="30745">
+        <setting id="nodebug" type="boolean" label="30144" help="30747">
           <level>1</level>
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="tracedebug" type="boolean" label="30104" help="30746">
+        <setting id="debugnormal" type="boolean" parent="nodebug" label="30111" help="30745">
           <level>1</level>
           <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="nodebug">false</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="tracedebug" type="boolean" parent="nodebug" label="30104" help="30746">
+          <level>1</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="nodebug">false</dependency>
+          </dependencies>
           <control type="toggle" />
         </setting>
       </group>
