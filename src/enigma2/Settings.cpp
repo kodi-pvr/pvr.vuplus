@@ -339,8 +339,11 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("streamreadchunksize", &m_streamReadChunkSize))
     m_streamReadChunkSize = 0;
 
+  if (!XBMC->GetSetting("nodebug", &m_noDebug))
+    m_noDebug = false;
+
   if (!XBMC->GetSetting("debugnormal", &m_debugNormal))
-    m_traceDebug = false;
+    m_debugNormal = false;
 
   if (!XBMC->GetSetting("tracedebug", &m_traceDebug))
     m_traceDebug = false;
@@ -507,6 +510,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "nodebug")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_noDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "debugnormal")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_debugNormal, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tracedebug")
