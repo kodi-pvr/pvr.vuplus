@@ -83,6 +83,8 @@ public:
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
   void CloseLiveStream();
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
+  const bool GetLiveStreamRequiresProgramNumber(const PVR_CHANNEL &channelinfo);
+  const int GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount();
   PVR_ERROR GetRecordings(ADDON_HANDLE handle);
   PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
