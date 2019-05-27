@@ -483,6 +483,24 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
   return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamURL();
 }
 
+const int Enigma2::GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo)
+{
+  return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamProgramNumber();
+}
+
+const bool Enigma2::GetLiveStreamRequiresProgramNumber(const PVR_CHANNEL &channelinfo)
+{
+  const std::string strM3U = WebUtils::GetHttpXML(m_channels.GetChannel(channelinfo.iUniqueId)->GetM3uURL());
+  std::istringstream streamM3U(strM3U);
+  std::string m3uLine = "";
+  while (std::getline(streamM3U, m3uLine))
+  {
+    if (StringUtils::StartsWith(m3uLine, "#EXTVLCOPT:program="))
+      return true;
+  };
+
+  return false;
+}
 
 /**
   * GetStreamURL() reads out a stream-URL from a M3U-file.

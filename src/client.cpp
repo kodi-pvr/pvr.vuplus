@@ -338,6 +338,36 @@ PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
  * Live Streams
  **************************************************************************/
 
+PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
+{
+  //
+  // We only use this function to set the program number which comes with every Enigma2 channel. For providers that
+  // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
+  //
+
+  if (!channel || !properties || !iPropertiesCount)
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (*iPropertiesCount < 1)
+    return PVR_ERROR_INVALID_PARAMETERS;
+
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (enigma->GetLiveStreamRequiresProgramNumber(*channel))
+  {
+    std::string strStreamProgramNumber = std::to_string(enigma->GetChannelStreamProgramNumber(*channel));
+
+    Logger::Log(LEVEL_NOTICE, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
+
+    strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
+    strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
+    *iPropertiesCount = 1;
+  }
+
+  return PVR_ERROR_NO_ERROR;
+}
+
 PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 {
   if (!chunksize)
@@ -634,7 +664,6 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
 
 /** UNUSED API FUNCTIONS */
 PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxAbort(void) { return; }
 DemuxPacket* DemuxRead(void) { return nullptr; }
 void FillBuffer(bool mode) {}
