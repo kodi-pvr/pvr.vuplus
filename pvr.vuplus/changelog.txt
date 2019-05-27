@@ -1,3 +1,8 @@
+v3.26.0
+- Added: Support setting progam number in stream properties for MPTS streams
+- Added: Support disabling addon debug logging in debug mode
+- Added: Readme updates
+
 v3.25.0
 - Added: Support backend channel numbers for all channel groups not just the first
 - Added: Ignore empty channel groups
