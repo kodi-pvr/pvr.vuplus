@@ -254,7 +254,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
   if (Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {
-    const std::string strTmp = StringUtils::Format("%sweb/getallservices?type=radio&renameserviceforxbmc=yes", Settings::GetInstance().GetConnectionURL().c_str());
+    const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
 
     const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
@@ -267,25 +267,25 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     TiXmlHandle hDoc(&xmlDoc);
 
-    TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelistrecursive").Element();
+    TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelist").Element();
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelistrecursive> element for radio groups!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
       return false;
     }
 
     TiXmlHandle hRoot = TiXmlHandle(pElem);
 
-    TiXmlElement* pNode = hRoot.FirstChildElement("e2bouquet").Element();
+    TiXmlElement* pNode = hRoot.FirstChildElement("e2service").Element();
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2bouquet> element for radio groups", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
       return false;
     }
 
-    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2bouquet"))
+    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
     {
       ChannelGroup newChannelGroup;
 
