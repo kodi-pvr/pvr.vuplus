@@ -21,10 +21,11 @@ Some features are only available with at least certain OpenWebIf versions:
   * Embedded EPG Genres
   * Tuner Details
   * Provider Name
-  * Backend Channel Numbers
   * Picon URLs
 * 1.3.6
   * Editing Recordings
+* 1.3.7
+  * Backend Channel Numbers
 
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv)
@@ -123,7 +124,9 @@ Within this tab general options are configured.
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
-Note that channel numbers are set in the addon based on their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet that is loaded, any subsequent channel numbers will be ignored. Therefore if you use a master bouquet it should be the first bouquet loaded assuming it has the channel numbering/order you require.
+Note that channel numbers are set in the addon based on their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet in which it is loaded, any subsequent channel numbers will be ignored. Therefore if it's desired to keep the same channel numbers across the Enigma2 device and the addon the following guidelines should be adhered to:
+  * If a master bouquet is used it should be the first bouquet loaded assuming it has the channel numbering/order you require.
+  * If not using a master bouquet each channel should only appear in a single bouquet (i.e. do not use channels in multiple bouquets unless they have different service references).
 
 If Kodi PVR is set to use the channel numbers from the backend the numbers will match those on your STB. If this is not enabled each unique instance of a channel will be given the next free number starting from 1 (i.e. the 17th unique channel will be channel 17). Backend channel numbers will only work for OpenWebIf 1.3.5 and later and they have been tested using ABM (AutoBouquetsMaker).
 
