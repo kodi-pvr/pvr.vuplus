@@ -151,12 +151,12 @@ bool Channels::LoadChannels(ChannelGroups &channelGroups)
   // Load Channels extra data for groups
   int tvChannelNumberOffset = 0;
   int radioChannelNumberOffset = 0;
-  for (const auto& group : channelGroups.GetExtraDataChannelGroupsList())
+  for (const auto& group : channelGroups.GetChannelGroupsList())
   {
     if (group->IsRadio())
-      radioChannelNumberOffset = LoadChannelsExtraData(group->GetServiceReference(), group->GetGroupName(), channelGroups.IsValid(group->GetGroupName()), radioChannelNumberOffset);
+      radioChannelNumberOffset = LoadChannelsExtraData(group, radioChannelNumberOffset);
     else
-      tvChannelNumberOffset = LoadChannelsExtraData(group->GetServiceReference(), group->GetGroupName(), channelGroups.IsValid(group->GetGroupName()), tvChannelNumberOffset);
+      tvChannelNumberOffset = LoadChannelsExtraData(group, tvChannelNumberOffset);
   }
 
   return bOk;
@@ -220,24 +220,28 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   return true;
 }
 
-int Channels::LoadChannelsExtraData(const std::string groupServiceReference, const std::string groupName, bool requiredGroup, int channelPositionOffset)
+int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::ChannelGroup> channelGroup, int lastGroupLatestChannelPosition)
 {
-  int newChannelPositionOffset = channelPositionOffset;
+  int newChannelPositionOffset = channelGroup->GetStartChannelNumber();
+
+  // In case we don't have a start channel number for this group just use the latest
+  if (!channelGroup->HasStartChannelNumber())
+    newChannelPositionOffset = lastGroupLatestChannelPosition;
 
   if (Settings::GetInstance().SupportsProviderNumberAndPiconForChannels())
   {
-    Logger::Log(LEVEL_INFO, "%s loading channel group extra data: '%s'", __FUNCTION__, groupName.c_str());
+    Logger::Log(LEVEL_INFO, "%s loading channel group extra data: '%s'", __FUNCTION__, channelGroup->GetGroupName().c_str());
 
     //We can use the JSON API so let's supplement the data with extra information
 
-    const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
+    const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(channelGroup->GetServiceReference()).c_str());
     const std::string strJson = WebUtils::GetHttpXML(jsonURL);
 
     try
     {
       auto jsonDoc = json::parse(strJson);
 
-      if (!jsonDoc["services"].empty() && requiredGroup)
+      if (!jsonDoc["services"].empty())
       {
         for (const auto& it : jsonDoc["services"].items())
         {
@@ -264,10 +268,10 @@ int Channels::LoadChannelsExtraData(const std::string groupServiceReference, con
               channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
             }
 
-            if (!jsonChannel["pos"].empty() && channel->UsingDefaultChannelNumber())
+            if (!jsonChannel["pos"].empty() && channel->UsingDefaultChannelNumber() && Settings::GetInstance().SupportsChannelNumberGroupStartPos())
             {
               Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["pos"].get<int>());
-              channel->SetChannelNumber(jsonChannel["pos"].get<int>() + channelPositionOffset);
+              channel->SetChannelNumber(jsonChannel["pos"].get<int>() + lastGroupLatestChannelPosition);
               channel->SetUsingDefaultChannelNumber(false);
             }
 
@@ -290,7 +294,7 @@ int Channels::LoadChannelsExtraData(const std::string groupServiceReference, con
       {
         newChannelPositionOffset += jsonDoc["pos"].get<int>();
 
-        Logger::Log(LEVEL_DEBUG, "%s For groupName %s, highest  backend channel number offset is %d", __FUNCTION__, groupName.c_str(), newChannelPositionOffset);
+        Logger::Log(LEVEL_DEBUG, "%s For groupName %s, highest  backend channel number offset is %d", __FUNCTION__, channelGroup->GetGroupName().c_str(), newChannelPositionOffset);
       }
     }
     catch (nlohmann::detail::parse_error& e)
@@ -337,7 +341,7 @@ ChannelsChangeState Channels::CheckForChannelAndGroupChanges(enigma2::ChannelGro
   foundCount = 0;
   for (const auto& group : m_channelGroups.GetChannelGroupsList())
   {
-    const std::shared_ptr<ChannelGroup> channelGroupPtr = latestChannelGroups.GetChannelGroup(group->GetGroupName());
+    const std::shared_ptr<ChannelGroup> channelGroupPtr = latestChannelGroups.GetChannelGroupUsingName(group->GetGroupName());
 
     if (channelGroupPtr)
     {

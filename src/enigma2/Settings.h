@@ -226,6 +226,7 @@ namespace enigma2
     bool SupportsAutoTimers() const { return CheckOpenWebIfVersion(1, 3, 0); }
     bool SupportsTunerDetails() const { return CheckOpenWebIfVersion(1, 3, 5); }
     bool SupportsProviderNumberAndPiconForChannels() const { return CheckOpenWebIfVersion(1, 3, 5); }
+    bool SupportsChannelNumberGroupStartPos() const { return CheckOpenWebIfVersion(1, 3, 7); }
 
     bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
     void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
