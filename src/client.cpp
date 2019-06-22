@@ -203,7 +203,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bSupportsTV                 = true;
   pCapabilities->bSupportsRadio              = true;
   pCapabilities->bSupportsRecordings         = true;
-  pCapabilities->bSupportsRecordingsUndelete = false;
+  pCapabilities->bSupportsRecordingsUndelete = true;
   pCapabilities->bSupportsTimers             = true;
   pCapabilities->bSupportsChannelGroups      = true;
   pCapabilities->bSupportsChannelScan        = false;
@@ -469,7 +469,7 @@ int GetRecordingsAmount(bool deleted)
   if (!enigma || !enigma->IsConnected())
     return 0;
 
-  return enigma->GetRecordingsAmount();
+  return enigma->GetRecordingsAmount(deleted);
 }
 
 PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
@@ -477,7 +477,7 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return enigma->GetRecordings(handle);
+  return enigma->GetRecordings(handle, deleted);
 }
 
 PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
@@ -486,6 +486,22 @@ PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
     return PVR_ERROR_SERVER_ERROR;
 
   return enigma->DeleteRecording(recording);
+}
+
+PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->UndeleteRecording(recording);
+}
+
+PVR_ERROR DeleteAllRecordingsFromTrash()
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->DeleteAllRecordingsFromTrash();
 }
 
 PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
@@ -649,8 +665,6 @@ void DemuxReset(void) {}
 void DemuxFlush(void) {}
 bool SeekTime(double,bool,double*) { return false; }
 void SetSpeed(int) {};
-PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR DeleteAllRecordingsFromTrash() { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }

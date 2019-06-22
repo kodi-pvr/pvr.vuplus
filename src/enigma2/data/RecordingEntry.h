@@ -80,7 +80,10 @@ namespace enigma2
       bool IsRadio() const { return m_radio; }
       void SetRadio(bool value) { m_radio = value; }
 
-      bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, enigma2::Channels &channels);
+      bool IsDeleted() const { return m_deleted; }
+      void SetDeleted(bool value) { m_deleted = value; }
+
+      bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, bool deleted, enigma2::Channels &channels);
       void UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder);
 
     private:
@@ -106,6 +109,7 @@ namespace enigma2
       mutable bool m_radio = false;
       mutable bool m_haveChannelType = false;
       mutable bool m_anyChannelTimerSource = false;
+      bool m_deleted = false;
     };
   } //namespace data
 } //namespace enigma2

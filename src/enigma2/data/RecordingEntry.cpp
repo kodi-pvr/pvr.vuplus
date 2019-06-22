@@ -10,12 +10,13 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, Channels &channels)
+bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, bool deleted, Channels &channels)
 {
   std::string strTmp;
   int iTmp;
 
   m_directory = directory;
+  m_deleted = deleted;
 
   if (XMLUtils::GetString(recordingNode, "e2servicereference", strTmp))
     m_recordingId = strTmp;
@@ -155,8 +156,9 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   }
 
   strncpy(left.strDirectory, m_directory.c_str(), sizeof(left.strDirectory));
-  left.recordingTime     = m_startTime;
-  left.iDuration         = m_duration;
+  left.bIsDeleted = m_deleted;
+  left.recordingTime = m_startTime;
+  left.iDuration = m_duration;
 
   left.iChannelUid = m_channelUniqueId;
   left.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
