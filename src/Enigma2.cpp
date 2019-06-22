@@ -85,7 +85,8 @@ void Enigma2::Reset()
   m_timers.ClearTimers();
 
   Logger::Log(LEVEL_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
-  m_recordings.ClearRecordings();
+  m_recordings.ClearRecordings(false);
+  m_recordings.ClearRecordings(true);
 
   Logger::Log(LEVEL_DEBUG, "%s Removing internal group list...", __FUNCTION__);
   m_channelGroups.ClearChannelGroups();
@@ -508,19 +509,19 @@ std::string Enigma2::GetStreamURL(const std::string& strM3uURL)
  * Recordings
  **************************************************************************/
 
-unsigned int Enigma2::GetRecordingsAmount()
+unsigned int Enigma2::GetRecordingsAmount(bool deleted)
 {
-  return m_recordings.GetNumRecordings();
+  return m_recordings.GetNumRecordings(deleted);
 }
 
-PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle)
+PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle, bool deleted)
 {
-  m_recordings.LoadRecordings();
+  m_recordings.LoadRecordings(deleted);
 
   std::vector<PVR_RECORDING> recordings;
   {
     CLockObject lock(m_mutex);
-    m_recordings.GetRecordings(recordings);
+    m_recordings.GetRecordings(recordings, deleted);
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - recordings available '%d'", __FUNCTION__, recordings.size());
@@ -534,6 +535,16 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle)
 PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo)
 {
   return m_recordings.DeleteRecording(recinfo);
+}
+
+PVR_ERROR Enigma2::UndeleteRecording(const PVR_RECORDING& recording)
+{
+  return m_recordings.UndeleteRecording(recording);
+}
+
+PVR_ERROR Enigma2::DeleteAllRecordingsFromTrash()
+{
+  return m_recordings.DeleteAllRecordingsFromTrash();
 }
 
 PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
