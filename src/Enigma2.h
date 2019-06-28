@@ -83,6 +83,7 @@ public:
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
   void CloseLiveStream();
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
+  int GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount(bool deleted);
   PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted);
   PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
@@ -94,6 +95,8 @@ public:
   PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count);
   PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition);
   int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording);
+  bool HasRecordingStreamProgramNumber(const PVR_RECORDING& recording);
+  int GetRecordingStreamProgramNumber(const PVR_RECORDING& recording);
   enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
   int GetTimersAmount(void);

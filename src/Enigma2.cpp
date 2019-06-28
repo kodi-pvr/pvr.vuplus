@@ -484,6 +484,10 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
   return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamURL();
 }
 
+int Enigma2::GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo)
+{
+  return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamProgramNumber();
+}
 
 /**
   * GetStreamURL() reads out a stream-URL from a M3U-file.
@@ -591,6 +595,16 @@ RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
   }
 
   return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), start, end, recinfo.iDuration);
+}
+
+bool Enigma2::HasRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+{
+  return m_recordings.HasRecordingStreamProgramNumber(recording);
+}
+
+int Enigma2::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+{
+  return m_recordings.GetRecordingStreamProgramNumber(recording);
 }
 
 PVR_ERROR Enigma2::RenameRecording(const PVR_RECORDING &recording)

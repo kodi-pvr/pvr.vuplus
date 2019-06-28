@@ -56,6 +56,8 @@ namespace enigma2
     PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
     PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording);
     PVR_ERROR DeleteAllRecordingsFromTrash();
+    bool HasRecordingStreamProgramNumber(const PVR_RECORDING& recording);
+    int GetRecordingStreamProgramNumber(const PVR_RECORDING& recording);
 
     std::vector<std::string>& GetLocations();
     void ClearLocations();

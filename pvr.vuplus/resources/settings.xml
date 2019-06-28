@@ -114,7 +114,15 @@
 
     <!-- General -->
     <category id="general" label="30018" help="30620">
-      <group id="1" label="30006">
+      <group id="1" label="30007">
+        <setting id="setprogramid" type="boolean" label="30014" help="30629">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+
+      <group id="2" label="30006">
         <setting id="onlinepicons" type="boolean" label="30027" help="30621">
           <level>0</level>
           <default>true</default>
@@ -149,7 +157,7 @@
         </setting>
       </group>
 
-      <group id="2" label="30009">
+      <group id="3" label="30009">
         <setting id="updateint" type="integer" label="30015" help="30625">
           <level>1</level>
           <default>2</default>
@@ -213,14 +221,14 @@
     <!-- Channels -->
     <category id="channels" label="30019" help="30640">
       <group id="1" label="30018">
-        <setting id="usestandardserviceref" type="boolean" label="30126" help="30641">
-          <level>3</level>
-          <default>true</default>
-          <control type="toggle" />
-        </setting>
         <setting id="zap" type="boolean" label="30013" help="30642">
           <level>0</level>
           <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="usestandardserviceref" type="boolean" label="30126" help="30641">
+          <level>3</level>
+          <default>true</default>
           <control type="toggle" />
         </setting>
       </group>
