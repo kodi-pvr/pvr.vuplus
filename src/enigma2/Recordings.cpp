@@ -469,6 +469,16 @@ PVR_ERROR Recordings::DeleteAllRecordingsFromTrash()
   return PVR_ERROR_NO_ERROR;
 }
 
+bool Recordings::HasRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+{
+  return GetRecording(recording.strRecordingId).HasStreamProgramNumber();
+}
+
+int Recordings::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+{
+  return GetRecording(recording.strRecordingId).GetStreamProgramNumber();
+}
+
 const std::string Recordings::GetRecordingURL(const PVR_RECORDING &recinfo)
 {
   for (const auto& recording : m_recordings)

@@ -52,7 +52,10 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr ""
 
-#empty string with id 30007
+#label-group: General - Program Streams
+msgctxt "#30007"
+msgid "Program Streams"
+msgstr ""
 
 #label: General - iconpath
 msgctxt "#30008"
@@ -81,7 +84,10 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr ""
 
-#empty string with id 30014
+#label: Channels - setprogramid
+msgctxt "#30014"
+msgid "Set program id for live channel or recorded streams"
+msgstr ""
 
 #label: General - updateint
 msgctxt "#30015"
@@ -960,7 +966,12 @@ msgctxt "#30628"
 msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
 msgstr ""
 
-#empty strings from id 30629 to 30639
+#help: Channels - setprogramid
+msgctxt "#30629"
+msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
+msgstr ""
+
+#empty strings from id 30630 to 30639
 
 #help info - Channels
 

@@ -107,6 +107,7 @@ Within this tab the connection options need to be configured before it can be su
 ### General
 Within this tab general options are configured.
 
+* **Set program id for live channel streams**: Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled.
 * **Fetch picons from web interface**: Fetch the picons straight from the Enigma 2 set-top box.
 * **Use picons.eu file format**: Assume all picons files fetched from the set-top box start with `1_1_1_` and end with `_0_0_0`.
 * **Use OpenWebIf picon path**: Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf.
@@ -130,8 +131,8 @@ Note that channel numbers are set in the addon based on their first occurence wh
 
 If Kodi PVR is set to use the channel numbers from the backend the numbers will match those on your STB. If this is not enabled each unique instance of a channel will be given the next free number starting from 1 (i.e. the 17th unique channel will be channel 17). Backend channel numbers will only work for OpenWebIf 1.3.5 and later and they have been tested using ABM (AutoBouquetsMaker).
 
-* **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
+* **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
     - `Some bouquets` - Only fetch the bouquet specified in the next option

@@ -192,7 +192,6 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
   {
     m_radio = ReadTagValue(TAG_FOR_CHANNEL_TYPE) == VALUE_FOR_CHANNEL_TYPE_RADIO;
     m_haveChannelType = true;
-
   }
 
   m_anyChannelTimerSource = ContainsTag(TAG_FOR_ANY_CHANNEL);
@@ -200,9 +199,23 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
   channel = GetChannelFromChannelNameSearch(channels);
 
   if (channel)
+  {
+    if (!m_hasStreamProgramNumber)
+    {
+      m_streamProgramNumber = channel->GetStreamProgramNumber();
+      m_hasStreamProgramNumber = true;
+    }
+
     return channel;
+  }
 
   channel = GetChannelFromChannelNameFuzzySearch(channels);
+
+  if (channel && !m_hasStreamProgramNumber)
+  {
+    m_streamProgramNumber = channel->GetStreamProgramNumber();
+    m_hasStreamProgramNumber = true;
+  }
 
   return channel;
 }
@@ -214,6 +227,9 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
   if (ContainsTag(TAG_FOR_CHANNEL_REFERENCE))
   {
     channelServiceReference = Channel::NormaliseServiceReference(ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true));
+
+    std::sscanf(channelServiceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
+    m_hasStreamProgramNumber = true;
   }
 
   return channels.GetChannel(channelServiceReference);
