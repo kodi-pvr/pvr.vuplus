@@ -89,6 +89,10 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   /* Configure the logger */
   Logger::GetInstance().SetImplementation([](LogLevel level, const char *message)
   {
+    /* Don't log trace messages unless told so */
+    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+      return;
+
     /* Convert the log level */
     addon_log_t addonLevel;
 
@@ -107,11 +111,10 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
         addonLevel = addon_log_t::LOG_DEBUG;
     }
 
-    /* Don't log trace messages unless told so */
-    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+    if (addonLevel == addon_log_t::LOG_DEBUG && Settings::GetInstance().GetNoDebug())
       return;
 
-    if (Settings::GetInstance().GetDebugNormal() && level == LogLevel::LEVEL_DEBUG)
+    if (addonLevel == addon_log_t::LOG_DEBUG && Settings::GetInstance().GetDebugNormal())
       addonLevel = addon_log_t::LOG_NOTICE;
 
     XBMC->Log(addonLevel, "%s", message);
@@ -200,7 +203,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bSupportsTV                 = true;
   pCapabilities->bSupportsRadio              = true;
   pCapabilities->bSupportsRecordings         = true;
-  pCapabilities->bSupportsRecordingsUndelete = false;
+  pCapabilities->bSupportsRecordingsUndelete = true;
   pCapabilities->bSupportsTimers             = true;
   pCapabilities->bSupportsChannelGroups      = true;
   pCapabilities->bSupportsChannelScan        = false;
@@ -335,6 +338,36 @@ PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
  * Live Streams
  **************************************************************************/
 
+PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
+{
+  if (!settings.SetStreamProgramID())
+    return PVR_ERROR_NOT_IMPLEMENTED;
+
+  //
+  // We only use this function to set the program number which comes with every Enigma2 channel. For providers that
+  // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
+  //
+
+  if (!channel || !properties || !iPropertiesCount)
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (*iPropertiesCount < 1)
+    return PVR_ERROR_INVALID_PARAMETERS;
+
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  const std::string strStreamProgramNumber = std::to_string(enigma->GetChannelStreamProgramNumber(*channel));
+
+  Logger::Log(LEVEL_NOTICE, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
+
+  strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
+  strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
+  *iPropertiesCount = 1;
+
+  return PVR_ERROR_NO_ERROR;
+}
+
 PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 {
   if (!chunksize)
@@ -466,7 +499,7 @@ int GetRecordingsAmount(bool deleted)
   if (!enigma || !enigma->IsConnected())
     return 0;
 
-  return enigma->GetRecordingsAmount();
+  return enigma->GetRecordingsAmount(deleted);
 }
 
 PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
@@ -474,7 +507,7 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  return enigma->GetRecordings(handle);
+  return enigma->GetRecordings(handle, deleted);
 }
 
 PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
@@ -483,6 +516,22 @@ PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
     return PVR_ERROR_SERVER_ERROR;
 
   return enigma->DeleteRecording(recording);
+}
+
+PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->UndeleteRecording(recording);
+}
+
+PVR_ERROR DeleteAllRecordingsFromTrash()
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  return enigma->DeleteAllRecordingsFromTrash();
 }
 
 PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
@@ -534,6 +583,39 @@ int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
 /***************************************************************************
  * Recording Streams
  **************************************************************************/
+
+PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
+{
+  if (!settings.SetStreamProgramID())
+    return PVR_ERROR_NOT_IMPLEMENTED;
+
+  //
+  // We only use this function to set the program number which may comes with every Enigma2 recording. For providers that
+  // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
+  //
+
+  if (!recording || !properties || !iPropertiesCount)
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (*iPropertiesCount < 1)
+    return PVR_ERROR_INVALID_PARAMETERS;
+
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (enigma->HasRecordingStreamProgramNumber(*recording))
+  {
+    const std::string strStreamProgramNumber = std::to_string(enigma->GetRecordingStreamProgramNumber(*recording));
+
+    Logger::Log(LEVEL_NOTICE, "%s - for recording for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, recording->strChannelName, strStreamProgramNumber.c_str(), recording->strRecordingId);
+
+    strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
+    strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
+    *iPropertiesCount = 1;
+  }
+
+  return PVR_ERROR_NO_ERROR;
+}
 
 bool OpenRecordedStream(const PVR_RECORDING &recording)
 {
@@ -631,7 +713,6 @@ PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
 
 /** UNUSED API FUNCTIONS */
 PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxAbort(void) { return; }
 DemuxPacket* DemuxRead(void) { return nullptr; }
 void FillBuffer(bool mode) {}
@@ -641,13 +722,10 @@ PVR_ERROR DeleteChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLE
 PVR_ERROR RenameChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR OpenDialogChannelSettings(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxReset(void) {}
 void DemuxFlush(void) {}
 bool SeekTime(double,bool,double*) { return false; }
 void SetSpeed(int) {};
-PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR DeleteAllRecordingsFromTrash() { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }

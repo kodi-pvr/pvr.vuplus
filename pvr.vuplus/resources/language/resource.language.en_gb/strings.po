@@ -52,7 +52,10 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr ""
 
-#empty string with id 30007
+#label-group: General - Program Streams
+msgctxt "#30007"
+msgid "Program Streams"
+msgstr ""
 
 #label: General - iconpath
 msgctxt "#30008"
@@ -81,7 +84,10 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr ""
 
-#empty string with id 30014
+#label: Channels - setprogramid
+msgctxt "#30014"
+msgid "Set program id for live channel or recorded streams"
+msgstr ""
 
 #label: General - updateint
 msgctxt "#30015"
@@ -721,7 +727,12 @@ msgctxt "#30143"
 msgid "Radio bouquet 5"
 msgstr ""
 
-#empty strings from id 30144 to 30409
+#label: Advanced - ignoredebug
+msgctxt "#30144"
+msgid "No addon debug logging in Kodi debug mode"
+msgstr ""
+
+#empty strings from id 30145 to 30409
 
 ###############
 # application #
@@ -955,7 +966,12 @@ msgctxt "#30628"
 msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
 msgstr ""
 
-#empty strings from id 30629 to 30639
+#help: Channels - setprogramid
+msgctxt "#30629"
+msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
+msgstr ""
+
+#empty strings from id 30630 to 30639
 
 #help info - Channels
 
@@ -1242,7 +1258,12 @@ msgctxt "#30746"
 msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
 msgstr ""
 
-#empty strings from id 30747 to 30759
+#help: Advanced - ignoredebug
+msgctxt "#30747"
+msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
+msgstr ""
+
+#empty strings from id 30748 to 30759
 
 #help info - Backend
 

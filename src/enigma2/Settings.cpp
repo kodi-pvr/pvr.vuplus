@@ -66,6 +66,9 @@ void Settings::ReadFromAddon()
     m_connectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
   //General
+  if (!XBMC->GetSetting("setprogramid", &m_setStreamProgramId))
+    m_setStreamProgramId = false;
+
   if (!XBMC->GetSetting("onlinepicons", &m_onlinePicons))
     m_onlinePicons = true;
 
@@ -94,11 +97,11 @@ void Settings::ReadFromAddon()
     m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
   //Channels
-  if (!XBMC->GetSetting("usestandardserviceref", &m_useStandardServiceReference))
-    m_useStandardServiceReference = true;
-
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
+
+  if (!XBMC->GetSetting("usestandardserviceref", &m_useStandardServiceReference))
+    m_useStandardServiceReference = true;
 
   if (!XBMC->GetSetting("tvgroupmode", &m_tvChannelGroupMode))
     m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
@@ -339,8 +342,11 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("streamreadchunksize", &m_streamReadChunkSize))
     m_streamReadChunkSize = 0;
 
+  if (!XBMC->GetSetting("nodebug", &m_noDebug))
+    m_noDebug = false;
+
   if (!XBMC->GetSetting("debugnormal", &m_debugNormal))
-    m_traceDebug = false;
+    m_debugNormal = false;
 
   if (!XBMC->GetSetting("tracedebug", &m_traceDebug))
     m_traceDebug = false;
@@ -383,6 +389,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "connectioncheckinterval")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_connectioncCheckIntervalSecs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //General
+  else if (settingName == "setprogramid")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_setStreamProgramId, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "onlinepicons")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlinePicons, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "usepiconseuformat")
@@ -400,10 +408,10 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
   else if (settingName == "channelandgroupupdatehour")
     return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateHour, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
-  else if (settingName == "usestandardserviceref")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useStandardServiceReference, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "usestandardserviceref")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useStandardServiceReference, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tvgroupmode")
     return SetSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "numtvgroups")
@@ -507,6 +515,8 @@ ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *sett
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "nodebug")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_noDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "debugnormal")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_debugNormal, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tracedebug")

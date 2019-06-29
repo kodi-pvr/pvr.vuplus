@@ -128,6 +128,7 @@ namespace enigma2
     int GetConnectioncCheckIntervalSecs() const { return m_connectioncCheckIntervalSecs; }
 
     //General
+    bool SetStreamProgramID() const { return m_setStreamProgramId; }
     bool UseOnlinePicons() const { return m_onlinePicons; }
     bool UsePiconsEuFormat() const { return m_usePiconsEuFormat; }
     bool UseOpenWebIfPiconPath() const { return m_useOpenWebIfPiconPath; }
@@ -138,8 +139,8 @@ namespace enigma2
     ChannelAndGroupUpdateMode GetChannelAndGroupUpdateMode() const { return m_channelAndGroupUpdateMode; }
 
     //Channel
-    bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
+    bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetCustomTVGroupsFile() const { return m_customTVGroupsFile; }
     const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
@@ -188,6 +189,7 @@ namespace enigma2
     PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
+    bool GetNoDebug() const { return m_noDebug; };
     bool GetDebugNormal() const { return m_debugNormal; };
     bool GetTraceDebug() const { return m_traceDebug; };
 
@@ -225,6 +227,7 @@ namespace enigma2
     bool SupportsAutoTimers() const { return CheckOpenWebIfVersion(1, 3, 0); }
     bool SupportsTunerDetails() const { return CheckOpenWebIfVersion(1, 3, 5); }
     bool SupportsProviderNumberAndPiconForChannels() const { return CheckOpenWebIfVersion(1, 3, 5); }
+    bool SupportsChannelNumberGroupStartPos() const { return CheckOpenWebIfVersion(1, 3, 7); }
 
     bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
     void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
@@ -283,6 +286,7 @@ namespace enigma2
     int m_connectioncCheckIntervalSecs = DEFAULT_CONNECTION_CHECK_INTERVAL_SECS;
 
     //General
+    bool m_setStreamProgramId = false;
     bool m_onlinePicons = true;
     bool m_usePiconsEuFormat = false;
     bool m_useOpenWebIfPiconPath = false;
@@ -293,8 +297,8 @@ namespace enigma2
     unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel
-    bool m_useStandardServiceReference = true;
     bool m_zap = false;
+    bool m_useStandardServiceReference = true;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     unsigned int m_numTVGroups = DEFAULT_NUM_GROUPS;
     std::string m_oneTVGroup = "";
@@ -354,6 +358,7 @@ namespace enigma2
     PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
+    bool m_noDebug = false;
     bool m_debugNormal = false;
     bool m_traceDebug = false;
 

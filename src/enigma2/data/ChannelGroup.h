@@ -40,7 +40,8 @@ namespace enigma2
     public:
       ChannelGroup() = default;
       ChannelGroup(ChannelGroup &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
-        m_groupName(c.GetGroupName()), m_serviceReference(c.GetServiceReference()), m_lastScannedGroup(c.IsLastScannedGroup()), m_emptyGroup(c.IsEmptyGroup()) {};
+        m_groupName(c.GetGroupName()), m_serviceReference(c.GetServiceReference()), m_lastScannedGroup(c.IsLastScannedGroup()),
+        m_startChannelNumber(c.GetStartChannelNumber()), m_emptyGroup(c.IsEmptyGroup()) {};
       ~ChannelGroup() = default;
 
       bool IsRadio() const { return m_radio; }
@@ -61,9 +62,14 @@ namespace enigma2
       bool IsEmptyGroup() const { return m_emptyGroup; }
       void SetEmptyGroup(bool value) { m_emptyGroup = value; }
 
+      int GetStartChannelNumber() const { return m_startChannelNumber; }
+      void SetStartChannelNumber(int value) { m_startChannelNumber = value; }
+
+      bool HasStartChannelNumber() const { return m_startChannelNumber >= 0; }
+
       void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
 
-      bool UpdateFrom(TiXmlElement* groupNode, bool radio, std::vector<std::shared_ptr<ChannelGroup>> &extraDataChannelGroups);
+      bool UpdateFrom(TiXmlElement* groupNode, bool radio);
       void UpdateTo(PVR_CHANNEL_GROUP &left) const;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
@@ -79,6 +85,7 @@ namespace enigma2
       std::string m_groupName;
       bool m_lastScannedGroup;
       bool m_emptyGroup;
+      int m_startChannelNumber = -1;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> m_channelList;
     };

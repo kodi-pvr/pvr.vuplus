@@ -1,3 +1,10 @@
+v4.4.0
+- Added: Set program id option for streams with superfluous program data
+- Added: Undelete and trashcan (when configured on backend) for recordings
+- Added: Use new API for backend channel numbers - openwebif 1.3.7
+- Fixed: Radio groups parsed from wrong api
+- Added: Support disabling addon debug logging in debug mode
+
 v4.3.0
 - Added: Support backend channel numbers for all channel groups not just the first
 - Added: Ignore empty channel groups

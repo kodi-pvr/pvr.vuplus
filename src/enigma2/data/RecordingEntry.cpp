@@ -10,12 +10,13 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, Channels &channels)
+bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, bool deleted, Channels &channels)
 {
   std::string strTmp;
   int iTmp;
 
   m_directory = directory;
+  m_deleted = deleted;
 
   if (XMLUtils::GetString(recordingNode, "e2servicereference", strTmp))
     m_recordingId = strTmp;
@@ -155,8 +156,9 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   }
 
   strncpy(left.strDirectory, m_directory.c_str(), sizeof(left.strDirectory));
-  left.recordingTime     = m_startTime;
-  left.iDuration         = m_duration;
+  left.bIsDeleted = m_deleted;
+  left.recordingTime = m_startTime;
+  left.iDuration = m_duration;
 
   left.iChannelUid = m_channelUniqueId;
   left.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
@@ -190,7 +192,6 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
   {
     m_radio = ReadTagValue(TAG_FOR_CHANNEL_TYPE) == VALUE_FOR_CHANNEL_TYPE_RADIO;
     m_haveChannelType = true;
-
   }
 
   m_anyChannelTimerSource = ContainsTag(TAG_FOR_ANY_CHANNEL);
@@ -198,9 +199,23 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
   channel = GetChannelFromChannelNameSearch(channels);
 
   if (channel)
+  {
+    if (!m_hasStreamProgramNumber)
+    {
+      m_streamProgramNumber = channel->GetStreamProgramNumber();
+      m_hasStreamProgramNumber = true;
+    }
+
     return channel;
+  }
 
   channel = GetChannelFromChannelNameFuzzySearch(channels);
+
+  if (channel && !m_hasStreamProgramNumber)
+  {
+    m_streamProgramNumber = channel->GetStreamProgramNumber();
+    m_hasStreamProgramNumber = true;
+  }
 
   return channel;
 }
@@ -212,6 +227,9 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
   if (ContainsTag(TAG_FOR_CHANNEL_REFERENCE))
   {
     channelServiceReference = Channel::NormaliseServiceReference(ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true));
+
+    std::sscanf(channelServiceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
+    m_hasStreamProgramNumber = true;
   }
 
   return channels.GetChannel(channelServiceReference);
