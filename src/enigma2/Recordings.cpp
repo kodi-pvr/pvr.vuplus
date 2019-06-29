@@ -29,28 +29,41 @@ Recordings::Recordings(Channels &channels, enigma2::extract::EpgEntryExtractor &
   m_randomDistribution = std::uniform_int_distribution<>(E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MIN, E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MAX);
 }
 
-void Recordings::GetRecordings(std::vector<PVR_RECORDING> &kodiRecordings)
+void Recordings::GetRecordings(std::vector<PVR_RECORDING> &kodiRecordings, bool deleted)
 {
-  for (auto& recording : m_recordings)
+  auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
+
+  for (auto& recording : recordings)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer recording '%s', Recording Id '%s'", __FUNCTION__, recording.GetTitle().c_str(), recording.GetRecordingId().c_str());
     PVR_RECORDING kodiRecording = {0};
 
-    recording.UpdateTo(kodiRecording, m_channels, IsInRecordingFolder(recording.GetTitle()));
+    recording.UpdateTo(kodiRecording, m_channels, IsInRecordingFolder(recording.GetTitle(), deleted));
 
     kodiRecordings.emplace_back(kodiRecording);
   }
 }
 
-int Recordings::GetNumRecordings() const
+int Recordings::GetNumRecordings(bool deleted) const
 {
-  return m_recordings.size();
+  const auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
+
+  return recordings.size();
 }
 
-void Recordings::ClearRecordings()
+void Recordings::ClearRecordings(bool deleted)
 {
-  m_recordings.clear();
-  m_recordingsIdMap.clear();
+  auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
+
+  recordings.clear();
+
+  for (auto it = m_recordingsIdMap.begin(); it != m_recordingsIdMap.end(); )
+  {
+    if (it->second.IsDeleted() == deleted)
+      it = m_recordingsIdMap.erase(it);
+    else
+      ++it;
+  }
 }
 
 void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR_EDL_ENTRY> &edlEntries) const
@@ -111,10 +124,12 @@ RecordingEntry Recordings::GetRecording(const std::string &recordingId) const
   return entry;
 }
 
-bool Recordings::IsInRecordingFolder(const std::string &recordingFolder) const
+bool Recordings::IsInRecordingFolder(const std::string &recordingFolder, bool deleted) const
 {
+  const auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
+
   int iMatches = 0;
-  for (const auto& recording : m_recordings)
+  for (const auto& recording : recordings)
   {
     if (recordingFolder == recording.GetTitle())
     {
@@ -424,6 +439,46 @@ PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING &recinfo)
   return PVR_ERROR_NO_ERROR;
 }
 
+PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
+{
+  auto recordingEntry = GetRecording(recording.strRecordingId);
+
+  std::regex regex(TRASH_FOLDER);
+
+  const std::string newRecordingDirectory = regex_replace(recordingEntry.GetDirectory(), regex, "");
+
+  const std::string strTmp = StringUtils::Format("web/moviemove?sRef=%s&dirname=%s", WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(), WebUtils::URLEncodeInline(newRecordingDirectory).c_str());
+
+  std::string strResult;
+  if(!WebUtils::SendSimpleCommand(strTmp, strResult))
+    return PVR_ERROR_FAILED;
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Recordings::DeleteAllRecordingsFromTrash()
+{
+  for (const auto &deletedRecording : m_deletedRecordings)
+  {
+    const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(deletedRecording.GetRecordingId()).c_str());
+
+    std::string strResult;
+    WebUtils::SendSimpleCommand(strTmp, strResult, true);
+  }
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+bool Recordings::HasRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+{
+  return GetRecording(recording.strRecordingId).HasStreamProgramNumber();
+}
+
+int Recordings::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+{
+  return GetRecording(recording.strRecordingId).GetStreamProgramNumber();
+}
+
 const std::string Recordings::GetRecordingURL(const PVR_RECORDING &recinfo)
 {
   for (const auto& recording : m_recordings)
@@ -590,21 +645,26 @@ bool Recordings::LoadLocations()
   return true;
 }
 
-void Recordings::LoadRecordings()
+void Recordings::LoadRecordings(bool deleted)
 {
-  ClearRecordings();
+  ClearRecordings(deleted);
 
-  for (const auto& location : m_locations)
+  for (std::string location : m_locations)
   {
-    if (!GetRecordingsFromLocation(location))
+    if (deleted)
+      location += TRASH_FOLDER;
+
+    if (!GetRecordingsFromLocation(location, deleted))
     {
       Logger::Log(LEVEL_ERROR, "%s Error fetching lists for folder: '%s'", __FUNCTION__, location.c_str());
     }
   }
 }
 
-bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation)
+bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, bool deleted)
 {
+  auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
+
   std::string url;
   std::string directory;
 
@@ -656,7 +716,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation)
 
       RecordingEntry recordingEntry;
 
-      if (!recordingEntry.UpdateFrom(pNode, directory, m_channels))
+      if (!recordingEntry.UpdateFrom(pNode, directory, deleted, m_channels))
         continue;
 
       if (m_entryExtractor.IsEnabled())
@@ -664,7 +724,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation)
 
       iNumRecordings++;
 
-      m_recordings.emplace_back(recordingEntry);
+      recordings.emplace_back(recordingEntry);
       m_recordingsIdMap.insert({recordingEntry.GetRecordingId(), recordingEntry});
 
       Logger::Log(LEVEL_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetStartTime(), recordingEntry.GetDuration());

@@ -39,7 +39,7 @@ bool ChannelGroup::operator!=(const ChannelGroup &right) const
   return !(*this == right);
 }
 
-bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio, std::vector<std::shared_ptr<ChannelGroup>> &extraDataChannelGroups)
+bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
 {
   std::string serviceReference;
   std::string groupName;
@@ -61,9 +61,6 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio, std::vector<s
   m_serviceReference = serviceReference;
   m_groupName = groupName;
   m_radio = radio;
-
-  // we keep this group even if it get's discarded so we can calculate backend channel numbers later on
-  extraDataChannelGroups.emplace_back(new ChannelGroup(*this));
 
   if (!radio && (Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                  Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))

@@ -42,14 +42,14 @@ namespace enigma2
     int GetChannelGroupUniqueId(const std::string &groupName) const;
     std::string GetChannelGroupServiceReference(const std::string &groupName);
     std::shared_ptr<enigma2::data::ChannelGroup> GetChannelGroup(int uniqueId);
-    std::shared_ptr<enigma2::data::ChannelGroup> GetChannelGroup(std::string groupName);
+    std::shared_ptr<enigma2::data::ChannelGroup> GetChannelGroup(const std::string &groupServiceReference);
+    std::shared_ptr<enigma2::data::ChannelGroup> GetChannelGroupUsingName(const std::string &groupName);
     bool IsValid(int uniqueId) const;
     bool IsValid(std::string groupName);
     int GetNumChannelGroups() const;
     void ClearChannelGroups();
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>>& GetChannelGroupsList();
     bool LoadChannelGroups();
-    const std::vector<std::shared_ptr<enigma2::data::ChannelGroup>>& GetExtraDataChannelGroupsList() const { return m_extraDataChannelGroups; };
 
   private:
     bool LoadTVChannelGroups();
@@ -59,12 +59,10 @@ namespace enigma2
     void AddTVLastScannedChannelGroup();
     void AddRadioLastScannedChannelGroup();
     void AddChannelGroup(enigma2::data::ChannelGroup& channelGroup);
+    void LoadChannelGroupsStartPosition(bool radio);
 
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroups;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupsNameMap;
-
-    // This is a special vector containing all channel groups even ones we don't require
-    // This is needed to calculate the backend channel numbers and they work in an unusual way on enigma2
-    std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_extraDataChannelGroups;
+    std::unordered_map<std::string, std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupsServiceReferenceMap;
   };
 } //namespace enigma2

@@ -9,12 +9,14 @@
 #include "utilities/WebUtils.h"
 #include "utilities/FileUtils.h"
 
+#include <nlohmann/json.hpp>
 #include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using json = nlohmann::json;
 
 void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannelGroups, bool radio) const
 {
@@ -39,7 +41,7 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannel
 
 PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER> &channelGroupMembers, const std::string &groupName)
 {
-  std::shared_ptr<ChannelGroup> channelGroup = GetChannelGroup(groupName);
+  std::shared_ptr<ChannelGroup> channelGroup = GetChannelGroupUsingName(groupName);
 
   if (!channelGroup)
   {
@@ -100,9 +102,18 @@ std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(int uniqueId)
   return m_channelGroups.at(uniqueId - 1);
 }
 
-std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(std::string groupName)
+std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(const std::string &groupServiceReference)
 {
-  std::shared_ptr<ChannelGroup> channelGroup = nullptr;
+  const auto channelGroupPair = m_channelGroupsServiceReferenceMap.find(groupServiceReference);
+  if (channelGroupPair != m_channelGroupsServiceReferenceMap.end())
+    return channelGroupPair->second;
+
+  return {};
+}
+
+std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroupUsingName(const std::string &groupName)
+{
+  std::shared_ptr<ChannelGroup> channelGroup;
 
   auto channelGroupPair = m_channelGroupsNameMap.find(groupName);
   if (channelGroupPair != m_channelGroupsNameMap.end())
@@ -120,7 +131,7 @@ bool ChannelGroups::IsValid(int uniqueId) const
 
 bool ChannelGroups::IsValid(std::string groupName)
 {
-  return GetChannelGroup(groupName) != nullptr;
+  return GetChannelGroupUsingName(groupName) != nullptr;
 }
 
 int ChannelGroups::GetNumChannelGroups() const
@@ -132,8 +143,7 @@ void ChannelGroups::ClearChannelGroups()
 {
   m_channelGroups.clear();
   m_channelGroupsNameMap.clear();
-
-  m_extraDataChannelGroups.clear();
+  m_channelGroupsServiceReferenceMap.clear();
 
   Settings::GetInstance().SetUsesLastScannedChannelGroup(false);
 }
@@ -150,6 +160,7 @@ void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
 
     std::shared_ptr<ChannelGroup> channelGroup = m_channelGroups.back();
     m_channelGroupsNameMap.insert({channelGroup->GetGroupName(), channelGroup});
+    m_channelGroupsServiceReferenceMap.insert({channelGroup->GetServiceReference(), channelGroup});
   }
 }
 
@@ -218,7 +229,7 @@ bool ChannelGroups::LoadTVChannelGroups()
     {
       ChannelGroup newChannelGroup;
 
-      if (!newChannelGroup.UpdateFrom(pNode, false, m_extraDataChannelGroups))
+      if (!newChannelGroup.UpdateFrom(pNode, false))
         continue;
 
       AddChannelGroup(newChannelGroup);
@@ -226,6 +237,8 @@ bool ChannelGroups::LoadTVChannelGroups()
       Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
     }
   }
+
+  LoadChannelGroupsStartPosition(false);
 
   if (Settings::GetInstance().GetTVFavouritesMode() == FavouritesGroupMode::AS_LAST_GROUP &&
       Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
@@ -254,7 +267,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
   if (Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {
-    const std::string strTmp = StringUtils::Format("%sweb/getallservices?type=radio&renameserviceforxbmc=yes", Settings::GetInstance().GetConnectionURL().c_str());
+    const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
 
     const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
@@ -267,29 +280,29 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     TiXmlHandle hDoc(&xmlDoc);
 
-    TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelistrecursive").Element();
+    TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelist").Element();
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelistrecursive> element for radio groups!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
       return false;
     }
 
     TiXmlHandle hRoot = TiXmlHandle(pElem);
 
-    TiXmlElement* pNode = hRoot.FirstChildElement("e2bouquet").Element();
+    TiXmlElement* pNode = hRoot.FirstChildElement("e2service").Element();
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2bouquet> element for radio groups", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
       return false;
     }
 
-    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2bouquet"))
+    for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
     {
       ChannelGroup newChannelGroup;
 
-      if (!newChannelGroup.UpdateFrom(pNode, true, m_extraDataChannelGroups))
+      if (!newChannelGroup.UpdateFrom(pNode, true))
         continue;
 
       AddChannelGroup(newChannelGroup);
@@ -297,6 +310,8 @@ bool ChannelGroups::LoadRadioChannelGroups()
       Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
     }
   }
+
+  LoadChannelGroupsStartPosition(true);
 
   if (Settings::GetInstance().GetRadioFavouritesMode() == FavouritesGroupMode::AS_LAST_GROUP &&
       Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
@@ -354,4 +369,64 @@ void ChannelGroups::AddRadioLastScannedChannelGroup()
   AddChannelGroup(newChannelGroup);
   Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+}
+
+void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
+{
+  if (Settings::GetInstance().SupportsChannelNumberGroupStartPos())
+  {
+    //We can use the JSON API so let's supplement the existing groups with start channel numbers
+    std::string jsonURL;
+
+    if (!radio)
+    {
+      Logger::Log(LEVEL_INFO, "%s loading channel group start channel number for all TV groups", __FUNCTION__);
+      jsonURL = StringUtils::Format("%sapi/getservices", Settings::GetInstance().GetConnectionURL().c_str());
+    }
+    else
+    {
+      Logger::Log(LEVEL_INFO, "%s loading channel group start channel number for all Radio groups", __FUNCTION__);
+      jsonURL = StringUtils::Format("%sapi/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
+    }
+
+    const std::string strJson = WebUtils::GetHttpXML(jsonURL);
+
+    try
+    {
+      auto jsonDoc = json::parse(strJson);
+
+      if (!jsonDoc["services"].empty())
+      {
+        for (const auto& it : jsonDoc["services"].items())
+        {
+          auto jsonGroup = it.value();
+
+          std::string serviceReference = jsonGroup["servicereference"].get<std::string>();
+
+          // Check whether the current element is not just a label or that it's not a hidden entry
+          if (serviceReference.compare(0, 5, "1:64:") == 0 || serviceReference.compare(0, 6, "1:320:") == 0)
+            continue;
+
+          auto group = GetChannelGroup(serviceReference);
+
+          if (group)
+          {
+            if (!jsonGroup["startpos"].empty())
+            {
+              Logger::Log(LEVEL_DEBUG, "%s For Group %s, set start pos for channel number is %d", __FUNCTION__, jsonGroup["servicename"].get<std::string>().c_str(), jsonGroup["startpos"].get<int>());
+              group->SetStartChannelNumber(jsonGroup["startpos"].get<int>());
+            }
+          }
+        }
+      }
+    }
+    catch (nlohmann::detail::parse_error& e)
+    {
+      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load start channel number for group from OpenWebIf - JSON parse error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+    }
+    catch (nlohmann::detail::type_error& e)
+    {
+      Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+    }
+  }
 }
