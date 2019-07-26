@@ -1,3 +1,6 @@
+v4.5.0
+- Added: Allow creation of epg-based repeating timer rules if autotimers are not available
+
 v4.4.0
 - Added: Set program id option for streams with superfluous program data
 - Added: Undelete and trashcan (when configured on backend) for recordings

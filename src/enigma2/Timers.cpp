@@ -336,23 +336,41 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
   types.emplace_back(*t);
   delete t;
 
-  // This type can only be created on the Enigma2 device.
-  /* Repeating epg based */
-  t = new TimerType(
-    Timer::Type::EPG_REPEATING,
-    PVR_TIMER_TYPE_IS_REPEATING              |
-    PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
-    PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-    PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
-    LocalizedString(30425)); // Repeating guide-based
-  types.emplace_back(*t);
-  delete t;
-
-  if (Settings::GetInstance().SupportsAutoTimers() && m_settings.GetAutoTimersEnabled())
+  if (!Settings::GetInstance().SupportsAutoTimers() || !m_settings.GetAutoTimersEnabled())
   {
+    // Allow this type of timer to be created from kodi if autotimers are not available
+    // as otherwise there is no way to create a repeating EPG timer rule
+    /* Repeating epg based */
+    t = new TimerType(
+      Timer::Type::EPG_REPEATING,
+      PVR_TIMER_TYPE_IS_REPEATING              |
+      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
+      LocalizedString(30425)); // Repeating guide-based
+    types.emplace_back(*t);
+    delete t;
+  }
+  else
+  {
+    // This type can only be created on the Enigma2 device (i.e. not via kodi PVR) if autotimers are used.
+    // In this case this type is superflous and just clutters the UI on creation.
+    /* Repeating epg based */
+    t = new TimerType(
+      Timer::Type::EPG_REPEATING,
+      PVR_TIMER_TYPE_IS_REPEATING              |
+      PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+      PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
+      LocalizedString(30425)); // Repeating guide-based
+    types.emplace_back(*t);
+    delete t;
+
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
     static std::vector<std::pair<int, std::string>> deDupValues =
     {
