@@ -340,7 +340,7 @@ PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
 
 PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
 {
-  if (!settings.SetStreamProgramID())
+  if (!settings.SetStreamProgramID() && !enigma->IsIptvStream(*channel))
     return PVR_ERROR_NOT_IMPLEMENTED;
 
   //
@@ -357,13 +357,25 @@ PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  const std::string strStreamProgramNumber = std::to_string(enigma->GetChannelStreamProgramNumber(*channel));
+  *iPropertiesCount = 0;
 
-  Logger::Log(LEVEL_NOTICE, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
+  if (enigma->IsIptvStream(*channel))
+  {
+    strncpy(properties[0].strName, PVR_STREAM_PROPERTY_STREAMURL, sizeof(properties[0].strName) - 1);
+    strncpy(properties[0].strValue, enigma->GetLiveStreamURL(*channel).c_str(), sizeof(properties[0].strValue) - 1);
+    (*iPropertiesCount)++;
+  }
 
-  strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
-  strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
-  *iPropertiesCount = 1;
+  if (settings.SetStreamProgramID())
+  {
+    const std::string strStreamProgramNumber = std::to_string(enigma->GetChannelStreamProgramNumber(*channel));
+
+    Logger::Log(LEVEL_NOTICE, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
+
+    strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
+    strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
+    (*iPropertiesCount)++;
+  }
 
   return PVR_ERROR_NO_ERROR;
 }

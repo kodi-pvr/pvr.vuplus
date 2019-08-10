@@ -83,6 +83,7 @@ public:
   bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
   void CloseLiveStream();
   const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
+  bool IsIptvStream(const PVR_CHANNEL& channelinfo) const;
   int GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo);
   unsigned int GetRecordingsAmount(bool deleted);
   PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted);
@@ -128,7 +129,7 @@ private:
   bool m_skipInitialEpgLoad;
   int m_epgMaxDays;
 
-  enigma2::Channels m_channels;
+  mutable enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
   enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
   std::vector<std::string>& m_locations = m_recordings.GetLocations();

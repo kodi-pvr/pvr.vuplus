@@ -65,23 +65,38 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   m_genericServiceReference = CreateGenericServiceReference(commonServiceReference);
   m_iconPath = CreateIconPath(commonServiceReference);
 
-  if (Settings::GetInstance().UseStandardServiceReference())
+  const std::string iptvStreamURL = ExtractIptvStreamURL();
+
+  Settings& settings = Settings::GetInstance();
+  if (settings.UseStandardServiceReference())
     m_serviceReference = m_standardServiceReference;
 
   std::sscanf(m_serviceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
 
   Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s, program number: %d", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str(), m_streamProgramNumber);
 
+  if (m_isIptvStream)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, IPTV Stream URL: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), iptvStreamURL.c_str());
+  }
+
   m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
 
-  m_streamURL = StringUtils::Format(
-    "http%s://%s%s:%d/%s",
-    Settings::GetInstance().UseSecureConnectionStream() ? "s" : "",
-    Settings::GetInstance().UseLoginStream() ? StringUtils::Format("%s:%s@", Settings::GetInstance().GetUsername().c_str(), Settings::GetInstance().GetPassword().c_str()).c_str() : "",
-    Settings::GetInstance().GetHostname().c_str(),
-    Settings::GetInstance().GetStreamPortNum(),
-    commonServiceReference.c_str()
-  );
+  if (!m_isIptvStream)
+  {
+    m_streamURL = StringUtils::Format(
+      "http%s://%s%s:%d/%s",
+      settings.UseSecureConnectionStream() ? "s" : "",
+      settings.UseLoginStream() ? StringUtils::Format("%s:%s@", settings.GetUsername().c_str(), settings.GetPassword().c_str()).c_str() : "",
+      settings.GetHostname().c_str(),
+      settings.GetStreamPortNum(),
+      commonServiceReference.c_str()
+    );
+  }
+  else
+  {
+    m_streamURL = iptvStreamURL;
+  }
 
   return true;
 }
@@ -157,6 +172,31 @@ std::string Channel::CreateIconPath(const std::string &commonServiceReference)
     iconPath = Settings::GetInstance().GetIconPath().c_str() + iconPath + ".png";
 
   return iconPath;
+}
+
+std::string Channel::ExtractIptvStreamURL()
+{
+  std::string iptvStreamURL;
+
+  std::size_t found = m_extendedServiceReference.find(m_standardServiceReference);
+  if (found != std::string::npos)
+  {
+    const std::string possibleIptvStreamURL = m_extendedServiceReference.substr(m_standardServiceReference.length());
+    found = possibleIptvStreamURL.find("%3a"); //look for an URL encoded colon which means we have an embedded URL
+    if (found != std::string::npos)
+    {
+      m_isIptvStream = true;
+      iptvStreamURL = possibleIptvStreamURL;
+      std::size_t foundColon = iptvStreamURL.find_last_of(":");
+      if (foundColon != std::string::npos)
+      {
+        iptvStreamURL = iptvStreamURL.substr(0, foundColon);
+      }
+      iptvStreamURL = std::regex_replace(iptvStreamURL, std::regex("%3a"), ":");
+    }
+  }
+
+  return iptvStreamURL;
 }
 
 bool Channel::HasRadioServiceType()
