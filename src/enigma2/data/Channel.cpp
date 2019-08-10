@@ -1,20 +1,19 @@
 #include "Channel.h"
 
-#include <regex>
-
-#include "ChannelGroup.h"
 #include "../Settings.h"
 #include "../utilities/WebUtils.h"
-
+#include "ChannelGroup.h"
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+
+#include <regex>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool Channel::Like(const Channel &right) const
+bool Channel::Like(const Channel& right) const
 {
   bool isLike = (m_serviceReference == right.m_serviceReference);
   isLike &= (m_channelName == right.m_channelName);
@@ -22,7 +21,7 @@ bool Channel::Like(const Channel &right) const
   return isLike;
 }
 
-bool Channel::operator==(const Channel &right) const
+bool Channel::operator==(const Channel& right) const
 {
   bool isEqual = (m_serviceReference == right.m_serviceReference);
   isEqual &= (m_channelName == right.m_channelName);
@@ -36,7 +35,7 @@ bool Channel::operator==(const Channel &right) const
   return isEqual;
 }
 
-bool Channel::operator!=(const Channel &right) const
+bool Channel::operator!=(const Channel& right) const
 {
   return !(*this == right);
 }
@@ -101,7 +100,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   return true;
 }
 
-std::string Channel::NormaliseServiceReference(const std::string &serviceReference)
+std::string Channel::NormaliseServiceReference(const std::string& serviceReference)
 {
   if (Settings::GetInstance().UseStandardServiceReference())
     return CreateStandardServiceReference(serviceReference);
@@ -109,12 +108,12 @@ std::string Channel::NormaliseServiceReference(const std::string &serviceReferen
     return serviceReference;
 }
 
-std::string Channel::CreateStandardServiceReference(const std::string &serviceReference)
+std::string Channel::CreateStandardServiceReference(const std::string& serviceReference)
 {
   return CreateCommonServiceReference(serviceReference) + ":";
 }
 
-std::string Channel::CreateCommonServiceReference(const std::string &serviceReference)
+std::string Channel::CreateCommonServiceReference(const std::string& serviceReference)
 {
   //The common service reference contains only the first 10 groups of digits with colon's in between
   std::string commonServiceReference = serviceReference;
@@ -142,20 +141,20 @@ std::string Channel::CreateCommonServiceReference(const std::string &serviceRefe
   return commonServiceReference;
 }
 
-std::string Channel::CreateGenericServiceReference(const std::string &commonServiceReference)
+std::string Channel::CreateGenericServiceReference(const std::string& commonServiceReference)
 {
   //Same as common service reference but starts with SERVICE_REF_GENERIC_PREFIX and ends with SERVICE_REF_GENERIC_POSTFIX
-  std::regex startPrefixRegex ("^\\d+:\\d+:\\d+:");
+  std::regex startPrefixRegex("^\\d+:\\d+:\\d+:");
   std::string replaceWith = "";
   std::string genericServiceReference = regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
-  std::regex endPostfixRegex (":\\d+:\\d+:\\d+$");
+  std::regex endPostfixRegex(":\\d+:\\d+:\\d+$");
   genericServiceReference = regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
   genericServiceReference = SERVICE_REF_GENERIC_PREFIX + genericServiceReference + SERVICE_REF_GENERIC_POSTFIX;
 
   return genericServiceReference;
 }
 
-std::string Channel::CreateIconPath(const std::string &commonServiceReference)
+std::string Channel::CreateIconPath(const std::string& commonServiceReference)
 {
   std::string iconPath = commonServiceReference;
 
@@ -209,7 +208,7 @@ bool Channel::HasRadioServiceType()
   return radioServiceType == RADIO_SERVICE_TYPE;
 }
 
-void Channel::UpdateTo(PVR_CHANNEL &left) const
+void Channel::UpdateTo(PVR_CHANNEL& left) const
 {
   left.iUniqueId = m_uniqueId;
   left.bIsRadio = m_radio;
@@ -221,7 +220,7 @@ void Channel::UpdateTo(PVR_CHANNEL &left) const
   strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath));
 }
 
-void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup> &channelGroup)
+void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup>& channelGroup)
 {
   m_channelGroupList.emplace_back(channelGroup);
 }

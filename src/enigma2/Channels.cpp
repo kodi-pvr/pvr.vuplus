@@ -1,30 +1,31 @@
 #include "Channels.h"
 
-#include <regex>
-
-#include "../client.h"
 #include "../Enigma2.h"
+#include "../client.h"
 #include "Admin.h"
 #include "ChannelGroups.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <regex>
+
 #include <nlohmann/json.hpp>
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
-void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) const
+void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) const
 {
   for (const auto& channel : m_channels)
   {
     if (channel->IsRadio() == bRadio)
     {
-      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d'", __FUNCTION__, channel->GetChannelName().c_str(), channel->GetUniqueId());
+      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d'", __FUNCTION__, channel->GetChannelName().c_str(),
+                  channel->GetUniqueId());
       PVR_CHANNEL kodiChannel = {0};
 
       channel->UpdateTo(kodiChannel);
@@ -34,7 +35,7 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL> &kodiChannels, bool bRadio) 
   }
 }
 
-int Channels::GetChannelUniqueId(const std::string &channelServiceReference)
+int Channels::GetChannelUniqueId(const std::string& channelServiceReference)
 {
   std::shared_ptr<Channel> channel = GetChannel(channelServiceReference);
   int uniqueId = PVR_CHANNEL_INVALID_UID;
@@ -50,7 +51,7 @@ std::shared_ptr<Channel> Channels::GetChannel(int uniqueId)
   return m_channels.at(uniqueId - 1);
 }
 
-std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelServiceReference)
+std::shared_ptr<Channel> Channels::GetChannel(const std::string& channelServiceReference)
 {
   std::shared_ptr<Channel> channel = nullptr;
 
@@ -63,7 +64,7 @@ std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelServiceR
   return channel;
 }
 
-std::shared_ptr<Channel> Channels::GetChannel(const std::string &channelName, bool isRadio)
+std::shared_ptr<Channel> Channels::GetChannel(const std::string& channelName, bool isRadio)
 {
   for (const auto& channel : m_channels)
   {
@@ -95,7 +96,7 @@ void Channels::ClearChannels()
   m_channelsServiceReferenceMap.clear();
 }
 
-void Channels::AddChannel(Channel &newChannel, std::shared_ptr<ChannelGroup> &channelGroup)
+void Channels::AddChannel(Channel& newChannel, std::shared_ptr<ChannelGroup>& channelGroup)
 {
   std::shared_ptr<Channel> foundChannel = GetChannel(newChannel.GetServiceReference());
 
@@ -124,7 +125,7 @@ std::vector<std::shared_ptr<Channel>>& Channels::GetChannelsList()
   return m_channels;
 }
 
-std::string Channels::GetChannelIconPath(std::string &channelName)
+std::string Channels::GetChannelIconPath(std::string& channelName)
 {
   for (const auto& channel : m_channels)
   {
@@ -134,7 +135,7 @@ std::string Channels::GetChannelIconPath(std::string &channelName)
   return "";
 }
 
-bool Channels::LoadChannels(ChannelGroups &channelGroups)
+bool Channels::LoadChannels(ChannelGroups& channelGroups)
 {
   m_channelGroups = channelGroups;
 
@@ -162,7 +163,7 @@ bool Channels::LoadChannels(ChannelGroups &channelGroups)
   return bOk;
 }
 
-bool Channels::LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<ChannelGroup> &channelGroup)
+bool Channels::LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<ChannelGroup>& channelGroup)
 {
   Logger::Log(LEVEL_INFO, "%s loading channel group: '%s'", __FUNCTION__, groupName.c_str());
 
@@ -280,7 +281,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
               if (!jsonChannel["picon"].empty())
               {
                 std::string connectionURL = Settings::GetInstance().GetConnectionURL();
-                connectionURL = connectionURL.substr(0, connectionURL.size()-1);
+                connectionURL = connectionURL.substr(0, connectionURL.size() - 1);
                 channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), jsonChannel["picon"].get<std::string>().c_str()));
 
                 Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
@@ -310,7 +311,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
   return newChannelPositionOffset;
 }
 
-ChannelsChangeState Channels::CheckForChannelAndGroupChanges(enigma2::ChannelGroups &latestChannelGroups, enigma2::Channels &latestChannels)
+ChannelsChangeState Channels::CheckForChannelAndGroupChanges(enigma2::ChannelGroups& latestChannelGroups, enigma2::Channels& latestChannels)
 {
   if (GetNumChannels() != latestChannels.GetNumChannels())
     return ChannelsChangeState::CHANNELS_CHANGED;

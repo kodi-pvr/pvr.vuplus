@@ -21,17 +21,16 @@
  *
  */
 
-#include <string>
-#include <ctime>
-#include <type_traits>
-
-#include "BaseEntry.h"
-#include "Tags.h"
 #include "../Channels.h"
 #include "../utilities/UpdateState.h"
-
-#include "kodi/libXBMC_pvr.h"
+#include "BaseEntry.h"
+#include "Tags.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
+#include <ctime>
+#include <string>
+#include <type_traits>
 
 namespace enigma2
 {
@@ -65,16 +64,16 @@ namespace enigma2
       }
 
       Type GetType() const { return m_type; }
-      void SetType(const Type value ) { m_type = value; }
+      void SetType(const Type value) { m_type = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
+      void SetServiceReference(const std::string& value) { m_serviceReference = value; }
 
       int GetChannelId() const { return m_channelId; }
       void SetChannelId(int value) { m_channelId = value; }
 
       const std::string& GetChannelName() const { return m_channelName; }
-      void SetChannelName(const std::string& value ) { m_channelName = value; }
+      void SetChannelName(const std::string& value) { m_channelName = value; }
 
       time_t GetStartTime() const { return m_startTime; }
       void SetStartTime(time_t value) { m_startTime = value; }
@@ -110,14 +109,14 @@ namespace enigma2
       void SetPaddingEndMins(int value) { m_paddingEndMins = value; }
 
       bool IsScheduled() const;
-      bool IsRunning(std::time_t *now, std::string *channelName, std::time_t startTime) const;
-      bool IsChildOfParent(const Timer &parent) const;
+      bool IsRunning(std::time_t* now, std::string* channelName, std::time_t startTime) const;
+      bool IsChildOfParent(const Timer& parent) const;
 
-      bool Like(const Timer &right) const;
-      bool operator==(const Timer &right) const;
-      void UpdateFrom(const Timer &right);
-      void UpdateTo(PVR_TIMER &right) const;
-      bool UpdateFrom(TiXmlElement* timerNode, Channels &channels);
+      bool Like(const Timer& right) const;
+      bool operator==(const Timer& right) const;
+      void UpdateFrom(const Timer& right);
+      void UpdateTo(PVR_TIMER& right) const;
+      bool UpdateFrom(TiXmlElement* timerNode, Channels& channels);
 
     protected:
       Type m_type = Type::MANUAL_ONCE;

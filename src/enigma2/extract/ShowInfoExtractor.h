@@ -1,12 +1,11 @@
 #pragma once
 
+#include "EpisodeSeasonPattern.h"
 #include "IExtractor.h"
 
 #include <regex>
 #include <string>
 #include <vector>
-
-#include "EpisodeSeasonPattern.h"
 
 namespace enigma2
 {
@@ -32,18 +31,17 @@ namespace enigma2
     // (2018E25)
     static const std::string GET_YEAR_EPISODE_PATTERN = "^.*\\(([12][0-9][0-9][0-9])[eE][pP]?\\.?[0-9]+/?[0-9]*\\)[^]*$";
 
-    class ShowInfoExtractor
-      : public IExtractor
+    class ShowInfoExtractor : public IExtractor
     {
     public:
       ShowInfoExtractor();
       ~ShowInfoExtractor(void);
 
-      void ExtractFromEntry(enigma2::data::BaseEntry &entry);
+      void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();
 
     private:
-      bool LoadShowInfoPatternsFile(const std::string &xmlFile, std::vector<EpisodeSeasonPattern> &episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
+      bool LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
 
       std::vector<EpisodeSeasonPattern> m_episodeSeasonPatterns;
       std::vector<std::regex> m_yearPatterns;

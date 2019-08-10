@@ -16,25 +16,24 @@ namespace enigma2
 
     static const std::string GENRE_KODI_DVB_FILEPATH = "special://userdata/addon_data/pvr.vuplus/genres/kodiDvbGenres.xml";
 
-    class GenreRytecTextMapper
-      : public IExtractor
+    class GenreRytecTextMapper : public IExtractor
     {
     public:
       GenreRytecTextMapper();
       ~GenreRytecTextMapper();
 
-      void ExtractFromEntry(enigma2::data::BaseEntry &entry);
+      void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();
 
     private:
       static int GetGenreTypeFromCombined(int combinedGenreType);
       static int GetGenreSubTypeFromCombined(int combinedGenreType);
 
-      int GetGenreTypeFromText(const std::string &genreText, const std::string &showName);
-      int LookupGenreValueInMaps(const std::string &genreText);
+      int GetGenreTypeFromText(const std::string& genreText, const std::string& showName);
+      int LookupGenreValueInMaps(const std::string& genreText);
 
       void LoadGenreTextMappingFiles();
-      bool LoadTextToIdGenreFile(const std::string &xmlFile, std::map<std::string, int> &map);
+      bool LoadTextToIdGenreFile(const std::string& xmlFile, std::map<std::string, int>& map);
       void CreateGenreAddonDataDirectories();
 
       std::regex m_genrePattern;

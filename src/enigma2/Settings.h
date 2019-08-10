@@ -1,14 +1,14 @@
 #pragma once
 
-#include <string>
-
 #include "Admin.h"
-#include "utilities/Logger.h"
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
+#include "utilities/Logger.h"
+#include "kodi/xbmc_addon_types.h"
+
+#include <string>
 
 #include <p8-platform/util/StringUtils.h>
-#include "kodi/xbmc_addon_types.h"
 
 class Vu;
 
@@ -112,13 +112,13 @@ namespace enigma2
     }
 
     void ReadFromAddon();
-    ADDON_STATUS SetValue(const std::string &settingName, const void *settingValue);
+    ADDON_STATUS SetValue(const std::string& settingName, const void* settingValue);
 
     //Connection
     const std::string& GetHostname() const { return m_hostname; }
     int GetWebPortNum() const { return m_portWeb; }
     bool GetUseSecureConnection() const { return m_useSecureHTTP; }
-    const std::string& GetUsername() const {return m_username; }
+    const std::string& GetUsername() const { return m_username; }
     const std::string& GetPassword() const { return m_password; }
     bool GetAutoConfigLiveStreamsEnabled() const { return m_autoConfig; }
     int GetStreamPortNum() const { return m_portStream; }
@@ -238,13 +238,13 @@ namespace enigma2
   private:
     Settings() = default;
 
-    Settings(Settings const &) = delete;
-    void operator=(Settings const &) = delete;
+    Settings(Settings const&) = delete;
+    void operator=(Settings const&) = delete;
 
-    template <typename T, typename V>
+    template<typename T, typename V>
     V SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
-      T newValue =  *static_cast<const T*>(settingValue);
+      T newValue = *static_cast<const T*>(settingValue);
       if (newValue != currentValue)
       {
         utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, newValue);
@@ -255,8 +255,8 @@ namespace enigma2
       return defaultReturnValue;
     };
 
-    template <typename V>
-    V SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, V returnValueIfChanged, V defaultReturnValue)
+    template<typename V>
+    V SetStringSetting(const std::string& settingName, const void* settingValue, std::string& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       const std::string strSettingValue = static_cast<const char*>(settingValue);
 
@@ -270,7 +270,7 @@ namespace enigma2
       return defaultReturnValue;
     }
 
-    static bool LoadCustomChannelGroupFile(std::string &file, std::vector<std::string> &channelGroupNameList);
+    static bool LoadCustomChannelGroupFile(std::string& file, std::vector<std::string>& channelGroupNameList);
 
     //Connection
     std::string m_hostname = DEFAULT_HOST;
@@ -343,7 +343,7 @@ namespace enigma2
 
     //Timers
     bool m_enableGenRepeatTimers = true;
-    int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
+    int m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
     bool m_automaticTimerlistCleanup = false;
     bool m_enableAutoTimers = true;
     bool m_limitAnyChannelAutoTimers = true;

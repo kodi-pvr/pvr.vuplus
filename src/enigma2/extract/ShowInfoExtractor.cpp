@@ -1,7 +1,6 @@
 #include "ShowInfoExtractor.h"
 
 #include "../utilities/FileUtils.h"
-
 #include "tinyxml.h"
 #include "util/XMLUtils.h"
 
@@ -10,18 +9,15 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-ShowInfoExtractor::ShowInfoExtractor()
-  : IExtractor()
+ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
 {
   if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns))
     Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __FUNCTION__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
 }
 
-ShowInfoExtractor::~ShowInfoExtractor(void)
-{
-}
+ShowInfoExtractor::~ShowInfoExtractor(void) {}
 
-void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
+void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
 {
   for (const auto& patternSet : m_episodeSeasonPatterns)
   {
@@ -72,7 +68,7 @@ bool ShowInfoExtractor::IsEnabled()
   return Settings::GetInstance().GetExtractShowInfo();
 }
 
-bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std::vector<EpisodeSeasonPattern> &episodeSeasonPatterns, std::vector<std::regex> yearPatterns)
+bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex> yearPatterns)
 {
   episodeSeasonPatterns.clear();
   yearPatterns.clear();

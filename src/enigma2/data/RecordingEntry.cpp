@@ -1,16 +1,15 @@
 #include "RecordingEntry.h"
 
 #include "../utilities/WebUtils.h"
-
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, bool deleted, Channels &channels)
+bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, Channels& channels)
 {
   std::string strTmp;
   int iTmp;
@@ -107,7 +106,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
   return true;
 }
 
-long RecordingEntry::TimeStringToSeconds(const std::string &timeString)
+long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
 {
   std::vector<std::string> tokens;
 
@@ -135,7 +134,7 @@ long RecordingEntry::TimeStringToSeconds(const std::string &timeString)
   return timeInSecs;
 }
 
-void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder)
+void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder)
 {
   std::string strTmp;
   strncpy(left.strRecordingId, m_recordingId.c_str(), sizeof(left.strRecordingId));
@@ -147,7 +146,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
 
   if (!Settings::GetInstance().GetKeepRecordingsFolders())
   {
-    if(isInRecordingFolder)
+    if (isInRecordingFolder)
       strTmp = StringUtils::Format("/%s/", m_title.c_str());
     else
       strTmp = StringUtils::Format("/");
@@ -181,7 +180,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription));
 }
 
-std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const
 {
   std::shared_ptr<Channel> channel = GetChannelFromChannelReferenceTag(channels);
 
@@ -220,7 +219,7 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
   return channel;
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels& channels) const
 {
   std::string channelServiceReference;
 
@@ -235,13 +234,12 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
   return channels.GetChannel(channelServiceReference);
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels& channels) const
 {
   //search for channel name using exact match
   for (const auto& channel : channels.GetChannelsList())
   {
-    if (m_channelName == channel->GetChannelName() &&
-        (!m_haveChannelType || (channel->IsRadio() == m_radio)))
+    if (m_channelName == channel->GetChannelName() && (!m_haveChannelType || (channel->IsRadio() == m_radio)))
     {
       return channel;
     }
@@ -250,7 +248,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channel
   return nullptr;
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels& channels) const
 {
   std::string fuzzyRecordingChannelName;
 
@@ -260,8 +258,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Ch
     fuzzyRecordingChannelName = m_channelName;
     fuzzyRecordingChannelName.erase(remove_if(fuzzyRecordingChannelName.begin(), fuzzyRecordingChannelName.end(), isspace), fuzzyRecordingChannelName.end());
 
-    if (fuzzyRecordingChannelName == channel->GetFuzzyChannelName() &&
-        (!m_haveChannelType || (channel->IsRadio() == m_radio)))
+    if (fuzzyRecordingChannelName == channel->GetFuzzyChannelName() && (!m_haveChannelType || (channel->IsRadio() == m_radio)))
     {
       return channel;
     }

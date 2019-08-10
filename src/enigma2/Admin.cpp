@@ -1,17 +1,17 @@
 #include "Admin.h"
 
-#include <regex>
-
-#include "../client.h"
 #include "../Enigma2.h"
+#include "../client.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <regex>
+
 #include <nlohmann/json.hpp>
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -40,7 +40,7 @@ void Admin::SendPowerstate()
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::STANDBY ||
       Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
-      const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=5"); //Standby
+      const std::string strCmd = StringUtils::Format("web/powerstate?newstate=5"); //Standby
 
       std::string strResult;
       WebUtils::SendSimpleCommand(strCmd, strResult, true);
@@ -48,7 +48,7 @@ void Admin::SendPowerstate()
 
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
     {
-      const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
+      const std::string strCmd = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
 
       std::string strResult;
       WebUtils::SendSimpleCommand(strCmd, strResult, true);
@@ -220,11 +220,11 @@ bool Admin::LoadDeviceInfo()
   return true;
 }
 
-unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
+unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
 {
   unsigned int webIfVersionAsNum = 0;
 
-  std::regex regex ("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
+  std::regex regex("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
   if (regex_match(webIfVersion, regex))
   {
     int count = 0;
@@ -476,7 +476,7 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
   return true;
 }
 
-PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations)
+PVR_ERROR Admin::GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<std::string>& locations)
 {
   long long totalKb = 0;
   long long freeKb = 0;
@@ -551,7 +551,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   return PVR_ERROR_NO_ERROR;
 }
 
-long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
+long long Admin::GetKbFromString(const std::string& stringInMbGbTb) const
 {
   long long sizeInKb = 0;
 
@@ -560,8 +560,8 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   std::string replaceWith = "";
   for (const std::string& size : sizes)
   {
-    std::regex regexSize ("^.* " + size);
-    std::regex regexReplaceSize (" " + size);
+    std::regex regexSize("^.* " + size);
+    std::regex regexReplaceSize(" " + size);
 
     if (regex_match(stringInMbGbTb, regexSize))
     {
@@ -578,7 +578,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   return sizeInKb;
 }
 
-bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
+bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel)
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/signal");
 
@@ -630,7 +630,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
     return false;
   }
 
-  std::regex regexReplacePercent (" %");
+  std::regex regexReplacePercent(" %");
   std::string regexReplace = "";
 
   // For some reason the iSNR and iSignal values need to multiplied by 655!
@@ -648,7 +648,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
   return true;
 }
 
-StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &channel)
+StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel>& channel)
 {
   StreamStatus streamStatus;
 
@@ -719,7 +719,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &chann
   return streamStatus;
 }
 
-void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
+void Admin::GetTunerDetails(SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel)
 {
   const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal");
 
@@ -739,7 +739,7 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
 
         if (m_tuners.size() > tunerNumber)
         {
-          Tuner &tuner = m_tuners.at(tunerNumber);
+          Tuner& tuner = m_tuners.at(tunerNumber);
 
           signalStatus.m_adapterName = tuner.m_tunerName + " - " + tuner.m_tunerModel;
         }

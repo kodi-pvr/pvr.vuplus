@@ -2,8 +2,8 @@
 
 #include "../utilities/FileUtils.h"
 
-#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
 #include "util/XMLUtils.h"
 
 using namespace enigma2;
@@ -11,8 +11,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreRytecTextMapper::GenreRytecTextMapper()
-  : IExtractor()
+GenreRytecTextMapper::GenreRytecTextMapper() : IExtractor()
 {
   LoadGenreTextMappingFiles();
 
@@ -25,11 +24,9 @@ GenreRytecTextMapper::GenreRytecTextMapper()
   m_genreMajorPattern = std::regex(GENRE_MAJOR_PATTERN);
 }
 
-GenreRytecTextMapper::~GenreRytecTextMapper(void)
-{
-}
+GenreRytecTextMapper::~GenreRytecTextMapper(void) {}
 
-void GenreRytecTextMapper::ExtractFromEntry(BaseEntry &entry)
+void GenreRytecTextMapper::ExtractFromEntry(BaseEntry& entry)
 {
   if (entry.GetGenreType() == 0)
   {
@@ -71,7 +68,7 @@ int GenreRytecTextMapper::GetGenreSubTypeFromCombined(int combinedGenreType)
   return combinedGenreType & 0x0F;
 }
 
-int GenreRytecTextMapper::GetGenreTypeFromText(const std::string &genreText, const std::string &showName)
+int GenreRytecTextMapper::GetGenreTypeFromText(const std::string& genreText, const std::string& showName)
 {
   int genreType = LookupGenreValueInMaps(genreText);
 
@@ -94,7 +91,7 @@ int GenreRytecTextMapper::GetGenreTypeFromText(const std::string &genreText, con
   return genreType;
 }
 
-int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string &genreText)
+int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string& genreText)
 {
   int genreType = EPG_EVENT_CONTENTMASK_UNDEFINED;
 
@@ -124,7 +121,7 @@ void GenreRytecTextMapper::LoadGenreTextMappingFiles()
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapRytecTextGenresFile().c_str());
 }
 
-bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std::map<std::string, int> &map)
+bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string& xmlFile, std::map<std::string, int>& map)
 {
   map.clear();
 

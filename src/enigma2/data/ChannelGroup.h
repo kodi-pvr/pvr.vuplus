@@ -21,15 +21,14 @@
  *
  */
 
+#include "Channel.h"
+#include "EpgEntry.h"
+#include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "Channel.h"
-#include "EpgEntry.h"
-
-#include "kodi/libXBMC_pvr.h"
-#include "tinyxml.h"
 
 namespace enigma2
 {
@@ -51,10 +50,10 @@ namespace enigma2
       void SetUniqueId(int value) { m_uniqueId = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
+      void SetServiceReference(const std::string& value) { m_serviceReference = value; }
 
       const std::string& GetGroupName() const { return m_groupName; }
-      void SetGroupName(const std::string& value ) { m_groupName = value; }
+      void SetGroupName(const std::string& value) { m_groupName = value; }
 
       bool IsLastScannedGroup() const { return m_lastScannedGroup; }
       void SetLastScannedGroup(bool value) { m_lastScannedGroup = value; }
@@ -70,13 +69,13 @@ namespace enigma2
       void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
 
       bool UpdateFrom(TiXmlElement* groupNode, bool radio);
-      void UpdateTo(PVR_CHANNEL_GROUP &left) const;
+      void UpdateTo(PVR_CHANNEL_GROUP& left) const;
 
       std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
 
-      bool Like(const ChannelGroup &right) const;
-      bool operator==(const ChannelGroup &right) const;
-      bool operator!=(const ChannelGroup &right) const;
+      bool Like(const ChannelGroup& right) const;
+      bool operator==(const ChannelGroup& right) const;
+      bool operator!=(const ChannelGroup& right) const;
 
     private:
       bool m_radio;

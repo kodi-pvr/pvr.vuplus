@@ -10,8 +10,8 @@ namespace enigma2
     {
     public:
       DeviceInfo() = default;
-      DeviceInfo(const std::string &serverName, const std::string &enigmaVersion, const std::string &imageVersion, const std::string &distroName,
-        const std::string &webIfVersion, unsigned int webIfVersionAsNum)
+      DeviceInfo(const std::string& serverName, const std::string& enigmaVersion, const std::string& imageVersion, const std::string& distroName,
+        const std::string& webIfVersion, unsigned int webIfVersionAsNum)
         : m_serverName(serverName), m_enigmaVersion(enigmaVersion), m_imageVersion(imageVersion), m_distroName(distroName),
           m_webIfVersion(webIfVersion), m_webIfVersionAsNum(webIfVersionAsNum) {};
 
