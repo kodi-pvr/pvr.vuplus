@@ -1,12 +1,11 @@
 #include "Settings.h"
 
 #include "../client.h"
-#include "utilities/FileUtils.h"
-#include "utilities/LocalizedString.h"
-
+#include "p8-platform/util/StringUtils.h"
 #include "tinyxml.h"
 #include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
+#include "utilities/FileUtils.h"
+#include "utilities/LocalizedString.h"
 
 using namespace ADDON;
 using namespace enigma2;
@@ -363,7 +362,7 @@ void Settings::ReadFromAddon()
     m_connectionURL = StringUtils::Format("https://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
 }
 
-ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *settingValue)
+ADDON_STATUS Settings::SetValue(const std::string& settingName, const void* settingValue)
 {
   //Connection
   if (settingName == "host")
@@ -541,7 +540,7 @@ bool Settings::IsTimeshiftBufferPathValid() const
   return XBMC->DirectoryExists(m_timeshiftBufferPath.c_str());
 }
 
-bool Settings::LoadCustomChannelGroupFile(std::string &xmlFile, std::vector<std::string> &channelGroupNameList)
+bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std::string>& channelGroupNameList)
 {
   channelGroupNameList.clear();
 

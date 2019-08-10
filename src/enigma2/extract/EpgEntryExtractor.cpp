@@ -1,9 +1,9 @@
 #include "EpgEntryExtractor.h"
 
+#include "../utilities/FileUtils.h"
 #include "GenreIdMapper.h"
 #include "GenreRytecTextMapper.h"
 #include "ShowInfoExtractor.h"
-#include "../utilities/FileUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -31,11 +31,9 @@ EpgEntryExtractor::EpgEntryExtractor()
   }
 }
 
-EpgEntryExtractor::~EpgEntryExtractor(void)
-{
-}
+EpgEntryExtractor::~EpgEntryExtractor(void) {}
 
-void EpgEntryExtractor::ExtractFromEntry(BaseEntry &entry)
+void EpgEntryExtractor::ExtractFromEntry(BaseEntry& entry)
 {
   for (auto& extractor : m_extractors)
   {
@@ -44,7 +42,4 @@ void EpgEntryExtractor::ExtractFromEntry(BaseEntry &entry)
   }
 }
 
-bool EpgEntryExtractor::IsEnabled()
-{
-  return m_anyExtractorEnabled;
-}
+bool EpgEntryExtractor::IsEnabled() { return m_anyExtractorEnabled; }

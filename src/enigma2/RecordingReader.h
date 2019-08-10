@@ -1,20 +1,20 @@
 #pragma once
 
+#include "kodi/libXBMC_addon.h"
+
 #include <ctime>
 #include <string>
-
-#include "kodi/libXBMC_addon.h"
 
 namespace enigma2
 {
   class RecordingReader
   {
   public:
-    RecordingReader(const std::string &streamURL, std::time_t start, std::time_t end, int duration);
+    RecordingReader(const std::string& streamURL, std::time_t start, std::time_t end, int duration);
     ~RecordingReader(void);
 
     bool Start();
-    ssize_t ReadData(unsigned char *buffer, unsigned int size);
+    ssize_t ReadData(unsigned char* buffer, unsigned int size);
     int64_t Seek(long long position, int whence);
     int64_t Position();
     int64_t Length();
@@ -25,8 +25,8 @@ namespace enigma2
     static const int REOPEN_INTERVAL = 30;
     static const int REOPEN_INTERVAL_FAST = 10;
 
-    const std::string &m_streamURL;
-    void *m_readHandle;
+    const std::string& m_streamURL;
+    void* m_readHandle;
 
     int m_duration;
 
@@ -35,7 +35,7 @@ namespace enigma2
     std::time_t m_end;
 
     std::time_t m_nextReopen;
-    uint64_t m_pos = { 0 };
+    uint64_t m_pos = {0};
     uint64_t m_len;
   };
 } // namespace enigma2

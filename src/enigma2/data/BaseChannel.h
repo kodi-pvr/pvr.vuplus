@@ -21,12 +21,12 @@
  *
  */
 
+#include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "kodi/libXBMC_pvr.h"
-#include "tinyxml.h"
 
 namespace enigma2
 {
@@ -36,7 +36,7 @@ namespace enigma2
     {
     public:
       BaseChannel() = default;
-      BaseChannel(const BaseChannel &b) : m_radio(b.IsRadio()), m_uniqueId(b.GetUniqueId()),
+      BaseChannel(const BaseChannel& b) : m_radio(b.IsRadio()), m_uniqueId(b.GetUniqueId()),
         m_channelName(b.GetChannelName()), m_serviceReference(b.GetServiceReference()) {};
       ~BaseChannel() = default;
 
@@ -47,10 +47,10 @@ namespace enigma2
       void SetUniqueId(int value) { m_uniqueId = value; }
 
       const std::string& GetChannelName() const { return m_channelName; }
-      void SetChannelName(const std::string& value ) { m_channelName = value; }
+      void SetChannelName(const std::string& value) { m_channelName = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
+      void SetServiceReference(const std::string& value) { m_serviceReference = value; }
 
     protected:
       bool m_radio;

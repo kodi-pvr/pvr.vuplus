@@ -14,11 +14,11 @@ namespace enigma2
     public:
       IExtractor() = default;
       virtual ~IExtractor() = default;
-      virtual void ExtractFromEntry(enigma2::data::BaseEntry &entry) = 0;
+      virtual void ExtractFromEntry(enigma2::data::BaseEntry& entry) = 0;
       virtual bool IsEnabled() = 0;
 
     protected:
-      static std::string GetMatchTextFromString(const std::string &text, const std::regex &pattern)
+      static std::string GetMatchTextFromString(const std::string& text, const std::regex& pattern)
       {
         std::string matchText = "";
         std::smatch match;
@@ -35,7 +35,7 @@ namespace enigma2
         return matchText;
       };
 
-      static std::string GetMatchedText(const std::string &firstText, const std::string &secondText, const std::regex &pattern)
+      static std::string GetMatchedText(const std::string& firstText, const std::string& secondText, const std::regex& pattern)
       {
         std::string matchedText = GetMatchTextFromString(firstText, pattern);
 
@@ -45,7 +45,7 @@ namespace enigma2
         return matchedText;
       }
 
-      enigma2::Settings &m_settings = Settings::GetInstance();
+      enigma2::Settings& m_settings = Settings::GetInstance();
     };
   } //namespace extract
 } //namespace enigma2

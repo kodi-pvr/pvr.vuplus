@@ -9,14 +9,13 @@ namespace enigma2
 {
   namespace extract
   {
-    class GenreIdMapper
-      : public IExtractor
+    class GenreIdMapper : public IExtractor
     {
     public:
       GenreIdMapper();
       ~GenreIdMapper();
 
-      void ExtractFromEntry(enigma2::data::BaseEntry &entry);
+      void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();
 
     private:
@@ -26,7 +25,7 @@ namespace enigma2
       int LookupGenreIdInMap(const int genreId);
 
       void LoadGenreIdMapFile();
-      bool LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int, int> &map);
+      bool LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int, int>& map);
       void CreateGenreAddonDataDirectories();
 
       std::map<int, int> m_genreIdToDvbIdMap;

@@ -16,7 +16,7 @@ namespace enigma2
 
     bool Load(int id)
     {
-      char *str;
+      char* str;
       if ((str = XBMC->GetLocalizedString(id)))
       {
         m_localizedString = str;
@@ -46,7 +46,7 @@ namespace enigma2
   private:
     LocalizedString() = delete;
     LocalizedString(const LocalizedString&) = delete;
-    LocalizedString &operator =(const LocalizedString&) = delete;
+    LocalizedString& operator=(const LocalizedString&) = delete;
 
     std::string m_localizedString;
   };

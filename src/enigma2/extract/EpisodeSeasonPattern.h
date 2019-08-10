@@ -8,7 +8,7 @@ namespace enigma2
   {
     struct EpisodeSeasonPattern
     {
-      EpisodeSeasonPattern(const std::string &masterPattern, const std::string &seasonPattern, const std::string &episodePattern)
+      EpisodeSeasonPattern(const std::string& masterPattern, const std::string& seasonPattern, const std::string& episodePattern)
       {
         m_masterRegex = std::regex(masterPattern);
         m_seasonRegex = std::regex(seasonPattern);
@@ -16,7 +16,7 @@ namespace enigma2
         m_hasSeasonRegex = true;
       }
 
-      EpisodeSeasonPattern(const std::string &masterPattern, const std::string &episodePattern)
+      EpisodeSeasonPattern(const std::string& masterPattern, const std::string& episodePattern)
       {
         m_masterRegex = std::regex(masterPattern);
         m_episodeRegex = std::regex(episodePattern);

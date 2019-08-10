@@ -2,21 +2,18 @@
 
 #include "../client.h"
 #include "StreamReader.h"
-#include "utilities/Logger.h"
-
 #include "p8-platform/util/util.h"
+#include "utilities/Logger.h"
 
 using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-TimeshiftBuffer::TimeshiftBuffer(IStreamReader *m_streamReader,
-    const std::string &timeshiftBufferPath, const unsigned int readTimeout)
+TimeshiftBuffer::TimeshiftBuffer(IStreamReader* m_streamReader, const std::string& timeshiftBufferPath, const unsigned int readTimeout)
   : m_streamReader(m_streamReader)
 {
   m_bufferPath = timeshiftBufferPath + "/tsbuffer.ts";
-  m_readTimeout = (readTimeout) ? readTimeout
-      : DEFAULT_READ_TIMEOUT;
+  m_readTimeout = (readTimeout) ? readTimeout : DEFAULT_READ_TIMEOUT;
 
   m_filebufferWriteHandle = XBMC->OpenFileForWrite(m_bufferPath.c_str(), true);
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -33,7 +30,7 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
   {
     // XBMC->TruncateFile doesn't work for unknown reasons
     XBMC->CloseFile(m_filebufferWriteHandle);
-    void *tmp;
+    void* tmp;
     if ((tmp = XBMC->OpenFileForWrite(m_bufferPath.c_str(), true)) != nullptr)
       XBMC->CloseFile(tmp);
   }
@@ -49,9 +46,7 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
 
 bool TimeshiftBuffer::Start()
 {
-  if (m_streamReader == nullptr
-      || m_filebufferWriteHandle == nullptr
-      || m_filebufferReadHandle == nullptr)
+  if (m_streamReader == nullptr || m_filebufferWriteHandle == nullptr || m_filebufferReadHandle == nullptr)
     return false;
   if (m_running)
     return true;
@@ -101,14 +96,13 @@ int64_t TimeshiftBuffer::Length()
   return m_writePos;
 }
 
-ssize_t TimeshiftBuffer::ReadData(unsigned char *buffer, unsigned int size)
+ssize_t TimeshiftBuffer::ReadData(unsigned char* buffer, unsigned int size)
 {
   int64_t requiredLength = Position() + size;
 
   /* make sure we never read above the current write position */
   std::unique_lock<std::mutex> lock(m_mutex);
-  bool available = m_condition.wait_for(lock, std::chrono::seconds(m_readTimeout),
-    [&] { return Length() >= requiredLength; });
+  bool available = m_condition.wait_for(lock, std::chrono::seconds(m_readTimeout), [&] { return Length() >= requiredLength; });
 
   if (!available)
   {

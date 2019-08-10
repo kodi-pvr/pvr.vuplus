@@ -1,17 +1,17 @@
 #include "Epg.h"
 
+#include "../Enigma2.h"
+#include "../client.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+#include "utilities/Logger.h"
+#include "utilities/WebUtils.h"
+
 #include <chrono>
 #include <cmath>
 #include <regex>
 
-#include "../client.h"
-#include "../Enigma2.h"
-#include "utilities/Logger.h"
-#include "utilities/WebUtils.h"
-
 #include <nlohmann/json.hpp>
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -20,12 +20,12 @@ using namespace enigma2::utilities;
 using namespace P8PLATFORM;
 using json = nlohmann::json;
 
-Epg::Epg(enigma2::extract::EpgEntryExtractor &entryExtractor, int epgMaxDays)
+Epg::Epg(enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays)
       : m_entryExtractor(entryExtractor), m_epgMaxDays(epgMaxDays) {}
 
-Epg::Epg(const Epg &epg) : m_entryExtractor(epg.m_entryExtractor) {}
+Epg::Epg(const Epg& epg) : m_entryExtractor(epg.m_entryExtractor) {}
 
-bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channelGroups)
+bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups)
 {
   m_epgMaxDaysSeconds = m_epgMaxDays * 24 * 60 * 60;
 
@@ -94,8 +94,7 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
       break;
   }
 
-  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
-                      std::chrono::high_resolution_clock::now() - started).count();
+  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - started).count();
 
   Logger::Log(LEVEL_NOTICE, "%s Initial EPG Loaded - %d (ms)", __FUNCTION__, milliseconds);
 
@@ -104,7 +103,7 @@ bool Epg::Initialise(enigma2::Channels &channels, enigma2::ChannelGroups &channe
   return true;
 }
 
-std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string &serviceReference)
+std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string& serviceReference)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
@@ -115,7 +114,7 @@ std::shared_ptr<data::EpgChannel> Epg::GetEpgChannel(const std::string &serviceR
   return epgChannel;
 }
 
-std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std::string &serviceReference)
+std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std::string& serviceReference)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
 
@@ -126,14 +125,14 @@ std::shared_ptr<data::EpgChannel> Epg::GetEpgChannelNeedingInitialEpg(const std:
   return epgChannel;
 }
 
-bool Epg::ChannelNeedsInitialEpg(const std::string &serviceReference)
+bool Epg::ChannelNeedsInitialEpg(const std::string& serviceReference)
 {
   auto needsInitialEpgSearch = m_needsInitialEpgChannelsMap.find(serviceReference);
 
   return needsInitialEpgSearch != m_needsInitialEpgChannelsMap.end();
 }
 
-bool Epg::InitialEpgLoadedForChannel(const std::string &serviceReference)
+bool Epg::InitialEpgLoadedForChannel(const std::string& serviceReference)
 {
   return m_needsInitialEpgChannelsMap.erase(serviceReference) == 1;
 }
@@ -162,7 +161,7 @@ void Epg::TriggerEpgUpdatesForChannels()
   }
 }
 
-void Epg::MarkChannelAsInitialEpgRead(const std::string &serviceReference)
+void Epg::MarkChannelAsInitialEpgRead(const std::string& serviceReference)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
 
@@ -174,7 +173,7 @@ void Epg::MarkChannelAsInitialEpgRead(const std::string &serviceReference)
   }
 }
 
-PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceReference, time_t iStart, time_t iEnd)
+PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceReference, time_t iStart, time_t iEnd)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
 
@@ -189,8 +188,8 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceR
       return TransferInitialEPGForChannel(handle, epgChannel, iStart, iEnd);
     }
 
-    const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgservice?sRef=",
-                                                WebUtils::URLEncodeInline(serviceReference).c_str());
+    const std::string url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                "web/epgservice?sRef=", WebUtils::URLEncodeInline(serviceReference).c_str());
 
     const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -259,7 +258,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string &serviceR
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<EpgChannel> &epgChannel, time_t iStart, time_t iEnd)
+PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
 {
   for (const auto& entry : epgChannel->GetInitialEPG())
   {
@@ -278,11 +277,12 @@ PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shar
   return PVR_ERROR_NO_ERROR;
 }
 
-std::string Epg::LoadEPGEntryShortDescription(const std::string &serviceReference, unsigned int epgUid)
+std::string Epg::LoadEPGEntryShortDescription(const std::string& serviceReference, unsigned int epgUid)
 {
   std::string shortDescription;
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
+  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                  WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -314,11 +314,12 @@ std::string Epg::LoadEPGEntryShortDescription(const std::string &serviceReferenc
   return shortDescription;
 }
 
-EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceReference, unsigned int epgUid)
+EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceReference, unsigned int epgUid)
 {
   EpgPartialEntry partialEntry;
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
+  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                  WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -364,7 +365,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceRefere
   return partialEntry;
 }
 
-EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceReference, time_t startTime)
+EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceReference, time_t startTime)
 {
   EpgPartialEntry partialEntry;
 
@@ -419,7 +420,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string &serviceRefere
   return partialEntry;
 }
 
-std::string Epg::FindServiceReference(const std::string &title, int epgUid, time_t startTime, time_t endTime) const
+std::string Epg::FindServiceReference(const std::string& title, int epgUid, time_t startTime, time_t endTime) const
 {
   std::string serviceReference;
 
@@ -458,8 +459,7 @@ std::string Epg::FindServiceReference(const std::string &title, int epgUid, time
     Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
   }
 
-  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
-                      std::chrono::high_resolution_clock::now() - started).count();
+  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - started).count();
 
   Logger::Log(LEVEL_DEBUG, "%s Service reference search time - %d (ms)", __FUNCTION__, milliseconds);
 
@@ -468,8 +468,8 @@ std::string Epg::FindServiceReference(const std::string &title, int epgUid, time
 
 bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 {
-  const std::string url = StringUtils::Format("%s%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/epgnownext?bRef=",
-                                                WebUtils::URLEncodeInline(group->GetServiceReference()).c_str());
+  const std::string url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(),
+                                              "web/epgnownext?bRef=", WebUtils::URLEncodeInline(group->GetServiceReference()).c_str());
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -526,7 +526,7 @@ bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
   return true;
 }
 
-void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry> &timerBasedEntries)
+void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry>& timerBasedEntries)
 {
   CLockObject lock(m_mutex);
   time_t now = time(nullptr);

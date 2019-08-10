@@ -21,20 +21,20 @@
 
 #include "FileUtils.h"
 
-#include "Logger.h"
 #include "../../client.h"
+#include "Logger.h"
 
 #include <kodi/kodi_vfs_types.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-bool FileUtils::FileExists(const std::string &file)
+bool FileUtils::FileExists(const std::string& file)
 {
   return XBMC->FileExists(file.c_str(), false);
 }
 
-bool FileUtils::CopyFile(const std::string &sourceFile, const std::string &targetFile)
+bool FileUtils::CopyFile(const std::string& sourceFile, const std::string& targetFile)
 {
   bool copySuccessful = true;
 
@@ -70,7 +70,7 @@ bool FileUtils::CopyFile(const std::string &sourceFile, const std::string &targe
   return copySuccessful;
 }
 
-bool FileUtils::WriteStringToFile(const std::string &fileContents, const std::string &targetFile)
+bool FileUtils::WriteStringToFile(const std::string& fileContents, const std::string& targetFile)
 {
   bool writeSuccessful = true;
 
@@ -92,12 +92,12 @@ bool FileUtils::WriteStringToFile(const std::string &fileContents, const std::st
   return writeSuccessful;
 }
 
-std::string FileUtils::ReadXmlFileToString(const std::string &sourceFile)
+std::string FileUtils::ReadXmlFileToString(const std::string& sourceFile)
 {
   return ReadFileToString(sourceFile) + "\n";
 }
 
-std::string FileUtils::ReadFileToString(const std::string &sourceFile)
+std::string FileUtils::ReadFileToString(const std::string& sourceFile)
 {
   std::string fileContents;
 
@@ -119,7 +119,7 @@ std::string FileUtils::ReadFileToString(const std::string &sourceFile)
   return fileContents;
 }
 
-std::string FileUtils::ReadFileContents(void *fileHandle)
+std::string FileUtils::ReadFileContents(void* fileHandle)
 {
   std::string fileContents;
 
@@ -133,7 +133,7 @@ std::string FileUtils::ReadFileContents(void *fileHandle)
   return fileContents;
 }
 
-bool FileUtils::CopyDirectory(const std::string &sourceDir, const std::string &targetDir, bool recursiveCopy)
+bool FileUtils::CopyDirectory(const std::string& sourceDir, const std::string& targetDir, bool recursiveCopy)
 {
   bool copySuccessful = true;
 
@@ -166,7 +166,7 @@ bool FileUtils::CopyDirectory(const std::string &sourceDir, const std::string &t
   return copySuccessful;
 }
 
-std::vector<std::string> FileUtils::GetFilesInDirectory(const std::string &dir)
+std::vector<std::string> FileUtils::GetFilesInDirectory(const std::string& dir)
 {
   std::vector<std::string> files;
 

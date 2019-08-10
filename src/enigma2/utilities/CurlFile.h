@@ -21,9 +21,9 @@
  *
  */
 
-#include <string>
-
 #include "../../client.h"
+
+#include <string>
 
 namespace enigma2
 {
@@ -35,9 +35,9 @@ namespace enigma2
       CurlFile(void) {};
       ~CurlFile(void) {};
 
-      bool Get(const std::string &strURL, std::string &strResult);
-      bool Post(const std::string &strURL, std::string &strResult);
-      bool Check(const std::string &strURL);
+      bool Get(const std::string& strURL, std::string& strResult);
+      bool Post(const std::string& strURL, std::string& strResult);
+      bool Check(const std::string& strURL);
     };
-  }
-}
+  } // namespace utilities
+} // namespace enigma2

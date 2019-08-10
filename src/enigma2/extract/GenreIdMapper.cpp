@@ -1,9 +1,8 @@
 #include "GenreIdMapper.h"
 
 #include "../utilities/FileUtils.h"
-
-#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
 #include "util/XMLUtils.h"
 
 using namespace enigma2;
@@ -11,17 +10,14 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreIdMapper::GenreIdMapper()
-  : IExtractor()
+GenreIdMapper::GenreIdMapper() : IExtractor()
 {
   LoadGenreIdMapFile();
 }
 
-GenreIdMapper::~GenreIdMapper(void)
-{
-}
+GenreIdMapper::~GenreIdMapper(void) {}
 
-void GenreIdMapper::ExtractFromEntry(BaseEntry &entry)
+void GenreIdMapper::ExtractFromEntry(BaseEntry& entry)
 {
   if (entry.GetGenreType() != 0)
   {
@@ -71,7 +67,7 @@ void GenreIdMapper::LoadGenreIdMapFile()
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
 }
 
-bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int, int> &map)
+bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int, int>& map)
 {
   map.clear();
 

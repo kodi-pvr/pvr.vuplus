@@ -22,8 +22,6 @@
 
 #include "client.h"
 
-#include <stdlib.h>
-
 #include "Enigma2.h"
 #include "enigma2/RecordingReader.h"
 #include "enigma2/Settings.h"
@@ -31,10 +29,12 @@
 #include "enigma2/TimeshiftBuffer.h"
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
-
-#include "p8-platform/util/util.h"
-#include <p8-platform/util/StringUtils.h>
 #include "kodi/xbmc_pvr_dll.h"
+#include "p8-platform/util/util.h"
+
+#include <stdlib.h>
+
+#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;
@@ -43,16 +43,17 @@ using namespace enigma2::utilities;
 
 bool m_created = false;
 ADDON_STATUS m_currentStatus = ADDON_STATUS_UNKNOWN;
-IStreamReader *streamReader = nullptr;
+IStreamReader* streamReader = nullptr;
 int m_streamReadChunkSize = 64;
-RecordingReader *recordingReader = nullptr;
-Settings &settings = Settings::GetInstance();
+RecordingReader* recordingReader = nullptr;
+Settings& settings = Settings::GetInstance();
 
-CHelper_libXBMC_addon *XBMC = nullptr;
-CHelper_libXBMC_pvr *PVR = nullptr;
-Enigma2 *enigma = nullptr;
+CHelper_libXBMC_addon* XBMC = nullptr;
+CHelper_libXBMC_pvr* PVR = nullptr;
+Enigma2* enigma = nullptr;
 
-extern "C" {
+extern "C"
+{
 
 /***************************************************************************
  * Addon Calls
@@ -87,7 +88,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   m_currentStatus = ADDON_STATUS_UNKNOWN;
 
   /* Configure the logger */
-  Logger::GetInstance().SetImplementation([](LogLevel level, const char *message)
+  Logger::GetInstance().SetImplementation([](LogLevel level, const char* message)
   {
     /* Don't log trace messages unless told so */
     if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
@@ -158,7 +159,7 @@ void ADDON_Destroy()
   m_currentStatus = ADDON_STATUS_UNKNOWN;
 }
 
-ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
+ADDON_STATUS ADDON_SetSetting(const char* settingName, const void* settingValue)
 {
   if (!XBMC || !enigma)
     return ADDON_STATUS_OK;
@@ -188,13 +189,9 @@ void OnSystemWake()
     enigma->OnWake();
 }
 
-void OnPowerSavingActivated()
-{
-}
+void OnPowerSavingActivated() {}
 
-void OnPowerSavingDeactivated()
-{
-}
+void OnPowerSavingDeactivated() {}
 
 PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 {
@@ -221,21 +218,21 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   return PVR_ERROR_NO_ERROR;
 }
 
-const char *GetBackendName(void)
+const char* GetBackendName(void)
 {
-  static const char *backendName = enigma ? enigma->GetServerName() : LocalizedString(30081).c_str(); //unknown
+  static const char* backendName = enigma ? enigma->GetServerName() : LocalizedString(30081).c_str(); //unknown
   return backendName;
 }
 
-const char *GetBackendVersion(void)
+const char* GetBackendVersion(void)
 {
-  static const char *backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(30081).c_str(); //unknown
+  static const char* backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(30081).c_str(); //unknown
   return backendVersion;
 }
 
 static std::string connectionString;
 
-const char *GetConnectionString(void)
+const char* GetConnectionString(void)
 {
   if (enigma)
     connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : LocalizedString(30082).c_str()); // (Not connected!)
@@ -249,7 +246,7 @@ const char* GetBackendHostname(void)
   return settings.GetHostname().c_str();
 }
 
-PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
+PVR_ERROR GetDriveSpace(long long* iTotal, long long* iUsed)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -258,7 +255,7 @@ PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 }
 
 
-PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
+PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS& signalStatus)
 {
   // SNR = Signal to Noise Ratio - which means signal quality
   // AGC = Automatic Gain Control - which means signal strength
@@ -298,7 +295,7 @@ PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
   return enigma->GetChannelGroups(handle, bRadio);
 }
 
-PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
+PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& group)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -310,7 +307,7 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &g
  * EPG and Channels
  **************************************************************************/
 
-PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL& channel, time_t iStart, time_t iEnd)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -392,7 +389,7 @@ PVR_ERROR GetStreamReadChunkSize(int* chunksize)
 }
 
 /* live stream functions */
-bool OpenLiveStream(const PVR_CHANNEL &channel)
+bool OpenLiveStream(const PVR_CHANNEL& channel)
 {
   if (!enigma || !enigma->IsConnected())
     return false;
@@ -401,8 +398,7 @@ bool OpenLiveStream(const PVR_CHANNEL &channel)
     return false;
 
   /* queue a warning if the timeshift buffer path does not exist */
-  if (settings.GetTimeshift() != Timeshift::OFF
-      && !settings.IsTimeshiftBufferPathValid())
+  if (settings.GetTimeshift() != Timeshift::OFF && !settings.IsTimeshiftBufferPathValid())
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30514).c_str());
 
   const std::string streamURL = enigma->GetLiveStreamURL(channel);
@@ -444,7 +440,7 @@ bool CanSeekStream(void)
   return (settings.GetTimeshift() != Timeshift::OFF);
 }
 
-int ReadLiveStream(unsigned char *buffer, unsigned int size)
+int ReadLiveStream(unsigned char* buffer, unsigned int size)
 {
   return (streamReader) ? streamReader->ReadData(buffer, size) : 0;
 }
@@ -464,7 +460,7 @@ bool IsTimeshifting(void)
   return (streamReader && streamReader->IsTimeshifting());
 }
 
-PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
+PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES* times)
 {
   if (!times)
     return PVR_ERROR_INVALID_PARAMETERS;
@@ -498,9 +494,9 @@ void PauseStream(bool paused)
     return;
 
   /* start timeshift on pause */
-  if (paused && settings.GetTimeshift() == Timeshift::ON_PAUSE
-      && streamReader && !streamReader->IsTimeshifting()
-      && settings.IsTimeshiftBufferPathValid())
+  if (paused && settings.GetTimeshift() == Timeshift::ON_PAUSE &&
+      streamReader && !streamReader->IsTimeshifting() &&
+      settings.IsTimeshiftBufferPathValid())
   {
     streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
     (void)streamReader->Start();
@@ -527,7 +523,7 @@ PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
   return enigma->GetRecordings(handle, deleted);
 }
 
-PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
+PVR_ERROR DeleteRecording(const PVR_RECORDING& recording)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -551,7 +547,7 @@ PVR_ERROR DeleteAllRecordingsFromTrash()
   return enigma->DeleteAllRecordingsFromTrash();
 }
 
-PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
+PVR_ERROR GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY edl[], int* size)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -565,7 +561,7 @@ PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int
   return enigma->GetRecordingEdl(recinfo, edl, size);
 }
 
-PVR_ERROR RenameRecording(const PVR_RECORDING &recording)
+PVR_ERROR RenameRecording(const PVR_RECORDING& recording)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -573,7 +569,7 @@ PVR_ERROR RenameRecording(const PVR_RECORDING &recording)
   return enigma->RenameRecording(recording);
 }
 
-PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count)
+PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING& recording, int count)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -581,7 +577,7 @@ PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count)
   return enigma->SetRecordingPlayCount(recording, count);
 }
 
-PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastPlayedPosition)
+PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastPlayedPosition)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -589,7 +585,7 @@ PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int las
   return enigma->SetRecordingLastPlayedPosition(recording, lastPlayedPosition);
 }
 
-int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
+int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -634,7 +630,7 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
   return PVR_ERROR_NO_ERROR;
 }
 
-bool OpenRecordedStream(const PVR_RECORDING &recording)
+bool OpenRecordedStream(const PVR_RECORDING& recording)
 {
   if (recordingReader)
     SAFE_DELETE(recordingReader);
@@ -652,7 +648,7 @@ void CloseRecordedStream(void)
     SAFE_DELETE(recordingReader);
 }
 
-int ReadRecordedStream(unsigned char *buffer, unsigned int size)
+int ReadRecordedStream(unsigned char* buffer, unsigned int size)
 {
   if (!recordingReader)
     return 0;
@@ -680,7 +676,7 @@ long long LengthRecordedStream(void)
  * Timers
  **************************************************************************/
 
-PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
+PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
 {
   *size = 0;
   if (enigma && enigma->IsConnected())
@@ -704,7 +700,7 @@ PVR_ERROR GetTimers(ADDON_HANDLE handle)
   return enigma->GetTimers(handle);
 }
 
-PVR_ERROR AddTimer(const PVR_TIMER &timer)
+PVR_ERROR AddTimer(const PVR_TIMER& timer)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -712,7 +708,7 @@ PVR_ERROR AddTimer(const PVR_TIMER &timer)
   return enigma->AddTimer(timer);
 }
 
-PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
+PVR_ERROR DeleteTimer(const PVR_TIMER& timer, bool bForceDelete)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -720,7 +716,7 @@ PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
   return enigma->DeleteTimer(timer);
 }
 
-PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
+PVR_ERROR UpdateTimer(const PVR_TIMER& timer)
 {
   if (!enigma || !enigma->IsConnected())
     return PVR_ERROR_SERVER_ERROR;
@@ -733,20 +729,20 @@ PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_E
 void DemuxAbort(void) { return; }
 DemuxPacket* DemuxRead(void) { return nullptr; }
 PVR_ERROR OpenDialogChannelScan(void) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR CallMenuHook(const PVR_MENUHOOK &menuhook, const PVR_MENUHOOK_DATA &item) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR DeleteChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR RenameChannel(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR OpenDialogChannelSettings(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL &channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR CallMenuHook(const PVR_MENUHOOK& menuhook, const PVR_MENUHOOK_DATA& item) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR DeleteChannel(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR RenameChannel(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR OpenDialogChannelSettings(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 void DemuxReset(void) {}
 void DemuxFlush(void) {}
-bool SeekTime(double,bool,double*) { return false; }
-void SetSpeed(int) {};
+bool SeekTime(double, bool, double*) { return false; }
+void SetSpeed(int){};
 PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR IsEPGTagRecordable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR IsEPGTagPlayable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetEPGTagStreamProperties(const EPG_TAG*, PVR_NAMED_VALUE*, unsigned int*) { return PVR_ERROR_NOT_IMPLEMENTED; }
-PVR_ERROR GetEPGTagEdl(const EPG_TAG* epgTag, PVR_EDL_ENTRY edl[], int *size) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR GetEPGTagEdl(const EPG_TAG* epgTag, PVR_EDL_ENTRY edl[], int* size) { return PVR_ERROR_NOT_IMPLEMENTED; }
 }

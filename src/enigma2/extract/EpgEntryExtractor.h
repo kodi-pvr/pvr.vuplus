@@ -1,10 +1,10 @@
 #pragma once
 
+#include "IExtractor.h"
+
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "IExtractor.h"
 
 namespace enigma2
 {
@@ -15,14 +15,13 @@ namespace enigma2
     static const std::string SHOW_INFO_DIR = "/showInfo";
     static const std::string SHOW_INFO_ADDON_DATA_BASE_DIR = ADDON_DATA_BASE_DIR + SHOW_INFO_DIR;
 
-    class EpgEntryExtractor
-      : public IExtractor
+    class EpgEntryExtractor : public IExtractor
     {
     public:
       EpgEntryExtractor();
       ~EpgEntryExtractor(void);
 
-      void ExtractFromEntry(enigma2::data::BaseEntry &entry);
+      void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();
 
     private:

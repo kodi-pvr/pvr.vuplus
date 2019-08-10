@@ -1,14 +1,14 @@
 #include "ChannelGroup.h"
 
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool ChannelGroup::Like(const ChannelGroup &right) const
+bool ChannelGroup::Like(const ChannelGroup& right) const
 {
   bool isLike = (m_serviceReference == right.m_serviceReference);
   isLike &= (m_groupName == right.m_groupName);
@@ -16,7 +16,7 @@ bool ChannelGroup::Like(const ChannelGroup &right) const
   return isLike;
 }
 
-bool ChannelGroup::operator==(const ChannelGroup &right) const
+bool ChannelGroup::operator==(const ChannelGroup& right) const
 {
   bool isEqual = (m_serviceReference == right.m_serviceReference);
   isEqual &= (m_groupName == right.m_groupName);
@@ -34,7 +34,7 @@ bool ChannelGroup::operator==(const ChannelGroup &right) const
   return isEqual;
 }
 
-bool ChannelGroup::operator!=(const ChannelGroup &right) const
+bool ChannelGroup::operator!=(const ChannelGroup& right) const
 {
   return !(*this == right);
 }
@@ -65,7 +65,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   if (!radio && (Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                  Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    auto &customGroupNamelist = Settings::GetInstance().GetCustomTVChannelGroupNameList();
+    auto& customGroupNamelist = Settings::GetInstance().GetCustomTVChannelGroupNameList();
     auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
       [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
 
@@ -77,7 +77,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   else if (radio && (Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                      Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    auto &customGroupNamelist = Settings::GetInstance().GetCustomRadioChannelGroupNameList();
+    auto& customGroupNamelist = Settings::GetInstance().GetCustomRadioChannelGroupNameList();
     auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
       [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
 
@@ -98,7 +98,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   return true;
 }
 
-void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP &left) const
+void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP& left) const
 {
   left.bIsRadio = m_radio;
   left.iPosition = 0; // groups default order, unused
