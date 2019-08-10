@@ -48,7 +48,8 @@ namespace enigma2
         m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
         m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()),
-        m_streamProgramNumber(c.GetStreamProgramNumber()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()) {};
+        m_streamProgramNumber(c.GetStreamProgramNumber()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()),
+        m_isIptvStream(c.IsIptvStream()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
@@ -84,6 +85,8 @@ namespace enigma2
       bool UsingDefaultChannelNumber() const { return m_usingDefaultChannelNumber; }
       void SetUsingDefaultChannelNumber(bool value) { m_usingDefaultChannelNumber = value; }
 
+      bool IsIptvStream() const { return m_isIptvStream; }
+
       bool UpdateFrom(TiXmlElement* channelNode);
       void UpdateTo(PVR_CHANNEL &left) const;
 
@@ -101,10 +104,12 @@ namespace enigma2
       static std::string CreateCommonServiceReference(const std::string &serviceReference);
       std::string CreateGenericServiceReference(const std::string &commonServiceReference);
       std::string CreateIconPath(const std::string &commonServiceReference);
+      std::string ExtractIptvStreamURL();
       bool HasRadioServiceType();
 
       int m_channelNumber;
       bool m_usingDefaultChannelNumber = true;
+      bool m_isIptvStream = false;
       std::string m_standardServiceReference;
       std::string m_extendedServiceReference;
       std::string m_genericServiceReference;

@@ -484,6 +484,11 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
   return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamURL();
 }
 
+bool Enigma2::IsIptvStream(const PVR_CHANNEL& channelinfo) const
+{
+  return m_channels.GetChannel(channelinfo.iUniqueId)->IsIptvStream();
+}
+
 int Enigma2::GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo)
 {
   return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamProgramNumber();
