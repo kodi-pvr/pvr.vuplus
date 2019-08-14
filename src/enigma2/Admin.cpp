@@ -516,6 +516,7 @@ PVR_ERROR Admin::GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<
 
   if (!hddNode)
   {
+    m_deviceHasHDD = false;
     Logger::Log(LEVEL_ERROR, "%s Could not find <e2hdd> element", __FUNCTION__);
     return PVR_ERROR_SERVER_ERROR;
   }

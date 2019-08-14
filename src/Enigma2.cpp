@@ -699,7 +699,10 @@ PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER& timer)
 
 PVR_ERROR Enigma2::GetDriveSpace(long long* iTotal, long long* iUsed)
 {
-  return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
+  if (m_admin.GetDeviceHasHDD())
+    return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
+
+  return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
 PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus)

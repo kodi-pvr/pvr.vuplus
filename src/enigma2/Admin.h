@@ -57,6 +57,7 @@ namespace enigma2
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
     const std::string& GetAddonVersion() const { return m_addonVersion; }
     bool GetTunerSignal(utilities::SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel);
+    bool GetDeviceHasHDD() const { return m_deviceHasHDD; };
 
   private:
     static void SetCharString(char* target, const std::string value);
@@ -70,6 +71,7 @@ namespace enigma2
 
     char m_serverName[256];
     char m_serverVersion[256];
+    bool m_deviceHasHDD = true;
     const std::string m_addonVersion;
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;
