@@ -24,7 +24,7 @@
 #include "Logger.h"
 #include "../../client.h"
 
-#include <kodi_vfs_types.h>
+#include <kodi/kodi_vfs_types.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
