@@ -12,7 +12,7 @@
 #include "data/Timer.h"
 #include "extract/EpgEntryExtractor.h"
 
-#include "libXBMC_pvr.h"
+#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
 
 namespace enigma2
