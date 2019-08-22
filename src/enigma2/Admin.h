@@ -31,7 +31,7 @@
 #include "utilities/StreamStatus.h"
 #include "utilities/Tuner.h"
 
-#include "libXBMC_pvr.h"
+#include "kodi/libXBMC_pvr.h"
 
 namespace enigma2
 {

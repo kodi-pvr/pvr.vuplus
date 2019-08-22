@@ -3,7 +3,7 @@
 #include <ctime>
 #include <string>
 
-#include "libXBMC_addon.h"
+#include "kodi/libXBMC_addon.h"
 
 namespace enigma2
 {

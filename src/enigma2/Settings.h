@@ -8,7 +8,7 @@
 #include "utilities/DeviceSettings.h"
 
 #include <p8-platform/util/StringUtils.h>
-#include "xbmc_addon_types.h"
+#include "kodi/xbmc_addon_types.h"
 
 class Vu;
 
