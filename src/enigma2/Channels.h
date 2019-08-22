@@ -55,7 +55,7 @@ namespace enigma2
     std::shared_ptr<enigma2::data::Channel> GetChannel(int uniqueId);
     std::shared_ptr<enigma2::data::Channel> GetChannel(const std::string& channelServiceReference);
     std::shared_ptr<enigma2::data::Channel> GetChannel(const std::string& channelName, bool isRadio);
-    bool IsValid(int uniqueId) const;
+    bool IsValid(int uniqueId);
     bool IsValid(const std::string& channelServiceReference);
     int GetNumChannels() const;
     void ClearChannels();
@@ -73,6 +73,7 @@ namespace enigma2
     int LoadChannelsExtraData(const std::shared_ptr<enigma2::data::ChannelGroup> channelGroup, int lastGroupLatestChannelPosition);
 
     std::vector<std::shared_ptr<enigma2::data::Channel>> m_channels;
+    std::unordered_map<int, std::shared_ptr<enigma2::data::Channel>> m_channelsUniqueIdMap;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>> m_channelsServiceReferenceMap;
 
     ChannelGroups m_channelGroups;

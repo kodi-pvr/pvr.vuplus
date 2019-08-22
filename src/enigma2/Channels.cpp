@@ -18,6 +18,25 @@ using namespace enigma2::data;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
+namespace
+{
+
+int GenerateChannelUniqueId(const std::string& channelName, const std::string& extendedServiceReference)
+{
+  std::string concat(channelName);
+  concat.append(extendedServiceReference);
+
+  const char* calcString = concat.c_str();
+  int uniqueId = 0;
+  int c;
+  while ((c = *calcString++))
+    uniqueId = ((uniqueId << 5) + uniqueId) + c; /* iId * 33 + c */
+
+  return abs(uniqueId);
+}
+
+} // unnamed namespace
+
 void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) const
 {
   for (const auto& channel : m_channels)
@@ -48,7 +67,15 @@ int Channels::GetChannelUniqueId(const std::string& channelServiceReference)
 
 std::shared_ptr<Channel> Channels::GetChannel(int uniqueId)
 {
-  return m_channels.at(uniqueId - 1);
+  std::shared_ptr<Channel> channel = nullptr;
+
+  auto channelPair = m_channelsUniqueIdMap.find(uniqueId);
+  if (channelPair != m_channelsUniqueIdMap.end())
+  {
+    channel = channelPair->second;
+  }
+
+  return channel;
 }
 
 std::shared_ptr<Channel> Channels::GetChannel(const std::string& channelServiceReference)
@@ -75,9 +102,9 @@ std::shared_ptr<Channel> Channels::GetChannel(const std::string& channelName, bo
   return nullptr;
 }
 
-bool Channels::IsValid(int uniqueId) const
+bool Channels::IsValid(int uniqueId)
 {
-  return (uniqueId - 1) < m_channels.size();
+  return GetChannel(uniqueId) != nullptr;
 }
 
 bool Channels::IsValid(const std::string &channelServiceReference)
@@ -93,6 +120,7 @@ int Channels::GetNumChannels() const
 void Channels::ClearChannels()
 {
   m_channels.clear();
+  m_channelsUniqueIdMap.clear();
   m_channelsServiceReferenceMap.clear();
 }
 
@@ -102,7 +130,7 @@ void Channels::AddChannel(Channel& newChannel, std::shared_ptr<ChannelGroup>& ch
 
   if (!foundChannel)
   {
-    newChannel.SetUniqueId(m_channels.size() + 1);
+    newChannel.SetUniqueId(GenerateChannelUniqueId(newChannel.GetChannelName(), newChannel.GetExtendedServiceReference()));
     newChannel.SetChannelNumber(m_channels.size() + 1);
 
     m_channels.emplace_back(new Channel(newChannel));
@@ -111,6 +139,7 @@ void Channels::AddChannel(Channel& newChannel, std::shared_ptr<ChannelGroup>& ch
     channel->AddChannelGroup(channelGroup);
     channelGroup->AddChannel(channel);
 
+    m_channelsUniqueIdMap.insert({channel->GetUniqueId(), channel});
     m_channelsServiceReferenceMap.insert({channel->GetServiceReference(), channel});
   }
   else
