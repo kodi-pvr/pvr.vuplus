@@ -76,16 +76,6 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
   return PVR_ERROR_NO_ERROR;
 }
 
-int ChannelGroups::GetChannelGroupUniqueId(const std::string& groupName) const
-{
-  for (const auto& channelGroup : m_channelGroups)
-  {
-    if (groupName == channelGroup->GetGroupName())
-      return channelGroup->GetUniqueId();
-  }
-  return -1;
-}
-
 std::string ChannelGroups::GetChannelGroupServiceReference(const std::string& groupName)
 {
   for (const auto& channelGroup : m_channelGroups)
@@ -94,11 +84,6 @@ std::string ChannelGroups::GetChannelGroupServiceReference(const std::string& gr
       return channelGroup->GetServiceReference();
   }
   return "error";
-}
-
-std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(int uniqueId)
-{
-  return m_channelGroups.at(uniqueId - 1);
 }
 
 std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(const std::string& groupServiceReference)
@@ -121,11 +106,6 @@ std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroupUsingName(const std:
   }
 
   return channelGroup;
-}
-
-bool ChannelGroups::IsValid(int uniqueId) const
-{
-  return (uniqueId - 1) < m_channelGroups.size();
 }
 
 bool ChannelGroups::IsValid(std::string groupName)
