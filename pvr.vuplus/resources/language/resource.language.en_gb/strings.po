@@ -849,7 +849,17 @@ msgctxt "#30520"
 msgid "Invalid Channel"
 msgstr ""
 
-#empty strings from id 30521 to 30599
+#notification: Enigma2
+msgctxt "#30521"
+msgid "Enigma2: Channel group changes detected, reloading..."
+msgstr ""
+
+#notification: Enigma2
+msgctxt "#30522"
+msgid "Enigma2: Channel changes detected, reloading..."
+msgstr ""
+
+#empty strings from id 30523 to 30599
 
 #############
 # help info #

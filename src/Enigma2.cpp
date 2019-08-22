@@ -76,27 +76,14 @@ void Enigma2::ConnectionLost()
   m_isConnected = false;
 }
 
-void Enigma2::Reset()
-{
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
-  m_channels.ClearChannels();
-
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal timers list...", __FUNCTION__);
-  m_timers.ClearTimers();
-
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
-  m_recordings.ClearRecordings(false);
-  m_recordings.ClearRecordings(true);
-
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal group list...", __FUNCTION__);
-  m_channelGroups.ClearChannelGroups();
-}
 
 void Enigma2::ConnectionEstablished()
 {
   CLockObject lock(m_mutex);
 
-  Reset();
+  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels and groups lists...", __FUNCTION__);
+  m_channels.ClearChannels();
+  m_channelGroups.ClearChannelGroups();
 
   Logger::Log(LEVEL_NOTICE, "%s Connection Established with Enigma2 device...", __FUNCTION__);
 
@@ -254,9 +241,9 @@ void* Enigma2::Process()
       if (!IsStopped() && m_isConnected)
       {
         if (CheckForChannelAndGroupChanges() != ChannelsChangeState::NO_CHANGE &&
-            m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
+            m_settings.GetChannelAndGroupUpdateMode() == ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
         {
-          connectionManager->Reconnect();
+          ReloadChannelsGroupsAndEPG();
         }
       }
     }
@@ -288,31 +275,64 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
       {
         changeType = m_channels.CheckForChannelAndGroupChanges(latestChannelGroups, latestChannels);
 
-        if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::NOTIFY_AND_LOG)
+        if (m_settings.GetChannelAndGroupUpdateMode() == ChannelAndGroupUpdateMode::NOTIFY_AND_LOG)
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
             Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
-            XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30518).c_str());
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30518).c_str());
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
             Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
-            XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30519).c_str());
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30519).c_str());
           }
         }
         else // RELOAD_CHANNELS_AND_GROUPS
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
-            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, auto reconnecting to load changes", __FUNCTION__);
+          {
+            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30521).c_str());
+          }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
-            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, , auto reconnecting to load changes", __FUNCTION__);
+          {
+            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30522).c_str());
+          }
         }
       }
     }
   }
 
   return changeType;
+}
+
+void Enigma2::ReloadChannelsGroupsAndEPG()
+{
+  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
+  m_channels.ClearChannels();
+  m_channelGroups.ClearChannelGroups();
+
+  m_recordings.ClearLocations();
+  m_recordings.LoadLocations();
+
+  m_channelGroups.LoadChannelGroups();
+  m_channels.LoadChannels(m_channelGroups);
+
+  PVR->TriggerChannelGroupsUpdate();
+  PVR->TriggerChannelUpdate();
+
+  m_skipInitialEpgLoad = true;
+
+  m_epg.Initialise(m_channels, m_channelGroups);
+
+  m_timers.TimerUpdates();
+
+  for (const auto& myChannel : m_channels.GetChannelsList())
+    PVR->TriggerEpgUpdate(myChannel->GetUniqueId());
+
+  PVR->TriggerRecordingUpdate();  
 }
 
 void Enigma2::SendPowerstate()

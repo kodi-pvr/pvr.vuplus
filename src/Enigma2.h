@@ -116,9 +116,9 @@ private:
   static const int PROCESS_LOOP_WAIT_SECS = 5;
 
   // helper functions
-  void Reset();
   std::string GetStreamURL(const std::string& strM3uURL);
   enigma2::ChannelsChangeState CheckForChannelAndGroupChanges();
+  void ReloadChannelsGroupsAndEPG();
 
   // members
   bool m_isConnected = false;
