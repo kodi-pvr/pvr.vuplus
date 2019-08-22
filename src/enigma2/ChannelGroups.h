@@ -29,7 +29,7 @@
 #include "data/Channel.h"
 #include "data/ChannelGroup.h"
 
-#include "libXBMC_pvr.h"
+#include "kodi/libXBMC_pvr.h"
 
 namespace enigma2
 {

@@ -1,3 +1,9 @@
+v4.5.1
+- Update: Kodi VFS API 1.0.3
+- Update: Build sytem version
+- Added: AppVeyor for Windows related build tests
+- Fixed: Build depends search way
+
 v4.5.0
 - Added: Allow creation of epg-based repeating timer rules if autotimers are not available
 
