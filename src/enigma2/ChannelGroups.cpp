@@ -129,7 +129,7 @@ void ChannelGroups::ClearChannelGroups()
 
 void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
 {
-  std::shared_ptr<ChannelGroup> foundChannelGroup = GetChannelGroup(newChannelGroup.GetGroupName());
+  std::shared_ptr<ChannelGroup> foundChannelGroup = GetChannelGroupUsingName(newChannelGroup.GetGroupName());
 
   if (!foundChannelGroup)
   {
