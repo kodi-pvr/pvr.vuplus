@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -130,10 +130,10 @@ private:
 
   mutable enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
-  enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
+  enigma2::Recordings m_recordings{m_channels, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg = enigma2::Epg(m_entryExtractor, m_epgMaxDays);
-  enigma2::Timers m_timers = enigma2::Timers(m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor);
+  enigma2::Epg m_epg{m_entryExtractor, m_epgMaxDays};
+  enigma2::Timers m_timers{m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
   enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;
   enigma2::extract::EpgEntryExtractor m_entryExtractor;
