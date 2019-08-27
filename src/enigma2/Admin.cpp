@@ -31,6 +31,7 @@
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <cstdlib>
 #include <regex>
 
 #include <nlohmann/json.hpp>
@@ -247,7 +248,7 @@ unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
   unsigned int webIfVersionAsNum = 0;
 
   std::regex regex("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
-  if (regex_match(webIfVersion, regex))
+  if (std::regex_match(webIfVersion, regex))
   {
     int count = 0;
     unsigned int versionPart = 0;
@@ -257,15 +258,15 @@ unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
         switch (count)
         {
           case 0:
-            versionPart = atoi(i->str().c_str());
+            versionPart = std::atoi(i->str().c_str());
             webIfVersionAsNum = versionPart << 16;
             break;
           case 1:
-              versionPart = atoi(i->str().c_str());
+              versionPart = std::atoi(i->str().c_str());
               webIfVersionAsNum |= versionPart << 8;
             break;
           case 2:
-              versionPart = atoi(i->str().c_str());
+              versionPart = std::atoi(i->str().c_str());
               webIfVersionAsNum |= versionPart;
             break;
         }
@@ -431,12 +432,12 @@ bool Admin::LoadRecordingMarginSettings()
 
     if (settingName == "config.recording.margin_before")
     {
-      m_deviceSettings.SetGlobalRecordingStartMargin(atoi(settingValue.c_str()));
+      m_deviceSettings.SetGlobalRecordingStartMargin(std::atoi(settingValue.c_str()));
       readMarginBefore = true;
     }
     else if (settingName == "config.recording.margin_after")
     {
-       m_deviceSettings.SetGlobalRecordingEndMargin(atoi(settingValue.c_str()));
+       m_deviceSettings.SetGlobalRecordingEndMargin(std::atoi(settingValue.c_str()));
        readMarginAfter = true;
     }
 
@@ -586,9 +587,9 @@ long long Admin::GetKbFromString(const std::string& stringInMbGbTb) const
     std::regex regexSize("^.* " + size);
     std::regex regexReplaceSize(" " + size);
 
-    if (regex_match(stringInMbGbTb, regexSize))
+    if (std::regex_match(stringInMbGbTb, regexSize))
     {
-      double sizeValue = atof(regex_replace(stringInMbGbTb, regexReplaceSize, replaceWith).c_str());
+      double sizeValue = std::atof(std::regex_replace(stringInMbGbTb, regexReplaceSize, replaceWith).c_str());
 
       sizeInKb += static_cast<long long>(sizeValue * multiplier);
 
@@ -657,9 +658,9 @@ bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<dat
   std::string regexReplace = "";
 
   // For some reason the iSNR and iSignal values need to multiplied by 655!
-  signalStatus.m_snrPercentage = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
-  signalStatus.m_ber = atol(ber.c_str());
-  signalStatus.m_signalStrength = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
+  signalStatus.m_snrPercentage = std::atoi(std::regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
+  signalStatus.m_ber = std::atol(ber.c_str());
+  signalStatus.m_signalStrength = std::atoi(std::regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
 
   if (Settings::GetInstance().SupportsTunerDetails())
   {

@@ -27,6 +27,8 @@
 #include "p8-platform/util/StringUtils.h"
 #include "util/XMLUtils.h"
 
+#include <cstdlib>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
@@ -223,7 +225,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
       {
         if (where == "dayofweek")
         {
-          m_weekdays = m_weekdays |= (1 << atoi(includeVal.c_str()));
+          m_weekdays = m_weekdays |= (1 << std::atoi(includeVal.c_str()));
         }
       }
     }

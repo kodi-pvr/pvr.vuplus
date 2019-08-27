@@ -28,6 +28,8 @@
 #include "kodi/libXBMC_pvr.h"
 #include "util/XMLUtils.h"
 
+#include <cstdlib>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
@@ -155,8 +157,8 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
     const std::string sourceIdString = pNode->Attribute("sourceId");
     const std::string targetIdString = pNode->GetText();
 
-    int sourceId = strtol(sourceIdString.c_str(), nullptr, 16);
-    int targetId = strtol(targetIdString.c_str(), nullptr, 16);
+    int sourceId = std::strtol(sourceIdString.c_str(), nullptr, 16);
+    int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
 
     map.insert({sourceId, targetId});
 

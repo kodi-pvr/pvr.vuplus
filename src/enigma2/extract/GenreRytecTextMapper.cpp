@@ -28,6 +28,8 @@
 #include "kodi/libXBMC_pvr.h"
 #include "util/XMLUtils.h"
 
+#include <cstdlib>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
@@ -208,7 +210,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string& xmlFile, std
     const std::string targetIdString = pNode->Attribute("targetId");
     const std::string textMapping = pNode->GetText();
 
-    int targetId = strtol(targetIdString.c_str(), nullptr, 16);
+    int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
 
     map.insert({textMapping, targetId});
 

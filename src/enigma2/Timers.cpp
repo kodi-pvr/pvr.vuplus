@@ -184,7 +184,7 @@ std::string Timers::ConvertToAutoTimerTag(std::string tag)
   std::regex regex(" ");
   std::string replaceWith = "_";
 
-  return regex_replace(tag, regex, replaceWith);
+  return std::regex_replace(tag, regex, replaceWith);
 }
 
 std::vector<AutoTimer> Timers::LoadAutoTimers() const
@@ -787,7 +787,7 @@ std::string Timers::RemovePaddingTag(std::string tag)
   std::regex regex(" Padding=[0-9]+,[0-9]+ *");
   std::string replaceWith = "";
 
-  return regex_replace(tag, regex, replaceWith);
+  return std::regex_replace(tag, regex, replaceWith);
 }
 
 PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)

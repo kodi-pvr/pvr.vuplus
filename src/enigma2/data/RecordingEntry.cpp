@@ -27,6 +27,8 @@
 #include "p8-platform/util/StringUtils.h"
 #include "util/XMLUtils.h"
 
+#include <cstdlib>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
@@ -149,8 +151,8 @@ long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
 
   if (tokens.size() == 2)
   {
-    timeInSecs += atoi(tokens[0].c_str()) * 60;
-    timeInSecs += atoi(tokens[1].c_str());
+    timeInSecs += std::atoi(tokens[0].c_str()) * 60;
+    timeInSecs += std::atoi(tokens[1].c_str());
   }
 
   return timeInSecs;

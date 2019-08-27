@@ -470,7 +470,7 @@ PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
 
   std::regex regex(TRASH_FOLDER);
 
-  const std::string newRecordingDirectory = regex_replace(recordingEntry.GetDirectory(), regex, "");
+  const std::string newRecordingDirectory = std::regex_replace(recordingEntry.GetDirectory(), regex, "");
 
   const std::string strTmp = StringUtils::Format("web/moviemove?sRef=%s&dirname=%s", WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(), WebUtils::URLEncodeInline(newRecordingDirectory).c_str());
 

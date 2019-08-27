@@ -26,6 +26,8 @@
 #include "tinyxml.h"
 #include "util/XMLUtils.h"
 
+#include <cstdlib>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
@@ -52,7 +54,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
         const std::string seasonText = GetMatchTextFromString(masterText, patternSet.m_seasonRegex);
         if (!seasonText.empty())
         {
-          entry.SetSeasonNumber(atoi(seasonText.c_str()));
+          entry.SetSeasonNumber(std::atoi(seasonText.c_str()));
         }
       }
 
@@ -61,7 +63,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
         const std::string episodeText = GetMatchTextFromString(masterText, patternSet.m_episodeRegex);
         if (!episodeText.empty())
         {
-          entry.SetEpisodeNumber(atoi(episodeText.c_str()));
+          entry.SetEpisodeNumber(std::atoi(episodeText.c_str()));
         }
       }
     }
@@ -77,7 +79,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
 
     if (!yearText.empty() && entry.GetYear() == 0)
     {
-      entry.SetYear(atoi(yearText.c_str()));
+      entry.SetYear(std::atoi(yearText.c_str()));
     }
 
     if (entry.GetYear() != 0)
