@@ -168,9 +168,9 @@ std::string Channel::CreateGenericServiceReference(const std::string& commonServ
   //Same as common service reference but starts with SERVICE_REF_GENERIC_PREFIX and ends with SERVICE_REF_GENERIC_POSTFIX
   std::regex startPrefixRegex("^\\d+:\\d+:\\d+:");
   std::string replaceWith = "";
-  std::string genericServiceReference = regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
+  std::string genericServiceReference = std::regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
   std::regex endPostfixRegex(":\\d+:\\d+:\\d+$");
-  genericServiceReference = regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
+  genericServiceReference = std::regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
   genericServiceReference = SERVICE_REF_GENERIC_PREFIX + genericServiceReference + SERVICE_REF_GENERIC_POSTFIX;
 
   return genericServiceReference;

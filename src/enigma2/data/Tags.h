@@ -50,7 +50,7 @@ namespace enigma2
       {
         std::regex regex("^.* ?" + tag + " ?.*$");
 
-        return (regex_match(m_tags, regex));
+        return (std::regex_match(m_tags, regex));
       }
 
       void AddTag(const std::string& tagName, const std::string& tagValue = "", bool replaceUnderscores = false)
@@ -98,7 +98,7 @@ namespace enigma2
         std::regex regex(" *" + tagName + "=?[^\\s-]*");
         std::string replaceWith = "";
 
-        m_tags = regex_replace(m_tags, regex, replaceWith);
+        m_tags = std::regex_replace(m_tags, regex, replaceWith);
       }
 
     protected:

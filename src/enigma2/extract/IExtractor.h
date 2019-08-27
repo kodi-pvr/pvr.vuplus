@@ -44,7 +44,7 @@ namespace enigma2
         std::string matchText = "";
         std::smatch match;
 
-        if (regex_match(text, match, pattern))
+        if (std::regex_match(text, match, pattern))
         {
           if (match.size() == 2)
           {
