@@ -1,3 +1,15 @@
+v4.7.0
+- Added: Support for IPTV Streams configured on E2 device (no timeshifting)
+- Added: Reload instead of reconnecting when channel/group changes are detected
+- Added: Use truly unique IDs for channels so EPG changes are correctly reflected
+- Fixed: Only get drive space for devices that have an HDD
+- Fixed: use correct function to lookup group when adding
+- Added: update README.md to show appveyor/travis badges per branch
+- Added: Update OSX build script
+- Added: update badge status for travis/appveyor
+- Added: add copyright notices to files
+- Fixed: Fix default path for genre text mapping file
+
 v4.6.0
 - Update: Recompile for 6.1.0 PVR Addon API compatibility
 
