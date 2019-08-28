@@ -47,7 +47,7 @@ namespace enigma2
   static const std::string ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus";
   static const std::string DEFAULT_SHOW_INFO_FILE = ADDON_DATA_BASE_DIR + "/showInfo/English-ShowInfo.xml";
   static const std::string DEFAULT_GENRE_ID_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreIdMappings/Sky-UK.xml";
-  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreTextMappings/Rytec-UK-Ireland.xml";
+  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml";
   static const std::string DEFAULT_CUSTOM_TV_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const std::string DEFAULT_CUSTOM_RADIO_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
