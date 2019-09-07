@@ -89,28 +89,20 @@ int Channels::GetChannelUniqueId(const std::string& channelServiceReference)
 
 std::shared_ptr<Channel> Channels::GetChannel(int uniqueId)
 {
-  std::shared_ptr<Channel> channel = nullptr;
-
   auto channelPair = m_channelsUniqueIdMap.find(uniqueId);
   if (channelPair != m_channelsUniqueIdMap.end())
-  {
-    channel = channelPair->second;
-  }
+    return channelPair->second;
 
-  return channel;
+  return {};
 }
 
 std::shared_ptr<Channel> Channels::GetChannel(const std::string& channelServiceReference)
 {
-  std::shared_ptr<Channel> channel = nullptr;
-
   auto channelPair = m_channelsServiceReferenceMap.find(channelServiceReference);
   if (channelPair != m_channelsServiceReferenceMap.end())
-  {
-    channel = channelPair->second;
-  }
+    return channelPair->second;
 
-  return channel;
+  return {};
 }
 
 std::shared_ptr<Channel> Channels::GetChannel(const std::string& channelName, bool isRadio)
