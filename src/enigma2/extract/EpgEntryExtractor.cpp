@@ -1,9 +1,31 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "EpgEntryExtractor.h"
 
+#include "../utilities/FileUtils.h"
 #include "GenreIdMapper.h"
 #include "GenreRytecTextMapper.h"
 #include "ShowInfoExtractor.h"
-#include "../utilities/FileUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -31,11 +53,9 @@ EpgEntryExtractor::EpgEntryExtractor()
   }
 }
 
-EpgEntryExtractor::~EpgEntryExtractor(void)
-{
-}
+EpgEntryExtractor::~EpgEntryExtractor(void) {}
 
-void EpgEntryExtractor::ExtractFromEntry(BaseEntry &entry)
+void EpgEntryExtractor::ExtractFromEntry(BaseEntry& entry)
 {
   for (auto& extractor : m_extractors)
   {
@@ -44,7 +64,4 @@ void EpgEntryExtractor::ExtractFromEntry(BaseEntry &entry)
   }
 }
 
-bool EpgEntryExtractor::IsEnabled()
-{
-  return m_anyExtractorEnabled;
-}
+bool EpgEntryExtractor::IsEnabled() { return m_anyExtractorEnabled; }

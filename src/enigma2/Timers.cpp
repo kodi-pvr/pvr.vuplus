@@ -1,30 +1,50 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "Timers.h"
 
-#include <cstdlib>
-#include <algorithm>
-#include <regex>
-
-#include "../client.h"
 #include "../Enigma2.h"
+#include "../client.h"
+#include "inttypes.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/UpdateState.h"
 #include "utilities/WebUtils.h"
 
-#include "inttypes.h"
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
+#include <algorithm>
+#include <cstdlib>
+#include <regex>
 
 using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-template <typename T>
-T *Timers::GetTimer(std::function<bool (const T&)> func,
-  std::vector<T> &timerlist)
+template<typename T>
+T* Timers::GetTimer(std::function<bool(const T&)> func, std::vector<T>& timerlist)
 {
-  for (auto &timer : timerlist)
+  for (auto& timer : timerlist)
   {
     if (func(timer))
       return &timer;
@@ -79,8 +99,8 @@ std::vector<Timer> Timers::LoadTimers() const
 
     timers.emplace_back(newTimer);
 
-    if ((newTimer.GetType() == Timer::MANUAL_REPEATING || newTimer.GetType() == Timer::EPG_REPEATING)
-        && m_settings.GetGenRepeatTimersEnabled() && m_settings.GetNumGenRepeatTimers() > 0)
+    if ((newTimer.GetType() == Timer::MANUAL_REPEATING || newTimer.GetType() == Timer::EPG_REPEATING) &&
+        m_settings.GetGenRepeatTimersEnabled() && m_settings.GetNumGenRepeatTimers() > 0)
     {
       GenerateChildManualRepeatingTimers(&timers, &newTimer);
     }
@@ -93,11 +113,11 @@ std::vector<Timer> Timers::LoadTimers() const
   return timers;
 }
 
-void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer> *timers, Timer *timer) const
+void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Timer* timer) const
 {
   int genTimerCount = 0;
   int weekdays = timer->GetWeekdays();
-  const time_t ONE_DAY = 24 * 60 * 60 ;
+  const time_t ONE_DAY = 24 * 60 * 60;
 
   if (m_settings.GetNumGenRepeatTimers() && weekdays != PVR_WEEKDAY_NONE)
   {
@@ -164,7 +184,7 @@ std::string Timers::ConvertToAutoTimerTag(std::string tag)
   std::regex regex(" ");
   std::string replaceWith = "_";
 
-  return regex_replace(tag, regex, replaceWith);
+  return std::regex_replace(tag, regex, replaceWith);
 }
 
 std::vector<AutoTimer> Timers::LoadAutoTimers() const
@@ -218,36 +238,33 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   return autoTimers;
 }
 
-bool Timers::IsAutoTimer(const PVR_TIMER &timer) const
+bool Timers::IsAutoTimer(const PVR_TIMER& timer) const
 {
   return timer.iTimerType == Timer::Type::EPG_AUTO_SEARCH;
 }
 
-void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
+void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
 {
-  struct TimerType
-    : PVR_TIMER_TYPE
+  struct TimerType : PVR_TIMER_TYPE
   {
-    TimerType(unsigned int id, unsigned int attributes,
-      const std::string &description = std::string(),
-      const std::vector<std::pair<int, std::string>> &groupValues
-        = std::vector<std::pair<int, std::string>>(),
-      const std::vector<std::pair<int, std::string>> &deDupValues
-        = std::vector<std::pair<int, std::string>>(),
-      int preventDuplicateEpisodesDefault
-        = AutoTimer::DeDup::DISABLED)
+    TimerType(unsigned int id,
+              unsigned int attributes,
+              const std::string& description = std::string(),
+              const std::vector<std::pair<int, std::string>>& groupValues = std::vector<std::pair<int, std::string>>(),
+              const std::vector<std::pair<int, std::string>>& deDupValues = std::vector<std::pair<int, std::string>>(),
+              int preventDuplicateEpisodesDefault = AutoTimer::DeDup::DISABLED)
     {
       int i;
       memset(this, 0, sizeof(PVR_TIMER_TYPE));
 
-      iId         = id;
+      iId = id;
       iAttributes = attributes;
       strncpy(strDescription, description.c_str(), sizeof(strDescription) - 1);
 
       if ((iRecordingGroupSize = groupValues.size()))
         iRecordingGroupDefault = groupValues[0].first;
       i = 0;
-      for (const auto &group : groupValues)
+      for (const auto& group : groupValues)
       {
         recordingGroup[i].iValue = group.first;
         strncpy(recordingGroup[i].strDescription, group.second.c_str(), sizeof(recordingGroup[i].strDescription) - 1);
@@ -257,7 +274,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
       if ((iPreventDuplicateEpisodesSize = deDupValues.size()))
         iPreventDuplicateEpisodesDefault = preventDuplicateEpisodesDefault;
       i = 0;
-      for (const auto &deDup : deDupValues)
+      for (const auto& deDup : deDupValues)
       {
         preventDuplicateEpisodes[i].iValue = deDup.first;
         strncpy(preventDuplicateEpisodes[i].strDescription, deDup.second.c_str(), sizeof(preventDuplicateEpisodes[i].strDescription) - 1);
@@ -268,9 +285,9 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE> &types) const
 
   /* PVR_Timer.iRecordingGroup values and presentation.*/
   std::vector<std::pair<int, std::string>> groupValues = {
-    { 0, LocalizedString(30410) }, //automatic
+      {0, LocalizedString(30410)}, //automatic
   };
-  for (const auto &recf : m_locations)
+  for (const auto& recf : m_locations)
     groupValues.emplace_back(groupValues.size(), recf);
 
   /* One-shot manual (time and channel based) */
@@ -433,7 +450,7 @@ int Timers::GetAutoTimerCount() const
   return m_autotimers.size();
 }
 
-void Timers::GetTimers(std::vector<PVR_TIMER> &timers) const
+void Timers::GetTimers(std::vector<PVR_TIMER>& timers) const
 {
   for (const auto& timer : m_timers)
   {
@@ -446,11 +463,12 @@ void Timers::GetTimers(std::vector<PVR_TIMER> &timers) const
   }
 }
 
-void Timers::GetAutoTimers(std::vector<PVR_TIMER> &timers) const
+void Timers::GetAutoTimers(std::vector<PVR_TIMER>& timers) const
 {
   for (const auto& autoTimer : m_autotimers)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.GetTitle().c_str(), autoTimer.GetClientIndex());
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.GetTitle().c_str(),
+                autoTimer.GetClientIndex());
     PVR_TIMER tag = {0};
 
     autoTimer.UpdateTo(tag);
@@ -459,17 +477,17 @@ void Timers::GetAutoTimers(std::vector<PVR_TIMER> &timers) const
   }
 }
 
-Timer *Timers::GetTimer(std::function<bool (const Timer&)> func)
+Timer* Timers::GetTimer(std::function<bool(const Timer&)> func)
 {
   return GetTimer<Timer>(func, m_timers);
 }
 
-AutoTimer *Timers::GetAutoTimer(std::function<bool (const AutoTimer&)> func)
+AutoTimer* Timers::GetAutoTimer(std::function<bool(const AutoTimer&)> func)
 {
   return GetTimer<AutoTimer>(func, m_autotimers);
 }
 
-PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
+PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
 {
   if (IsAutoTimer(timer))
     return AddAutoTimer(timer);
@@ -520,8 +538,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   unsigned int epgUid = timer.iEpgUid;
   bool foundEntry = false;
 
-  if (Settings::GetInstance().IsOpenWebIf() &&
-      (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
+  if (Settings::GetInstance().IsOpenWebIf() && (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
   {
     // We try to find the EPG Entry and use it's details
     EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime);
@@ -574,7 +591,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER &timer)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
+PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
 {
   std::string strTmp = StringUtils::Format("autotimer/edit?");
 
@@ -690,7 +707,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER &timer)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Timers::UpdateTimer(const PVR_TIMER &timer)
+PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
 {
   if (IsAutoTimer(timer))
     return UpdateAutoTimer(timer);
@@ -770,10 +787,10 @@ std::string Timers::RemovePaddingTag(std::string tag)
   std::regex regex(" Padding=[0-9]+,[0-9]+ *");
   std::string replaceWith = "";
 
-  return regex_replace(tag, regex, replaceWith);
+  return std::regex_replace(tag, regex, replaceWith);
 }
 
-PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
+PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
 {
   const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
@@ -840,8 +857,8 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
       }
     }
 
-    if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL && (timerToUpdate.GetAnyChannel() ||
-             (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid != timerToUpdate.GetChannelId())))
+    if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL &&
+        (timerToUpdate.GetAnyChannel() || (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid != timerToUpdate.GetChannelId())))
     {
       const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference();
 
@@ -909,7 +926,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER &timer)
   return PVR_ERROR_SERVER_ERROR;
 }
 
-std::string Timers::BuildAddUpdateAutoTimerLimitGroupsParams(const std::shared_ptr<Channel> &channel)
+std::string Timers::BuildAddUpdateAutoTimerLimitGroupsParams(const std::shared_ptr<Channel>& channel)
 {
   std::string limitGroupParams;
 
@@ -962,7 +979,7 @@ std::string Timers::BuildAddUpdateAutoTimerIncludeParams(int weekdays)
   return includeParams;
 }
 
-PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
+PVR_ERROR Timers::DeleteTimer(const PVR_TIMER& timer)
 {
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
@@ -976,7 +993,9 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER &timer)
   {
     Timer timerToDelete = *it;
 
-    const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(timerToDelete.GetServiceReference()).c_str(), timerToDelete.GetRealStartTime(), timerToDelete.GetRealEndTime());
+    const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d",
+                                                   WebUtils::URLEncodeInline(timerToDelete.GetServiceReference()).c_str(),
+                                                   timerToDelete.GetRealStartTime(), timerToDelete.GetRealEndTime());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
@@ -1006,11 +1025,13 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
 
     //remove any child timers
     bool childTimerIsRecording = false;
-    for (const auto &childTimer : m_timers)
+    for (const auto& childTimer : m_timers)
     {
       if (childTimer.GetParentClientIndex() == timerToDelete.GetClientIndex())
       {
-        const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d", WebUtils::URLEncodeInline(childTimer.GetServiceReference()).c_str(), childTimer.GetRealStartTime(), childTimer.GetRealEndTime());
+        const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d",
+                                                       WebUtils::URLEncodeInline(childTimer.GetServiceReference()).c_str(),
+                                                       childTimer.GetRealStartTime(), childTimer.GetRealEndTime());
 
         std::string strResult;
         WebUtils::SendSimpleCommand(strTmp, strResult, true);
@@ -1081,8 +1102,8 @@ bool Timers::TimerUpdatesRegular()
   }
 
   //Update any timers
-  unsigned int iUpdated=0;
-  unsigned int iUnchanged=0;
+  unsigned int iUpdated = 0;
+  unsigned int iUnchanged = 0;
 
   for (auto& newTimer : newtimers)
   {
@@ -1090,7 +1111,7 @@ bool Timers::TimerUpdatesRegular()
     {
       if (existingTimer.Like(newTimer))
       {
-        if(existingTimer == newTimer)
+        if (existingTimer == newTimer)
         {
           existingTimer.SetUpdateState(UPDATE_STATE_FOUND);
           newTimer.SetUpdateState(UPDATE_STATE_FOUND);
@@ -1120,11 +1141,11 @@ bool Timers::TimerUpdatesRegular()
   iRemoved -= m_timers.size();
 
   //Add any new autotimers
-  unsigned int iNew=0;
+  unsigned int iNew = 0;
 
   for (auto& newTimer : newtimers)
   {
-    if(newTimer.GetUpdateState() == UPDATE_STATE_NEW)
+    if (newTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {
       newTimer.SetClientIndex(m_clientIndexCounter);
       Logger::Log(LEVEL_DEBUG, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.GetTitle().c_str(), m_clientIndexCounter);
@@ -1140,7 +1161,8 @@ bool Timers::TimerUpdatesRegular()
     for (auto& readonlyRepeatingOnceTimer : m_timers)
     {
       if ((repeatingTimer.GetType() == Timer::MANUAL_REPEATING || repeatingTimer.GetType() == Timer::EPG_REPEATING) &&
-          readonlyRepeatingOnceTimer.GetType() == Timer::READONLY_REPEATING_ONCE && readonlyRepeatingOnceTimer.IsChildOfParent(repeatingTimer))
+          readonlyRepeatingOnceTimer.GetType() == Timer::READONLY_REPEATING_ONCE &&
+          readonlyRepeatingOnceTimer.IsChildOfParent(repeatingTimer))
       {
         readonlyRepeatingOnceTimer.SetParentClientIndex(repeatingTimer.GetClientIndex());
         continue;
@@ -1166,8 +1188,8 @@ bool Timers::TimerUpdatesAuto()
   }
 
   //Update any autotimers
-  unsigned int iUpdated=0;
-  unsigned int iUnchanged=0;
+  unsigned int iUpdated = 0;
+  unsigned int iUnchanged = 0;
 
   for (auto& newAutoTimer : newautotimers)
   {
@@ -1175,7 +1197,7 @@ bool Timers::TimerUpdatesAuto()
     {
       if (existingAutoTimer.Like(newAutoTimer))
       {
-        if(existingAutoTimer == newAutoTimer)
+        if (existingAutoTimer == newAutoTimer)
         {
           existingAutoTimer.SetUpdateState(UPDATE_STATE_FOUND);
           newAutoTimer.SetUpdateState(UPDATE_STATE_FOUND);
@@ -1205,11 +1227,11 @@ bool Timers::TimerUpdatesAuto()
   iRemoved -= m_autotimers.size();
 
   //Add any new autotimers
-  unsigned int iNew=0;
+  unsigned int iNew = 0;
 
   for (auto& newAutoTimer : newautotimers)
   {
-    if(newAutoTimer.GetUpdateState() == UPDATE_STATE_NEW)
+    if (newAutoTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {
       newAutoTimer.SetClientIndex(m_clientIndexCounter);
 
@@ -1229,8 +1251,7 @@ bool Timers::TimerUpdatesAuto()
     {
       const std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.GetTitle());
 
-      if (timer.GetType() == Timer::EPG_AUTO_ONCE && timer.ContainsTag(TAG_FOR_AUTOTIMER)
-            && timer.ContainsTag(autotimerTag))
+      if (timer.GetType() == Timer::EPG_AUTO_ONCE && timer.ContainsTag(TAG_FOR_AUTOTIMER) && timer.ContainsTag(autotimerTag))
       {
         timer.SetParentClientIndex(autoTimer.GetClientIndex());
         continue;
@@ -1247,6 +1268,6 @@ void Timers::RunAutoTimerListCleanup()
 {
   const std::string strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
   std::string strResult;
-  if(!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     Logger::Log(LEVEL_ERROR, "%s - AutomaticTimerlistCleanup failed!", __FUNCTION__);
 }

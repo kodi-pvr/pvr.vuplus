@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2011 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,12 +21,11 @@
 
 #include "ConnectionManager.h"
 
-#include "p8-platform/os.h"
-#include "p8-platform/util/StringUtils.h"
-
 #include "../client.h"
 #include "IConnectionListener.h"
 #include "Settings.h"
+#include "p8-platform/os.h"
+#include "p8-platform/util/StringUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -38,7 +37,7 @@ using namespace enigma2::utilities;
  * Enigma2 Connection handler
  */
 
-ConnectionManager::ConnectionManager (IConnectionListener& connectionListener)
+ConnectionManager::ConnectionManager(IConnectionListener& connectionListener)
   : m_connectionListener(connectionListener), m_suspended(false), m_state(PVR_CONNECTION_STATE_UNKNOWN)
 {
 }
@@ -81,7 +80,7 @@ void ConnectionManager::OnWake()
   m_suspended = false;
 }
 
-void ConnectionManager::SetState ( PVR_CONNECTION_STATE state )
+void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
 {
   PVR_CONNECTION_STATE prevState(PVR_CONNECTION_STATE_UNKNOWN);
   PVR_CONNECTION_STATE newState(PVR_CONNECTION_STATE_UNKNOWN);
@@ -93,8 +92,8 @@ void ConnectionManager::SetState ( PVR_CONNECTION_STATE state )
     if (m_state != state && !m_suspended)
     {
       prevState = m_state;
-      newState  = state;
-      m_state   = newState;
+      newState = state;
+      m_state = newState;
 
       Logger::Log(LogLevel::LEVEL_DEBUG, "connection state change (%d -> %d)", prevState, newState);
     }

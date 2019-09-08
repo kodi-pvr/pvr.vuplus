@@ -1,24 +1,46 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "ChannelGroups.h"
 
-#include <regex>
-
-#include "../client.h"
 #include "../Enigma2.h"
+#include "../client.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+#include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
-#include "utilities/FileUtils.h"
+
+#include <regex>
 
 #include <nlohmann/json.hpp>
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
-void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannelGroups, bool radio) const
+void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& kodiChannelGroups, bool radio) const
 {
   Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroups for PVR", __FUNCTION__);
 
@@ -39,7 +61,7 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP> &kodiChannel
   Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroups for PVR", __FUNCTION__);
 }
 
-PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER> &channelGroupMembers, const std::string &groupName)
+PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER>& channelGroupMembers, const std::string& groupName)
 {
   std::shared_ptr<ChannelGroup> channelGroup = GetChannelGroupUsingName(groupName);
 
@@ -62,10 +84,9 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
     strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName));
     tag.iChannelUniqueId = channel->GetUniqueId();
-    tag.iChannelNumber   = channelNumberInGroup; //Keep the channels in list order as per the groups on the STB
+    tag.iChannelNumber = channelNumberInGroup; //Keep the channels in list order as per the groups on the STB
 
-    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d",
-        __FUNCTION__, channel->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channel->GetChannelNumber());
+    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' channel number %d", __FUNCTION__, channel->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channel->GetChannelNumber());
 
     channelGroupMembers.emplace_back(tag);
 
@@ -77,17 +98,7 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
   return PVR_ERROR_NO_ERROR;
 }
 
-int ChannelGroups::GetChannelGroupUniqueId(const std::string &groupName) const
-{
-  for (const auto& channelGroup : m_channelGroups)
-  {
-    if (groupName == channelGroup->GetGroupName())
-      return channelGroup->GetUniqueId();
-  }
-  return -1;
-}
-
-std::string ChannelGroups::GetChannelGroupServiceReference(const std::string &groupName)
+std::string ChannelGroups::GetChannelGroupServiceReference(const std::string& groupName)
 {
   for (const auto& channelGroup : m_channelGroups)
   {
@@ -97,12 +108,7 @@ std::string ChannelGroups::GetChannelGroupServiceReference(const std::string &gr
   return "error";
 }
 
-std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(int uniqueId)
-{
-  return m_channelGroups.at(uniqueId - 1);
-}
-
-std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(const std::string &groupServiceReference)
+std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(const std::string& groupServiceReference)
 {
   const auto channelGroupPair = m_channelGroupsServiceReferenceMap.find(groupServiceReference);
   if (channelGroupPair != m_channelGroupsServiceReferenceMap.end())
@@ -111,7 +117,7 @@ std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroup(const std::string &
   return {};
 }
 
-std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroupUsingName(const std::string &groupName)
+std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroupUsingName(const std::string& groupName)
 {
   std::shared_ptr<ChannelGroup> channelGroup;
 
@@ -122,11 +128,6 @@ std::shared_ptr<ChannelGroup> ChannelGroups::GetChannelGroupUsingName(const std:
   }
 
   return channelGroup;
-}
-
-bool ChannelGroups::IsValid(int uniqueId) const
-{
-  return (uniqueId - 1) < m_channelGroups.size();
 }
 
 bool ChannelGroups::IsValid(std::string groupName)
@@ -150,7 +151,7 @@ void ChannelGroups::ClearChannelGroups()
 
 void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
 {
-  std::shared_ptr<ChannelGroup> foundChannelGroup = GetChannelGroup(newChannelGroup.GetGroupName());
+  std::shared_ptr<ChannelGroup> foundChannelGroup = GetChannelGroupUsingName(newChannelGroup.GetGroupName());
 
   if (!foundChannelGroup)
   {

@@ -1,20 +1,41 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "Channel.h"
 
-#include <regex>
-
-#include "ChannelGroup.h"
 #include "../Settings.h"
 #include "../utilities/WebUtils.h"
-
+#include "ChannelGroup.h"
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+
+#include <regex>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool Channel::Like(const Channel &right) const
+bool Channel::Like(const Channel& right) const
 {
   bool isLike = (m_serviceReference == right.m_serviceReference);
   isLike &= (m_channelName == right.m_channelName);
@@ -22,7 +43,7 @@ bool Channel::Like(const Channel &right) const
   return isLike;
 }
 
-bool Channel::operator==(const Channel &right) const
+bool Channel::operator==(const Channel& right) const
 {
   bool isEqual = (m_serviceReference == right.m_serviceReference);
   isEqual &= (m_channelName == right.m_channelName);
@@ -36,7 +57,7 @@ bool Channel::operator==(const Channel &right) const
   return isEqual;
 }
 
-bool Channel::operator!=(const Channel &right) const
+bool Channel::operator!=(const Channel& right) const
 {
   return !(*this == right);
 }
@@ -65,28 +86,43 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   m_genericServiceReference = CreateGenericServiceReference(commonServiceReference);
   m_iconPath = CreateIconPath(commonServiceReference);
 
-  if (Settings::GetInstance().UseStandardServiceReference())
+  const std::string iptvStreamURL = ExtractIptvStreamURL();
+
+  Settings& settings = Settings::GetInstance();
+  if (settings.UseStandardServiceReference())
     m_serviceReference = m_standardServiceReference;
 
   std::sscanf(m_serviceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
 
   Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s, program number: %d", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str(), m_streamProgramNumber);
 
+  if (m_isIptvStream)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, IPTV Stream URL: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), iptvStreamURL.c_str());
+  }
+
   m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
 
-  m_streamURL = StringUtils::Format(
-    "http%s://%s%s:%d/%s",
-    Settings::GetInstance().UseSecureConnectionStream() ? "s" : "",
-    Settings::GetInstance().UseLoginStream() ? StringUtils::Format("%s:%s@", Settings::GetInstance().GetUsername().c_str(), Settings::GetInstance().GetPassword().c_str()).c_str() : "",
-    Settings::GetInstance().GetHostname().c_str(),
-    Settings::GetInstance().GetStreamPortNum(),
-    commonServiceReference.c_str()
-  );
+  if (!m_isIptvStream)
+  {
+    m_streamURL = StringUtils::Format(
+      "http%s://%s%s:%d/%s",
+      settings.UseSecureConnectionStream() ? "s" : "",
+      settings.UseLoginStream() ? StringUtils::Format("%s:%s@", settings.GetUsername().c_str(), settings.GetPassword().c_str()).c_str() : "",
+      settings.GetHostname().c_str(),
+      settings.GetStreamPortNum(),
+      commonServiceReference.c_str()
+    );
+  }
+  else
+  {
+    m_streamURL = iptvStreamURL;
+  }
 
   return true;
 }
 
-std::string Channel::NormaliseServiceReference(const std::string &serviceReference)
+std::string Channel::NormaliseServiceReference(const std::string& serviceReference)
 {
   if (Settings::GetInstance().UseStandardServiceReference())
     return CreateStandardServiceReference(serviceReference);
@@ -94,12 +130,12 @@ std::string Channel::NormaliseServiceReference(const std::string &serviceReferen
     return serviceReference;
 }
 
-std::string Channel::CreateStandardServiceReference(const std::string &serviceReference)
+std::string Channel::CreateStandardServiceReference(const std::string& serviceReference)
 {
   return CreateCommonServiceReference(serviceReference) + ":";
 }
 
-std::string Channel::CreateCommonServiceReference(const std::string &serviceReference)
+std::string Channel::CreateCommonServiceReference(const std::string& serviceReference)
 {
   //The common service reference contains only the first 10 groups of digits with colon's in between
   std::string commonServiceReference = serviceReference;
@@ -127,20 +163,20 @@ std::string Channel::CreateCommonServiceReference(const std::string &serviceRefe
   return commonServiceReference;
 }
 
-std::string Channel::CreateGenericServiceReference(const std::string &commonServiceReference)
+std::string Channel::CreateGenericServiceReference(const std::string& commonServiceReference)
 {
   //Same as common service reference but starts with SERVICE_REF_GENERIC_PREFIX and ends with SERVICE_REF_GENERIC_POSTFIX
-  std::regex startPrefixRegex ("^\\d+:\\d+:\\d+:");
+  std::regex startPrefixRegex("^\\d+:\\d+:\\d+:");
   std::string replaceWith = "";
-  std::string genericServiceReference = regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
-  std::regex endPostfixRegex (":\\d+:\\d+:\\d+$");
-  genericServiceReference = regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
+  std::string genericServiceReference = std::regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
+  std::regex endPostfixRegex(":\\d+:\\d+:\\d+$");
+  genericServiceReference = std::regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
   genericServiceReference = SERVICE_REF_GENERIC_PREFIX + genericServiceReference + SERVICE_REF_GENERIC_POSTFIX;
 
   return genericServiceReference;
 }
 
-std::string Channel::CreateIconPath(const std::string &commonServiceReference)
+std::string Channel::CreateIconPath(const std::string& commonServiceReference)
 {
   std::string iconPath = commonServiceReference;
 
@@ -159,6 +195,31 @@ std::string Channel::CreateIconPath(const std::string &commonServiceReference)
   return iconPath;
 }
 
+std::string Channel::ExtractIptvStreamURL()
+{
+  std::string iptvStreamURL;
+
+  std::size_t found = m_extendedServiceReference.find(m_standardServiceReference);
+  if (found != std::string::npos)
+  {
+    const std::string possibleIptvStreamURL = m_extendedServiceReference.substr(m_standardServiceReference.length());
+    found = possibleIptvStreamURL.find("%3a"); //look for an URL encoded colon which means we have an embedded URL
+    if (found != std::string::npos)
+    {
+      m_isIptvStream = true;
+      iptvStreamURL = possibleIptvStreamURL;
+      std::size_t foundColon = iptvStreamURL.find_last_of(":");
+      if (foundColon != std::string::npos)
+      {
+        iptvStreamURL = iptvStreamURL.substr(0, foundColon);
+      }
+      iptvStreamURL = std::regex_replace(iptvStreamURL, std::regex("%3a"), ":");
+    }
+  }
+
+  return iptvStreamURL;
+}
+
 bool Channel::HasRadioServiceType()
 {
   std::string radioServiceType = m_serviceReference.substr(4, m_serviceReference.size());
@@ -169,7 +230,7 @@ bool Channel::HasRadioServiceType()
   return radioServiceType == RADIO_SERVICE_TYPE;
 }
 
-void Channel::UpdateTo(PVR_CHANNEL &left) const
+void Channel::UpdateTo(PVR_CHANNEL& left) const
 {
   left.iUniqueId = m_uniqueId;
   left.bIsRadio = m_radio;
@@ -181,7 +242,7 @@ void Channel::UpdateTo(PVR_CHANNEL &left) const
   strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath));
 }
 
-void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup> &channelGroup)
+void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup>& channelGroup)
 {
   m_channelGroupList.emplace_back(channelGroup);
 }

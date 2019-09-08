@@ -1,12 +1,32 @@
 #pragma once
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
 
+#include "EpisodeSeasonPattern.h"
 #include "IExtractor.h"
 
 #include <regex>
 #include <string>
 #include <vector>
-
-#include "EpisodeSeasonPattern.h"
 
 namespace enigma2
 {
@@ -32,18 +52,17 @@ namespace enigma2
     // (2018E25)
     static const std::string GET_YEAR_EPISODE_PATTERN = "^.*\\(([12][0-9][0-9][0-9])[eE][pP]?\\.?[0-9]+/?[0-9]*\\)[^]*$";
 
-    class ShowInfoExtractor
-      : public IExtractor
+    class ShowInfoExtractor : public IExtractor
     {
     public:
       ShowInfoExtractor();
       ~ShowInfoExtractor(void);
 
-      void ExtractFromEntry(enigma2::data::BaseEntry &entry);
+      void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();
 
     private:
-      bool LoadShowInfoPatternsFile(const std::string &xmlFile, std::vector<EpisodeSeasonPattern> &episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
+      bool LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
 
       std::vector<EpisodeSeasonPattern> m_episodeSeasonPatterns;
       std::vector<std::regex> m_yearPatterns;

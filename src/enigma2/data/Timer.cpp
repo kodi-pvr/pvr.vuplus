@@ -1,18 +1,39 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "Timer.h"
 
-#include <regex>
-
 #include "../utilities/LocalizedString.h"
-
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+
+#include <regex>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool Timer::Like(const Timer &right) const
+bool Timer::Like(const Timer& right) const
 {
   bool isLike = (m_startTime == right.m_startTime);
   isLike &= (m_endTime == right.m_endTime);
@@ -23,7 +44,7 @@ bool Timer::Like(const Timer &right) const
   return isLike;
 }
 
-bool Timer::operator==(const Timer &right) const
+bool Timer::operator==(const Timer& right) const
 {
   bool isEqual = (m_startTime == right.m_startTime);
   isEqual &= (m_endTime == right.m_endTime);
@@ -49,7 +70,7 @@ bool Timer::operator==(const Timer &right) const
   return isEqual;
 }
 
-void Timer::UpdateFrom(const Timer &right)
+void Timer::UpdateFrom(const Timer& right)
 {
   m_title = right.m_title;
   m_plot = right.m_plot;
@@ -74,36 +95,35 @@ void Timer::UpdateFrom(const Timer &right)
   m_year = right.m_year;
 }
 
-void Timer::UpdateTo(PVR_TIMER &left) const
+void Timer::UpdateTo(PVR_TIMER& left) const
 {
   strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle));
-  strncpy(left.strDirectory, "/", sizeof(left.strDirectory));   // unused
+  strncpy(left.strDirectory, "/", sizeof(left.strDirectory)); // unused
   strncpy(left.strSummary, m_plot.c_str(), sizeof(left.strSummary));
-  left.iTimerType         = m_type;
-  left.iClientChannelUid   = m_channelId;
-  left.startTime           = m_startTime;
-  left.endTime             = m_endTime;
-  left.state               = m_state;
-  left.iPriority           = 0;     // unused
-  left.iLifetime           = 0;     // unused
-  left.firstDay            = 0;     // unused
-  left.iWeekdays           = m_weekdays;
-  left.iEpgUid             = m_epgId;
-  left.iMarginStart        = m_paddingStartMins;
-  left.iMarginEnd          = m_paddingEndMins;
-  left.iGenreType          = 0;     // unused
-  left.iGenreSubType       = 0;     // unused
-  left.iClientIndex        = m_clientIndex;
-  left.iParentClientIndex  = m_parentClientIndex;
+  left.iTimerType = m_type;
+  left.iClientChannelUid = m_channelId;
+  left.startTime = m_startTime;
+  left.endTime = m_endTime;
+  left.state = m_state;
+  left.iPriority = 0; // unused
+  left.iLifetime = 0; // unused
+  left.firstDay = 0; // unused
+  left.iWeekdays = m_weekdays;
+  left.iEpgUid = m_epgId;
+  left.iMarginStart = m_paddingStartMins;
+  left.iMarginEnd = m_paddingEndMins;
+  left.iGenreType = 0; // unused
+  left.iGenreSubType = 0; // unused
+  left.iClientIndex = m_clientIndex;
+  left.iParentClientIndex = m_parentClientIndex;
 }
 
 bool Timer::IsScheduled() const
 {
-  return m_state == PVR_TIMER_STATE_SCHEDULED
-      || m_state == PVR_TIMER_STATE_RECORDING;
+  return m_state == PVR_TIMER_STATE_SCHEDULED || m_state == PVR_TIMER_STATE_RECORDING;
 }
 
-bool Timer::IsRunning(std::time_t *now, std::string *channelName, std::time_t startTime) const
+bool Timer::IsRunning(std::time_t* now, std::string* channelName, std::time_t startTime) const
 {
   if (!IsScheduled())
     return false;
@@ -116,7 +136,7 @@ bool Timer::IsRunning(std::time_t *now, std::string *channelName, std::time_t st
   return true;
 }
 
-bool Timer::IsChildOfParent(const Timer &parent) const
+bool Timer::IsChildOfParent(const Timer& parent) const
 {
   time_t time;
   std::tm timeinfo;
@@ -155,7 +175,7 @@ bool Timer::IsChildOfParent(const Timer &parent) const
   return isChild;
 }
 
-bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels &channels)
+bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
 {
   std::string strTmp;
 

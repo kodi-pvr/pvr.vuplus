@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,15 +21,14 @@
  *
  */
 
-#include <string>
-
+#include "../Channels.h"
 #include "BaseEntry.h"
 #include "Channel.h"
 #include "Tags.h"
-#include "../Channels.h"
-
-#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
+#include <string>
 namespace enigma2
 {
   namespace data
@@ -42,7 +41,7 @@ namespace enigma2
     {
     public:
       const std::string& GetRecordingId() const { return m_recordingId; }
-      void SetRecordingId(const std::string& value ) { m_recordingId = value; }
+      void SetRecordingId(const std::string& value) { m_recordingId = value; }
 
       time_t GetStartTime() const { return m_startTime; }
       void SetStartTime(time_t value) { m_startTime = value; }
@@ -60,22 +59,22 @@ namespace enigma2
       void SetNextSyncTime(time_t value) { m_nextSyncTime = value; }
 
       const std::string& GetStreamURL() const { return m_streamURL; }
-      void SetStreamURL(const std::string& value ) { m_streamURL = value; }
+      void SetStreamURL(const std::string& value) { m_streamURL = value; }
 
       const std::string& GetEdlURL() const { return m_edlURL; }
-      void SetEdlURL(const std::string& value ) { m_edlURL = value; }
+      void SetEdlURL(const std::string& value) { m_edlURL = value; }
 
       const std::string& GetChannelName() const { return m_channelName; }
-      void SetChannelName(const std::string& value ) { m_channelName = value; }
+      void SetChannelName(const std::string& value) { m_channelName = value; }
 
       int GetChannelUniqueId() const { return m_channelUniqueId; }
       void SetChannelUniqueId(int value) { m_channelUniqueId = value; }
 
       const std::string& GetDirectory() const { return m_directory; }
-      void SetDirectory(const std::string& value ) { m_directory = value; }
+      void SetDirectory(const std::string& value) { m_directory = value; }
 
       const std::string& GetIconPath() const { return m_iconPath; }
-      void SetIconPath(const std::string& value ) { m_iconPath = value; }
+      void SetIconPath(const std::string& value) { m_iconPath = value; }
 
       int GetStreamProgramNumber() const { return m_streamProgramNumber; }
       void SetStreamProgramNumber(int value) { m_streamProgramNumber = value; }
@@ -88,16 +87,16 @@ namespace enigma2
       bool IsDeleted() const { return m_deleted; }
       void SetDeleted(bool value) { m_deleted = value; }
 
-      bool UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, bool deleted, enigma2::Channels &channels);
-      void UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder);
+      bool UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, enigma2::Channels& channels);
+      void UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder);
 
     private:
-      long TimeStringToSeconds(const std::string &timeString);
+      long TimeStringToSeconds(const std::string& timeString);
 
-      std::shared_ptr<Channel> FindChannel(enigma2::Channels &channels) const;
-      std::shared_ptr<Channel> GetChannelFromChannelReferenceTag(enigma2::Channels &channels) const;
-      std::shared_ptr<Channel> GetChannelFromChannelNameSearch(enigma2::Channels &channels) const;
-      std::shared_ptr<Channel> GetChannelFromChannelNameFuzzySearch(enigma2::Channels &channels) const;
+      std::shared_ptr<Channel> FindChannel(enigma2::Channels& channels) const;
+      std::shared_ptr<Channel> GetChannelFromChannelReferenceTag(enigma2::Channels& channels) const;
+      std::shared_ptr<Channel> GetChannelFromChannelNameSearch(enigma2::Channels& channels) const;
+      std::shared_ptr<Channel> GetChannelFromChannelNameFuzzySearch(enigma2::Channels& channels) const;
 
       std::string m_recordingId;
       time_t m_startTime;

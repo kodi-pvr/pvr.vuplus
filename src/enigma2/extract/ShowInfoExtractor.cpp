@@ -1,27 +1,47 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "ShowInfoExtractor.h"
 
 #include "../utilities/FileUtils.h"
-
 #include "tinyxml.h"
 #include "util/XMLUtils.h"
+
+#include <cstdlib>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-ShowInfoExtractor::ShowInfoExtractor()
-  : IExtractor()
+ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
 {
   if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns))
     Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __FUNCTION__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
 }
 
-ShowInfoExtractor::~ShowInfoExtractor(void)
-{
-}
+ShowInfoExtractor::~ShowInfoExtractor(void) {}
 
-void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
+void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
 {
   for (const auto& patternSet : m_episodeSeasonPatterns)
   {
@@ -34,7 +54,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
         const std::string seasonText = GetMatchTextFromString(masterText, patternSet.m_seasonRegex);
         if (!seasonText.empty())
         {
-          entry.SetSeasonNumber(atoi(seasonText.c_str()));
+          entry.SetSeasonNumber(std::atoi(seasonText.c_str()));
         }
       }
 
@@ -43,7 +63,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
         const std::string episodeText = GetMatchTextFromString(masterText, patternSet.m_episodeRegex);
         if (!episodeText.empty())
         {
-          entry.SetEpisodeNumber(atoi(episodeText.c_str()));
+          entry.SetEpisodeNumber(std::atoi(episodeText.c_str()));
         }
       }
     }
@@ -59,7 +79,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry &entry)
 
     if (!yearText.empty() && entry.GetYear() == 0)
     {
-      entry.SetYear(atoi(yearText.c_str()));
+      entry.SetYear(std::atoi(yearText.c_str()));
     }
 
     if (entry.GetYear() != 0)
@@ -72,7 +92,7 @@ bool ShowInfoExtractor::IsEnabled()
   return Settings::GetInstance().GetExtractShowInfo();
 }
 
-bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string &xmlFile, std::vector<EpisodeSeasonPattern> &episodeSeasonPatterns, std::vector<std::regex> yearPatterns)
+bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex> yearPatterns)
 {
   episodeSeasonPatterns.clear();
   yearPatterns.clear();

@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,9 +21,9 @@
  *
  */
 
-#include <string>
-
 #include "../Settings.h"
+
+#include <string>
 
 namespace enigma2
 {
@@ -33,13 +33,13 @@ namespace enigma2
     {
     public:
       const std::string& GetTitle() const { return m_title; }
-      void SetTitle(const std::string& value ) { m_title = value; }
+      void SetTitle(const std::string& value) { m_title = value; }
 
       const std::string& GetPlotOutline() const { return m_plotOutline; }
-      void SetPlotOutline(const std::string& value ) { m_plotOutline = value; }
+      void SetPlotOutline(const std::string& value) { m_plotOutline = value; }
 
       const std::string& GetPlot() const { return m_plot; }
-      void SetPlot(const std::string& value ) { m_plot = value; }
+      void SetPlot(const std::string& value) { m_plot = value; }
 
       int GetGenreType() const { return m_genreType; }
       void SetGenreType(int value) { m_genreType = value; }
@@ -48,7 +48,7 @@ namespace enigma2
       void SetGenreSubType(int value) { m_genreSubType = value; }
 
       const std::string& GetGenreDescription() const { return m_genreDescription; }
-      void SetGenreDescription(const std::string& value ) { m_genreDescription = value; }
+      void SetGenreDescription(const std::string& value) { m_genreDescription = value; }
 
       int GetEpisodeNumber() const { return m_episodeNumber; }
       void SetEpisodeNumber(int value) { m_episodeNumber = value; }

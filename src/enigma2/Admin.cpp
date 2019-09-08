@@ -1,17 +1,40 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "Admin.h"
 
-#include <regex>
-
-#include "../client.h"
 #include "../Enigma2.h"
+#include "../client.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <cstdlib>
+#include <regex>
+
 #include <nlohmann/json.hpp>
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -40,7 +63,7 @@ void Admin::SendPowerstate()
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::STANDBY ||
       Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
-      const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=5"); //Standby
+      const std::string strCmd = StringUtils::Format("web/powerstate?newstate=5"); //Standby
 
       std::string strResult;
       WebUtils::SendSimpleCommand(strCmd, strResult, true);
@@ -48,7 +71,7 @@ void Admin::SendPowerstate()
 
     if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
     {
-      const std::string strCmd  = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
+      const std::string strCmd = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
 
       std::string strResult;
       WebUtils::SendSimpleCommand(strCmd, strResult, true);
@@ -220,12 +243,12 @@ bool Admin::LoadDeviceInfo()
   return true;
 }
 
-unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
+unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
 {
   unsigned int webIfVersionAsNum = 0;
 
-  std::regex regex ("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
-  if (regex_match(webIfVersion, regex))
+  std::regex regex("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
+  if (std::regex_match(webIfVersion, regex))
   {
     int count = 0;
     unsigned int versionPart = 0;
@@ -235,15 +258,15 @@ unsigned int Admin::ParseWebIfVersion(const std::string &webIfVersion)
         switch (count)
         {
           case 0:
-            versionPart = atoi(i->str().c_str());
+            versionPart = std::atoi(i->str().c_str());
             webIfVersionAsNum = versionPart << 16;
             break;
           case 1:
-              versionPart = atoi(i->str().c_str());
+              versionPart = std::atoi(i->str().c_str());
               webIfVersionAsNum |= versionPart << 8;
             break;
           case 2:
-              versionPart = atoi(i->str().c_str());
+              versionPart = std::atoi(i->str().c_str());
               webIfVersionAsNum |= versionPart;
             break;
         }
@@ -409,12 +432,12 @@ bool Admin::LoadRecordingMarginSettings()
 
     if (settingName == "config.recording.margin_before")
     {
-      m_deviceSettings.SetGlobalRecordingStartMargin(atoi(settingValue.c_str()));
+      m_deviceSettings.SetGlobalRecordingStartMargin(std::atoi(settingValue.c_str()));
       readMarginBefore = true;
     }
     else if (settingName == "config.recording.margin_after")
     {
-       m_deviceSettings.SetGlobalRecordingEndMargin(atoi(settingValue.c_str()));
+       m_deviceSettings.SetGlobalRecordingEndMargin(std::atoi(settingValue.c_str()));
        readMarginAfter = true;
     }
 
@@ -476,7 +499,7 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
   return true;
 }
 
-PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations)
+PVR_ERROR Admin::GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<std::string>& locations)
 {
   long long totalKb = 0;
   long long freeKb = 0;
@@ -516,6 +539,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
 
   if (!hddNode)
   {
+    m_deviceHasHDD = false;
     Logger::Log(LEVEL_ERROR, "%s Could not find <e2hdd> element", __FUNCTION__);
     return PVR_ERROR_SERVER_ERROR;
   }
@@ -551,7 +575,7 @@ PVR_ERROR Admin::GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<
   return PVR_ERROR_NO_ERROR;
 }
 
-long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
+long long Admin::GetKbFromString(const std::string& stringInMbGbTb) const
 {
   long long sizeInKb = 0;
 
@@ -560,12 +584,12 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   std::string replaceWith = "";
   for (const std::string& size : sizes)
   {
-    std::regex regexSize ("^.* " + size);
-    std::regex regexReplaceSize (" " + size);
+    std::regex regexSize("^.* " + size);
+    std::regex regexReplaceSize(" " + size);
 
-    if (regex_match(stringInMbGbTb, regexSize))
+    if (std::regex_match(stringInMbGbTb, regexSize))
     {
-      double sizeValue = atof(regex_replace(stringInMbGbTb, regexReplaceSize, replaceWith).c_str());
+      double sizeValue = std::atof(std::regex_replace(stringInMbGbTb, regexReplaceSize, replaceWith).c_str());
 
       sizeInKb += static_cast<long long>(sizeValue * multiplier);
 
@@ -578,7 +602,7 @@ long long Admin::GetKbFromString(const std::string &stringInMbGbTb) const
   return sizeInKb;
 }
 
-bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
+bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel)
 {
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/signal");
 
@@ -630,13 +654,13 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
     return false;
   }
 
-  std::regex regexReplacePercent (" %");
+  std::regex regexReplacePercent(" %");
   std::string regexReplace = "";
 
   // For some reason the iSNR and iSignal values need to multiplied by 655!
-  signalStatus.m_snrPercentage = atoi(regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
-  signalStatus.m_ber = atol(ber.c_str());
-  signalStatus.m_signalStrength = atoi(regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
+  signalStatus.m_snrPercentage = std::atoi(std::regex_replace(snrPercentage, regexReplacePercent, regexReplace).c_str()) * 655;
+  signalStatus.m_ber = std::atol(ber.c_str());
+  signalStatus.m_signalStrength = std::atoi(std::regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
 
   if (Settings::GetInstance().SupportsTunerDetails())
   {
@@ -648,7 +672,7 @@ bool Admin::GetTunerSignal(SignalStatus &signalStatus, const std::shared_ptr<dat
   return true;
 }
 
-StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &channel)
+StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel>& channel)
 {
   StreamStatus streamStatus;
 
@@ -719,7 +743,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel> &chann
   return streamStatus;
 }
 
-void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel)
+void Admin::GetTunerDetails(SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel)
 {
   const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal");
 
@@ -739,7 +763,7 @@ void Admin::GetTunerDetails(SignalStatus &signalStatus, const std::shared_ptr<da
 
         if (m_tuners.size() > tunerNumber)
         {
-          Tuner &tuner = m_tuners.at(tunerNumber);
+          Tuner& tuner = m_tuners.at(tunerNumber);
 
           signalStatus.m_adapterName = tuner.m_tunerName + " - " + tuner.m_tunerModel;
         }

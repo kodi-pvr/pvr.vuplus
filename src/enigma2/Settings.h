@@ -1,14 +1,35 @@
 #pragma once
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
+#include "Admin.h"
+#include "utilities/DeviceInfo.h"
+#include "utilities/DeviceSettings.h"
+#include "utilities/Logger.h"
+#include "kodi/xbmc_addon_types.h"
 
 #include <string>
 
-#include "Admin.h"
-#include "utilities/Logger.h"
-#include "utilities/DeviceInfo.h"
-#include "utilities/DeviceSettings.h"
-
 #include <p8-platform/util/StringUtils.h>
-#include "kodi/xbmc_addon_types.h"
 
 class Vu;
 
@@ -26,7 +47,7 @@ namespace enigma2
   static const std::string ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus";
   static const std::string DEFAULT_SHOW_INFO_FILE = ADDON_DATA_BASE_DIR + "/showInfo/English-ShowInfo.xml";
   static const std::string DEFAULT_GENRE_ID_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreIdMappings/Sky-UK.xml";
-  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreTextMappings/Rytec-UK-Ireland.xml";
+  static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml";
   static const std::string DEFAULT_CUSTOM_TV_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const std::string DEFAULT_CUSTOM_RADIO_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
@@ -112,13 +133,13 @@ namespace enigma2
     }
 
     void ReadFromAddon();
-    ADDON_STATUS SetValue(const std::string &settingName, const void *settingValue);
+    ADDON_STATUS SetValue(const std::string& settingName, const void* settingValue);
 
     //Connection
     const std::string& GetHostname() const { return m_hostname; }
     int GetWebPortNum() const { return m_portWeb; }
     bool GetUseSecureConnection() const { return m_useSecureHTTP; }
-    const std::string& GetUsername() const {return m_username; }
+    const std::string& GetUsername() const { return m_username; }
     const std::string& GetPassword() const { return m_password; }
     bool GetAutoConfigLiveStreamsEnabled() const { return m_autoConfig; }
     int GetStreamPortNum() const { return m_portStream; }
@@ -238,13 +259,13 @@ namespace enigma2
   private:
     Settings() = default;
 
-    Settings(Settings const &) = delete;
-    void operator=(Settings const &) = delete;
+    Settings(Settings const&) = delete;
+    void operator=(Settings const&) = delete;
 
-    template <typename T, typename V>
+    template<typename T, typename V>
     V SetSetting(const std::string& settingName, const void* settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
-      T newValue =  *static_cast<const T*>(settingValue);
+      T newValue = *static_cast<const T*>(settingValue);
       if (newValue != currentValue)
       {
         utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, newValue);
@@ -255,14 +276,14 @@ namespace enigma2
       return defaultReturnValue;
     };
 
-    template <typename V>
-    V SetStringSetting(const std::string &settingName, const void* settingValue, std::string &currentValue, V returnValueIfChanged, V defaultReturnValue)
+    template<typename V>
+    V SetStringSetting(const std::string& settingName, const void* settingValue, std::string& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       const std::string strSettingValue = static_cast<const char*>(settingValue);
 
       if (strSettingValue != currentValue)
       {
-        utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from %s to %s", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
+        utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from '%s' to '%s'", __FUNCTION__, settingName.c_str(), currentValue.c_str(), strSettingValue.c_str());
         currentValue = strSettingValue;
         return returnValueIfChanged;
       }
@@ -270,7 +291,7 @@ namespace enigma2
       return defaultReturnValue;
     }
 
-    static bool LoadCustomChannelGroupFile(std::string &file, std::vector<std::string> &channelGroupNameList);
+    static bool LoadCustomChannelGroupFile(std::string& file, std::vector<std::string>& channelGroupNameList);
 
     //Connection
     std::string m_hostname = DEFAULT_HOST;
@@ -343,7 +364,7 @@ namespace enigma2
 
     //Timers
     bool m_enableGenRepeatTimers = true;
-    int  m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
+    int m_numGenRepeatTimers = DEFAULT_NUM_GEN_REPEAT_TIMERS;
     bool m_automaticTimerlistCleanup = false;
     bool m_enableAutoTimers = true;
     bool m_limitAnyChannelAutoTimers = true;

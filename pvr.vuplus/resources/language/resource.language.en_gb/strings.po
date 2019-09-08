@@ -849,7 +849,17 @@ msgctxt "#30520"
 msgid "Invalid Channel"
 msgstr ""
 
-#empty strings from id 30521 to 30599
+#notification: Enigma2
+msgctxt "#30521"
+msgid "Enigma2: Channel group changes detected, reloading..."
+msgstr ""
+
+#notification: Enigma2
+msgctxt "#30522"
+msgid "Enigma2: Channel changes detected, reloading..."
+msgstr ""
+
+#empty strings from id 30523 to 30599
 
 #############
 # help info #
@@ -889,7 +899,7 @@ msgstr ""
 
 #help: Connection - autoconfig
 msgctxt "#30606"
-msgid "When enabled the stream URL will be read from an M3U file. When disabled it is constructed based on the filename."
+msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
 msgstr ""
 
 #help: Connection - streamport

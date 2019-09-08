@@ -1,27 +1,48 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "GenreIdMapper.h"
 
 #include "../utilities/FileUtils.h"
 
-#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
 #include "util/XMLUtils.h"
+
+#include <cstdlib>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreIdMapper::GenreIdMapper()
-  : IExtractor()
+GenreIdMapper::GenreIdMapper() : IExtractor()
 {
   LoadGenreIdMapFile();
 }
 
-GenreIdMapper::~GenreIdMapper(void)
-{
-}
+GenreIdMapper::~GenreIdMapper(void) {}
 
-void GenreIdMapper::ExtractFromEntry(BaseEntry &entry)
+void GenreIdMapper::ExtractFromEntry(BaseEntry& entry)
 {
   if (entry.GetGenreType() != 0)
   {
@@ -71,7 +92,7 @@ void GenreIdMapper::LoadGenreIdMapFile()
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
 }
 
-bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int, int> &map)
+bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int, int>& map)
 {
   map.clear();
 
@@ -136,8 +157,8 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string &xmlFile, std::map<int
     const std::string sourceIdString = pNode->Attribute("sourceId");
     const std::string targetIdString = pNode->GetText();
 
-    int sourceId = strtol(sourceIdString.c_str(), nullptr, 16);
-    int targetId = strtol(targetIdString.c_str(), nullptr, 16);
+    int sourceId = std::strtol(sourceIdString.c_str(), nullptr, 16);
+    int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
 
     map.insert({sourceId, targetId});
 

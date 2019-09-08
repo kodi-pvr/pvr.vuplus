@@ -1,18 +1,41 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "GenreRytecTextMapper.h"
 
 #include "../utilities/FileUtils.h"
 
-#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
 #include "util/XMLUtils.h"
+
+#include <cstdlib>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreRytecTextMapper::GenreRytecTextMapper()
-  : IExtractor()
+GenreRytecTextMapper::GenreRytecTextMapper() : IExtractor()
 {
   LoadGenreTextMappingFiles();
 
@@ -25,11 +48,9 @@ GenreRytecTextMapper::GenreRytecTextMapper()
   m_genreMajorPattern = std::regex(GENRE_MAJOR_PATTERN);
 }
 
-GenreRytecTextMapper::~GenreRytecTextMapper(void)
-{
-}
+GenreRytecTextMapper::~GenreRytecTextMapper(void) {}
 
-void GenreRytecTextMapper::ExtractFromEntry(BaseEntry &entry)
+void GenreRytecTextMapper::ExtractFromEntry(BaseEntry& entry)
 {
   if (entry.GetGenreType() == 0)
   {
@@ -71,7 +92,7 @@ int GenreRytecTextMapper::GetGenreSubTypeFromCombined(int combinedGenreType)
   return combinedGenreType & 0x0F;
 }
 
-int GenreRytecTextMapper::GetGenreTypeFromText(const std::string &genreText, const std::string &showName)
+int GenreRytecTextMapper::GetGenreTypeFromText(const std::string& genreText, const std::string& showName)
 {
   int genreType = LookupGenreValueInMaps(genreText);
 
@@ -94,7 +115,7 @@ int GenreRytecTextMapper::GetGenreTypeFromText(const std::string &genreText, con
   return genreType;
 }
 
-int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string &genreText)
+int GenreRytecTextMapper::LookupGenreValueInMaps(const std::string& genreText)
 {
   int genreType = EPG_EVENT_CONTENTMASK_UNDEFINED;
 
@@ -124,7 +145,7 @@ void GenreRytecTextMapper::LoadGenreTextMappingFiles()
     Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapRytecTextGenresFile().c_str());
 }
 
-bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std::map<std::string, int> &map)
+bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string& xmlFile, std::map<std::string, int>& map)
 {
   map.clear();
 
@@ -189,7 +210,7 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string &xmlFile, std
     const std::string targetIdString = pNode->Attribute("targetId");
     const std::string textMapping = pNode->GetText();
 
-    int targetId = strtol(targetIdString.c_str(), nullptr, 16);
+    int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
 
     map.insert({textMapping, targetId});
 

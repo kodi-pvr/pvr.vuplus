@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2015 Team Kodi
+ *      Copyright (C) 2005-2019 Team Kodi
  *      http://kodi.tv
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,14 +21,14 @@
 
 #include "CurlFile.h"
 
-#include <cstdarg>
-
-#include "Logger.h"
 #include "../Settings.h"
+#include "Logger.h"
+
+#include <cstdarg>
 
 using namespace enigma2::utilities;
 
-bool CurlFile::Get(const std::string &strURL, std::string &strResult)
+bool CurlFile::Get(const std::string& strURL, std::string& strResult)
 {
   void* fileHandle = XBMC->OpenFile(strURL.c_str(), 0);
   if (fileHandle)
@@ -42,9 +42,9 @@ bool CurlFile::Get(const std::string &strURL, std::string &strResult)
   return false;
 }
 
-bool CurlFile::Post(const std::string &strURL, std::string &strResult)
+bool CurlFile::Post(const std::string& strURL, std::string& strResult)
 {
-  void *fileHandle = XBMC->CURLCreate(strURL.c_str());
+  void* fileHandle = XBMC->CURLCreate(strURL.c_str());
 
   if (!fileHandle)
   {
@@ -72,9 +72,9 @@ bool CurlFile::Post(const std::string &strURL, std::string &strResult)
   return false;
 }
 
-bool CurlFile::Check(const std::string &strURL)
+bool CurlFile::Check(const std::string& strURL)
 {
-  void *fileHandle = XBMC->CURLCreate(strURL.c_str());
+  void* fileHandle = XBMC->CURLCreate(strURL.c_str());
 
   if (!fileHandle)
   {
@@ -82,8 +82,8 @@ bool CurlFile::Check(const std::string &strURL)
     return false;
   }
 
-  XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL,
-    "connection-timeout", std::to_string(Settings::GetInstance().GetConnectioncCheckTimeoutSecs()).c_str());
+  XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL, "connection-timeout",
+                      std::to_string(Settings::GetInstance().GetConnectioncCheckTimeoutSecs()).c_str());
 
   if (!XBMC->CURLOpen(fileHandle, XFILE::READ_NO_CACHE))
   {

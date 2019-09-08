@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,15 +21,14 @@
  *
  */
 
+#include "BaseChannel.h"
+#include "EpgEntry.h"
+#include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "BaseChannel.h"
-#include "EpgEntry.h"
-
-#include "kodi/libXBMC_pvr.h"
-#include "tinyxml.h"
 
 namespace enigma2
 {
@@ -40,9 +39,8 @@ namespace enigma2
     class EpgChannel : public BaseChannel
     {
     public:
-
       EpgChannel() = default;
-      EpgChannel(const EpgChannel &e) : BaseChannel(e) {};
+      EpgChannel(const EpgChannel& e) : BaseChannel(e){};
       ~EpgChannel() = default;
 
       bool RequiresInitialEpg() const { return m_requiresInitialEpg; }
@@ -51,7 +49,6 @@ namespace enigma2
       std::vector<EpgEntry>& GetInitialEPG() { return m_initialEPG; }
 
     private:
-
       bool m_requiresInitialEpg = true;
 
       std::vector<EpgEntry> m_initialEPG;

@@ -1,16 +1,39 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "RecordingEntry.h"
 
 #include "../utilities/WebUtils.h"
-
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+
+#include <cstdlib>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &directory, bool deleted, Channels &channels)
+bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, Channels& channels)
 {
   std::string strTmp;
   int iTmp;
@@ -107,7 +130,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string &
   return true;
 }
 
-long RecordingEntry::TimeStringToSeconds(const std::string &timeString)
+long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
 {
   std::vector<std::string> tokens;
 
@@ -128,14 +151,14 @@ long RecordingEntry::TimeStringToSeconds(const std::string &timeString)
 
   if (tokens.size() == 2)
   {
-    timeInSecs += atoi(tokens[0].c_str()) * 60;
-    timeInSecs += atoi(tokens[1].c_str());
+    timeInSecs += std::atoi(tokens[0].c_str()) * 60;
+    timeInSecs += std::atoi(tokens[1].c_str());
   }
 
   return timeInSecs;
 }
 
-void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isInRecordingFolder)
+void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder)
 {
   std::string strTmp;
   strncpy(left.strRecordingId, m_recordingId.c_str(), sizeof(left.strRecordingId));
@@ -147,7 +170,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
 
   if (!Settings::GetInstance().GetKeepRecordingsFolders())
   {
-    if(isInRecordingFolder)
+    if (isInRecordingFolder)
       strTmp = StringUtils::Format("/%s/", m_title.c_str());
     else
       strTmp = StringUtils::Format("/");
@@ -181,7 +204,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING &left, Channels &channels, bool isIn
   strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription));
 }
 
-std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const
 {
   std::shared_ptr<Channel> channel = GetChannelFromChannelReferenceTag(channels);
 
@@ -220,7 +243,7 @@ std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels &channels) const
   return channel;
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Channels& channels) const
 {
   std::string channelServiceReference;
 
@@ -235,13 +258,12 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
   return channels.GetChannel(channelServiceReference);
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channels& channels) const
 {
   //search for channel name using exact match
   for (const auto& channel : channels.GetChannelsList())
   {
-    if (m_channelName == channel->GetChannelName() &&
-        (!m_haveChannelType || (channel->IsRadio() == m_radio)))
+    if (m_channelName == channel->GetChannelName() && (!m_haveChannelType || (channel->IsRadio() == m_radio)))
     {
       return channel;
     }
@@ -250,7 +272,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameSearch(Channel
   return nullptr;
 }
 
-std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels &channels) const
+std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Channels& channels) const
 {
   std::string fuzzyRecordingChannelName;
 
@@ -260,8 +282,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Ch
     fuzzyRecordingChannelName = m_channelName;
     fuzzyRecordingChannelName.erase(remove_if(fuzzyRecordingChannelName.begin(), fuzzyRecordingChannelName.end(), isspace), fuzzyRecordingChannelName.end());
 
-    if (fuzzyRecordingChannelName == channel->GetFuzzyChannelName() &&
-        (!m_haveChannelType || (channel->IsRadio() == m_radio)))
+    if (fuzzyRecordingChannelName == channel->GetFuzzyChannelName() && (!m_haveChannelType || (channel->IsRadio() == m_radio)))
     {
       return channel;
     }

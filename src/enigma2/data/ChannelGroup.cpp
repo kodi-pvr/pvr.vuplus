@@ -1,14 +1,36 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "ChannelGroup.h"
 
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool ChannelGroup::Like(const ChannelGroup &right) const
+bool ChannelGroup::Like(const ChannelGroup& right) const
 {
   bool isLike = (m_serviceReference == right.m_serviceReference);
   isLike &= (m_groupName == right.m_groupName);
@@ -16,7 +38,7 @@ bool ChannelGroup::Like(const ChannelGroup &right) const
   return isLike;
 }
 
-bool ChannelGroup::operator==(const ChannelGroup &right) const
+bool ChannelGroup::operator==(const ChannelGroup& right) const
 {
   bool isEqual = (m_serviceReference == right.m_serviceReference);
   isEqual &= (m_groupName == right.m_groupName);
@@ -34,7 +56,7 @@ bool ChannelGroup::operator==(const ChannelGroup &right) const
   return isEqual;
 }
 
-bool ChannelGroup::operator!=(const ChannelGroup &right) const
+bool ChannelGroup::operator!=(const ChannelGroup& right) const
 {
   return !(*this == right);
 }
@@ -65,7 +87,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   if (!radio && (Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                  Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    auto &customGroupNamelist = Settings::GetInstance().GetCustomTVChannelGroupNameList();
+    auto& customGroupNamelist = Settings::GetInstance().GetCustomTVChannelGroupNameList();
     auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
       [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
 
@@ -77,7 +99,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   else if (radio && (Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                      Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    auto &customGroupNamelist = Settings::GetInstance().GetCustomRadioChannelGroupNameList();
+    auto& customGroupNamelist = Settings::GetInstance().GetCustomRadioChannelGroupNameList();
     auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
       [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
 
@@ -98,7 +120,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   return true;
 }
 
-void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP &left) const
+void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP& left) const
 {
   left.bIsRadio = m_radio;
   left.iPosition = 0; // groups default order, unused
