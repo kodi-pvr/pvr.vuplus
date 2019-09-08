@@ -1,17 +1,38 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "RecordingReader.h"
 
-#include <algorithm>
-
 #include "../client.h"
+#include "p8-platform/threads/mutex.h"
 #include "utilities/Logger.h"
 
-#include "p8-platform/threads/mutex.h"
+#include <algorithm>
 
 using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-RecordingReader::RecordingReader(const std::string &streamURL, std::time_t start, std::time_t end, int duration)
+RecordingReader::RecordingReader(const std::string& streamURL, std::time_t start, std::time_t end, int duration)
   : m_streamURL(streamURL), m_start(start), m_end(end), m_duration(duration)
 {
   m_readHandle = XBMC->CURLCreate(m_streamURL.c_str());
@@ -25,8 +46,8 @@ RecordingReader::RecordingReader(const std::string &streamURL, std::time_t start
     m_duration = static_cast<int>(end - start);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s RecordingReader: Started - url=%s, start=%u, end=%u, duration=%d", __FUNCTION__,
-      m_streamURL.c_str(), m_start, m_end, m_duration);
+  Logger::Log(LEVEL_DEBUG, "%s RecordingReader: Started - url=%s, start=%u, end=%u, duration=%d", __FUNCTION__, m_streamURL.c_str(),
+              m_start, m_end, m_duration);
 }
 
 RecordingReader::~RecordingReader(void)
@@ -41,7 +62,7 @@ bool RecordingReader::Start()
   return (m_readHandle != nullptr);
 }
 
-ssize_t RecordingReader::ReadData(unsigned char *buffer, unsigned int size)
+ssize_t RecordingReader::ReadData(unsigned char* buffer, unsigned int size)
 {
   /* check for playback of ongoing recording */
   if (m_end)

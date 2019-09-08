@@ -1,3 +1,25 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "EpgEntry.h"
 
 #include "inttypes.h"
@@ -7,7 +29,7 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-void EpgEntry::UpdateTo(EPG_TAG &left) const
+void EpgEntry::UpdateTo(EPG_TAG& left) const
 {
   left.iUniqueBroadcastId  = m_epgId;
   left.strTitle            = m_title.c_str();
@@ -37,13 +59,13 @@ void EpgEntry::UpdateTo(EPG_TAG &left) const
   left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>> &epgChannelsMap)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& epgChannelsMap)
 {
-  if(!XMLUtils::GetString(eventNode, "e2eventservicereference", m_serviceReference))
+  if (!XMLUtils::GetString(eventNode, "e2eventservicereference", m_serviceReference))
     return false;
 
   // Check whether the current element is not just a label or that it's not an empty record
-  if (m_serviceReference.compare(0,5,"1:64:") == 0)
+  if (m_serviceReference.compare(0, 5, "1:64:") == 0)
     return false;
 
   m_serviceReference = Channel::NormaliseServiceReference(m_serviceReference);
@@ -65,7 +87,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
   return UpdateFrom(eventNode, epgChannel, 0, 0);
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel> &epgChannel, time_t iStart, time_t iEnd)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
 {
   std::string strTmp;
 
@@ -95,7 +117,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
   m_epgId = iTmp;
   m_channelId = epgChannel->GetUniqueId();
 
-  if(!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
+  if (!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
     return false;
 
   m_title = strTmp;

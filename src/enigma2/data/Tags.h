@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,10 +21,10 @@
  *
  */
 
-#include <string>
-#include <regex>
-
 #include "p8-platform/util/StringUtils.h"
+
+#include <regex>
+#include <string>
 
 namespace enigma2
 {
@@ -44,16 +44,16 @@ namespace enigma2
       Tags(const std::string& tags) : m_tags(tags) {};
 
       const std::string& GetTags() const { return m_tags; }
-      void SetTags(const std::string& value ) { m_tags = value; }
+      void SetTags(const std::string& value) { m_tags = value; }
 
-      bool ContainsTag(const std::string &tag) const
+      bool ContainsTag(const std::string& tag) const
       {
         std::regex regex("^.* ?" + tag + " ?.*$");
 
-        return (regex_match(m_tags, regex));
+        return (std::regex_match(m_tags, regex));
       }
 
-      void AddTag(const std::string &tagName, const std::string &tagValue = "", bool replaceUnderscores = false)
+      void AddTag(const std::string& tagName, const std::string& tagValue = "", bool replaceUnderscores = false)
       {
         RemoveTag(tagName);
 
@@ -71,7 +71,7 @@ namespace enigma2
         }
       }
 
-      std::string ReadTagValue(const std::string &tagName, bool replaceUnderscores = false) const
+      std::string ReadTagValue(const std::string& tagName, bool replaceUnderscores = false) const
       {
         std::string tagValue;
 
@@ -93,12 +93,12 @@ namespace enigma2
         return tagValue;
       }
 
-      void RemoveTag(const std::string &tagName)
+      void RemoveTag(const std::string& tagName)
       {
         std::regex regex(" *" + tagName + "=?[^\\s-]*");
         std::string replaceWith = "";
 
-        m_tags = regex_replace(m_tags, regex, replaceWith);
+        m_tags = std::regex_replace(m_tags, regex, replaceWith);
       }
 
     protected:

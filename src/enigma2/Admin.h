@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,17 +21,16 @@
  *
  */
 
-#include <string>
-#include <vector>
-
 #include "data/Channel.h"
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 #include "utilities/SignalStatus.h"
 #include "utilities/StreamStatus.h"
 #include "utilities/Tuner.h"
-
 #include "kodi/libXBMC_pvr.h"
+
+#include <string>
+#include <vector>
 
 namespace enigma2
 {
@@ -47,7 +46,7 @@ namespace enigma2
     bool SendGlobalRecordingStartMarginSetting(int newValue);
     bool SendGlobalRecordingEndMarginSetting(int newValue);
     const utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
-    PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed, std::vector<std::string> &locations);
+    PVR_ERROR GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<std::string>& locations);
     const char* GetServerName() const { return m_serverName; }
     const char* GetServerVersion() const { return m_serverVersion; }
     const std::string& GetDeviceName() const { return m_deviceInfo.GetServerName(); }
@@ -57,20 +56,22 @@ namespace enigma2
     const std::string& GetWebIfVersion() const { return m_deviceInfo.GetWebIfVersion(); }
     unsigned int GetWebIfVersionAsNum() const { return m_deviceInfo.GetWebIfVersionAsNum(); }
     const std::string& GetAddonVersion() const { return m_addonVersion; }
-    bool GetTunerSignal(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
+    bool GetTunerSignal(utilities::SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel);
+    bool GetDeviceHasHDD() const { return m_deviceHasHDD; };
 
   private:
     static void SetCharString(char* target, const std::string value);
     bool LoadDeviceInfo();
     bool LoadAutoTimerSettings();
     bool LoadRecordingMarginSettings();
-    unsigned int ParseWebIfVersion(const std::string &webIfVersion);
-    long long GetKbFromString(const std::string &stringInMbGbTb) const;
-    utilities::StreamStatus GetStreamDetails(const std::shared_ptr<data::Channel> &channel);
-    void GetTunerDetails(utilities::SignalStatus &signalStatus, const std::shared_ptr<data::Channel> &channel);
+    unsigned int ParseWebIfVersion(const std::string& webIfVersion);
+    long long GetKbFromString(const std::string& stringInMbGbTb) const;
+    utilities::StreamStatus GetStreamDetails(const std::shared_ptr<data::Channel>& channel);
+    void GetTunerDetails(utilities::SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel);
 
     char m_serverName[256];
     char m_serverVersion[256];
+    bool m_deviceHasHDD = true;
     const std::string m_addonVersion;
     enigma2::utilities::DeviceInfo m_deviceInfo;
     enigma2::utilities::DeviceSettings m_deviceSettings;

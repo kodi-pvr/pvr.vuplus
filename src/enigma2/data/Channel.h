@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,14 +21,13 @@
  *
  */
 
+#include "BaseChannel.h"
+#include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "BaseChannel.h"
-
-#include "kodi/libXBMC_pvr.h"
-#include "tinyxml.h"
 
 namespace enigma2
 {
@@ -48,35 +47,36 @@ namespace enigma2
         m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
         m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()),
-        m_streamProgramNumber(c.GetStreamProgramNumber()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()) {};
+        m_streamProgramNumber(c.GetStreamProgramNumber()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()),
+        m_isIptvStream(c.IsIptvStream()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
       void SetChannelNumber(int value) { m_channelNumber = value; }
 
       const std::string& GetStandardServiceReference() const { return m_standardServiceReference; }
-      void SetStandardServiceReference(const std::string& value ) { m_standardServiceReference = value; }
+      void SetStandardServiceReference(const std::string& value) { m_standardServiceReference = value; }
 
       const std::string& GetExtendedServiceReference() const { return m_extendedServiceReference; }
-      void SetExtendedServiceReference(const std::string& value ) { m_extendedServiceReference = value; }
+      void SetExtendedServiceReference(const std::string& value) { m_extendedServiceReference = value; }
 
       const std::string& GetGenericServiceReference() const { return m_genericServiceReference; }
-      void SetGenericServiceReference(const std::string& value ) { m_genericServiceReference = value; }
+      void SetGenericServiceReference(const std::string& value) { m_genericServiceReference = value; }
 
       const std::string& GetStreamURL() const { return m_streamURL; }
-      void SetStreamURL(const std::string& value ) { m_streamURL = value; }
+      void SetStreamURL(const std::string& value) { m_streamURL = value; }
 
       const std::string& GetM3uURL() const { return m_m3uURL; }
-      void SetM3uURL(const std::string& value ) { m_m3uURL = value; }
+      void SetM3uURL(const std::string& value) { m_m3uURL = value; }
 
       const std::string& GetIconPath() const { return m_iconPath; }
-      void SetIconPath(const std::string& value ) { m_iconPath = value; }
+      void SetIconPath(const std::string& value) { m_iconPath = value; }
 
       const std::string& GetProviderName() const { return m_providerName; }
-      void SetProviderlName(const std::string& value ) { m_providerName = value; }
+      void SetProviderlName(const std::string& value) { m_providerName = value; }
 
       const std::string& GetFuzzyChannelName() const { return m_fuzzyChannelName; }
-      void SetFuzzyChannelName(const std::string& value ) { m_fuzzyChannelName = value; }
+      void SetFuzzyChannelName(const std::string& value) { m_fuzzyChannelName = value; }
 
       int GetStreamProgramNumber() const { return m_streamProgramNumber; }
       void SetStreamProgramNumber(int value) { m_streamProgramNumber = value; }
@@ -84,27 +84,31 @@ namespace enigma2
       bool UsingDefaultChannelNumber() const { return m_usingDefaultChannelNumber; }
       void SetUsingDefaultChannelNumber(bool value) { m_usingDefaultChannelNumber = value; }
 
-      bool UpdateFrom(TiXmlElement* channelNode);
-      void UpdateTo(PVR_CHANNEL &left) const;
+      bool IsIptvStream() const { return m_isIptvStream; }
 
-      void AddChannelGroup(std::shared_ptr<enigma2::data::ChannelGroup> &channelGroup);
+      bool UpdateFrom(TiXmlElement* channelNode);
+      void UpdateTo(PVR_CHANNEL& left) const;
+
+      void AddChannelGroup(std::shared_ptr<enigma2::data::ChannelGroup>& channelGroup);
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> GetChannelGroupList() { return m_channelGroupList; };
 
-      bool Like(const Channel &right) const;
-      bool operator==(const Channel &right) const;
-      bool operator!=(const Channel &right) const;
+      bool Like(const Channel& right) const;
+      bool operator==(const Channel& right) const;
+      bool operator!=(const Channel& right) const;
 
-      static std::string NormaliseServiceReference(const std::string &serviceReference);
-      static std::string CreateStandardServiceReference(const std::string &serviceReference);
+      static std::string NormaliseServiceReference(const std::string& serviceReference);
+      static std::string CreateStandardServiceReference(const std::string& serviceReference);
 
     private:
-      static std::string CreateCommonServiceReference(const std::string &serviceReference);
-      std::string CreateGenericServiceReference(const std::string &commonServiceReference);
-      std::string CreateIconPath(const std::string &commonServiceReference);
+      static std::string CreateCommonServiceReference(const std::string& serviceReference);
+      std::string CreateGenericServiceReference(const std::string& commonServiceReference);
+      std::string CreateIconPath(const std::string& commonServiceReference);
+      std::string ExtractIptvStreamURL();
       bool HasRadioServiceType();
 
       int m_channelNumber;
       bool m_usingDefaultChannelNumber = true;
+      bool m_isIptvStream = false;
       std::string m_standardServiceReference;
       std::string m_extendedServiceReference;
       std::string m_genericServiceReference;

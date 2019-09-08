@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2015 Team Kodi
+ *      Copyright (C) 2005-2019 Team Kodi
  *      http://kodi.tv
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,13 +21,12 @@
 
 #include "WebUtils.h"
 
+#include "../Settings.h"
 #include "CurlFile.h"
 #include "Logger.h"
-#include "../Settings.h"
-
+#include "p8-platform/util/StringUtils.h"
 #include "tinyxml.h"
 #include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::utilities;
@@ -56,14 +55,14 @@ const char SAFE[256] =
     /* F */ 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
 };
 
-std::string WebUtils::URLEncodeInline(const std::string &sSrc)
+std::string WebUtils::URLEncodeInline(const std::string& sSrc)
 {
   const char DEC2HEX[16 + 1] = "0123456789ABCDEF";
-  const unsigned char * pSrc = (const unsigned char *)sSrc.c_str();
+  const unsigned char* pSrc = (const unsigned char*)sSrc.c_str();
   const int SRC_LEN = sSrc.length();
-  unsigned char * const pStart = new unsigned char[SRC_LEN * 3];
-  unsigned char * pEnd = pStart;
-  const unsigned char * const SRC_END = pSrc + SRC_LEN;
+  unsigned char* const pStart = new unsigned char[SRC_LEN * 3];
+  unsigned char* pEnd = pStart;
+  const unsigned char* const SRC_END = pSrc + SRC_LEN;
 
   for (; pSrc < SRC_END; ++pSrc)
   {
@@ -78,8 +77,8 @@ std::string WebUtils::URLEncodeInline(const std::string &sSrc)
     }
   }
 
-  std::string sResult((char *)pStart, (char *)pEnd);
-  delete [] pStart;
+  std::string sResult((char*)pStart, (char*)pEnd);
+  delete[] pStart;
   return sResult;
 }
 
@@ -88,7 +87,7 @@ bool WebUtils::CheckHttp(const std::string& url)
   Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __FUNCTION__, url.c_str());
 
   CurlFile http;
-  if(!http.Check(url))
+  if (!http.Check(url))
   {
     Logger::Log(LEVEL_TRACE, "%s - Could not open webAPI.", __FUNCTION__);
     return false;
@@ -106,7 +105,7 @@ std::string WebUtils::GetHttp(const std::string& url)
   std::string strTmp;
 
   CurlFile http;
-  if(!http.Get(url, strTmp))
+  if (!http.Get(url, strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __FUNCTION__);
     return "";
@@ -136,7 +135,7 @@ std::string WebUtils::PostHttpJson(const std::string& url)
   std::string strTmp;
 
   CurlFile http;
-  if(!http.Post(url, strTmp))
+  if (!http.Post(url, strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __FUNCTION__);
     return "";
@@ -249,10 +248,10 @@ bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::
   return true;
 }
 
-std::string& WebUtils::Escape(std::string &s, const std::string from, const std::string to)
+std::string& WebUtils::Escape(std::string& s, const std::string from, const std::string to)
 {
   std::string::size_type pos = -1;
-  while ( (pos = s.find(from, pos+1) ) != std::string::npos)
+  while ((pos = s.find(from, pos + 1)) != std::string::npos)
     s.erase(pos, from.length()).insert(pos, to);
 
   return s;

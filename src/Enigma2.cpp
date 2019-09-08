@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -22,20 +22,20 @@
 
 #include "Enigma2.h"
 
-#include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <regex>
-#include <stdlib.h>
-
 #include "client.h"
 #include "enigma2/utilities/CurlFile.h"
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/WebUtils.h"
-
 #include "util/XMLUtils.h"
+
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <stdlib.h>
+#include <string>
+
 #include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
@@ -45,7 +45,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-Enigma2::Enigma2(PVR_PROPERTIES *pvrProps) : m_epgMaxDays(pvrProps->iEpgMaxDays)
+Enigma2::Enigma2(PVR_PROPERTIES* pvrProps) : m_epgMaxDays(pvrProps->iEpgMaxDays)
 {
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
 
@@ -76,27 +76,14 @@ void Enigma2::ConnectionLost()
   m_isConnected = false;
 }
 
-void Enigma2::Reset()
-{
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
-  m_channels.ClearChannels();
-
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal timers list...", __FUNCTION__);
-  m_timers.ClearTimers();
-
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal recordings list...", __FUNCTION__);
-  m_recordings.ClearRecordings(false);
-  m_recordings.ClearRecordings(true);
-
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal group list...", __FUNCTION__);
-  m_channelGroups.ClearChannelGroups();
-}
 
 void Enigma2::ConnectionEstablished()
 {
   CLockObject lock(m_mutex);
 
-  Reset();
+  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels and groups lists...", __FUNCTION__);
+  m_channels.ClearChannels();
+  m_channelGroups.ClearChannelGroups();
 
   Logger::Log(LEVEL_NOTICE, "%s Connection Established with Enigma2 device...", __FUNCTION__);
 
@@ -188,7 +175,7 @@ bool Enigma2::Start()
   return true;
 }
 
-void *Enigma2::Process()
+void* Enigma2::Process()
 {
   Logger::Log(LEVEL_DEBUG, "%s - starting", __FUNCTION__);
 
@@ -212,7 +199,7 @@ void *Enigma2::Process()
   time_t lastUpdateTimeSeconds = time(nullptr);
   int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
 
-  while(!IsStopped() && m_isConnected)
+  while (!IsStopped() && m_isConnected)
   {
     Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
 
@@ -254,9 +241,9 @@ void *Enigma2::Process()
       if (!IsStopped() && m_isConnected)
       {
         if (CheckForChannelAndGroupChanges() != ChannelsChangeState::NO_CHANGE &&
-            m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
+            m_settings.GetChannelAndGroupUpdateMode() == ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
         {
-          connectionManager->Reconnect();
+          ReloadChannelsGroupsAndEPG();
         }
       }
     }
@@ -288,31 +275,64 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
       {
         changeType = m_channels.CheckForChannelAndGroupChanges(latestChannelGroups, latestChannels);
 
-        if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::NOTIFY_AND_LOG)
+        if (m_settings.GetChannelAndGroupUpdateMode() == ChannelAndGroupUpdateMode::NOTIFY_AND_LOG)
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
             Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
-            XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30518).c_str());
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30518).c_str());
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
             Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
-            XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30519).c_str());
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30519).c_str());
           }
         }
         else // RELOAD_CHANNELS_AND_GROUPS
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
-            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, auto reconnecting to load changes", __FUNCTION__);
+          {
+            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30521).c_str());
+          }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
-            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, , auto reconnecting to load changes", __FUNCTION__);
+          {
+            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30522).c_str());
+          }
         }
       }
     }
   }
 
   return changeType;
+}
+
+void Enigma2::ReloadChannelsGroupsAndEPG()
+{
+  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
+  m_channels.ClearChannels();
+  m_channelGroups.ClearChannelGroups();
+
+  m_recordings.ClearLocations();
+  m_recordings.LoadLocations();
+
+  m_channelGroups.LoadChannelGroups();
+  m_channels.LoadChannels(m_channelGroups);
+
+  PVR->TriggerChannelGroupsUpdate();
+  PVR->TriggerChannelUpdate();
+
+  m_skipInitialEpgLoad = true;
+
+  m_epg.Initialise(m_channels, m_channelGroups);
+
+  m_timers.TimerUpdates();
+
+  for (const auto& myChannel : m_channels.GetChannelsList())
+    PVR->TriggerEpgUpdate(myChannel->GetUniqueId());
+
+  PVR->TriggerRecordingUpdate();  
 }
 
 void Enigma2::SendPowerstate()
@@ -362,7 +382,7 @@ PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle, bool radio)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
+PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& group)
 {
   std::vector<PVR_CHANNEL_GROUP_MEMBER> channelGroupMembers;
   {
@@ -397,7 +417,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 
   Logger::Log(LEVEL_DEBUG, "%s - channels available '%d', radio = %d", __FUNCTION__, channels.size(), bRadio);
 
-  for (auto &channel : channels)
+  for (auto& channel : channels)
     PVR->TransferChannelEntry(handle, &channel);
 
   return PVR_ERROR_NO_ERROR;
@@ -407,7 +427,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
  * EPG
  **************************************************************************/
 
-PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL& channel, time_t iStart, time_t iEnd)
 {
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
     Sleep(m_settings.GetEPGDelayPerChannelDelay());
@@ -439,7 +459,7 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &chan
 /***************************************************************************
  * Livestream
  **************************************************************************/
-bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
+bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
 {
   Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
   CLockObject lock(m_mutex);
@@ -457,7 +477,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL &channelinfo)
       const std::string strCmd = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
 
       std::string strResult;
-      if(!WebUtils::SendSimpleCommand(strCmd, strResult, true))
+      if (!WebUtils::SendSimpleCommand(strCmd, strResult, true))
         return false;
     }
   }
@@ -470,7 +490,7 @@ void Enigma2::CloseLiveStream(void)
   m_currentChannel = -1;
 }
 
-const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
+const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL& channelinfo)
 {
   if (m_settings.GetAutoConfigLiveStreamsEnabled())
   {
@@ -484,7 +504,12 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL &channelinfo)
   return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamURL();
 }
 
-int Enigma2::GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo)
+bool Enigma2::IsIptvStream(const PVR_CHANNEL& channelinfo) const
+{
+  return m_channels.GetChannel(channelinfo.iUniqueId)->IsIptvStream();
+}
+
+int Enigma2::GetChannelStreamProgramNumber(const PVR_CHANNEL& channelinfo)
 {
   return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamProgramNumber();
 }
@@ -536,7 +561,7 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle, bool deleted)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING &recinfo)
+PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING& recinfo)
 {
   return m_recordings.DeleteRecording(recinfo);
 }
@@ -551,7 +576,7 @@ PVR_ERROR Enigma2::DeleteAllRecordingsFromTrash()
   return m_recordings.DeleteAllRecordingsFromTrash();
 }
 
-PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size)
+PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY edl[], int* size)
 {
   std::vector<PVR_EDL_ENTRY> edlEntries;
   {
@@ -563,7 +588,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY e
 
   int index = 0;
   int maxSize = *size;
-  for (auto &edlEntry : edlEntries)
+  for (auto& edlEntry : edlEntries)
   {
     if (index >= maxSize)
       break;
@@ -579,7 +604,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY e
   return PVR_ERROR_NO_ERROR;
 }
 
-RecordingReader *Enigma2::OpenRecordedStream(const PVR_RECORDING &recinfo)
+RecordingReader* Enigma2::OpenRecordedStream(const PVR_RECORDING& recinfo)
 {
   CLockObject lock(m_mutex);
   std::time_t now = std::time(nullptr), start = 0, end = 0;
@@ -607,25 +632,25 @@ int Enigma2::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
   return m_recordings.GetRecordingStreamProgramNumber(recording);
 }
 
-PVR_ERROR Enigma2::RenameRecording(const PVR_RECORDING &recording)
+PVR_ERROR Enigma2::RenameRecording(const PVR_RECORDING& recording)
 {
   CLockObject lock(m_mutex);
   return m_recordings.RenameRecording(recording);
 }
 
-PVR_ERROR Enigma2::SetRecordingPlayCount(const PVR_RECORDING &recording, int count)
+PVR_ERROR Enigma2::SetRecordingPlayCount(const PVR_RECORDING& recording, int count)
 {
   CLockObject lock(m_mutex);
   return m_recordings.SetRecordingPlayCount(recording, count);
 }
 
-PVR_ERROR Enigma2::SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastPlayedPosition)
+PVR_ERROR Enigma2::SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastPlayedPosition)
 {
   CLockObject lock(m_mutex);
   return m_recordings.SetRecordingLastPlayedPosition(recording, lastPlayedPosition);
 }
 
-int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
+int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
 {
   CLockObject lock(m_mutex);
   return m_recordings.GetRecordingLastPlayedPosition(recording);
@@ -635,7 +660,7 @@ int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
  * Timers
  **************************************************************************/
 
-void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
+void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
 {
   std::vector<PVR_TIMER_TYPE> timerTypes;
   {
@@ -644,7 +669,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
   }
 
   int i = 0;
-  for (auto &timerType : timerTypes)
+  for (auto& timerType : timerTypes)
     types[i++] = timerType;
   *size = timerTypes.size();
   Logger::Log(LEVEL_NOTICE, "%s Transfered %u timer types", __FUNCTION__, *size);
@@ -667,23 +692,23 @@ PVR_ERROR Enigma2::GetTimers(ADDON_HANDLE handle)
 
   Logger::Log(LEVEL_DEBUG, "%s - timers available '%d'", __FUNCTION__, timers.size());
 
-  for (auto &timer : timers)
+  for (auto& timer : timers)
     PVR->TransferTimerEntry(handle, &timer);
 
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::AddTimer(const PVR_TIMER &timer)
+PVR_ERROR Enigma2::AddTimer(const PVR_TIMER& timer)
 {
   return m_timers.AddTimer(timer);
 }
 
-PVR_ERROR Enigma2::UpdateTimer(const PVR_TIMER &timer)
+PVR_ERROR Enigma2::UpdateTimer(const PVR_TIMER& timer)
 {
   return m_timers.UpdateTimer(timer);
 }
 
-PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER &timer)
+PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER& timer)
 {
   return m_timers.DeleteTimer(timer);
 }
@@ -692,12 +717,15 @@ PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER &timer)
  * Misc
  **************************************************************************/
 
-PVR_ERROR Enigma2::GetDriveSpace(long long *iTotal, long long *iUsed)
+PVR_ERROR Enigma2::GetDriveSpace(long long* iTotal, long long* iUsed)
 {
-  return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
+  if (m_admin.GetDeviceHasHDD())
+    return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
+
+  return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
-PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus)
+PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus)
 {
   if (m_currentChannel >= 0)
   {

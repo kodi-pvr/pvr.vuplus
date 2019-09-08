@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyright (C) 2005-2015 Team XBMC
+ *      Copyright (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,13 +21,10 @@
  *
  */
 
-#include <atomic>
-#include <time.h>
-
 #include "client.h"
 #include "enigma2/Admin.h"
-#include "enigma2/Channels.h"
 #include "enigma2/ChannelGroups.h"
+#include "enigma2/Channels.h"
 #include "enigma2/ConnectionManager.h"
 #include "enigma2/Epg.h"
 #include "enigma2/IConnectionListener.h"
@@ -42,19 +39,21 @@
 #include "enigma2/data/RecordingEntry.h"
 #include "enigma2/extract/EpgEntryExtractor.h"
 #include "enigma2/utilities/SignalStatus.h"
-
-#include "tinyxml.h"
 #include "p8-platform/threads/threads.h"
+#include "tinyxml.h"
+
+#include <atomic>
+#include <time.h>
 
 // The windows build defines this but it breaks nlohmann/json.hpp's reference to std::snprintf
 #if defined(snprintf)
 #undef snprintf
 #endif
 
-class Enigma2  : public P8PLATFORM::CThread, public enigma2::IConnectionListener
+class Enigma2 : public P8PLATFORM::CThread, public enigma2::IConnectionListener
 {
 public:
-  Enigma2(PVR_PROPERTIES *pvrProps);
+  Enigma2(PVR_PROPERTIES* pvrProps);
   ~Enigma2();
 
   // IConnectionListener implementation
@@ -67,45 +66,46 @@ public:
   //device and helper functions
   bool Start();
   void SendPowerstate();
-  const char * GetServerName() const;
-  const char * GetServerVersion() const;
+  const char* GetServerName() const;
+  const char* GetServerVersion() const;
   bool IsConnected() const;
 
   //groups, channels and EPG
   unsigned int GetNumChannelGroups(void) const;
   PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool radio);
-  PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group);
+  PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& group);
   int GetChannelsAmount(void) const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
-  PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd);
+  PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL& channel, time_t iStart, time_t iEnd);
 
   //live streams, recordings and Timers
-  bool OpenLiveStream(const PVR_CHANNEL &channelinfo);
+  bool OpenLiveStream(const PVR_CHANNEL& channelinfo);
   void CloseLiveStream();
-  const std::string GetLiveStreamURL(const PVR_CHANNEL &channelinfo);
-  int GetChannelStreamProgramNumber(const PVR_CHANNEL &channelinfo);
+  const std::string GetLiveStreamURL(const PVR_CHANNEL& channelinfo);
+  bool IsIptvStream(const PVR_CHANNEL& channelinfo) const;
+  int GetChannelStreamProgramNumber(const PVR_CHANNEL& channelinfo);
   unsigned int GetRecordingsAmount(bool deleted);
   PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted);
-  PVR_ERROR DeleteRecording(const PVR_RECORDING &recinfo);
+  PVR_ERROR DeleteRecording(const PVR_RECORDING& recinfo);
   PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording);
   PVR_ERROR DeleteAllRecordingsFromTrash();
   bool GetRecordingsFromLocation(std::string strRecordingFolder);
-  PVR_ERROR GetRecordingEdl(const PVR_RECORDING &recinfo, PVR_EDL_ENTRY edl[], int *size);
-  PVR_ERROR RenameRecording(const PVR_RECORDING &recording);
-  PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING &recording, int count);
-  PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastplayedposition);
-  int GetRecordingLastPlayedPosition(const PVR_RECORDING &recording);
+  PVR_ERROR GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY edl[], int* size);
+  PVR_ERROR RenameRecording(const PVR_RECORDING& recording);
+  PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING& recording, int count);
+  PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastplayedposition);
+  int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording);
   bool HasRecordingStreamProgramNumber(const PVR_RECORDING& recording);
   int GetRecordingStreamProgramNumber(const PVR_RECORDING& recording);
-  enigma2::RecordingReader *OpenRecordedStream(const PVR_RECORDING &recinfo);
-  void GetTimerTypes(PVR_TIMER_TYPE types[], int *size);
+  enigma2::RecordingReader* OpenRecordedStream(const PVR_RECORDING& recinfo);
+  void GetTimerTypes(PVR_TIMER_TYPE types[], int* size);
   int GetTimersAmount(void);
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
-  PVR_ERROR AddTimer(const PVR_TIMER &timer);
-  PVR_ERROR UpdateTimer(const PVR_TIMER &timer);
-  PVR_ERROR DeleteTimer(const PVR_TIMER &timer);
-  PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed);
-  PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS &signalStatus);
+  PVR_ERROR AddTimer(const PVR_TIMER& timer);
+  PVR_ERROR UpdateTimer(const PVR_TIMER& timer);
+  PVR_ERROR DeleteTimer(const PVR_TIMER& timer);
+  PVR_ERROR GetDriveSpace(long long* iTotal, long long* iUsed);
+  PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus);
 
 protected:
   void* Process() override;
@@ -116,9 +116,9 @@ private:
   static const int PROCESS_LOOP_WAIT_SECS = 5;
 
   // helper functions
-  void Reset();
   std::string GetStreamURL(const std::string& strM3uURL);
   enigma2::ChannelsChangeState CheckForChannelAndGroupChanges();
+  void ReloadChannelsGroupsAndEPG();
 
   // members
   bool m_isConnected = false;
@@ -128,17 +128,17 @@ private:
   bool m_skipInitialEpgLoad;
   int m_epgMaxDays;
 
-  enigma2::Channels m_channels;
+  mutable enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
-  enigma2::Recordings m_recordings = enigma2::Recordings(m_channels, m_entryExtractor);
+  enigma2::Recordings m_recordings{m_channels, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg = enigma2::Epg(m_entryExtractor, m_epgMaxDays);
-  enigma2::Timers m_timers = enigma2::Timers(m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor);
-  enigma2::Settings &m_settings = enigma2::Settings::GetInstance();
+  enigma2::Epg m_epg{m_entryExtractor, m_epgMaxDays};
+  enigma2::Timers m_timers{m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
+  enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;
   enigma2::extract::EpgEntryExtractor m_entryExtractor;
   enigma2::utilities::SignalStatus m_signalStatus;
-  enigma2::ConnectionManager *connectionManager;
+  enigma2::ConnectionManager* connectionManager;
 
   mutable P8PLATFORM::CMutex m_mutex;
   P8PLATFORM::CCondition<bool> m_started;

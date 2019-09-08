@@ -1,17 +1,39 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "Recordings.h"
+
+#include "../Enigma2.h"
+#include "../client.h"
+#include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+#include "utilities/Logger.h"
+#include "utilities/WebUtils.h"
 
 #include <iostream>
 #include <regex>
 #include <sstream>
 
-#include "../client.h"
-#include "../Enigma2.h"
-#include "utilities/Logger.h"
-#include "utilities/WebUtils.h"
-
 #include <nlohmann/json.hpp>
-#include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -21,15 +43,15 @@ using json = nlohmann::json;
 
 const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";
 
-Recordings::Recordings(Channels &channels, enigma2::extract::EpgEntryExtractor &entryExtractor)
+Recordings::Recordings(Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor)
       : m_channels(channels), m_entryExtractor(entryExtractor)
 {
-  std::random_device randomDevice;  //Will be used to obtain a seed for the random number engine
+  std::random_device randomDevice; //Will be used to obtain a seed for the random number engine
   m_randomGenerator = std::mt19937(randomDevice()); //Standard mersenne_twister_engine seeded with randomDevice()
   m_randomDistribution = std::uniform_int_distribution<>(E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MIN, E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MAX);
 }
 
-void Recordings::GetRecordings(std::vector<PVR_RECORDING> &kodiRecordings, bool deleted)
+void Recordings::GetRecordings(std::vector<PVR_RECORDING>& kodiRecordings, bool deleted)
 {
   auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
 
@@ -57,7 +79,7 @@ void Recordings::ClearRecordings(bool deleted)
 
   recordings.clear();
 
-  for (auto it = m_recordingsIdMap.begin(); it != m_recordingsIdMap.end(); )
+  for (auto it = m_recordingsIdMap.begin(); it != m_recordingsIdMap.end();)
   {
     if (it->second.IsDeleted() == deleted)
       it = m_recordingsIdMap.erase(it);
@@ -66,7 +88,7 @@ void Recordings::ClearRecordings(bool deleted)
   }
 }
 
-void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR_EDL_ENTRY> &edlEntries) const
+void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR_EDL_ENTRY>& edlEntries) const
 {
   const RecordingEntry recordingEntry = GetRecording(recordingId);
 
@@ -86,24 +108,25 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
         lineNumber++;
         if (std::sscanf(line.c_str(), "%f %f %u", &start, &stop, &type) < 2 || type > PVR_EDL_TYPE_COMBREAK)
         {
-          Logger::Log(LEVEL_NOTICE, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber);
+          Logger::Log(LEVEL_NOTICE, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__,
+                      recordingEntry.GetTitle().c_str(), lineNumber);
           continue;
         }
 
         start += static_cast<float>(Settings::GetInstance().GetEDLStartTimePadding()) / 1000.0f;
-        stop  += static_cast<float>(Settings::GetInstance().GetEDLStopTimePadding()) / 1000.0f;
+        stop += static_cast<float>(Settings::GetInstance().GetEDLStopTimePadding()) / 1000.0f;
 
         start = std::max(start, 0.0f);
-        stop  = std::max(stop,  0.0f);
+        stop = std::max(stop, 0.0f);
         start = std::min(start, stop);
-        stop  = std::max(start, stop);
+        stop = std::max(start, stop);
 
         Logger::Log(LEVEL_NOTICE, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
 
         PVR_EDL_ENTRY edlEntry;
         edlEntry.start = static_cast<int64_t>(start * 1000.0f);
-        edlEntry.end   = static_cast<int64_t>(stop  * 1000.0f);
-        edlEntry.type  = static_cast<PVR_EDL_TYPE>(type);
+        edlEntry.end = static_cast<int64_t>(stop * 1000.0f);
+        edlEntry.type = static_cast<PVR_EDL_TYPE>(type);
 
         edlEntries.emplace_back(edlEntry);
       }
@@ -111,7 +134,7 @@ void Recordings::GetRecordingEdl(const std::string &recordingId, std::vector<PVR
   }
 }
 
-RecordingEntry Recordings::GetRecording(const std::string &recordingId) const
+RecordingEntry Recordings::GetRecording(const std::string& recordingId) const
 {
   RecordingEntry entry;
 
@@ -124,7 +147,7 @@ RecordingEntry Recordings::GetRecording(const std::string &recordingId) const
   return entry;
 }
 
-bool Recordings::IsInRecordingFolder(const std::string &recordingFolder, bool deleted) const
+bool Recordings::IsInRecordingFolder(const std::string& recordingFolder, bool deleted) const
 {
   const auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
 
@@ -146,14 +169,16 @@ bool Recordings::IsInRecordingFolder(const std::string &recordingFolder, bool de
   return false;
 }
 
-PVR_ERROR Recordings::RenameRecording(const PVR_RECORDING &recording)
+PVR_ERROR Recordings::RenameRecording(const PVR_RECORDING& recording)
 {
   auto recordingEntry = GetRecording(recording.strRecordingId);
 
   if (!recordingEntry.GetRecordingId().empty())
   {
     Logger::Log(LEVEL_DEBUG, "%s Sending rename command for recording '%s' to '%s'", __FUNCTION__, recordingEntry.GetTitle().c_str(), recording.strTitle);
-    const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&title=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(), WebUtils::URLEncodeInline(recording.strTitle).c_str());
+    const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&title=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                    WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
+                                                    WebUtils::URLEncodeInline(recording.strTitle).c_str());
     std::string strResult;
 
     if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
@@ -168,7 +193,7 @@ PVR_ERROR Recordings::RenameRecording(const PVR_RECORDING &recording)
   return PVR_ERROR_SERVER_ERROR;
 }
 
-PVR_ERROR Recordings::SetRecordingPlayCount(const PVR_RECORDING &recording, int count)
+PVR_ERROR Recordings::SetRecordingPlayCount(const PVR_RECORDING& recording, int count)
 {
   auto recordingEntry = GetRecording(recording.strRecordingId);
 
@@ -214,7 +239,7 @@ PVR_ERROR Recordings::SetRecordingPlayCount(const PVR_RECORDING &recording, int 
   return PVR_ERROR_SERVER_ERROR;
 }
 
-PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const PVR_RECORDING &recording, int lastPlayedPosition)
+PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastPlayedPosition)
 {
   auto recordingEntry = GetRecording(recording.strRecordingId);
 
@@ -310,7 +335,7 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const PVR_RECORDING &record
   return PVR_ERROR_SERVER_ERROR;
 }
 
-int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
+int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
 {
   auto recordingEntry = GetRecording(recording.strRecordingId);
 
@@ -392,7 +417,7 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING &recording)
   }
 }
 
-void Recordings::SetRecordingNextSyncTime(RecordingEntry &recordingEntry, time_t nextSyncTime, std::vector<std::string> &oldTags)
+void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags)
 {
   Logger::Log(LEVEL_DEBUG, "%s Setting next sync time in tags for recording '%s' to '%ld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), nextSyncTime);
 
@@ -425,12 +450,12 @@ void Recordings::SetRecordingNextSyncTime(RecordingEntry &recordingEntry, time_t
   }
 }
 
-PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING &recinfo)
+PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING& recinfo)
 {
   const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.strRecordingId).c_str());
 
   std::string strResult;
-  if(!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_FAILED;
 
   // No need to call PVR->TriggerRecordingUpdate() as it is handled by kodi PVR.
@@ -445,12 +470,12 @@ PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
 
   std::regex regex(TRASH_FOLDER);
 
-  const std::string newRecordingDirectory = regex_replace(recordingEntry.GetDirectory(), regex, "");
+  const std::string newRecordingDirectory = std::regex_replace(recordingEntry.GetDirectory(), regex, "");
 
   const std::string strTmp = StringUtils::Format("web/moviemove?sRef=%s&dirname=%s", WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(), WebUtils::URLEncodeInline(newRecordingDirectory).c_str());
 
   std::string strResult;
-  if(!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_FAILED;
 
   return PVR_ERROR_NO_ERROR;
@@ -458,9 +483,10 @@ PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
 
 PVR_ERROR Recordings::DeleteAllRecordingsFromTrash()
 {
-  for (const auto &deletedRecording : m_deletedRecordings)
+  for (const auto& deletedRecording : m_deletedRecordings)
   {
-    const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(deletedRecording.GetRecordingId()).c_str());
+    const std::string strTmp =
+        StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(deletedRecording.GetRecordingId()).c_str());
 
     std::string strResult;
     WebUtils::SendSimpleCommand(strTmp, strResult, true);
@@ -479,7 +505,7 @@ int Recordings::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
   return GetRecording(recording.strRecordingId).GetStreamProgramNumber();
 }
 
-const std::string Recordings::GetRecordingURL(const PVR_RECORDING &recinfo)
+const std::string Recordings::GetRecordingURL(const PVR_RECORDING& recinfo)
 {
   for (const auto& recording : m_recordings)
   {
@@ -489,9 +515,10 @@ const std::string Recordings::GetRecordingURL(const PVR_RECORDING &recinfo)
   return "";
 }
 
-bool Recordings::ReadExtaRecordingCutsInfo(const data::RecordingEntry &recordingEntry, std::vector<std::pair<int, int64_t>> &cuts, std::vector<std::string> &tags)
+bool Recordings::ReadExtaRecordingCutsInfo(const data::RecordingEntry& recordingEntry, std::vector<std::pair<int, int64_t>>& cuts, std::vector<std::string>& tags)
 {
-  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
+  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                  WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -546,9 +573,10 @@ bool Recordings::ReadExtaRecordingCutsInfo(const data::RecordingEntry &recording
   return false;
 }
 
-bool Recordings::ReadExtraRecordingPlayCountInfo(const data::RecordingEntry &recordingEntry, std::vector<std::string> &tags)
+bool Recordings::ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& recordingEntry, std::vector<std::string>& tags)
 {
-  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
+  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                  WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -598,9 +626,9 @@ bool Recordings::LoadLocations()
 {
   std::string url;
   if (Settings::GetInstance().GetRecordingsFromCurrentLocationOnly())
-    url = StringUtils::Format("%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/getcurrlocation");
+    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/getcurrlocation");
   else
-    url = StringUtils::Format("%s%s",  Settings::GetInstance().GetConnectionURL().c_str(), "web/getlocations");
+    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/getlocations");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 

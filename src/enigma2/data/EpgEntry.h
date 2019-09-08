@@ -1,6 +1,6 @@
 #pragma once
 /*
- *      Copyleft (C) 2005-2015 Team XBMC
+ *      Copyleft (C) 2005-2019 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,14 +21,13 @@
  *
  */
 
-#include <map>
-#include <string>
-
 #include "BaseEntry.h"
 #include "EpgChannel.h"
-
-#include "kodi/libXBMC_pvr.h"
 #include "tinyxml.h"
+#include "kodi/libXBMC_pvr.h"
+
+#include <map>
+#include <string>
 
 namespace enigma2
 {
@@ -41,7 +40,7 @@ namespace enigma2
       void SetEpgId(int value) { m_epgId = value; }
 
       const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value ) { m_serviceReference = value; }
+      void SetServiceReference(const std::string& value) { m_serviceReference = value; }
 
       int GetChannelId() const { return m_channelId; }
       void SetChannelId(int value) { m_channelId = value; }
@@ -52,9 +51,9 @@ namespace enigma2
       time_t GetEndTime() const { return m_endTime; }
       void SetEndTime(time_t value) { m_endTime = value; }
 
-      void UpdateTo(EPG_TAG &left) const;
-      bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>> &m_epgChannelsMap);
-      bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel> &epgChannel, time_t iStart, time_t iEnd);
+      void UpdateTo(EPG_TAG& left) const;
+      bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& m_epgChannelsMap);
+      bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
 
     protected:
       unsigned int m_epgId;

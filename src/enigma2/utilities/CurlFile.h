@@ -1,7 +1,7 @@
 #pragma once
 
 /*
- *      Copyright (C) 2005-2015 Team Kodi
+ *      Copyright (C) 2005-2019 Team Kodi
  *      http://kodi.tv
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -21,9 +21,9 @@
  *
  */
 
-#include <string>
-
 #include "../../client.h"
+
+#include <string>
 
 namespace enigma2
 {
@@ -35,9 +35,9 @@ namespace enigma2
       CurlFile(void) {};
       ~CurlFile(void) {};
 
-      bool Get(const std::string &strURL, std::string &strResult);
-      bool Post(const std::string &strURL, std::string &strResult);
-      bool Check(const std::string &strURL);
+      bool Get(const std::string& strURL, std::string& strResult);
+      bool Post(const std::string& strURL, std::string& strResult);
+      bool Check(const std::string& strURL);
     };
-  }
-}
+  } // namespace utilities
+} // namespace enigma2

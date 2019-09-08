@@ -1,12 +1,33 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "Settings.h"
 
 #include "../client.h"
-#include "utilities/FileUtils.h"
-#include "utilities/LocalizedString.h"
-
+#include "p8-platform/util/StringUtils.h"
 #include "tinyxml.h"
 #include "util/XMLUtils.h"
-#include "p8-platform/util/StringUtils.h"
+#include "utilities/FileUtils.h"
+#include "utilities/LocalizedString.h"
 
 using namespace ADDON;
 using namespace enigma2;
@@ -363,7 +384,7 @@ void Settings::ReadFromAddon()
     m_connectionURL = StringUtils::Format("https://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
 }
 
-ADDON_STATUS Settings::SetValue(const std::string &settingName, const void *settingValue)
+ADDON_STATUS Settings::SetValue(const std::string& settingName, const void* settingValue)
 {
   //Connection
   if (settingName == "host")
@@ -541,7 +562,7 @@ bool Settings::IsTimeshiftBufferPathValid() const
   return XBMC->DirectoryExists(m_timeshiftBufferPath.c_str());
 }
 
-bool Settings::LoadCustomChannelGroupFile(std::string &xmlFile, std::vector<std::string> &channelGroupNameList)
+bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std::string>& channelGroupNameList)
 {
   channelGroupNameList.clear();
 

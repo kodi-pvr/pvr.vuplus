@@ -1,10 +1,16 @@
-[![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.vuplus)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/kodi-pvr/pvr.vuplus?svg=true)](https://ci.appveyor.com/project/xbmc/pvr-vuplus)
+[![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=Leia)](https://travis-ci.org/kodi-pvr/pvr.vuplus/branches)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/kodi-pvr/pvr.vuplus?branch=Leia&svg=true)](https://ci.appveyor.com/project/kodi-pvr/pvr-vuplus?branch=Leia)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
+# Enigma2 PVR
+Enigma2 PVR client addon for [Kodi](https://kodi.tv)
+
+## Overview
 Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers.
 
 This addon leverages the OpenWebIf project to interact with the Enigma2 device via Restful APIs: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
+
+### Compatibility
 
 **Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that may not function include:
 * Autotimers
@@ -28,8 +34,11 @@ Some features are only available with at least certain OpenWebIf versions:
 * 1.3.7
   * Backend Channel Numbers
 
-# Enigma2 PVR
-Enigma2 PVR client addon for [Kodi](https://kodi.tv)
+### IPTV Streams
+
+The majority of Enigma2 devices support viewing and recording IPTV streams. They do not however support streaming IPTV from the device. The addon supports IPTV by simply passing the URL used on the device to Kodi PVR. This means that timeshifting cannot be used (and will not be supported in the future). Note that if your IPTV provider restricts the number of active streams each kodi instance viewing it will count as an active stream.
+
+The option `Enable automatic configuration for live streams` is ignored for channels that are IPTV Streams.
 
 ## Build instructions
 
@@ -98,7 +107,7 @@ Within this tab the connection options need to be configured before it can be su
 * **Use secure HTTP (https)**: Use https to connect to the web interface.
 * **Username**: If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option.
 * **Password**: If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option.
-* **Enable automatic configuration for live streams**: When enabled the stream URL will be read from an M3U file. When disabled it is constructed based on the filename.
+* **Enable automatic configuration for live streams**: When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels.
 * **Streaming port**: This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface.
 * **Use secure HTTP (https) for streams**: Use https to connect to streams.
 * **Use login for streams**: Use the login username and password for streams.

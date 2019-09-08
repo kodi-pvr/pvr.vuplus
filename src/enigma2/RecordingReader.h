@@ -1,20 +1,41 @@
 #pragma once
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
+#include "kodi/libXBMC_addon.h"
 
 #include <ctime>
 #include <string>
-
-#include "kodi/libXBMC_addon.h"
 
 namespace enigma2
 {
   class RecordingReader
   {
   public:
-    RecordingReader(const std::string &streamURL, std::time_t start, std::time_t end, int duration);
+    RecordingReader(const std::string& streamURL, std::time_t start, std::time_t end, int duration);
     ~RecordingReader(void);
 
     bool Start();
-    ssize_t ReadData(unsigned char *buffer, unsigned int size);
+    ssize_t ReadData(unsigned char* buffer, unsigned int size);
     int64_t Seek(long long position, int whence);
     int64_t Position();
     int64_t Length();
@@ -25,8 +46,8 @@ namespace enigma2
     static const int REOPEN_INTERVAL = 30;
     static const int REOPEN_INTERVAL_FAST = 10;
 
-    const std::string &m_streamURL;
-    void *m_readHandle;
+    const std::string& m_streamURL;
+    void* m_readHandle;
 
     int m_duration;
 
@@ -35,7 +56,7 @@ namespace enigma2
     std::time_t m_end;
 
     std::time_t m_nextReopen;
-    uint64_t m_pos = { 0 };
+    uint64_t m_pos = {0};
     uint64_t m_len;
   };
 } // namespace enigma2

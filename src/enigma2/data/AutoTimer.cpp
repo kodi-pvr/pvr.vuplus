@@ -1,21 +1,44 @@
+/*
+ *      Copyright (C) 2005-2019 Team XBMC
+ *      http://www.xbmc.org
+ *
+ *  This Program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2, or (at your option)
+ *  any later version.
+ *
+ *  This Program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with XBMC; see the file COPYING.  If not, write to
+ *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
+ *  MA 02110-1335, USA.
+ *  http://www.gnu.org/copyleft/gpl.html
+ *
+ */
+
 #include "AutoTimer.h"
 
 #include "../utilities/LocalizedString.h"
-
 #include "inttypes.h"
-#include "util/XMLUtils.h"
 #include "p8-platform/util/StringUtils.h"
+#include "util/XMLUtils.h"
+
+#include <cstdlib>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-bool AutoTimer::Like(const AutoTimer &right) const
+bool AutoTimer::Like(const AutoTimer& right) const
 {
-  return m_backendId == right.m_backendId;;
+  return m_backendId == right.m_backendId;
 }
 
-bool AutoTimer::operator==(const AutoTimer &right) const
+bool AutoTimer::operator==(const AutoTimer& right) const
 {
   bool isEqual = (!m_title.compare(right.m_title));
   isEqual &= (m_startTime == right.m_startTime);
@@ -37,7 +60,7 @@ bool AutoTimer::operator==(const AutoTimer &right) const
   return isEqual;
 }
 
-void AutoTimer::UpdateFrom(const AutoTimer &right)
+void AutoTimer::UpdateFrom(const AutoTimer& right)
 {
   Timer::UpdateFrom(right);
 
@@ -53,37 +76,37 @@ void AutoTimer::UpdateFrom(const AutoTimer &right)
   m_tags = right.m_tags;
 }
 
-void AutoTimer::UpdateTo(PVR_TIMER &left) const
+void AutoTimer::UpdateTo(PVR_TIMER& left) const
 {
   strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle));
   //strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory));   // unused
   //strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary));
   strncpy(left.strEpgSearchString, m_searchPhrase.c_str(), sizeof(left.strEpgSearchString));
-  left.iTimerType          = m_type;
+  left.iTimerType = m_type;
   if (m_anyChannel)
     left.iClientChannelUid = PVR_TIMER_ANY_CHANNEL;
   else
     left.iClientChannelUid = m_channelId;
-  left.startTime           = m_startTime;
-  left.endTime             = m_endTime;
-  left.state               = m_state;
-  left.iPriority           = 0;     // unused
-  left.iLifetime           = 0;     // unused
-  left.firstDay            = 0;     // unused
-  left.iWeekdays           = m_weekdays;
-  //right.iEpgUid             = timer.iEpgID;
-  left.iMarginStart        = 0;     // unused
-  left.iMarginEnd          = 0;     // unused
-  left.iGenreType          = 0;     // unused
-  left.iGenreSubType       = 0;     // unused
-  left.iClientIndex        = m_clientIndex;
-  left.bStartAnyTime       = m_startAnyTime;
-  left.bEndAnyTime         = m_endAnyTime;
-  left.bFullTextEpgSearch  = m_searchFulltext;
+  left.startTime = m_startTime;
+  left.endTime = m_endTime;
+  left.state = m_state;
+  left.iPriority = 0; // unused
+  left.iLifetime = 0; // unused
+  left.firstDay = 0; // unused
+  left.iWeekdays = m_weekdays;
+  //right.iEpgUid = timer.iEpgID;
+  left.iMarginStart = 0; // unused
+  left.iMarginEnd = 0; // unused
+  left.iGenreType = 0; // unused
+  left.iGenreSubType = 0; // unused
+  left.iClientIndex = m_clientIndex;
+  left.bStartAnyTime = m_startAnyTime;
+  left.bEndAnyTime = m_endAnyTime;
+  left.bFullTextEpgSearch = m_searchFulltext;
   left.iPreventDuplicateEpisodes = m_deDup;
 }
 
-bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
+bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
 {
   std::string strTmp;
   int iTmp;
@@ -150,7 +173,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
 
   if (serviceNode)
   {
-    const TiXmlElement *nextServiceNode = serviceNode->NextSiblingElement("e2service");
+    const TiXmlElement* nextServiceNode = serviceNode->NextSiblingElement("e2service");
 
     if (!nextServiceNode)
     {
@@ -202,7 +225,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
       {
         if (where == "dayofweek")
         {
-          m_weekdays = m_weekdays |= (1 << atoi(includeVal.c_str()));
+          m_weekdays = m_weekdays |= (1 << std::atoi(includeVal.c_str()));
         }
       }
     }
@@ -257,8 +280,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels &channels)
   return true;
 }
 
-void AutoTimer::ParseTime(const std::string &time, std::tm &timeinfo) const
+void AutoTimer::ParseTime(const std::string& time, std::tm& timeinfo) const
 {
-  std::sscanf(time.c_str(), "%02d:%02d", &timeinfo.tm_hour,
-      &timeinfo.tm_min);
+  std::sscanf(time.c_str(), "%02d:%02d", &timeinfo.tm_hour, &timeinfo.tm_min);
 }
