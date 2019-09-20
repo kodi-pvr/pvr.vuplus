@@ -26,14 +26,14 @@
 #include "../client.h"
 #include "Admin.h"
 #include "ChannelGroups.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
 #include <regex>
 
 #include <nlohmann/json.hpp>
+#include <util/StringUtils.h>
+#include <util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

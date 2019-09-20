@@ -21,10 +21,10 @@
  *
  */
 
-#include "p8-platform/util/StringUtils.h"
-
 #include <regex>
 #include <string>
+
+#include <util/StringUtils.h>
 
 namespace enigma2
 {

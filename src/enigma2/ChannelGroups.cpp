@@ -24,8 +24,6 @@
 
 #include "../Enigma2.h"
 #include "../client.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
@@ -34,6 +32,8 @@
 #include <regex>
 
 #include <nlohmann/json.hpp>
+#include <util/StringUtils.h>
+#include <util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

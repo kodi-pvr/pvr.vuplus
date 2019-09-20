@@ -26,13 +26,14 @@
 #include "data/EpgChannel.h"
 #include "data/EpgPartialEntry.h"
 #include "extract/EpgEntryExtractor.h"
-#include "kodi/libXBMC_pvr.h"
-#include "p8-platform/threads/threads.h"
 
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
+
+#include <kodi/libXBMC_pvr.h>
+#include <p8-platform/threads/threads.h>
 
 namespace enigma2
 {

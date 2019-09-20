@@ -25,8 +25,6 @@
 #include "data/AutoTimer.h"
 #include "data/Timer.h"
 #include "extract/EpgEntryExtractor.h"
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <atomic>
 #include <ctime>
@@ -34,6 +32,9 @@
 #include <memory>
 #include <string>
 #include <type_traits>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
 
 namespace enigma2
 {

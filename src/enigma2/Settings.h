@@ -25,11 +25,11 @@
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 #include "utilities/Logger.h"
-#include "kodi/xbmc_addon_types.h"
 
 #include <string>
 
-#include <p8-platform/util/StringUtils.h>
+#include <kodi/xbmc_addon_types.h>
+#include <util/StringUtils.h>
 
 class Vu;
 

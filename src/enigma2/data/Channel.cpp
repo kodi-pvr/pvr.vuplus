@@ -25,11 +25,12 @@
 #include "../Settings.h"
 #include "../utilities/WebUtils.h"
 #include "ChannelGroup.h"
-#include "inttypes.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 
+#include <inttypes.h>
 #include <regex>
+
+#include <util/StringUtils.h>
+#include <util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

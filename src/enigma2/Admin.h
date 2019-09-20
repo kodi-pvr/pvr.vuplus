@@ -22,7 +22,6 @@
  */
 
 #include "data/Channel.h"
-#include "kodi/libXBMC_pvr.h"
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 #include "utilities/SignalStatus.h"
@@ -31,6 +30,8 @@
 
 #include <string>
 #include <vector>
+
+#include <kodi/libXBMC_pvr.h>
 
 namespace enigma2
 {

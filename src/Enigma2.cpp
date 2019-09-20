@@ -36,7 +36,7 @@
 #include <stdlib.h>
 #include <string>
 
-#include <p8-platform/util/StringUtils.h>
+#include <util/StringUtils.h>
 
 using namespace ADDON;
 using namespace P8PLATFORM;
@@ -332,7 +332,7 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   for (const auto& myChannel : m_channels.GetChannelsList())
     PVR->TriggerEpgUpdate(myChannel->GetUniqueId());
 
-  PVR->TriggerRecordingUpdate();  
+  PVR->TriggerRecordingUpdate();
 }
 
 void Enigma2::SendPowerstate()

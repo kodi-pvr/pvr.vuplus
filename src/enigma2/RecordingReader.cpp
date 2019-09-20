@@ -23,10 +23,11 @@
 #include "RecordingReader.h"
 
 #include "../client.h"
-#include "p8-platform/threads/mutex.h"
 #include "utilities/Logger.h"
 
 #include <algorithm>
+
+#include <p8-platform/threads/mutex.h>
 
 using namespace ADDON;
 using namespace enigma2;

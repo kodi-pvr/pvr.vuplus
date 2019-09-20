@@ -24,8 +24,9 @@
 
 #include "../client.h"
 #include "StreamReader.h"
-#include "p8-platform/util/util.h"
 #include "utilities/Logger.h"
+
+#include <p8-platform/util/util.h>
 
 using namespace ADDON;
 using namespace enigma2;

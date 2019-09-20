@@ -24,12 +24,13 @@
 #include "Channels.h"
 #include "data/RecordingEntry.h"
 #include "extract/EpgEntryExtractor.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <random>
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include <kodi/libXBMC_pvr.h>
 
 namespace enigma2
 {

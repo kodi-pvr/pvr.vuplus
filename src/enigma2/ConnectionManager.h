@@ -22,11 +22,11 @@
  *
  */
 
-#include "kodi/libXBMC_pvr.h"
-#include "p8-platform/threads/mutex.h"
-#include "p8-platform/threads/threads.h"
-
 #include <string>
+
+#include <kodi/libXBMC_pvr.h>
+#include <p8-platform/threads/mutex.h>
+#include <p8-platform/threads/threads.h>
 
 namespace enigma2
 {

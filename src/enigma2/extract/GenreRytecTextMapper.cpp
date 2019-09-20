@@ -24,11 +24,11 @@
 
 #include "../utilities/FileUtils.h"
 
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
-#include "util/XMLUtils.h"
-
 #include <cstdlib>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
+#include <util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

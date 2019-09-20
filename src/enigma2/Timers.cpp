@@ -24,9 +24,6 @@
 
 #include "../Enigma2.h"
 #include "../client.h"
-#include "inttypes.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/UpdateState.h"
@@ -34,7 +31,11 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <inttypes.h>
 #include <regex>
+
+#include <util/StringUtils.h>
+#include <util/XMLUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

@@ -21,9 +21,9 @@
  *
  */
 
-#include "kodi/libXBMC_addon.h"
-
 #include <ctime>
+
+#include <kodi/libXBMC_addon.h>
 
 namespace enigma2
 {

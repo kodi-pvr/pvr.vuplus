@@ -23,12 +23,13 @@
 
 #include "ChannelGroups.h"
 #include "data/Channel.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include <kodi/libXBMC_pvr.h>
 
 namespace enigma2
 {

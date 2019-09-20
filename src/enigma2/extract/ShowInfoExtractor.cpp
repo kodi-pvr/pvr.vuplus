@@ -23,10 +23,12 @@
 #include "ShowInfoExtractor.h"
 
 #include "../utilities/FileUtils.h"
-#include "tinyxml.h"
-#include "util/XMLUtils.h"
 
 #include <cstdlib>
+
+#include <tinyxml.h>
+#include <util/XMLUtils.h>
+#include <util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

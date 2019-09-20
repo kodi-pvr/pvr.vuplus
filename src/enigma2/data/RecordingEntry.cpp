@@ -23,11 +23,12 @@
 #include "RecordingEntry.h"
 
 #include "../utilities/WebUtils.h"
-#include "inttypes.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 
 #include <cstdlib>
+#include <inttypes.h>
+
+#include <util/StringUtils.h>
+#include <util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

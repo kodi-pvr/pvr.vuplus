@@ -24,10 +24,11 @@
 #include "../client.h"
 #include "IConnectionListener.h"
 #include "Settings.h"
-#include "p8-platform/os.h"
-#include "p8-platform/util/StringUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
+
+#include <p8-platform/os.h>
+#include <util/StringUtils.h>
 
 using namespace P8PLATFORM;
 using namespace enigma2;

@@ -39,11 +39,12 @@
 #include "enigma2/data/RecordingEntry.h"
 #include "enigma2/extract/EpgEntryExtractor.h"
 #include "enigma2/utilities/SignalStatus.h"
-#include "p8-platform/threads/threads.h"
-#include "tinyxml.h"
 
 #include <atomic>
 #include <time.h>
+
+#include <p8-platform/threads/threads.h>
+#include <tinyxml.h>
 
 // The windows build defines this but it breaks nlohmann/json.hpp's reference to std::snprintf
 #if defined(snprintf)
