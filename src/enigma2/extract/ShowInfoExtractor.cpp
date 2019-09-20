@@ -162,18 +162,18 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
     if (childNode)
     {
-      const std::string masterPattern = childNode->Attribute("pattern");
+      const std::string masterPattern = childNode->Attribute("pattern") ? childNode->Attribute("pattern") : "";
 
       childNode = pNode->FirstChildElement("episode");
 
       if (childNode)
       {
-        const std::string episodePattern = childNode->Attribute("pattern");
+        const std::string episodePattern = childNode->Attribute("pattern") ? childNode->Attribute("pattern") : "";
 
         childNode = pNode->FirstChildElement("season");
         if (childNode != nullptr)
         {
-          const std::string seasonPattern = childNode->Attribute("pattern");
+          const std::string seasonPattern = childNode->Attribute("pattern") ? childNode->Attribute("pattern") : "";
 
           if (!masterPattern.empty() && !seasonPattern.empty() && !episodePattern.empty())
           {
@@ -222,7 +222,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("year"))
   {
-    const std::string yearPattern = pNode->Attribute("pattern");
+    const std::string yearPattern = pNode->Attribute("pattern") ? pNode->Attribute("pattern") : "";
 
     yearPatterns.emplace_back(std::regex(yearPattern));
 
