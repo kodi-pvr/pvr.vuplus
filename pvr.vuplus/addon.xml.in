@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="3.28.0"
+  version="3.28.1"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -71,7 +71,7 @@
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md&#10;    </description>
+    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Leia/README.md&#10;    </description>
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
@@ -175,6 +175,9 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v3.28.1
+- Update: Github README link in addon.xml for Leia
+
 v3.28.0
 - Added: Support for IPTV Streams configured on E2 device (no timeshifting)
 - Added: Reload instead of reconnecting when channel/group changes are detected
