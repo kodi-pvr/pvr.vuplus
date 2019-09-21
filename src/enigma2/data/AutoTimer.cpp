@@ -24,11 +24,11 @@
 
 #include "../utilities/LocalizedString.h"
 
+#include <cinttypes>
 #include <cstdlib>
-#include <inttypes.h>
 
-#include <util/StringUtils.h>
-#include <util/XMLUtils.h>
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

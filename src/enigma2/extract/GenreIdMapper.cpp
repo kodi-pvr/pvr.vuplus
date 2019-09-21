@@ -27,8 +27,8 @@
 #include <cstdlib>
 
 #include <kodi/libXBMC_pvr.h>
+#include <kodi/util/XMLUtils.h>
 #include <tinyxml.h>
-#include <util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

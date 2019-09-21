@@ -29,7 +29,7 @@
 #include <string>
 
 #include <kodi/xbmc_addon_types.h>
-#include <util/StringUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 class Vu;
 

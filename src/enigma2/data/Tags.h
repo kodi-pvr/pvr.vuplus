@@ -24,7 +24,7 @@
 #include <regex>
 #include <string>
 
-#include <util/StringUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 namespace enigma2
 {

@@ -26,9 +26,9 @@
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 #include <tinyxml.h>
-#include <util/StringUtils.h>
-#include <util/XMLUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

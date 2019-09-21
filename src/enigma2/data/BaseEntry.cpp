@@ -22,9 +22,9 @@
 
 #include "BaseEntry.h"
 
-#include <inttypes.h>
+#include <cinttypes>
 
-#include <util/StringUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

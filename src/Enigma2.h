@@ -43,7 +43,6 @@
 #include <atomic>
 #include <mutex>
 #include <thread>
-#include <time.h>
 
 #include <tinyxml.h>
 

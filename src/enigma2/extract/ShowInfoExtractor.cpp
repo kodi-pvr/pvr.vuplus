@@ -26,9 +26,9 @@
 
 #include <cstdlib>
 
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 #include <tinyxml.h>
-#include <util/XMLUtils.h>
-#include <util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

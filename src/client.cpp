@@ -30,10 +30,10 @@
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <kodi/xbmc_pvr_dll.h>
-#include <util/StringUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

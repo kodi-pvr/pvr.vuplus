@@ -27,16 +27,17 @@
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/WebUtils.h"
-#include "util/XMLUtils.h"
 
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <regex>
-#include <stdlib.h>
 #include <string>
 
-#include <util/StringUtils.h>
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

@@ -22,9 +22,9 @@
 
 #include "EpgEntry.h"
 
-#include <inttypes.h>
+#include <cinttypes>
 
-#include <util/XMLUtils.h>
+#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

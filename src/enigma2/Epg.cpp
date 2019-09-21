@@ -31,9 +31,9 @@
 #include <cmath>
 #include <regex>
 
+#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
-#include <util/StringUtils.h>
-#include <util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

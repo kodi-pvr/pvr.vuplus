@@ -30,12 +30,12 @@
 #include "utilities/WebUtils.h"
 
 #include <algorithm>
+#include <cinttypes>
 #include <cstdlib>
-#include <inttypes.h>
 #include <regex>
 
-#include <util/StringUtils.h>
-#include <util/XMLUtils.h>
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;
