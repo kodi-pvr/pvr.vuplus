@@ -1,3 +1,6 @@
+v3.28.1
+- Update: Github README link in addon.xml for Leia
+
 v3.28.0
 - Added: Support for IPTV Streams configured on E2 device (no timeshifting)
 - Added: Reload instead of reconnecting when channel/group changes are detected
