@@ -39,7 +39,6 @@
 #include <util/StringUtils.h>
 
 using namespace ADDON;
-using namespace P8PLATFORM;
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
@@ -65,13 +64,14 @@ Enigma2::~Enigma2()
 
 void Enigma2::ConnectionLost()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
-
   Logger::Log(LEVEL_NOTICE, "%s Lost connection with Enigma2 device...", __FUNCTION__);
 
   Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
-  StopThread();
+  m_running = false;
+  if (m_thread.joinable())
+    m_thread.join();
 
+  std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;
   m_isConnected = false;
 }
@@ -145,7 +145,8 @@ void Enigma2::ConnectionEstablished()
   m_timers.TimerUpdates();
 
   Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __FUNCTION__);
-  CreateThread();
+  m_running = true;
+  m_thread = std::thread([&] { Process(); });
 }
 
 /* **************************************************************************
@@ -175,7 +176,7 @@ bool Enigma2::Start()
   return true;
 }
 
-void* Enigma2::Process()
+void Enigma2::Process()
 {
   Logger::Log(LEVEL_DEBUG, "%s - starting", __FUNCTION__);
 
@@ -186,7 +187,7 @@ void* Enigma2::Process()
     totalWaitSecs += INITIAL_EPG_STEP_SECS;
 
     if (!m_epg.IsInitialEpgCompleted())
-      Sleep(INITIAL_EPG_STEP_SECS * 1000);
+      std::this_thread::sleep_for(std::chrono::milliseconds(INITIAL_EPG_STEP_SECS * 1000));
   }
 
   m_skipInitialEpgLoad = false;
@@ -199,9 +200,9 @@ void* Enigma2::Process()
   time_t lastUpdateTimeSeconds = time(nullptr);
   int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
 
-  while (!IsStopped() && m_isConnected)
+  while (m_running && m_isConnected)
   {
-    Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(PROCESS_LOOP_WAIT_SECS * 1000));
 
     time_t currentUpdateTimeSeconds = time(nullptr);
     std::tm timeInfo = *std::localtime(&currentUpdateTimeSeconds);
@@ -214,8 +215,8 @@ void* Enigma2::Process()
 
       // Trigger Timer and Recording updates according to the addon settings
       std::lock_guard<std::mutex> lock(m_mutex);
-      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped() && m_isConnected)
+      // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (m_running && m_isConnected)
       {
         Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
 
@@ -237,8 +238,8 @@ void* Enigma2::Process()
     {
       // Trigger Channel and Group updates according to the addon settings
       std::lock_guard<std::mutex> lock(m_mutex);
-      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped() && m_isConnected)
+      // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (m_running && m_isConnected)
       {
         if (CheckForChannelAndGroupChanges() != ChannelsChangeState::NO_CHANGE &&
             m_settings.GetChannelAndGroupUpdateMode() == ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
@@ -249,11 +250,6 @@ void* Enigma2::Process()
     }
     lastUpdateHour = timeInfo.tm_hour;
   }
-
-  //std::lock_guard<std::mutex> lock(m_mutex);
-  //m_started.Broadcast();
-
-  return nullptr;
 }
 
 ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
@@ -430,7 +426,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
 {
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
-    Sleep(m_settings.GetEPGDelayPerChannelDelay());
+    std::this_thread::sleep_for(std::chrono::seconds(m_settings.GetEPGDelayPerChannelDelay()));
 
   //Have a lock while getting the channel. Then we don't have to worry about a disconnection while retrieving the EPG data.
   std::shared_ptr<Channel> myChannel;

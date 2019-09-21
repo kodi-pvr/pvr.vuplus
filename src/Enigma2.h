@@ -42,9 +42,9 @@
 
 #include <atomic>
 #include <mutex>
+#include <thread>
 #include <time.h>
 
-#include <p8-platform/threads/threads.h>
 #include <tinyxml.h>
 
 // The windows build defines this but it breaks nlohmann/json.hpp's reference to std::snprintf
@@ -52,7 +52,7 @@
 #undef snprintf
 #endif
 
-class Enigma2 : public P8PLATFORM::CThread, public enigma2::IConnectionListener
+class Enigma2 : public enigma2::IConnectionListener
 {
 public:
   Enigma2(PVR_PROPERTIES* pvrProps);
@@ -110,7 +110,7 @@ public:
   PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus);
 
 protected:
-  void* Process() override;
+  void Process();
 
 private:
   static const int INITIAL_EPG_WAIT_SECS = 60;
@@ -142,5 +142,7 @@ private:
   enigma2::utilities::SignalStatus m_signalStatus;
   enigma2::ConnectionManager* connectionManager;
 
+  std::atomic<bool> m_running = {false};
+  std::thread m_thread;
   mutable std::mutex m_mutex;
 };
