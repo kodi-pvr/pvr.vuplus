@@ -64,7 +64,7 @@ void ConnectionManager::Stop()
 
 void ConnectionManager::OnSleep()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   Logger::Log(LogLevel::LEVEL_DEBUG, "%s going to sleep", __FUNCTION__);
 
@@ -73,7 +73,7 @@ void ConnectionManager::OnSleep()
 
 void ConnectionManager::OnWake()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   Logger::Log(LogLevel::LEVEL_DEBUG, "%s Waking up", __FUNCTION__);
 
@@ -86,7 +86,7 @@ void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
   PVR_CONNECTION_STATE newState(PVR_CONNECTION_STATE_UNKNOWN);
 
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
 
     /* No notification if no state change or while suspended. */
     if (m_state != state && !m_suspended)
@@ -119,7 +119,7 @@ void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
 
 void ConnectionManager::Disconnect()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   m_connectionListener.ConnectionLost();
 }

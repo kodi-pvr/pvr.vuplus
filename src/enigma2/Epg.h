@@ -29,6 +29,7 @@
 
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -79,6 +80,6 @@ namespace enigma2
 
     std::vector<data::EpgEntry> m_timerBasedEntries;
 
-    mutable P8PLATFORM::CMutex m_mutex;
+    mutable std::mutex m_mutex;
   };
 } //namespace enigma2

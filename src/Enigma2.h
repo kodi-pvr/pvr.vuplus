@@ -41,6 +41,7 @@
 #include "enigma2/utilities/SignalStatus.h"
 
 #include <atomic>
+#include <mutex>
 #include <time.h>
 
 #include <p8-platform/threads/threads.h>
@@ -141,6 +142,5 @@ private:
   enigma2::utilities::SignalStatus m_signalStatus;
   enigma2::ConnectionManager* connectionManager;
 
-  mutable P8PLATFORM::CMutex m_mutex;
-  P8PLATFORM::CCondition<bool> m_started;
+  mutable std::mutex m_mutex;
 };

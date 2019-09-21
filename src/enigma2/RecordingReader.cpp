@@ -27,8 +27,6 @@
 
 #include <algorithm>
 
-#include <p8-platform/threads/mutex.h>
-
 using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::utilities;

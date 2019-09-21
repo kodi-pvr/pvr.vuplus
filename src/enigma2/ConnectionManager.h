@@ -22,10 +22,10 @@
  *
  */
 
+#include <mutex>
 #include <string>
 
 #include <kodi/libXBMC_pvr.h>
-#include <p8-platform/threads/mutex.h>
 #include <p8-platform/threads/threads.h>
 
 namespace enigma2
@@ -55,7 +55,7 @@ namespace enigma2
     void SteppedSleep(int intervalMs);
 
     IConnectionListener& m_connectionListener;
-    mutable P8PLATFORM::CMutex m_mutex;
+    mutable std::mutex m_mutex;
     bool m_suspended;
     PVR_CONNECTION_STATE m_state;
   };

@@ -550,7 +550,7 @@ bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 
 void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry>& timerBasedEntries)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   time_t now = time(nullptr);
   time_t until = now + m_epgMaxDaysSeconds;
 
@@ -567,7 +567,7 @@ int Epg::TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId)
 {
   int numTransferred = 0;
 
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   for (auto& timerBasedEntry : m_timerBasedEntries)
   {
     if (epgChannelId == timerBasedEntry.GetChannelId())
