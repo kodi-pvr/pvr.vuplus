@@ -33,7 +33,6 @@
 #include <stdlib.h>
 
 #include <kodi/xbmc_pvr_dll.h>
-#include <p8-platform/util/util.h>
 #include <util/StringUtils.h>
 
 using namespace ADDON;
@@ -52,6 +51,15 @@ CHelper_libXBMC_addon* XBMC = nullptr;
 CHelper_libXBMC_pvr* PVR = nullptr;
 Enigma2* enigma = nullptr;
 
+template<typename T> void SafeDelete(T*& p)
+{
+  if (p)
+  {
+    delete p;
+    p = nullptr;
+  }
+}
+
 extern "C"
 {
 
@@ -69,7 +77,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   XBMC = new CHelper_libXBMC_addon;
   if (!XBMC->RegisterMe(hdl))
   {
-    SAFE_DELETE(XBMC);
+    SafeDelete(XBMC);
     m_currentStatus = ADDON_STATUS_PERMANENT_FAILURE;
     return m_currentStatus;
   }
@@ -77,8 +85,8 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   PVR = new CHelper_libXBMC_pvr;
   if (!PVR->RegisterMe(hdl))
   {
-    SAFE_DELETE(PVR);
-    SAFE_DELETE(XBMC);
+    SafeDelete(PVR);
+    SafeDelete(XBMC);
     m_currentStatus = ADDON_STATUS_PERMANENT_FAILURE;
     return m_currentStatus;
   }
@@ -152,9 +160,9 @@ void ADDON_Destroy()
     enigma->SendPowerstate();
   }
 
-  SAFE_DELETE(enigma);
-  SAFE_DELETE(PVR);
-  SAFE_DELETE(XBMC);
+  SafeDelete(enigma);
+  SafeDelete(PVR);
+  SafeDelete(XBMC);
 
   m_currentStatus = ADDON_STATUS_UNKNOWN;
 }
@@ -413,7 +421,7 @@ void CloseLiveStream(void)
 {
   if (enigma)
     enigma->CloseLiveStream();
-  SAFE_DELETE(streamReader);
+  SafeDelete(streamReader);
 }
 
 bool IsRealTimeStream()
@@ -628,7 +636,7 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
 bool OpenRecordedStream(const PVR_RECORDING& recording)
 {
   if (recordingReader)
-    SAFE_DELETE(recordingReader);
+    SafeDelete(recordingReader);
 
   if (!enigma || !enigma->IsConnected())
     return false;
@@ -640,7 +648,7 @@ bool OpenRecordedStream(const PVR_RECORDING& recording)
 void CloseRecordedStream(void)
 {
   if (recordingReader)
-    SAFE_DELETE(recordingReader);
+    SafeDelete(recordingReader);
 }
 
 int ReadRecordedStream(unsigned char* buffer, unsigned int size)

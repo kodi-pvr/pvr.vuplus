@@ -26,8 +26,6 @@
 #include "StreamReader.h"
 #include "utilities/Logger.h"
 
-#include <p8-platform/util/util.h>
-
 using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::utilities;
@@ -63,7 +61,11 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
   if (!XBMC->DeleteFile(m_bufferPath.c_str()))
     Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __FUNCTION__, m_bufferPath.c_str());
 
-  SAFE_DELETE(m_streamReader);
+  if (m_streamReader)
+  {
+    delete m_streamReader;
+    m_streamReader = nullptr;
+  }
   Logger::Log(LEVEL_DEBUG, "%s Timeshift: Stopped", __FUNCTION__);
 }
 
