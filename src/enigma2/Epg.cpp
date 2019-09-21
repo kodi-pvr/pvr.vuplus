@@ -39,7 +39,6 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
-using namespace P8PLATFORM;
 using json = nlohmann::json;
 
 Epg::Epg(enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays)

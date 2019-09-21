@@ -34,7 +34,6 @@
 #include <vector>
 
 #include <kodi/libXBMC_pvr.h>
-#include <p8-platform/threads/threads.h>
 
 namespace enigma2
 {
