@@ -183,7 +183,7 @@ void Enigma2::Process()
 
   // Wait for the initial EPG update to complete
   int totalWaitSecs = 0;
-  while (totalWaitSecs < INITIAL_EPG_WAIT_SECS)
+  while (m_running && totalWaitSecs < INITIAL_EPG_WAIT_SECS)
   {
     totalWaitSecs += INITIAL_EPG_STEP_SECS;
 
