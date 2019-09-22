@@ -469,7 +469,7 @@ PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
 {
   auto recordingEntry = GetRecording(recording.strRecordingId);
 
-  std::regex regex(TRASH_FOLDER);
+  static const std::regex regex(TRASH_FOLDER);
 
   const std::string newRecordingDirectory = std::regex_replace(recordingEntry.GetDirectory(), regex, "");
 

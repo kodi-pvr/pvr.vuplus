@@ -247,12 +247,12 @@ unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
 {
   unsigned int webIfVersionAsNum = 0;
 
-  std::regex regex("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
+  static const std::regex regex("^.*[0-9]+\\.[0-9]+\\.[0-9].*$");
   if (std::regex_match(webIfVersion, regex))
   {
     int count = 0;
     unsigned int versionPart = 0;
-    std::regex pattern("([0-9]+)");
+    static const std::regex pattern("([0-9]+)");
     for (auto i = std::sregex_iterator(webIfVersion.begin(), webIfVersion.end(), pattern); i != std::sregex_iterator(); ++i)
     {
         switch (count)
@@ -584,8 +584,8 @@ long long Admin::GetKbFromString(const std::string& stringInMbGbTb) const
   std::string replaceWith = "";
   for (const std::string& size : sizes)
   {
-    std::regex regexSize("^.* " + size);
-    std::regex regexReplaceSize(" " + size);
+    const std::regex regexSize("^.* " + size);
+    const std::regex regexReplaceSize(" " + size);
 
     if (std::regex_match(stringInMbGbTb, regexSize))
     {
@@ -654,7 +654,7 @@ bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<dat
     return false;
   }
 
-  std::regex regexReplacePercent(" %");
+  static const std::regex regexReplacePercent(" %");
   std::string regexReplace = "";
 
   // For some reason the iSNR and iSignal values need to multiplied by 655!

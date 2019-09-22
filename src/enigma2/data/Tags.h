@@ -48,7 +48,7 @@ namespace enigma2
 
       bool ContainsTag(const std::string& tag) const
       {
-        std::regex regex("^.* ?" + tag + " ?.*$");
+        const std::regex regex("^.* ?" + tag + " ?.*$");
 
         return (std::regex_match(m_tags, regex));
       }
@@ -95,7 +95,7 @@ namespace enigma2
 
       void RemoveTag(const std::string& tagName)
       {
-        std::regex regex(" *" + tagName + "=?[^\\s-]*");
+        const std::regex regex(" *" + tagName + "=?[^\\s-]*");
         std::string replaceWith = "";
 
         m_tags = std::regex_replace(m_tags, regex, replaceWith);

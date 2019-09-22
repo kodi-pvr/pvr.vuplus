@@ -180,7 +180,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
 
 std::string Timers::ConvertToAutoTimerTag(std::string tag)
 {
-  std::regex regex(" ");
+  static const std::regex regex(" ");
   std::string replaceWith = "_";
 
   return std::regex_replace(tag, regex, replaceWith);
@@ -781,7 +781,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
 
 std::string Timers::RemovePaddingTag(std::string tag)
 {
-  std::regex regex(" Padding=[0-9]+,[0-9]+ *");
+  static const std::regex regex(" Padding=[0-9]+,[0-9]+ *");
   std::string replaceWith = "";
 
   return std::regex_replace(tag, regex, replaceWith);

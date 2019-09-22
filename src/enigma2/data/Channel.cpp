@@ -167,10 +167,10 @@ std::string Channel::CreateCommonServiceReference(const std::string& serviceRefe
 std::string Channel::CreateGenericServiceReference(const std::string& commonServiceReference)
 {
   //Same as common service reference but starts with SERVICE_REF_GENERIC_PREFIX and ends with SERVICE_REF_GENERIC_POSTFIX
-  std::regex startPrefixRegex("^\\d+:\\d+:\\d+:");
+  static const std::regex startPrefixRegex("^\\d+:\\d+:\\d+:");
   std::string replaceWith = "";
   std::string genericServiceReference = std::regex_replace(commonServiceReference, startPrefixRegex, replaceWith);
-  std::regex endPostfixRegex(":\\d+:\\d+:\\d+$");
+  static const std::regex endPostfixRegex(":\\d+:\\d+:\\d+$");
   genericServiceReference = std::regex_replace(genericServiceReference, endPostfixRegex, replaceWith);
   genericServiceReference = SERVICE_REF_GENERIC_PREFIX + genericServiceReference + SERVICE_REF_GENERIC_POSTFIX;
 
@@ -214,7 +214,8 @@ std::string Channel::ExtractIptvStreamURL()
       {
         iptvStreamURL = iptvStreamURL.substr(0, foundColon);
       }
-      iptvStreamURL = std::regex_replace(iptvStreamURL, std::regex("%3a"), ":");
+      static const std::regex escapedColonRegex("%3a");
+      iptvStreamURL = std::regex_replace(iptvStreamURL, escapedColonRegex, ":");
     }
   }
 
