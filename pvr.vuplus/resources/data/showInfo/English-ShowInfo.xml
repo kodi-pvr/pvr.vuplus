@@ -24,7 +24,7 @@ If you have changes either create a PR containing the changes or an issue with d
   <seasonEpisodes>
     <!-- (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7) (S2 Ep 3) -->
     <seasonEpisode>
-      <master pattern="(?:^|.* )\(?([sS]\.?[0-9]+ ?[eE][pP]?\.? ?[0-9]+/?[0-9]*)\)?[^]*$"/>
+      <master pattern="(?:^|.* )\(?([sS]\.?[0-9]+,? ?/?[eE][pP]?\.? ?[0-9]+/?[0-9]*)\)?[^]*$"/>
       <season pattern="^.*[sS]\.?([0-9][0-9]*).*$"/>
       <episode pattern="^.*[eE][pP]?\.? ?([0-9][0-9]*).*$"/>
     </seasonEpisode>
