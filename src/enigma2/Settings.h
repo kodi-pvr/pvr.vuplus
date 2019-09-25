@@ -268,7 +268,10 @@ namespace enigma2
       T newValue = *static_cast<const T*>(settingValue);
       if (newValue != currentValue)
       {
-        utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, "%s - Changed Setting '%s' from %d to %d", __FUNCTION__, settingName.c_str(), currentValue, newValue);
+        std::string formatString = "%s - Changed Setting '%s' from %d to %d";
+        if (std::is_same<T, float>::value)
+          formatString = "%s - Changed Setting '%s' from %f to %f";
+        utilities::Logger::Log(utilities::LogLevel::LEVEL_NOTICE, formatString.c_str(), __FUNCTION__, settingName.c_str(), currentValue, newValue);
         currentValue = newValue;
         return returnValueIfChanged;
       }
