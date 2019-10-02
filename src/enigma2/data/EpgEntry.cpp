@@ -49,7 +49,10 @@ void EpgEntry::UpdateTo(EPG_TAG& left) const
   left.iGenreType          = m_genreType;
   left.iGenreSubType       = m_genreSubType;
   left.strGenreDescription = m_genreDescription.c_str();
-  left.firstAired          = 0;  // unused
+  if (m_new || m_live || m_premiere)
+    left.firstAired = m_startTime; // Kodi-pvr will mark an epg entry as new if the firstAired date and startTime date match
+  else
+    left.firstAired = 0;  // unused
   left.iParentalRating     = 0;  // unused
   left.iStarRating         = 0;  // unused
   left.iSeriesNumber       = m_seasonNumber;

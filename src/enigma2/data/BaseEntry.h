@@ -62,6 +62,15 @@ namespace enigma2
       int GetYear() const { return m_year; }
       void SetYear(int value) { m_year = value; }
 
+      bool IsNew() const { return m_new; }
+      void SetNew(int value) { m_new = value; }
+
+      bool IsLive() const { return m_live; }
+      void SetLive(int value) { m_live = value; }
+
+      bool IsPremiere() const { return m_premiere; }
+      void SetPremiere(int value) { m_premiere = value; }
+
       void ProcessPrependMode(PrependOutline prependOutlineMode);
 
     protected:
@@ -75,6 +84,9 @@ namespace enigma2
       int m_episodePartNumber = 0;
       int m_seasonNumber = 0;
       int m_year = 0;
+      bool m_new = false;
+      bool m_live = false;
+      bool m_premiere = false;
     };
   } //namespace data
 } //namespace enigma2

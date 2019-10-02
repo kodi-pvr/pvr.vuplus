@@ -24,6 +24,7 @@
 #include "EpisodeSeasonPattern.h"
 #include "IExtractor.h"
 
+#include <map>
 #include <regex>
 #include <string>
 #include <vector>
@@ -32,6 +33,16 @@ namespace enigma2
 {
   namespace extract
   {
+    enum class TextPropertyType
+      : int // same type as addon settings
+    {
+      NEW = 0,
+      LIVE,
+      PREMIERE
+    };
+
+    static const std::map<std::string, TextPropertyType> m_textPropetyTypeMap{{"new", TextPropertyType::NEW}, {"live", TextPropertyType::LIVE}, {"premiere", TextPropertyType::PREMIERE}};
+
     // (S4E37) (S04E37) (S2 Ep3/6) (S2 Ep7)
     static const std::string MASTER_SEASON_EPISODE_PATTERN = "^.*\\(?([sS]\\.?[0-9]+ ?[eE][pP]?\\.?[0-9]+/?[0-9]*)\\)?[^]*$";
     // (E130) (Ep10) (E7/9) (Ep7/10) (Ep.25)
@@ -62,10 +73,12 @@ namespace enigma2
       bool IsEnabled();
 
     private:
-      bool LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex> yearPatterns);
+      bool LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex>& yearPatterns, std::vector<std::pair<TextPropertyType, std::regex>>& titleTextPatterns, std::vector<std::pair<TextPropertyType, std::regex>>& descTextPatterns);
 
       std::vector<EpisodeSeasonPattern> m_episodeSeasonPatterns;
       std::vector<std::regex> m_yearPatterns;
+      std::vector<std::pair<TextPropertyType, std::regex>> m_titleTextPatterns;
+      std::vector<std::pair<TextPropertyType, std::regex>> m_descriptionTextPatterns;
     };
   } //namespace extract
 } //namespace enigma2

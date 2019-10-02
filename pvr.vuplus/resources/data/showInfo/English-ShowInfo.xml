@@ -11,6 +11,10 @@
  - This element must have a pattern attrbute.
  - There is no limit to the number of <year> elements but there must be at least one.
 
+<textProperty> elements
+ - This element must have a type attribute. Supported types currently are: 'new', 'live' or 'premiere'.
+ - This element must have a titlePattern attrbute and/or a descPattern attribute. If either match the entry will be marked as it's type.
+
 If you are creating yoru own patterns make a copy of this file in the same directory so it's not overwritten.
 
 NOTE: IF YOU MODIFY THIS FILE IT WILL BE OVERWRITTEN NEXT TIME THE ADDON IS STARTED
@@ -50,4 +54,10 @@ If you have changes either create a PR containing the changes or an issue with d
     <!-- (2018E25) -->
     <year pattern="^.*\(([12][0-9][0-9][0-9])[eE][pP]?\.?[0-9]+/?[0-9]*\)[^]*$"/>
   </years>
+  <textProperties>
+    <!-- New: -->
+    <textProperty type="new" titlePattern="^ *New:[^]*$"/>
+    <textProperty type="live" titlePattern="^ *Live:[^]*$"/>
+    <textProperty type="premiere" titlePattern="^ *Premiere:[^]*$"/>
+  </textProperties>
 </showInfo>

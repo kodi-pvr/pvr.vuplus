@@ -37,7 +37,7 @@ using namespace enigma2::utilities;
 
 ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
 {
-  if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns))
+  if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns, m_titleTextPatterns, m_descriptionTextPatterns))
     Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __FUNCTION__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
 }
 
@@ -87,6 +87,38 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
     if (entry.GetYear() != 0)
       break;
   }
+
+  bool isNew = false;
+  bool isLive = false;
+  bool isPremiere = false;
+
+  for (const auto& patternPair : m_titleTextPatterns)
+  {
+    if (patternPair.first == TextPropertyType::NEW && !isNew && Matches(entry.GetTitle(), patternPair.second))
+        isNew = true;
+
+    if (patternPair.first == TextPropertyType::LIVE && !isLive && Matches(entry.GetTitle(), patternPair.second))
+        isLive = true;
+
+    if (patternPair.first == TextPropertyType::PREMIERE && !isPremiere && Matches(entry.GetTitle(), patternPair.second))
+        isPremiere = true;
+  }
+
+  for (const auto& patternPair : m_descriptionTextPatterns)
+  {
+    if (patternPair.first == TextPropertyType::NEW && !isNew && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
+        isNew = true;
+
+    if (patternPair.first == TextPropertyType::LIVE && !isLive && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
+        isLive = true;
+
+    if (patternPair.first == TextPropertyType::PREMIERE && !isPremiere && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
+        isPremiere = true;
+  }
+
+  entry.SetNew(isNew);
+  entry.SetLive(isLive);
+  entry.SetPremiere(isPremiere);
 }
 
 bool ShowInfoExtractor::IsEnabled()
@@ -94,7 +126,7 @@ bool ShowInfoExtractor::IsEnabled()
   return Settings::GetInstance().GetExtractShowInfo();
 }
 
-bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex> yearPatterns)
+bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex>& yearPatterns, std::vector<std::pair<TextPropertyType, std::regex>>& titleTextPatterns, std::vector<std::pair<TextPropertyType, std::regex>>& descTextPatterns)
 {
   episodeSeasonPatterns.clear();
   yearPatterns.clear();
@@ -227,6 +259,54 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
     yearPatterns.emplace_back(std::regex(yearPattern));
 
     Logger::Log(LEVEL_DEBUG, "%s Adding year pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), yearPattern.c_str());
+  }
+
+  //Now we do the premieres
+  pNode = hRoot.FirstChildElement("textProperties").Element();
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <textProperties> element", __FUNCTION__);
+    return false;
+  }
+
+  pNode = pNode->FirstChildElement("textProperty");
+
+  if (!pNode)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <textProperty> element", __FUNCTION__);
+    return false;
+  }
+
+  for (; pNode != nullptr; pNode = pNode->NextSiblingElement("textProperty"))
+  {
+    const std::string type = pNode->Attribute("type") ? pNode->Attribute("type") : "";
+    if (type.empty())
+      continue;
+
+    auto textPropertyTypePair = m_textPropetyTypeMap.find(type);
+    if (textPropertyTypePair == m_textPropetyTypeMap.end())
+      continue;
+    auto textPropertyType = textPropertyTypePair->second;
+
+    const std::string titlePattern = pNode->Attribute("titlePattern") ? pNode->Attribute("titlePattern") : "";
+    if (!titlePattern.empty())
+    {
+      m_titleTextPatterns.emplace_back(std::make_pair(textPropertyType, std::regex(titlePattern)));
+
+      Logger::Log(LEVEL_DEBUG, "%s Adding premiere title pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), titlePattern.c_str());
+    }
+
+    const std::string descPattern = pNode->Attribute("descPattern") ? pNode->Attribute("descPattern") : "";
+    if (!descPattern.empty())
+    {
+      m_descriptionTextPatterns.emplace_back(std::make_pair(textPropertyType, std::regex(descPattern)));
+
+      Logger::Log(LEVEL_DEBUG, "%s Adding premiere description pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), descPattern.c_str());
+    }
+
+    if (titlePattern.empty() && descPattern.empty())
+      Logger::Log(LEVEL_DEBUG, "%s Premiere pattern not found in: %s", __FUNCTION__, name.c_str());
   }
 
   return true;
