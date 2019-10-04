@@ -24,9 +24,10 @@
 #include "../Settings.h"
 #include "CurlFile.h"
 #include "Logger.h"
-#include "p8-platform/util/StringUtils.h"
-#include "tinyxml.h"
-#include "util/XMLUtils.h"
+
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
+#include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;

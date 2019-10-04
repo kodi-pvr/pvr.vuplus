@@ -25,12 +25,13 @@
 #include "../utilities/UpdateState.h"
 #include "BaseEntry.h"
 #include "Tags.h"
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <ctime>
 #include <string>
 #include <type_traits>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
 
 namespace enigma2
 {

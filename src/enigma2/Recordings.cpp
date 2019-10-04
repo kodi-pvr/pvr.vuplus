@@ -24,16 +24,17 @@
 
 #include "../Enigma2.h"
 #include "../client.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
+#include <algorithm>
 #include <iostream>
 #include <regex>
 #include <sstream>
 
+#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -468,7 +469,7 @@ PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
 {
   auto recordingEntry = GetRecording(recording.strRecordingId);
 
-  std::regex regex(TRASH_FOLDER);
+  static const std::regex regex(TRASH_FOLDER);
 
   const std::string newRecordingDirectory = std::regex_replace(recordingEntry.GetDirectory(), regex, "");
 
@@ -675,24 +676,31 @@ bool Recordings::LoadLocations()
 
 void Recordings::LoadRecordings(bool deleted)
 {
-  ClearRecordings(deleted);
-
+  std::vector<RecordingEntry> newRecordingsList;
+  bool loadError = false;
   for (std::string location : m_locations)
   {
     if (deleted)
       location += TRASH_FOLDER;
 
-    if (!GetRecordingsFromLocation(location, deleted))
+    if (!GetRecordingsFromLocation(location, deleted, newRecordingsList))
     {
+      loadError = true;
       Logger::Log(LEVEL_ERROR, "%s Error fetching lists for folder: '%s'", __FUNCTION__, location.c_str());
     }
   }
+
+  if (!loadError || !newRecordingsList.empty()) //We allow once any recordings are loaded as some bad locations are possible
+  {
+    ClearRecordings(deleted);
+    auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
+
+    std::move(newRecordingsList.begin(), newRecordingsList.end(), std::back_inserter(recordings));
+  }
 }
 
-bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, bool deleted)
+bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, bool deleted, std::vector<RecordingEntry>& recordings)
 {
-  auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
-
   std::string url;
   std::string directory;
 

@@ -25,10 +25,12 @@
 #include "BaseEntry.h"
 #include "Channel.h"
 #include "Tags.h"
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <string>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
+
 namespace enigma2
 {
   namespace data

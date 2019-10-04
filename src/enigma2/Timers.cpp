@@ -24,17 +24,18 @@
 
 #include "../Enigma2.h"
 #include "../client.h"
-#include "inttypes.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/UpdateState.h"
 #include "utilities/WebUtils.h"
 
 #include <algorithm>
+#include <cinttypes>
 #include <cstdlib>
 #include <regex>
+
+#include <kodi/util/XMLUtils.h>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;
@@ -52,10 +53,8 @@ T* Timers::GetTimer(std::function<bool(const T&)> func, std::vector<T>& timerlis
   return nullptr;
 }
 
-std::vector<Timer> Timers::LoadTimers() const
+bool Timers::LoadTimers(std::vector<Timer>& timers) const
 {
-  std::vector<Timer> timers;
-
   const std::string url = StringUtils::Format("%s%s", m_settings.GetConnectionURL().c_str(), "web/timerlist");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
@@ -64,7 +63,7 @@ std::vector<Timer> Timers::LoadTimers() const
   if (!xmlDoc.Parse(strXML.c_str()))
   {
     Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return timers;
+    return false;
   }
 
   TiXmlHandle hDoc(&xmlDoc);
@@ -74,7 +73,7 @@ std::vector<Timer> Timers::LoadTimers() const
   if (!pElem)
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <e2timerlist> element!", __FUNCTION__);
-    return timers;
+    return false;
   }
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);
@@ -84,7 +83,7 @@ std::vector<Timer> Timers::LoadTimers() const
   if (!pNode)
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <e2timer> element", __FUNCTION__);
-    return timers;
+    return true; //No timers is valid
   }
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2timer"))
@@ -110,7 +109,7 @@ std::vector<Timer> Timers::LoadTimers() const
   }
 
   Logger::Log(LEVEL_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
-  return timers;
+  return true;
 }
 
 void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Timer* timer) const
@@ -181,16 +180,14 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
 
 std::string Timers::ConvertToAutoTimerTag(std::string tag)
 {
-  std::regex regex(" ");
+  static const std::regex regex(" ");
   std::string replaceWith = "_";
 
   return std::regex_replace(tag, regex, replaceWith);
 }
 
-std::vector<AutoTimer> Timers::LoadAutoTimers() const
+bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 {
-  std::vector<AutoTimer> autoTimers;
-
   const std::string url = StringUtils::Format("%s%s", m_settings.GetConnectionURL().c_str(), "autotimer");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
@@ -199,7 +196,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   if (!xmlDoc.Parse(strXML.c_str()))
   {
     Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
-    return autoTimers;
+    return false;
   }
 
   TiXmlHandle hDoc(&xmlDoc);
@@ -209,7 +206,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   if (!pElem)
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <autotimer> element!", __FUNCTION__);
-    return autoTimers;
+    return false;
   }
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);
@@ -219,7 +216,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   if (!pNode)
   {
     Logger::Log(LEVEL_ERROR, "%s Could not find <timer> element", __FUNCTION__);
-    return autoTimers;
+    return true; //No timers is valid
   }
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("timer"))
@@ -235,7 +232,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
   }
 
   Logger::Log(LEVEL_INFO, "%s fetched %u AutoTimer Entries", __FUNCTION__, autoTimers.size());
-  return autoTimers;
+  return true;
 }
 
 bool Timers::IsAutoTimer(const PVR_TIMER& timer) const
@@ -784,7 +781,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
 
 std::string Timers::RemovePaddingTag(std::string tag)
 {
-  std::regex regex(" Padding=[0-9]+,[0-9]+ *");
+  static const std::regex regex(" Padding=[0-9]+,[0-9]+ *");
   std::string replaceWith = "";
 
   return std::regex_replace(tag, regex, replaceWith);
@@ -1094,7 +1091,13 @@ bool Timers::TimerUpdates()
 
 bool Timers::TimerUpdatesRegular()
 {
-  std::vector<Timer> newtimers = LoadTimers();
+  std::vector<Timer> newTimers;
+
+  if (!LoadTimers(newTimers))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Unable to load timers, skipping timer update", __FUNCTION__);
+    return false;
+  }
 
   for (auto& timer : m_timers)
   {
@@ -1105,7 +1108,7 @@ bool Timers::TimerUpdatesRegular()
   unsigned int iUpdated = 0;
   unsigned int iUnchanged = 0;
 
-  for (auto& newTimer : newtimers)
+  for (auto& newTimer : newTimers)
   {
     for (auto& existingTimer : m_timers)
     {
@@ -1143,7 +1146,7 @@ bool Timers::TimerUpdatesRegular()
   //Add any new autotimers
   unsigned int iNew = 0;
 
-  for (auto& newTimer : newtimers)
+  for (auto& newTimer : newTimers)
   {
     if (newTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {
@@ -1180,7 +1183,13 @@ bool Timers::TimerUpdatesRegular()
 
 bool Timers::TimerUpdatesAuto()
 {
-  std::vector<AutoTimer> newautotimers = LoadAutoTimers();
+  std::vector<AutoTimer> newAutotimers;
+
+  if (!LoadAutoTimers(newAutotimers))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Unable to load auto timers, skipping auto timer update", __FUNCTION__);
+    return false;
+  }
 
   for (auto& autoTimer : m_autotimers)
   {
@@ -1191,7 +1200,7 @@ bool Timers::TimerUpdatesAuto()
   unsigned int iUpdated = 0;
   unsigned int iUnchanged = 0;
 
-  for (auto& newAutoTimer : newautotimers)
+  for (auto& newAutoTimer : newAutotimers)
   {
     for (auto& existingAutoTimer : m_autotimers)
     {
@@ -1229,7 +1238,7 @@ bool Timers::TimerUpdatesAuto()
   //Add any new autotimers
   unsigned int iNew = 0;
 
-  for (auto& newAutoTimer : newautotimers)
+  for (auto& newAutoTimer : newAutotimers)
   {
     if (newAutoTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {

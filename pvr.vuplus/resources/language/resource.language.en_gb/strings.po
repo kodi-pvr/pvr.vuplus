@@ -1079,7 +1079,7 @@ msgstr ""
 
 #help: EPG - extractshowinfoenabled
 msgctxt "#30661"
-msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible."
+msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info."
 msgstr ""
 
 #help: EPG - extractshowinfofile

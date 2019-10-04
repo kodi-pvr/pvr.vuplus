@@ -26,13 +26,14 @@
 #include "data/EpgChannel.h"
 #include "data/EpgPartialEntry.h"
 #include "extract/EpgEntryExtractor.h"
-#include "kodi/libXBMC_pvr.h"
-#include "p8-platform/threads/threads.h"
 
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
+
+#include <kodi/libXBMC_pvr.h>
 
 namespace enigma2
 {
@@ -78,6 +79,6 @@ namespace enigma2
 
     std::vector<data::EpgEntry> m_timerBasedEntries;
 
-    mutable P8PLATFORM::CMutex m_mutex;
+    mutable std::mutex m_mutex;
   };
 } //namespace enigma2

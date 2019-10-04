@@ -175,7 +175,7 @@ Within this tab options that refer to EPG data can be set. Excluding logging mis
 
 Information on customising the extraction and mapper configs can be found in the next section of the README.
 
-* **Extract season, episode and year info where possible**: Check the description fields in the EPG data and attempt to extract season, episode and year info where possible.
+* **Extract season, episode and year info where possible**: Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info.
 * **Extract show info file**: The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`.
 * **Enable genre ID mappings**: If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi.
 * **Genre ID mappings file**: The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`.

@@ -26,14 +26,14 @@
 #include "../client.h"
 #include "Admin.h"
 #include "ChannelGroups.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
 #include <regex>
 
+#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -61,17 +61,23 @@ int GenerateChannelUniqueId(const std::string& channelName, const std::string& e
 
 void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) const
 {
+  int channelOrder = 1;
+
   for (const auto& channel : m_channels)
   {
     if (channel->IsRadio() == bRadio)
     {
-      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d'", __FUNCTION__, channel->GetChannelName().c_str(),
-                  channel->GetUniqueId());
       PVR_CHANNEL kodiChannel = {0};
 
       channel->UpdateTo(kodiChannel);
+      kodiChannel.iOrder = channelOrder; //Keep the channels in list order as per the load order on the STB
+
+      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d', Order '%d''", __FUNCTION__, channel->GetChannelName().c_str(),
+                  channel->GetUniqueId(), channelOrder);
 
       kodiChannels.emplace_back(kodiChannel);
+
+      channelOrder++;
     }
   }
 }

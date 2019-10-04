@@ -25,8 +25,6 @@
 #include "data/AutoTimer.h"
 #include "data/Timer.h"
 #include "extract/EpgEntryExtractor.h"
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <atomic>
 #include <ctime>
@@ -34,6 +32,9 @@
 #include <memory>
 #include <string>
 #include <type_traits>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
 
 namespace enigma2
 {
@@ -77,11 +78,11 @@ namespace enigma2
     T* GetTimer(std::function<bool(const T&)> func, std::vector<T>& timerlist);
 
     // functions
-    std::vector<enigma2::data::Timer> LoadTimers() const;
+    bool LoadTimers(std::vector<enigma2::data::Timer>& timers) const;
     void GenerateChildManualRepeatingTimers(std::vector<enigma2::data::Timer>* timers, enigma2::data::Timer* timer) const;
     static std::string ConvertToAutoTimerTag(std::string tag);
     static std::string RemovePaddingTag(std::string tag);
-    std::vector<enigma2::data::AutoTimer> LoadAutoTimers() const;
+    bool LoadAutoTimers(std::vector<enigma2::data::AutoTimer>& autoTimers) const;
     bool IsAutoTimer(const PVR_TIMER& timer) const;
     bool TimerUpdatesRegular();
     bool TimerUpdatesAuto();

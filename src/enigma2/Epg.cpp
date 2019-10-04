@@ -24,8 +24,6 @@
 
 #include "../Enigma2.h"
 #include "../client.h"
-#include "p8-platform/util/StringUtils.h"
-#include "util/XMLUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -33,13 +31,14 @@
 #include <cmath>
 #include <regex>
 
+#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
+#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
-using namespace P8PLATFORM;
 using json = nlohmann::json;
 
 Epg::Epg(enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays)
@@ -550,8 +549,8 @@ bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 
 void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry>& timerBasedEntries)
 {
-  CLockObject lock(m_mutex);
-  time_t now = time(nullptr);
+  std::lock_guard<std::mutex> lock(m_mutex);
+  time_t now = std::time(nullptr);
   time_t until = now + m_epgMaxDaysSeconds;
 
   m_timerBasedEntries.clear();
@@ -567,7 +566,7 @@ int Epg::TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId)
 {
   int numTransferred = 0;
 
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   for (auto& timerBasedEntry : m_timerBasedEntries)
   {
     if (epgChannelId == timerBasedEntry.GetChannelId())

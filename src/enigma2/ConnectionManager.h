@@ -22,11 +22,12 @@
  *
  */
 
-#include "kodi/libXBMC_pvr.h"
-#include "p8-platform/threads/mutex.h"
-#include "p8-platform/threads/threads.h"
-
+#include <atomic>
+#include <mutex>
 #include <string>
+#include <thread>
+
+#include <kodi/libXBMC_pvr.h>
 
 namespace enigma2
 {
@@ -35,11 +36,11 @@ namespace enigma2
 
   class IConnectionListener;
 
-  class ConnectionManager : public P8PLATFORM::CThread
+  class ConnectionManager
   {
   public:
     ConnectionManager(IConnectionListener& connectionListener);
-    ~ConnectionManager() override;
+    ~ConnectionManager();
 
     void Start();
     void Stop();
@@ -50,12 +51,14 @@ namespace enigma2
     void OnWake();
 
   private:
-    void* Process() override;
+    void Process();
     void SetState(PVR_CONNECTION_STATE state);
     void SteppedSleep(int intervalMs);
 
     IConnectionListener& m_connectionListener;
-    mutable P8PLATFORM::CMutex m_mutex;
+    std::atomic<bool> m_running = {false};
+    std::thread m_thread;
+    mutable std::mutex m_mutex;
     bool m_suspended;
     PVR_CONNECTION_STATE m_state;
   };

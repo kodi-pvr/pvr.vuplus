@@ -22,12 +22,13 @@
  */
 
 #include "BaseChannel.h"
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <memory>
 #include <string>
 #include <vector>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
 
 namespace enigma2
 {

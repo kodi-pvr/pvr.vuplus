@@ -24,11 +24,11 @@
 
 #include "../utilities/FileUtils.h"
 
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
-#include "util/XMLUtils.h"
-
 #include <cstdlib>
+
+#include <kodi/libXBMC_pvr.h>
+#include <kodi/util/XMLUtils.h>
+#include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -207,14 +207,17 @@ bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string& xmlFile, std
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("mapping"))
   {
-    const std::string targetIdString = pNode->Attribute("targetId");
+    const std::string targetIdString = pNode->Attribute("targetId") ? pNode->Attribute("targetId") : "";
     const std::string textMapping = pNode->GetText();
 
-    int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
+    if (!targetIdString.empty())
+    {
+      int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
 
-    map.insert({textMapping, targetId});
+      map.insert({textMapping, targetId});
 
-    Logger::Log(LEVEL_TRACE, "%s Read Text Mapping for: %s, text=%s, targetId=%#02X", __FUNCTION__, mapperName.c_str(), textMapping.c_str(), targetId);
+      Logger::Log(LEVEL_TRACE, "%s Read Text Mapping for: %s, text=%s, targetId=%#02X", __FUNCTION__, mapperName.c_str(), textMapping.c_str(), targetId);
+    }
   }
 
   return true;

@@ -24,7 +24,6 @@
 
 #include "../client.h"
 #include "StreamReader.h"
-#include "p8-platform/util/util.h"
 #include "utilities/Logger.h"
 
 using namespace ADDON;
@@ -62,7 +61,11 @@ TimeshiftBuffer::~TimeshiftBuffer(void)
   if (!XBMC->DeleteFile(m_bufferPath.c_str()))
     Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __FUNCTION__, m_bufferPath.c_str());
 
-  SAFE_DELETE(m_streamReader);
+  if (m_streamReader)
+  {
+    delete m_streamReader;
+    m_streamReader = nullptr;
+  }
   Logger::Log(LEVEL_DEBUG, "%s Timeshift: Stopped", __FUNCTION__);
 }
 
@@ -74,7 +77,7 @@ bool TimeshiftBuffer::Start()
     return true;
 
   Logger::Log(LEVEL_INFO, "%s Timeshift: Started", __FUNCTION__);
-  m_start = time(nullptr);
+  m_start = std::time(nullptr);
   m_running = true;
   m_inputThread = std::thread([&] { DoReadWrite(); });
 

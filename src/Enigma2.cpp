@@ -27,19 +27,19 @@
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/WebUtils.h"
-#include "util/XMLUtils.h"
 
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <regex>
-#include <stdlib.h>
 #include <string>
 
+#include <kodi/util/XMLUtils.h>
 #include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
-using namespace P8PLATFORM;
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
@@ -65,13 +65,14 @@ Enigma2::~Enigma2()
 
 void Enigma2::ConnectionLost()
 {
-  CLockObject lock(m_mutex);
-
   Logger::Log(LEVEL_NOTICE, "%s Lost connection with Enigma2 device...", __FUNCTION__);
 
   Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
-  StopThread();
+  m_running = false;
+  if (m_thread.joinable())
+    m_thread.join();
 
+  std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;
   m_isConnected = false;
 }
@@ -79,7 +80,7 @@ void Enigma2::ConnectionLost()
 
 void Enigma2::ConnectionEstablished()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   Logger::Log(LEVEL_DEBUG, "%s Removing internal channels and groups lists...", __FUNCTION__);
   m_channels.ClearChannels();
@@ -145,7 +146,8 @@ void Enigma2::ConnectionEstablished()
   m_timers.TimerUpdates();
 
   Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __FUNCTION__);
-  CreateThread();
+  m_running = true;
+  m_thread = std::thread([&] { Process(); });
 }
 
 /* **************************************************************************
@@ -168,25 +170,25 @@ void Enigma2::OnWake()
 
 bool Enigma2::Start()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   connectionManager->Start();
 
   return true;
 }
 
-void* Enigma2::Process()
+void Enigma2::Process()
 {
   Logger::Log(LEVEL_DEBUG, "%s - starting", __FUNCTION__);
 
   // Wait for the initial EPG update to complete
   int totalWaitSecs = 0;
-  while (totalWaitSecs < INITIAL_EPG_WAIT_SECS)
+  while (m_running && totalWaitSecs < INITIAL_EPG_WAIT_SECS)
   {
     totalWaitSecs += INITIAL_EPG_STEP_SECS;
 
     if (!m_epg.IsInitialEpgCompleted())
-      Sleep(INITIAL_EPG_STEP_SECS * 1000);
+      std::this_thread::sleep_for(std::chrono::milliseconds(INITIAL_EPG_STEP_SECS * 1000));
   }
 
   m_skipInitialEpgLoad = false;
@@ -196,14 +198,14 @@ void* Enigma2::Process()
   m_epg.TriggerEpgUpdatesForChannels();
 
   unsigned int updateTimer = 0;
-  time_t lastUpdateTimeSeconds = time(nullptr);
+  time_t lastUpdateTimeSeconds = std::time(nullptr);
   int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
 
-  while (!IsStopped() && m_isConnected)
+  while (m_running && m_isConnected)
   {
-    Sleep(PROCESS_LOOP_WAIT_SECS * 1000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(PROCESS_LOOP_WAIT_SECS * 1000));
 
-    time_t currentUpdateTimeSeconds = time(nullptr);
+    time_t currentUpdateTimeSeconds = std::time(nullptr);
     std::tm timeInfo = *std::localtime(&currentUpdateTimeSeconds);
     updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - lastUpdateTimeSeconds);
     lastUpdateTimeSeconds = currentUpdateTimeSeconds;
@@ -213,9 +215,9 @@ void* Enigma2::Process()
       updateTimer = 0;
 
       // Trigger Timer and Recording updates according to the addon settings
-      CLockObject lock(m_mutex);
-      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped() && m_isConnected)
+      std::lock_guard<std::mutex> lock(m_mutex);
+      // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (m_running && m_isConnected)
       {
         Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
 
@@ -236,9 +238,9 @@ void* Enigma2::Process()
     if (lastUpdateHour != timeInfo.tm_hour && timeInfo.tm_hour == m_settings.GetChannelAndGroupUpdateHour())
     {
       // Trigger Channel and Group updates according to the addon settings
-      CLockObject lock(m_mutex);
-      // We need to check this again in case StopThread is called (in destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
-      if (!IsStopped() && m_isConnected)
+      std::lock_guard<std::mutex> lock(m_mutex);
+      // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
+      if (m_running && m_isConnected)
       {
         if (CheckForChannelAndGroupChanges() != ChannelsChangeState::NO_CHANGE &&
             m_settings.GetChannelAndGroupUpdateMode() == ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS)
@@ -249,11 +251,6 @@ void* Enigma2::Process()
     }
     lastUpdateHour = timeInfo.tm_hour;
   }
-
-  //CLockObject lock(m_mutex);
-  m_started.Broadcast();
-
-  return nullptr;
 }
 
 ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
@@ -332,12 +329,12 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   for (const auto& myChannel : m_channels.GetChannelsList())
     PVR->TriggerEpgUpdate(myChannel->GetUniqueId());
 
-  PVR->TriggerRecordingUpdate();  
+  PVR->TriggerRecordingUpdate();
 }
 
 void Enigma2::SendPowerstate()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   m_admin.SendPowerstate();
 }
@@ -370,7 +367,7 @@ PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle, bool radio)
 {
   std::vector<PVR_CHANNEL_GROUP> channelGroups;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_channelGroups.GetChannelGroups(channelGroups, radio);
   }
 
@@ -386,7 +383,7 @@ PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL
 {
   std::vector<PVR_CHANNEL_GROUP_MEMBER> channelGroupMembers;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_channelGroups.GetChannelGroupMembers(channelGroupMembers, group.strGroupName);
   }
 
@@ -411,7 +408,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 {
   std::vector<PVR_CHANNEL> channels;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_channels.GetChannels(channels, bRadio);
   }
 
@@ -430,12 +427,12 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
 PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
 {
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
-    Sleep(m_settings.GetEPGDelayPerChannelDelay());
+    std::this_thread::sleep_for(std::chrono::seconds(m_settings.GetEPGDelayPerChannelDelay()));
 
   //Have a lock while getting the channel. Then we don't have to worry about a disconnection while retrieving the EPG data.
   std::shared_ptr<Channel> myChannel;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
 
     if (!m_channels.IsValid(iChannelUid))
     {
@@ -462,7 +459,7 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
 bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
 {
   Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (channelinfo.iUniqueId != m_currentChannel)
   {
@@ -486,7 +483,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
 
 void Enigma2::CloseLiveStream(void)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;
 }
 
@@ -549,7 +546,7 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle, bool deleted)
 
   std::vector<PVR_RECORDING> recordings;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_recordings.GetRecordings(recordings, deleted);
   }
 
@@ -580,7 +577,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY e
 {
   std::vector<PVR_EDL_ENTRY> edlEntries;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_recordings.GetRecordingEdl(recinfo.strRecordingId, edlEntries);
   }
 
@@ -606,7 +603,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY e
 
 RecordingReader* Enigma2::OpenRecordedStream(const PVR_RECORDING& recinfo)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   std::time_t now = std::time(nullptr), start = 0, end = 0;
   std::string channelName = recinfo.strChannelName;
   auto timer = m_timers.GetTimer([&](const Timer &timer)
@@ -634,25 +631,25 @@ int Enigma2::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
 
 PVR_ERROR Enigma2::RenameRecording(const PVR_RECORDING& recording)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.RenameRecording(recording);
 }
 
 PVR_ERROR Enigma2::SetRecordingPlayCount(const PVR_RECORDING& recording, int count)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.SetRecordingPlayCount(recording, count);
 }
 
 PVR_ERROR Enigma2::SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastPlayedPosition)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.SetRecordingLastPlayedPosition(recording, lastPlayedPosition);
 }
 
 int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.GetRecordingLastPlayedPosition(recording);
 }
 
@@ -664,7 +661,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
 {
   std::vector<PVR_TIMER_TYPE> timerTypes;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_timers.GetTimerTypes(timerTypes);
   }
 
@@ -677,7 +674,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
 
 int Enigma2::GetTimersAmount()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_timers.GetTimerCount();
 }
 
@@ -685,7 +682,7 @@ PVR_ERROR Enigma2::GetTimers(ADDON_HANDLE handle)
 {
   std::vector<PVR_TIMER> timers;
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
     m_timers.GetTimers(timers);
     m_timers.GetAutoTimers(timers);
   }
@@ -734,7 +731,7 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus)
     strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName) - 1);
     strncpy(signalStatus.strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus.strProviderName) - 1);
 
-    time_t now = time(nullptr);
+    time_t now = std::time(nullptr);
     if ((now - m_lastSignalStatusUpdateSeconds) >= POLL_INTERVAL_SECONDS)
     {
       Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __FUNCTION__, POLL_INTERVAL_SECONDS);

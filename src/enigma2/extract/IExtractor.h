@@ -66,6 +66,24 @@ namespace enigma2
         return matchedText;
       }
 
+      static bool Matches(const std::string& text, const std::regex& pattern)
+      {
+        std::smatch match;
+
+        std::regex_match(text, match, pattern);
+        return match.size() != 0;
+      };
+
+      static bool Matches(const std::string& firstText, const std::string& secondText, const std::regex& pattern)
+      {
+        bool matches = Matches(firstText, pattern);
+
+        if (!matches)
+          matches = Matches(secondText, pattern);
+
+        return matches;
+      };
+
       enigma2::Settings& m_settings = Settings::GetInstance();
     };
   } //namespace extract

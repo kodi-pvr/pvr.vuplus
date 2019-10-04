@@ -24,11 +24,11 @@
 
 #include "../utilities/FileUtils.h"
 
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
-#include "util/XMLUtils.h"
-
 #include <cstdlib>
+
+#include <kodi/libXBMC_pvr.h>
+#include <kodi/util/XMLUtils.h>
+#include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -154,15 +154,18 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("mapping"))
   {
-    const std::string sourceIdString = pNode->Attribute("sourceId");
+    const std::string sourceIdString = pNode->Attribute("sourceId") ? pNode->Attribute("sourceId") : "";
     const std::string targetIdString = pNode->GetText();
 
-    int sourceId = std::strtol(sourceIdString.c_str(), nullptr, 16);
-    int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
+    if (!sourceIdString.empty())
+    {
+      int sourceId = std::strtol(sourceIdString.c_str(), nullptr, 16);
+      int targetId = std::strtol(targetIdString.c_str(), nullptr, 16);
 
-    map.insert({sourceId, targetId});
+      map.insert({sourceId, targetId});
 
-    Logger::Log(LEVEL_TRACE, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __FUNCTION__, mapperName.c_str(), sourceId, targetId);
+      Logger::Log(LEVEL_TRACE, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __FUNCTION__, mapperName.c_str(), sourceId, targetId);
+    }
   }
 
   return true;

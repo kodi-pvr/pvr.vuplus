@@ -24,12 +24,13 @@
 #include "../client.h"
 #include "IConnectionListener.h"
 #include "Settings.h"
-#include "p8-platform/os.h"
-#include "p8-platform/util/StringUtils.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
-using namespace P8PLATFORM;
+#include <chrono>
+
+#include <p8-platform/util/StringUtils.h>
+
 using namespace enigma2;
 using namespace enigma2::utilities;
 
@@ -44,27 +45,29 @@ ConnectionManager::ConnectionManager(IConnectionListener& connectionListener)
 
 ConnectionManager::~ConnectionManager()
 {
-  StopThread(-1);
-  Disconnect();
-  StopThread(0);
+  Stop();
 }
 
 void ConnectionManager::Start()
 {
   // Note: "connecting" must only be set one time, before the very first connection attempt, not on every reconnect.
   SetState(PVR_CONNECTION_STATE_CONNECTING);
-  CreateThread();
+  m_running = true;
+  m_thread = std::thread([&] { Process(); });
 }
 
 void ConnectionManager::Stop()
 {
-  StopThread(-1);
+  m_running = false;
+  if (m_thread.joinable())
+    m_thread.join();
+
   Disconnect();
 }
 
 void ConnectionManager::OnSleep()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   Logger::Log(LogLevel::LEVEL_DEBUG, "%s going to sleep", __FUNCTION__);
 
@@ -73,7 +76,7 @@ void ConnectionManager::OnSleep()
 
 void ConnectionManager::OnWake()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   Logger::Log(LogLevel::LEVEL_DEBUG, "%s Waking up", __FUNCTION__);
 
@@ -86,7 +89,7 @@ void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
   PVR_CONNECTION_STATE newState(PVR_CONNECTION_STATE_UNKNOWN);
 
   {
-    CLockObject lock(m_mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
 
     /* No notification if no state change or while suspended. */
     if (m_state != state && !m_suspended)
@@ -119,7 +122,7 @@ void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
 
 void ConnectionManager::Disconnect()
 {
-  CLockObject lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   m_connectionListener.ConnectionLost();
 }
@@ -131,14 +134,14 @@ void ConnectionManager::Reconnect()
   SetState(PVR_CONNECTION_STATE_SERVER_UNREACHABLE);
 }
 
-void* ConnectionManager::Process()
+void ConnectionManager::Process()
 {
   static bool log = false;
   static unsigned int retryAttempt = 0;
   int fastReconnectIntervalMs = (Settings::GetInstance().GetConnectioncCheckIntervalSecs() * 1000) / 2;
   int intervalMs = Settings::GetInstance().GetConnectioncCheckIntervalSecs() * 1000;
 
-  while (!IsStopped())
+  while (m_running)
   {
     while (m_suspended)
     {
@@ -172,8 +175,6 @@ void* ConnectionManager::Process()
 
     SteppedSleep(intervalMs);
   }
-
-  return nullptr;
 }
 
 void ConnectionManager::SteppedSleep(int intervalMs)
@@ -182,8 +183,8 @@ void ConnectionManager::SteppedSleep(int intervalMs)
 
   while (sleepCountMs <= intervalMs)
   {
-    if (!IsStopped())
-      Sleep(SLEEP_INTERVAL_STEP_MS);
+    if (m_running)
+      std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_INTERVAL_STEP_MS));
 
     sleepCountMs += SLEEP_INTERVAL_STEP_MS;
   }

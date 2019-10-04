@@ -23,11 +23,12 @@
 
 #include "BaseEntry.h"
 #include "EpgChannel.h"
-#include "tinyxml.h"
-#include "kodi/libXBMC_pvr.h"
 
 #include <map>
 #include <string>
+
+#include <kodi/libXBMC_pvr.h>
+#include <tinyxml.h>
 
 namespace enigma2
 {

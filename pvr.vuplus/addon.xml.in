@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.7.0"
+  version="4.8.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -71,7 +71,7 @@
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
-    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md&#10;    </description>
+    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    </description>
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
@@ -175,6 +175,17 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v4.8.0
+- Added: Support group (bouquet) channel order from the backend
+- Added: Extract new/live/premiere as part of show info from EPG
+- Fixed: Fix possible runtime error assigning nullptr to string
+- Fixed: Preserve recordings and timer lists if connection lost
+- Update: Remove p8-platform dependency on Threads, Mutex, Condition, Util and OS
+- Update: README Location
+- Fixed: Fix long kodi shutdown delay if shutodwn happens before addon fully starts
+- Update: Update regex to static/const (perf benefit)
+- Update: Update show info regex's
+
 v4.7.0
 - Added: Support for IPTV Streams configured on E2 device (no timeshifting)
 - Added: Reload instead of reconnecting when channel/group changes are detected
