@@ -37,7 +37,7 @@ RecordingReader::RecordingReader(const std::string& streamURL, std::time_t start
   m_readHandle = XBMC->CURLCreate(m_streamURL.c_str());
   (void)XBMC->CURLOpen(m_readHandle, XFILE::READ_NO_CACHE);
   m_len = XBMC->GetFileLength(m_readHandle);
-  m_nextReopen = time(nullptr) + REOPEN_INTERVAL;
+  m_nextReopen = std::time(nullptr) + REOPEN_INTERVAL;
 
   //If this is an ongoing recording set the duration to the eventual length of the recording
   if (start > 0 && end > 0)

@@ -77,7 +77,7 @@ bool TimeshiftBuffer::Start()
     return true;
 
   Logger::Log(LEVEL_INFO, "%s Timeshift: Started", __FUNCTION__);
-  m_start = time(nullptr);
+  m_start = std::time(nullptr);
   m_running = true;
   m_inputThread = std::thread([&] { DoReadWrite(); });
 

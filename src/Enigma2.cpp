@@ -198,14 +198,14 @@ void Enigma2::Process()
   m_epg.TriggerEpgUpdatesForChannels();
 
   unsigned int updateTimer = 0;
-  time_t lastUpdateTimeSeconds = time(nullptr);
+  time_t lastUpdateTimeSeconds = std::time(nullptr);
   int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
 
   while (m_running && m_isConnected)
   {
     std::this_thread::sleep_for(std::chrono::milliseconds(PROCESS_LOOP_WAIT_SECS * 1000));
 
-    time_t currentUpdateTimeSeconds = time(nullptr);
+    time_t currentUpdateTimeSeconds = std::time(nullptr);
     std::tm timeInfo = *std::localtime(&currentUpdateTimeSeconds);
     updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - lastUpdateTimeSeconds);
     lastUpdateTimeSeconds = currentUpdateTimeSeconds;
@@ -731,7 +731,7 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus)
     strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName) - 1);
     strncpy(signalStatus.strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus.strProviderName) - 1);
 
-    time_t now = time(nullptr);
+    time_t now = std::time(nullptr);
     if ((now - m_lastSignalStatusUpdateSeconds) >= POLL_INTERVAL_SECONDS)
     {
       Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __FUNCTION__, POLL_INTERVAL_SECONDS);

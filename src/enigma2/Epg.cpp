@@ -550,7 +550,7 @@ bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry>& timerBasedEntries)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  time_t now = time(nullptr);
+  time_t now = std::time(nullptr);
   time_t until = now + m_epgMaxDaysSeconds;
 
   m_timerBasedEntries.clear();

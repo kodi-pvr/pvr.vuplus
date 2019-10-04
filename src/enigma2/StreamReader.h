@@ -45,6 +45,6 @@ namespace enigma2
 
   private:
     void* m_streamHandle;
-    std::time_t m_start = time(nullptr);
+    std::time_t m_start = std::time(nullptr);
   };
 } // namespace enigma2
