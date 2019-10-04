@@ -1,3 +1,14 @@
+v4.8.0
+- Added: Support group (bouquet) channel order from the backend
+- Added: Extract new/live/premiere as part of show info from EPG
+- Fixed: Fix possible runtime error assigning nullptr to string
+- Fixed: Preserve recordings and timer lists if connection lost
+- Update: Remove p8-platform dependency on Threads, Mutex, Condition, Util and OS
+- Update: README Location
+- Fixed: Fix long kodi shutdown delay if shutodwn happens before addon fully starts
+- Update: Update regex to static/const (perf benefit)
+- Update: Update show info regex's
+
 v4.7.0
 - Added: Support for IPTV Streams configured on E2 device (no timeshifting)
 - Added: Reload instead of reconnecting when channel/group changes are detected
