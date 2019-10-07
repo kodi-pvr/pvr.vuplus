@@ -750,17 +750,17 @@ msgstr ""
 
 #application: Timers
 msgctxt "#30420"
-msgid "Once off timer (set by auto guide-based rule)"
+msgid "Once off timer (auto)"
 msgstr ""
 
 #application: Timers
 msgctxt "#30421"
-msgid "Once off timer (set by repeating time/channel based rule)"
+msgid "Once off timer (repeating)"
 msgstr ""
 
 #application: Timers
 msgctxt "#30422"
-msgid "Once off time/channel based"
+msgid "Once off timer (channel)"
 msgstr ""
 
 #application: Timers
