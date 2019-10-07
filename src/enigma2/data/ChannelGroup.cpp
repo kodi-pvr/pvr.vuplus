@@ -46,9 +46,9 @@ bool ChannelGroup::operator==(const ChannelGroup& right) const
   isEqual &= (m_radio == right.m_radio);
   isEqual &= (m_lastScannedGroup == right.m_lastScannedGroup);
 
-  for (int i = 0; i < m_channelList.size(); i++)
+  for (int i = 0; i < m_channelGroupMembers.size(); i++)
   {
-    isEqual &= (*(m_channelList.at(i)) == *(right.m_channelList.at(i)));
+    isEqual &= (*(m_channelGroupMembers.at(i).GetChannel()) == *(right.m_channelGroupMembers.at(i).GetChannel()));
 
     if (!isEqual)
       break;
@@ -128,7 +128,19 @@ void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP& left) const
   strncpy(left.strGroupName, m_groupName.c_str(), sizeof(left.strGroupName));
 }
 
-void ChannelGroup::AddChannel(std::shared_ptr<Channel> channel)
+void ChannelGroup::AddChannelGroupMember(std::shared_ptr<Channel>& channel)
 {
-  m_channelList.emplace_back(channel);
+  m_channelGroupMembers.emplace_back(ChannelGroupMember{channel});
+}
+
+void ChannelGroup::SetMemberChannelNumber(std::shared_ptr<enigma2::data::Channel>& channel, int channelNumber)
+{
+  for (auto& member : m_channelGroupMembers)
+  {
+    if (member.GetChannel() == channel)
+    {
+      member.SetChannelNumber(channelNumber);
+      break;
+    }
+  }
 }

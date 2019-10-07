@@ -78,16 +78,16 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
   int channelOrder = 1;
 
-  for (const auto& channel : channelGroup->GetChannelList())
+  for (const auto& channelMember : channelGroup->GetChannelGroupMembers())
   {
     PVR_CHANNEL_GROUP_MEMBER tag = {0};
 
     strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName));
-    tag.iChannelUniqueId = channel->GetUniqueId();
-    tag.iChannelNumber = 0; // The addon or kodi-pvr do not currently support group specific channel numbers
+    tag.iChannelUniqueId = channelMember.GetChannel()->GetUniqueId();
+    tag.iChannelNumber = Settings::GetInstance().UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0;
     tag.iOrder = channelOrder; //Keep the channels in list order as per the groups on the STB
 
-    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __FUNCTION__, channel->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channelOrder);
+    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __FUNCTION__, channelMember.GetChannel()->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channelOrder);
 
     channelGroupMembers.emplace_back(tag);
 

@@ -19,7 +19,7 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Full Tuner Signal Support (Including Service Providers)
 * Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 * Edit recording name, last played position and play count for recordings
-* Bouquet Backend Channel Numbers
+* Bouquet (and group specific) Backend Channel Numbers
 
 Some features are only available with at least certain OpenWebIf versions:
 * 1.3.0
@@ -135,13 +135,14 @@ Within this tab general options are configured.
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
-Note that channel numbers are set in the addon based on their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet in which it is loaded, any subsequent channel numbers will be ignored. Therefore if it's desired to keep the same channel numbers across the Enigma2 device and the addon the following guidelines should be adhered to:
-  * If a master bouquet is used it should be the first bouquet loaded assuming it has the channel numbering/order you require.
-  * If not using a master bouquet each channel should only appear in a single bouquet (i.e. do not use channels in multiple bouquets unless they have different service references).
+Note that channel numbers can be set in the addon based on either:
+  1. Their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet in which it is loaded, any subsequent channel numbers will be ignored. This is useful as regardless of what group you are using in Kodi-PVR you can jump to a channel easily as it will always have the same number.
+  2. Bouquet specific channel numbering, i.e. exactly as they appear in the backend. This can be useful when bouquet are used as differnt users (profile-like) lists of channels.
 
 If Kodi PVR is set to use the channel numbers from the backend the numbers will match those on your STB. If this is not enabled each unique instance of a channel will be given the next free number starting from 1 (i.e. the 17th unique channel will be channel 17). Backend channel numbers will only work for OpenWebIf 1.3.5 and later and they have been tested using ABM (AutoBouquetsMaker).
 
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
+* **Use group specific channel numbers from backend**: If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded).
 * **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.

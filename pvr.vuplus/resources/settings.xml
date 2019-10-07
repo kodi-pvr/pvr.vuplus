@@ -226,6 +226,11 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
+        <setting id="usegroupspecificnumbers" type="boolean" label="30016" help="30655">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
         <setting id="usestandardserviceref" type="boolean" label="30126" help="30641">
           <level>3</level>
           <default>true</default>
@@ -246,7 +251,6 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
-
         <setting id="numtvgroups" type="integer" parent="tvgroupmode" label="30134" help="30653">
           <level>0</level>
           <default>1</default>
