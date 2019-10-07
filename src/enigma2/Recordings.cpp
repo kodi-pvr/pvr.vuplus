@@ -508,11 +508,11 @@ int Recordings::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
 
 const std::string Recordings::GetRecordingURL(const PVR_RECORDING& recinfo)
 {
-  for (const auto& recording : m_recordings)
-  {
-    if (recinfo.strRecordingId == recording.GetRecordingId())
-      return recording.GetStreamURL();
-  }
+  auto recordingEntry = GetRecording(recinfo.strRecordingId);
+
+  if (!recordingEntry.GetRecordingId().empty())
+    return recordingEntry.GetStreamURL();
+
   return "";
 }
 
