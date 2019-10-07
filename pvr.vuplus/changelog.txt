@@ -1,3 +1,9 @@
+v4.9.0
+- Added: Group specific channel numbering to matching backend bouquets
+- Fixed: Fix recordings last played, playcount etc. broken since prior last PR: 248
+- Added: Shorten timer type descriptions to suit UI better
+- Fixed: Fixed broken playback for deleted recordings
+
 v4.8.0
 - Added: Support group (bouquet) channel order from the backend
 - Added: Extract new/live/premiere as part of show info from EPG
