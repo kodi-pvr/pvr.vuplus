@@ -508,11 +508,11 @@ int Recordings::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
 
 const std::string Recordings::GetRecordingURL(const PVR_RECORDING& recinfo)
 {
-  for (const auto& recording : m_recordings)
-  {
-    if (recinfo.strRecordingId == recording.GetRecordingId())
-      return recording.GetStreamURL();
-  }
+  auto recordingEntry = GetRecording(recinfo.strRecordingId);
+
+  if (!recordingEntry.GetRecordingId().empty())
+    return recordingEntry.GetStreamURL();
+
   return "";
 }
 
@@ -677,13 +677,14 @@ bool Recordings::LoadLocations()
 void Recordings::LoadRecordings(bool deleted)
 {
   std::vector<RecordingEntry> newRecordingsList;
+  std::unordered_map<std::string, enigma2::data::RecordingEntry> newRecordingsIdMap;
   bool loadError = false;
   for (std::string location : m_locations)
   {
     if (deleted)
       location += TRASH_FOLDER;
 
-    if (!GetRecordingsFromLocation(location, deleted, newRecordingsList))
+    if (!GetRecordingsFromLocation(location, deleted, newRecordingsList, newRecordingsIdMap))
     {
       loadError = true;
       Logger::Log(LEVEL_ERROR, "%s Error fetching lists for folder: '%s'", __FUNCTION__, location.c_str());
@@ -696,10 +697,12 @@ void Recordings::LoadRecordings(bool deleted)
     auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
 
     std::move(newRecordingsList.begin(), newRecordingsList.end(), std::back_inserter(recordings));
+    for (auto& pair : newRecordingsIdMap)
+      m_recordingsIdMap.insert(pair);
   }
 }
 
-bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, bool deleted, std::vector<RecordingEntry>& recordings)
+bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, bool deleted, std::vector<RecordingEntry>& recordings, std::unordered_map<std::string, enigma2::data::RecordingEntry>& recordingsIdMap)
 {
   std::string url;
   std::string directory;
@@ -761,7 +764,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
       iNumRecordings++;
 
       recordings.emplace_back(recordingEntry);
-      m_recordingsIdMap.insert({recordingEntry.GetRecordingId(), recordingEntry});
+      recordingsIdMap.insert({recordingEntry.GetRecordingId(), recordingEntry});
 
       Logger::Log(LEVEL_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetStartTime(), recordingEntry.GetDuration());
     }

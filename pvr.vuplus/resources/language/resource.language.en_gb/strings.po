@@ -94,7 +94,10 @@ msgctxt "#30015"
 msgid "Update interval"
 msgstr ""
 
-#empty string with id 30016
+#label: Channels - usegroupspecificnumbers
+msgctxt "#30016"
+msgid "Use bouquet specific channel numbers from backend"
+msgstr ""
 
 #label: Recordings - onlycurrent
 msgctxt "#30017"
@@ -747,17 +750,17 @@ msgstr ""
 
 #application: Timers
 msgctxt "#30420"
-msgid "Once off timer (set by auto guide-based rule)"
+msgid "Once off timer (auto)"
 msgstr ""
 
 #application: Timers
 msgctxt "#30421"
-msgid "Once off timer (set by repeating time/channel based rule)"
+msgid "Once off timer (repeating)"
 msgstr ""
 
 #application: Timers
 msgctxt "#30422"
-msgid "Once off time/channel based"
+msgid "Once off timer (channel)"
 msgstr ""
 
 #application: Timers
@@ -1068,7 +1071,12 @@ msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
 msgstr ""
 
-#empty strings from id 30655 to 30659
+#help: Channels - usegroupspecificnumbers
+msgctxt "#30655"
+msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
+msgstr ""
+
+#empty strings from id 30656 to 30659
 
 #help info - EPG
 

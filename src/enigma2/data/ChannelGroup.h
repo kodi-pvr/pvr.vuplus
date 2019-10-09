@@ -22,6 +22,7 @@
  */
 
 #include "Channel.h"
+#include "ChannelGroupMember.h"
 #include "EpgEntry.h"
 
 #include <memory>
@@ -67,12 +68,14 @@ namespace enigma2
 
       bool HasStartChannelNumber() const { return m_startChannelNumber >= 0; }
 
-      void AddChannel(std::shared_ptr<enigma2::data::Channel> channel);
+      void AddChannelGroupMember(std::shared_ptr<enigma2::data::Channel>& channel);
+
+      void SetMemberChannelNumber(std::shared_ptr<enigma2::data::Channel>& channel, int channelNumber);
 
       bool UpdateFrom(TiXmlElement* groupNode, bool radio);
       void UpdateTo(PVR_CHANNEL_GROUP& left) const;
 
-      std::vector<std::shared_ptr<enigma2::data::Channel>> GetChannelList() { return m_channelList; };
+      std::vector<enigma2::data::ChannelGroupMember>& GetChannelGroupMembers() { return m_channelGroupMembers; };
 
       bool Like(const ChannelGroup& right) const;
       bool operator==(const ChannelGroup& right) const;
@@ -87,7 +90,7 @@ namespace enigma2
       bool m_emptyGroup;
       int m_startChannelNumber = -1;
 
-      std::vector<std::shared_ptr<enigma2::data::Channel>> m_channelList;
+      std::vector<enigma2::data::ChannelGroupMember> m_channelGroupMembers;
     };
   } //namespace data
 } //namespace enigma2

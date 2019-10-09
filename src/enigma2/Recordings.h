@@ -68,7 +68,7 @@ namespace enigma2
   private:
     static const std::string FILE_NOT_FOUND_RESPONSE_SUFFIX;
 
-    bool GetRecordingsFromLocation(const std::string recordingFolder, bool deleted, std::vector<data::RecordingEntry>& recordings);
+    bool GetRecordingsFromLocation(const std::string recordingFolder, bool deleted, std::vector<data::RecordingEntry>& recordings, std::unordered_map<std::string, enigma2::data::RecordingEntry>& recordingsIdMap);
     data::RecordingEntry GetRecording(const std::string& recordingId) const;
     bool ReadExtaRecordingCutsInfo(const data::RecordingEntry& recordingEntry, std::vector<std::pair<int, int64_t>>& cuts, std::vector<std::string>& tags);
     bool ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& recordingEntry, std::vector<std::string>& tags);

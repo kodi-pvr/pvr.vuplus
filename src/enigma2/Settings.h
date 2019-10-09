@@ -161,6 +161,7 @@ namespace enigma2
 
     //Channel
     bool GetZapBeforeChannelSwitch() const { return m_zap; }
+    bool UseGroupSpecificChannelNumbers() const { return m_useGroupSpecificChannelNumbers; }
     bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetCustomTVGroupsFile() const { return m_customTVGroupsFile; }
@@ -322,6 +323,7 @@ namespace enigma2
 
     //Channel
     bool m_zap = false;
+    bool m_useGroupSpecificChannelNumbers = false;
     bool m_useStandardServiceReference = true;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     unsigned int m_numTVGroups = DEFAULT_NUM_GROUPS;

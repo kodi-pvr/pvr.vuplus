@@ -157,7 +157,7 @@ void Channels::AddChannel(Channel& newChannel, std::shared_ptr<ChannelGroup>& ch
 
     std::shared_ptr<Channel> channel = m_channels.back();
     channel->AddChannelGroup(channelGroup);
-    channelGroup->AddChannel(channel);
+    channelGroup->AddChannelGroupMember(channel);
 
     m_channelsUniqueIdMap.insert({channel->GetUniqueId(), channel});
     m_channelsServiceReferenceMap.insert({channel->GetServiceReference(), channel});
@@ -165,7 +165,7 @@ void Channels::AddChannel(Channel& newChannel, std::shared_ptr<ChannelGroup>& ch
   else
   {
     foundChannel->AddChannelGroup(channelGroup);
-    channelGroup->AddChannel(foundChannel);
+    channelGroup->AddChannelGroupMember(foundChannel);
   }
 }
 
@@ -318,11 +318,17 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
               channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
             }
 
-            if (!jsonChannel["pos"].empty() && channel->UsingDefaultChannelNumber() && Settings::GetInstance().SupportsChannelNumberGroupStartPos())
+            if (!jsonChannel["pos"].empty() && Settings::GetInstance().SupportsChannelNumberGroupStartPos())
             {
-              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["pos"].get<int>());
-              channel->SetChannelNumber(jsonChannel["pos"].get<int>() + lastGroupLatestChannelPosition);
-              channel->SetUsingDefaultChannelNumber(false);
+              int channelNumber = jsonChannel["pos"].get<int>() + newChannelPositionOffset;
+              channelGroup->SetMemberChannelNumber(channel, channelNumber);
+
+              if (channel->UsingDefaultChannelNumber())
+              {
+                Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channelNumber);
+                channel->SetChannelNumber(channelNumber);
+                channel->SetUsingDefaultChannelNumber(false);
+              }
             }
 
             if (Settings::GetInstance().UseOpenWebIfPiconPath())

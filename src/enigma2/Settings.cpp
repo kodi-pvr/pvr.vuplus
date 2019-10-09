@@ -122,6 +122,9 @@ void Settings::ReadFromAddon()
   if (!XBMC->GetSetting("zap", &m_zap))
     m_zap = false;
 
+  if (!XBMC->GetSetting("usegroupspecificnumbers", &m_useGroupSpecificChannelNumbers))
+    m_useGroupSpecificChannelNumbers = false;
+
   if (!XBMC->GetSetting("usestandardserviceref", &m_useStandardServiceReference))
     m_useStandardServiceReference = true;
 
@@ -432,6 +435,8 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const void* sett
   //Channels
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "usegroupspecificnumbers")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useGroupSpecificChannelNumbers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "usestandardserviceref")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useStandardServiceReference, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tvgroupmode")

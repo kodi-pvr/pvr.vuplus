@@ -19,7 +19,7 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Full Tuner Signal Support (Including Service Providers)
 * Timer and Recording descriptions: If your provider only uses short description (plot outline) instead of long descrption (plot) then info will not be displayed pertaining to the shows in question. For OpenWebIf clients a JSON API is available to populate the missing data.
 * Edit recording name, last played position and play count for recordings
-* Bouquet Backend Channel Numbers
+* Bouquet (and group specific) Backend Channel Numbers
 
 Some features are only available with at least certain OpenWebIf versions:
 * 1.3.0
@@ -135,13 +135,14 @@ Within this tab general options are configured.
 ### Channels
 Within this tab options that refer to channel data can be set. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: `Settings->PVR & Live TV->General->Clear cache`.
 
-Note that channel numbers are set in the addon based on their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet in which it is loaded, any subsequent channel numbers will be ignored. Therefore if it's desired to keep the same channel numbers across the Enigma2 device and the addon the following guidelines should be adhered to:
-  * If a master bouquet is used it should be the first bouquet loaded assuming it has the channel numbering/order you require.
-  * If not using a master bouquet each channel should only appear in a single bouquet (i.e. do not use channels in multiple bouquets unless they have different service references).
+Note that channel numbers can be set in the addon based on either:
+  1. Their first occurence when loaded, i.e. if a channel appears in multiple bouqets the channel number will be taken from the first bouquet in which it is loaded, any subsequent channel numbers will be ignored. This is useful as regardless of what group you are using in Kodi-PVR you can jump to a channel easily as it will always have the same number.
+  2. Bouquet specific channel numbering, i.e. exactly as they appear in the backend. This can be useful when bouquet are used as differnt users (profile-like) lists of channels.
 
 If Kodi PVR is set to use the channel numbers from the backend the numbers will match those on your STB. If this is not enabled each unique instance of a channel will be given the next free number starting from 1 (i.e. the 17th unique channel will be channel 17). Backend channel numbers will only work for OpenWebIf 1.3.5 and later and they have been tested using ABM (AutoBouquetsMaker).
 
 * **Zap before channelswitch (i.e. for Single Tuner boxes)**: When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that "allow channel switching" needs to be enabled in the webinterface on the set-top box.
+* **Use group specific channel numbers from backend**: If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded).
 * **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
@@ -215,15 +216,15 @@ If setting padding in Kodi PVR it's only supported on certain timer types, i.e. 
 
 The addon provides the following types of timers and timer rules that the user can create:
 
-* **Once off time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). If running OpenWebIf the timer will be populated with the EPG Entry (if available) at the start time for that channel.
-* **Repeating time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). This type is a timer rule and generates timers. The timers that are generated cannot be edited and will be of the type `Once off timer (set by repeating time/channel based rule)`.
+* **Once off timer (channel)**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). If running OpenWebIf the timer will be populated with the EPG Entry (if available) at the start time for that channel.
+* **Repeating time/channel based**: This timer can be created from the add timer UI on the main PVR screen (It cannot be selected from the EPG UI). This type is a timer rule and generates timers. The timers that are generated cannot be edited and will be of the type `Once off timer (repeating)`.
 * **One time guide-based**: This timer can be created from the EPG UI as well as when playing a channel. It is the timer used when the user selects `Record` when accessing an EPG entry. It will create a timer that starts and ends as per the EPG entry. If playing back a channel it will start from now until the end of the current show. If using OpenWebIf, for providers that only use short description (plot outline) the addon will retrieve the correct description if available and use it in both the timer and resulting recording.
-* **Auto guide-based**: This is a search based timer rule, using the show name and other factors the Enigma2 device will create timers for EPG entries that satisfy the search. The timers it creates are not editable and will be of the type `Once off timer (set by auto guide-based rule)`.
+* **Auto guide-based**: This is a search based timer rule, using the show name and other factors the Enigma2 device will create timers for EPG entries that satisfy the search. The timers it creates are not editable and will be of the type `Once off timer (auto)`.
 
 In addition there are some timers that can only be created by the addon and are read only:
 
-* **Once off timer (set by repeating time/channel based rule)**: Timer generated by a `Repeating time/channel based` timer rule. Will contain padding that can't be modified the same as the parent timer rule.
-* **Once off timer (set by auto guide-based rule)**: Timer created by an `Auto guide-based` timer rule.
+* **Once off timer (repeating)**: Timer generated by a `Repeating time/channel based` timer rule. Will contain padding that can't be modified the same as the parent timer rule.
+* **Once off timer (auto)**: Timer created by an `Auto guide-based` timer rule.
 * **Repeating guide-based**: This type can only be created directly on the Enigma2 device. The type exists to allow users to view the timers in the PVR UI.
 
 **Timer settings**
