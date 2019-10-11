@@ -489,6 +489,8 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   if (IsAutoTimer(timer))
     return AddAutoTimer(timer);
 
+  Logger::Log(LEVEL_DEBUG, "%s - Start", __FUNCTION__);
+
   const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
   Tags tags;
 
@@ -576,20 +578,29 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
               WebUtils::URLEncodeInline(tags.GetTags()).c_str());
 
+  Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __FUNCTION__, strTmp.c_str());
+
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_SERVER_ERROR;
 
+  Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __FUNCTION__);
+
   TimerUpdates();
 
   if (alreadyStarted)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __FUNCTION__);
     PVR->TriggerRecordingUpdate();
+  }
 
   return PVR_ERROR_NO_ERROR;
 }
 
 PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
 {
+  Logger::Log(LEVEL_DEBUG, "%s - Start", __FUNCTION__);
+
   std::string strTmp = StringUtils::Format("autotimer/edit?");
 
   strTmp += StringUtils::Format("name=%s", WebUtils::URLEncodeInline(timer.strTitle).c_str());
@@ -599,7 +610,6 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
     strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
   else
     strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
-
 
   if (!timer.bStartAnyTime)
   {
@@ -692,13 +702,20 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
 
   strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
 
+  Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __FUNCTION__, strTmp.c_str());
+
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_SERVER_ERROR;
 
   if (timer.state == PVR_TIMER_STATE_RECORDING)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __FUNCTION__);
     PVR->TriggerRecordingUpdate();
+  }
 
+  Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __FUNCTION__);
+  
   TimerUpdates();
 
   return PVR_ERROR_NO_ERROR;
