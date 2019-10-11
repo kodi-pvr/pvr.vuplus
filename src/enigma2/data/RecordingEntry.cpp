@@ -161,12 +161,12 @@ long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
 void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder)
 {
   std::string strTmp;
-  strncpy(left.strRecordingId, m_recordingId.c_str(), sizeof(left.strRecordingId));
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle));
-  strncpy(left.strPlotOutline, m_plotOutline.c_str(), sizeof(left.strPlotOutline));
-  strncpy(left.strPlot, m_plot.c_str(), sizeof(left.strPlot));
-  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName));
-  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath));
+  strncpy(left.strRecordingId, m_recordingId.c_str(), sizeof(left.strRecordingId) - 1);
+  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
+  strncpy(left.strPlotOutline, m_plotOutline.c_str(), sizeof(left.strPlotOutline) - 1);
+  strncpy(left.strPlot, m_plot.c_str(), sizeof(left.strPlot) - 1);
+  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName) - 1);
+  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath) - 1);
 
   if (!Settings::GetInstance().GetKeepRecordingsFolders())
   {
@@ -178,7 +178,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
     m_directory = strTmp;
   }
 
-  strncpy(left.strDirectory, m_directory.c_str(), sizeof(left.strDirectory));
+  strncpy(left.strDirectory, m_directory.c_str(), sizeof(left.strDirectory) - 1);
   left.bIsDeleted = m_deleted;
   left.recordingTime = m_startTime;
   left.iDuration = m_duration;
@@ -201,7 +201,7 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
   left.iYear = m_year;
   left.iGenreType = m_genreType;
   left.iGenreSubType = m_genreSubType;
-  strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription));
+  strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription) - 1);
 }
 
 std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const

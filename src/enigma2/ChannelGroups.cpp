@@ -82,7 +82,7 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
   {
     PVR_CHANNEL_GROUP_MEMBER tag = {0};
 
-    strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName));
+    strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName) - 1);
     tag.iChannelUniqueId = channel->GetUniqueId();
     tag.iChannelNumber = channelNumberInGroup; //Keep the channels in list order as per the groups on the STB
 

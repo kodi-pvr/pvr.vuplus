@@ -235,11 +235,11 @@ void Channel::UpdateTo(PVR_CHANNEL& left) const
   left.iUniqueId = m_uniqueId;
   left.bIsRadio = m_radio;
   left.iChannelNumber = m_channelNumber;
-  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName));
+  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName) - 1);
   strncpy(left.strInputFormat, "", 0); // unused
   left.iEncryptionSystem = 0;
   left.bIsHidden = false;
-  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath));
+  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath) - 1);
 }
 
 void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup>& channelGroup)
