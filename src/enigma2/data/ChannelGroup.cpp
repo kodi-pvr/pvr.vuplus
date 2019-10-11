@@ -124,7 +124,7 @@ void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP& left) const
 {
   left.bIsRadio = m_radio;
   left.iPosition = 0; // groups default order, unused
-  strncpy(left.strGroupName, m_groupName.c_str(), sizeof(left.strGroupName));
+  strncpy(left.strGroupName, m_groupName.c_str(), sizeof(left.strGroupName) - 1);
 }
 
 void ChannelGroup::AddChannel(std::shared_ptr<Channel> channel)
