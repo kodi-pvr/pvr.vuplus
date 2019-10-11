@@ -540,7 +540,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   if (Settings::GetInstance().IsOpenWebIf() && (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
   {
     // We try to find the EPG Entry and use it's details
-    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime);
+    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, alreadyStarted ? startTime : timer.startTime);
 
     if (partialEntry.EntryFound())
     {
