@@ -340,6 +340,8 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 {
   EpgPartialEntry partialEntry;
 
+  Logger::Log(LEVEL_DEBUG, "%s Looking for EPG event partial details for sref: %s, epgUid: %u", __FUNCTION__, serviceReference.c_str(), epgUid);
+
   const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(),
                                                   WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
 
@@ -390,6 +392,8 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceReference, time_t startTime)
 {
   EpgPartialEntry partialEntry;
+
+  Logger::Log(LEVEL_DEBUG, "%s Looking for EPG event partial details for sref: %s, time: %ld", __FUNCTION__, serviceReference.c_str(), startTime);
 
   const std::string jsonUrl = StringUtils::Format("%sapi/epgservice?sRef=%s&time=%ld&endTime=1", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), startTime);
 
