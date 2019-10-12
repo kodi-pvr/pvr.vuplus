@@ -79,10 +79,8 @@ void AutoTimer::UpdateFrom(const AutoTimer& right)
 
 void AutoTimer::UpdateTo(PVR_TIMER& left) const
 {
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle));
-  //strncpy(tag.strDirectory, "/", sizeof(tag.strDirectory));   // unused
-  //strncpy(tag.strSummary, timer.strPlot.c_str(), sizeof(tag.strSummary));
-  strncpy(left.strEpgSearchString, m_searchPhrase.c_str(), sizeof(left.strEpgSearchString));
+  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
+  strncpy(left.strEpgSearchString, m_searchPhrase.c_str(), sizeof(left.strEpgSearchString) - 1);
   left.iTimerType = m_type;
   if (m_anyChannel)
     left.iClientChannelUid = PVR_TIMER_ANY_CHANNEL;
@@ -95,7 +93,6 @@ void AutoTimer::UpdateTo(PVR_TIMER& left) const
   left.iLifetime = 0; // unused
   left.firstDay = 0; // unused
   left.iWeekdays = m_weekdays;
-  //right.iEpgUid = timer.iEpgID;
   left.iMarginStart = 0; // unused
   left.iMarginEnd = 0; // unused
   left.iGenreType = 0; // unused

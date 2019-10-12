@@ -98,9 +98,9 @@ void Timer::UpdateFrom(const Timer& right)
 
 void Timer::UpdateTo(PVR_TIMER& left) const
 {
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle));
-  strncpy(left.strDirectory, "/", sizeof(left.strDirectory)); // unused
-  strncpy(left.strSummary, m_plot.c_str(), sizeof(left.strSummary));
+  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
+  strncpy(left.strDirectory, "/", sizeof(left.strDirectory) - 1); // unused
+  strncpy(left.strSummary, m_plot.c_str(), sizeof(left.strSummary) - 1);
   left.iTimerType = m_type;
   left.iClientChannelUid = m_channelId;
   left.startTime = m_startTime;
