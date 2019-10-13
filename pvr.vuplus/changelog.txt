@@ -1,3 +1,6 @@
+v3.28.3
+- Added: Epg lookup debug logging - When adding timer
+
 v3.28.2
 - Fixed: Use correct start time for EPG lookup when adding timer
 - Fixed: strncpy fix possible length fault
