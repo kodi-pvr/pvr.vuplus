@@ -1,3 +1,6 @@
+v4.9.2
+- Added: added new addon icon
+
 v4.9.1
 - Fixed: Use correct start time for EPG lookup when adding timer
 - Fixed: strncpy fix possible length fault
