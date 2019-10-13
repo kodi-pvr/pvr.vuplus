@@ -1,3 +1,6 @@
+v3.28.4
+- Added: added new addon icon
+
 v3.28.3
 - Added: Epg lookup debug logging - When adding timer
 
