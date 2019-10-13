@@ -1,3 +1,6 @@
+v3.28.5
+- Added: release package bump
+
 v3.28.4
 - Added: added new addon icon
 
