@@ -1,3 +1,6 @@
+v3.28.6
+- Added: Epg lookup more debug logging on add timer
+
 v3.28.5
 - Added: release package bump
 
