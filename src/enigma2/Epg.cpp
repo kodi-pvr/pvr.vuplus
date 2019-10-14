@@ -433,10 +433,18 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 
         if (partialEntry.EntryFound())
         {
+          Logger::Log(LEVEL_DEBUG, "%s Found sref: %s", __FUNCTION__, serviceReference.c_str());
+          Logger::Log(LEVEL_DEBUG, "%s Found time: %ld", __FUNCTION__, startTime);
+          Logger::Log(LEVEL_DEBUG, "%s Found title: '%s'", __FUNCTION__, partialEntry.GetTitle().c_str());
+          Logger::Log(LEVEL_DEBUG, "%s Found epgId: %u", __FUNCTION__, partialEntry.GetEpgUid());
+          Logger::Log(LEVEL_DEBUG, "%s Found plotOutline: '%s'", __FUNCTION__, partialEntry.GetPlotOutline().c_str());
           Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
         }
         else
         {
+          Logger::Log(LEVEL_DEBUG, "%s Not found title: '%s'", __FUNCTION__, partialEntry.GetTitle().c_str());
+          Logger::Log(LEVEL_DEBUG, "%s Not found epgId: %u", __FUNCTION__, partialEntry.GetEpgUid());
+          Logger::Log(LEVEL_DEBUG, "%s Not found plotOutline: '%s'", __FUNCTION__, partialEntry.GetPlotOutline().c_str());
           Logger::Log(LEVEL_DEBUG, "%s Event did not match - title: %s, epgId: %u - '%s'", __FUNCTION__, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
         }
 
