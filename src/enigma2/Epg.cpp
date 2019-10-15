@@ -401,17 +401,14 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 
   try
   {
-    Logger::Log(LEVEL_DEBUG, "%s Parse JSON replay", __FUNCTION__);
     auto jsonDoc = json::parse(strJson);
 
     if (!jsonDoc["events"].empty())
     {
-      Logger::Log(LEVEL_DEBUG, "%s Found events, size: %d", __FUNCTION__, jsonDoc["events"].size());
       for (const auto& event : jsonDoc["events"].items())
       {
         for (const auto& element : event.value().items())
         {
-          Logger::Log(LEVEL_DEBUG, "%s Checking event element: %s", __FUNCTION__, element.key().c_str());
           if (element.key() == "shortdesc")
             partialEntry.SetPlotOutline(element.value().get<std::string>());
           if (element.key() == "longdesc")
@@ -426,27 +423,12 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
             partialEntry.SetGenreType(genreId & 0xF0);
             partialEntry.SetGenreSubType(genreId & 0x0F);
           }
-          Logger::Log(LEVEL_DEBUG, "%s Checked event element: %s", __FUNCTION__, element.key().c_str());
         }
 
         Logger::Log(LEVEL_DEBUG, "%s Checked all event elements", __FUNCTION__);
 
         if (partialEntry.EntryFound())
-        {
-          Logger::Log(LEVEL_DEBUG, "%s Found sref: %s", __FUNCTION__, serviceReference.c_str());
-          Logger::Log(LEVEL_DEBUG, "%s Found time: %ld", __FUNCTION__, startTime);
-          Logger::Log(LEVEL_DEBUG, "%s Found title: '%s'", __FUNCTION__, partialEntry.GetTitle().c_str());
-          Logger::Log(LEVEL_DEBUG, "%s Found epgId: %u", __FUNCTION__, partialEntry.GetEpgUid());
-          Logger::Log(LEVEL_DEBUG, "%s Found plotOutline: '%s'", __FUNCTION__, partialEntry.GetPlotOutline().c_str());
           Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
-        }
-        else
-        {
-          Logger::Log(LEVEL_DEBUG, "%s Not found title: '%s'", __FUNCTION__, partialEntry.GetTitle().c_str());
-          Logger::Log(LEVEL_DEBUG, "%s Not found epgId: %u", __FUNCTION__, partialEntry.GetEpgUid());
-          Logger::Log(LEVEL_DEBUG, "%s Not found plotOutline: '%s'", __FUNCTION__, partialEntry.GetPlotOutline().c_str());
-          Logger::Log(LEVEL_DEBUG, "%s Event did not match - title: %s, epgId: %u - '%s'", __FUNCTION__, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
-        }
 
         break; //We only want first event
       }
@@ -460,8 +442,6 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
   {
     Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
   }
-
-  Logger::Log(LEVEL_DEBUG, "%s Finish", __FUNCTION__);
 
   return partialEntry;
 }

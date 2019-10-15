@@ -547,7 +547,6 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
 
     if (partialEntry.EntryFound())
     {
-      Logger::Log(LEVEL_DEBUG, "%s - Found Entry", __FUNCTION__);
       foundEntry = true;
 
       /* Note that plot (long desc) is automatically written to a timer entry by the backend
@@ -563,15 +562,12 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
       if (description.empty())
         description = partialEntry.GetPlot();
 
-      Logger::Log(LEVEL_DEBUG, "%s - Add Genre tag", __FUNCTION__);
       tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", partialEntry.GetGenreType() | partialEntry.GetGenreSubType()));
     }
   }
 
   if (!foundEntry)
     tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", timer.iGenreType | timer.iGenreSubType));
-
-  Logger::Log(LEVEL_DEBUG, "%s - Prep command", __FUNCTION__);
 
   std::string strTmp;
   if (!m_settings.GetRecordingPath().empty())
