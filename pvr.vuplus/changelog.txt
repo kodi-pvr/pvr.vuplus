@@ -1,3 +1,6 @@
+v3.28.7
+- Fixed: Logger fix ported from pvr.hts
+
 v3.28.6
 - Added: Epg lookup more debug logging on add timer
 
