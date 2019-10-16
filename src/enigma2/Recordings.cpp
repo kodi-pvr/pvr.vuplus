@@ -343,7 +343,7 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
   time_t now = std::time(nullptr);
   time_t newNextSyncTime = now + m_randomDistribution(m_randomGenerator);
 
-  Logger::Log(LEVEL_DEBUG, "%s Recording: %s - Checking if Next Sync Time: %ld < Now: %ld ", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetNextSyncTime(), now);
+  Logger::Log(LEVEL_DEBUG, "%s Recording: %s - Checking if Next Sync Time: %lld < Now: %lld ", __FUNCTION__, recordingEntry.GetTitle().c_str(), static_cast<long long>(recordingEntry.GetNextSyncTime()), static_cast<long long>(now));
 
   if (Settings::GetInstance().GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_AND_E2_INSTANCES &&
       recordingEntry.GetNextSyncTime() < now)
@@ -420,7 +420,7 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
 
 void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags)
 {
-  Logger::Log(LEVEL_DEBUG, "%s Setting next sync time in tags for recording '%s' to '%ld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), nextSyncTime);
+  Logger::Log(LEVEL_DEBUG, "%s Setting next sync time in tags for recording '%s' to '%lld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
 
   std::string addTagsArg = TAG_FOR_NEXT_SYNC_TIME + "=" + std::to_string(nextSyncTime);
 
@@ -447,7 +447,7 @@ void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t
   if (!WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
   {
     recordingEntry.SetNextSyncTime(nextSyncTime);
-    Logger::Log(LEVEL_ERROR, "%s Error setting next sync time for recording '%s' to '%ld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), nextSyncTime);
+    Logger::Log(LEVEL_ERROR, "%s Error setting next sync time for recording '%s' to '%lld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
   }
 }
 
