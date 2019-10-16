@@ -425,8 +425,6 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
           }
         }
 
-        Logger::Log(LEVEL_DEBUG, "%s Checked all event elements", __FUNCTION__);
-
         if (partialEntry.EntryFound())
           Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
 

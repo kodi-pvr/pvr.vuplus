@@ -718,7 +718,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __FUNCTION__);
-  
+
   TimerUpdates();
 
   return PVR_ERROR_NO_ERROR;
