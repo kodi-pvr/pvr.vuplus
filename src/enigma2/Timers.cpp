@@ -105,8 +105,8 @@ std::vector<Timer> Timers::LoadTimers() const
       GenerateChildManualRepeatingTimers(&timers, &newTimer);
     }
 
-    Logger::Log(LEVEL_INFO, "%s fetched Timer entry '%s', begin '%d', end '%d', start padding mins '%u', end padding mins '%u'",
-                __FUNCTION__, newTimer.GetTitle().c_str(), newTimer.GetStartTime(), newTimer.GetEndTime(), newTimer.GetPaddingStartMins(), newTimer.GetPaddingEndMins());
+    Logger::Log(LEVEL_INFO, "%s fetched Timer entry '%s', begin '%lld', end '%lld', start padding mins '%u', end padding mins '%u'",
+                __FUNCTION__, newTimer.GetTitle().c_str(), static_cast<long long>(newTimer.GetStartTime()), static_cast<long long>(newTimer.GetEndTime()), newTimer.GetPaddingStartMins(), newTimer.GetPaddingEndMins());
   }
 
   Logger::Log(LEVEL_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
@@ -231,7 +231,7 @@ std::vector<AutoTimer> Timers::LoadAutoTimers() const
 
     autoTimers.emplace_back(newAutoTimer);
 
-    Logger::Log(LEVEL_INFO, "%s fetched AutoTimer entry '%s', begin '%d', end '%d'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), newAutoTimer.GetStartTime(), newAutoTimer.GetEndTime());
+    Logger::Log(LEVEL_INFO, "%s fetched AutoTimer entry '%s', begin '%lld', end '%lld'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), static_cast<long long>(newAutoTimer.GetStartTime()), static_cast<long long>(newAutoTimer.GetEndTime()));
   }
 
   Logger::Log(LEVEL_INFO, "%s fetched %u AutoTimer Entries", __FUNCTION__, autoTimers.size());
@@ -571,13 +571,13 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
 
   std::string strTmp;
   if (!m_settings.GetRecordingPath().empty())
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s&dirname=&s",
-              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, startTime, endTime,
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s&dirname=&s",
+              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, static_cast<long long>(startTime), static_cast<long long>(endTime),
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
               WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings.GetRecordingPath()).c_str());
   else
-    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%d&end=%d&name=%s&description=%s&eit=%d&tags=%s",
-              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, startTime, endTime,
+    strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s",
+              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, static_cast<long long>(startTime), static_cast<long long>(endTime),
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
               WebUtils::URLEncodeInline(tags.GetTags()).c_str());
 
@@ -718,7 +718,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __FUNCTION__);
-  
+
   TimerUpdates();
 
   return PVR_ERROR_NO_ERROR;
@@ -777,12 +777,13 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
 
     tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
-    const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%d&end=%d&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%d&endOld=%d&deleteOldOnSave=1",
-                                    WebUtils::URLEncodeInline(strServiceReference).c_str(), startTime, endTime,
+    const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%lld&end=%lld&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%lld&endOld=%lld&deleteOldOnSave=1",
+                                    WebUtils::URLEncodeInline(strServiceReference).c_str(), static_cast<long long>(startTime), static_cast<long long>(endTime),
                                     WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(),
                                     WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.iWeekdays,
-                                    WebUtils::URLEncodeInline(oldTimer.GetServiceReference()).c_str(), oldTimer.GetRealStartTime(),
-                                    oldTimer.GetRealEndTime());
+                                    WebUtils::URLEncodeInline(oldTimer.GetServiceReference()).c_str(),
+                                    static_cast<long long>(oldTimer.GetRealStartTime()),
+                                    static_cast<long long>(oldTimer.GetRealEndTime()));
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
@@ -1010,9 +1011,10 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER& timer)
   {
     Timer timerToDelete = *it;
 
-    const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d",
+    const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%lld&end=%lld",
                                                    WebUtils::URLEncodeInline(timerToDelete.GetServiceReference()).c_str(),
-                                                   timerToDelete.GetRealStartTime(), timerToDelete.GetRealEndTime());
+                                                   static_cast<long long>(timerToDelete.GetRealStartTime()),
+                                                   static_cast<long long>(timerToDelete.GetRealEndTime()));
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
@@ -1046,9 +1048,10 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
     {
       if (childTimer.GetParentClientIndex() == timerToDelete.GetClientIndex())
       {
-        const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%d&end=%d",
+        const std::string strTmp = StringUtils::Format("web/timerdelete?sRef=%s&begin=%lld&end=%lld",
                                                        WebUtils::URLEncodeInline(childTimer.GetServiceReference()).c_str(),
-                                                       childTimer.GetRealStartTime(), childTimer.GetRealEndTime());
+                                                       static_cast<long long>(childTimer.GetRealStartTime()),
+                                                       static_cast<long long>(childTimer.GetRealEndTime()));
 
         std::string strResult;
         WebUtils::SendSimpleCommand(strTmp, strResult, true);

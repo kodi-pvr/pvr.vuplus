@@ -1,3 +1,6 @@
+v3.28.8
+- Fix time_t format string specifier win32 seg faults
+
 v3.28.7
 - Fixed: Logger fix ported from pvr.hts
 

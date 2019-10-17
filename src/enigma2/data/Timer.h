@@ -66,29 +66,14 @@ namespace enigma2
       Type GetType() const { return m_type; }
       void SetType(const Type value) { m_type = value; }
 
-      const std::string& GetServiceReference() const { return m_serviceReference; }
-      void SetServiceReference(const std::string& value) { m_serviceReference = value; }
-
-      int GetChannelId() const { return m_channelId; }
-      void SetChannelId(int value) { m_channelId = value; }
-
       const std::string& GetChannelName() const { return m_channelName; }
       void SetChannelName(const std::string& value) { m_channelName = value; }
-
-      time_t GetStartTime() const { return m_startTime; }
-      void SetStartTime(time_t value) { m_startTime = value; }
-
-      time_t GetEndTime() const { return m_endTime; }
-      void SetEndTime(time_t value) { m_endTime = value; }
 
       time_t GetRealStartTime() const { return m_startTime - (m_paddingStartMins * 60); }
       time_t GetRealEndTime() const { return m_endTime + (m_paddingEndMins * 60); }
 
       int GetWeekdays() const { return m_weekdays; }
       void SetWeekdays(int value) { m_weekdays = value; }
-
-      unsigned int GetEpgId() const { return m_epgId; }
-      void SetEpgId(unsigned int value) { m_epgId = value; }
 
       PVR_TIMER_STATE GetState() const { return m_state; }
       void SetState(PVR_TIMER_STATE value) { m_state = value; }

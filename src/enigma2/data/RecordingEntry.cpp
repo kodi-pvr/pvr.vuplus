@@ -113,8 +113,12 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
 
   if (ContainsTag(TAG_FOR_NEXT_SYNC_TIME))
   {
-    if (std::sscanf(ReadTagValue(TAG_FOR_NEXT_SYNC_TIME).c_str(), "%ld", &m_nextSyncTime) != 1)
+    long long scannedTime = 0;
+    if (std::sscanf(ReadTagValue(TAG_FOR_NEXT_SYNC_TIME).c_str(), "%lld", &scannedTime) != 1)
       m_nextSyncTime = 0;
+    else
+      m_nextSyncTime = static_cast<time_t>(scannedTime);
+
   }
 
   auto channel = FindChannel(channels);
