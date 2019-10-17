@@ -1,3 +1,7 @@
+v4.9.3
+- Fixed: Logger fix ported from pvr.hts
+- Fixed: Fix time_t format string specifier win32 seg faults
+
 v4.9.2
 - Added: added new addon icon
 

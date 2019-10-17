@@ -392,9 +392,9 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 {
   EpgPartialEntry partialEntry;
 
-  Logger::Log(LEVEL_DEBUG, "%s Looking for EPG event partial details for sref: %s, time: %ld", __FUNCTION__, serviceReference.c_str(), startTime);
+  Logger::Log(LEVEL_DEBUG, "%s Looking for EPG event partial details for sref: %s, time: %lld", __FUNCTION__, serviceReference.c_str(), static_cast<long long>(startTime));
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/epgservice?sRef=%s&time=%ld&endTime=1", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), startTime);
+  const std::string jsonUrl = StringUtils::Format("%sapi/epgservice?sRef=%s&time=%lld&endTime=1", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), static_cast<long long>(startTime));
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -425,9 +425,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
         }
 
         if (partialEntry.EntryFound())
-        {
-          Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %ld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), startTime, partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
-        }
+          Logger::Log(LEVEL_DEBUG, "%s Loaded EPG event partial details for sref: %s, time: %lld - title: %s, epgId: %u - '%s'", __FUNCTION__, serviceReference.c_str(), static_cast<long long>(startTime), partialEntry.GetTitle().c_str(), partialEntry.GetEpgUid(), partialEntry.GetPlotOutline().c_str());
 
         break; //We only want first event
       }
@@ -435,7 +433,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
   }
   catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot event details from OpenWebIf for sref: %s, time: %ld - JSON parse error - message: %s, exception id: %d", __FUNCTION__, serviceReference.c_str(), startTime, e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot event details from OpenWebIf for sref: %s, time: %lld - JSON parse error - message: %s, exception id: %d", __FUNCTION__, serviceReference.c_str(), static_cast<long long>(startTime), e.what(), e.id);
   }
   catch (nlohmann::detail::type_error& e)
   {
@@ -451,7 +449,7 @@ std::string Epg::FindServiceReference(const std::string& title, int epgUid, time
 
   const auto started = std::chrono::high_resolution_clock::now();
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/epgsearch?search=%s&endtime=%ld", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(title).c_str(), endTime);
+  const std::string jsonUrl = StringUtils::Format("%sapi/epgsearch?search=%s&endtime=%lld", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(title).c_str(), static_cast<long long>(endTime));
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -477,7 +475,7 @@ std::string Epg::FindServiceReference(const std::string& title, int epgUid, time
   }
   catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot service reference from OpenWebIf for: %s, epgUid: %d, start time: %ld, end time: %ld  - JSON parse error - message: %s, exception id: %d", __FUNCTION__, title.c_str(), epgUid, startTime, endTime, e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot retrieve service reference from OpenWebIf for: %s, epgUid: %d, start time: %lld, end time: %lld  - JSON parse error - message: %s, exception id: %d", __FUNCTION__, title.c_str(), epgUid, static_cast<long long>(startTime), static_cast<long long>(endTime), e.what(), e.id);
   }
   catch (nlohmann::detail::type_error& e)
   {
