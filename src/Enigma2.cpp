@@ -453,6 +453,11 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
   return m_epg.GetEPGForChannel(handle, myChannel->GetServiceReference(), iStart, iEnd);
 }
 
+void Enigma2::SetEPGTimeFrame(int epgMaxDays)
+{
+  m_epg.SetEPGTimeFrame(epgMaxDays);
+}
+
 /***************************************************************************
  * Livestream
  **************************************************************************/

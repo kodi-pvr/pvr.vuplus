@@ -38,6 +38,7 @@
 namespace enigma2
 {
   static const float LAST_SCANNED_INITIAL_EPG_SUCCESS_PERCENT = 0.99f;
+  static const int DEFAULT_EPG_MAX_DAYS = 3;
 
   class Epg
   {
@@ -50,6 +51,7 @@ namespace enigma2
     void TriggerEpgUpdatesForChannels();
     void MarkChannelAsInitialEpgRead(const std::string& serviceReference);
     PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceReference, time_t iStart, time_t iEnd);
+    void SetEPGTimeFrame(int epgMaxDays);
     std::string LoadEPGEntryShortDescription(const std::string& serviceReference, unsigned int epgUid);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string& serviceReference, time_t startTime);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string& serviceReference, unsigned int epgUid);

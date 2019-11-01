@@ -315,6 +315,16 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& g
  * EPG and Channels
  **************************************************************************/
 
+PVR_ERROR SetEPGTimeFrame(int epgMaxDays)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  enigma->SetEPGTimeFrame(epgMaxDays);
+
+  return PVR_ERROR_NO_ERROR;
+}
+
 PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
 {
   if (!enigma || !enigma->IsConnected())
@@ -502,7 +512,7 @@ void PauseStream(bool paused)
       settings.IsTimeshiftBufferPathValid())
   {
     streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
-    ()streamReader->Start();
+    streamReader->Start();
   }
 }
 
@@ -742,7 +752,6 @@ void DemuxReset() {}
 void DemuxFlush() {}
 bool SeekTime(double, bool, double*) { return false; }
 void SetSpeed(int){};
-PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR IsEPGTagRecordable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
