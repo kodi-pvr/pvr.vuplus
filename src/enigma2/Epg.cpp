@@ -49,7 +49,7 @@ Epg::Epg(const Epg& epg) : m_entryExtractor(epg.m_entryExtractor) {}
 
 bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups)
 {
-  m_epgMaxDaysSeconds = m_epgMaxDays * 24 * 60 * 60;
+  SetEPGTimeFrame(m_epgMaxDays);
 
   auto started = std::chrono::high_resolution_clock::now();
   Logger::Log(LEVEL_DEBUG, "%s Initial EPG Load Start", __FUNCTION__);
@@ -278,6 +278,18 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
 
 
   return PVR_ERROR_NO_ERROR;
+}
+
+void Epg::SetEPGTimeFrame(int epgMaxDays)
+{
+  CLockObject lock(m_mutex);
+
+  m_epgMaxDays = epgMaxDays;
+
+  if (m_epgMaxDays > 0)
+    m_epgMaxDaysSeconds = m_epgMaxDays * 24 * 60 * 60;
+  else
+    m_epgMaxDaysSeconds = DEFAULT_EPG_MAX_DAYS * 24 * 60 * 60;
 }
 
 PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)

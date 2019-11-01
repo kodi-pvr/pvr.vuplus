@@ -332,7 +332,7 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   for (const auto& myChannel : m_channels.GetChannelsList())
     PVR->TriggerEpgUpdate(myChannel->GetUniqueId());
 
-  PVR->TriggerRecordingUpdate();  
+  PVR->TriggerRecordingUpdate();
 }
 
 void Enigma2::SendPowerstate()
@@ -454,6 +454,11 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL& chan
   }
 
   return m_epg.GetEPGForChannel(handle, myChannel->GetServiceReference(), iStart, iEnd);
+}
+
+void Enigma2::SetEPGTimeFrame(int epgMaxDays)
+{
+  m_epg.SetEPGTimeFrame(epgMaxDays);
 }
 
 /***************************************************************************
