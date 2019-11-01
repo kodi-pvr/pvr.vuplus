@@ -621,7 +621,7 @@
         </setting>
         <setting id="skipinitialepg" type="boolean" label="30115" help="30669">
           <level>2</level>
-          <default>true</default>
+          <default>false</default>
           <control type="toggle" />
         </setting>
       </group>
