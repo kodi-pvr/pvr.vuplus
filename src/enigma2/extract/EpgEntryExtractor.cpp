@@ -53,7 +53,7 @@ EpgEntryExtractor::EpgEntryExtractor()
   }
 }
 
-EpgEntryExtractor::~EpgEntryExtractor(void) {}
+EpgEntryExtractor::~EpgEntryExtractor() {}
 
 void EpgEntryExtractor::ExtractFromEntry(BaseEntry& entry)
 {

@@ -35,7 +35,7 @@ RecordingReader::RecordingReader(const std::string& streamURL, std::time_t start
   : m_streamURL(streamURL), m_start(start), m_end(end), m_duration(duration)
 {
   m_readHandle = XBMC->CURLCreate(m_streamURL.c_str());
-  (void)XBMC->CURLOpen(m_readHandle, XFILE::READ_NO_CACHE);
+  XBMC->CURLOpen(m_readHandle, XFILE::READ_NO_CACHE);
   m_len = XBMC->GetFileLength(m_readHandle);
   m_nextReopen = std::time(nullptr) + REOPEN_INTERVAL;
 
@@ -45,11 +45,11 @@ RecordingReader::RecordingReader(const std::string& streamURL, std::time_t start
     m_duration = static_cast<int>(end - start);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s RecordingReader: Started - url=%s, start=%u, end=%u, duration=%d", __FUNCTION__, m_streamURL.c_str(),
-              m_start, m_end, m_duration);
+  Logger::Log(LEVEL_DEBUG, "%s RecordingReader: Started - url=%s, start=%lld, end=%lld, duration=%d", __FUNCTION__, m_streamURL.c_str(),
+              static_cast<long long>(m_start), static_cast<long long>(m_end), m_duration);
 }
 
-RecordingReader::~RecordingReader(void)
+RecordingReader::~RecordingReader()
 {
   if (m_readHandle)
     XBMC->CloseFile(m_readHandle);
@@ -71,7 +71,7 @@ ssize_t RecordingReader::ReadData(unsigned char* buffer, unsigned int size)
     {
       /* reopen stream */
       Logger::Log(LEVEL_DEBUG, "%s RecordingReader: Reopening stream...", __FUNCTION__);
-      (void)XBMC->CURLOpen(m_readHandle, XFILE::READ_REOPEN | XFILE::READ_NO_CACHE);
+      XBMC->CURLOpen(m_readHandle, XFILE::READ_REOPEN | XFILE::READ_NO_CACHE);
       m_len = XBMC->GetFileLength(m_readHandle);
       XBMC->SeekFile(m_readHandle, m_pos, SEEK_SET);
 
@@ -118,7 +118,7 @@ int RecordingReader::CurrentDuration()
 
     if (now < m_end)
     {
-      Logger::Log(LEVEL_DEBUG, "%s RecordingReader - Partial: %d", __FUNCTION__, static_cast<int>(now - m_start));
+      Logger::Log(LEVEL_DEBUG, "%s RecordingReader - Partial: %lld", __FUNCTION__, static_cast<long long>(now - m_start));
       return now - m_start;
     }
   }

@@ -67,7 +67,7 @@ namespace enigma2
     {
     public:
       ShowInfoExtractor();
-      ~ShowInfoExtractor(void);
+      ~ShowInfoExtractor();
 
       void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();

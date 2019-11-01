@@ -40,7 +40,7 @@ GenreIdMapper::GenreIdMapper() : IExtractor()
   LoadGenreIdMapFile();
 }
 
-GenreIdMapper::~GenreIdMapper(void) {}
+GenreIdMapper::~GenreIdMapper() {}
 
 void GenreIdMapper::ExtractFromEntry(BaseEntry& entry)
 {

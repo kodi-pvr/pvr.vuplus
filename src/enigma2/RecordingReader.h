@@ -32,7 +32,7 @@ namespace enigma2
   {
   public:
     RecordingReader(const std::string& streamURL, std::time_t start, std::time_t end, int duration);
-    ~RecordingReader(void);
+    ~RecordingReader();
 
     bool Start();
     ssize_t ReadData(unsigned char* buffer, unsigned int size);

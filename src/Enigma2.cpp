@@ -481,7 +481,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
   return true;
 }
 
-void Enigma2::CloseLiveStream(void)
+void Enigma2::CloseLiveStream()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;

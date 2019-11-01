@@ -72,10 +72,10 @@ public:
   bool IsConnected() const;
 
   //groups, channels and EPG
-  unsigned int GetNumChannelGroups(void) const;
+  unsigned int GetNumChannelGroups() const;
   PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool radio);
   PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& group);
-  int GetChannelsAmount(void) const;
+  int GetChannelsAmount() const;
   PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio);
   PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd);
 
@@ -100,7 +100,7 @@ public:
   int GetRecordingStreamProgramNumber(const PVR_RECORDING& recording);
   enigma2::RecordingReader* OpenRecordedStream(const PVR_RECORDING& recinfo);
   void GetTimerTypes(PVR_TIMER_TYPE types[], int* size);
-  int GetTimersAmount(void);
+  int GetTimersAmount();
   PVR_ERROR GetTimers(ADDON_HANDLE handle);
   PVR_ERROR AddTimer(const PVR_TIMER& timer);
   PVR_ERROR UpdateTimer(const PVR_TIMER& timer);
