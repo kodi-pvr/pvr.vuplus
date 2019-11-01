@@ -1,5 +1,8 @@
+v3.28.9
+- Fixed: Add Timer title and fallback entry fix
+
 v3.28.8
-- Fix time_t format string specifier win32 seg faults
+- Fixed: Fix time_t format string specifier win32 seg faults
 
 v3.28.7
 - Fixed: Logger fix ported from pvr.hts
