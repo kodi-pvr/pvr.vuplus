@@ -1,3 +1,7 @@
+v4.9.4
+- Fixed: Add Timer title and fallback entry fix
+- Update: Disable skip initial EPG load as default
+
 v4.9.3
 - Fixed: Logger fix ported from pvr.hts
 - Fixed: Fix time_t format string specifier win32 seg faults

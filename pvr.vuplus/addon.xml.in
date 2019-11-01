@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.9.3"
+  version="4.9.4"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -175,6 +175,10 @@
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
     <platform>@PLATFORM@</platform>
     <news>
+v4.9.4
+- Fixed: Add Timer title and fallback entry fix
+- Update: Disable skip initial EPG load as default
+
 v4.9.3
 - Fixed: Logger fix ported from pvr.hts
 - Fixed: Fix time_t format string specifier win32 seg faults
