@@ -31,7 +31,7 @@ namespace enigma2
   {
   public:
     StreamReader(const std::string& streamURL, const unsigned int m_readTimeout);
-    ~StreamReader(void);
+    ~StreamReader();
 
     bool Start() override;
     ssize_t ReadData(unsigned char* buffer, unsigned int size) override;

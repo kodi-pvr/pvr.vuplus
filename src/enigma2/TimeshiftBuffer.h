@@ -34,7 +34,7 @@ namespace enigma2
   {
   public:
     TimeshiftBuffer(IStreamReader* strReader, const std::string& m_timeshiftBufferPath, const unsigned int m_readTimeoutX);
-    ~TimeshiftBuffer(void);
+    ~TimeshiftBuffer();
 
     bool Start() override;
     ssize_t ReadData(unsigned char* buffer, unsigned int size) override;

@@ -38,7 +38,7 @@ StreamReader::StreamReader(const std::string& streamURL, const unsigned int read
   Logger::Log(LEVEL_DEBUG, "%s StreamReader: Started; url=%s", __FUNCTION__, streamURL.c_str());
 }
 
-StreamReader::~StreamReader(void)
+StreamReader::~StreamReader()
 {
   if (m_streamHandle)
     XBMC->CloseFile(m_streamHandle);

@@ -41,7 +41,7 @@ TimeshiftBuffer::TimeshiftBuffer(IStreamReader* m_streamReader, const std::strin
   m_filebufferReadHandle = XBMC->OpenFile(m_bufferPath.c_str(), XFILE::READ_NO_CACHE);
 }
 
-TimeshiftBuffer::~TimeshiftBuffer(void)
+TimeshiftBuffer::~TimeshiftBuffer()
 {
   m_running = false;
   if (m_inputThread.joinable())

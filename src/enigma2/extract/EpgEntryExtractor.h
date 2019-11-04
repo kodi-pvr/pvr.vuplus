@@ -40,7 +40,7 @@ namespace enigma2
     {
     public:
       EpgEntryExtractor();
-      ~EpgEntryExtractor(void);
+      ~EpgEntryExtractor();
 
       void ExtractFromEntry(enigma2::data::BaseEntry& entry);
       bool IsEnabled();

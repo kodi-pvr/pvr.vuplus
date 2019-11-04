@@ -48,7 +48,7 @@ GenreRytecTextMapper::GenreRytecTextMapper() : IExtractor()
   m_genreMajorPattern = std::regex(GENRE_MAJOR_PATTERN);
 }
 
-GenreRytecTextMapper::~GenreRytecTextMapper(void) {}
+GenreRytecTextMapper::~GenreRytecTextMapper() {}
 
 void GenreRytecTextMapper::ExtractFromEntry(BaseEntry& entry)
 {

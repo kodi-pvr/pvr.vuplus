@@ -30,7 +30,7 @@ namespace enigma2
   class IStreamReader
   {
   public:
-    virtual ~IStreamReader(void) = default;
+    virtual ~IStreamReader() = default;
     virtual bool Start() = 0;
     virtual ssize_t ReadData(unsigned char* buffer, unsigned int size) = 0;
     virtual int64_t Seek(long long position, int whence) = 0;

@@ -453,6 +453,11 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
   return m_epg.GetEPGForChannel(handle, myChannel->GetServiceReference(), iStart, iEnd);
 }
 
+void Enigma2::SetEPGTimeFrame(int epgMaxDays)
+{
+  m_epg.SetEPGTimeFrame(epgMaxDays);
+}
+
 /***************************************************************************
  * Livestream
  **************************************************************************/
@@ -481,7 +486,7 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
   return true;
 }
 
-void Enigma2::CloseLiveStream(void)
+void Enigma2::CloseLiveStream()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;

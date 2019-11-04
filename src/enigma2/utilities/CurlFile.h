@@ -32,8 +32,8 @@ namespace enigma2
     class CurlFile
     {
     public:
-      CurlFile(void) {};
-      ~CurlFile(void) {};
+      CurlFile() {};
+      ~CurlFile() {};
 
       bool Get(const std::string& strURL, std::string& strResult);
       bool Post(const std::string& strURL, std::string& strResult);

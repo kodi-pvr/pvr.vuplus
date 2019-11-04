@@ -41,7 +41,7 @@ ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
     Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __FUNCTION__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
 }
 
-ShowInfoExtractor::~ShowInfoExtractor(void) {}
+ShowInfoExtractor::~ShowInfoExtractor() {}
 
 void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
 {

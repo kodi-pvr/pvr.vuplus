@@ -226,13 +226,13 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   return PVR_ERROR_NO_ERROR;
 }
 
-const char* GetBackendName(void)
+const char* GetBackendName()
 {
   static const char* backendName = enigma ? enigma->GetServerName() : LocalizedString(30081).c_str(); //unknown
   return backendName;
 }
 
-const char* GetBackendVersion(void)
+const char* GetBackendVersion()
 {
   static const char* backendVersion = enigma ? enigma->GetServerVersion() : LocalizedString(30081).c_str(); //unknown
   return backendVersion;
@@ -240,7 +240,7 @@ const char* GetBackendVersion(void)
 
 static std::string connectionString;
 
-const char* GetConnectionString(void)
+const char* GetConnectionString()
 {
   if (enigma)
     connectionString = StringUtils::Format("%s%s", settings.GetHostname().c_str(), enigma->IsConnected() ? "" : LocalizedString(30082).c_str()); // (Not connected!)
@@ -249,7 +249,7 @@ const char* GetConnectionString(void)
   return connectionString.c_str();
 }
 
-const char* GetBackendHostname(void)
+const char* GetBackendHostname()
 {
   return settings.GetHostname().c_str();
 }
@@ -287,7 +287,7 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS& signalStatus)
  * ChannelGroups
  **************************************************************************/
 
-int GetChannelGroupsAmount(void)
+int GetChannelGroupsAmount()
 {
   if (!enigma || !enigma->IsConnected())
     return 0;
@@ -315,6 +315,16 @@ PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& g
  * EPG and Channels
  **************************************************************************/
 
+PVR_ERROR SetEPGTimeFrame(int epgMaxDays)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  enigma->SetEPGTimeFrame(epgMaxDays);
+
+  return PVR_ERROR_NO_ERROR;
+}
+
 PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
 {
   if (!enigma || !enigma->IsConnected())
@@ -323,7 +333,7 @@ PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, 
   return enigma->GetEPGForChannel(handle, iChannelUid, iStart, iEnd);
 }
 
-int GetChannelsAmount(void)
+int GetChannelsAmount()
 {
   if (!enigma || !enigma->IsConnected())
     return 0;
@@ -417,7 +427,7 @@ bool OpenLiveStream(const PVR_CHANNEL& channel)
   return streamReader->Start();
 }
 
-void CloseLiveStream(void)
+void CloseLiveStream()
 {
   if (enigma)
     enigma->CloseLiveStream();
@@ -429,7 +439,7 @@ bool IsRealTimeStream()
   return (streamReader) ? streamReader->IsRealTime() : false;
 }
 
-bool CanPauseStream(void)
+bool CanPauseStream()
 {
   if (!enigma || !enigma->IsConnected())
     return false;
@@ -440,7 +450,7 @@ bool CanPauseStream(void)
   return false;
 }
 
-bool CanSeekStream(void)
+bool CanSeekStream()
 {
   if (!enigma || !enigma->IsConnected())
     return false;
@@ -458,7 +468,7 @@ long long SeekLiveStream(long long position, int whence)
   return (streamReader) ? streamReader->Seek(position, whence) : -1;
 }
 
-long long LengthLiveStream(void)
+long long LengthLiveStream()
 {
   return (streamReader) ? streamReader->Length() : -1;
 }
@@ -502,7 +512,7 @@ void PauseStream(bool paused)
       settings.IsTimeshiftBufferPathValid())
   {
     streamReader = new TimeshiftBuffer(streamReader, settings.GetTimeshiftBufferPath(), settings.GetReadTimeoutSecs());
-    (void)streamReader->Start();
+    streamReader->Start();
   }
 }
 
@@ -645,7 +655,7 @@ bool OpenRecordedStream(const PVR_RECORDING& recording)
   return recordingReader->Start();
 }
 
-void CloseRecordedStream(void)
+void CloseRecordedStream()
 {
   if (recordingReader)
     SafeDelete(recordingReader);
@@ -667,7 +677,7 @@ long long SeekRecordedStream(long long position, int whence)
   return recordingReader->Seek(position, whence);
 }
 
-long long LengthRecordedStream(void)
+long long LengthRecordedStream()
 {
   if (!recordingReader)
     return -1;
@@ -687,7 +697,7 @@ PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
   return PVR_ERROR_NO_ERROR;
 }
 
-int GetTimersAmount(void)
+int GetTimersAmount()
 {
   if (!enigma || !enigma->IsConnected())
     return 0;
@@ -729,20 +739,19 @@ PVR_ERROR UpdateTimer(const PVR_TIMER& timer)
 
 /** UNUSED API FUNCTIONS */
 PVR_ERROR GetStreamProperties(PVR_STREAM_PROPERTIES* pProperties) { return PVR_ERROR_NOT_IMPLEMENTED; }
-void DemuxAbort(void) { return; }
-DemuxPacket* DemuxRead(void) { return nullptr; }
+void DemuxAbort() { return; }
+DemuxPacket* DemuxRead() { return nullptr; }
 void FillBuffer(bool mode) {}
-PVR_ERROR OpenDialogChannelScan(void) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR OpenDialogChannelScan() { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR CallMenuHook(const PVR_MENUHOOK& menuhook, const PVR_MENUHOOK_DATA& item) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR DeleteChannel(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR RenameChannel(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR OpenDialogChannelSettings(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL& channel) { return PVR_ERROR_NOT_IMPLEMENTED; }
-void DemuxReset(void) {}
-void DemuxFlush(void) {}
+void DemuxReset() {}
+void DemuxFlush() {}
 bool SeekTime(double, bool, double*) { return false; }
 void SetSpeed(int){};
-PVR_ERROR SetEPGTimeFrame(int) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR IsEPGTagRecordable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
