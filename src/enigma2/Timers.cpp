@@ -518,20 +518,23 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
     endPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin();
   }
 
-  bool alreadyStarted;
+  bool alreadyStarted = false;
   time_t startTime, endTime;
-  if ((timer.startTime - (startPadding * 60)) < std::time(nullptr))
+  time_t now = std::time(nullptr);
+  if ((timer.startTime - (startPadding * 60)) < now)
   {
     alreadyStarted = true;
-    startTime = std::time(nullptr);
-    startPadding = 0;
+    startTime = now;
+    if (timer.startTime < now)
+      startPadding = 0;
+    else
+      startPadding = (timer.startTime - now) / 60;
   }
   else
   {
     startTime = timer.startTime - (startPadding * 60);
   }
   endTime = timer.endTime + (endPadding * 60);
-  endPadding = endPadding;
 
   tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
@@ -543,7 +546,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   if (Settings::GetInstance().IsOpenWebIf() && (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
   {
     // We try to find the EPG Entry and use it's details
-    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, alreadyStarted ? startTime : timer.startTime);
+    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime < now ? now : timer.startTime);
 
     if (partialEntry.EntryFound())
     {
@@ -760,26 +763,37 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
       endPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin();
     }
 
-    bool alreadyStarted;
+    bool alreadyStarted = false;
     time_t startTime, endTime;
-    if ((timer.startTime - (startPadding * 60)) < std::time(nullptr))
+    time_t now = std::time(nullptr);
+    if ((timer.startTime - (startPadding * 60)) < now)
     {
       alreadyStarted = true;
-      startTime = std::time(nullptr);
-      startPadding = 0;
+      startTime = now;
+      if (timer.startTime < now)
+        startPadding = 0;
+      else
+        startPadding = (timer.startTime - now) / 60;
     }
     else
     {
       startTime = timer.startTime - (startPadding * 60);
     }
     endTime = timer.endTime + (endPadding * 60);
-    endPadding = endPadding;
 
     tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
+    /* Note that plot (long desc) is automatically written to a timer entry by the backend
+       therefore we only need to send outline as description to preserve both.
+       Once a timer completes, long description will be cleared so if description
+       is not populated we set it to the value of long description.
+       Very important for providers that only use the plot field.
+       */
+    const std::string& description = !oldTimer.GetPlotOutline().empty() ? oldTimer.GetPlotOutline() : oldTimer.GetPlot();
+
     const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%lld&end=%lld&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%lld&endOld=%lld&deleteOldOnSave=1",
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), static_cast<long long>(startTime), static_cast<long long>(endTime),
-                                    WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(timer.strSummary).c_str(),
+                                    WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(description).c_str(),
                                     WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.iWeekdays,
                                     WebUtils::URLEncodeInline(oldTimer.GetServiceReference()).c_str(),
                                     static_cast<long long>(oldTimer.GetRealStartTime()),
@@ -1192,7 +1206,14 @@ bool Timers::TimerUpdatesRegular()
 
   Logger::Log(LEVEL_DEBUG, "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
 
-  std::vector<EpgEntry> timerBaseEntries(m_timers.begin(), m_timers.end());
+  std::vector<EpgEntry> timerBaseEntries;
+  for (auto& timer : m_timers)
+  {
+    EpgEntry entry = timer;
+    entry.SetStartTime(timer.GetRealStartTime());
+    entry.SetEndTime(timer.GetRealEndTime());
+    timerBaseEntries.emplace_back(entry);
+  }
   m_epg.UpdateTimerEPGFallbackEntries(timerBaseEntries);
 
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
