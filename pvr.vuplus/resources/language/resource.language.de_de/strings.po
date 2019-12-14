@@ -32,29 +32,13 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Symbole"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Antwortzeitüberschreitung in Sekunden"
-
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Aktualisierungsintervall"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Aktualisierungsintervall in Minuten"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Speicherort für Kanaldaten"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Aktualisierungsintervall"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Überprüfe auf Kanalaktualisierungen"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -71,14 +55,6 @@ msgstr "Sender"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Erweitert"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Aufnahmen / Timer"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -157,8 +133,8 @@ msgid "On pause"
 msgstr "Während der Pause"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Aufnahmen & Timer"
+msgid "Recordings"
+msgstr "Aufnahmen"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -167,10 +143,6 @@ msgstr "Aufnahmen"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Timer"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -184,17 +156,17 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Falsch"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Sonstiges"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Ausschalten"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatisch"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Einmalig (geplant nach guide-basierter Zeitregel)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Einmalig (geplant durch Wiederholung der Timerregel)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -211,14 +183,6 @@ msgstr "Aufnahme, wenn EPG-Titel und Kurzbeschreibung voneinander abweichen."
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Aufnahme, wenn EPG-Titel und alle Beschreibung voneinander abweichen."
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Verbindung zu '%s' unterbrochen"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Verbindung zu '%s' wiederhergestellt"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

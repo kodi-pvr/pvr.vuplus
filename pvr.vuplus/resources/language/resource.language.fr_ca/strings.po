@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Icônes"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Temporisation de réponse en secondes"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Chemin des icônes"
@@ -51,10 +47,6 @@ msgstr "Chemin des icônes"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Intervalle de mise à jour"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Intervalle de mise à jour en minutes"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Passer les chaînes avant le changement effectif (c.-à-d. pour les boîtiers syntoniseurs simples)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Dossier des données de chaînes"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Intervalle de mise à jour"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Vérifier les mises à jour de chaînes"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +80,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avancé"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr " Enregistrements  / minuterie"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Dossier d’enregistrement du récepteur"
@@ -115,10 +91,6 @@ msgstr "Envoyer le mode d’alimentation en quittant l’addiciel"
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
 msgstr "Mode de récupération du bouquet télé"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "Bouquet télé"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -248,10 +220,6 @@ msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
 msgstr "Mode de récupération du bouquet radio"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Bouquet radio"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Décalage temporel"
@@ -293,8 +261,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Récupérer le bouquet des favoris radio"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Enregistrements et minuteries"
+msgid "Recordings"
+msgstr "Enregistrements"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -312,10 +280,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Tous les bouquets"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Un seul bouquet"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "Comme premier bouquet"
@@ -323,10 +287,6 @@ msgstr "Comme premier bouquet"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "Comme dernier bouquet"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Groupe de favoris"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +307,6 @@ msgstr "(Non connecté)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "Erreur d’addiciel"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Serveur multimédia Enigma2"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "Valider"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -428,17 +380,25 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr "Utiliser le chemin des picônes d’OpenWebIf"
 
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Activer la journalisation des traces en mode de débogage"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Autre"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Délai d’attente par chaîne de la mise à jour du GÉP"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Désactivé"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatiques"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Une fois (planifiée par une règle de minuterie d’après le guide)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Une fois (planifiée par la règle de la minuterie de répétition) "
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -455,14 +415,6 @@ msgstr "Enregistrer si le titre et la description courte du GÉP diffèrent"
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Enregistrer si le titre et toutes les descriptions du GÉP diffèrent"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Se déconnecter de « %s »"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Se reconnecter à « %s »"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Logot"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Vastauksen aikakatkaisu sekunneissa"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Kanavalogojen sijainti"
@@ -51,10 +47,6 @@ msgstr "Kanavalogojen sijainti"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Päivitysväli"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Päivitysväli minuuteissa"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Zap ennen kanavan vaihtoa (yhden virittimen bokseille)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Kanavadatan kansio"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Päivitysväli"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Tarkista kanavapäivitykset"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +80,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Lisäasetukset"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Tallenteet / Ajastin"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Vastaanottimen tallennuskansio"
@@ -115,10 +91,6 @@ msgstr "Lähetä virranhallintakäsky, kun lisäosa suljetaan"
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
 msgstr "Tv-kanavaryhmien (bouquet) noutotapa"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "Kanavaryhmän nimi (bouquet)"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -248,10 +220,6 @@ msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
 msgstr "Radion kanavaryhmien (bouquet) noutotapa"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Radion kanavaryhmä"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Ajansiirto"
@@ -293,8 +261,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Nouda radion suosikkiryhmä"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Ajastus ja tallennus"
+msgid "Recordings"
+msgstr "Tallenteet"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -312,10 +280,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Kaikki"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Yksi"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "Aseta ensimmäiseksi"
@@ -323,10 +287,6 @@ msgstr "Aseta ensimmäiseksi"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "Aseta viimeiseksi"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Suosikkiryhmä"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +307,6 @@ msgstr "(Ei yhteyttä)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "lisäosavirhe"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Enigma2 Media Server"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -416,17 +368,17 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr "Käytä OpenWebIf:n picon-polkua"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Muu"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Ei käytössä"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automaattinen"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Kerran (luotu ajastussäännöllä)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Kerran (luotu ajastussäännöllä)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -443,14 +395,6 @@ msgstr "Tallenna, jos ohjelman nimi ja jakso eroavat"
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Tallenna, jos ohjelman nimi, jakso ja juoni eroavat"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Yhteys katkaistu palvelimeen '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Yhdistetty palvelimeen '%s'"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

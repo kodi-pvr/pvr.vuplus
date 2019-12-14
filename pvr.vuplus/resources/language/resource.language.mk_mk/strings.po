@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Икони"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Response timeout in seconds"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Интервал на надградби во минути"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Папки за channeldata"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Период на освежување"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Провери дали има нови канали"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Канали"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Напредно"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Снимки / Тајмер"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -116,6 +92,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Искл."
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Снимки"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Снимки"
@@ -123,10 +103,6 @@ msgstr "Снимки"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Бројачи"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "Во ред"
 
 msgctxt "#30095"
 msgid "True"
@@ -136,14 +112,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Неактивно"
 
-msgctxt "#30430"
+msgctxt "#30105"
+msgid "Other"
+msgstr "Други"
+
+msgctxt "#30117"
 msgid "Disabled"
 msgstr "Исклучено"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Деконектирано од '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Конектирано за '%s'"
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Исклучено"

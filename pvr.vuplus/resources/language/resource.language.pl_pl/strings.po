@@ -16,6 +16,14 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Nazwa lub adres IP Enigma2"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Port transmisji"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Użytkownik"
@@ -32,25 +40,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Plakaty"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Limit czasu odpowiedzi w sekundach"
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Folder z ikonami"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Częstotliwość aktualizacji w minutach"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Częstotliwość aktualizacji"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Folder danych kanałów"
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Automatyczne czyszczenie harmonogramu nagrań"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Port interfejsu webowego"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Przełączaj na dany kanał (np. dla dekoderów z jednym tunerem)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Częstotliwość aktualizacji"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Sprawdzaj aktualizacje kanałów"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -68,17 +80,21 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Zaawansowane"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Nagrania / Harmonogram"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder nagrywania na dekoderze"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Tryb pobierania bukietu telewizyjnego"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Pobieraj loga kanałów przez interfejs webowy"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Używaj zabezpieczonego HTTP (HTTPS)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -88,13 +104,29 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "Zachowuj strukturę folderów nagrań"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Sezony i odcinki"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "Przewodnik"
 
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Interfejs webowy"
+
 msgctxt "#30039"
 msgid "Streaming"
 msgstr "Strumieniowanie"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Używaj zarysu (np. podtytuły) przed fabułą"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Rozmiar odczytywanej porcji strumienia"
 
 msgctxt "#30042"
 msgid "Never"
@@ -128,9 +160,17 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Tryb pobierania bukietu radiowego"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Przesunięcie czasowe"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Aktywuj funkcję przesunięcia czasowego"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -148,6 +188,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Po wstrzymaniu odtwarzania"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Nagrania"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Nagrania"
@@ -156,9 +200,45 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Zadania"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Wszystkie bukiety"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Jako pierwszy bukiet"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Jako ostatni bukiet"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Ulubione (telewizja)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Ulubione (radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "nieznany"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Nie połączony!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "błąd dodatku"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Serwer"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "O urządzeniu"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -172,13 +252,29 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Fałsz"
 
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Uśpienie"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Głębokie uśpienie"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Inne"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Opóźnienie aktualizacji przewodnika na kanał"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Nieaktywny"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automat"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Jednorazowo (zaplanowane przez regułę bazująca na przewodniku)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -188,14 +284,26 @@ msgctxt "#30431"
 msgid "Record if EPG title differs"
 msgstr "Nagrywaj, gdy tytuł w przewodniku się różni"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Rozłączono od '%s'"
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Nagrywaj jeśli tytuł i krótkie strzeszczenie w przewodniku różnią się"
 
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Połączono ponownie z '%s'"
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Nagrywaj jeśli tytuł i wszystkie opisy w przewodniku różnią się"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Folderu bufora przesunięcia czasowego nie istnieje"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: interfejs webowy jest niedostępny"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: nie znaleziono grup kanałów"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: nie znaleziono kanału"

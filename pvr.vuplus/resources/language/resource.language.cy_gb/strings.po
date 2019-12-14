@@ -32,22 +32,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Eiconau"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Ymateb amser allan mewn eiliadau"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Cyfnod diweddaru mewn munudau"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Ffolder ar gyfer data sianel"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Gwirio am ddiweddariad sianeli"
-
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
 msgstr "Defnyddio llwybr recordio cyfredol y blwch DVB"
@@ -63,14 +47,6 @@ msgstr "Sianeli"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Uwch"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Recordiadau / Amserydd"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -112,13 +88,13 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Diffodd"
 
-msgctxt "#30071"
+msgctxt "#30070"
 msgid "Recordings"
 msgstr "Recordiadau"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "Iawn"
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Recordiadau"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -132,14 +108,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Gau"
 
-msgctxt "#30430"
+msgctxt "#30105"
+msgid "Other"
+msgstr "Arall"
+
+msgctxt "#30117"
 msgid "Disabled"
 msgstr "Analluogwyd"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Datgysylltwyd o '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Ail gysylltwyd â '%s'"
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Analluogwyd"

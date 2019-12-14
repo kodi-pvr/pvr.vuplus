@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Iconos"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Tiempo de espera de respuesta en segundos"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Intervalo de actualización en minutos"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Carpeta para canales"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Intervalo de actualización"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Comprobar actualización de canales"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Canales"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avanzado"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Grabaciones/ Temporizador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -120,6 +96,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Desactivado"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Grabaciones"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Grabaciones"
@@ -127,10 +107,6 @@ msgstr "Grabaciones"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporizadores"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30095"
 msgid "True"
@@ -140,6 +116,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Falso"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Otro"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Deshabilitado"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automático"
@@ -147,11 +131,3 @@ msgstr "Automático"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Deshabilitado"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Desconectado de '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Reconectado a '%s'"

@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Icones"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Temps d'expiració de la resposta en segons"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Interval d'actualització en minuts"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Carpeta pel canal de dades"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Interval d'actualització"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Comprova si hi ha actualitzacions dels canals"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Canals"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avançat"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Enregistraments / Temporitzador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -136,6 +112,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Amb la pausa"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Enregistraments"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Enregistraments"
@@ -144,9 +124,9 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporitzadors"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "D'acord"
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/D"
 
 msgctxt "#30095"
 msgid "True"
@@ -156,6 +136,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Fals"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Altres"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Inhabilitat"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automàtic"
@@ -163,11 +151,3 @@ msgstr "Automàtic"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Inhabilitat"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Desconnectat de '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Reconnectat a '%s'"

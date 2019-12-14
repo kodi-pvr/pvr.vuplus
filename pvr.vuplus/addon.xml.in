@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.9.4"
+  version="4.9.5"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -15,7 +15,7 @@
     <summary lang="ca_ES">Frontal de Kodi per als descodificadors basats en VU+/Enigma2</summary>
     <summary lang="cs_CZ">Rozhraní Kodi pro přijímače založené na Enigma2</summary>
     <summary lang="cy_GB">Blaen Kodi ar gyfer blychau teledu VU+ / Enigma2</summary>
-    <summary lang="da_DK">Kodi's frontend til VU+ / Enigma2 baseret på settop bokse</summary>
+    <summary lang="da_DK">Kodis frontend til VU+ / Enigma2 baseret på settopbokse</summary>
     <summary lang="de_DE">Kodi Oberfläche für VU+ / Enigma2-basierte Settop-Boxen</summary>
     <summary lang="el_GR">Frontend του Kodi για αποκωδικοποιητές (settop box) τύπου VU+ / Enigma2</summary>
     <summary lang="en_AU">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
@@ -31,7 +31,7 @@
     <summary lang="fr_FR">Interface logicielle pour les enregistreurs VU+/Enigma2</summary>
     <summary lang="gl_ES">Interface de Kodi para decodificadores equipados con VU+/Enigma2</summary>
     <summary lang="he_IL">לקוח טלוויזיה חיה עבור מכשירי VU+ או מבוססי Enigma2</summary>
-    <summary lang="hr_HR">Kodi sučelje za VU+ / Enigma2 set-top box temeljene uređaje</summary>
+    <summary lang="hr_HR">Kodi sučelje za Enigma2 set-top box temeljene uređaje</summary>
     <summary lang="hu_HU">Kodi előtét a VU+ és Enigma2 settop boxokhoz</summary>
     <summary lang="id_ID">Frontend Kodi untuk settop boxes berbasis VU+ / Enigma2</summary>
     <summary lang="is_IS">XBMS framendi fyrir tengibox byggð á VU+ / Enigma2</summary>
@@ -45,11 +45,11 @@
     <summary lang="nb_NO">Kodis grenseflate for VU+ / Enigma2-baserte TV-bokser</summary>
     <summary lang="nl_NL">Kodi's frontend voor op VU+ / Enigma2 gebaseerde settopboxen</summary>
     <summary lang="pl_PL">Klient telewizji dla dekoderów VU+ / Enigma2 </summary>
-    <summary lang="pt_BR">Frontend do Kodi para conversores baseados em VU+/Enigma2</summary>
-    <summary lang="pt_PT">Interface Kodi para caixas settop baseadas em VU+ / Enigma2</summary>
+    <summary lang="pt_BR">Interface Kodi para descodificadores baseadas em VU+ / Enigma2</summary>
+    <summary lang="pt_PT">Interface Kodi para descodificadores baseadas em VU+ / Enigma2</summary>
     <summary lang="ro_RO">Interfața Kodi pentru decodoare VU+ / Enigma2 </summary>
     <summary lang="ru_RU">Фронтэнд Kodi для тюнеров, основанных на VU+ /Enigma2</summary>
-    <summary lang="sk_SK">Rozhranie Kodi pre spoluprácu s prijímačmi VU+ / Enigma2</summary>
+    <summary lang="sk_SK">Rozhranie Kodi pre prijímače založené na platforme Enigma2</summary>
     <summary lang="sl_SI">Kodijev vmesnik za sprejemnike VU+ / Enigma2</summary>
     <summary lang="sq_AL">Frontend i Kodi'së për Aparate VU+ / Enigma2 </summary>
     <summary lang="sr_RS">Kodi-јев интерфејс за VU+ / Enigma2 засноване settop кутије</summary>
@@ -60,7 +60,7 @@
     <summary lang="uk_UA">Накладка VU+ /  Enigma2 для Kodi</summary>
     <summary lang="vi_VN">Giao tiếp Kodi cho VU+ / Enigma2 dựa trên các bộ Settop Box</summary>
     <summary lang="zh_CN">基于 Enigma2 的机顶盒的 Kodi 前端</summary>
-    <summary lang="zh_TW">給以VU+ / Enigma2開發的機上盒所使用的Kodi前端</summary>
+    <summary lang="zh_TW">Kodi 的前端基於 Enigma2 的機上盒</summary>
     <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.</description>
     <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="bg_BG">Клиент за „VU+“. Поддържа телевизия на живо и записване, електронен програмен справочник и броячи.</description>
@@ -153,12 +153,12 @@
     <disclaimer lang="nb_NO">Dette er ustabil programvare! Skaperen har ikke på noen måte ansvar for feilede opptak, uriktige tidsur, bortkastede timer, eller andre uønskede effekter…</disclaimer>
     <disclaimer lang="nl_NL">Dit is onstabiele software! De auteurs zijn op geen enkele manier verantwoordelijk voor mislukte opnames, incorrecte timers, verspilde uren of andere ongewenste effecten.</disclaimer>
     <disclaimer lang="pl_PL">Oprogramowanie nadal jest w fazie rozwoju i jest niestabilne! Autorzy w żaden sposób nie są odpowiedzialni za nieudane nagrania, błędy w harmonogramie nagrań, zmarnowany czas ani jakiekolwiek inne niepożądane efekty.</disclaimer>
-    <disclaimer lang="pt_BR">Este é um software instável! Os autores não são responsáveis por falhas nas gravações, agendamentos incorretos, horas dispendidas, ou quaisquer outros efeitos indesejáveis</disclaimer>
+    <disclaimer lang="pt_BR">Este software é instável! Os autores não podem ser responsabilizados por gravações falhadas, temporizadores incorretos, horas desperdiçadas ou qualquer outro tipo de efeitos indesejáveis...</disclaimer>
     <disclaimer lang="pt_PT">Este software é instável! Os autores não podem ser responsabilizados por gravações falhadas, temporizadores incorretos, horas desperdiçadas ou qualquer outro tipo de efeitos indesejáveis...</disclaimer>
     <disclaimer lang="ro_RO">Acesta nu este o aplicație definitivă! Autorii nu sunt în nici un fel responsabili pentru înregistrări eșuate, cronometre incorecte, ore pierdute, sau orice alte efecte nedorite...</disclaimer>
     <disclaimer lang="ru_RU">Это тестовая программа! Авторы не несут ответственности за неудачные записи, неверные таймеры, потраченное время и прочие нежелательные эффекты..</disclaimer>
     <disclaimer lang="si_LK">මෙය අස්ථිර මෘදුකාංගයකි! මෙහි සිදුවන පටිගත කිරීම් අසාර්ථක වීම්, සාවද්‍ය මුහුර්තක, නාස්ති වූ කාලයන්, හෝ වෙනත් යමිකිසි නුසුදුසු බලපෑම් සඳහා කතෘ වග කියනු නොලැබේ.</disclaimer>
-    <disclaimer lang="sk_SK">Tento softvér nie je stabilný! Autori nenesú žiadnu zodpovednosť za chybné nahrávky vysielania, nesprávne časovače alebo iné neželané udalosti spôsobené týmto softvérom..</disclaimer>
+    <disclaimer lang="sk_SK">Tento softvér nie je stabilný! Autori nie sú žiadnym spôsobom zodpovední za neúspešné nahrávania, chybné časovače, stratený čas alebo akékoľvek iné nežiadúce výsledky..</disclaimer>
     <disclaimer lang="sl_SI">To je nestabilna programska oprema! Avtorji niso odgovorni za neuspela snemanja, nepravilne časovnike, zapravljen čas in katerikoli drug neželen učinek...</disclaimer>
     <disclaimer lang="sq_AL">Ky program nuk është ende stabil! Autorët e këtij programi nuk janë në as një menyr përgjegjës për rregistrime të gabuara, timer të pasaktë, kohë të humbur ose efekte të tilla të padëshirueshme.</disclaimer>
     <disclaimer lang="sr_RS">Овај софтвер је нестабилан! Аутори ни на који начин нису одговорни за неуспела снимања, неисправне тајмере, изгубљене сате, или било које друге нежељене ефекте.</disclaimer>

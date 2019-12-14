@@ -56,13 +56,13 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Sløkk"
 
-msgctxt "#30071"
+msgctxt "#30070"
 msgid "Recordings"
 msgstr "Upptøkur"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Upptøkur"
 
 msgctxt "#30095"
 msgid "True"
@@ -71,6 +71,10 @@ msgstr "Satt"
 msgctxt "#30096"
 msgid "False"
 msgstr "Skeivt"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Sløkt"
 
 msgctxt "#30430"
 msgid "Disabled"

@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Ikōny"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Czas na ôdpowiydź w sekundach"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Frekwyncyjŏ aktualizacyje we minutach"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Folder datōw kanałōw"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Interwał ôdnŏwianiŏ"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Wybaduj aktualizacyje kanałōw"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Kanały"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Zaawansowane"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Nagrania / Harmonogram"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -128,6 +104,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Zastawiōne"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Spamiyntania"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Spamiyntania"
@@ -135,10 +115,6 @@ msgstr "Spamiyntania"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Auftragi"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30095"
 msgid "True"
@@ -148,6 +124,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Fałsz"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Inksze"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Zastawiōne"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Autōmat"
@@ -155,11 +139,3 @@ msgstr "Autōmat"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Zastawiōne"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Cwajgniynto było ôd '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Zaś skuplowano było z '%s'"

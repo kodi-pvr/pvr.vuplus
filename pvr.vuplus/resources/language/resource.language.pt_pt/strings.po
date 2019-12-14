@@ -16,6 +16,14 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Nome de servidor Enigma2 ou endereço IP"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Porta de transmissão"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Nome de utilizador"
@@ -32,25 +40,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Ícones"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Tempo limite para resposta (segundos)"
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Caminho do ícone"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Intervalo de atualização (minutos)"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Intervalo de atualização "
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Pasta para dados do canais"
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Limpeza automática da Timerlist"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Porta da interface web"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Zap antes de mudar de canal (útil para caixas só com um sintonizador)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Intervalo de atualização "
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Verificar actualizações de canais"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -68,21 +80,77 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avançado"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Gravações/Temporizador"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Pasta de gravação no recetor"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Enviar para o modo de energia ao sair do add-on"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Modo de obtenção de pacotes TV"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Obter ícones da interface web"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Utilizar HTTP seguro (https)"
+
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Ativar configuração automática para transmissões ao vivo"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Manter estrutura das pastas para registos"
+
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Temporadas e Episódios"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Extrair informação de temporada, episódio e ano quando possível"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Ativar temporizadores automáticos"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Usar formato de ficheiro picons.eu"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Ativar gerar temporizadores repetitivos"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Registo de mapeamento de géneros em texto em falta"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Interface da Web"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Transmissão"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Colocar online (ex. legendas) antes de iniciar"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Tamanho do pacote de leitura para transmissão"
 
 msgctxt "#30042"
 msgid "Never"
@@ -100,6 +168,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Sempre"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Extrair ficheiro contendo informação da série"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Mapeamento de géneros em texto Rytec"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "Ativar mapeamento de géneros em texto Rytec"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Ficheiro de mapeamento de géneros em texto Rytec"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Esgotamento por inação da TV em Direto personalizado (0 para padrão)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Iniciar sessão"
@@ -107,6 +195,18 @@ msgstr "Iniciar sessão"
 msgctxt "#30052"
 msgid "Misc"
 msgstr "Outras"
+
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Mapeamento de identificação dos géneros"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Ativar mapeamento de identificação dos géneros"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Ficheiro de mapeamento de identificação dos géneros"
 
 msgctxt "#30056"
 msgid "TV"
@@ -116,9 +216,17 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Rádio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Modo de obtenção de pacotes Rádio"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Ver Mais Tarde"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Ativar Ver mais tarde"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -136,6 +244,26 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Ao pausar"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Utilizar HTTP seguro (https) para transmissões"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Usar login para transmissões"
+
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Obter pacote de favoritos TV"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Obter pacote de favoritos Rádio"
+
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Gravações"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Gravações"
@@ -144,9 +272,77 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporizadores"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "CONFIRMAR"
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Número de temporizadores repetitivos a gerar"
+
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Todos os pacotes"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Como primeiro pacote"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Como último pacote"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Favoritos (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Favoritos (Rádio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "desconhecido"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Desligado)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "erro de add-on"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Infraestrutura"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Margem de gravação"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Margem inicial global"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Margem final global"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Informação do dispositivo"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Versão Weblf"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Etiqueta automática nas etiquetas de temporizador"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Nome automático nas etiquetas de temporizador"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/D"
 
 msgctxt "#30095"
 msgid "True"
@@ -156,18 +352,450 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Falso"
 
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Modo de espera"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Modo de espera profundo"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Despertar, e colocar em modo de espera"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Modo de atualização"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Temporizadores e gravações"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Apenas temporizadores"
+
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Usar o caminho picon OpenWebIf"
+
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Ativar registo de rastreio no modo de depuração"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Outras"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Atraso na atualização do EPG por canal"
+
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr "A gravar EDLs (Editor de Listas de Decisão)"
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr "Ativar suporte EDL"
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr "Margem de início de EDL"
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr "Margem de fim de EDL"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Ativar registo de depuração em modo normal"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Último analisado (TV)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Último analisado (Rádio)"
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr "Excluir o último pacote analisado"
+
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr "Pular o carregamento incial de EPG"
+
+msgctxt "#30116"
+msgid "Channels and groups update mode"
+msgstr "Modo de atualização de canais e grupos"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Desativado"
+
+msgctxt "#30118"
+msgid "Notify on UI and Log"
+msgstr "Notificar no sistema e no registo"
+
+msgctxt "#30119"
+msgid "Reload Channels and Groups"
+msgstr "Recarregar Canais e Grupos"
+
+msgctxt "#30120"
+msgid "Channels and groups update hour (24h)"
+msgstr "Hora de atualização de canais e grupos (24h)"
+
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr "Tempo limite de verificação da conexão excedido"
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr "Intervalo do limite de verificação da conexão"
+
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr "Temporizadores automáticos"
+
+msgctxt "#30124"
+msgid "Limit 'Any Channel' autotimers to TV or Radio"
+msgstr "Limitar temporizadores automáticos de 'Qualquer canal' a TV e Rádio"
+
+msgctxt "#30125"
+msgid "Limit to groups of original EPG channel"
+msgstr "Limitar a grupos do canal EPG original"
+
+msgctxt "#30126"
+msgid "Use standard channel service reference"
+msgstr "Usar referência de serviço padrão do canal"
+
+msgctxt "#30127"
+msgid "Store last played/play count on the backend"
+msgstr "Armazenar último reproduzido/contagem de visualizações na infraestrutura"
+
+msgctxt "#30128"
+msgid "Share last played across:"
+msgstr "Partilhar último reproduzido através de:"
+
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr "Instâncias do Kodi"
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr "Instâncias do Kodi/E2"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automático"
+
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr "Repetitivo baseado em tempo/canal"
+
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr "Uma vez baseado no guia"
+
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr "Repetição baseada no guia"
+
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr "Automático baseado no guia"
 
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Desativado"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Desligado de '%s'"
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "Gravar se o título do EPG for diferente"
 
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Ligado novamente a '%s'"
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "Gravar se o título e a breve descrição do EPG for diferente"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "Gravar se o título e todas as descrições do EPG forem diferentes"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Caminho do buffer de timeshift não existe"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Impossível alcançar o interface da web"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Não foram encontrados grupos de canais"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Não foram encontrados canais"
+
+msgctxt "#30518"
+msgid "Enigma2: Channel group changes detected, please restart to load changes"
+msgstr "Enigma2: Alterações ao grupo de canais detetadas, por favor reinicie para carregar as mesmas"
+
+msgctxt "#30519"
+msgid "Enigma2: Channel changes detected, please restart to load changes"
+msgstr "Enigma2: Alterações aos canais detetadas, por favor reinicie para carregar as mesmas"
+
+msgctxt "#30520"
+msgid "Invalid Channel"
+msgstr "Canal inválido"
+
+msgctxt "#30600"
+msgid "This category cotains the settings for connecting to the Enigma2 device"
+msgstr "Esta categoria contém as definições para ligar um dispositivo Enigma2"
+
+msgctxt "#30601"
+msgid "The IP address or hostname of your enigma2 based set-top box."
+msgstr "O nome de servidor ou endereço IP do seu descodificador baseado em Enigma2."
+
+msgctxt "#30602"
+msgid "The port used to connect to the web interface."
+msgstr "A porta usada para ligar ao interface da web."
+
+msgctxt "#30603"
+msgid "Use https to connect to the web interface."
+msgstr "Use https para se ligar ao interface da web."
+
+msgctxt "#30604"
+msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
+msgstr "Se o interface da web do descodificador se encontrar protegido com uma combinação de nome de utilizador/password, é necessário indicar o mesmo nesta opção."
+
+msgctxt "#30605"
+msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
+msgstr "Se o interface da web do descodificador se encontrar protegido com uma combinação de nome de utilizador/password, é necessário indicar o mesmo nesta opção."
+
+msgctxt "#30607"
+msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
+msgstr "Esta opção define a porta de transmissão usada pelo descodificador para transmitir TV em Direto. Por defeito é 8001 o que deve funcionar se o utilizador não tiver definido uma porta personalizada no interface da web."
+
+msgctxt "#30608"
+msgid "Use https to connect to streams."
+msgstr "Use https para se ligar a transmissões."
+
+msgctxt "#30609"
+msgid "Use the login username and password for streams."
+msgstr "Use o nome de utilizador e a password de login para transmissões"
+
+msgctxt "#30620"
+msgid "This category cotains the settings whivh generally need to be set by the user"
+msgstr "Esta categoria contém as definições que geralmente devem ser definidas pelo utilizador"
+
+msgctxt "#30621"
+msgid "Fetch the picons straight from the Enigma 2 set-top box."
+msgstr "Obter os ficheiros picon diretamente do descodificador Enigma2"
+
+msgctxt "#30622"
+msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
+msgstr "Obter o caminho picon do OpenWeblf em vez de contruir do ServiceRef. Requer OpenWeblf 1.3.5 ou superior. Não há alterações se usada uma versão anterior do OpenWeblf."
+
+msgctxt "#30623"
+msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
+msgstr "Assumir que todos os fiheiros picon obtidos do descodificador começam com '1_1_1_' e terminam com '_0_0_0'."
+
+msgctxt "#30624"
+msgid "In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property."
+msgstr "Para que o Kodi mostre os logotipos dos canais tem de copiar os picons do seu descodificador para a sua máquina OpenELEC. Depois é necessário especificar o caminho para os encontrar."
+
+msgctxt "#30627"
+msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [Disabled] Never check for channel and group changes; [Notify on UI and Log] Display a notice in the UI and log the fact that a change was detectetd]; [Reload Channels and Groups] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
+msgstr "O modo usado quando a hora nas próximas configurações é atingida. Escolha um dos três modos a seguir: [Desativado] Nunca verificar se há alterações de canal e grupo; [Notificar na interface do utilizador e no registo] Exibir um aviso na interface do utilizador e registar o fato de que uma alteração foi detetada]; [Recarregar canais e grupos] Desconete e reconete com o dispositivo E2 para recarregar canais somente se uma alteração for detetada."
+
+msgctxt "#30628"
+msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
+msgstr "A hora do dia em que a verificação de novos canais deve ocorrer. O padrão é 4h, pois o Auto Bouquet Maker (ABM) no padrão do dispositivo E2 é 3AM."
+
+msgctxt "#30640"
+msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
+msgstr "Esta categoria contém as definições dos canais. Ao alterar os pacotes pode necessitar de limpar a cache de canais para as definições produzirem efeito. Pode fazê-lo nas definições do Kodi: 'Definições->PVR & Live TV->Geral->Limpar a cache'."
+
+msgctxt "#30641"
+msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
+msgstr "Normalmente, as referências de serviço para os canais estão num formato padrão como \"1: 0: 1: 27F6: 806: 2: 11A0000: 0: 0: 0: '. Ocasionalmente, dependendo do provedor, eles podem ser estendidos com algum texto, por ex. '1: 0: 1: 27F6: 806: 2: 11A0000: 0: 0: 0 :: UTV' ou '1: 0: 1: 27F6: 806: 2: 11A0000: 0: 0: 0 :: UTV + 1 '. Se esta opção estiver ativada, todas as referências de serviço de leitura serão lidas como padrão. Esse é o comportamento padrão. Funcionalidades como temporizadores automáticos sempre serão convertidas numa referência padrão."
+
+msgctxt "#30642"
+msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that \"allow channel switching\" needs to be enabled in the webinterface on the set-top box."
+msgstr "Ao usar o add-on com um descodificador de sintonizador único, pode ser necessário que o add-on precise mudar para outro canal no aparelho. Se esta opção for ativada, cada mudança de canal no Kodi também resultará em uma troca de canal no descodificador. Observe que \"permitir troca de canal\" precisa ser ativado na interface da web no aparelho."
+
+msgctxt "#30646"
+msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
+msgstr "A última análise resultou num pacote do sistema que contém todos os canais de TV e rádio encontrados. Todos os canais de TV encontrados no último pacote digitalizado podem ser mostrados como um grupo chamado \"Última análise (TV)\" no Kodi. Para a TV, este grupo é excluído por padrão. Desative esta opção para excluir este grupo. Observe que se nenhum grupo de TV for carregado, o último grupo verificado para TV será carregado por padrão, independentemente dessa configuração."
+
+msgctxt "#30650"
+msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
+msgstr "A última análise resultou num pacote do sistema que contém todos os canais de TV e rádio encontrados. Todos os canais de rádio encontrados no último pacote digitalizado podem ser mostrados como um grupo chamado \"Última análise (Rádio)\" no Kodi. Para Rádio, este grupo é excluído por padrão. Desative esta opção para mostrar este grupo."
+
+msgctxt "#30660"
+msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
+msgstr "Esta categoria contém as configurações do EPG (Electronic Program Guide - Guia de programação eletrônica). Excluindo o registo de mapeamentos de texto de gêneros ausentes, todas as outras opções exigirão que o cache do EPG seja limpo. Isso pode ser feito indo em 'Configurações-> PVR & Live TV-> Guia-> Limpar a cache' no Kodi depois do add-on ser reiniciado."
+
+msgctxt "#30662"
+msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
+msgstr "Esta configuração serve para extrair informação sobre a temporada, episódio e ano. O ficheiro padrão é `English-ShowInfo.xml`."
+
+msgctxt "#30663"
+msgid "If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi."
+msgstr "Se os identificadores do género enviados com dados EPG do seu descodificador não usarem o padrão DVB, mapeie-os para os identificadores padrão do DVB. O Sky UK, por exemplo, usa o OpenTV; nesse caso, sem essa opção, a cor do género e o texto ficariam incorretos no Kodi."
+
+msgctxt "#30664"
+msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
+msgstr "Esta configuração é usada para mapear os identificadores do género do guia EPG para os identificadores padrão do DVB. O ficheiro padrão é `Sky-UK.xml`."
+
+msgctxt "#30665"
+msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
+msgstr "Se usar dados Rytec XMLTV EPG esta opção pode ser usada para mapear os textos de género para os identificadores padrão do DVB."
+
+msgctxt "#30666"
+msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
+msgstr "Esta configuração é usada para mapear os textos de género Rytec para identificadores DVB. O ficheiro padrão é `Rytec-UK-Ireland.xml`."
+
+msgctxt "#30667"
+msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]"
+msgstr "Se quiser que os mapeamentos de gênero sejam registrados para que possa relacioná-los, ative esta opção. Nota: quaisquer géneros encontrados que não tenham um mapeamento ainda serão extraídos e enviados para o Kodi como linhas de texto. Atualmente, os géneros são extraídos procurando texto entre parentesis, por exemplo. [TV Drama], ou para géneros maiores e menores usando um ponto (.) para separar [Drama de TV. Novela]"
+
+msgctxt "#30668"
+msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
+msgstr "Para dispositivos Enigma2 mais antigos, as atualizações de EPG podem afetar a qualidade da transmissão (como tempos limite de buffer). Um atraso entre 250ms e 5000ms pode ser introduzido para melhorar a qualidade. Recomendado apenas para dispositivos mais antigos. Escolha o valor mais baixo que evita tempos limite do buffer."
+
+msgctxt "#30669"
+msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
+msgstr "Ignorar o carregamento inicial do EPG (agora e depois). Ativado por defeito para prevenir problemas de quebra no LibreElec/CoreElec."
+
+msgctxt "#30680"
+msgid "This category cotains the settings for recordings"
+msgstr "Esta categoria contém as definições das gravações."
+
+msgctxt "#30681"
+msgid "Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+."
+msgstr "Armazenar a posição da última reprodução e da contagem na infraestrutura para ser partilhada com as instâncias do Kodi. Suportado apenas na versão 1.3.6+ do OpenWeblf. "
+
+msgctxt "#30682"
+msgid "The options are: [Kodi instances] Only use the value in kodi and will not affect last played on the E2 device; [Kodi/E2 instances] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
+msgstr "As opções são: [instâncias Kodi] Utilize apenas o valor no Kodi e não afetará a última reprodução no dispositivo E2; [Instâncias Kodi / E2] Use o valor no Kodi e no dispositivo E2 para que eles permaneçam em sincronia. A última reprodução será sincronizada com o dispositivo E2 uma vez a cada 5-10 minutos por gravação, se os menus PVR estiverem em uso. Observe que apenas uma única instância do Kodi é necessária para que essa opção seja ativada."
+
+msgctxt "#30683"
+msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
+msgstr "Por padrão, o add-on não especifica a pasta de gravação em temporizadores recém-criados, portanto, o conjunto padrão no descodificador será usado. Se quiser especificar uma pasta diferente (ou seja, porque deseja que todas as gravações agendadas via Kodi sejam armazenadas numa pasta separada), será necessário definir essa opção."
+
+msgctxt "#30684"
+msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
+msgstr "Se esta opção não estiver definida, o add-on procura em todas as gravações disponíveis de todos os caminhos configurados a partir do descodificador. Se esta opção estiver configurada, listará apenas as gravações armazenadas no 'caminho de gravação atual' no descodificador."
+
+msgctxt "#30685"
+msgid "If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path."
+msgstr "Se ativo, não especifique uma pasta de gravação, quando inativo (padrão), verifique se a gravação está na sua própria pasta ou na raiz do caminho de gravação."
+
+msgctxt "#30686"
+msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
+msgstr "EDLs são usados para definir publicidade, etc. em gravações. Se uma ferramenta como o Comskip for usada para gerar arquivos EDL, isso permitirá que o Kodi PVR os use. Por exemplo. se houver um arquivo chamado 'my recording.ts', o arquivo EDL deve chamar-se 'my recording.edl'. Nota: ativar esta configuração não terá efeito se os arquivos não estiverem presentes."
+
+msgctxt "#30687"
+msgid "Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0."
+msgstr "Margem para usar numa paragem do EDL. Ou seja use um número negativo para iniciar o corte antes e positivo para iniciar o corte mais tarde. Padrão 0"
+
+msgctxt "#30688"
+msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
+msgstr "Margem para usar numa paragem do EDL. Ou seja use um número negativo para iniciar o corte antes e positivo para iniciar o corte mais tarde. Padrão 0"
+
+msgctxt "#30700"
+msgid "This category cotains the settings for timers (regular and auto)"
+msgstr "Esta categoria contém as definições dos temporizadores (normais e automáticos)"
+
+msgctxt "#30701"
+msgid "Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer."
+msgstr "Os temporizadores de repetição serão mostrados como regras do temporizador. Ativar esta opção fará com que o Kodi gere temporizadores regulares para corresponder às regras do temporizador de repetição, para que a interface do utilizador possa mostrar o que está programado e gravando atualmente para cada temporizador de repetição."
+
+msgctxt "#30702"
+msgid "The number of Kodi PVR timers to generate."
+msgstr "Número de temporizadores do PVR do Kodi a gerar"
+
+msgctxt "#30703"
+msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
+msgstr "Se esta opção estiver configurada, o add-on envia o comando para excluir os temporizadores concluídos do descodificador após cada intervalo de atualização."
+
+msgctxt "#30704"
+msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
+msgstr "Quando ativo, há algumas configurações necessárias no descodificador para permitir a vinculação de Temporizadores Automáticos (Regras de Temporizador) a temporizadores na interface de utilizador do Kodi. O add-on tenta configurá-los automaticamente ao iniciar."
+
+msgctxt "#30705"
+msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
+msgstr "Se os últimos grupos analisados forem excluídos, tente limitar as novas seleções automáticas à TV ou ao Rádio (dependendo do canal usado para criar o temporizador automático). Observe que, se os últimos grupos analisados estiverem ativados, tal não será possível e a configuração será ignorada."
+
+msgctxt "#30706"
+msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
+msgstr "Para o canal usado para criar o limite de temporizador automático para os grupos de canais dos quais este canal é membro."
+
+msgctxt "#30720"
+msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
+msgstr "Esta categoria contém as configurações para Ver mais tarde. O Ver mais tarde permite pausar a TV em Direto, bem como andar para trás e para a frente a partir da sua posição atual, semelhante a reproduzir uma gravação. O buffer é excluído cada vez que um canal é alterado ou parado."
+
+msgctxt "#30721"
+msgid "What timeshift option do you want: [Disabled] No timeshifting; [On Pause] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [On Playback] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
+msgstr "Que opção de Ver mais tarde deseja: [Desativado] Sem deslocamento de tempo; [Em Pausa] O Ver mais tarde começa quando uma transmissão ao vivo é pausada. Por exemplo. quando quer continuar de onde estava depois de pausar; [Na reprodução] O Ver mais tarde começa quando uma transmissão ao vivo é aberta. Por exemplo, pode ir para qualquer ponto no fluxo desde que foi aberto."
+
+msgctxt "#30722"
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+msgstr "O caminho usado para armazenar o buffer de Ver mais tarde. O padrão é a pasta `addon_data / pvr.vuplus` no 'userdata'."
+
+msgctxt "#30740"
+msgid "This category cotains advanced/expert settings"
+msgstr "Esta categoria contém definições avançadas/experientes."
+
+msgctxt "#30741"
+msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
+msgstr "Por defeito, o enredo curto (breve descrição no Enigma2) não é mostrado na interface de utilizador. Pode ser mostrado no EPG, gravações ou ambos. Depois de alterar esta opção, é necessário limpar a cache do EPG `Configurações-> PVR & Live TV-> Guia-> Limpar a cache` para que ele tenha efeito."
+
+msgctxt "#30742"
+msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [Disabled] No command sent when the addon exits; [Standby] Send the standby command on exit; [Deep standby] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [Wakeup, then standby] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
+msgstr "Se esta opção estiver configurada para um valor diferente de `Inativo', o add-on envia um comando Powerstate para o descodificador quando o Kodi for fechado (ou o add-on será desativado): [Inativo] Nenhum comando enviado quando sai do add-on; [Em espera] Envia o comando em espera ao sair; [Espera profunda] Envia o comando de espera profunda ao sair. Note que o descodificador não responderá ao Kodi depois deste comando ser enviado; [Despertar, depois espera] Semelhante ao modo de espera, mas primeiro envia um comando de ativação. Pode ser útil se quiser garantir que todas as transmissões tenham parado. Nota: se usar o CEC, isso pode fazer com que a sua TV desperte."
+
+msgctxt "#30743"
+msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
+msgstr "O tempo limite a ser usado ao tentar ler transmissões ao vivo. O padrão para transmissões ao vivo é 0. O padrão para o Ver mais tarde é de 10 segundos."
+
+msgctxt "#30744"
+msgid "The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide."
+msgstr "O tamanho do pacote usado pelo Kodi para transmissões. Padrão 0 para deixar o Kodi decidir."
+
+msgctxt "#30745"
+msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
+msgstr "As instruções do registo de depuração serão mostradas para o add-on, embora o registo de depuração possa não estar ativado no Kodi. Observe que todas as instruções do registo de depuração serão mostradas ao nível de AVISO."
+
+msgctxt "#30746"
+msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
+msgstr "Instruções de registo muito detalhadas e detalhadas serão mostradas além das instruções de depuração padrão. Se habilitado junto com o `Ativar o registo de depuração no modo normal`, ambos os rastreios e depuração serão mostrados sem o registro de depuração ativo. Nesse caso, as instruções de registo de depuração e rastreio serão exibidas ao nível de AVISO."
+
+msgctxt "#30760"
+msgid "This category cotains advanced/expert settings"
+msgstr "Esta categoria contém definições avançadas/experientes."
+
+msgctxt "#30761"
+msgid "webifversion"
+msgstr "webifversion"
+
+msgctxt "#30762"
+msgid "autotimertagintags"
+msgstr "autotimertagintags"
+
+msgctxt "#30763"
+msgid "autotimernameintags"
+msgstr "autotimernameintags"
+
+msgctxt "#30764"
+msgid "globalstartpaddingstb"
+msgstr "globalstartpaddingstb"
+
+msgctxt "#30765"
+msgid "globalendpaddingstb"
+msgstr "globalendpaddingstb"

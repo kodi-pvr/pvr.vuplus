@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "ምልክቶች "
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "መመለሻ ጊዜ በ ሰከንዶች"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "የ ማሻሻያ እረፍት በ ደቂቆች"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "ፎልደር ለ ጣቢያዎች ዳታ "
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "የ ማሻሻያ ክፍተት"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "የ ጣቢያ ማሻሻያ መፈለጊያ"
 
 msgctxt "#30018"
 msgid "General"
@@ -63,14 +47,6 @@ msgstr "ጣቢያዎች"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "የረቀቀ"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "የ መቅረጫ / ሰአት"
 
 msgctxt "#30042"
 msgid "Never"
@@ -100,6 +76,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "ማጥፊያ "
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "መቅረጫ "
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "መቅረጫ "
@@ -107,10 +87,6 @@ msgstr "መቅረጫ "
 msgctxt "#30072"
 msgid "Timers"
 msgstr "መቁጠሪያ"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "እሺ "
 
 msgctxt "#30095"
 msgid "True"
@@ -120,14 +96,10 @@ msgctxt "#30096"
 msgid "False"
 msgstr "ሀሰት"
 
-msgctxt "#30430"
+msgctxt "#30117"
 msgid "Disabled"
 msgstr "ተሰናክሏል "
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "ግንኙነት ተቋርጧል ከ '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "እንደገና ተገናኝቷል ወደ '%s'"
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "ተሰናክሏል "

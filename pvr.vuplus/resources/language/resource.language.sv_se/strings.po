@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Ikoner"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Anslutningstimeout i sekunder"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Ikonsökväg"
@@ -51,10 +47,6 @@ msgstr "Ikonsökväg"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Uppdateringsintervall"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Uppdateringsintervall i minuter"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Zappa innan kanalbyte (t.ex. för enskilda mottagarboxar)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Mapp för kanaldata"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Uppdateringsintervall"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Kontrollera efter kanaluppdateringar"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +80,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avancerad"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Inspelningar/Timer"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Inspelningsmapp på mottagaren"
@@ -115,10 +91,6 @@ msgstr "Sänd energisparläge vid avslutande av tillägget"
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
 msgstr "TV-bukett hämtningsläge"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "TV-bukett"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -248,10 +220,6 @@ msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
 msgstr "Radio bukett hämtningsläge"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Radio bukett"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tidsskifte"
@@ -293,8 +261,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Hämta radio-favoriter bukett"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Inspelningar & Timers"
+msgid "Recordings"
+msgstr "Inspelningar"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -312,10 +280,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Alla buketter"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Endast en bukett"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "Som första bukett"
@@ -323,10 +287,6 @@ msgstr "Som första bukett"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "Som sista bukett"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Favoritgrupp"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +307,6 @@ msgstr "(Ej ansluten!)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "tilläggsfel"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Enigma2 Media Server"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -428,17 +380,33 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr "Använd OpenWebIf picon sökväg"
 
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Aktivera spårloggning i felsökningsläge"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Annat"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Aktivera felsökningsloggning i normalt läge"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Senast skannad (TV)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Senast skannad (radio)"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Avaktiverad"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatisk"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "En gång (Schemalags av guide-baserad tidsregel)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "En gång (Schemalagd av den upprepade timerregeln)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -455,14 +423,6 @@ msgstr "Spela in om EPG-titeln och den korta beskrivningen skiljer sig åt"
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Spela in om EPG-titeln och alla beskrivningar skiljer sig åt"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Frånkopplad från '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Återansluten till '%s'"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

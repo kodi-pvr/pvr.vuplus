@@ -36,10 +36,6 @@ msgctxt "#30019"
 msgid "Channels"
 msgstr "Kanallar"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Hech qachon"
@@ -63,7 +59,3 @@ msgstr "Radio"
 msgctxt "#30063"
 msgid "Off"
 msgstr "O'chirilgan"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"

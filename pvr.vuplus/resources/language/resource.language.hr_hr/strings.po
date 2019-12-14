@@ -16,6 +16,14 @@ msgstr ""
 "Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Enigma2 naziv računala ili IP adresa"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Ulaz stremanja"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Korisničko ime"
@@ -32,25 +40,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Ikone"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Vrijeme odaziva u sekundama"
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Putanja ikone"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Interval osvježavanja u minutama"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Razdoblje nadopune"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Mapa za podatke programa"
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Automatsko čišćenje popisa zadanih snimanja"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Ulaz web sučelja"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Isključi prije promjene programa (za uređaje s jednim prijemnikom)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Razdoblje nadopune"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Provjeri nadopune programa"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -68,25 +80,77 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Napredno"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Snimanja / Zakazana snimanja"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Mapa snimanja na prijemniku"
+
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Pošalji način stanja energije pri zatvaranju dodatka"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Način dohvata TV buketa"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Dohvati ikone iz web sučelja"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Koristi sigurni HTTP (https)"
+
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Omogući automatsko podešavanje za strujanja s programom uživo"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Zadrži strukturu mapa za snimke"
+
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Sezone i epizode"
 
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG vodič"
 
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Izdvoji informacije sezone, epizode i godinu gdje je moguće"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Omogući automatska zakazana snimanja"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Koristi picons.eu datotečni format"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Omogući stvaranje ponavljajućih zakazanih snimanja"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Zapisuj tekstna mapiranja žanra koji nedostaje"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Web sučelje"
+
 msgctxt "#30039"
 msgid "Streaming"
-msgstr "Streamanje"
+msgstr "Strujanje"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Postavi obris (npr. podnaslovi) prije sadržaja"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Veličina čitanja dijela strujanja"
 
 msgctxt "#30042"
 msgid "Never"
@@ -104,6 +168,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Uvijek"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Izdvoji informacije emisije iz datoteka"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Rytec izvorno mapiranje teksta"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "Omogući Rytec izvorno mapiranje teksta"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Datoteka Rytec izvornog mapiranja teksta"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Prilagođeno vrijeme čekanja emitiranja uživo (0 je zadano)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Prijava"
@@ -111,6 +195,18 @@ msgstr "Prijava"
 msgctxt "#30052"
 msgid "Misc"
 msgstr "Ostalo"
+
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Izvorno ID mapiranje"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Omogući izvorno ID mapiranje"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Datoteka izvornog ID mapiranja teksta"
 
 msgctxt "#30056"
 msgid "TV"
@@ -120,9 +216,17 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Način dohvata radio buketa"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Vremensko premotavanje"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Omogući vremensko premotavanje"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -140,21 +244,81 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Pri pauzi"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Koristi sigurni HTTP (https) za strujanje"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Koristi prijavu za strujanje"
+
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Dohvati buket TV omiljenih"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Dohvati buket Radio omiljenih"
+
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Snimke"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Snimke"
 
 msgctxt "#30072"
 msgid "Timers"
-msgstr "Snimanja"
+msgstr "Zakazana snimanja"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "U redu"
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Broj stvaranja ponavljajućih zakazanih snimanja"
+
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Svi buketi"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Kao prvi buket"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Kao posljednji buket"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Omiljeni (TV)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Omiljeni (Radio)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "nepoznato"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Nije povezan!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "greška dodatka"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Informacije uređaja"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf inačica"
 
 msgctxt "#30094"
 msgid "N/A"
-msgstr "N/A"
+msgstr "N/D"
 
 msgctxt "#30095"
 msgid "True"
@@ -162,15 +326,19 @@ msgstr "Istina"
 
 msgctxt "#30096"
 msgid "False"
-msgstr "Nesipravan"
+msgstr "Laž"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Ostalo"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Onemogućeno"
 
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatski"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Jednom (zakazano rasporedom EPG vodiča)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -179,14 +347,6 @@ msgstr "Onemogućeno"
 msgctxt "#30431"
 msgid "Record if EPG title differs"
 msgstr "Snimi ako se EPG naslov razlikuje"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Odspojen s '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Ponovno povezan s '%s'"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

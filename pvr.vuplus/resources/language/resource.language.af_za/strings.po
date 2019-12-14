@@ -34,15 +34,11 @@ msgstr "Wagwoord"
 
 msgctxt "#30005"
 msgid "Connection"
-msgstr "Konneksie"
+msgstr "Verbinding"
 
 msgctxt "#30006"
 msgid "Icons"
 msgstr "Ikone"
-
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Reaksie tydverstreke in sekondes"
 
 msgctxt "#30008"
 msgid "Icon path"
@@ -51,10 +47,6 @@ msgstr "Ikoon pad"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Opdateer Interval"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Opdateer Interval in minute"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Zap voor kanaal verander (d.w.s. vir enkel stemmer bokse)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Vouer vir kanaal data"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Opdateer interval"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Kyk vir kanaal opdaterings"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +80,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Gevorderde"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Opnames / Tydhouer"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Opname vouer op die ontvanger"
@@ -115,10 +91,6 @@ msgstr "Stuur kragtoestand modus met byvoegsel uit gaan"
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
 msgstr "TV boeket gaan haal modus"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "TV boeket"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -248,10 +220,6 @@ msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
 msgstr "Radio boeket gaan haal modus"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Radio boeket"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tydskuif"
@@ -293,8 +261,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Gaan haal radio gunstelinge boeket"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Opnames & Tydhouers"
+msgid "Recordings"
+msgstr "Opnames"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -312,10 +280,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Alle boekette"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Slegs een boeket"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "As eerste boeket"
@@ -323,10 +287,6 @@ msgstr "As eerste boeket"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "As laaste boeket"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Gunstelinge groep"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +307,6 @@ msgstr "(Nie gekonnekteer!)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "byvoegsel fout"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Enigma2 Media Bediener"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -428,17 +380,97 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr "Gebruik OpenWeblf picon pad"
 
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Stel naspeur loghouding in staat in ontfout modus"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Ander"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "EPG opdateer vertraging per kanaal"
+
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr "Opname RBLs (Redigeer Besluit Lyste)"
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr "Stel RBLs ondersteuning in staat"
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr "RBL begin tyd opstop"
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr "RBL stop tyd opstop"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Stel ontfout log in staat in normale modus"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Laaste Geskandeer (TV)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Laaste Geskandeer (Radio)"
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr "Sluit laaste geskandeerde boeket uit"
+
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr "Slaan Aanvanklike EPG Laai Oor"
+
+msgctxt "#30116"
+msgid "Channels and groups update mode"
+msgstr "Kanale en groepe opdateer modus"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Nie in staat gestel"
+
+msgctxt "#30118"
+msgid "Notify on UI and Log"
+msgstr "Stel in kennis op UI en Log"
+
+msgctxt "#30119"
+msgid "Reload Channels and Groups"
+msgstr "Herlaai Kanale en Groepe"
+
+msgctxt "#30120"
+msgid "Channels and groups update hour (24h)"
+msgstr "Kanale en groepe opdateer uur (24h)"
+
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr "Verbinding nagaan tydverstreke"
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr "Verbinding nagaan interval"
+
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr "Outotydhouers"
+
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr "Kodi gevalle"
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr "Kodi/E2 gevalle"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Outomaties"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Een keer (Geskeduleer deur gids-gebaseerde tydhouer reël)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Een keer (Geskeduleer deur herhalende tydhouer reël)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -456,14 +488,6 @@ msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Neem op as EPG titel en alle beskrywings verskil"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Gediskonnekteer van '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Geherkonnekteer aan '%s'"
-
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Tydskuif buffer pad bestaan nie"
@@ -479,3 +503,11 @@ msgstr "Enigma2: Geen kanale groepe gevind nie"
 msgctxt "#30517"
 msgid "Enigma2: No channels found"
 msgstr "Enigma2: Geen kanale gevind nie"
+
+msgctxt "#30608"
+msgid "Use https to connect to streams."
+msgstr "Gebruik https om aan strome te verbind."
+
+msgctxt "#30609"
+msgid "Use the login username and password for streams."
+msgstr "Gebruik die inteken gebruikersnaam en wagwoord vir strome."

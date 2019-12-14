@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Tákn"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Tímatakmörk svartíma í sekúndum"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Slóð táknmynda"
@@ -51,10 +47,6 @@ msgstr "Slóð táknmynda"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Bið milli uppfærslna"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Uppfærslutími í mínútum"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Bið á milli rásaskipta (þ.e. fyrir box með einum móttakara)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Mappa fyrir rásargögn"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Bið milli uppfærslna"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Athuga með uppfærslu rása"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,21 +80,9 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Ítarlegt"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Upptökur / Tímatökur"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Upptökumappa á móttakaranum"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "Sjónvarps-knippi"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -192,10 +164,6 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Útvarp"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Útvarps-knippi"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Tímaflakk"
@@ -237,8 +205,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Sækja knippi af útvarpseftirlætum"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Upptökur og tímatökur"
+msgid "Recordings"
+msgstr "Upptökur"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -252,10 +220,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Öll knippi"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Aðeins eitt knippi"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "Sem fyrsta knippi"
@@ -263,10 +227,6 @@ msgstr "Sem fyrsta knippi"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "Sem síðasta knippi"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Eftirlætahópur"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -287,10 +247,6 @@ msgstr "(Engin tenging!)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "villa í viðbót"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "Í lagi"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -320,17 +276,17 @@ msgctxt "#30097"
 msgid "Standby"
 msgstr "Biðstaða"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Annað"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Óvirkt"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Sjálfvirkt"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Eins-skiptis (sett á með tímatökureglu frá dagsrárvísi)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Eins-skiptis (sett á með endurtekinni tímatökureglu)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -347,14 +303,6 @@ msgstr "Taka upp ef mismunur er á titli og lýsingu í EPG-dagskrárvísi"
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Taka upp ef mismunur er á titli og lýsingum í EPG-dagskrárvísi"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Aftengdur frá '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Tengdur við '%s'"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

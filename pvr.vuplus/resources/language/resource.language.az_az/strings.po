@@ -39,7 +39,3 @@ msgstr "Həmişə"
 msgctxt "#30056"
 msgid "TV"
 msgstr "TV"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"

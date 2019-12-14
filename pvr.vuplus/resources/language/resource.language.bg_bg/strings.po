@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Иконки"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Време на изчакване за отговор (секунди)"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Път до иконките"
@@ -51,10 +47,6 @@ msgstr "Път до иконките"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Интервал на обновяване"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Интервал на обновяване (минути)"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Нулиране преди превключване на канал (за устройства с един тунер)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Папка за данните на каналите"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Интервал на обновление"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Проверка за промени по каналите"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +80,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Допълнителни"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Записи / Брояч"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка за записите на приемника"
@@ -115,10 +91,6 @@ msgstr "Изпращане на инф. за режима на захранва�
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
 msgstr "Режим на изтегляне на ТВ-букет"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "ТВ-букет"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -248,10 +220,6 @@ msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
 msgstr "Режим на изтегляне на радио-букет"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Радио-букет"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Изместване във времето"
@@ -293,8 +261,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Изтегляне на букет с любими радиа"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Записи и броячи"
+msgid "Recordings"
+msgstr "Записи"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -312,10 +280,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Всички букети"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Само един букет"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "При първия букет"
@@ -323,10 +287,6 @@ msgstr "При първия букет"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "При последния букет"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Група от любими"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +307,6 @@ msgstr "(Няма връзка!)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "грешка в добавката"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Медиен сървър „Enigma2“"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "Добре"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -428,17 +380,101 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr "Използване на пътя за picon на OpenWebIf"
 
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Включване на съобщенията от ниво „проследяване“ в журнала, в режим на дебъгване."
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Други"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Забавяне на обновяването на справочника поотделно за всеки канал"
+
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr "Записване на СМР (Списък с монтажни решения)"
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr "Поддръжка на СМР"
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr "Допълнително време в началото за СМР"
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr "Допълнително време в края за СМР"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Включване на журнала за дебъгване в нормалния режим"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Последно сканиране (ТВ)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Последно сканиране (Радио)"
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr "Изключване на последно сканирания букет"
+
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr "Пропускане на началното зареждане на справочника"
+
+msgctxt "#30116"
+msgid "Channels and groups update mode"
+msgstr "Режим на обновяване на каналите и групите"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Изключено"
+
+msgctxt "#30119"
+msgid "Reload Channels and Groups"
+msgstr "Презареждане на каналите и групите"
+
+msgctxt "#30120"
+msgid "Channels and groups update hour (24h)"
+msgstr "Час за обновяване на каналите и групите (24ч)"
+
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr "Време на изчакване при проверка на връзката"
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr "Интервал за проверка на връзката"
+
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr "Автоматични броячи"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Автоматично"
 
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Еднократен (насрочено чрез правило на брояч)"
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr "Повтаряемо, основано на време/канал"
 
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Еднократен (насрочено чрез правило на повтарящ се брояч)"
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr "Еднократно, основано на справочника"
+
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr "Повтаряемо, основано на справочника"
+
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr "Автоматично, основано на справочника"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -455,14 +491,6 @@ msgstr "Запис само, ако заглавието и краткото о�
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Запис само, ако заглавието и всички описания в справочника са различни"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Връзката с „%s“ се разпадна"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Отново има връзка с „%s“"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

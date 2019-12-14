@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Значкі"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Response timeout in seconds"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Update Interval in minutes"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Folder for channeldata"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Прамежак паміж абнаўленнямі"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Check for channel updates"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Channels"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Advanced"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Recordings / Timer"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -100,17 +76,29 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Радыё"
 
+msgctxt "#30062"
+msgid "Timeshift buffer path"
+msgstr "Шлях да буферу таймшыфт"
+
 msgctxt "#30063"
 msgid "Off"
 msgstr "Не"
+
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Recordings"
 
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Recordings"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "Добра"
+msgctxt "#30072"
+msgid "Timers"
+msgstr "Таймеры"
+
+msgctxt "#30094"
+msgid "N/A"
+msgstr "Недаступна"
 
 msgctxt "#30095"
 msgid "True"
@@ -120,6 +108,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "False"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Іншыя"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Забаронена"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Аўтаматычна "
@@ -127,11 +123,3 @@ msgstr "Аўтаматычна "
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Забаронена"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Disconnected from '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Reconnected to '%s'"

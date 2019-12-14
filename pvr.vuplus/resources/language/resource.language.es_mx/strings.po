@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Iconos"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Tiempo de respuesta en segundos"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Ruta del icono"
@@ -52,25 +48,13 @@ msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Intervalo de actualización"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Intervalo de actualización en minutos"
-
 msgctxt "#30012"
 msgid "Web interface port"
 msgstr "Puerto para interface web"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Carpeta de datos de canal"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Intervalo de actualización."
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Buscar actualizaciones de canal"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -87,14 +71,6 @@ msgstr "Canales"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avanzado"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Grabaciones / Temporizador"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -204,6 +180,10 @@ msgctxt "#30067"
 msgid "Use login for streams"
 msgstr "Usa login para streams"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Grabaciones"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Grabaciones"
@@ -211,10 +191,6 @@ msgstr "Grabaciones"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Temporizadores"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Grupo de favoritos"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -235,14 +211,6 @@ msgstr "(No conectado!)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "Error de complemento"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Media Server Enigma2"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30090"
 msgid "Device Info"
@@ -280,6 +248,14 @@ msgctxt "#30100"
 msgid "Update mode"
 msgstr "Modo de actualización"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Otro"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Deshabilitado"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automático"
@@ -299,11 +275,3 @@ msgstr "Graba si el titulo y la descripción corta del EPG son diferentes"
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Graba si el título y todas las descripciones del EPG son diferentes"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Desconectado desde '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Reconectado a '%s'"

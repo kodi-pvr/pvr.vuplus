@@ -16,6 +16,10 @@ msgstr ""
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Enigma2-værtsnavn eller IP-adresse"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Brugernavn"
@@ -32,25 +36,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Ikoner"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Tidsfrist for tilbagemelding i sekunder"
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Ikonsti"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Opdateringsinterval i minutter"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Opdateringsinterval"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Mappe til kanaldata"
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Automatisk oprydning af timerliste"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Port for netgrænseflade"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Zap før kanalskift (dvs. for single tuner-bokse)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Opdateringsinterval"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Søg efter kanalopdateringer"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -68,21 +76,33 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avanceret"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Optagelser / Timer"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Optagelsesmappe på modtageren"
 
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Brug sikker HTTP (https)"
+
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr "Aktiver automatisk konfiguration for live udsendelser"
+
+msgctxt "#30030"
+msgid "Keep folder structure for records"
+msgstr "Gem mappestruktur for optagelser"
+
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "Sæsoner og episoder"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "Brug picons.eu-filformat"
 
 msgctxt "#30039"
 msgid "Streaming"
@@ -136,6 +156,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "Sat på pause"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Optagelser"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Optagelser"
@@ -144,9 +168,25 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Timeroptagelser"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
+msgctxt "#30083"
+msgid "addon error"
+msgstr "udvidelsesfejl"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Motor"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Optagelsesmellemrum"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Enhedsinfo"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "Weblf-version"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -160,6 +200,42 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Falsk"
 
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Opdateringstilstand"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Timere og optagelser"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Kun timere"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Anden"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Sidst skannet (tv)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Sidst skannet (radio)"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Deaktiveret"
+
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr "Kodi-instanser"
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr "Kodi/E2-instanser"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatisk"
@@ -168,10 +244,6 @@ msgctxt "#30430"
 msgid "Disabled"
 msgstr "Deaktiveret"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Forbindelse afbrudt fra '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Forbundet igen til '%s'"
+msgctxt "#30761"
+msgid "webifversion"
+msgstr "webifversion"

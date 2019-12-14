@@ -52,6 +52,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "خاموش"
 
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "غیرفعال"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "غیرفعال"

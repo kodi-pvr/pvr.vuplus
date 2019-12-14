@@ -36,10 +36,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "උසස්"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "කිසි විටෙකත් නැති "
@@ -52,13 +48,17 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "වහනවා"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "පටිගතකිරීම්"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "පටිගතකිරීම්"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "හරි"
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "අක්‍රිය කර ඇත."
 
 msgctxt "#30430"
 msgid "Disabled"

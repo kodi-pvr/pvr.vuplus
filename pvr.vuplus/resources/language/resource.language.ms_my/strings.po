@@ -41,8 +41,8 @@ msgid "Icons"
 msgstr "Ikon"
 
 msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Had masa tamat respons dalam saat"
+msgid "Program Streams"
+msgstr "Strim Program"
 
 msgctxt "#30008"
 msgid "Icon path"
@@ -51,10 +51,6 @@ msgstr "Laluan ikon"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Kemaskini Sela"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Sela kemaskini dalam minit"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -69,16 +65,12 @@ msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Zap sebelum tukar saluran (cth. kotak penala tunggal)"
 
 msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Folder untuk data saluran"
+msgid "Set program id for live channel or recorded streams"
+msgstr "Tetapkan id program untuk saluran langsung atau strim terakam"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Kemaskini sela"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Semak untuk kemaskini saluran"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +88,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Lanjutan"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Rakaman / Pemasa"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Folder rakaman pada penerima"
@@ -117,8 +101,8 @@ msgid "TV bouquet fetch mode"
 msgstr "Mod dapatkan jambak TV"
 
 msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "Jambak TV"
+msgid "TV bouquet 1"
+msgstr "Jambak TV 1"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -249,8 +233,8 @@ msgid "Radio bouquet fetch mode"
 msgstr "Mod dapatkan jambak radio"
 
 msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Jambak radio"
+msgid "Radio bouquet 1"
+msgstr "Jambak Radio 1"
 
 msgctxt "#30060"
 msgid "Timeshift"
@@ -293,8 +277,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Dapatkan jambak kegemaran radio"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Rakaman & Pemasa"
+msgid "Recordings"
+msgstr "Rakaman"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -313,8 +297,8 @@ msgid "All bouquets"
 msgstr "Semua jambak"
 
 msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Hanya satu jambak"
+msgid "Some bouquets"
+msgstr "Beberapa jambak"
 
 msgctxt "#30076"
 msgid "As first bouquet"
@@ -325,8 +309,8 @@ msgid "As last bouquet"
 msgstr "Sebagai jambak terakhir"
 
 msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Kumpulan kegemaran"
+msgid "Favourites bouquet"
+msgstr "Jambak kegemaran"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +331,6 @@ msgstr "(Tidak bersambung)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "ralat tambahan"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Pelayan Media Enigma2"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -424,17 +400,193 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "Pemasa sahaja"
 
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Guna laluan picon OpenWebif"
+
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Benarkan pengelogan surih dalam mod nyahpepijat"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Lain-lain"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Lengah kemaskini EPG per saluran"
+
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr "Merakam EDL (Senarai Keputusan Sunting)"
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr "Benarkan sokongan EDL"
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr "Pemadatan masa mula EDL"
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr "Pemadatan masa henti EDL"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Benarkan pengelogan nyahpepijat dalam mod biasa"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Terakhir Diimbas (TV)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Terakhir Diimbas (Radio)"
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr "Asingkan jambangan terakhir diimbas"
+
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr "Langkau Muat EPG Awalan"
+
+msgctxt "#30116"
+msgid "Channels and groups update mode"
+msgstr "Mod kemaskini saluran dan kumpulan"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Dilumpuhkan"
+
+msgctxt "#30118"
+msgid "Notify on UI and Log"
+msgstr "Maklum dalam UI dan Log"
+
+msgctxt "#30119"
+msgid "Reload Channels and Groups"
+msgstr "Muat semula Saluran dan Kumpulan"
+
+msgctxt "#30120"
+msgid "Channels and groups update hour (24h)"
+msgstr "Jam kemaskini saluran dan kumpulan (24j)"
+
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr "Tamat masa semakan sambungan"
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr "Sel semakan sambungan"
+
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr "Autopemasa"
+
+msgctxt "#30124"
+msgid "Limit 'Any Channel' autotimers to TV or Radio"
+msgstr "Had autopemasa 'Mana-Mana Saluran' pada TV atau Radio"
+
+msgctxt "#30125"
+msgid "Limit to groups of original EPG channel"
+msgstr "Hadkan kumpulan bagi saluran EPG asal"
+
+msgctxt "#30126"
+msgid "Use standard channel service reference"
+msgstr "Guna rujukan perkhidmatan saluran piawai"
+
+msgctxt "#30127"
+msgid "Store last played/play count on the backend"
+msgstr "Simpan kiraan telah dimainkan/main pada bahagian belakang"
+
+msgctxt "#30128"
+msgid "Share last played across:"
+msgstr "Kongsi terakhir dimainkan merentasi:"
+
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr "Kejadian Kodi"
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr "Kejadian Kodi/E2"
+
+msgctxt "#30131"
+msgid "Custom bouquets"
+msgstr "Jambak suai"
+
+msgctxt "#30132"
+msgid "Custom TV bouquets file"
+msgstr "Fail jambak TV suai"
+
+msgctxt "#30133"
+msgid "Custom Radio bouquets file"
+msgstr "Fail jambak Radio suai"
+
+msgctxt "#30134"
+msgid "Number of TV bouquets"
+msgstr "Bilangan jambak TV"
+
+msgctxt "#30135"
+msgid "TV bouquet 2"
+msgstr "Jambak TV 2"
+
+msgctxt "#30136"
+msgid "TV bouquet 3"
+msgstr "Jambak TV 3"
+
+msgctxt "#30137"
+msgid "TV bouquet 4"
+msgstr "Jambak TV 4"
+
+msgctxt "#30138"
+msgid "TV bouquet 5"
+msgstr "Jambak TV 5"
+
+msgctxt "#30139"
+msgid "Number of radio bouquets"
+msgstr "Bilangan jambak radio"
+
+msgctxt "#30140"
+msgid "Radio bouquet 2"
+msgstr "Jambak Radio 2"
+
+msgctxt "#30141"
+msgid "Radio bouquet 3"
+msgstr "Jambak Radio 3"
+
+msgctxt "#30142"
+msgid "Radio bouquet 4"
+msgstr "Jambak Radio 4"
+
+msgctxt "#30143"
+msgid "Radio bouquet 5"
+msgstr "Jambak Radio 5"
+
+msgctxt "#30144"
+msgid "No addon debug logging in Kodi debug mode"
+msgstr "Tiada pengelogan nyahpepijat tambahan dalam mod nyahpepijat Kodi"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatik"
 
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Sekali (Dijadulakan mengikut peraturan pemasa berasaskan-panduan)"
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr "Pengulangan berasaskan masa/saluran"
 
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Sekali (Dijadualkan mengikut peraturan pemasa ulang)"
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr "Sekali sahaja berasaskan-panduan"
+
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr "Pengulangan berasaskan-panduan"
+
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr "Auto berasaskan-panduan"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -452,14 +604,130 @@ msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Rakam jika tajuk EPG dan semua keterangan berlainan"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Terputus dari '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Bersambung semula dengan '%s'"
-
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Laluan penimbal anjak masa tidak wujud"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Tidak dapat capai antaramuka sesawang"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Tiada kumpulan saluran ditemui"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Tiada saluran ditemuichannels found"
+
+msgctxt "#30518"
+msgid "Enigma2: Channel group changes detected, please restart to load changes"
+msgstr "Enigma2: Perubahan kumpulan saluran dikesan, sila mulakan semula untuk memuatkan perubahan tersebut"
+
+msgctxt "#30519"
+msgid "Enigma2: Channel changes detected, please restart to load changes"
+msgstr "Enigma2: Perubahan saluran dikesan, sila mulakan semula untuk memuatkan perubahan tersebut"
+
+msgctxt "#30520"
+msgid "Invalid Channel"
+msgstr "Saluran Tidak Sah"
+
+msgctxt "#30521"
+msgid "Enigma2: Channel group changes detected, reloading..."
+msgstr "Enigma2: Perubahan kumpulan saluran dikesan, mulakan semula..."
+
+msgctxt "#30522"
+msgid "Enigma2: Channel changes detected, reloading..."
+msgstr "Enigma2: Perubahan saluran dikesan, mulakan semula..."
+
+msgctxt "#30600"
+msgid "This category cotains the settings for connecting to the Enigma2 device"
+msgstr "Kategori ini mengandungi tetapan untuk penyambungan ke peranti Enigma2"
+
+msgctxt "#30601"
+msgid "The IP address or hostname of your enigma2 based set-top box."
+msgstr "Alamat IP atau nama hos bagi peranti berasaskan-enigma2 anda."
+
+msgctxt "#30602"
+msgid "The port used to connect to the web interface."
+msgstr "Port yang digunakan untuk menyambung ke antaramuka sesawang."
+
+msgctxt "#30603"
+msgid "Use https to connect to the web interface."
+msgstr "Guna https untuk bersambung dengan antaramuka sesawang."
+
+msgctxt "#30604"
+msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
+msgstr "Jika antaramuka sesawang bagi kotak set-top dilindungi dengan gabungan namapengguna/katalaluan ia perlu ditetapkan dalam pilihan ini."
+
+msgctxt "#30605"
+msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
+msgstr "Jika antaramuka sesawang bagi kotak set-top dilindungi dengan gabungan namapengguna/katalaluan ia perlu ditetapkan dalam pilihan ini."
+
+msgctxt "#30606"
+msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
+msgstr "Bila dibenarkan URL strim akan membaca dari fail M3U8. Bila dilumpuhkan ia dibina berdasarkan rujukan perkhidmatan saluran. Pilihan ini jarang diperlukan dan tidak perlu dibenarkan melainkan anda ada situasi penggunaan tertentu. Jika melihat Strim IPTV dengan pilihan ini tidak memberi kesan terhadap saluran tersebut."
+
+msgctxt "#30607"
+msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
+msgstr "Pilihan ini mentakrifkan port kotak set-top yang digunakan untuk strimkan tv langsung. Lalai ialah 8001 yang mana sesuai jika pengguna tidak mentakrif port suai di dalam antaramuka sesawang."
+
+msgctxt "#30608"
+msgid "Use https to connect to streams."
+msgstr "Guna https untuk bersambung dengan strim."
+
+msgctxt "#30609"
+msgid "Use the login username and password for streams."
+msgstr "Guna nama pengguna dan kata laluan untuk strim."
+
+msgctxt "#30610"
+msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
+msgstr "Nilai dalam saat untuk menunggu semakan sambungan selesai sebelum gagal. Berguna untuk menala peranti-peranti Enigma2 yang lebih lama. Perhatian, tetapan ini jarang diubah. Ia serupa dengan kesan tetapan 'Sela semakan sambungan'. Lalai ialah 30 saat."
+
+msgctxt "#30611"
+msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
+msgstr "Nilai dalam saat untuk menunggu antara semakan sambungan. Berguna untuk menala peranti-peranti Enigma2 yang lebih lama. Lalai ialah 10 saat."
+
+msgctxt "#30620"
+msgid "This category cotains the settings whivh generally need to be set by the user"
+msgstr "Kategori ini mengandungi tetapan yang biasanya perlu ditetapkan oleh pengguna"
+
+msgctxt "#30621"
+msgid "Fetch the picons straight from the Enigma 2 set-top box."
+msgstr "Dapatkan picon terus menerusi kotak set-top Enigma 2."
+
+msgctxt "#30622"
+msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
+msgstr "Dapatkan laluan picon menerusi OpenWebIf selain dari membina daripada ServiceRef. Perlukan OpenWebIf 1.3.5 atau yang lebih tinggi. Tiada kesan sekiranya menggunakan versi OpenWebIf yang lebih rendah."
+
+msgctxt "#30623"
+msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
+msgstr "Anggap semua fail picon diperoleh melalui kotak set-top bermula dengan '1_1_1_' dan berakhir dengan '_0_0_0'."
+
+msgctxt "#30740"
+msgid "This category cotains advanced/expert settings"
+msgstr "Kategori ini mengandungi tetapi lajutan/mahir"
+
+msgctxt "#30760"
+msgid "This category cotains advanced/expert settings"
+msgstr "Kategori ini mengandungi tetapi lajutan/mahir"
+
+msgctxt "#30761"
+msgid "webifversion"
+msgstr "webifversion"
+
+msgctxt "#30762"
+msgid "autotimertagintags"
+msgstr "autotimertagintags"
+
+msgctxt "#30763"
+msgid "autotimernameintags"
+msgstr "autotimernameintags"
+
+msgctxt "#30764"
+msgid "globalstartpaddingstb"
+msgstr "globalstartpaddingstb"
+
+msgctxt "#30765"
+msgid "globalendpaddingstb"
+msgstr "globalendpaddingstb"

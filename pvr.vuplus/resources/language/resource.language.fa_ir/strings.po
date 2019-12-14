@@ -40,10 +40,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "پیشرفته"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "هرگز"
@@ -68,17 +64,25 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "خاموش"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "ضبط شده ها"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "ضبط شده ها"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "تایید"
-
 msgctxt "#30095"
 msgid "True"
 msgstr "درست"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "دیگر"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "غیر فعال"
 
 msgctxt "#30430"
 msgid "Disabled"

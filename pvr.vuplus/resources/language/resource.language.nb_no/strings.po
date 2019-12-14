@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Ikoner"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Svar timeout i sekunder"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Oppdateringsinterval i minutter"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Mappe for kanaldata"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Oppdateringsintervall"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Se etter kanal oppdateringer"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Kanaler"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avansert"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Opptak / tidsur"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -144,6 +120,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "På pause"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Opptak"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Opptak"
@@ -151,10 +131,6 @@ msgstr "Opptak"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Tidsur"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -168,6 +144,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Usann"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Annet"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Deaktivert"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatisk"
@@ -175,11 +159,3 @@ msgstr "Automatisk"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Deaktivert"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Frakoblet fra '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Tilkoblet til '%s'"

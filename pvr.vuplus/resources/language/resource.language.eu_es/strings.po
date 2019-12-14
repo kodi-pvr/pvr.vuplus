@@ -44,10 +44,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Aurreratua"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "Inoiz ez"
@@ -76,6 +72,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Desgaituta"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Grabazioak"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Grabazioak"
@@ -84,10 +84,6 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Programazioak"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "Ados"
-
 msgctxt "#30095"
 msgid "True"
 msgstr "Egia"
@@ -95,6 +91,14 @@ msgstr "Egia"
 msgctxt "#30096"
 msgid "False"
 msgstr "Gezurra"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Bestelakoak"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Desgaituta"
 
 msgctxt "#30410"
 msgid "Automatic"

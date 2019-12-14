@@ -24,14 +24,6 @@ msgctxt "#30004"
 msgid "Password"
 msgstr "సంకేతపదం"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "సెకన్లలో స్పందన  టైమ్అవుట్"
-
 msgctxt "#30018"
 msgid "General"
 msgstr "సాధారణం"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "సరే"

@@ -32,22 +32,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Biểu tượng"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Số giây tự ngắt chờ kết nối"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Số phút tự cập nhật lại"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Thư mục đặt dữ liệu cho kênh"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Kiểm tra cập nhật kênh"
-
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
 msgstr "Chỉ sử dụng đương dẫn lưu hiện tại của DVB box"
@@ -63,14 +47,6 @@ msgstr "Kênh"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Nâng cao"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Thu / Hẹn giờ"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -104,26 +80,22 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Tắt"
 
-msgctxt "#30071"
+msgctxt "#30070"
 msgid "Recordings"
 msgstr "Các bản ghi"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
+msgctxt "#30071"
+msgid "Recordings"
+msgstr "Các bản ghi"
 
 msgctxt "#30095"
 msgid "True"
 msgstr "Đúng"
 
-msgctxt "#30430"
+msgctxt "#30117"
 msgid "Disabled"
 msgstr "Đã tắt"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Đã ngắt kết nối từ '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Đã kết nối lại tới '%s'"
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Đã tắt"

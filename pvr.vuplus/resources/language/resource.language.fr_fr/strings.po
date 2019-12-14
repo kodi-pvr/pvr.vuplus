@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Icônes"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Temporisation de réponse en secondes"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Chemin d'accès de l'icône"
@@ -51,10 +47,6 @@ msgstr "Chemin d'accès de l'icône"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Intervalle de mise à jour"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Intervalle de mise à jour en minutes"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -68,17 +60,9 @@ msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
 msgstr "Zapper avant le changement de chaîne (par ex. pour les appareils à tuner unique)"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Dossier des données de chaîne"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Intervalle de mise à jour"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Mettre à jour les chaînes"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -96,14 +80,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avancé"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Enregistrements / Programmation"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Dossier d'enregistrement du récepteur"
@@ -115,10 +91,6 @@ msgstr "Envoyer le mode « powerstate » quand une extension quitte"
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
 msgstr "Mode de récupération du bouquet TV"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "Bouquet TV"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -248,10 +220,6 @@ msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
 msgstr "Mode de récupération du bouquet radio"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Bouquet radio"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Différé"
@@ -293,8 +261,8 @@ msgid "Fetch radio favourites bouquet"
 msgstr "Récupérer le bouquet des favoris radio"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Enregistrements et programmation"
+msgid "Recordings"
+msgstr "Enregistrements"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -312,10 +280,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Tous les bouquets"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Un seul bouquet"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "Comme premier bouquet"
@@ -323,10 +287,6 @@ msgstr "Comme premier bouquet"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "Comme dernier bouquet"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Groupes des favoris"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -347,14 +307,6 @@ msgstr "(Non connecté)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "erreur de l'extension"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Serveur de média Enigma2"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -428,17 +380,89 @@ msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
 msgstr "Utiliser le chemin des picon OpenWebIf"
 
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Activer la journalisation du suivi en mode de débogage"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Autres"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Délai de mise à jour du guide (EPG) par chaîne"
+
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr "Listes de décision d'édition (EDL) des enregistrements"
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr "Activer la prise en charge des EDL"
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr "Ajustement du temps de départ EDL"
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr "Ajustement du temps de fin EDL"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Activer la journalisation du débogage en mode normal"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Dernière analyse (TV)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Dernière analyse (radio)"
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr "Exclure le dernier bouquet analysé"
+
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr "Ignorer le chargement initial du guide"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr "Intervalle de vérification de connexion"
+
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr "Instances de Kodi"
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr "Instances de Kodi/E2"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatique"
 
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Une fois (planifiée par une règle de programmation du guide)"
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr "Basé sur le temps/chaîne, répété"
 
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Une fois (planifiée par une règle de programmation répétée)"
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr "Basé sur le guide, une fois"
+
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr "Basé sur le guide, répété"
+
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr "Basé sur le guide, auto."
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -456,14 +480,6 @@ msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Enregistrer si le titre et toutes les descriptions du guide (EPG) diffèrent"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Déconnecté de « %s »"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Reconnecté à « %s »"
-
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Le chemin du tampon pour le différé n'existe pas"
@@ -479,3 +495,31 @@ msgstr "Enigma2 : aucun groupe de chaînes trouvé"
 msgctxt "#30517"
 msgid "Enigma2: No channels found"
 msgstr "Enigma2 : aucune chaîne trouvée"
+
+msgctxt "#30603"
+msgid "Use https to connect to the web interface."
+msgstr "Utiliser HTTPS pour se connecter à l'interface Web."
+
+msgctxt "#30608"
+msgid "Use https to connect to streams."
+msgstr "Utilise HTTPS pour se connecter aux flux."
+
+msgctxt "#30740"
+msgid "This category cotains advanced/expert settings"
+msgstr "Cette catégorie contient les paramètres avancés/experts."
+
+msgctxt "#30760"
+msgid "This category cotains advanced/expert settings"
+msgstr "Cette catégorie contient les paramètres avancés/experts."
+
+msgctxt "#30761"
+msgid "webifversion"
+msgstr "webifversion"
+
+msgctxt "#30763"
+msgid "autotimernameintags"
+msgstr "autotimernameintags"
+
+msgctxt "#30764"
+msgid "globalstartpaddingstb"
+msgstr "globalstartpaddingstb"

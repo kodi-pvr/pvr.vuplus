@@ -40,10 +40,6 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Iconen"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Antwoordtimeout in seconden"
-
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Iconenpad"
@@ -51,10 +47,6 @@ msgstr "Iconenpad"
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Update-interval"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Update-interval in minuten"
 
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -64,17 +56,13 @@ msgctxt "#30012"
 msgid "Web interface port"
 msgstr "Webinterface-poort"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Map voor kanaaldata"
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Zap vóór kanaalwissel (d.w.z. voor enkele tunerboxen)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Updatefrequentie"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Zoeken naar kanaal-updates"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -92,21 +80,9 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Geavanceerd"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Opnames / Timer"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Opnamemap op de ontvanger"
-
-msgctxt "#30026"
-msgid "TV bouquet"
-msgstr "TV bouquet"
 
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
@@ -200,10 +176,6 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Radio"
 
-msgctxt "#30059"
-msgid "Radio bouquet"
-msgstr "Radio-bouquet"
-
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Timeshift"
@@ -233,8 +205,8 @@ msgid "Use secure HTTP (https) for streams"
 msgstr "Gebruik beveiligde HTTP (https) voor streams"
 
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Opnames en timers"
+msgid "Recordings"
+msgstr "Opnames"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -252,10 +224,6 @@ msgctxt "#30074"
 msgid "All bouquets"
 msgstr "Alle bouquets"
 
-msgctxt "#30075"
-msgid "Only one bouquet"
-msgstr "Slechts één bouquet"
-
 msgctxt "#30076"
 msgid "As first bouquet"
 msgstr "Als eerste bouquet"
@@ -263,10 +231,6 @@ msgstr "Als eerste bouquet"
 msgctxt "#30077"
 msgid "As last bouquet"
 msgstr "Als laatste bouquet"
-
-msgctxt "#30078"
-msgid "Favourites group"
-msgstr "Bladwijzergroep"
 
 msgctxt "#30079"
 msgid "Favourites (TV)"
@@ -287,14 +251,6 @@ msgstr "(Niet verbonden!)"
 msgctxt "#30083"
 msgid "addon error"
 msgstr "Fout in add-on"
-
-msgctxt "#30084"
-msgid "Enigma2 Media Server"
-msgstr "Enigma2 Media Server"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
 
 msgctxt "#30086"
 msgid "Backend"
@@ -344,17 +300,21 @@ msgctxt "#30102"
 msgid "Timers only"
 msgstr "Alleen timers"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Overig"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr "Kodi/E2-voorbeelden"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Automatisch"
-
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Eenmalig (ingesteld door gidsgebaseerde tijdregel)"
-
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Eenmaal (ingepland door herhaalde timerregel)"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -371,14 +331,6 @@ msgstr "Opnemen indien er verschillen in de EPG-titel en de korte omschrijving z
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Opnemen indien er verschillen in de EPG-titel en alle korte omschrijvingen zijn"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Verbinding met '%s' verbroken"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Verbinding met '%s' hersteld"
 
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"

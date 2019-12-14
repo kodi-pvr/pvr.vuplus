@@ -48,10 +48,6 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "ขั้นสูง"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
 msgctxt "#30042"
 msgid "Never"
 msgstr "ไม่เลย"
@@ -88,6 +84,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "ปิด"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "กำลังบันทึก"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "กำลังบันทึก"
@@ -96,10 +96,6 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "ตั้งเวลา"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "ตกลง"
-
 msgctxt "#30095"
 msgid "True"
 msgstr "จริง"
@@ -107,6 +103,14 @@ msgstr "จริง"
 msgctxt "#30096"
 msgid "False"
 msgstr "ไม่จริง"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "อื่นๆ"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "ปิดการใช้งาน"
 
 msgctxt "#30410"
 msgid "Automatic"

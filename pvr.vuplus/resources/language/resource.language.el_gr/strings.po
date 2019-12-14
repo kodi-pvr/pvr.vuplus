@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Εικονίδια"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Χρόνος απόκρισης σε δευτερόλεπτα"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Διάστημα Ενημέρωσης σε λεπτά"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Φάκελος για δεδομένα καναλιών"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Διάστημα ενημέρωσης "
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Έλεγχος για ενημερώσεις καναλιών"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Κανάλια"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Για προχωρημένους"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Εγγραφές / Χρονοδιακόπτης"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -128,6 +104,10 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Ανενεργή"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Εγγραφές"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Εγγραφές"
@@ -135,10 +115,6 @@ msgstr "Εγγραφές"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Χρονοδιακόπτες"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "Εντάξει"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -152,14 +128,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Ψευδές"
 
-msgctxt "#30430"
+msgctxt "#30105"
+msgid "Other"
+msgstr "Άλλα"
+
+msgctxt "#30117"
 msgid "Disabled"
 msgstr "Ανενεργή"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Αποσύνδεση από '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Επανασύνδεση σε '%s'"
+msgctxt "#30430"
+msgid "Disabled"
+msgstr "Ανενεργή"

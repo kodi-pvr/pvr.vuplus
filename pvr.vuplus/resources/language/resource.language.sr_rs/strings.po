@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Иконе"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Истек времена за одзив у секундама"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Интервал ажурирања у минутима"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Фасцикла за податке канала"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Интервал ажурирања"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Провери за новије верзије канала"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "Канали"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Напредно"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Снимци / Тајмер"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -140,6 +116,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "При паузирању"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "Снимци"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Снимци"
@@ -147,10 +127,6 @@ msgstr "Снимци"
 msgctxt "#30072"
 msgid "Timers"
 msgstr "Тајмери"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "У реду"
 
 msgctxt "#30095"
 msgid "True"
@@ -160,6 +136,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Нетачно"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "Остало"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Онемогућено"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Аутоматски"
@@ -167,11 +151,3 @@ msgstr "Аутоматски"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Онемогућено"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Откачен од  '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Поново повезан са '%s'"

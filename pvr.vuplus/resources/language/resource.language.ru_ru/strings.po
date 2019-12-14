@@ -16,6 +16,14 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Имя Enigma2 хоста или IP-адрес"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Порт видео-потока"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Пользователь"
@@ -32,29 +40,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Значки"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "Тайм-аут отклика в секундах"
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "Путь к значкам"
 
 msgctxt "#30009"
 msgid "Update Interval"
 msgstr "Интервал обновления"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "Интервал обновления в минутах"
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Авто-очистка таймеров"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "Папка для данных о каналах"
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Порт веб-интерфейса"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "Сброс перед переключением канала (для одно-тюнерных устройств)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Интервал обновления"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "Проверять обновления каналов"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -72,17 +80,25 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Дополнительно"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "Записи/Таймер"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Папка для записей на ресивере"
+
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Отправить режим PowerState при выходе из аддона"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "Режим получения ТВ-букета"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "Брать лого каналов из вебинтерфейса"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "Использовать защищенный HTTP протокол (https) "
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -100,9 +116,41 @@ msgctxt "#30032"
 msgid "EPG"
 msgstr "EPG"
 
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Извлекайте информацию о сезоне, эпизоде ​​и году, где это возможно"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "Включить автотаймеры"
+
 msgctxt "#30035"
 msgid "Use picons.eu file format"
 msgstr "Использовать файлы в формате picons.eu"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Включить генерацию повторных таймеров"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "Журнал пропущенных текстовых отображений жанра"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Веб-интерфейс"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "Видео-поток"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "Расположение надписей (например, субтитров) перед описанием"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Размер блока для потока"
 
 msgctxt "#30042"
 msgid "Never"
@@ -120,6 +168,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "Всегда"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "Извлечь файл info шоу"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Rytec жанровый текст преобразование"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "Включить отображение текста в жанре Rytec"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Файл текстовых сопоставлений жанров Rytec"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "Пользовательский тайм-аут в прямом эфире (по умолчанию 0)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "Логин"
@@ -127,6 +195,18 @@ msgstr "Логин"
 msgctxt "#30052"
 msgid "Misc"
 msgstr "Разное"
+
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "Отображать Жанр ID"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "Включить отображение жанр ID "
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "Файл Отображения Жанр ID"
 
 msgctxt "#30056"
 msgid "TV"
@@ -136,9 +216,17 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "Радио"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "Радиоканал режим выбора мода"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "Таймшифт"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "Включить сдвиг по времени"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -156,9 +244,25 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "На паузе"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "Используйте безопасный HTTP (https) для стримов"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "Использовать логин для потоков"
+
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "Принеси ТВ каналы в избранное "
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "Принеси радио каналы в избранное "
+
 msgctxt "#30070"
-msgid "Recordings & Timers"
-msgstr "Запись и планирование"
+msgid "Recordings"
+msgstr "Записи"
 
 msgctxt "#30071"
 msgid "Recordings"
@@ -168,13 +272,73 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Таймеры"
 
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "Количество повторяющихся таймеров для генерации"
+
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "Все о каналах"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "Как первый канал"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "Как последний канал"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "Избранное (ТВ)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "Избранное (Радио)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "неизвестно"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(Не подключено!)"
+
 msgctxt "#30083"
 msgid "addon error"
 msgstr "ошибка дополнения"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "ОК"
+msgctxt "#30086"
+msgid "Backend"
+msgstr "Серверная часть"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "Записывать записи"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "Глобальный старт записи"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "Глобальное завершение записи"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "Информация об устройстве"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf версия"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "Автоматический таймер теги в тегах таймера"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "Имя автоматического таймера в тегах таймера"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -188,17 +352,105 @@ msgctxt "#30096"
 msgid "False"
 msgstr "Нет"
 
+msgctxt "#30097"
+msgid "Standby"
+msgstr "Режим ожидания"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "Глубокий режим ожидания"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Пробуждение, затем режим ожидания"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "Режим обновления"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "Таймеры и записи"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "Только таймеры"
+
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "Использовать OpenWebIf путь к картинке"
+
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "Включить ведение журнала трассировки в режиме отладки"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "Другое"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "Задержка обновления EPG на канал"
+
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr "Запись EDLs (Edit Decision Lists)"
+
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr "Включить поддержку EDLs"
+
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr "EDLs время начала записей"
+
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr "EDLs время окончания записей"
+
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr "Включить режим отладки ведение логов в нормальном режиме"
+
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr "Последнее сканирование (ТВ)"
+
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr "Последнее сканирование (радио)"
+
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr "Исключить последний отсканированный каналы"
+
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr "Пропустить начальную загрузку EPG"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "Откл."
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "Автоматически"
 
-msgctxt "#30420"
-msgid "One time (Scheduled by guide-based timer rule)"
-msgstr "Единоразово (по расписанию планировщика на основе руководства)"
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr "Повторять время / канал на основе"
 
-msgctxt "#30421"
-msgid "One time (Scheduled by repeating timer rule)"
-msgstr "Единоразово (по расписанию на основе правил планировщика)"
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr "Один раз на основе гида"
+
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr "Повторение, на основе гида"
+
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr "Авто на основе гида"
 
 msgctxt "#30430"
 msgid "Disabled"
@@ -216,14 +468,18 @@ msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr "Записывать, даже если не совпадает название и описание телепередачи"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "Отсоединено от '%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "Подключено к '%s'"
-
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
 msgstr "Отсутствует путь для буферизации отложенного просмотра"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: Нет соединения с веб-интерфейсом"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: Группы каналов не найдены"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: Каналы не найдены"

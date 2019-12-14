@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "סמלים"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "זמן המתנה מירבי לתגובה בשניות"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "מרווח זמני עדכונים בדקות"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "תיקיית נתוני ערוצים"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "מרווח זמני עדכונים"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "חיפוש עדכוני ערוץ"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -67,14 +51,6 @@ msgstr "ערוצים"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "מתקדם"
-
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "הקלטות / תזמון"
 
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
@@ -144,6 +120,10 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "עם השהיה"
 
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "הקלטות"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "הקלטות"
@@ -152,9 +132,9 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "תזמונים"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "אישור"
+msgctxt "#30094"
+msgid "N/A"
+msgstr "לא זמין"
 
 msgctxt "#30095"
 msgid "True"
@@ -164,6 +144,14 @@ msgctxt "#30096"
 msgid "False"
 msgstr "שקר"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "אחר"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "מנוטרל"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "אוטומטי"
@@ -171,11 +159,3 @@ msgstr "אוטומטי"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "מנוטרל"
-
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "נותק מ־'%s'"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "חובר חזרה ל־'%s'"

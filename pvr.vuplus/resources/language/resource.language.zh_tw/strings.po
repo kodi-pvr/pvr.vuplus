@@ -16,6 +16,14 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Enigma2 主機名稱或 IP 位址"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "串流端口"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "帳號"
@@ -32,25 +40,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "圖示"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "回應逾時 (秒)"
+msgctxt "#30008"
+msgid "Icon path"
+msgstr "圖示路徑"
 
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "更新頻率 (分)"
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "更新間隔"
 
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "channeldata的資料夾"
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "自動定時器清單"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "網路界面端口"
+
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr "通道開關前的 Zap (即用於單個調諧器盒)"
 
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "更新間隔"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "檢查頻道更新"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -68,17 +80,25 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "進階"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "錄影／定時器"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "接收器上的錄影資料夾"
+
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "在附加元件出口上發送電源狀態模式"
+
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr "電視發放獲取模式"
+
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr "從網頁介面來獲取圖片"
+
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr "使用安全 HTTP (https)"
 
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
@@ -88,9 +108,49 @@ msgctxt "#30030"
 msgid "Keep folder structure for records"
 msgstr "保留錄影的資料夾架構"
 
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr "季節和事件"
+
 msgctxt "#30032"
 msgid "EPG"
 msgstr "電子節目表"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "提取季節、劇集和年份資訊 (如有可能)"
+
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr "啟用自動定時"
+
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr "使用 picons. eu 檔案格式"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "啟用生成重複定時器"
+
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr "記錄缺少的類型文本映射"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "網路介面"
+
+msgctxt "#30039"
+msgid "Streaming"
+msgstr "串流"
+
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr "在情節之前放置略述 (例如: 副標題)"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "串流讀取塊大小"
 
 msgctxt "#30042"
 msgid "Never"
@@ -108,6 +168,26 @@ msgctxt "#30045"
 msgid "Always"
 msgstr "總是"
 
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr "提取顯示資訊檔"
+
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr "Rytec 類型文本映射"
+
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr "啟用 Rytec 類型文本映射"
+
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr "Rytec 類型文本映射檔案"
+
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr "自訂 Live 直播電視延遲 (0 表示為使用預設值)"
+
 msgctxt "#30051"
 msgid "Login"
 msgstr "登入"
@@ -115,6 +195,18 @@ msgstr "登入"
 msgctxt "#30052"
 msgid "Misc"
 msgstr "雜項"
+
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr "類型 ID 映射"
+
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr "啟用類型 ID 映射"
+
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr "類型 ID 映射"
 
 msgctxt "#30056"
 msgid "TV"
@@ -124,9 +216,17 @@ msgctxt "#30057"
 msgid "Radio"
 msgstr "無線電廣播"
 
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr "廣播發放獲取模式"
+
 msgctxt "#30060"
 msgid "Timeshift"
 msgstr "時間平移"
+
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr "啟用時間管理"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -144,6 +244,26 @@ msgctxt "#30065"
 msgid "On pause"
 msgstr "當暫停中"
 
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr "對串流使用安全 HTTP (https)"
+
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr "使用串流登錄"
+
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr "獲取電視我的最愛的發放"
+
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr "獲取廣播我的最愛的發放"
+
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "錄影檔"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "錄影檔"
@@ -152,9 +272,73 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "定時"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "確定"
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr "要生成的重複定時器的數量"
+
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr "所有發放"
+
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr "作為第一個發放"
+
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr "作為最後一個發放"
+
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr "我的最愛 (電視)"
+
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr "我的最愛 (廣播)"
+
+msgctxt "#30081"
+msgid "unknown"
+msgstr "未知"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr "(尚未連接!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "附加元件錯誤"
+
+msgctxt "#30086"
+msgid "Backend"
+msgstr "後端"
+
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr "錄製填補"
+
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr "全域開始填補"
+
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr "全域結束填補"
+
+msgctxt "#30090"
+msgid "Device Info"
+msgstr "設備資訊"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf 版本"
+
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr "定時器標記中的自動定時標記"
+
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr "定時器標記中的自動定時名稱"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -168,6 +352,50 @@ msgctxt "#30096"
 msgid "False"
 msgstr "錯誤"
 
+msgctxt "#30097"
+msgid "Standby"
+msgstr "備用"
+
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr "深度待機"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "喚醒, 然後待機"
+
+msgctxt "#30100"
+msgid "Update mode"
+msgstr "更新模式"
+
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr "定時器和錄製"
+
+msgctxt "#30102"
+msgid "Timers only"
+msgstr "僅限定時器"
+
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr "使用 OpenWebIf picon 路徑"
+
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr "在偵錯模式下啟用跟蹤日誌記錄"
+
+msgctxt "#30105"
+msgid "Other"
+msgstr "其他"
+
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr "EPG 每個頻道的更新延遲"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "關閉"
+
 msgctxt "#30410"
 msgid "Automatic"
 msgstr "自動"
@@ -176,10 +404,30 @@ msgctxt "#30430"
 msgid "Disabled"
 msgstr "關閉"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "從 '%s' 斷開連線"
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "記錄 EPG 名稱是否不同"
 
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "從 '%s' 重新連線"
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr "記錄 EPG 標題和簡短說明是否不同"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "記錄 EPG 標題和所有描述是否不同"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "時間篩選的緩衝路徑不存在"
+
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr "Enigma2: 無法訪問網路介面"
+
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr "Enigma2: 未找到頻道群組"
+
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr "Enigma2: 找不到頻道"

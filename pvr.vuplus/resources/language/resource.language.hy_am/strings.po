@@ -35,7 +35,3 @@ msgstr "Մուտք"
 msgctxt "#30063"
 msgid "Off"
 msgstr "Անջատել"
-
-msgctxt "#30085"
-msgid "OK"
-msgstr "Լավ"

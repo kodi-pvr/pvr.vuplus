@@ -32,25 +32,9 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "アイコン"
 
-msgctxt "#30007"
-msgid "Response timeout in seconds"
-msgstr "レスポンスのタイムアウト (秒)"
-
-msgctxt "#30010"
-msgid "Update Interval in minutes"
-msgstr "更新間隔 (分)"
-
-msgctxt "#30014"
-msgid "Folder for channeldata"
-msgstr "チャンネルデータのフォルダー"
-
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "更新間隔"
-
-msgctxt "#30016"
-msgid "Check for channel updates"
-msgstr "チャンネル更新を確認"
 
 msgctxt "#30017"
 msgid "Use only the DVB boxes' current recording path"
@@ -68,21 +52,25 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "高度な設定"
 
-msgctxt "#30021"
-msgid "HTTP"
-msgstr "HTTP"
-
-msgctxt "#30022"
-msgid "Recordings / Timer"
-msgstr "録画/タイマー"
-
 msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "レシーバーの録画フォルダー"
 
+msgctxt "#30032"
+msgid "EPG"
+msgstr "EPG"
+
 msgctxt "#30042"
 msgid "Never"
 msgstr "使用しない"
+
+msgctxt "#30043"
+msgid "In EPG only"
+msgstr "EPGのみ"
+
+msgctxt "#30044"
+msgid "In recordings only"
+msgstr "録画のみ"
 
 msgctxt "#30045"
 msgid "Always"
@@ -92,6 +80,10 @@ msgctxt "#30051"
 msgid "Login"
 msgstr "ログイン"
 
+msgctxt "#30052"
+msgid "Misc"
+msgstr "その他"
+
 msgctxt "#30056"
 msgid "TV"
 msgstr "テレビ"
@@ -99,6 +91,10 @@ msgstr "テレビ"
 msgctxt "#30057"
 msgid "Radio"
 msgstr "ラジオ"
+
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr "タイムシフト"
 
 msgctxt "#30062"
 msgid "Timeshift buffer path"
@@ -108,6 +104,18 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "オフ"
 
+msgctxt "#30064"
+msgid "On playback"
+msgstr "再生中"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "一時停止中"
+
+msgctxt "#30070"
+msgid "Recordings"
+msgstr "録音"
+
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "録音"
@@ -116,9 +124,9 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "タイマー"
 
-msgctxt "#30085"
-msgid "OK"
-msgstr "OK"
+msgctxt "#30094"
+msgid "N/A"
+msgstr "N/A"
 
 msgctxt "#30095"
 msgid "True"
@@ -128,14 +136,22 @@ msgctxt "#30096"
 msgid "False"
 msgstr "False"
 
+msgctxt "#30105"
+msgid "Other"
+msgstr "その他"
+
+msgctxt "#30117"
+msgid "Disabled"
+msgstr "無効"
+
+msgctxt "#30410"
+msgid "Automatic"
+msgstr "自動"
+
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "無効"
 
-msgctxt "#30500"
-msgid "Disconnected from '%s'"
-msgstr "'%s' との接続が切れました"
-
-msgctxt "#30501"
-msgid "Reconnected to '%s'"
-msgstr "'%s' との接続が復活しました"
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "EPGタイトルが異なる場合は録画"
