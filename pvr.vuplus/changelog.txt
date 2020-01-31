@@ -1,3 +1,13 @@
+v4.9.7
+- Fixed: Comments for strings.po en_gb
+- Update: Add kodi-platform, p8-platform and tinyxml to addon depends instead of from kodi
+
+v4.9.6
+- Update: Transifix language files
+
+v4.9.5
+- Update: Transifix language files
+
 v4.9.4
 - Fixed: Add Timer title and fallback entry fix
 - Update: Disable skip initial EPG load as default
