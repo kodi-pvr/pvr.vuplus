@@ -16,6 +16,14 @@ msgstr ""
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr "Enigma2 ana bilgisayar adı veya IP adresi"
+
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr "Akış portu"
+
 msgctxt "#30003"
 msgid "Username"
 msgstr "Kullanıcı adı"
@@ -32,9 +40,29 @@ msgctxt "#30006"
 msgid "Icons"
 msgstr "Simgeler"
 
+msgctxt "#30007"
+msgid "Program Streams"
+msgstr "Program Akışları"
+
 msgctxt "#30008"
 msgid "Icon path"
 msgstr "Simge yolu"
+
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr "Güncelleme Aralığı"
+
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr "Otomatik zamanlayıcı listesi temizle"
+
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr "Web arayüzü portu"
+
+msgctxt "#30014"
+msgid "Set program id for live channel or recorded streams"
+msgstr "Canlı kanal veya kayıtlı akışlar için program kimliğini ayarla"
 
 msgctxt "#30015"
 msgid "Update interval"
@@ -60,13 +88,33 @@ msgctxt "#30023"
 msgid "Recording folder on the receiver"
 msgstr "Alıcıdaki kayıt klasörü"
 
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr "Eklenti çıkışında güç durumu kipini gönder"
+
 msgctxt "#30032"
 msgid "EPG"
-msgstr "Elektronik Program Rehberi"
+msgstr "EPG"
+
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr "Sezon, bölüm ve yıl bilgilerini mümkün olduğunca çıkar"
+
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr "Tekrar zamanlayıcıları oluşturmayı etkinleştir"
+
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr "Web Arayüzü"
 
 msgctxt "#30039"
 msgid "Streaming"
 msgstr "Akış"
+
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr "Akış okuma yığın boyutu"
 
 msgctxt "#30042"
 msgid "Never"
@@ -112,6 +160,14 @@ msgctxt "#30063"
 msgid "Off"
 msgstr "Kapalı"
 
+msgctxt "#30064"
+msgid "On playback"
+msgstr "Oynatma sırasında"
+
+msgctxt "#30065"
+msgid "On pause"
+msgstr "Duraklama sırasında"
+
 msgctxt "#30070"
 msgid "Recordings"
 msgstr "Kayıtlar"
@@ -124,9 +180,25 @@ msgctxt "#30072"
 msgid "Timers"
 msgstr "Zamanlayıcılar"
 
+msgctxt "#30081"
+msgid "unknown"
+msgstr "bilinmeyen"
+
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr " (Bağlı değil!)"
+
+msgctxt "#30083"
+msgid "addon error"
+msgstr "eklenti hatası"
+
 msgctxt "#30090"
 msgid "Device Info"
 msgstr "Aygıt Bilgisi"
+
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr "WebIf sürümü"
 
 msgctxt "#30094"
 msgid "N/A"
@@ -139,6 +211,10 @@ msgstr "Doğru"
 msgctxt "#30096"
 msgid "False"
 msgstr "Yanlış"
+
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr "Uyandır, ardından bekle"
 
 msgctxt "#30105"
 msgid "Other"
@@ -155,6 +231,18 @@ msgstr "Otomatik"
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Devre dışı"
+
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr "EPG başlığı farklıysa kaydet"
+
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr "EPG başlığı ve tüm açıklamalar farklıysa kaydet"
+
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr "Timeshift arabellek yolu mevcut değil"
 
 msgctxt "#30520"
 msgid "Invalid Channel"

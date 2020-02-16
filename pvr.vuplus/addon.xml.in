@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.9.5"
+  version="4.9.6"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -56,7 +56,7 @@
     <summary lang="sr_RS@latin">Kodijev interfejs za VU+ / Enigma2 zasnovane settop kutije</summary>
     <summary lang="sv_SE">Kodi Frontend för Enigma2 baserade digitalboxar</summary>
     <summary lang="szl">Klijynt telewizyjny dlŏ dekoderōw VU+ / Enigma2 </summary>
-    <summary lang="tr_TR">VU+ / Enigma2 alıcı kutuları için Kodi ön ucu</summary>
+    <summary lang="tr_TR">Kodi'nin Enigma2 tabanlı kutuları için ön ucu</summary>
     <summary lang="uk_UA">Накладка VU+ /  Enigma2 для Kodi</summary>
     <summary lang="vi_VN">Giao tiếp Kodi cho VU+ / Enigma2 dựa trên các bộ Settop Box</summary>
     <summary lang="zh_CN">基于 Enigma2 的机顶盒的 Kodi 前端</summary>
@@ -108,7 +108,7 @@
     <description lang="sr_RS@latin">VU+ interfejs; podržava strimovanje TV Uživo &amp; Snimaka, EPG, Tajmere</description>
     <description lang="sv_SE">Enigma2 frontend; stödjer strömning av Live-TV &amp; inspelningar, EPG, timers, autotimers.&#10;    &#10;För dokumentationen besök https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md&#10;  </description>
     <description lang="szl">Klijynt telewizyjny dlŏ VU+  podpiyrŏ szpricowanie kanałōw radyjowych i telewizyjnych, nagrowanie i harmōnogram nagrań aji funkcyje EPG.</description>
-    <description lang="tr_TR">VU+ ön ucu; Canlı TV akışı ve kayıt yapabilme, EPG ve zamanlayıcıları destekler.</description>
+    <description lang="tr_TR">Enigma2 ön ucu - Canlı TV ve Kayıtlar, EPG, Zamanlayıcılar, Otomatik Zamanlayıcıların akışını destekler&#10;    &#10;Dökümantasyon için: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    </description>
     <description lang="uk_UA">Накладка VU+; підтримує потоки Live TV, запис, програму передач, таймери.</description>
     <description lang="vi_VN">Giao tiếp cho VU+; hỗ trợ truyền phát và thu chương trình Live TV, hẹn giờ và hiển thị lịch trình chiếu (EPG)</description>
     <description lang="zh_CN">Enigma2 前端 - 支持直播电视播放和录像、电子节目单、定时器、自动定时器。&#10;&#10;文档见：https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md</description>
