@@ -49,10 +49,7 @@ void EpgEntry::UpdateTo(EPG_TAG& left) const
   left.iGenreType          = m_genreType;
   left.iGenreSubType       = m_genreSubType;
   left.strGenreDescription = m_genreDescription.c_str();
-  if (m_new || m_live || m_premiere)
-    left.firstAired = m_startTime; // Kodi-pvr will mark an epg entry as new if the firstAired date and startTime date match
-  else
-    left.firstAired = 0;  // unused
+  left.strFirstAired = (m_new || m_live || m_premiere) ? m_startTimeW3CDateString.c_str() : "";
   left.iParentalRating     = 0;  // unused
   left.iStarRating         = 0;  // unused
   left.iSeriesNumber       = m_seasonNumber;
@@ -60,6 +57,8 @@ void EpgEntry::UpdateTo(EPG_TAG& left) const
   left.iEpisodePartNumber  = m_episodePartNumber;
   left.strEpisodeName      = ""; // unused
   left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
+  if (m_new || m_live || m_premiere)
+    left.iFlags |= EPG_TAG_FLAG_IS_NEW;
 }
 
 bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& epgChannelsMap)
@@ -90,6 +89,20 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
   return UpdateFrom(eventNode, epgChannel, 0, 0);
 }
 
+namespace
+{
+
+std::string ParseAsW3CDateString(time_t time)
+{
+  std::tm* tm = std::localtime(&time);
+  char buffer[16];
+  std::strftime(buffer, 16, "%Y-%m-%d", tm);
+
+  return buffer;
+}
+
+} // unnamed namespace
+
 bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
 {
   std::string strTmp;
@@ -113,6 +126,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
 
   m_startTime = iTmpStart;
   m_endTime = iTmpStart + iTmp;
+  m_startTimeW3CDateString = ParseAsW3CDateString(m_startTime);
 
   if (!XMLUtils::GetInt(eventNode, "e2eventid", iTmp))
     return false;

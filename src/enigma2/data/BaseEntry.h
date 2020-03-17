@@ -25,6 +25,8 @@
 
 #include <string>
 
+#include <kodi/xbmc_epg_types.h>
+
 namespace enigma2
 {
   namespace data
@@ -80,9 +82,9 @@ namespace enigma2
       int m_genreType = 0;
       int m_genreSubType = 0;
       std::string m_genreDescription;
-      int m_episodeNumber = 0;
-      int m_episodePartNumber = 0;
-      int m_seasonNumber = 0;
+      int m_episodeNumber = EPG_TAG_INVALID_SERIES_EPISODE;
+      int m_episodePartNumber = EPG_TAG_INVALID_SERIES_EPISODE;
+      int m_seasonNumber = EPG_TAG_INVALID_SERIES_EPISODE;
       int m_year = 0;
       bool m_new = false;
       bool m_live = false;

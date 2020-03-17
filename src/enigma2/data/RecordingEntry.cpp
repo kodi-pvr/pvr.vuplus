@@ -34,6 +34,20 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
+namespace
+{
+
+std::string ParseAsW3CDateString(time_t time)
+{
+  std::tm* tm = std::localtime(&time);
+  char buffer[16];
+  std::strftime(buffer, 16, "%Y-%m-%d", tm);
+
+  return buffer;
+}
+
+} // unnamed namespace
+
 bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, Channels& channels)
 {
   std::string strTmp;
@@ -58,7 +72,10 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
     m_channelName = strTmp;
 
   if (XMLUtils::GetInt(recordingNode, "e2time", iTmp))
+  {
     m_startTime = iTmp;
+    m_startTimeW3CDateString = ParseAsW3CDateString(m_startTime);
+  }
 
   if (XMLUtils::GetString(recordingNode, "e2length", strTmp))
   {
@@ -207,6 +224,10 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
   left.iGenreType = m_genreType;
   left.iGenreSubType = m_genreSubType;
   strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription) - 1);
+
+  // If this recording was new when it aired, then we can infer the first aired date
+  if (m_new || m_live || m_premiere)
+    strncpy(left.strFirstAired, m_startTimeW3CDateString.c_str(), sizeof(left.strFirstAired) - 1);
 }
 
 std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const

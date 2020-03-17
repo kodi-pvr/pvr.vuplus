@@ -26,6 +26,7 @@
 
 #include <cstdlib>
 
+#include <kodi/xbmc_epg_types.h>
 #include <kodi/util/XMLUtils.h>
 #include <p8-platform/util/StringUtils.h>
 #include <tinyxml.h>
@@ -51,7 +52,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
 
     if (!masterText.empty())
     {
-      if (patternSet.m_hasSeasonRegex && entry.GetSeasonNumber() == 0)
+      if (patternSet.m_hasSeasonRegex && entry.GetSeasonNumber() == EPG_TAG_INVALID_SERIES_EPISODE)
       {
         const std::string seasonText = GetMatchTextFromString(masterText, patternSet.m_seasonRegex);
         if (!seasonText.empty())
@@ -60,7 +61,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
         }
       }
 
-      if (entry.GetEpisodeNumber() == 0)
+      if (entry.GetEpisodeNumber() == EPG_TAG_INVALID_SERIES_EPISODE)
       {
         const std::string episodeText = GetMatchTextFromString(masterText, patternSet.m_episodeRegex);
         if (!episodeText.empty())
@@ -71,7 +72,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
     }
 
     //Once we have at least an episode number we are done
-    if (entry.GetEpisodeNumber() != 0)
+    if (entry.GetEpisodeNumber() != EPG_TAG_INVALID_SERIES_EPISODE)
       break;
   }
 
