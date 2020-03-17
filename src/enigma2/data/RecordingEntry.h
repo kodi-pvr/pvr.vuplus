@@ -89,6 +89,9 @@ namespace enigma2
       bool IsDeleted() const { return m_deleted; }
       void SetDeleted(bool value) { m_deleted = value; }
 
+      const std::string& GetStartTimeW3CDate() const { return m_startTimeW3CDateString; }
+      void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }      
+
       bool UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, enigma2::Channels& channels);
       void UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder);
 
@@ -118,6 +121,7 @@ namespace enigma2
       bool m_deleted = false;
       mutable int m_streamProgramNumber;
       mutable bool m_hasStreamProgramNumber = false;
+      std::string m_startTimeW3CDateString;
     };
   } //namespace data
 } //namespace enigma2

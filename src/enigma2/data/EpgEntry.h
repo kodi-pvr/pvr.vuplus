@@ -52,6 +52,9 @@ namespace enigma2
       time_t GetEndTime() const { return m_endTime; }
       void SetEndTime(time_t value) { m_endTime = value; }
 
+      const std::string& GetStartTimeW3CDate() const { return m_startTimeW3CDateString; }
+      void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }
+
       void UpdateTo(EPG_TAG& left) const;
       bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& m_epgChannelsMap);
       bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
@@ -62,6 +65,7 @@ namespace enigma2
       int m_channelId;
       time_t m_startTime;
       time_t m_endTime;
+      std::string m_startTimeW3CDateString;
     };
   } //namespace data
 } //namespace enigma2
