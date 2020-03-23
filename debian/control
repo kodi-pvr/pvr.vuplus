@@ -4,7 +4,7 @@ Maintainer: Cristiano A. Silva <hudokkow@gmail.com>
 Build-Depends: debhelper (>= 9.0.0), cmake, libtinyxml-dev,
                libkodiplatform-dev (>= 16.0.0), kodi-addon-dev,
                nlohmann-json-dev (>= 3.1) | nlohmann-json3-dev (>= 3.1)
-Standards-Version: 3.9.4
+Standards-Version: 4.1.2
 Section: libs
 
 Package: kodi-pvr-vuplus
