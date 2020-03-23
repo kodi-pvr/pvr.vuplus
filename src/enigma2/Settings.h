@@ -28,7 +28,7 @@
 
 #include <string>
 
-#include <kodi/xbmc_addon_types.h>
+#include <kodi/AddonBase.h>
 #include <p8-platform/util/StringUtils.h>
 
 class Vu;
