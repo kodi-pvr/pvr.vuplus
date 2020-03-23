@@ -1,3 +1,9 @@
+v4.9.9
+- Add: GPL2 license file and show GPL2 on README.md
+- Update: Update copyright years to 2020 and change URL and name to Kodi
+- Update: Debian build code
+- Update: Some minor cleanups
+
 v4.9.8
 - Update: PVR API 6.2.0
 
