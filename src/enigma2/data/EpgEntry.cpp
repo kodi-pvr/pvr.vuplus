@@ -57,8 +57,14 @@ void EpgEntry::UpdateTo(EPG_TAG& left) const
   left.iEpisodePartNumber  = m_episodePartNumber;
   left.strEpisodeName      = ""; // unused
   left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
-  if (m_new || m_live || m_premiere)
+  if (m_new)
     left.iFlags |= EPG_TAG_FLAG_IS_NEW;
+  if (m_premiere)
+    left.iFlags |= EPG_TAG_FLAG_IS_PREMIERE;
+  if (m_finale)
+    left.iFlags |= EPG_TAG_FLAG_IS_FINALE;
+  if (m_live)
+    left.iFlags |= EPG_TAG_FLAG_IS_LIVE;
 }
 
 bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& epgChannelsMap)

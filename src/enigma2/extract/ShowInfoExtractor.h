@@ -39,7 +39,8 @@ namespace enigma2
     {
       NEW = 0,
       LIVE,
-      PREMIERE
+      PREMIERE,
+      FINALE
     };
 
     static const std::map<std::string, TextPropertyType> m_textPropetyTypeMap{{"new", TextPropertyType::NEW}, {"live", TextPropertyType::LIVE}, {"premiere", TextPropertyType::PREMIERE}};

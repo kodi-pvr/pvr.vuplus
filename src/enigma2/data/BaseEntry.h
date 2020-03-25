@@ -74,6 +74,9 @@ namespace enigma2
       bool IsPremiere() const { return m_premiere; }
       void SetPremiere(int value) { m_premiere = value; }
 
+      bool IsFinale() const { return m_finale; }
+      void SetFinale(int value) { m_finale = value; }
+
       void ProcessPrependMode(PrependOutline prependOutlineMode);
 
     protected:
@@ -90,6 +93,7 @@ namespace enigma2
       bool m_new = false;
       bool m_live = false;
       bool m_premiere = false;
+      bool m_finale = false;
     };
   } //namespace data
 } //namespace enigma2

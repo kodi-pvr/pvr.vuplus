@@ -228,6 +228,14 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
   // If this recording was new when it aired, then we can infer the first aired date
   if (m_new || m_live || m_premiere)
     strncpy(left.strFirstAired, m_startTimeW3CDateString.c_str(), sizeof(left.strFirstAired) - 1);
+
+  left.iFlags = PVR_RECORDING_FLAG_UNDEFINED;
+  if (m_new)
+    left.iFlags |= PVR_RECORDING_FLAG_IS_NEW;
+  if (m_premiere)
+    left.iFlags |= PVR_RECORDING_FLAG_IS_PREMIERE;
+  if (m_live)
+    left.iFlags |= PVR_RECORDING_FLAG_IS_LIVE;
 }
 
 std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const
