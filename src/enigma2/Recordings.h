@@ -53,6 +53,7 @@ namespace enigma2
     PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING& recording, int count);
     PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastplayedposition);
     int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording);
+    PVR_ERROR GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes);
     const std::string GetRecordingURL(const PVR_RECORDING& recinfo);
     PVR_ERROR DeleteRecording(const PVR_RECORDING& recinfo);
     PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording);
@@ -75,6 +76,7 @@ namespace enigma2
     bool ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& recordingEntry, std::vector<std::string>& tags);
     void SetRecordingNextSyncTime(data::RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags);
     bool IsInRecordingFolder(const std::string& strRecordingFolder, bool deleted) const;
+    bool UpdateRecordingSizeFromMovieDetails(data::RecordingEntry& recordingEntry);
 
     std::mt19937 m_randomGenerator;
     std::uniform_int_distribution<> m_randomDistribution;

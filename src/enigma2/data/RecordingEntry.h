@@ -93,6 +93,9 @@ namespace enigma2
       const std::string& GetStartTimeW3CDate() const { return m_startTimeW3CDateString; }
       void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }      
 
+      int GetSizeInBytes() const { return m_sizeInBytes; }
+      void SetSizeInBytes(int value) { m_sizeInBytes = value; }
+
       bool UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, enigma2::Channels& channels);
       void UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder);
 
@@ -123,6 +126,7 @@ namespace enigma2
       mutable int m_streamProgramNumber;
       mutable bool m_hasStreamProgramNumber = false;
       std::string m_startTimeW3CDateString;
+      int64_t m_sizeInBytes = 0;
     };
   } //namespace data
 } //namespace enigma2

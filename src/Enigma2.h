@@ -98,6 +98,7 @@ public:
   PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING& recording, int count);
   PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastplayedposition);
   int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording);
+  PVR_ERROR GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes);
   bool HasRecordingStreamProgramNumber(const PVR_RECORDING& recording);
   int GetRecordingStreamProgramNumber(const PVR_RECORDING& recording);
   enigma2::RecordingReader* OpenRecordedStream(const PVR_RECORDING& recinfo);

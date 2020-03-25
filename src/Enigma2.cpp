@@ -658,6 +658,12 @@ int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
   return m_recordings.GetRecordingLastPlayedPosition(recording);
 }
 
+PVR_ERROR Enigma2::GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  return m_recordings.GetRecordingSize(recording, sizeInBytes);
+}
+
 /***************************************************************************
  * Timers
  **************************************************************************/

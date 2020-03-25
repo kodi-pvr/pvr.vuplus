@@ -96,6 +96,10 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
     m_edlURL = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_edlURL).c_str());
   }
 
+  double filesizeInBytes;
+  if (XMLUtils::GetDouble(recordingNode, "e2filesize", filesizeInBytes))
+    m_sizeInBytes = static_cast<int64_t>(filesizeInBytes);
+
   ProcessPrependMode(PrependOutline::IN_RECORDINGS);
 
   m_tags.clear();
@@ -236,6 +240,8 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
     left.iFlags |= PVR_RECORDING_FLAG_IS_PREMIERE;
   if (m_live)
     left.iFlags |= PVR_RECORDING_FLAG_IS_LIVE;
+
+  left.sizeInBytes = m_sizeInBytes;
 }
 
 std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const

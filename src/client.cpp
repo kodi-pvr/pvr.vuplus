@@ -222,6 +222,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
   pCapabilities->bSupportsRecordingsLifetimeChange = false;
   pCapabilities->bSupportsDescrambleInfo = false;
   pCapabilities->bSupportsAsyncEPGTransfer = false;
+  pCapabilities->bSupportsRecordingSize = settings.SupportsRecordingSizes();
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -604,6 +605,17 @@ int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
     return PVR_ERROR_SERVER_ERROR;
 
   return enigma->GetRecordingLastPlayedPosition(recording);
+}
+
+PVR_ERROR GetRecordingSize(const PVR_RECORDING* recording, int64_t* sizeInBytes)
+{
+  if (!enigma || !enigma->IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (!recording || !sizeInBytes)
+    return PVR_ERROR_INVALID_PARAMETERS;
+
+  return enigma->GetRecordingSize(*recording, sizeInBytes);  
 }
 
 /***************************************************************************
