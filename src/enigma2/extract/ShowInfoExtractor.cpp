@@ -1,23 +1,9 @@
 /*
- *      Copyright (C) 2005-2020 Team Kodi
- *      https://kodi.tv
+ *  Copyright (C) 2005-2020 Team Kodi
+ *  https://kodi.tv
  *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Kodi; see the file COPYING.  If not, write to
- *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1335, USA.
- *  http://www.gnu.org/copyleft/gpl.html
- *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
  */
 
 #include "ShowInfoExtractor.h"
@@ -92,34 +78,42 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
   bool isNew = false;
   bool isLive = false;
   bool isPremiere = false;
+  bool isFinale = false;
 
   for (const auto& patternPair : m_titleTextPatterns)
   {
     if (patternPair.first == TextPropertyType::NEW && !isNew && Matches(entry.GetTitle(), patternPair.second))
-        isNew = true;
+      isNew = true;
 
     if (patternPair.first == TextPropertyType::LIVE && !isLive && Matches(entry.GetTitle(), patternPair.second))
-        isLive = true;
+      isLive = true;
 
     if (patternPair.first == TextPropertyType::PREMIERE && !isPremiere && Matches(entry.GetTitle(), patternPair.second))
-        isPremiere = true;
+      isPremiere = true;
+
+    if (patternPair.first == TextPropertyType::FINALE && !isFinale && Matches(entry.GetTitle(), patternPair.second))
+      isFinale = true;
   }
 
   for (const auto& patternPair : m_descriptionTextPatterns)
   {
     if (patternPair.first == TextPropertyType::NEW && !isNew && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
-        isNew = true;
+      isNew = true;
 
     if (patternPair.first == TextPropertyType::LIVE && !isLive && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
-        isLive = true;
+      isLive = true;
 
     if (patternPair.first == TextPropertyType::PREMIERE && !isPremiere && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
-        isPremiere = true;
+      isPremiere = true;
+
+    if (patternPair.first == TextPropertyType::FINALE && !isFinale && Matches(entry.GetPlotOutline(), entry.GetPlot(), patternPair.second))
+      isFinale = true;
   }
 
   entry.SetNew(isNew);
   entry.SetLive(isLive);
   entry.SetPremiere(isPremiere);
+  entry.SetFinale(isFinale);
 }
 
 bool ShowInfoExtractor::IsEnabled()

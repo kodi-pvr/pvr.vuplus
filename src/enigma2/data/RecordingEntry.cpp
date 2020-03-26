@@ -1,23 +1,9 @@
 /*
- *      Copyright (C) 2005-2020 Team Kodi
- *      https://kodi.tv
+ *  Copyright (C) 2005-2020 Team Kodi
+ *  https://kodi.tv
  *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Kodi; see the file COPYING.  If not, write to
- *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1335, USA.
- *  http://www.gnu.org/copyleft/gpl.html
- *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
  */
 
 #include "RecordingEntry.h"
@@ -95,6 +81,10 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
     m_edlURL = m_edlURL.substr(0, m_edlURL.find_last_of('.')) + ".edl";
     m_edlURL = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_edlURL).c_str());
   }
+
+  double filesizeInBytes;
+  if (XMLUtils::GetDouble(recordingNode, "e2filesize", filesizeInBytes))
+    m_sizeInBytes = static_cast<int64_t>(filesizeInBytes);
 
   ProcessPrependMode(PrependOutline::IN_RECORDINGS);
 
@@ -228,6 +218,16 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
   // If this recording was new when it aired, then we can infer the first aired date
   if (m_new || m_live || m_premiere)
     strncpy(left.strFirstAired, m_startTimeW3CDateString.c_str(), sizeof(left.strFirstAired) - 1);
+
+  left.iFlags = PVR_RECORDING_FLAG_UNDEFINED;
+  if (m_new)
+    left.iFlags |= PVR_RECORDING_FLAG_IS_NEW;
+  if (m_premiere)
+    left.iFlags |= PVR_RECORDING_FLAG_IS_PREMIERE;
+  if (m_live)
+    left.iFlags |= PVR_RECORDING_FLAG_IS_LIVE;
+
+  left.sizeInBytes = m_sizeInBytes;
 }
 
 std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const

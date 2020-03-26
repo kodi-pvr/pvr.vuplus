@@ -1,23 +1,9 @@
 /*
- *      Copyright (C) 2005-2020 Team Kodi
- *      https://kodi.tv
+ *  Copyright (C) 2005-2020 Team Kodi
+ *  https://kodi.tv
  *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Kodi; see the file COPYING.  If not, write to
- *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1335, USA.
- *  http://www.gnu.org/copyleft/gpl.html
- *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
  */
 
 #include "Recordings.h"
@@ -416,6 +402,62 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
   {
     return recordingEntry.GetLastPlayedPosition();
   }
+}
+
+PVR_ERROR Recordings::GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes)
+{
+  auto recordingEntry = GetRecording(recording.strRecordingId);
+  UpdateRecordingSizeFromMovieDetails(recordingEntry);
+
+  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __FUNCTION__, recordingEntry.GetSizeInBytes(), recording.strRecordingId);
+
+  *sizeInBytes = recordingEntry.GetSizeInBytes();
+
+  return PVR_ERROR_NO_ERROR;    
+}
+
+bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEntry)
+{
+  const std::string jsonUrl = StringUtils::Format("%sapi/moviedetails?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+                                                  WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
+
+  const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
+
+  try
+  {
+    auto jsonDoc = json::parse(strJson);
+
+    if (jsonDoc["result"].empty() || !jsonDoc["result"].get<bool>())
+      return false;
+
+    if (!jsonDoc["movie"].empty())
+    {
+      uint64_t size;
+
+      for (const auto& element : jsonDoc["movie"].items())
+      {
+        if (element.key() == "filesize")
+        {
+          int64_t sizeInBytes = element.value().get<int64_t>();
+          if (sizeInBytes != 0)
+            recordingEntry.SetSizeInBytes(sizeInBytes);
+          break;
+        }
+      }
+    }
+
+    return true;
+  }
+  catch (nlohmann::detail::parse_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording cuts info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
+  }
+  catch (nlohmann::detail::type_error& e)
+  {
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+  }
+
+  return false;  
 }
 
 void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags)

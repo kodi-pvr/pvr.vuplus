@@ -1,23 +1,9 @@
 /*
- *      Copyright (C) 2005-2020 Team Kodi
- *      https://kodi.tv
+ *  Copyright (C) 2005-2020 Team Kodi
+ *  https://kodi.tv
  *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Kodi; see the file COPYING.  If not, write to
- *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1335, USA.
- *  http://www.gnu.org/copyleft/gpl.html
- *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
  */
 
 #pragma once
@@ -53,6 +39,7 @@ namespace enigma2
     PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING& recording, int count);
     PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastplayedposition);
     int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording);
+    PVR_ERROR GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes);
     const std::string GetRecordingURL(const PVR_RECORDING& recinfo);
     PVR_ERROR DeleteRecording(const PVR_RECORDING& recinfo);
     PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording);
@@ -75,6 +62,7 @@ namespace enigma2
     bool ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& recordingEntry, std::vector<std::string>& tags);
     void SetRecordingNextSyncTime(data::RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags);
     bool IsInRecordingFolder(const std::string& strRecordingFolder, bool deleted) const;
+    bool UpdateRecordingSizeFromMovieDetails(data::RecordingEntry& recordingEntry);
 
     std::mt19937 m_randomGenerator;
     std::uniform_int_distribution<> m_randomDistribution;

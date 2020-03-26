@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.9.9"
+  version="4.10.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -178,6 +178,12 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v4.10.0
+- Added: Add new flags for premiere, live and finale for EPG and recordings - PVR API 6.3.0
+- Added: Support recording sizes on OpenWebIf 1.3.9+ - PVR API 6.3.0
+- Added: Add GPLv2+ and Jenkins badges to README
+- Update: SPDX in copyright header
+
 v4.9.9
 - Add: GPL2 license file and show GPL2 on README.md
 - Update: Update copyright years to 2020 and change URL and name to Kodi

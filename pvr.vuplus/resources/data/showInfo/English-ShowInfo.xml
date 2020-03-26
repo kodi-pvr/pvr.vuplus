@@ -56,8 +56,12 @@ If you have changes either create a PR containing the changes or an issue with d
   </years>
   <textProperties>
     <!-- New: -->
-    <textProperty type="new" titlePattern="^ *New:[^]*$"/>
-    <textProperty type="live" titlePattern="^ *Live:[^]*$"/>
-    <textProperty type="premiere" titlePattern="^ *Premiere:[^]*$"/>
+    <textProperty type="new" titlePattern="^ *New: ?([^]*)$"/>
+    <!-- Live: -->
+    <textProperty type="live" titlePattern="^ *Live: ?([^]*)$"/>
+    <!-- Premiere: -->
+    <textProperty type="premiere" titlePattern="^ *Premiere: ?([^]*)$"/>
+    <!-- Finale: -->
+    <textProperty type="finale" titlePattern="^ *Finale: ?([^]*)$"/>
   </textProperties>
 </showInfo>

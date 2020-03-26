@@ -1,6 +1,7 @@
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](LICENSE.md)
+[![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=Matrix)](https://travis-ci.org/kodi-pvr/pvr.vuplus/branches)
 [![Build Status](https://dev.azure.com/teamkodi/kodi-pvr/_apis/build/status/kodi-pvr.pvr.vuplus?branchName=Matrix)](https://dev.azure.com/teamkodi/kodi-pvr/_build/latest?definitionId=68&branchName=Matrix)
+[![Build Status](https://jenkins.kodi.tv/view/Addons/job/kodi-pvr/job/pvr.vuplus/job/Matrix/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/kodi-pvr%2Fpvr.vuplus/branches/)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
 # Enigma2 PVR

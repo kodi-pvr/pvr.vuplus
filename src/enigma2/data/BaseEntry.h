@@ -1,23 +1,9 @@
 /*
- *      Copyright (C) 2005-2020 Team Kodi
- *      https://kodi.tv
+ *  Copyright (C) 2005-2020 Team Kodi
+ *  https://kodi.tv
  *
- *  This Program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2, or (at your option)
- *  any later version.
- *
- *  This Program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Kodi; see the file COPYING.  If not, write to
- *  the Free Software Foundation, 51 Franklin Street, Fifth Floor, Boston,
- *  MA 02110-1335, USA.
- *  http://www.gnu.org/copyleft/gpl.html
- *
+ *  SPDX-License-Identifier: GPL-2.0-or-later
+ *  See LICENSE.md for more information.
  */
 
 #pragma once
@@ -74,6 +60,9 @@ namespace enigma2
       bool IsPremiere() const { return m_premiere; }
       void SetPremiere(int value) { m_premiere = value; }
 
+      bool IsFinale() const { return m_finale; }
+      void SetFinale(int value) { m_finale = value; }
+
       void ProcessPrependMode(PrependOutline prependOutlineMode);
 
     protected:
@@ -90,6 +79,7 @@ namespace enigma2
       bool m_new = false;
       bool m_live = false;
       bool m_premiere = false;
+      bool m_finale = false;
     };
   } //namespace data
 } //namespace enigma2
