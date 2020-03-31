@@ -12,7 +12,7 @@
 
 #include <cstdlib>
 
-#include <kodi/xbmc_epg_types.h>
+#include <kodi/xbmc_pvr_types.h>
 #include <kodi/util/XMLUtils.h>
 #include <p8-platform/util/StringUtils.h>
 #include <tinyxml.h>

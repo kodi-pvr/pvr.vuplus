@@ -12,7 +12,7 @@
 
 #include <string>
 
-#include <kodi/xbmc_epg_types.h>
+#include <kodi/xbmc_pvr_types.h>
 
 namespace enigma2
 {
