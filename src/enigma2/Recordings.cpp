@@ -95,7 +95,7 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR
         lineNumber++;
         if (std::sscanf(line.c_str(), "%f %f %u", &start, &stop, &type) < 2 || type > PVR_EDL_TYPE_COMBREAK)
         {
-          Logger::Log(LEVEL_NOTICE, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__,
+          Logger::Log(LEVEL_INFO, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__,
                       recordingEntry.GetTitle().c_str(), lineNumber);
           continue;
         }
@@ -108,7 +108,7 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR
         start = std::min(start, stop);
         stop = std::max(start, stop);
 
-        Logger::Log(LEVEL_NOTICE, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
+        Logger::Log(LEVEL_INFO, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
 
         PVR_EDL_ENTRY edlEntry;
         edlEntry.start = static_cast<int64_t>(start * 1000.0f);

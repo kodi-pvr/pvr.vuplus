@@ -93,14 +93,17 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
     switch (level)
     {
+      case LogLevel::LEVEL_FATAL:
+        addonLevel = addon_log_t::LOG_FATAL;
+        break;
       case LogLevel::LEVEL_ERROR:
         addonLevel = addon_log_t::LOG_ERROR;
         break;
+      case LogLevel::LEVEL_WARNING:
+        addonLevel = addon_log_t::LOG_WARNING;
+        break;
       case LogLevel::LEVEL_INFO:
         addonLevel = addon_log_t::LOG_INFO;
-        break;
-      case LogLevel::LEVEL_NOTICE:
-        addonLevel = addon_log_t::LOG_NOTICE;
         break;
       default:
         addonLevel = addon_log_t::LOG_DEBUG;
@@ -110,7 +113,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
       return;
 
     if (addonLevel == addon_log_t::LOG_DEBUG && Settings::GetInstance().GetDebugNormal())
-      addonLevel = addon_log_t::LOG_NOTICE;
+      addonLevel = addon_log_t::LOG_INFO;
 
     XBMC->Log(addonLevel, "%s", message);
   });
@@ -372,7 +375,7 @@ PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE
   {
     const std::string strStreamProgramNumber = std::to_string(enigma->GetChannelStreamProgramNumber(*channel));
 
-    Logger::Log(LEVEL_NOTICE, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
+    Logger::Log(LEVEL_INFO, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
 
     strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
     strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
@@ -631,7 +634,7 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
   {
     const std::string strStreamProgramNumber = std::to_string(enigma->GetRecordingStreamProgramNumber(*recording));
 
-    Logger::Log(LEVEL_NOTICE, "%s - for recording for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, recording->strChannelName, strStreamProgramNumber.c_str(), recording->strRecordingId);
+    Logger::Log(LEVEL_INFO, "%s - for recording for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, recording->strChannelName, strStreamProgramNumber.c_str(), recording->strRecordingId);
 
     strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
     strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);

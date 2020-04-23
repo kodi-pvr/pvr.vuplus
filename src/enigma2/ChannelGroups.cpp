@@ -53,7 +53,7 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
   if (!channelGroup)
   {
-    Logger::Log(LEVEL_NOTICE, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+    Logger::Log(LEVEL_INFO, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
 
     return PVR_ERROR_NO_ERROR;
   }
