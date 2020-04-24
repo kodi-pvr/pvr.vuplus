@@ -103,7 +103,7 @@ bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channe
 
   int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - started).count();
 
-  Logger::Log(LEVEL_NOTICE, "%s Initial EPG Loaded - %d (ms)", __FUNCTION__, milliseconds);
+  Logger::Log(LEVEL_INFO, "%s Initial EPG Loaded - %d (ms)", __FUNCTION__, milliseconds);
 
   m_initialEpgReady = true;
 
@@ -215,7 +215,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
+      Logger::Log(LEVEL_INFO, "%s could not find <e2eventlist> element!", __FUNCTION__);
       // Return "NO_ERROR" as the EPG could be empty for this channel
       return PVR_ERROR_NO_ERROR;
     }
@@ -226,7 +226,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_NOTICE, "%s Could not find <e2event> element", __FUNCTION__);
+      Logger::Log(LEVEL_INFO, "%s Could not find <e2event> element", __FUNCTION__);
       // RETURN "NO_ERROR" as the EPG could be empty for this channel
       return PVR_ERROR_NO_ERROR;
     }
@@ -258,7 +258,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
   }
   else
   {
-    Logger::Log(LEVEL_NOTICE, "%s EPG requested for unknown channel reference: '%s'", __FUNCTION__, serviceReference.c_str());
+    Logger::Log(LEVEL_INFO, "%s EPG requested for unknown channel reference: '%s'", __FUNCTION__, serviceReference.c_str());
   }
 
 
@@ -509,7 +509,7 @@ bool Epg::LoadInitialEPGForGroup(const std::shared_ptr<ChannelGroup> group)
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_NOTICE, "%s could not find <e2eventlist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s could not find <e2eventlist> element!", __FUNCTION__);
     // Return "NO_ERROR" as the EPG could be empty for this channel
     return false;
   }

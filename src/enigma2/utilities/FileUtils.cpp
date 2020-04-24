@@ -11,7 +11,7 @@
 #include "../../client.h"
 #include "Logger.h"
 
-#include <kodi/kodi_vfs_types.h>
+#include <kodi/libXBMC_addon.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;

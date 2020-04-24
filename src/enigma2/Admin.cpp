@@ -127,7 +127,7 @@ bool Admin::LoadDeviceInfo()
 
   std::string strTmp;
 
-  Logger::Log(LEVEL_NOTICE, "%s - DeviceInfo", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s - DeviceInfo", __FUNCTION__);
 
   // Get EnigmaVersion
   if (!XMLUtils::GetString(pElem, "e2enigmaversion", strTmp))
@@ -136,7 +136,7 @@ bool Admin::LoadDeviceInfo()
     return false;
   }
   enigmaVersion = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2EnigmaVersion: %s", __FUNCTION__, enigmaVersion.c_str());
+  Logger::Log(LEVEL_INFO, "%s - E2EnigmaVersion: %s", __FUNCTION__, enigmaVersion.c_str());
 
   // Get ImageVersion
   if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp))
@@ -145,19 +145,19 @@ bool Admin::LoadDeviceInfo()
     return false;
   }
   imageVersion = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
+  Logger::Log(LEVEL_INFO, "%s - E2ImageVersion: %s", __FUNCTION__, imageVersion.c_str());
 
   // Get distroName
   if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp))
   {
-    Logger::Log(LEVEL_NOTICE, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __FUNCTION__);
     strTmp = LocalizedString(30081); //unknown
   }
   else
   {
     distroName = strTmp.c_str();
   }
-  Logger::Log(LEVEL_NOTICE, "%s - E2DistroName: %s", __FUNCTION__, distroName.c_str());
+  Logger::Log(LEVEL_INFO, "%s - E2DistroName: %s", __FUNCTION__, distroName.c_str());
 
   // Get WebIfVersion
   if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp))
@@ -168,7 +168,7 @@ bool Admin::LoadDeviceInfo()
   webIfVersion = strTmp.c_str();
   webIfVersionAsNum = ParseWebIfVersion(webIfVersion);
 
-  Logger::Log(LEVEL_NOTICE, "%s - E2WebIfVersion: %s", __FUNCTION__, webIfVersion.c_str());
+  Logger::Log(LEVEL_INFO, "%s - E2WebIfVersion: %s", __FUNCTION__, webIfVersion.c_str());
 
   // Get DeviceName
   if (!XMLUtils::GetString(pElem, "e2devicename", strTmp))
@@ -177,7 +177,7 @@ bool Admin::LoadDeviceInfo()
     return false;
   }
   deviceName = strTmp.c_str();
-  Logger::Log(LEVEL_NOTICE, "%s - E2DeviceName: %s", __FUNCTION__, deviceName.c_str());
+  Logger::Log(LEVEL_INFO, "%s - E2DeviceName: %s", __FUNCTION__, deviceName.c_str());
 
   m_deviceInfo = DeviceInfo(deviceName, enigmaVersion, imageVersion, distroName, webIfVersion, webIfVersionAsNum);
 
@@ -185,9 +185,9 @@ bool Admin::LoadDeviceInfo()
   SetCharString(m_serverName, deviceName);
   SetCharString(m_serverVersion, version);
 
-  Logger::Log(LEVEL_NOTICE, "%s - ServerVersion: %s", __FUNCTION__, m_serverVersion);
+  Logger::Log(LEVEL_INFO, "%s - ServerVersion: %s", __FUNCTION__, m_serverVersion);
 
-  Logger::Log(LEVEL_NOTICE, "%s - AddonVersion: %s", __FUNCTION__, m_addonVersion.c_str());
+  Logger::Log(LEVEL_INFO, "%s - AddonVersion: %s", __FUNCTION__, m_addonVersion.c_str());
 
   hRoot = TiXmlHandle(pElem);
 
@@ -455,7 +455,7 @@ bool Admin::SendGlobalRecordingStartMarginSetting(int newValue)
 {
   if (m_deviceSettings.GetGlobalRecordingStartMargin() != newValue)
   {
-    Logger::Log(LEVEL_NOTICE, "%s Setting Global Recording Start Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingStartMargin(), newValue);
+    Logger::Log(LEVEL_INFO, "%s Setting Global Recording Start Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingStartMargin(), newValue);
     const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_before&value=", newValue);
     std::string strResult;
 
@@ -472,7 +472,7 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
 {
   if (m_deviceSettings.GetGlobalRecordingEndMargin() != newValue)
   {
-    Logger::Log(LEVEL_NOTICE, "%s Setting Global Recording End Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingEndMargin(), newValue);
+    Logger::Log(LEVEL_INFO, "%s Setting Global Recording End Margin Backend, from: %d, to: %d", __FUNCTION__, m_deviceSettings.GetGlobalRecordingEndMargin(), newValue);
     const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_after&value=", newValue);
     std::string strResult;
 

@@ -51,7 +51,7 @@ Enigma2::~Enigma2()
 
 void Enigma2::ConnectionLost()
 {
-  Logger::Log(LEVEL_NOTICE, "%s Lost connection with Enigma2 device...", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s Lost connection with Enigma2 device...", __FUNCTION__);
 
   Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
   m_running = false;
@@ -72,16 +72,16 @@ void Enigma2::ConnectionEstablished()
   m_channels.ClearChannels();
   m_channelGroups.ClearChannelGroups();
 
-  Logger::Log(LEVEL_NOTICE, "%s Connection Established with Enigma2 device...", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s Connection Established with Enigma2 device...", __FUNCTION__);
 
-  Logger::Log(LEVEL_NOTICE, "%s - VU+ Addon Configuration options", __FUNCTION__);
-  Logger::Log(LEVEL_NOTICE, "%s - Hostname: '%s'", __FUNCTION__, m_settings.GetHostname().c_str());
-  Logger::Log(LEVEL_NOTICE, "%s - WebPort: '%d'", __FUNCTION__, m_settings.GetWebPortNum());
-  Logger::Log(LEVEL_NOTICE, "%s - StreamPort: '%d'", __FUNCTION__, m_settings.GetStreamPortNum());
+  Logger::Log(LEVEL_INFO, "%s - VU+ Addon Configuration options", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s - Hostname: '%s'", __FUNCTION__, m_settings.GetHostname().c_str());
+  Logger::Log(LEVEL_INFO, "%s - WebPort: '%d'", __FUNCTION__, m_settings.GetWebPortNum());
+  Logger::Log(LEVEL_INFO, "%s - StreamPort: '%d'", __FUNCTION__, m_settings.GetStreamPortNum());
   if (!m_settings.GetUseSecureConnection())
-    Logger::Log(LEVEL_NOTICE, "%s Use HTTPS: 'false'", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'false'", __FUNCTION__);
   else
-    Logger::Log(LEVEL_NOTICE, "%s Use HTTPS: 'true'", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'true'", __FUNCTION__);
 
   if ((m_settings.GetUsername().length() > 0) && (m_settings.GetPassword().length() > 0))
   {
@@ -262,12 +262,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
-            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30518).c_str());
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
-            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30519).c_str());
           }
         }
@@ -275,12 +275,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
-            Logger::Log(LEVEL_NOTICE, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __FUNCTION__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30521).c_str());
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
-            Logger::Log(LEVEL_NOTICE, "%s Channel changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel changes detected, reloading channels, groups and EPG now", __FUNCTION__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30522).c_str());
           }
         }
@@ -666,7 +666,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
   for (auto& timerType : timerTypes)
     types[i++] = timerType;
   *size = timerTypes.size();
-  Logger::Log(LEVEL_NOTICE, "%s Transfered %u timer types", __FUNCTION__, *size);
+  Logger::Log(LEVEL_INFO, "%s Transfered %u timer types", __FUNCTION__, *size);
 }
 
 int Enigma2::GetTimersAmount()
