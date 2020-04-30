@@ -58,7 +58,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!hdl || !props)
     return m_currentStatus;
 
-  PVR_PROPERTIES* pvrProps = reinterpret_cast<PVR_PROPERTIES*>(props);
+  AddonProperties_PVR* pvrProps = reinterpret_cast<AddonProperties_PVR*>(props);
 
   XBMC = new CHelper_libXBMC_addon;
   if (!XBMC->RegisterMe(hdl))
@@ -190,7 +190,7 @@ void OnPowerSavingActivated() {}
 
 void OnPowerSavingDeactivated() {}
 
-PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
+PVR_ERROR GetCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 {
   pCapabilities->bSupportsEPG                = true;
   pCapabilities->bSupportsEPGEdl             = false;
@@ -253,7 +253,7 @@ PVR_ERROR GetDriveSpace(long long* iTotal, long long* iUsed)
 }
 
 
-PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS& signalStatus)
+PVR_ERROR GetSignalStatus(int channelUid, PVR_SIGNAL_STATUS* signalStatus)
 {
   // SNR = Signal to Noise Ratio - which means signal quality
   // AGC = Automatic Gain Control - which means signal strength
@@ -265,10 +265,10 @@ PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS& signalStatus)
 
   enigma->GetTunerSignal(signalStatus);
 
-  Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s", __FUNCTION__, signalStatus.strAdapterName, signalStatus.strAdapterStatus);
-  Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s", __FUNCTION__, signalStatus.strServiceName, signalStatus.strProviderName);
+  Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s", __FUNCTION__, signalStatus->strAdapterName, signalStatus->strAdapterStatus);
+  Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s", __FUNCTION__, signalStatus->strServiceName, signalStatus->strProviderName);
   // For some reason the iSNR and iSignal values need to multiplied by 655!
-  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __FUNCTION__, signalStatus.iSNR / 655, signalStatus.iBER, signalStatus.iSignal / 655);
+  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __FUNCTION__, signalStatus->iSNR / 655, signalStatus->iBER, signalStatus->iSignal / 655);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -753,7 +753,7 @@ void DemuxReset() {}
 void DemuxFlush() {}
 bool SeekTime(double, bool, double*) { return false; }
 void SetSpeed(int){};
-PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
+PVR_ERROR GetDescrambleInfo(int, PVR_DESCRAMBLE_INFO*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR SetRecordingLifetime(const PVR_RECORDING*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR IsEPGTagRecordable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
 PVR_ERROR IsEPGTagPlayable(const EPG_TAG*, bool*) { return PVR_ERROR_NOT_IMPLEMENTED; }
