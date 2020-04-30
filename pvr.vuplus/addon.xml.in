@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.10.1"
+  version="4.10.2"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -181,6 +181,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v4.10.2
+- Update: PVR API 6.5.0
+
 v4.10.1
 - Update: PVR API 6.4.0
 - Update: Add license name, forum url and source url to addon.xml
