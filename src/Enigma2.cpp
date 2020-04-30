@@ -719,14 +719,14 @@ PVR_ERROR Enigma2::GetDriveSpace(long long* iTotal, long long* iUsed)
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
-PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus)
+PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS* signalStatus)
 {
   if (m_currentChannel >= 0)
   {
     const std::shared_ptr<Channel> channel = m_channels.GetChannel(m_currentChannel);
 
-    strncpy(signalStatus.strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus.strServiceName) - 1);
-    strncpy(signalStatus.strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus.strProviderName) - 1);
+    strncpy(signalStatus->strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus->strServiceName) - 1);
+    strncpy(signalStatus->strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus->strProviderName) - 1);
 
     time_t now = std::time(nullptr);
     if ((now - m_lastSignalStatusUpdateSeconds) >= POLL_INTERVAL_SECONDS)
@@ -741,11 +741,11 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus)
     }
   }
 
-  signalStatus.iSNR = m_signalStatus.m_snrPercentage;
-  signalStatus.iBER = m_signalStatus.m_ber;
-  signalStatus.iSignal = m_signalStatus.m_signalStrength;
-  strncpy(signalStatus.strAdapterName, m_signalStatus.m_adapterName.c_str(), sizeof(signalStatus.strAdapterName) - 1);
-  strncpy(signalStatus.strAdapterStatus, m_signalStatus.m_adapterStatus.c_str(), sizeof(signalStatus.strAdapterStatus) - 1);
+  signalStatus->iSNR = m_signalStatus.m_snrPercentage;
+  signalStatus->iBER = m_signalStatus.m_ber;
+  signalStatus->iSignal = m_signalStatus.m_signalStrength;
+  strncpy(signalStatus->strAdapterName, m_signalStatus.m_adapterName.c_str(), sizeof(signalStatus->strAdapterName) - 1);
+  strncpy(signalStatus->strAdapterStatus, m_signalStatus.m_adapterStatus.c_str(), sizeof(signalStatus->strAdapterStatus) - 1);
 
   return PVR_ERROR_NO_ERROR;
 }

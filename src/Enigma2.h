@@ -95,7 +95,7 @@ public:
   PVR_ERROR UpdateTimer(const PVR_TIMER& timer);
   PVR_ERROR DeleteTimer(const PVR_TIMER& timer);
   PVR_ERROR GetDriveSpace(long long* iTotal, long long* iUsed);
-  PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS& signalStatus);
+  PVR_ERROR GetTunerSignal(PVR_SIGNAL_STATUS* signalStatus);
 
 protected:
   void Process();
