@@ -41,7 +41,7 @@
 class Enigma2 : public enigma2::IConnectionListener
 {
 public:
-  Enigma2(PVR_PROPERTIES* pvrProps);
+  Enigma2(AddonProperties_PVR* pvrProps);
   ~Enigma2();
 
   // IConnectionListener implementation
