@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="4.10.2"
+  version="4.10.3"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -181,6 +181,10 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v4.10.3
+- Update: Explanation for stream read chunk size
+- Fixed: Fix logging after spdlog, from INFO to DEBUG
+
 v4.10.2
 - Update: PVR API 6.5.0
 
