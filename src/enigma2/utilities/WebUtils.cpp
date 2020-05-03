@@ -88,7 +88,7 @@ bool WebUtils::CheckHttp(const std::string& url)
 
 std::string WebUtils::GetHttp(const std::string& url)
 {
-  Logger::Log(LEVEL_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
 
   std::string strTmp;
 
@@ -99,7 +99,7 @@ std::string WebUtils::GetHttp(const std::string& url)
     return "";
   }
 
-  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
+  Logger::Log(LEVEL_DEBUG, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
 
   return strTmp;
 }
@@ -118,7 +118,7 @@ std::string WebUtils::GetHttpXML(const std::string& url)
 
 std::string WebUtils::PostHttpJson(const std::string& url)
 {
-  Logger::Log(LEVEL_INFO, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
 
   std::string strTmp;
 

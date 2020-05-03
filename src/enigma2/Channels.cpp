@@ -177,12 +177,25 @@ bool Channels::LoadChannels(ChannelGroups& channelGroups)
   bool bOk = false;
 
   ClearChannels();
+
+  int numTVChannels = 0;
+  int numRadioChannels = 0;
+
   // Load Channels
   for (auto& group : channelGroups.GetChannelGroupsList())
   {
+    int currentChannelCount = GetNumChannels();
     if (LoadChannels(group->GetServiceReference(), group->GetGroupName(), group))
       bOk = true;
+
+    if (group->IsRadio())
+      numRadioChannels += GetNumChannels() - currentChannelCount;
+    else
+      numTVChannels += GetNumChannels() - currentChannelCount;
   }
+
+  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channels", __FUNCTION__, numTVChannels);
+  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channels", __FUNCTION__, numRadioChannels);
 
   // Load Channels extra data for groups
   int tvChannelNumberOffset = 0;
@@ -200,7 +213,7 @@ bool Channels::LoadChannels(ChannelGroups& channelGroups)
 
 bool Channels::LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<ChannelGroup>& channelGroup)
 {
-  Logger::Log(LEVEL_INFO, "%s loading channel group: '%s'", __FUNCTION__, groupName.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s loading channel group: '%s'", __FUNCTION__, groupName.c_str());
 
   const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
 
@@ -251,8 +264,6 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   channelGroup->SetEmptyGroup(emptyGroup);
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %d Channels", __FUNCTION__, GetNumChannels());
-
   return true;
 }
 
@@ -266,7 +277,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
 
   if (Settings::GetInstance().SupportsProviderNumberAndPiconForChannels())
   {
-    Logger::Log(LEVEL_INFO, "%s loading channel group extra data: '%s'", __FUNCTION__, channelGroup->GetGroupName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s loading channel group extra data: '%s'", __FUNCTION__, channelGroup->GetGroupName().c_str());
 
     //We can use the JSON API so let's supplement the data with extra information
 

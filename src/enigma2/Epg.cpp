@@ -215,7 +215,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_INFO, "%s could not find <e2eventlist> element!", __FUNCTION__);
+      Logger::Log(LEVEL_WARNING, "%s could not find <e2eventlist> element for channel: %s", __FUNCTION__, epgChannel->GetChannelName().c_str());
       // Return "NO_ERROR" as the EPG could be empty for this channel
       return PVR_ERROR_NO_ERROR;
     }
@@ -226,7 +226,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_INFO, "%s Could not find <e2event> element", __FUNCTION__);
+      Logger::Log(LEVEL_WARNING, "%s Could not find <e2event> element for channel: %s", __FUNCTION__, epgChannel->GetChannelName().c_str());
       // RETURN "NO_ERROR" as the EPG could be empty for this channel
       return PVR_ERROR_NO_ERROR;
     }
@@ -254,13 +254,12 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
 
     iNumEPG += TransferTimerBasedEntries(handle, epgChannel->GetUniqueId());
 
-    Logger::Log(LEVEL_INFO, "%s Loaded %u EPG Entries for channel '%s'", __FUNCTION__, iNumEPG, epgChannel->GetChannelName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Loaded %u EPG Entries for channel '%s'", __FUNCTION__, iNumEPG, epgChannel->GetChannelName().c_str());
   }
   else
   {
-    Logger::Log(LEVEL_INFO, "%s EPG requested for unknown channel reference: '%s'", __FUNCTION__, serviceReference.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s EPG requested for unknown channel reference: '%s'", __FUNCTION__, serviceReference.c_str());
   }
-
 
   return PVR_ERROR_NO_ERROR;
 }

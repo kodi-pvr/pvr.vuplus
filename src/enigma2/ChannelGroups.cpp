@@ -222,7 +222,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
       AddChannelGroup(newChannelGroup);
 
-      Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
     }
   }
 
@@ -295,7 +295,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
       AddChannelGroup(newChannelGroup);
 
-      Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
     }
   }
 
@@ -368,12 +368,12 @@ void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
 
     if (!radio)
     {
-      Logger::Log(LEVEL_INFO, "%s loading channel group start channel number for all TV groups", __FUNCTION__);
+      Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all TV groups", __FUNCTION__);
       jsonURL = StringUtils::Format("%sapi/getservices", Settings::GetInstance().GetConnectionURL().c_str());
     }
     else
     {
-      Logger::Log(LEVEL_INFO, "%s loading channel group start channel number for all Radio groups", __FUNCTION__);
+      Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all Radio groups", __FUNCTION__);
       jsonURL = StringUtils::Format("%sapi/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
     }
 

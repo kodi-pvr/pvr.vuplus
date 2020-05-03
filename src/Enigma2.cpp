@@ -205,7 +205,7 @@ void Enigma2::Process()
       // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
       if (m_running && m_isConnected)
       {
-        Logger::Log(LEVEL_INFO, "%s Perform Updates!", __FUNCTION__);
+        Logger::Log(LEVEL_DEBUG, "%s Perform Updates!", __FUNCTION__);
 
         if (m_settings.GetAutoTimerListCleanupEnabled())
         {

@@ -90,7 +90,7 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
       GenerateChildManualRepeatingTimers(&timers, &newTimer);
     }
 
-    Logger::Log(LEVEL_INFO, "%s fetched Timer entry '%s', begin '%lld', end '%lld', start padding mins '%u', end padding mins '%u'",
+    Logger::Log(LEVEL_DEBUG, "%s fetched Timer entry '%s', begin '%lld', end '%lld', start padding mins '%u', end padding mins '%u'",
                 __FUNCTION__, newTimer.GetTitle().c_str(), static_cast<long long>(newTimer.GetStartTime()), static_cast<long long>(newTimer.GetEndTime()), newTimer.GetPaddingStartMins(), newTimer.GetPaddingEndMins());
   }
 
@@ -214,7 +214,7 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 
     autoTimers.emplace_back(newAutoTimer);
 
-    Logger::Log(LEVEL_INFO, "%s fetched AutoTimer entry '%s', begin '%lld', end '%lld'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), static_cast<long long>(newAutoTimer.GetStartTime()), static_cast<long long>(newAutoTimer.GetEndTime()));
+    Logger::Log(LEVEL_DEBUG, "%s fetched AutoTimer entry '%s', begin '%lld', end '%lld'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), static_cast<long long>(newAutoTimer.GetStartTime()), static_cast<long long>(newAutoTimer.GetEndTime()));
   }
 
   Logger::Log(LEVEL_INFO, "%s fetched %u AutoTimer Entries", __FUNCTION__, autoTimers.size());
@@ -1097,7 +1097,7 @@ bool Timers::TimerUpdates()
 
   if (regularTimersChanged || autoTimersChanged)
   {
-    Logger::Log(LEVEL_INFO, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
     PVR->TriggerTimerUpdate();
 
     for (auto watcher : m_timerChangeWatchers)
@@ -1273,7 +1273,7 @@ bool Timers::TimerUpdatesAuto()
 
       if ((newAutoTimer.GetChannelId()) == PVR_TIMER_ANY_CHANNEL)
         newAutoTimer.SetAnyChannel(true);
-      Logger::Log(LEVEL_INFO, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), m_clientIndexCounter);
+      Logger::Log(LEVEL_DEBUG, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), m_clientIndexCounter);
       m_autotimers.emplace_back(newAutoTimer);
       m_clientIndexCounter++;
       iNew++;
@@ -1295,7 +1295,7 @@ bool Timers::TimerUpdatesAuto()
     }
   }
 
-  Logger::Log(LEVEL_INFO, "%s No of autotimers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
+  Logger::Log(LEVEL_DEBUG, "%s No of autotimers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
 
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }
