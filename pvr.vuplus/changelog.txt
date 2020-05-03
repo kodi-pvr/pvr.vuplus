@@ -1,3 +1,7 @@
+v4.10.3
+- Update: Explanation for stream read chunk size
+- Fixed: Fix logging after spdlog, from INFO to DEBUG
+
 v4.10.2
 - Update: PVR API 6.5.0
 
