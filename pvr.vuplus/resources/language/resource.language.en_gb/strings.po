@@ -1261,7 +1261,7 @@ msgstr ""
 
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
-msgid "The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide."
+msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
 msgstr ""
 
 #. help: Advanced - debugnormal
