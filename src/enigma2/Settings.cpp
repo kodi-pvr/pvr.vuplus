@@ -340,12 +340,19 @@ void Settings::ReadFromAddon()
     m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
   buffer[0] = 0;
 
-  //Advanced
-  if (!XBMC->GetSetting("prependoutline", &m_prependOutline))
-    m_prependOutline = PrependOutline::IN_EPG;
+  //Backend
+  if (XBMC->GetSetting("wakeonlanmac", buffer))
+    m_wakeOnLanMac = buffer;
+  else
+    m_wakeOnLanMac = "";
+  buffer[0] = 0;
 
   if (!XBMC->GetSetting("powerstatemode", &m_powerstateMode))
     m_powerstateMode = PowerstateMode::DISABLED;
+
+  //Advanced
+  if (!XBMC->GetSetting("prependoutline", &m_prependOutline))
+    m_prependOutline = PrependOutline::IN_EPG;
 
   if (!XBMC->GetSetting("readtimeout", &m_readTimeout))
     m_readTimeout = 0;
@@ -519,6 +526,19 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const void* sett
     return SetSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_timeshiftBufferPath, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  //Backend
+  else if (settingName == "wakeonlanmac")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_wakeOnLanMac, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "globalstartpaddingstb")
+  {
+    if (SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
+      m_admin->SendGlobalRecordingStartMarginSetting(m_globalStartPaddingStb);
+  }
+  else if (settingName == "globalendpaddingstb")
+  {
+    if (SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
+      m_admin->SendGlobalRecordingEndMarginSetting(m_globalEndPaddingStb);
+  }
   //Advanced
   else if (settingName == "prependoutline")
     return SetSetting<PrependOutline, ADDON_STATUS>(settingName, settingValue, m_prependOutline, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
@@ -534,17 +554,6 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const void* sett
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_debugNormal, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tracedebug")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_traceDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  //Backend
-  else if (settingName == "globalstartpaddingstb")
-  {
-    if (SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
-      m_admin->SendGlobalRecordingStartMarginSetting(m_globalStartPaddingStb);
-  }
-  else if (settingName == "globalendpaddingstb")
-  {
-    if (SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
-      m_admin->SendGlobalRecordingEndMarginSetting(m_globalEndPaddingStb);
-  }
 
   return ADDON_STATUS_OK;
 }

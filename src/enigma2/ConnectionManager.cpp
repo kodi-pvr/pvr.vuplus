@@ -138,6 +138,17 @@ void ConnectionManager::Process()
       SteppedSleep(intervalMs);
     }
 
+    /* wakeup server */
+    const std::string& wolMac = Settings::GetInstance().GetWakeOnLanMac();
+    if (!wolMac.empty())
+    {
+      Logger::Log(LogLevel::LEVEL_DEBUG, "%s - send wol packet...", __FUNCTION__);
+      if (!XBMC->WakeOnLan(wolMac.c_str()))
+      {
+        Logger::Log(LogLevel::LEVEL_ERROR, "%s - Error waking up Server at MAC-Address: %s", __FUNCTION__, wolMac.c_str());
+      }
+    }
+
     const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/currenttime");
 
     /* Connect */

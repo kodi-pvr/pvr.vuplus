@@ -795,6 +795,92 @@
       </group>
     </category>
 
+    <!-- Backend -->
+    <!-- Add again one new addon API is supported -->
+    <category id="backend" label="30086" help="30760">
+      <!-- Add again one new addon API is supported -->
+      <!-- <group id="1" label="30090">
+        <setting id="webifversion" type="string" label="30091" help="30761">
+          <level>0</level>
+          <default>N/A</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="autotimertagintags" type="string" label="30092" help="30762">
+          <level>0</level>
+          <default>N/A</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="autotimernameintags" type="string" label="30093" help="30763">
+          <level>0</level>
+          <default>N/A</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+      </group> -->
+
+      <group id="2" label="30145">
+        <setting id="wakeonlanmac" type="string" label="30146" help="30766">
+          <level>1</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="powerstatemode" type="integer" label="30024" help="30742">
+          <level>1</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30430">0</option> <!-- DISABLED -->
+              <option label="30097">1</option> <!-- STANDBY -->
+              <option label="30098">2</option> <!-- DEEP_STANDBY -->
+              <option label="30099">3</option> <!-- WAKEUP_THEN_STANDBY -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
+      </group>
+
+      <!-- Add again one new addon API is supported -->
+      <!-- <group id="3" label="30087">
+        <setting id="globalstartpaddingstb" type="integer" label="30088" help="30764">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>120</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14044</formatlabel>
+          </control>
+        </setting>
+        <setting id="globalendpaddingstb" type="integer" label="30089" help="30765">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>120</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14044</formatlabel>
+          </control>
+        </setting>
+      </group> -->
+    </category>
+
     <!-- Advanced -->
     <category id="advanced" label="30020" help="30740">
       <group id="1" label="30052">
@@ -807,19 +893,6 @@
               <option label="30043">1</option> <!-- IN_EPG -->
               <option label="30044">2</option> <!-- IN_RECORDINGS -->
               <option label="30045">3</option> <!-- ALWAYS -->
-            </options>
-          </constraints>
-          <control type="list" format="integer" />
-        </setting>
-        <setting id="powerstatemode" type="integer" label="30024" help="30742">
-          <level>1</level>
-          <default>0</default>
-          <constraints>
-            <options>
-              <option label="30430">0</option> <!-- DISABLED -->
-              <option label="30097">1</option> <!-- STANDBY -->
-              <option label="30098">2</option> <!-- DEEP_STANDBY -->
-              <option label="30099">3</option> <!-- WAKEUP_THEN_STANDBY -->
             </options>
           </constraints>
           <control type="list" format="integer" />
@@ -873,68 +946,5 @@
         </setting>
       </group>
     </category>
-
-    <!-- Backend -->
-    <!-- Add again one new addon API is supported -->
-    <!--
-    <category id="backend" label="30086" help="30760">
-      <group id="1" label="30090">
-        <setting id="webifversion" type="string" label="30091" help="30761">
-          <level>0</level>
-          <default>N/A</default>
-          <dependencies>
-            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
-          </dependencies>
-          <control type="edit" format="string" />
-        </setting>
-        <setting id="autotimertagintags" type="string" label="30092" help="30762">
-          <level>0</level>
-          <default>N/A</default>
-          <dependencies>
-            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
-          </dependencies>
-          <control type="edit" format="string" />
-        </setting>
-        <setting id="autotimernameintags" type="string" label="30093" help="30763">
-          <level>0</level>
-          <default>N/A</default>
-          <dependencies>
-            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
-          </dependencies>
-          <control type="edit" format="string" />
-        </setting>
-      </group>
-
-      <group id="2" label="30087">
-        <setting id="globalstartpaddingstb" type="integer" label="30088" help="30764">
-          <level>0</level>
-          <default>0</default>
-          <constraints>
-            <minimum>0</minimum>
-            <step>1</step>
-            <maximum>120</maximum>
-          </constraints>
-          <control type="slider" format="integer">
-            <popup>true</popup>
-            <formatlabel>14044</formatlabel>
-          </control>
-        </setting>
-        <setting id="globalendpaddingstb" type="integer" label="30089" help="30765">
-          <level>0</level>
-          <default>0</default>
-          <constraints>
-            <minimum>0</minimum>
-            <step>1</step>
-            <maximum>120</maximum>
-          </constraints>
-          <control type="slider" format="integer">
-            <popup>true</popup>
-            <formatlabel>14044</formatlabel>
-          </control>
-        </setting>
-      </group>
-    </category>
-    -->
-
   </section>
 </settings>
