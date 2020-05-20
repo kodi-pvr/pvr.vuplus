@@ -254,15 +254,20 @@ Timeshifting allows you to pause live TV as well as move back and forward from y
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
 * **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata.
 
-### Advanced
-Within this tab more uncommon and advanced options can be configured.
+### Backend
+This category contains information and settings on/about the Enigma2 STB.
 
-* **Put outline (e.g. sub-title) before plot**: By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect.
+* **Wake on LAN MAC**: The MAC address of the Engima2 STB to be used for WoL (Wake On LAN).
 * **Send powerstate mode on addon exit**: If this option is set to a value other than `DISABLED` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated).
     - `Disabled` - No command sent when the addon exits
     - `Standby` - Send the standby command on exit
     - `Deep standby` - Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
+
+### Advanced
+Within this tab more uncommon and advanced options can be configured.
+
+* **Put outline (e.g. sub-title) before plot**: By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect.
 * **Custom live TV timeout (0 to use default)**: The timemout to use when trying to read live streams. Default for live streams is 0. Default for timeshifting is 10 seconds.
 * **Stream read chunk size**: The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network.
 * **Ignore debug logging in debug mode**: Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related.

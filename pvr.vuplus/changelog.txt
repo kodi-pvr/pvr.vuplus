@@ -1,3 +1,6 @@
+v5.1.0
+- Added: Support for Wake-On-LAN
+
 v5.0.0
 - Update: PVR API 6.5.1
 - Update: Global API 1.2.0

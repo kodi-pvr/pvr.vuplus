@@ -735,7 +735,17 @@ msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
 msgstr ""
 
-#empty strings from id 30145 to 30409
+#. label-group: Backend - Power Settings
+msgctxt "#30145"
+msgid "Power Settings"
+msgstr ""
+
+#. label: Backend - wakeonlanmac
+msgctxt "#30146"
+msgid "Wake On LAN MAC"
+msgstr ""
+
+#empty strings from id 30147 to 30409
 
 #. ##############
 #. application #
@@ -1285,7 +1295,7 @@ msgstr ""
 
 #. help-category: backend
 msgctxt "#30760"
-msgid "This category cotains advanced/expert settings"
+msgid "This category contains information and settings on/about the Enigma2 STB."
 msgstr ""
 
 #. help: Backend - webifversion
@@ -1311,4 +1321,9 @@ msgstr ""
 #. help: Backend - globalendpaddingstb
 msgctxt "#30765"
 msgid "globalendpaddingstb"
+msgstr ""
+
+#. label: Backend - wakeonlanmac
+msgctxt "#30766"
+msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr ""

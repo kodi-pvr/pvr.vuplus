@@ -193,9 +193,12 @@ namespace enigma2
     const std::string& GetTimeshiftBufferPath() const { return m_timeshiftBufferPath; }
     bool IsTimeshiftBufferPathValid() const;
 
+    //Backend
+    const std::string& GetWakeOnLanMac() const { return m_wakeOnLanMac; }
+    PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
+
     //Advanced
     const PrependOutline& GetPrependOutline() const { return m_prependOutline; }
-    PowerstateMode GetPowerstateModeOnAddonExit() const { return m_powerstateMode; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
     bool GetNoDebug() const { return m_noDebug; };
@@ -367,18 +370,19 @@ namespace enigma2
     Timeshift m_timeshift = Timeshift::OFF;
     std::string m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
 
+    //Backend
+    std::string m_wakeOnLanMac;
+    PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
+    int m_globalStartPaddingStb = 0;
+    int m_globalEndPaddingStb = 0;
+
     //Advanced
     PrependOutline m_prependOutline = PrependOutline::IN_EPG;
-    PowerstateMode m_powerstateMode = PowerstateMode::DISABLED;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
     bool m_noDebug = false;
     bool m_debugNormal = false;
     bool m_traceDebug = false;
-
-    //Backend
-    int m_globalStartPaddingStb = 0;
-    int m_globalEndPaddingStb = 0;
 
     //Last Scanned
     bool m_usesLastScannedChannelGroup = false;
