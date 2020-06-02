@@ -11,6 +11,7 @@
 #include "../Enigma2.h"
 #include "../client.h"
 #include "utilities/Logger.h"
+#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
 
 #include <algorithm>
@@ -20,7 +21,6 @@
 
 #include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

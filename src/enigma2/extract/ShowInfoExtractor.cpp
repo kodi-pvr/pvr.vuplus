@@ -9,12 +9,12 @@
 #include "ShowInfoExtractor.h"
 
 #include "../utilities/FileUtils.h"
+#include "../utilities/StringUtils.h"
 
 #include <cstdlib>
 
 #include <kodi/xbmc_pvr_types.h>
 #include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 #include <tinyxml.h>
 
 using namespace enigma2;

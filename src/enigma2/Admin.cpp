@@ -13,6 +13,7 @@
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
+#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
 
 #include <cstdlib>
@@ -20,7 +21,6 @@
 
 #include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

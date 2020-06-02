@@ -8,10 +8,10 @@
 
 #pragma once
 
+#include "../utilities/StringUtils.h"
+
 #include <regex>
 #include <string>
-
-#include <p8-platform/util/StringUtils.h>
 
 namespace enigma2
 {

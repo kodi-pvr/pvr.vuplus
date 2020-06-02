@@ -9,6 +9,7 @@
 #include "Channel.h"
 
 #include "../Settings.h"
+#include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
 #include "ChannelGroup.h"
 
@@ -16,7 +17,6 @@
 #include <regex>
 
 #include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

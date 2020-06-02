@@ -9,12 +9,12 @@
 #include "AutoTimer.h"
 
 #include "../utilities/LocalizedString.h"
+#include "../utilities/StringUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
 
 #include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;

@@ -8,9 +8,9 @@
 
 #include "BaseEntry.h"
 
-#include <cinttypes>
+#include "../utilities/StringUtils.h"
 
-#include <p8-platform/util/StringUtils.h>
+#include <cinttypes>
 
 using namespace enigma2;
 using namespace enigma2::data;

@@ -12,6 +12,7 @@
 #include "../client.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
+#include "utilities/StringUtils.h"
 #include "utilities/UpdateState.h"
 #include "utilities/WebUtils.h"
 
@@ -21,7 +22,6 @@
 #include <regex>
 
 #include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

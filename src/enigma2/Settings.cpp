@@ -11,9 +11,9 @@
 #include "../client.h"
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
+#include "utilities/StringUtils.h"
 
 #include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 #include <tinyxml.h>
 
 using namespace ADDON;

@@ -12,11 +12,11 @@
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 #include "utilities/Logger.h"
+#include "utilities/StringUtils.h"
 
 #include <string>
 
 #include <kodi/AddonBase.h>
-#include <p8-platform/util/StringUtils.h>
 
 class Vu;
 

@@ -15,11 +15,11 @@
 #include "enigma2/TimeshiftBuffer.h"
 #include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
+#include "enigma2/utilities/StringUtils.h"
 
 #include <cstdlib>
 
 #include <kodi/xbmc_pvr_dll.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;
