@@ -81,7 +81,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     if (it == customGroupNamelist.end())
       return false;
     else
-      Logger::Log(LEVEL_DEBUG, "%s Custom TV groups are set, current e2servicename '%s' matched", __FUNCTION__, groupName.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Custom TV groups are set, current e2servicename '%s' matched", __func__, groupName.c_str());
   }
   else if (radio && (Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                      Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
@@ -93,7 +93,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     if (it == customGroupNamelist.end())
       return false;
     else
-      Logger::Log(LEVEL_DEBUG, "%s Custom Radio groups are set, current e2servicename '%s' matched", __FUNCTION__, groupName.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Custom Radio groups are set, current e2servicename '%s' matched", __func__, groupName.c_str());
   }
   else if (groupName == "Last Scanned")
   {

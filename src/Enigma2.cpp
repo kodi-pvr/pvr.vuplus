@@ -51,9 +51,9 @@ Enigma2::~Enigma2()
 
 void Enigma2::ConnectionLost()
 {
-  Logger::Log(LEVEL_INFO, "%s Lost connection with Enigma2 device...", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s Lost connection with Enigma2 device...", __func__);
 
-  Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s Stopping update thread...", __func__);
   m_running = false;
   if (m_thread.joinable())
     m_thread.join();
@@ -68,26 +68,26 @@ void Enigma2::ConnectionEstablished()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels and groups lists...", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels and groups lists...", __func__);
   m_channels.ClearChannels();
   m_channelGroups.ClearChannelGroups();
 
-  Logger::Log(LEVEL_INFO, "%s Connection Established with Enigma2 device...", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s Connection Established with Enigma2 device...", __func__);
 
-  Logger::Log(LEVEL_INFO, "%s - VU+ Addon Configuration options", __FUNCTION__);
-  Logger::Log(LEVEL_INFO, "%s - Hostname: '%s'", __FUNCTION__, m_settings.GetHostname().c_str());
-  Logger::Log(LEVEL_INFO, "%s - WebPort: '%d'", __FUNCTION__, m_settings.GetWebPortNum());
-  Logger::Log(LEVEL_INFO, "%s - StreamPort: '%d'", __FUNCTION__, m_settings.GetStreamPortNum());
+  Logger::Log(LEVEL_INFO, "%s - VU+ Addon Configuration options", __func__);
+  Logger::Log(LEVEL_INFO, "%s - Hostname: '%s'", __func__, m_settings.GetHostname().c_str());
+  Logger::Log(LEVEL_INFO, "%s - WebPort: '%d'", __func__, m_settings.GetWebPortNum());
+  Logger::Log(LEVEL_INFO, "%s - StreamPort: '%d'", __func__, m_settings.GetStreamPortNum());
   if (!m_settings.GetUseSecureConnection())
-    Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'false'", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'false'", __func__);
   else
-    Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'true'", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'true'", __func__);
 
   if ((m_settings.GetUsername().length() > 0) && (m_settings.GetPassword().length() > 0))
   {
     if ((m_settings.GetUsername().find("@") != std::string::npos) || (m_settings.GetPassword().find("@") != std::string::npos))
     {
-      Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuraton!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuraton!", __func__);
       return;
     }
   }
@@ -95,7 +95,7 @@ void Enigma2::ConnectionEstablished()
 
   if (!m_isConnected)
   {
-    Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __func__);
     XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30515).c_str());
     return;
   }
@@ -110,7 +110,7 @@ void Enigma2::ConnectionEstablished()
     // Load the TV channels - close connection if no channels are found
     if (!m_channelGroups.LoadChannelGroups())
     {
-      Logger::Log(LEVEL_ERROR, "%s No channel groups (bouquets) found, please check the addon channel settings, exiting", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s No channel groups (bouquets) found, please check the addon channel settings, exiting", __func__);
       XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30516).c_str());
 
       return;
@@ -118,7 +118,7 @@ void Enigma2::ConnectionEstablished()
 
     if (!m_channels.LoadChannels(m_channelGroups))
     {
-      Logger::Log(LEVEL_ERROR, "%s No channels found, please check the addon channel settings, exiting", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s No channels found, please check the addon channel settings, exiting", __func__);
       XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30517).c_str());
 
       return;
@@ -131,7 +131,7 @@ void Enigma2::ConnectionEstablished()
 
   m_timers.TimerUpdates();
 
-  Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __FUNCTION__);
+  Logger::Log(LEVEL_INFO, "%s Starting separate client update thread...", __func__);
   m_running = true;
   m_thread = std::thread([&] { Process(); });
 }
@@ -165,7 +165,7 @@ bool Enigma2::Start()
 
 void Enigma2::Process()
 {
-  Logger::Log(LEVEL_DEBUG, "%s - starting", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - starting", __func__);
 
   // Wait for the initial EPG update to complete
   int totalWaitSecs = 0;
@@ -205,7 +205,7 @@ void Enigma2::Process()
       // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
       if (m_running && m_isConnected)
       {
-        Logger::Log(LEVEL_DEBUG, "%s Perform Updates!", __FUNCTION__);
+        Logger::Log(LEVEL_DEBUG, "%s Perform Updates!", __func__);
 
         if (m_settings.GetAutoTimerListCleanupEnabled())
         {
@@ -245,7 +245,7 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
 
   if (m_settings.GetChannelAndGroupUpdateMode() != ChannelAndGroupUpdateMode::DISABLED)
   {
-    Logger::Log(LEVEL_INFO, "%s Checking for Channel and Group Changes!", __FUNCTION__);
+    Logger::Log(LEVEL_INFO, "%s Checking for Channel and Group Changes!", __func__);
 
     //Now check for any channel or group changes
     ChannelGroups latestChannelGroups;
@@ -262,12 +262,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
-            Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, please restart to load changes", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, please restart to load changes", __func__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30518).c_str());
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
-            Logger::Log(LEVEL_INFO, "%s Channel changes detected, please restart to load changes", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel changes detected, please restart to load changes", __func__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30519).c_str());
           }
         }
@@ -275,12 +275,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
         {
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
-            Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __func__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30521).c_str());
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
-            Logger::Log(LEVEL_INFO, "%s Channel changes detected, reloading channels, groups and EPG now", __FUNCTION__);
+            Logger::Log(LEVEL_INFO, "%s Channel changes detected, reloading channels, groups and EPG now", __func__);
             XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30522).c_str());
           }
         }
@@ -293,7 +293,7 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
 
 void Enigma2::ReloadChannelsGroupsAndEPG()
 {
-  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __func__);
   m_channels.ClearChannels();
   m_channelGroups.ClearChannelGroups();
 
@@ -357,7 +357,7 @@ PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle, bool radio)
     m_channelGroups.GetChannelGroups(channelGroups, radio);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - channel groups available '%d'", __FUNCTION__, channelGroups.size());
+  Logger::Log(LEVEL_DEBUG, "%s - channel groups available '%d'", __func__, channelGroups.size());
 
   for (const auto& channelGroup : channelGroups)
     PVR->TransferChannelGroup(handle, &channelGroup);
@@ -373,7 +373,7 @@ PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL
     m_channelGroups.GetChannelGroupMembers(channelGroupMembers, group.strGroupName);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - group '%s' members available '%d'", __FUNCTION__, group.strGroupName, channelGroupMembers.size());
+  Logger::Log(LEVEL_DEBUG, "%s - group '%s' members available '%d'", __func__, group.strGroupName, channelGroupMembers.size());
 
   for (const auto& channelGroupMember : channelGroupMembers)
       PVR->TransferChannelGroupMember(handle, &channelGroupMember);
@@ -398,7 +398,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
     m_channels.GetChannels(channels, bRadio);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - channels available '%d', radio = %d", __FUNCTION__, channels.size(), bRadio);
+  Logger::Log(LEVEL_DEBUG, "%s - channels available '%d', radio = %d", __func__, channels.size(), bRadio);
 
   for (auto& channel : channels)
     PVR->TransferChannelEntry(handle, &channel);
@@ -422,7 +422,7 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
 
     if (!m_channels.IsValid(iChannelUid))
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __FUNCTION__, iChannelUid);
+      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __func__, iChannelUid);
       return PVR_ERROR_SERVER_ERROR;
     }
 
@@ -431,7 +431,7 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
 
   if (m_skipInitialEpgLoad)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Skipping Initial EPG for channel: %s", __FUNCTION__, myChannel->GetChannelName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Skipping Initial EPG for channel: %s", __func__, myChannel->GetChannelName().c_str());
     m_epg.MarkChannelAsInitialEpgRead(myChannel->GetServiceReference());
     return PVR_ERROR_NO_ERROR;
   }
@@ -449,7 +449,7 @@ void Enigma2::SetEPGTimeFrame(int epgMaxDays)
  **************************************************************************/
 bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
 {
-  Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __FUNCTION__, channelinfo.iUniqueId);
+  Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __func__, channelinfo.iUniqueId);
   std::lock_guard<std::mutex> lock(m_mutex);
 
   if (channelinfo.iUniqueId != m_currentChannel)
@@ -541,7 +541,7 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle, bool deleted)
     m_recordings.GetRecordings(recordings, deleted);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - recordings available '%d'", __FUNCTION__, recordings.size());
+  Logger::Log(LEVEL_DEBUG, "%s - recordings available '%d'", __func__, recordings.size());
 
   for (const auto& recording : recordings)
     PVR->TransferRecordingEntry(handle, &recording);
@@ -572,7 +572,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY e
     m_recordings.GetRecordingEdl(recinfo.strRecordingId, edlEntries);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - recording '%s' has '%d' EDL entries available", __FUNCTION__, recinfo.strTitle, edlEntries.size());
+  Logger::Log(LEVEL_DEBUG, "%s - recording '%s' has '%d' EDL entries available", __func__, recinfo.strTitle, edlEntries.size());
 
   int index = 0;
   int maxSize = *size;
@@ -666,7 +666,7 @@ void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
   for (auto& timerType : timerTypes)
     types[i++] = timerType;
   *size = timerTypes.size();
-  Logger::Log(LEVEL_INFO, "%s Transfered %u timer types", __FUNCTION__, *size);
+  Logger::Log(LEVEL_INFO, "%s Transfered %u timer types", __func__, *size);
 }
 
 int Enigma2::GetTimersAmount()
@@ -684,7 +684,7 @@ PVR_ERROR Enigma2::GetTimers(ADDON_HANDLE handle)
     m_timers.GetAutoTimers(timers);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - timers available '%d'", __FUNCTION__, timers.size());
+  Logger::Log(LEVEL_DEBUG, "%s - timers available '%d'", __func__, timers.size());
 
   for (auto& timer : timers)
     PVR->TransferTimerEntry(handle, &timer);
@@ -731,7 +731,7 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS* signalStatus)
     time_t now = std::time(nullptr);
     if ((now - m_lastSignalStatusUpdateSeconds) >= POLL_INTERVAL_SECONDS)
     {
-      Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __FUNCTION__, POLL_INTERVAL_SECONDS);
+      Logger::Log(LEVEL_DEBUG, "%s - Calling backend for Signal Status after interval of %d seconds", __func__, POLL_INTERVAL_SECONDS);
 
       if (!m_admin.GetTunerSignal(m_signalStatus, channel))
       {

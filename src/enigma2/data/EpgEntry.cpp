@@ -72,7 +72,7 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
 
   if (!epgChannel)
   {
-    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping entry", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping entry", __func__);
     return false;
   }
 

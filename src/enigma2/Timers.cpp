@@ -48,7 +48,7 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -58,7 +58,7 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2timerlist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2timerlist> element!", __func__);
     return false;
   }
 
@@ -68,7 +68,7 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2timer> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2timer> element", __func__);
     return true; //No timers is valid
   }
 
@@ -91,10 +91,10 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
     }
 
     Logger::Log(LEVEL_DEBUG, "%s fetched Timer entry '%s', begin '%lld', end '%lld', start padding mins '%u', end padding mins '%u'",
-                __FUNCTION__, newTimer.GetTitle().c_str(), static_cast<long long>(newTimer.GetStartTime()), static_cast<long long>(newTimer.GetEndTime()), newTimer.GetPaddingStartMins(), newTimer.GetPaddingEndMins());
+                __func__, newTimer.GetTitle().c_str(), static_cast<long long>(newTimer.GetStartTime()), static_cast<long long>(newTimer.GetEndTime()), newTimer.GetPaddingStartMins(), newTimer.GetPaddingEndMins());
   }
 
-  Logger::Log(LEVEL_INFO, "%s fetched %u Timer Entries", __FUNCTION__, timers.size());
+  Logger::Log(LEVEL_INFO, "%s fetched %u Timer Entries", __func__, timers.size());
   return true;
 }
 
@@ -181,7 +181,7 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -191,7 +191,7 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <autotimer> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <autotimer> element!", __func__);
     return false;
   }
 
@@ -201,7 +201,7 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <timer> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <timer> element", __func__);
     return true; //No timers is valid
   }
 
@@ -214,10 +214,10 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 
     autoTimers.emplace_back(newAutoTimer);
 
-    Logger::Log(LEVEL_DEBUG, "%s fetched AutoTimer entry '%s', begin '%lld', end '%lld'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), static_cast<long long>(newAutoTimer.GetStartTime()), static_cast<long long>(newAutoTimer.GetEndTime()));
+    Logger::Log(LEVEL_DEBUG, "%s fetched AutoTimer entry '%s', begin '%lld', end '%lld'", __func__, newAutoTimer.GetTitle().c_str(), static_cast<long long>(newAutoTimer.GetStartTime()), static_cast<long long>(newAutoTimer.GetEndTime()));
   }
 
-  Logger::Log(LEVEL_INFO, "%s fetched %u AutoTimer Entries", __FUNCTION__, autoTimers.size());
+  Logger::Log(LEVEL_INFO, "%s fetched %u AutoTimer Entries", __func__, autoTimers.size());
   return true;
 }
 
@@ -437,7 +437,7 @@ void Timers::GetTimers(std::vector<PVR_TIMER>& timers) const
 {
   for (const auto& timer : m_timers)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, timer.GetTitle().c_str(), timer.GetClientIndex());
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __func__, timer.GetTitle().c_str(), timer.GetClientIndex());
     PVR_TIMER tag = {0};
 
     timer.UpdateTo(tag);
@@ -450,7 +450,7 @@ void Timers::GetAutoTimers(std::vector<PVR_TIMER>& timers) const
 {
   for (const auto& autoTimer : m_autotimers)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __FUNCTION__, autoTimer.GetTitle().c_str(),
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __func__, autoTimer.GetTitle().c_str(),
                 autoTimer.GetClientIndex());
     PVR_TIMER tag = {0};
 
@@ -475,7 +475,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   if (IsAutoTimer(timer))
     return AddAutoTimer(timer);
 
-  Logger::Log(LEVEL_DEBUG, "%s - Start", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Start", __func__);
 
   const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
   Tags tags;
@@ -567,19 +567,19 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
               WebUtils::URLEncodeInline(tags.GetTags()).c_str());
 
-  Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __FUNCTION__, strTmp.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __func__, strTmp.c_str());
 
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_SERVER_ERROR;
 
-  Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __func__);
 
   TimerUpdates();
 
   if (alreadyStarted)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __func__);
     PVR->TriggerRecordingUpdate();
   }
 
@@ -588,7 +588,7 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
 
 PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
 {
-  Logger::Log(LEVEL_DEBUG, "%s - Start", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Start", __func__);
 
   std::string strTmp = StringUtils::Format("autotimer/edit?");
 
@@ -691,7 +691,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
 
   strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
 
-  Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __FUNCTION__, strTmp.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __func__, strTmp.c_str());
 
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
@@ -699,11 +699,11 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
 
   if (timer.state == PVR_TIMER_STATE_RECORDING)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __func__);
     PVR->TriggerRecordingUpdate();
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __func__);
 
   TimerUpdates();
 
@@ -715,7 +715,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
   if (IsAutoTimer(timer))
     return UpdateAutoTimer(timer);
 
-  Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __FUNCTION__, timer.iClientChannelUid);
+  Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __func__, timer.iClientChannelUid);
 
   const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
 
@@ -728,7 +728,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
   {
     Timer oldTimer = *it;
 
-    Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __FUNCTION__, oldTimer.GetChannelId());
+    Logger::Log(LEVEL_DEBUG, "%s old timer channelid '%d'", __func__, oldTimer.GetChannelId());
 
     Tags tags(oldTimer.GetTags());
     tags.AddTag(TAG_FOR_CHANNEL_REFERENCE, strServiceReference, true);
@@ -1097,7 +1097,7 @@ bool Timers::TimerUpdates()
 
   if (regularTimersChanged || autoTimersChanged)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Changes in timerlist detected, trigger an update!", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Changes in timerlist detected, trigger an update!", __func__);
     PVR->TriggerTimerUpdate();
 
     for (auto watcher : m_timerChangeWatchers)
@@ -1115,7 +1115,7 @@ bool Timers::TimerUpdatesRegular()
 
   if (!LoadTimers(newTimers))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to load timers, skipping timer update", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Unable to load timers, skipping timer update", __func__);
     return false;
   }
 
@@ -1171,7 +1171,7 @@ bool Timers::TimerUpdatesRegular()
     if (newTimer.GetUpdateState() == UPDATE_STATE_NEW)
     {
       newTimer.SetClientIndex(m_clientIndexCounter);
-      Logger::Log(LEVEL_DEBUG, "%s New timer: '%s', ClientIndex: '%d'", __FUNCTION__, newTimer.GetTitle().c_str(), m_clientIndexCounter);
+      Logger::Log(LEVEL_DEBUG, "%s New timer: '%s', ClientIndex: '%d'", __func__, newTimer.GetTitle().c_str(), m_clientIndexCounter);
       m_timers.emplace_back(newTimer);
       m_clientIndexCounter++;
       iNew++;
@@ -1193,7 +1193,7 @@ bool Timers::TimerUpdatesRegular()
     }
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
+  Logger::Log(LEVEL_DEBUG, "%s No of timers: removed [%d], untouched [%d], updated '%d', new '%d'", __func__, iRemoved, iUnchanged, iUpdated, iNew);
 
   std::vector<EpgEntry> timerBaseEntries;
   for (auto& timer : m_timers)
@@ -1214,7 +1214,7 @@ bool Timers::TimerUpdatesAuto()
 
   if (!LoadAutoTimers(newAutotimers))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to load auto timers, skipping auto timer update", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Unable to load auto timers, skipping auto timer update", __func__);
     return false;
   }
 
@@ -1273,7 +1273,7 @@ bool Timers::TimerUpdatesAuto()
 
       if ((newAutoTimer.GetChannelId()) == PVR_TIMER_ANY_CHANNEL)
         newAutoTimer.SetAnyChannel(true);
-      Logger::Log(LEVEL_DEBUG, "%s New auto timer: '%s', ClientIndex: '%d'", __FUNCTION__, newAutoTimer.GetTitle().c_str(), m_clientIndexCounter);
+      Logger::Log(LEVEL_DEBUG, "%s New auto timer: '%s', ClientIndex: '%d'", __func__, newAutoTimer.GetTitle().c_str(), m_clientIndexCounter);
       m_autotimers.emplace_back(newAutoTimer);
       m_clientIndexCounter++;
       iNew++;
@@ -1295,7 +1295,7 @@ bool Timers::TimerUpdatesAuto()
     }
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s No of autotimers: removed [%d], untouched [%d], updated '%d', new '%d'", __FUNCTION__, iRemoved, iUnchanged, iUpdated, iNew);
+  Logger::Log(LEVEL_DEBUG, "%s No of autotimers: removed [%d], untouched [%d], updated '%d', new '%d'", __func__, iRemoved, iUnchanged, iUpdated, iNew);
 
   return (iRemoved != 0 || iUpdated != 0 || iNew != 0);
 }
@@ -1305,5 +1305,5 @@ void Timers::RunAutoTimerListCleanup()
   const std::string strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
-    Logger::Log(LEVEL_ERROR, "%s - AutomaticTimerlistCleanup failed!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s - AutomaticTimerlistCleanup failed!", __func__);
 }

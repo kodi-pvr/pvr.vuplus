@@ -171,7 +171,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   int iDisabled;
 
   if (XMLUtils::GetString(timerNode, "e2name", strTmp))
-    Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __FUNCTION__, strTmp.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __func__, strTmp.c_str());
 
   if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
     return false;
@@ -245,24 +245,24 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
     return false;
 
-  Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __FUNCTION__, iTmp);
+  Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __func__, iTmp);
 
   if (iTmp == 0)
   {
     m_state = PVR_TIMER_STATE_SCHEDULED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: SCHEDULED", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: SCHEDULED", __func__);
   }
 
   if (iTmp == 2)
   {
     m_state = PVR_TIMER_STATE_RECORDING;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: RECORDING", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: RECORDING", __func__);
   }
 
   if (iTmp == 3 && iDisabled == 0)
   {
     m_state = PVR_TIMER_STATE_COMPLETED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __func__);
   }
 
   if (XMLUtils::GetBoolean(timerNode, "e2cancled", bTmp))
@@ -273,23 +273,23 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
       // We don't use CANCELLED or ABORTED as they are synonymous with DISABLED and we won't use them at all
       // Note there is no user/API action to change to cancelled
       m_state = PVR_TIMER_STATE_ERROR;
-      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ERROR", __FUNCTION__);
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ERROR", __func__);
     }
   }
 
   if (iDisabled == 1)
   {
     m_state = PVR_TIMER_STATE_DISABLED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Disabled", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Disabled", __func__);
   }
 
   if (m_state == PVR_TIMER_STATE_NEW)
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __func__);
 
   if (m_channelId == PVR_CHANNEL_INVALID_UID)
   {
     m_state = PVR_TIMER_STATE_ERROR;
-    Logger::Log(LEVEL_DEBUG, "%s Overriding Timer as channel not found, state is: ERROR", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Overriding Timer as channel not found, state is: ERROR", __func__);
   }
 
   m_tags.clear();

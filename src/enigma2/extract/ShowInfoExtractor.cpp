@@ -25,7 +25,7 @@ using namespace enigma2::utilities;
 ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
 {
   if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns, m_titleTextPatterns, m_descriptionTextPatterns))
-    Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __FUNCTION__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
+    Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __func__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
 }
 
 ShowInfoExtractor::~ShowInfoExtractor() {}
@@ -128,24 +128,24 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!FileUtils::FileExists(xmlFile.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __FUNCTION__, xmlFile.c_str());
+    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __func__, xmlFile.c_str());
     return false;
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __func__, xmlFile.c_str());
 
   const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
 
   if (fileContents.empty())
   {
-    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __FUNCTION__, xmlFile.c_str());
+    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __func__, xmlFile.c_str());
     return false;
   }
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(fileContents.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -155,7 +155,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <showInfo> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <showInfo> element!", __func__);
     return false;
   }
 
@@ -171,7 +171,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <seasonEpisodes> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <seasonEpisodes> element", __func__);
     return false;
   }
 
@@ -179,7 +179,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <seasonEpisode> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <seasonEpisode> element", __func__);
     return false;
   }
 
@@ -206,7 +206,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
           {
             episodeSeasonPatterns.emplace_back(EpisodeSeasonPattern(masterPattern, seasonPattern, episodePattern));
 
-            Logger::Log(LEVEL_DEBUG, "%s Adding seasonEpisode pattern: %s, master: %s, season: %s, episode: %s", __FUNCTION__, name.c_str(), masterPattern.c_str(), seasonPattern.c_str(), episodePattern.c_str());
+            Logger::Log(LEVEL_DEBUG, "%s Adding seasonEpisode pattern: %s, master: %s, season: %s, episode: %s", __func__, name.c_str(), masterPattern.c_str(), seasonPattern.c_str(), episodePattern.c_str());
           }
         }
         else
@@ -215,18 +215,18 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
           {
             episodeSeasonPatterns.emplace_back(EpisodeSeasonPattern(masterPattern, episodePattern));
 
-            Logger::Log(LEVEL_DEBUG, "%s Adding episode pattern from: %s, master: %s, episode: %s", __FUNCTION__, name.c_str(), masterPattern.c_str(), episodePattern.c_str());
+            Logger::Log(LEVEL_DEBUG, "%s Adding episode pattern from: %s, master: %s, episode: %s", __func__, name.c_str(), masterPattern.c_str(), episodePattern.c_str());
           }
         }
       }
       else
       {
-        Logger::Log(LEVEL_ERROR, "%s Could find <episode> element, skipping pattern from: %s", __FUNCTION__, name.c_str());
+        Logger::Log(LEVEL_ERROR, "%s Could find <episode> element, skipping pattern from: %s", __func__, name.c_str());
       }
     }
     else
     {
-      Logger::Log(LEVEL_ERROR, "%s Could find <master> element, skipping pattern from: %s", __FUNCTION__, name.c_str());
+      Logger::Log(LEVEL_ERROR, "%s Could find <master> element, skipping pattern from: %s", __func__, name.c_str());
     }
   }
 
@@ -235,7 +235,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <years> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <years> element", __func__);
     return false;
   }
 
@@ -243,7 +243,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <year> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <year> element", __func__);
     return false;
   }
 
@@ -253,7 +253,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
     yearPatterns.emplace_back(std::regex(yearPattern));
 
-    Logger::Log(LEVEL_DEBUG, "%s Adding year pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), yearPattern.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Adding year pattern from: %s, pattern: %s", __func__, name.c_str(), yearPattern.c_str());
   }
 
   //Now we do the premieres
@@ -261,7 +261,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <textProperties> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <textProperties> element", __func__);
     return false;
   }
 
@@ -269,7 +269,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <textProperty> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <textProperty> element", __func__);
     return false;
   }
 
@@ -289,7 +289,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
     {
       m_titleTextPatterns.emplace_back(std::make_pair(textPropertyType, std::regex(titlePattern)));
 
-      Logger::Log(LEVEL_DEBUG, "%s Adding premiere title pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), titlePattern.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Adding premiere title pattern from: %s, pattern: %s", __func__, name.c_str(), titlePattern.c_str());
     }
 
     const std::string descPattern = pNode->Attribute("descPattern") ? pNode->Attribute("descPattern") : "";
@@ -297,11 +297,11 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
     {
       m_descriptionTextPatterns.emplace_back(std::make_pair(textPropertyType, std::regex(descPattern)));
 
-      Logger::Log(LEVEL_DEBUG, "%s Adding premiere description pattern from: %s, pattern: %s", __FUNCTION__, name.c_str(), descPattern.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Adding premiere description pattern from: %s, pattern: %s", __func__, name.c_str(), descPattern.c_str());
     }
 
     if (titlePattern.empty() && descPattern.empty())
-      Logger::Log(LEVEL_DEBUG, "%s Premiere pattern not found in: %s", __FUNCTION__, name.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Premiere pattern not found in: %s", __func__, name.c_str());
   }
 
   return true;

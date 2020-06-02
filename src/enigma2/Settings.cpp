@@ -569,24 +569,24 @@ bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std:
 
   if (!FileUtils::FileExists(xmlFile.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __FUNCTION__, xmlFile.c_str());
+    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __func__, xmlFile.c_str());
     return false;
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __func__, xmlFile.c_str());
 
   const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
 
   if (fileContents.empty())
   {
-    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __FUNCTION__, xmlFile.c_str());
+    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __func__, xmlFile.c_str());
     return false;
   }
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(fileContents.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -596,7 +596,7 @@ bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std:
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <customChannelGroups> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <customChannelGroups> element!", __func__);
     return false;
   }
 
@@ -606,7 +606,7 @@ bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std:
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <channelGroupName> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <channelGroupName> element", __func__);
     return false;
   }
 
@@ -616,7 +616,7 @@ bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std:
 
     channelGroupNameList.emplace_back(channelGroupName);
 
-    Logger::Log(LEVEL_TRACE, "%s Read Custom ChannelGroup Name: %s, from file: %s", __FUNCTION__, channelGroupName.c_str(), xmlFile.c_str());
+    Logger::Log(LEVEL_TRACE, "%s Read Custom ChannelGroup Name: %s, from file: %s", __func__, channelGroupName.c_str(), xmlFile.c_str());
   }
 
   return true;

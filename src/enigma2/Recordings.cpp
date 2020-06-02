@@ -44,7 +44,7 @@ void Recordings::GetRecordings(std::vector<PVR_RECORDING>& kodiRecordings, bool 
 
   for (auto& recording : recordings)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Transfer recording '%s', Recording Id '%s'", __FUNCTION__, recording.GetTitle().c_str(), recording.GetRecordingId().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer recording '%s', Recording Id '%s'", __func__, recording.GetTitle().c_str(), recording.GetRecordingId().c_str());
     PVR_RECORDING kodiRecording = {0};
 
     recording.UpdateTo(kodiRecording, m_channels, IsInRecordingFolder(recording.GetTitle(), deleted));
@@ -95,7 +95,7 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR
         lineNumber++;
         if (std::sscanf(line.c_str(), "%f %f %u", &start, &stop, &type) < 2 || type > PVR_EDL_TYPE_COMBREAK)
         {
-          Logger::Log(LEVEL_INFO, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __FUNCTION__,
+          Logger::Log(LEVEL_INFO, "%s Unable to parse EDL entry for recording '%s' at line %d. Skipping.", __func__,
                       recordingEntry.GetTitle().c_str(), lineNumber);
           continue;
         }
@@ -108,7 +108,7 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR
         start = std::min(start, stop);
         stop = std::max(start, stop);
 
-        Logger::Log(LEVEL_INFO, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
+        Logger::Log(LEVEL_INFO, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __func__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
 
         PVR_EDL_ENTRY edlEntry;
         edlEntry.start = static_cast<int64_t>(start * 1000.0f);
@@ -144,10 +144,10 @@ bool Recordings::IsInRecordingFolder(const std::string& recordingFolder, bool de
     if (recordingFolder == recording.GetTitle())
     {
       iMatches++;
-      Logger::Log(LEVEL_DEBUG, "%s Found Recording title '%s' in recordings vector!", __FUNCTION__, recordingFolder.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Found Recording title '%s' in recordings vector!", __func__, recordingFolder.c_str());
       if (iMatches > 1)
       {
-        Logger::Log(LEVEL_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __FUNCTION__, recordingFolder.c_str());
+        Logger::Log(LEVEL_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __func__, recordingFolder.c_str());
         return true;
       }
     }
@@ -162,7 +162,7 @@ PVR_ERROR Recordings::RenameRecording(const PVR_RECORDING& recording)
 
   if (!recordingEntry.GetRecordingId().empty())
   {
-    Logger::Log(LEVEL_DEBUG, "%s Sending rename command for recording '%s' to '%s'", __FUNCTION__, recordingEntry.GetTitle().c_str(), recording.strTitle);
+    Logger::Log(LEVEL_DEBUG, "%s Sending rename command for recording '%s' to '%s'", __func__, recordingEntry.GetTitle().c_str(), recording.strTitle);
     const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&title=%s", Settings::GetInstance().GetConnectionURL().c_str(),
                                                     WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                                                     WebUtils::URLEncodeInline(recording.strTitle).c_str());
@@ -206,7 +206,7 @@ PVR_ERROR Recordings::SetRecordingPlayCount(const PVR_RECORDING& recording, int 
       }
     }
 
-    Logger::Log(LEVEL_DEBUG, "%s Setting playcount for recording '%s' to '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), count);
+    Logger::Log(LEVEL_DEBUG, "%s Setting playcount for recording '%s' to '%d'", __func__, recordingEntry.GetTitle().c_str(), count);
     const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s",
                                 Settings::GetInstance().GetConnectionURL().c_str(),
                                 WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
@@ -288,7 +288,7 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const PVR_RECORDING& record
 
     addTagsArg += "," + TAG_FOR_NEXT_SYNC_TIME + "=" + std::to_string(std::time(nullptr) + m_randomDistribution(m_randomGenerator));
 
-    Logger::Log(LEVEL_DEBUG, "%s Setting last played position for recording '%s' to '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), lastPlayedPosition);
+    Logger::Log(LEVEL_DEBUG, "%s Setting last played position for recording '%s' to '%d'", __func__, recordingEntry.GetTitle().c_str(), lastPlayedPosition);
 
     std::string jsonUrl;
     if (Settings::GetInstance().GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_INSTANCES || !cutsLastPlayedSet)
@@ -329,7 +329,7 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
   time_t now = std::time(nullptr);
   time_t newNextSyncTime = now + m_randomDistribution(m_randomGenerator);
 
-  Logger::Log(LEVEL_DEBUG, "%s Recording: %s - Checking if Next Sync Time: %lld < Now: %lld ", __FUNCTION__, recordingEntry.GetTitle().c_str(), static_cast<long long>(recordingEntry.GetNextSyncTime()), static_cast<long long>(now));
+  Logger::Log(LEVEL_DEBUG, "%s Recording: %s - Checking if Next Sync Time: %lld < Now: %lld ", __func__, recordingEntry.GetTitle().c_str(), static_cast<long long>(recordingEntry.GetNextSyncTime()), static_cast<long long>(now));
 
   if (Settings::GetInstance().GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_AND_E2_INSTANCES &&
       recordingEntry.GetNextSyncTime() < now)
@@ -373,7 +373,7 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
 
       addTagsArg += "," + TAG_FOR_NEXT_SYNC_TIME + "=" + std::to_string(newNextSyncTime);
 
-      Logger::Log(LEVEL_DEBUG, "%s Setting last played position from E2 cuts file to tags for recording '%s' to '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), lastPlayedPosition);
+      Logger::Log(LEVEL_DEBUG, "%s Setting last played position from E2 cuts file to tags for recording '%s' to '%d'", __func__, recordingEntry.GetTitle().c_str(), lastPlayedPosition);
 
       std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s",
                             Settings::GetInstance().GetConnectionURL().c_str(),
@@ -409,7 +409,7 @@ PVR_ERROR Recordings::GetRecordingSize(const PVR_RECORDING& recording, int64_t* 
   auto recordingEntry = GetRecording(recording.strRecordingId);
   UpdateRecordingSizeFromMovieDetails(recordingEntry);
 
-  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __FUNCTION__, recordingEntry.GetSizeInBytes(), recording.strRecordingId);
+  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __func__, recordingEntry.GetSizeInBytes(), recording.strRecordingId);
 
   *sizeInBytes = recordingEntry.GetSizeInBytes();
 
@@ -450,11 +450,11 @@ bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEn
   }
   catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording cuts info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording cuts info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __func__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
   }
   catch (nlohmann::detail::type_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __func__, e.what(), e.id);
   }
 
   return false;  
@@ -462,7 +462,7 @@ bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEn
 
 void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags)
 {
-  Logger::Log(LEVEL_DEBUG, "%s Setting next sync time in tags for recording '%s' to '%lld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
+  Logger::Log(LEVEL_DEBUG, "%s Setting next sync time in tags for recording '%s' to '%lld'", __func__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
 
   std::string addTagsArg = TAG_FOR_NEXT_SYNC_TIME + "=" + std::to_string(nextSyncTime);
 
@@ -489,7 +489,7 @@ void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t
   if (!WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
   {
     recordingEntry.SetNextSyncTime(nextSyncTime);
-    Logger::Log(LEVEL_ERROR, "%s Error setting next sync time for recording '%s' to '%lld'", __FUNCTION__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
+    Logger::Log(LEVEL_ERROR, "%s Error setting next sync time for recording '%s' to '%lld'", __func__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
   }
 }
 
@@ -606,11 +606,11 @@ bool Recordings::ReadExtaRecordingCutsInfo(const data::RecordingEntry& recording
   }
   catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording cuts info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording cuts info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __func__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
   }
   catch (nlohmann::detail::type_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __func__, e.what(), e.id);
   }
 
   return false;
@@ -645,11 +645,11 @@ bool Recordings::ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& rec
   }
   catch (nlohmann::detail::parse_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording play count info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot find extra recording play count info from OpenWebIf for recording: %s, ID: %s - JSON parse error - message: %s, exception id: %d", __func__, recordingEntry.GetTitle().c_str(), recordingEntry.GetRecordingId().c_str(), e.what(), e.id);
   }
   catch (nlohmann::detail::type_error& e)
   {
-    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+    Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __func__, e.what(), e.id);
   }
 
   return false;
@@ -678,7 +678,7 @@ bool Recordings::LoadLocations()
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -688,7 +688,7 @@ bool Recordings::LoadLocations()
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2locations> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2locations> element", __func__);
     return false;
   }
 
@@ -698,7 +698,7 @@ bool Recordings::LoadLocations()
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2location> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2location> element", __func__);
     return false;
   }
 
@@ -708,10 +708,10 @@ bool Recordings::LoadLocations()
 
     m_locations.emplace_back(strTmp);
 
-    Logger::Log(LEVEL_DEBUG, "%s Added '%s' as a recording location", __FUNCTION__, strTmp.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s Added '%s' as a recording location", __func__, strTmp.c_str());
   }
 
-  Logger::Log(LEVEL_INFO, "%s Loaded '%d' recording locations", __FUNCTION__, m_locations.size());
+  Logger::Log(LEVEL_INFO, "%s Loaded '%d' recording locations", __func__, m_locations.size());
 
   return true;
 }
@@ -729,7 +729,7 @@ void Recordings::LoadRecordings(bool deleted)
     if (!GetRecordingsFromLocation(location, deleted, newRecordingsList, newRecordingsIdMap))
     {
       loadError = true;
-      Logger::Log(LEVEL_ERROR, "%s Error fetching lists for folder: '%s'", __FUNCTION__, location.c_str());
+      Logger::Log(LEVEL_ERROR, "%s Error fetching lists for folder: '%s'", __func__, location.c_str());
     }
   }
 
@@ -766,7 +766,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -776,7 +776,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2movielist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2movielist> element!", __func__);
     return false;
   }
 
@@ -788,7 +788,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movie> element, no movies at location: %s", directory.c_str(), __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movie> element, no movies at location: %s", directory.c_str(), __func__);
   }
   else
   {
@@ -808,10 +808,10 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
       recordings.emplace_back(recordingEntry);
       recordingsIdMap.insert({recordingEntry.GetRecordingId(), recordingEntry});
 
-      Logger::Log(LEVEL_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __FUNCTION__, recordingEntry.GetTitle().c_str(), recordingEntry.GetStartTime(), recordingEntry.GetDuration());
+      Logger::Log(LEVEL_DEBUG, "%s loaded Recording entry '%s', start '%d', length '%d'", __func__, recordingEntry.GetTitle().c_str(), recordingEntry.GetStartTime(), recordingEntry.GetDuration());
     }
 
-    Logger::Log(LEVEL_INFO, "%s Loaded %u Recording Entries from folder '%s'", __FUNCTION__, iNumRecordings, recordingLocation.c_str());
+    Logger::Log(LEVEL_INFO, "%s Loaded %u Recording Entries from folder '%s'", __func__, iNumRecordings, recordingLocation.c_str());
   }
   return true;
 }

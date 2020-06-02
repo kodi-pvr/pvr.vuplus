@@ -77,7 +77,7 @@ ADDON_STATUS ADDON_Create(void* hdl, const char* globalApiVersion, void* props)
     return m_currentStatus;
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __func__);
 
   m_currentStatus = ADDON_STATUS_UNKNOWN;
 
@@ -120,7 +120,7 @@ ADDON_STATUS ADDON_Create(void* hdl, const char* globalApiVersion, void* props)
 
   Logger::GetInstance().SetPrefix("pvr.vuplus");
 
-  Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __FUNCTION__);
+  Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __func__);
 
   settings.ReadFromAddon();
 
@@ -265,10 +265,10 @@ PVR_ERROR GetSignalStatus(int channelUid, PVR_SIGNAL_STATUS* signalStatus)
 
   enigma->GetTunerSignal(signalStatus);
 
-  Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s", __FUNCTION__, signalStatus->strAdapterName, signalStatus->strAdapterStatus);
-  Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s", __FUNCTION__, signalStatus->strServiceName, signalStatus->strProviderName);
+  Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s", __func__, signalStatus->strAdapterName, signalStatus->strAdapterStatus);
+  Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s", __func__, signalStatus->strServiceName, signalStatus->strProviderName);
   // For some reason the iSNR and iSignal values need to multiplied by 655!
-  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __FUNCTION__, signalStatus->iSNR / 655, signalStatus->iBER, signalStatus->iSignal / 655);
+  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d", __func__, signalStatus->iSNR / 655, signalStatus->iBER, signalStatus->iSignal / 655);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -375,7 +375,7 @@ PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE
   {
     const std::string strStreamProgramNumber = std::to_string(enigma->GetChannelStreamProgramNumber(*channel));
 
-    Logger::Log(LEVEL_INFO, "%s - for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
+    Logger::Log(LEVEL_INFO, "%s - for channel: %s, set Stream Program Number to %s - %s", __func__, channel->strChannelName, strStreamProgramNumber.c_str(), enigma->GetLiveStreamURL(*channel).c_str());
 
     strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
     strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);
@@ -634,7 +634,7 @@ PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING* recording, PVR_NAMED
   {
     const std::string strStreamProgramNumber = std::to_string(enigma->GetRecordingStreamProgramNumber(*recording));
 
-    Logger::Log(LEVEL_INFO, "%s - for recording for channel: %s, set Stream Program Number to %s - %s", __FUNCTION__, recording->strChannelName, strStreamProgramNumber.c_str(), recording->strRecordingId);
+    Logger::Log(LEVEL_INFO, "%s - for recording for channel: %s, set Stream Program Number to %s - %s", __func__, recording->strChannelName, strStreamProgramNumber.c_str(), recording->strRecordingId);
 
     strncpy(properties[0].strName, "program", sizeof(properties[0].strName) - 1);
     strncpy(properties[0].strValue, strStreamProgramNumber.c_str(), sizeof(properties[0].strValue) - 1);

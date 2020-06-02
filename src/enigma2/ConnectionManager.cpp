@@ -56,7 +56,7 @@ void ConnectionManager::OnSleep()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  Logger::Log(LogLevel::LEVEL_DEBUG, "%s going to sleep", __FUNCTION__);
+  Logger::Log(LogLevel::LEVEL_DEBUG, "%s going to sleep", __func__);
 
   m_suspended = true;
 }
@@ -65,7 +65,7 @@ void ConnectionManager::OnWake()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  Logger::Log(LogLevel::LEVEL_DEBUG, "%s Waking up", __FUNCTION__);
+  Logger::Log(LogLevel::LEVEL_DEBUG, "%s Waking up", __func__);
 
   m_suspended = false;
 }
@@ -132,7 +132,7 @@ void ConnectionManager::Process()
   {
     while (m_suspended)
     {
-      Logger::Log(LogLevel::LEVEL_DEBUG, "%s - suspended, waiting for wakeup...", __FUNCTION__);
+      Logger::Log(LogLevel::LEVEL_DEBUG, "%s - suspended, waiting for wakeup...", __func__);
 
       /* Wait for wakeup */
       SteppedSleep(intervalMs);
@@ -142,10 +142,10 @@ void ConnectionManager::Process()
     const std::string& wolMac = Settings::GetInstance().GetWakeOnLanMac();
     if (!wolMac.empty())
     {
-      Logger::Log(LogLevel::LEVEL_DEBUG, "%s - send wol packet...", __FUNCTION__);
+      Logger::Log(LogLevel::LEVEL_DEBUG, "%s - send wol packet...", __func__);
       if (!XBMC->WakeOnLan(wolMac.c_str()))
       {
-        Logger::Log(LogLevel::LEVEL_ERROR, "%s - Error waking up Server at MAC-Address: %s", __FUNCTION__, wolMac.c_str());
+        Logger::Log(LogLevel::LEVEL_ERROR, "%s - Error waking up Server at MAC-Address: %s", __func__, wolMac.c_str());
       }
     }
 
@@ -156,7 +156,7 @@ void ConnectionManager::Process()
     {
       /* Unable to connect */
       if (retryAttempt == 0)
-        Logger::Log(LogLevel::LEVEL_ERROR, "%s - unable to connect to: %s", __FUNCTION__, url.c_str());
+        Logger::Log(LogLevel::LEVEL_ERROR, "%s - unable to connect to: %s", __func__, url.c_str());
       SetState(PVR_CONNECTION_STATE_SERVER_UNREACHABLE);
 
       // Retry a few times with a short interval, after that with the default timeout

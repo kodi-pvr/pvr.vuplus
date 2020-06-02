@@ -171,7 +171,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
         if (m_channelId == PVR_CHANNEL_INVALID_UID)
         {
           m_state = PVR_TIMER_STATE_ERROR;
-          Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __FUNCTION__);
+          Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __func__);
           m_channelName = LocalizedString(30520); // Invalid Channel
           m_channelId = PVR_TIMER_ANY_CHANNEL;
           m_anyChannel = true;
