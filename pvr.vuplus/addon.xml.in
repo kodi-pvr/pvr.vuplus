@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="5.1.0"
+  version="6.0.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -181,12 +181,11 @@
       <icon>icon.png</icon>
     </assets>
     <news>
-v5.1.0
-- Added: Support for Wake-On-LAN
-
-v5.0.0
-- Update: PVR API 6.5.1
-- Update: Global API 1.2.0
+v6.0.0
+- Update: PVR API 7.0.0
+- Update: Rework addon to support new API interface
+- Removed: p8-platform from depends
+- Removed: kodi-platform from depends
 
 Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vuplus/changelog.txt
     </news>
