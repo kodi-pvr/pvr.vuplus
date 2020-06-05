@@ -10,12 +10,11 @@
 
 #include "../utilities/FileUtils.h"
 #include "../utilities/StringUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cstdlib>
 
 #include <kodi/xbmc_pvr_types.h>
-#include <kodi/util/XMLUtils.h>
-#include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -161,7 +160,7 @@ bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std
 
   std::string name;
 
-  if (!XMLUtils::GetString(pElem, "name", name))
+  if (!xml::GetString(pElem, "name", name))
     return false;
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);

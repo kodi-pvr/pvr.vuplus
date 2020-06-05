@@ -14,6 +14,7 @@
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/StringUtils.h"
 #include "enigma2/utilities/WebUtils.h"
+#include "enigma2/utilities/XMLUtils.h"
 
 #include <algorithm>
 #include <cstdlib>
@@ -22,8 +23,6 @@
 #include <iostream>
 #include <regex>
 #include <string>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

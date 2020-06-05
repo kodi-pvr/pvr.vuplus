@@ -12,9 +12,7 @@
 #include "CurlFile.h"
 #include "Logger.h"
 #include "StringUtils.h"
-
-#include <kodi/util/XMLUtils.h>
-#include <tinyxml.h>
+#include "XMLUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::utilities;
@@ -169,14 +167,14 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 
     bool bTmp;
 
-    if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp))
+    if (!xml::GetBoolean(pElem, "e2state", bTmp))
     {
       Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __func__);
       strResultText = StringUtils::Format("Could not parse e2state!");
       return false;
     }
 
-    if (!XMLUtils::GetString(pElem, "e2statetext", strResultText))
+    if (!xml::GetString(pElem, "e2statetext", strResultText))
     {
       Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __func__);
       return false;

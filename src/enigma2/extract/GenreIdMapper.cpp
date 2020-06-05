@@ -9,12 +9,11 @@
 #include "GenreIdMapper.h"
 
 #include "../utilities/FileUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cstdlib>
 
 #include <kodi/libXBMC_pvr.h>
-#include <kodi/util/XMLUtils.h>
-#include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -117,7 +116,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
   std::string mapperName;
 
-  if (!XMLUtils::GetString(pElem, "mapperName", mapperName))
+  if (!xml::GetString(pElem, "mapperName", mapperName))
     return false;
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);

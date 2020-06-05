@@ -10,11 +10,10 @@
 
 #include "../utilities/LocalizedString.h"
 #include "../utilities/StringUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <regex>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -170,18 +169,18 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   bool bTmp;
   int iDisabled;
 
-  if (XMLUtils::GetString(timerNode, "e2name", strTmp))
+  if (xml::GetString(timerNode, "e2name", strTmp))
     Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __func__, strTmp.c_str());
 
-  if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
+  if (!xml::GetInt(timerNode, "e2state", iTmp))
     return false;
 
-  if (!XMLUtils::GetInt(timerNode, "e2disabled", iDisabled))
+  if (!xml::GetInt(timerNode, "e2disabled", iDisabled))
     return false;
 
   m_title = strTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2servicereference", strTmp))
+  if (xml::GetString(timerNode, "e2servicereference", strTmp))
   {
     m_serviceReference = strTmp;
     m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
@@ -198,20 +197,20 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   }
 
 
-  if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp))
+  if (!xml::GetInt(timerNode, "e2timebegin", iTmp))
     return false;
 
   m_startTime = iTmp;
 
-  if (!XMLUtils::GetInt(timerNode, "e2timeend", iTmp))
+  if (!xml::GetInt(timerNode, "e2timeend", iTmp))
     return false;
 
   m_endTime = iTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2descriptionextended", strTmp))
+  if (xml::GetString(timerNode, "e2descriptionextended", strTmp))
     m_plot = strTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2description", strTmp))
+  if (xml::GetString(timerNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
   if (m_plot == "N/A")
@@ -230,19 +229,19 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
     m_plotOutline.clear();
   }
 
-  if (XMLUtils::GetInt(timerNode, "e2repeated", iTmp))
+  if (xml::GetInt(timerNode, "e2repeated", iTmp))
     m_weekdays = iTmp;
   else
     m_weekdays = 0;
 
-  if (XMLUtils::GetInt(timerNode, "e2eit", iTmp))
+  if (xml::GetInt(timerNode, "e2eit", iTmp))
     m_epgId = iTmp;
   else
     m_epgId = 0;
 
   m_state = PVR_TIMER_STATE_NEW;
 
-  if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
+  if (!xml::GetInt(timerNode, "e2state", iTmp))
     return false;
 
   Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __func__, iTmp);
@@ -265,7 +264,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
     Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __func__);
   }
 
-  if (XMLUtils::GetBoolean(timerNode, "e2cancled", bTmp))
+  if (xml::GetBoolean(timerNode, "e2cancled", bTmp))
   {
     if (bTmp)
     {
@@ -293,7 +292,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   }
 
   m_tags.clear();
-  if (XMLUtils::GetString(timerNode, "e2tags", strTmp))
+  if (xml::GetString(timerNode, "e2tags", strTmp))
     m_tags = strTmp;
 
   if (ContainsTag(TAG_FOR_MANUAL_TIMER))

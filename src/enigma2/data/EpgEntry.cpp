@@ -7,10 +7,9 @@
  */
 
 #include "EpgEntry.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -55,7 +54,7 @@ void EpgEntry::UpdateTo(EPG_TAG& left) const
 
 bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& epgChannelsMap)
 {
-  if (!XMLUtils::GetString(eventNode, "e2eventservicereference", m_serviceReference))
+  if (!xml::GetString(eventNode, "e2eventservicereference", m_serviceReference))
     return false;
 
   // Check whether the current element is not just a label or that it's not an empty record
@@ -103,14 +102,14 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
   int iTmp;
 
   // check and set event starttime and endtimes
-  if (!XMLUtils::GetInt(eventNode, "e2eventstart", iTmpStart))
+  if (!xml::GetInt(eventNode, "e2eventstart", iTmpStart))
     return false;
 
   // Skip unneccessary events
   if (iStart > iTmpStart)
     return false;
 
-  if (!XMLUtils::GetInt(eventNode, "e2eventduration", iTmp))
+  if (!xml::GetInt(eventNode, "e2eventduration", iTmp))
     return false;
 
   if ((iEnd > 1) && (iEnd < (iTmpStart + iTmp)))
@@ -120,13 +119,13 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
   m_endTime = iTmpStart + iTmp;
   m_startTimeW3CDateString = ParseAsW3CDateString(m_startTime);
 
-  if (!XMLUtils::GetInt(eventNode, "e2eventid", iTmp))
+  if (!xml::GetInt(eventNode, "e2eventid", iTmp))
     return false;
 
   m_epgId = iTmp;
   m_channelId = epgChannel->GetUniqueId();
 
-  if (!XMLUtils::GetString(eventNode, "e2eventtitle", strTmp))
+  if (!xml::GetString(eventNode, "e2eventtitle", strTmp))
     return false;
 
   m_title = strTmp;
@@ -137,15 +136,15 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
   if (m_epgId == 0 && m_title == "None")
     return false;
 
-  if (XMLUtils::GetString(eventNode, "e2eventdescriptionextended", strTmp))
+  if (xml::GetString(eventNode, "e2eventdescriptionextended", strTmp))
     m_plot = strTmp;
 
-  if (XMLUtils::GetString(eventNode, "e2eventdescription", strTmp))
+  if (xml::GetString(eventNode, "e2eventdescription", strTmp))
     m_plotOutline = strTmp;
 
   ProcessPrependMode(PrependOutline::IN_EPG);
 
-  if (XMLUtils::GetString(eventNode, "e2eventgenre", strTmp))
+  if (xml::GetString(eventNode, "e2eventgenre", strTmp))
   {
     m_genreDescription = strTmp;
 

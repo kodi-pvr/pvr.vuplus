@@ -10,11 +10,10 @@
 
 #include "../utilities/LocalizedString.h"
 #include "../utilities/StringUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -101,7 +100,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
   m_state = PVR_TIMER_STATE_SCHEDULED;
 
   m_tags.clear();
-  if (XMLUtils::GetString(autoTimerNode, "e2tags", strTmp))
+  if (xml::GetString(autoTimerNode, "e2tags", strTmp))
     m_tags = strTmp;
 
   if (autoTimerNode->QueryStringAttribute("name", &strTmp) == TIXML_SUCCESS)
@@ -162,7 +161,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
     if (!nextServiceNode)
     {
       //If we only have one channel
-      if (XMLUtils::GetString(serviceNode, "e2servicereference", strTmp))
+      if (xml::GetString(serviceNode, "e2servicereference", strTmp))
       {
         m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
 

@@ -13,12 +13,12 @@
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
+#include "utilities/XMLUtils.h"
 
 #include <chrono>
 #include <cmath>
 #include <regex>
 
-#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
 
 using namespace enigma2;

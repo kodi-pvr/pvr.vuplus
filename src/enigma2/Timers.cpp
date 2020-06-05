@@ -15,13 +15,12 @@
 #include "utilities/StringUtils.h"
 #include "utilities/UpdateState.h"
 #include "utilities/WebUtils.h"
+#include "utilities/XMLUtils.h"
 
 #include <algorithm>
 #include <cinttypes>
 #include <cstdlib>
 #include <regex>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace ADDON;
 using namespace enigma2;

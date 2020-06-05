@@ -10,11 +10,10 @@
 
 #include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -42,28 +41,28 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   m_directory = directory;
   m_deleted = deleted;
 
-  if (XMLUtils::GetString(recordingNode, "e2servicereference", strTmp))
+  if (xml::GetString(recordingNode, "e2servicereference", strTmp))
     m_recordingId = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2title", strTmp))
+  if (xml::GetString(recordingNode, "e2title", strTmp))
     m_title = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2description", strTmp))
+  if (xml::GetString(recordingNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2descriptionextended", strTmp))
+  if (xml::GetString(recordingNode, "e2descriptionextended", strTmp))
     m_plot = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2servicename", strTmp))
+  if (xml::GetString(recordingNode, "e2servicename", strTmp))
     m_channelName = strTmp;
 
-  if (XMLUtils::GetInt(recordingNode, "e2time", iTmp))
+  if (xml::GetInt(recordingNode, "e2time", iTmp))
   {
     m_startTime = iTmp;
     m_startTimeW3CDateString = ParseAsW3CDateString(m_startTime);
   }
 
-  if (XMLUtils::GetString(recordingNode, "e2length", strTmp))
+  if (xml::GetString(recordingNode, "e2length", strTmp))
   {
     iTmp = TimeStringToSeconds(strTmp.c_str());
     m_duration = iTmp;
@@ -71,7 +70,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   else
     m_duration = 0;
 
-  if (XMLUtils::GetString(recordingNode, "e2filename", strTmp))
+  if (xml::GetString(recordingNode, "e2filename", strTmp))
   {
     m_edlURL = strTmp;
 
@@ -83,13 +82,13 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   }
 
   double filesizeInBytes;
-  if (XMLUtils::GetDouble(recordingNode, "e2filesize", filesizeInBytes))
+  if (xml::GetDouble(recordingNode, "e2filesize", filesizeInBytes))
     m_sizeInBytes = static_cast<int64_t>(filesizeInBytes);
 
   ProcessPrependMode(PrependOutline::IN_RECORDINGS);
 
   m_tags.clear();
-  if (XMLUtils::GetString(recordingNode, "e2tags", strTmp))
+  if (xml::GetString(recordingNode, "e2tags", strTmp))
     m_tags = strTmp;
 
   if (ContainsTag(TAG_FOR_GENRE_ID))

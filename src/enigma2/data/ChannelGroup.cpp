@@ -8,10 +8,9 @@
 
 #include "ChannelGroup.h"
 #include "../utilities/StringUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -53,14 +52,14 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   std::string serviceReference;
   std::string groupName;
 
-  if (!XMLUtils::GetString(groupNode, "e2servicereference", serviceReference))
+  if (!xml::GetString(groupNode, "e2servicereference", serviceReference))
     return false;
 
   // Check whether the current element is not just a label
   if (serviceReference.compare(0, 5, "1:64:") == 0)
     return false;
 
-  if (!XMLUtils::GetString(groupNode, "e2servicename", groupName))
+  if (!xml::GetString(groupNode, "e2servicename", groupName))
     return false;
 
   // Check if the current element is hidden or a separator

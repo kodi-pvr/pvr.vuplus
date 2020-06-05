@@ -15,11 +15,11 @@
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
+#include "utilities/XMLUtils.h"
 
 #include <cstdlib>
 #include <regex>
 
-#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
 
 using namespace enigma2;
@@ -130,7 +130,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_INFO, "%s - DeviceInfo", __func__);
 
   // Get EnigmaVersion
-  if (!XMLUtils::GetString(pElem, "e2enigmaversion", strTmp))
+  if (!xml::GetString(pElem, "e2enigmaversion", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2enigmaversion from result!", __func__);
     return false;
@@ -139,7 +139,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_INFO, "%s - E2EnigmaVersion: %s", __func__, enigmaVersion.c_str());
 
   // Get ImageVersion
-  if (!XMLUtils::GetString(pElem, "e2imageversion", strTmp))
+  if (!xml::GetString(pElem, "e2imageversion", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2imageversion from result!", __func__);
     return false;
@@ -148,7 +148,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_INFO, "%s - E2ImageVersion: %s", __func__, imageVersion.c_str());
 
   // Get distroName
-  if (!XMLUtils::GetString(pElem, "e2distroversion", strTmp))
+  if (!xml::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_INFO, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __func__);
     strTmp = LocalizedString(30081); //unknown
@@ -160,7 +160,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_INFO, "%s - E2DistroName: %s", __func__, distroName.c_str());
 
   // Get WebIfVersion
-  if (!XMLUtils::GetString(pElem, "e2webifversion", strTmp))
+  if (!xml::GetString(pElem, "e2webifversion", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2webifversion from result!", __func__);
     return false;
@@ -171,7 +171,7 @@ bool Admin::LoadDeviceInfo()
   Logger::Log(LEVEL_INFO, "%s - E2WebIfVersion: %s", __func__, webIfVersion.c_str());
 
   // Get DeviceName
-  if (!XMLUtils::GetString(pElem, "e2devicename", strTmp))
+  if (!xml::GetString(pElem, "e2devicename", strTmp))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2devicename from result!", __func__);
     return false;
@@ -206,8 +206,8 @@ bool Admin::LoadDeviceInfo()
         std::string tunerName;
         std::string tunerModel;
 
-        XMLUtils::GetString(tunerNode, "e2name", tunerName);
-        XMLUtils::GetString(tunerNode, "e2model", tunerModel);
+        xml::GetString(tunerNode, "e2name", tunerName);
+        xml::GetString(tunerNode, "e2model", tunerModel);
 
         m_tuners.emplace_back(Tuner(tunerNumber, tunerName, tunerModel));
 
@@ -345,10 +345,10 @@ bool Admin::LoadAutoTimerSettings()
   bool setAutoTimerNameToTags = false;
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2setting"))
   {
-    if (!XMLUtils::GetString(pNode, "e2settingname", settingName))
+    if (!xml::GetString(pNode, "e2settingname", settingName))
       return false;
 
-    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue))
+    if (!xml::GetString(pNode, "e2settingvalue", settingValue))
       return false;
 
     if (settingName == "config.plugins.autotimer.add_autotimer_to_tags")
@@ -410,10 +410,10 @@ bool Admin::LoadRecordingMarginSettings()
   bool readMarginAfter = false;
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2setting"))
   {
-    if (!XMLUtils::GetString(pNode, "e2settingname", settingName))
+    if (!xml::GetString(pNode, "e2settingname", settingName))
       continue;
 
-    if (!XMLUtils::GetString(pNode, "e2settingvalue", settingValue))
+    if (!xml::GetString(pNode, "e2settingvalue", settingValue))
       continue;
 
     if (settingName == "config.recording.margin_before")
@@ -536,9 +536,9 @@ PVR_ERROR Admin::GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<
     std::string freeSpace;
     std::string mount;
 
-    XMLUtils::GetString(hddNode, "e2capacity", capacity);
-    XMLUtils::GetString(hddNode, "e2free", freeSpace);
-    XMLUtils::GetString(hddNode, "e2mount", mount);
+    xml::GetString(hddNode, "e2capacity", capacity);
+    xml::GetString(hddNode, "e2free", freeSpace);
+    xml::GetString(hddNode, "e2mount", mount);
 
     if (!mount.empty())
     {
@@ -616,25 +616,25 @@ bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<dat
     return false;
   }
 
-  if (!XMLUtils::GetString(pElem, "e2snrdb", snrDb))
+  if (!xml::GetString(pElem, "e2snrdb", snrDb))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2snrdb from result!", __func__);
     return false;
   }
 
-  if (!XMLUtils::GetString(pElem, "e2snr", snrPercentage))
+  if (!xml::GetString(pElem, "e2snr", snrPercentage))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2snr from result!", __func__);
     return false;
   }
 
-  if (!XMLUtils::GetString(pElem, "e2ber", ber))
+  if (!xml::GetString(pElem, "e2ber", ber))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2ber from result!", __func__);
     return false;
   }
 
-  if (!XMLUtils::GetString(pElem, "e2acg", signalStrength))
+  if (!xml::GetString(pElem, "e2acg", signalStrength))
   {
     Logger::Log(LEVEL_ERROR, "%s Could not parse e2acg from result!", __func__);
     return false;

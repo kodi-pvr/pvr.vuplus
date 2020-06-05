@@ -12,8 +12,8 @@
 #include "utilities/FileUtils.h"
 #include "utilities/LocalizedString.h"
 #include "utilities/StringUtils.h"
+#include "utilities/XMLUtils.h"
 
-#include <kodi/util/XMLUtils.h>
 #include <tinyxml.h>
 
 using namespace ADDON;

@@ -11,12 +11,11 @@
 #include "../Settings.h"
 #include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
+#include "../utilities/XMLUtils.h"
 #include "ChannelGroup.h"
 
 #include <cinttypes>
 #include <regex>
-
-#include <kodi/util/XMLUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -51,14 +50,14 @@ bool Channel::operator!=(const Channel& right) const
 
 bool Channel::UpdateFrom(TiXmlElement* channelNode)
 {
-  if (!XMLUtils::GetString(channelNode, "e2servicereference", m_serviceReference))
+  if (!xml::GetString(channelNode, "e2servicereference", m_serviceReference))
     return false;
 
   // Check whether the current element is not just a label or that it's not a hidden entry
   if (m_serviceReference.compare(0, 5, "1:64:") == 0 || m_serviceReference.compare(0, 6, "1:320:") == 0)
     return false;
 
-  if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
+  if (!xml::GetString(channelNode, "e2servicename", m_channelName))
     return false;
 
   m_fuzzyChannelName = m_channelName;

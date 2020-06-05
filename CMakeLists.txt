@@ -4,14 +4,10 @@ project(pvr.vuplus)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(Kodi REQUIRED)
-find_package(kodiplatform REQUIRED)
 find_package(NlohmannJson REQUIRED)
-find_package(p8-platform REQUIRED)
 find_package(TinyXML REQUIRED)
 
-include_directories(${kodiplatform_INCLUDE_DIRS}
-                    ${NLOHMANNJSON_INCLUDE_DIRS}
-                    ${p8-platform_INCLUDE_DIRS}
+include_directories(${NLOHMANNJSON_INCLUDE_DIRS}
                     ${TINYXML_INCLUDE_DIR}
                     ${KODI_INCLUDE_DIR})
 
@@ -89,11 +85,10 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/utilities/StreamStatus.h
                    src/enigma2/utilities/StringUtils.h
                    src/enigma2/utilities/Tuner.h
-                   src/enigma2/utilities/WebUtils.h)
+                   src/enigma2/utilities/WebUtils.h
+                   src/enigma2/utilities/XMLUtils.h)
 
-set(DEPLIBS ${kodiplatform_LIBRARIES}
-            ${p8-platform_LIBRARIES}
-            ${TINYXML_LIBRARIES})
+set(DEPLIBS ${TINYXML_LIBRARIES})
 
 addon_version(pvr.vuplus VUPLUS)
 add_definitions(-DVUPLUS_VERSION=${VUPLUS_VERSION})
