@@ -8,8 +8,6 @@
 
 #pragma once
 
-#include "../../client.h"
-
 #include <string>
 
 namespace enigma2

@@ -12,13 +12,13 @@
 
 #include <string>
 
-#include <kodi/xbmc_pvr_types.h>
+#include <kodi/addon-instance/pvr/EPG.h>
 
 namespace enigma2
 {
   namespace data
   {
-    class BaseEntry
+    class ATTRIBUTE_HIDDEN BaseEntry
     {
     public:
       const std::string& GetTitle() const { return m_title; }

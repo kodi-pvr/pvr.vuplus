@@ -9,9 +9,7 @@
 #include "Admin.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "utilities/FileUtils.h"
-#include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
@@ -20,6 +18,7 @@
 #include <cstdlib>
 #include <regex>
 
+#include <kodi/General.h>
 #include <nlohmann/json.hpp>
 
 using namespace enigma2;
@@ -67,7 +66,7 @@ void Admin::SendPowerstate()
 
 bool Admin::Initialise()
 {
-  std::string unknown = LocalizedString(30081).c_str();
+  std::string unknown = kodi::GetLocalizedString(30081);
   SetCharString(m_serverName, unknown);
   SetCharString(m_serverVersion, unknown);
 
@@ -151,7 +150,7 @@ bool Admin::LoadDeviceInfo()
   if (!xml::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_INFO, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __func__);
-    strTmp = LocalizedString(30081); //unknown
+    strTmp = kodi::GetLocalizedString(30081); //unknown
   }
   else
   {
@@ -269,8 +268,8 @@ bool Admin::LoadDeviceSettings()
   //TODO: Include once addon starts to use new API
   //kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
 
-  std::string autoTimerTagInTags = LocalizedString(30094); // N/A
-  std::string autoTimerNameInTags = LocalizedString(30094); // N/A
+  std::string autoTimerTagInTags = kodi::GetLocalizedString(30094); // N/A
+  std::string autoTimerNameInTags = kodi::GetLocalizedString(30094); // N/A
 
   //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
   if (Settings::GetInstance().SupportsAutoTimers())
@@ -278,13 +277,13 @@ bool Admin::LoadDeviceSettings()
     if (LoadAutoTimerSettings())
     {
       if (m_deviceSettings.IsAddTagAutoTimerToTagsEnabled())
-        autoTimerTagInTags = LocalizedString(30095); // True
+        autoTimerTagInTags = kodi::GetLocalizedString(30095); // True
       else
-        autoTimerTagInTags = LocalizedString(30096); // False
+        autoTimerTagInTags = kodi::GetLocalizedString(30096); // False
       if (m_deviceSettings.IsAddAutoTimerNameToTagsEnabled())
-        autoTimerNameInTags = LocalizedString(30095); // True
+        autoTimerNameInTags = kodi::GetLocalizedString(30095); // True
       else
-        autoTimerNameInTags = LocalizedString(30096); //False
+        autoTimerNameInTags = kodi::GetLocalizedString(30096); //False
     }
   }
 
@@ -485,10 +484,10 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
   return true;
 }
 
-PVR_ERROR Admin::GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<std::string>& locations)
+PVR_ERROR Admin::GetDriveSpace(uint64_t& iTotal, uint64_t& iUsed, std::vector<std::string>& locations)
 {
-  long long totalKb = 0;
-  long long freeKb = 0;
+  uint64_t totalKb = 0;
+  uint64_t freeKb = 0;
 
   const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
 
@@ -553,17 +552,17 @@ PVR_ERROR Admin::GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<
     freeKb += GetKbFromString(freeSpace);
   }
 
-  *iTotal = totalKb;
-  *iUsed = totalKb - freeKb;
+  iTotal = totalKb;
+  iUsed = totalKb - freeKb;
 
-  Logger::Log(LEVEL_INFO, "%s Space Total: %lld, Used %lld", __func__, *iTotal, *iUsed);
+  Logger::Log(LEVEL_INFO, "%s Space Total: %lld, Used %lld", __func__, iTotal, iUsed);
 
   return PVR_ERROR_NO_ERROR;
 }
 
-long long Admin::GetKbFromString(const std::string& stringInMbGbTb) const
+uint64_t Admin::GetKbFromString(const std::string& stringInMbGbTb) const
 {
-  long long sizeInKb = 0;
+  uint64_t sizeInKb = 0;
 
   static const std::vector<std::string> sizes = {"MB", "GB", "TB"};
   long multiplier = 1024;
@@ -577,7 +576,7 @@ long long Admin::GetKbFromString(const std::string& stringInMbGbTb) const
     {
       double sizeValue = std::atof(std::regex_replace(stringInMbGbTb, regexReplaceSize, replaceWith).c_str());
 
-      sizeInKb += static_cast<long long>(sizeValue * multiplier);
+      sizeInKb += static_cast<uint64_t>(sizeValue * multiplier);
 
       break;
     }

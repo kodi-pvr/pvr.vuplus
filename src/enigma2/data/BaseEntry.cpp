@@ -8,8 +8,6 @@
 
 #include "BaseEntry.h"
 
-#include "../utilities/StringUtils.h"
-
 #include <cinttypes>
 
 using namespace enigma2;

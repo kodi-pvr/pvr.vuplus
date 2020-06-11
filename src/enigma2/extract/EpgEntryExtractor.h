@@ -23,7 +23,7 @@ namespace enigma2
     static const std::string SHOW_INFO_DIR = "/showInfo";
     static const std::string SHOW_INFO_ADDON_DATA_BASE_DIR = ADDON_DATA_BASE_DIR + SHOW_INFO_DIR;
 
-    class EpgEntryExtractor : public IExtractor
+    class ATTRIBUTE_HIDDEN EpgEntryExtractor : public IExtractor
     {
     public:
       EpgEntryExtractor();

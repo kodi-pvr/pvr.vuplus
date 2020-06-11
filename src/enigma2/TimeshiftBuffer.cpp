@@ -8,11 +8,9 @@
 
 #include "TimeshiftBuffer.h"
 
-#include "../client.h"
 #include "StreamReader.h"
 #include "utilities/Logger.h"
 
-using namespace ADDON;
 using namespace enigma2;
 using namespace enigma2::utilities;
 
@@ -22,9 +20,9 @@ TimeshiftBuffer::TimeshiftBuffer(IStreamReader* m_streamReader, const std::strin
   m_bufferPath = timeshiftBufferPath + "/tsbuffer.ts";
   m_readTimeout = (readTimeout) ? readTimeout : DEFAULT_READ_TIMEOUT;
 
-  m_filebufferWriteHandle = XBMC->OpenFileForWrite(m_bufferPath.c_str(), true);
+  m_filebufferWriteHandle.OpenFileForWrite(m_bufferPath, true);
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  m_filebufferReadHandle = XBMC->OpenFile(m_bufferPath.c_str(), XFILE::READ_NO_CACHE);
+  m_filebufferReadHandle.OpenFile(m_bufferPath, ADDON_READ_NO_CACHE);
 }
 
 TimeshiftBuffer::~TimeshiftBuffer()
@@ -33,18 +31,18 @@ TimeshiftBuffer::~TimeshiftBuffer()
   if (m_inputThread.joinable())
     m_inputThread.join();
 
-  if (m_filebufferWriteHandle)
+  if (m_filebufferWriteHandle.IsOpen())
   {
     // XBMC->TruncateFile doesn't work for unknown reasons
-    XBMC->CloseFile(m_filebufferWriteHandle);
-    void* tmp;
-    if ((tmp = XBMC->OpenFileForWrite(m_bufferPath.c_str(), true)) != nullptr)
-      XBMC->CloseFile(tmp);
+    m_filebufferWriteHandle.Close();
+    kodi::vfs::CFile tmp;
+    if (tmp.OpenFileForWrite(m_bufferPath, true))
+      tmp.Close();
   }
-  if (m_filebufferReadHandle)
-    XBMC->CloseFile(m_filebufferReadHandle);
+  if (m_filebufferReadHandle.IsOpen())
+    m_filebufferReadHandle.Close();
 
-  if (!XBMC->DeleteFile(m_bufferPath.c_str()))
+  if (!kodi::vfs::DeleteFile(m_bufferPath))
     Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __func__, m_bufferPath.c_str());
 
   if (m_streamReader)
@@ -57,7 +55,7 @@ TimeshiftBuffer::~TimeshiftBuffer()
 
 bool TimeshiftBuffer::Start()
 {
-  if (m_streamReader == nullptr || m_filebufferWriteHandle == nullptr || m_filebufferReadHandle == nullptr)
+  if (m_streamReader == nullptr || !m_filebufferWriteHandle.IsOpen() || !m_filebufferReadHandle.IsOpen())
     return false;
   if (m_running)
     return true;
@@ -81,7 +79,7 @@ void TimeshiftBuffer::DoReadWrite()
     ssize_t read = m_streamReader->ReadData(buffer, sizeof(buffer));
 
     // don't handle any errors here, assume write fully succeeds
-    ssize_t write = XBMC->WriteFile(m_filebufferWriteHandle, buffer, read);
+    ssize_t write = m_filebufferWriteHandle.Write(buffer, read);
 
     std::lock_guard<std::mutex> lock(m_mutex);
     m_writePos += write;
@@ -94,12 +92,12 @@ void TimeshiftBuffer::DoReadWrite()
 
 int64_t TimeshiftBuffer::Seek(long long position, int whence)
 {
-  return XBMC->SeekFile(m_filebufferReadHandle, position, whence);
+  return m_filebufferReadHandle.Seek(position, whence);
 }
 
 int64_t TimeshiftBuffer::Position()
 {
-  return XBMC->GetFilePosition(m_filebufferReadHandle);
+  return m_filebufferReadHandle.GetPosition();
 }
 
 int64_t TimeshiftBuffer::Length()
@@ -121,7 +119,7 @@ ssize_t TimeshiftBuffer::ReadData(unsigned char* buffer, unsigned int size)
     return -1;
   }
 
-  return XBMC->ReadFile(m_filebufferReadHandle, buffer, size);
+  return m_filebufferReadHandle.Read(buffer, size);
 }
 
 std::time_t TimeshiftBuffer::TimeStart()

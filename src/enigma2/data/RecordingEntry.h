@@ -15,7 +15,7 @@
 
 #include <string>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/Recordings.h>
 #include <tinyxml.h>
 
 namespace enigma2
@@ -26,7 +26,7 @@ namespace enigma2
     static const std::string TAG_FOR_LAST_PLAYED = "LastPlayed";
     static const std::string TAG_FOR_NEXT_SYNC_TIME = "NextSyncTime";
 
-    class RecordingEntry : public BaseEntry, public Tags
+    class ATTRIBUTE_HIDDEN RecordingEntry : public BaseEntry, public Tags
     {
     public:
       const std::string& GetRecordingId() const { return m_recordingId; }
@@ -77,13 +77,13 @@ namespace enigma2
       void SetDeleted(bool value) { m_deleted = value; }
 
       const std::string& GetStartTimeW3CDate() const { return m_startTimeW3CDateString; }
-      void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }      
+      void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }
 
       int GetSizeInBytes() const { return m_sizeInBytes; }
       void SetSizeInBytes(int value) { m_sizeInBytes = value; }
 
       bool UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, enigma2::Channels& channels);
-      void UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder);
+      void UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInRecordingFolder);
 
     private:
       long TimeStringToSeconds(const std::string& timeString);

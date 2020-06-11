@@ -9,7 +9,6 @@
 #include "Epg.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
@@ -27,10 +26,10 @@ using namespace enigma2::extract;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
-Epg::Epg(enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays)
-      : m_entryExtractor(entryExtractor), m_epgMaxDays(epgMaxDays) {}
+Epg::Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays)
+      : m_connectionListener(connectionListener), m_entryExtractor(entryExtractor), m_epgMaxDays(epgMaxDays) {}
 
-Epg::Epg(const Epg& epg) : m_entryExtractor(epg.m_entryExtractor) {}
+Epg::Epg(const Epg& epg) : m_connectionListener(epg.m_connectionListener), m_entryExtractor(epg.m_entryExtractor) {}
 
 bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups)
 {
@@ -164,7 +163,7 @@ void Epg::TriggerEpgUpdatesForChannels()
     }
 
     Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel: %s (%d)", __func__, epgChannel->GetChannelName().c_str(), epgChannel->GetUniqueId());
-    PVR->TriggerEpgUpdate(epgChannel->GetUniqueId());
+    m_connectionListener.TriggerEpgUpdate(epgChannel->GetUniqueId());
   }
 }
 
@@ -180,7 +179,7 @@ void Epg::MarkChannelAsInitialEpgRead(const std::string& serviceReference)
   }
 }
 
-PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceReference, time_t iStart, time_t iEnd)
+PVR_ERROR Epg::GetEPGForChannel(const std::string& serviceReference, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results)
 {
   std::shared_ptr<data::EpgChannel> epgChannel = GetEpgChannel(serviceReference);
 
@@ -192,7 +191,7 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
     {
       epgChannel->SetRequiresInitialEpg(false);
 
-      return TransferInitialEPGForChannel(handle, epgChannel, iStart, iEnd);
+      return TransferInitialEPGForChannel(results, epgChannel, start, end);
     }
 
     const std::string url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(),
@@ -235,24 +234,24 @@ PVR_ERROR Epg::GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceR
     {
       EpgEntry entry;
 
-      if (!entry.UpdateFrom(pNode, epgChannel, iStart, iEnd))
+      if (!entry.UpdateFrom(pNode, epgChannel, start, end))
         continue;
 
       if (m_entryExtractor.IsEnabled())
         m_entryExtractor.ExtractFromEntry(entry);
 
-      EPG_TAG broadcast = {0};
+      kodi::addon::PVREPGTag broadcast;
 
       entry.UpdateTo(broadcast);
 
-      PVR->TransferEpgEntry(handle, &broadcast);
+      results.Add(broadcast);
 
       iNumEPG++;
 
-      Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __func__, broadcast.iUniqueBroadcastId, broadcast.strTitle, entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
+      Logger::Log(LEVEL_TRACE, "%s loaded EPG entry '%d:%s' channel '%d' start '%d' end '%d'", __func__, broadcast.GetUniqueBroadcastId(), broadcast.GetTitle().c_str(), entry.GetChannelId(), entry.GetStartTime(), entry.GetEndTime());
     }
 
-    iNumEPG += TransferTimerBasedEntries(handle, epgChannel->GetUniqueId());
+    iNumEPG += TransferTimerBasedEntries(results, epgChannel->GetUniqueId());
 
     Logger::Log(LEVEL_DEBUG, "%s Loaded %u EPG Entries for channel '%s'", __func__, iNumEPG, epgChannel->GetChannelName().c_str());
   }
@@ -276,21 +275,21 @@ void Epg::SetEPGTimeFrame(int epgMaxDays)
     m_epgMaxDaysSeconds = DEFAULT_EPG_MAX_DAYS * 24 * 60 * 60;
 }
 
-PVR_ERROR Epg::TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
+PVR_ERROR Epg::TransferInitialEPGForChannel(kodi::addon::PVREPGTagsResultSet& results, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
 {
   for (const auto& entry : epgChannel->GetInitialEPG())
   {
-    EPG_TAG broadcast = {0};
+    kodi::addon::PVREPGTag broadcast;
 
     entry.UpdateTo(broadcast);
 
-    PVR->TransferEpgEntry(handle, &broadcast);
+    results.Add(broadcast);
   }
 
   epgChannel->GetInitialEPG().clear();
   m_readInitialEpgChannelsMap.erase(epgChannel->GetServiceReference());
 
-  TransferTimerBasedEntries(handle, epgChannel->GetUniqueId());
+  TransferTimerBasedEntries(results, epgChannel->GetUniqueId());
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -561,7 +560,7 @@ void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntr
   }
 }
 
-int Epg::TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId)
+int Epg::TransferTimerBasedEntries(kodi::addon::PVREPGTagsResultSet& results, int epgChannelId)
 {
   int numTransferred = 0;
 
@@ -570,11 +569,11 @@ int Epg::TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId)
   {
     if (epgChannelId == timerBasedEntry.GetChannelId())
     {
-      EPG_TAG broadcast = {0};
+      kodi::addon::PVREPGTag broadcast;
 
       timerBasedEntry.UpdateTo(broadcast);
 
-      PVR->TransferEpgEntry(handle, &broadcast);
+      results.Add(broadcast);
 
       numTransferred++;
     }

@@ -8,12 +8,13 @@
 
 #include "Timer.h"
 
-#include "../utilities/LocalizedString.h"
 #include "../utilities/StringUtils.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <regex>
+
+#include <kodi/General.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -81,27 +82,27 @@ void Timer::UpdateFrom(const Timer& right)
   m_year = right.m_year;
 }
 
-void Timer::UpdateTo(PVR_TIMER& left) const
+void Timer::UpdateTo(kodi::addon::PVRTimer& left) const
 {
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
-  strncpy(left.strDirectory, "/", sizeof(left.strDirectory) - 1); // unused
-  strncpy(left.strSummary, m_plot.c_str(), sizeof(left.strSummary) - 1);
-  left.iTimerType = m_type;
-  left.iClientChannelUid = m_channelId;
-  left.startTime = m_startTime;
-  left.endTime = m_endTime;
-  left.state = m_state;
-  left.iPriority = 0; // unused
-  left.iLifetime = 0; // unused
-  left.firstDay = 0; // unused
-  left.iWeekdays = m_weekdays;
-  left.iEpgUid = m_epgId;
-  left.iMarginStart = m_paddingStartMins;
-  left.iMarginEnd = m_paddingEndMins;
-  left.iGenreType = 0; // unused
-  left.iGenreSubType = 0; // unused
-  left.iClientIndex = m_clientIndex;
-  left.iParentClientIndex = m_parentClientIndex;
+  left.SetTitle(m_title);
+  left.SetDirectory("/"); // unused
+  left.SetSummary(m_plot);
+  left.SetTimerType(m_type);
+  left.SetClientChannelUid(m_channelId);
+  left.SetStartTime(m_startTime);
+  left.SetEndTime(m_endTime);
+  left.SetState(m_state);
+  left.SetPriority(0); // unused
+  left.SetLifetime(0); // unused
+  left.SetFirstDay(0); // unused
+  left.SetWeekdays(m_weekdays);
+  left.SetEPGUid(m_epgId);
+  left.SetMarginStart(m_paddingStartMins);
+  left.SetMarginEnd(m_paddingEndMins);
+  left.SetGenreType(0); // unused
+  left.SetGenreSubType(0); // unused
+  left.SetClientIndex(m_clientIndex);
+  left.SetParentClientIndex(m_parentClientIndex);
 }
 
 bool Timer::IsScheduled() const
@@ -189,7 +190,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
   if (m_channelId == PVR_CHANNEL_INVALID_UID)
   {
-    m_channelName = LocalizedString(30520); // Invalid Channel
+    m_channelName = kodi::GetLocalizedString(30520); // Invalid Channel
   }
   else
   {

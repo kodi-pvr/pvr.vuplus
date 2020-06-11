@@ -106,11 +106,11 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   return true;
 }
 
-void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP& left) const
+void ChannelGroup::UpdateTo(kodi::addon::PVRChannelGroup& left) const
 {
-  left.bIsRadio = m_radio;
-  left.iPosition = 0; // groups default order, unused
-  strncpy(left.strGroupName, m_groupName.c_str(), sizeof(left.strGroupName) - 1);
+  left.SetIsRadio(m_radio);
+  left.SetPosition(0); // groups default order, unused
+  left.SetGroupName(m_groupName);
 }
 
 void ChannelGroup::AddChannelGroupMember(std::shared_ptr<Channel>& channel)

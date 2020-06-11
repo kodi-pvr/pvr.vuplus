@@ -217,16 +217,15 @@ bool Channel::HasRadioServiceType()
   return radioServiceType == RADIO_SERVICE_TYPE;
 }
 
-void Channel::UpdateTo(PVR_CHANNEL& left) const
+void Channel::UpdateTo(kodi::addon::PVRChannel& left) const
 {
-  left.iUniqueId = m_uniqueId;
-  left.bIsRadio = m_radio;
-  left.iChannelNumber = m_channelNumber;
-  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName) - 1);
-  strncpy(left.strInputFormat, "", 0); // unused
-  left.iEncryptionSystem = 0;
-  left.bIsHidden = false;
-  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath) - 1);
+  left.SetUniqueId(m_uniqueId);
+  left.SetIsRadio(m_radio);
+  left.SetChannelNumber(m_channelNumber);
+  left.SetChannelName(m_channelName);
+  left.SetEncryptionSystem(0);
+  left.SetIsHidden(false);
+  left.SetIconPath(m_iconPath);
 }
 
 void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup>& channelGroup)

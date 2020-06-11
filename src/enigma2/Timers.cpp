@@ -9,8 +9,6 @@
 #include "Timers.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
-#include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/UpdateState.h"
@@ -22,7 +20,8 @@
 #include <cstdlib>
 #include <regex>
 
-using namespace ADDON;
+#include <kodi/General.h>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
@@ -220,54 +219,35 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
   return true;
 }
 
-bool Timers::IsAutoTimer(const PVR_TIMER& timer) const
+bool Timers::IsAutoTimer(const kodi::addon::PVRTimer& timer) const
 {
-  return timer.iTimerType == Timer::Type::EPG_AUTO_SEARCH;
+  return timer.GetTimerType() == Timer::Type::EPG_AUTO_SEARCH;
 }
 
-void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
+void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
 {
-  struct TimerType : PVR_TIMER_TYPE
+  struct TimerType : kodi::addon::PVRTimerType
   {
     TimerType(unsigned int id,
               unsigned int attributes,
               const std::string& description = std::string(),
-              const std::vector<std::pair<int, std::string>>& groupValues = std::vector<std::pair<int, std::string>>(),
-              const std::vector<std::pair<int, std::string>>& deDupValues = std::vector<std::pair<int, std::string>>(),
+              const std::vector<kodi::addon::PVRTypeIntValue>& groupValues = std::vector<kodi::addon::PVRTypeIntValue>(),
+              const std::vector<kodi::addon::PVRTypeIntValue>& deDupValues = std::vector<kodi::addon::PVRTypeIntValue>(),
               int preventDuplicateEpisodesDefault = AutoTimer::DeDup::DISABLED)
     {
-      int i;
-      memset(this, 0, sizeof(PVR_TIMER_TYPE));
-
-      iId = id;
-      iAttributes = attributes;
-      strncpy(strDescription, description.c_str(), sizeof(strDescription) - 1);
-
-      if ((iRecordingGroupSize = groupValues.size()))
-        iRecordingGroupDefault = groupValues[0].first;
-      i = 0;
-      for (const auto& group : groupValues)
-      {
-        recordingGroup[i].iValue = group.first;
-        strncpy(recordingGroup[i].strDescription, group.second.c_str(), sizeof(recordingGroup[i].strDescription) - 1);
-        i++;
-      }
-
-      if ((iPreventDuplicateEpisodesSize = deDupValues.size()))
-        iPreventDuplicateEpisodesDefault = preventDuplicateEpisodesDefault;
-      i = 0;
-      for (const auto& deDup : deDupValues)
-      {
-        preventDuplicateEpisodes[i].iValue = deDup.first;
-        strncpy(preventDuplicateEpisodes[i].strDescription, deDup.second.c_str(), sizeof(preventDuplicateEpisodes[i].strDescription) - 1);
-        i++;
-      }
+      SetId(id);
+      SetAttributes(attributes);
+      SetDescription(description);
+      if (!groupValues.empty())
+        SetRecordingGroups(groupValues, groupValues[0].GetValue());
+      if (!deDupValues.empty())
+        SetPreventDuplicateEpisodes(deDupValues, preventDuplicateEpisodesDefault);
     }
   };
 
   /* PVR_Timer.iRecordingGroup values and presentation.*/
-  std::vector<std::pair<int, std::string>> groupValues = {
-      {0, LocalizedString(30410)}, //automatic
+  std::vector<kodi::addon::PVRTypeIntValue> groupValues = {
+      {0, kodi::GetLocalizedString(30410)}, //automatic
   };
   for (const auto& recf : m_locations)
     groupValues.emplace_back(groupValues.size(), recf);
@@ -283,7 +263,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP  |
     PVR_TIMER_TYPE_FORBIDS_EPG_TAG_ON_CREATE,
-    LocalizedString(30422), // Once off time/channel based
+    kodi::GetLocalizedString(30422), // Once off time/channel based
     groupValues);
   types.emplace_back(*t);
   delete t;
@@ -299,7 +279,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
     PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-    LocalizedString(30421), // Once off timer (set by repeating time/channel based rule)
+    kodi::GetLocalizedString(30421), // Once off timer (set by repeating time/channel based rule)
     groupValues);
   types.emplace_back(*t);
   delete t;
@@ -317,7 +297,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP  |
     PVR_TIMER_TYPE_FORBIDS_EPG_TAG_ON_CREATE,
-    LocalizedString(30423), // Repeating time/channel based
+    kodi::GetLocalizedString(30423), // Repeating time/channel based
     groupValues);
   types.emplace_back(*t);
   delete t;
@@ -331,7 +311,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
     PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-    LocalizedString(30424)); // One time guide-based
+    kodi::GetLocalizedString(30424)); // One time guide-based
   types.emplace_back(*t);
   delete t;
 
@@ -348,7 +328,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
       PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
       PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
       PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
-      LocalizedString(30425)); // Repeating guide-based
+      kodi::GetLocalizedString(30425)); // Repeating guide-based
     types.emplace_back(*t);
     delete t;
   }
@@ -366,17 +346,17 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
       PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
       PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
       PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
-      LocalizedString(30425)); // Repeating guide-based
+      kodi::GetLocalizedString(30425)); // Repeating guide-based
     types.emplace_back(*t);
     delete t;
 
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
-    static std::vector<std::pair<int, std::string>> deDupValues =
+    static std::vector<kodi::addon::PVRTypeIntValue> deDupValues =
     {
-      { AutoTimer::DeDup::DISABLED,                   LocalizedString(30430) },
-      { AutoTimer::DeDup::CHECK_TITLE,                LocalizedString(30431) },
-      { AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC, LocalizedString(30432) },
-      { AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS,  LocalizedString(30433) },
+      { AutoTimer::DeDup::DISABLED,                   kodi::GetLocalizedString(30430) },
+      { AutoTimer::DeDup::CHECK_TITLE,                kodi::GetLocalizedString(30431) },
+      { AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC, kodi::GetLocalizedString(30432) },
+      { AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS,  kodi::GetLocalizedString(30433) },
     };
 
      /* epg auto search */
@@ -396,7 +376,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
       PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP    |
       PVR_TIMER_TYPE_SUPPORTS_RECORD_ONLY_NEW_EPISODES |
       PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-      LocalizedString(30426), // Auto guide-based
+      kodi::GetLocalizedString(30426), // Auto guide-based
       groupValues, deDupValues, AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS);
     types.emplace_back(*t);
     delete t;
@@ -415,7 +395,7 @@ void Timers::GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const
       PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
       PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP |
       PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-      LocalizedString(30420), // Once off timer (set by auto guide-based rule)
+      kodi::GetLocalizedString(30420), // Once off timer (set by auto guide-based rule)
       groupValues);
     types.emplace_back(*t);
     delete t;
@@ -432,12 +412,12 @@ int Timers::GetAutoTimerCount() const
   return m_autotimers.size();
 }
 
-void Timers::GetTimers(std::vector<PVR_TIMER>& timers) const
+void Timers::GetTimers(std::vector<kodi::addon::PVRTimer>& timers) const
 {
   for (const auto& timer : m_timers)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __func__, timer.GetTitle().c_str(), timer.GetClientIndex());
-    PVR_TIMER tag = {0};
+    kodi::addon::PVRTimer tag;
 
     timer.UpdateTo(tag);
 
@@ -445,13 +425,13 @@ void Timers::GetTimers(std::vector<PVR_TIMER>& timers) const
   }
 }
 
-void Timers::GetAutoTimers(std::vector<PVR_TIMER>& timers) const
+void Timers::GetAutoTimers(std::vector<kodi::addon::PVRTimer>& timers) const
 {
   for (const auto& autoTimer : m_autotimers)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer timer '%s', ClientIndex '%d'", __func__, autoTimer.GetTitle().c_str(),
                 autoTimer.GetClientIndex());
-    PVR_TIMER tag = {0};
+    kodi::addon::PVRTimer tag;
 
     autoTimer.UpdateTo(tag);
 
@@ -469,30 +449,30 @@ AutoTimer* Timers::GetAutoTimer(std::function<bool(const AutoTimer&)> func)
   return GetTimer<AutoTimer>(func, m_autotimers);
 }
 
-PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
+PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
 {
   if (IsAutoTimer(timer))
     return AddAutoTimer(timer);
 
   Logger::Log(LEVEL_DEBUG, "%s - Start", __func__);
 
-  const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  const std::string serviceReference = m_channels.GetChannel(timer.GetClientChannelUid())->GetServiceReference().c_str();
   Tags tags;
 
-  if (timer.iTimerType == Timer::MANUAL_ONCE || timer.iTimerType == Timer::MANUAL_REPEATING)
+  if (timer.GetTimerType() == Timer::MANUAL_ONCE || timer.GetTimerType() == Timer::MANUAL_REPEATING)
     tags.AddTag(TAG_FOR_MANUAL_TIMER);
   else
     tags.AddTag(TAG_FOR_EPG_TIMER);
 
-  if (m_channels.GetChannel(timer.iClientChannelUid)->IsRadio())
+  if (m_channels.GetChannel(timer.GetClientChannelUid())->IsRadio())
     tags.AddTag(TAG_FOR_CHANNEL_TYPE, VALUE_FOR_CHANNEL_TYPE_RADIO);
   else
     tags.AddTag(TAG_FOR_CHANNEL_TYPE, VALUE_FOR_CHANNEL_TYPE_TV);
 
   tags.AddTag(TAG_FOR_CHANNEL_REFERENCE, serviceReference, true);
 
-  unsigned int startPadding = timer.iMarginStart;
-  unsigned int endPadding = timer.iMarginEnd;
+  unsigned int startPadding = timer.GetMarginStart();
+  unsigned int endPadding = timer.GetMarginEnd();
 
   if (startPadding == 0 && endPadding == 0)
   {
@@ -503,32 +483,32 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   bool alreadyStarted = false;
   time_t startTime, endTime;
   time_t now = std::time(nullptr);
-  if ((timer.startTime - (startPadding * 60)) < now)
+  if ((timer.GetStartTime() - (startPadding * 60)) < now)
   {
     alreadyStarted = true;
     startTime = now;
-    if (timer.startTime < now)
+    if (timer.GetStartTime() < now)
       startPadding = 0;
     else
-      startPadding = (timer.startTime - now) / 60;
+      startPadding = (timer.GetStartTime() - now) / 60;
   }
   else
   {
-    startTime = timer.startTime - (startPadding * 60);
+    startTime = timer.GetStartTime() - (startPadding * 60);
   }
-  endTime = timer.endTime + (endPadding * 60);
+  endTime = timer.GetEndTime() + (endPadding * 60);
 
   tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
-  std::string title = timer.strTitle;
-  std::string description = timer.strSummary;
-  unsigned int epgUid = timer.iEpgUid;
+  std::string title = timer.GetTitle();
+  std::string description = timer.GetSummary();
+  unsigned int epgUid = timer.GetEPGUid();
   bool foundEntry = false;
 
-  if (Settings::GetInstance().IsOpenWebIf() && (timer.iTimerType == Timer::EPG_ONCE || timer.iTimerType == Timer::MANUAL_ONCE))
+  if (Settings::GetInstance().IsOpenWebIf() && (timer.GetTimerType() == Timer::EPG_ONCE || timer.GetTimerType() == Timer::MANUAL_ONCE))
   {
     // We try to find the EPG Entry and use it's details
-    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.startTime < now ? now : timer.startTime);
+    EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.GetStartTime() < now ? now : timer.GetStartTime());
 
     if (partialEntry.EntryFound())
     {
@@ -552,17 +532,17 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   }
 
   if (!foundEntry)
-    tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", timer.iGenreType | timer.iGenreSubType));
+    tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", timer.GetGenreType() | timer.GetGenreSubType()));
 
   std::string strTmp;
   if (!m_settings.GetRecordingPath().empty())
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s&dirname=&s",
-              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, static_cast<long long>(startTime), static_cast<long long>(endTime),
+              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.GetWeekdays(), static_cast<long long>(startTime), static_cast<long long>(endTime),
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
               WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings.GetRecordingPath()).c_str());
   else
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s",
-              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.iWeekdays, static_cast<long long>(startTime), static_cast<long long>(endTime),
+              WebUtils::URLEncodeInline(serviceReference).c_str(), timer.GetWeekdays(), static_cast<long long>(startTime), static_cast<long long>(endTime),
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
               WebUtils::URLEncodeInline(tags.GetTags()).c_str());
 
@@ -579,48 +559,48 @@ PVR_ERROR Timers::AddTimer(const PVR_TIMER& timer)
   if (alreadyStarted)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __func__);
-    PVR->TriggerRecordingUpdate();
+    m_connectionListener.TriggerRecordingUpdate();
   }
 
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
+PVR_ERROR Timers::AddAutoTimer(const kodi::addon::PVRTimer& timer)
 {
   Logger::Log(LEVEL_DEBUG, "%s - Start", __func__);
 
   std::string strTmp = StringUtils::Format("autotimer/edit?");
 
-  strTmp += StringUtils::Format("name=%s", WebUtils::URLEncodeInline(timer.strTitle).c_str());
-  strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.strEpgSearchString).c_str());
+  strTmp += StringUtils::Format("name=%s", WebUtils::URLEncodeInline(timer.GetTitle()).c_str());
+  strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.GetEPGSearchString()).c_str());
 
-  if (timer.state != PVR_TIMER_STATE_DISABLED)
+  if (timer.GetState() != PVR_TIMER_STATE_DISABLED)
     strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
   else
     strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
 
-  if (!timer.bStartAnyTime)
+  if (!timer.GetStartAnyTime())
   {
-    time_t startTime = timer.startTime;
+    time_t startTime = timer.GetStartTime();
     std::tm timeinfo = *std::localtime(&startTime);
     strTmp += StringUtils::Format("&timespanFrom=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
   }
 
-  if (!timer.bEndAnyTime)
+  if (!timer.GetEndAnyTime())
   {
-    time_t endTime = timer.endTime;
+    time_t endTime = timer.GetEndTime();
     std::tm timeinfo = *std::localtime(&endTime);
     strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
   }
 
   strTmp += StringUtils::Format("&encoding=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENCODING).c_str());
   strTmp += StringUtils::Format("&searchCase=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
-  if (timer.bFullTextEpgSearch)
+  if (timer.GetFullTextEpgSearch())
     strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());
   else
     strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
 
-  std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.iPreventDuplicateEpisodes);
+  std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.GetPreventDuplicateEpisodes());
   if (deDup == AutoTimer::DeDup::DISABLED)
   {
     strTmp += StringUtils::Format("&avoidDuplicateDescription=0");
@@ -642,14 +622,14 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
     }
   }
 
-  if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL)
+  if (timer.GetClientChannelUid() != PVR_TIMER_ANY_CHANNEL)
   {
-    const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference();
+    const std::string serviceReference = m_channels.GetChannel(timer.GetClientChannelUid())->GetServiceReference();
 
     //single channel
     strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(serviceReference).c_str());
 
-    if (m_channels.GetChannel(timer.iClientChannelUid)->IsRadio())
+    if (m_channels.GetChannel(timer.GetClientChannelUid())->IsRadio())
       strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_RADIO.c_str())).c_str());
     else
       strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_TV.c_str())).c_str());
@@ -660,7 +640,7 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
   }
   else
   {
-    const std::string serviceReference = m_epg.FindServiceReference(timer.strTitle, timer.iEpgUid, timer.startTime, timer.endTime);
+    const std::string serviceReference = m_epg.FindServiceReference(timer.GetTitle(), timer.GetEPGUid(), timer.GetStartTime(), timer.GetEndTime());
     if (!serviceReference.empty())
     {
       const auto channel = m_channels.GetChannel(serviceReference);
@@ -686,9 +666,9 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
     strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s", TAG_FOR_ANY_CHANNEL.c_str())).c_str());
   }
 
-  strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("GenreId=0x%02X", timer.iGenreType | timer.iGenreSubType)).c_str());
+  strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("GenreId=0x%02X", timer.GetGenreType() | timer.GetGenreSubType())).c_str());
 
-  strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
+  strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.GetWeekdays());
 
   Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __func__, strTmp.c_str());
 
@@ -696,10 +676,10 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_SERVER_ERROR;
 
-  if (timer.state == PVR_TIMER_STATE_RECORDING)
+  if (timer.GetState() == PVR_TIMER_STATE_RECORDING)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Timer started, triggering recording update", __func__);
-    PVR->TriggerRecordingUpdate();
+    m_connectionListener.TriggerRecordingUpdate();
   }
 
   Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __func__);
@@ -709,18 +689,18 @@ PVR_ERROR Timers::AddAutoTimer(const PVR_TIMER& timer)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
+PVR_ERROR Timers::UpdateTimer(const kodi::addon::PVRTimer& timer)
 {
   if (IsAutoTimer(timer))
     return UpdateAutoTimer(timer);
 
-  Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __func__, timer.iClientChannelUid);
+  Logger::Log(LEVEL_DEBUG, "%s timer channelid '%d'", __func__, timer.GetClientChannelUid());
 
-  const std::string strServiceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference().c_str();
+  const std::string strServiceReference = m_channels.GetChannel(timer.GetClientChannelUid())->GetServiceReference().c_str();
 
   const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [&timer](const Timer& myTimer)
   {
-    return myTimer.GetClientIndex() == timer.iClientIndex;
+    return myTimer.GetClientIndex() == timer.GetClientIndex();
   });
 
   if (it != m_timers.cend())
@@ -733,11 +713,11 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
     tags.AddTag(TAG_FOR_CHANNEL_REFERENCE, strServiceReference, true);
 
     int iDisabled = 0;
-    if (timer.state == PVR_TIMER_STATE_DISABLED)
+    if (timer.GetState() == PVR_TIMER_STATE_DISABLED)
       iDisabled = 1;
 
-    unsigned int startPadding = timer.iMarginStart;
-    unsigned int endPadding = timer.iMarginEnd;
+    unsigned int startPadding = timer.GetMarginStart();
+    unsigned int endPadding = timer.GetMarginEnd();
 
     if (startPadding == 0 && endPadding == 0)
     {
@@ -748,20 +728,20 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
     bool alreadyStarted = false;
     time_t startTime, endTime;
     time_t now = std::time(nullptr);
-    if ((timer.startTime - (startPadding * 60)) < now)
+    if ((timer.GetStartTime() - (startPadding * 60)) < now)
     {
       alreadyStarted = true;
       startTime = now;
-      if (timer.startTime < now)
+      if (timer.GetStartTime() < now)
         startPadding = 0;
       else
-        startPadding = (timer.startTime - now) / 60;
+        startPadding = (timer.GetStartTime() - now) / 60;
     }
     else
     {
-      startTime = timer.startTime - (startPadding * 60);
+      startTime = timer.GetStartTime() - (startPadding * 60);
     }
-    endTime = timer.endTime + (endPadding * 60);
+    endTime = timer.GetEndTime() + (endPadding * 60);
 
     tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
@@ -775,8 +755,8 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
 
     const std::string strTmp = StringUtils::Format("web/timerchange?sRef=%s&begin=%lld&end=%lld&name=%s&eventID=&description=%s&tags=%s&afterevent=3&eit=0&disabled=%d&justplay=0&repeated=%d&channelOld=%s&beginOld=%lld&endOld=%lld&deleteOldOnSave=1",
                                     WebUtils::URLEncodeInline(strServiceReference).c_str(), static_cast<long long>(startTime), static_cast<long long>(endTime),
-                                    WebUtils::URLEncodeInline(timer.strTitle).c_str(), WebUtils::URLEncodeInline(description).c_str(),
-                                    WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.iWeekdays,
+                                    WebUtils::URLEncodeInline(timer.GetTitle()).c_str(), WebUtils::URLEncodeInline(description).c_str(),
+                                    WebUtils::URLEncodeInline(tags.GetTags()).c_str(), iDisabled, timer.GetWeekdays(),
                                     WebUtils::URLEncodeInline(oldTimer.GetServiceReference()).c_str(),
                                     static_cast<long long>(oldTimer.GetRealStartTime()),
                                     static_cast<long long>(oldTimer.GetRealEndTime()));
@@ -788,7 +768,7 @@ PVR_ERROR Timers::UpdateTimer(const PVR_TIMER& timer)
     TimerUpdates();
 
     if (alreadyStarted)
-      PVR->TriggerRecordingUpdate();
+      m_connectionListener.TriggerRecordingUpdate();
 
     return PVR_ERROR_NO_ERROR;
   }
@@ -804,11 +784,11 @@ std::string Timers::RemovePaddingTag(std::string tag)
   return std::regex_replace(tag, regex, replaceWith);
 }
 
-PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
+PVR_ERROR Timers::UpdateAutoTimer(const kodi::addon::PVRTimer& timer)
 {
   const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
-    return autoTimer.GetClientIndex() == timer.iClientIndex;
+    return autoTimer.GetClientIndex() == timer.GetClientIndex();
   });
 
   if (it != m_autotimers.cend())
@@ -817,31 +797,31 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
 
     std::string strTmp = StringUtils::Format("autotimer/edit?id=%d", timerToUpdate.GetBackendId());
 
-    strTmp += StringUtils::Format("&name=%s", WebUtils::URLEncodeInline(timer.strTitle).c_str());
-    strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.strEpgSearchString).c_str());
+    strTmp += StringUtils::Format("&name=%s", WebUtils::URLEncodeInline(timer.GetTitle()).c_str());
+    strTmp += StringUtils::Format("&match=%s", WebUtils::URLEncodeInline(timer.GetEPGSearchString()).c_str());
 
-    if (timer.state != PVR_TIMER_STATE_DISABLED)
+    if (timer.GetState() != PVR_TIMER_STATE_DISABLED)
       strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_YES).c_str());
     else
       strTmp += StringUtils::Format("&enabled=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENABLED_NO).c_str());
 
-    if (!timer.bStartAnyTime)
+    if (!timer.GetStartAnyTime())
     {
-      time_t startTime = timer.startTime;
+      time_t startTime = timer.GetStartTime();
       std::tm timeinfo = *std::localtime(&startTime);
       strTmp += StringUtils::Format("&timespanFrom=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
     }
 
-    if (!timer.bEndAnyTime)
+    if (!timer.GetEndAnyTime())
     {
-      time_t endTime = timer.endTime;
+      time_t endTime = timer.GetEndTime();
       std::tm timeinfo = *std::localtime(&endTime);
       strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
     }
 
     strTmp += StringUtils::Format("&encoding=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENCODING).c_str());
 
-    if (timer.bFullTextEpgSearch)
+    if (timer.GetFullTextEpgSearch())
       strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());
     else
       strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
@@ -849,7 +829,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
     if (!timerToUpdate.GetSearchCase().empty())
       strTmp += StringUtils::Format("&searchCase=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
 
-    std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.iPreventDuplicateEpisodes);
+    std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.GetPreventDuplicateEpisodes());
     if (deDup == AutoTimer::DeDup::DISABLED)
     {
       strTmp += StringUtils::Format("&avoidDuplicateDescription=0");
@@ -871,10 +851,10 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
       }
     }
 
-    if (timer.iClientChannelUid != PVR_TIMER_ANY_CHANNEL &&
-        (timerToUpdate.GetAnyChannel() || (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid != timerToUpdate.GetChannelId())))
+    if (timer.GetClientChannelUid() != PVR_TIMER_ANY_CHANNEL &&
+        (timerToUpdate.GetAnyChannel() || (!timerToUpdate.GetAnyChannel() && timer.GetClientChannelUid() != timerToUpdate.GetChannelId())))
     {
-      const std::string serviceReference = m_channels.GetChannel(timer.iClientChannelUid)->GetServiceReference();
+      const std::string serviceReference = m_channels.GetChannel(timer.GetClientChannelUid())->GetServiceReference();
 
       //move to single channel
       strTmp += StringUtils::Format("&services=%s", WebUtils::URLEncodeInline(serviceReference).c_str());
@@ -882,7 +862,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
       //Update tags
       strTmp += StringUtils::Format("&tag=");
 
-      if (m_channels.GetChannel(timer.iClientChannelUid)->IsRadio())
+      if (m_channels.GetChannel(timer.GetClientChannelUid())->IsRadio())
         strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_RADIO.c_str())).c_str());
       else
         strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_TYPE.c_str(), VALUE_FOR_CHANNEL_TYPE_TV.c_str())).c_str());
@@ -897,7 +877,7 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
       //Clear bouquets
       strTmp += "&bouquets=";
     }
-    else if (!timerToUpdate.GetAnyChannel() && timer.iClientChannelUid == PVR_TIMER_ANY_CHANNEL)
+    else if (!timerToUpdate.GetAnyChannel() && timer.GetClientChannelUid() == PVR_TIMER_ANY_CHANNEL)
     {
       const auto& channel = m_channels.GetChannel(timerToUpdate.GetChannelId());
 
@@ -924,14 +904,14 @@ PVR_ERROR Timers::UpdateAutoTimer(const PVR_TIMER& timer)
         strTmp += BuildAddUpdateAutoTimerLimitGroupsParams(channel);
     }
 
-    strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.iWeekdays);
+    strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.GetWeekdays());
 
     std::string strResult;
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
       return PVR_ERROR_SERVER_ERROR;
 
-    if (timer.state == PVR_TIMER_STATE_RECORDING)
-      PVR->TriggerRecordingUpdate();
+    if (timer.GetState() == PVR_TIMER_STATE_RECORDING)
+      m_connectionListener.TriggerRecordingUpdate();
 
     TimerUpdates();
 
@@ -993,14 +973,14 @@ std::string Timers::BuildAddUpdateAutoTimerIncludeParams(int weekdays)
   return includeParams;
 }
 
-PVR_ERROR Timers::DeleteTimer(const PVR_TIMER& timer)
+PVR_ERROR Timers::DeleteTimer(const kodi::addon::PVRTimer& timer)
 {
   if (IsAutoTimer(timer))
     return DeleteAutoTimer(timer);
 
   const auto it = std::find_if(m_timers.cbegin(), m_timers.cend(), [&timer](const Timer& myTimer)
   {
-    return myTimer.GetClientIndex() == timer.iClientIndex;
+    return myTimer.GetClientIndex() == timer.GetClientIndex();
   });
 
   if (it != m_timers.cend())
@@ -1016,8 +996,8 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER& timer)
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
       return PVR_ERROR_SERVER_ERROR;
 
-    if (timer.state == PVR_TIMER_STATE_RECORDING)
-      PVR->TriggerRecordingUpdate();
+    if (timer.GetState() == PVR_TIMER_STATE_RECORDING)
+      m_connectionListener.TriggerRecordingUpdate();
 
     TimerUpdates();
 
@@ -1027,11 +1007,11 @@ PVR_ERROR Timers::DeleteTimer(const PVR_TIMER& timer)
   return PVR_ERROR_SERVER_ERROR;
 }
 
-PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
+PVR_ERROR Timers::DeleteAutoTimer(const kodi::addon::PVRTimer &timer)
 {
   const auto it = std::find_if(m_autotimers.cbegin(), m_autotimers.cend(), [&timer](const AutoTimer& autoTimer)
   {
-    return autoTimer.GetClientIndex() == timer.iClientIndex;
+    return autoTimer.GetClientIndex() == timer.GetClientIndex();
   });
 
   if (it != m_autotimers.cend())
@@ -1063,8 +1043,8 @@ PVR_ERROR Timers::DeleteAutoTimer(const PVR_TIMER &timer)
     if (!WebUtils::SendSimpleCommand(strTmp, strResult))
       return PVR_ERROR_SERVER_ERROR;
 
-    if (timer.state == PVR_TIMER_STATE_RECORDING || childTimerIsRecording)
-      PVR->TriggerRecordingUpdate();
+    if (timer.GetState() == PVR_TIMER_STATE_RECORDING || childTimerIsRecording)
+      m_connectionListener.TriggerRecordingUpdate();
 
     TimerUpdates();
 
@@ -1097,7 +1077,7 @@ bool Timers::TimerUpdates()
   if (regularTimersChanged || autoTimersChanged)
   {
     Logger::Log(LEVEL_DEBUG, "%s Changes in timerlist detected, trigger an update!", __func__);
-    PVR->TriggerTimerUpdate();
+    m_connectionListener.TriggerTimerUpdate();
 
     for (auto watcher : m_timerChangeWatchers)
         watcher->store(true);

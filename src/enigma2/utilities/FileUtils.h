@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <kodi/Filesystem.h>
 #include <string>
 #include <vector>
 
@@ -28,7 +29,7 @@ namespace enigma2
       static std::string GetResourceDataPath();
 
     private:
-      static std::string ReadFileContents(void* fileHandle);
+      static std::string ReadFileContents(kodi::vfs::CFile& fileHandle);
     };
   } // namespace utilities
 } // namespace enigma2

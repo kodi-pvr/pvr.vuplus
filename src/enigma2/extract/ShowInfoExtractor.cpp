@@ -14,8 +14,6 @@
 
 #include <cstdlib>
 
-#include <kodi/xbmc_pvr_types.h>
-
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;

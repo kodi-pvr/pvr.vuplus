@@ -8,13 +8,12 @@
 
 #include "Enigma2.h"
 
-#include "client.h"
+#include "enigma2/TimeshiftBuffer.h"
 #include "enigma2/utilities/CurlFile.h"
-#include "enigma2/utilities/LocalizedString.h"
 #include "enigma2/utilities/Logger.h"
 #include "enigma2/utilities/StringUtils.h"
-#include "enigma2/utilities/WebUtils.h"
 #include "enigma2/utilities/XMLUtils.h"
+#include "enigma2/utilities/WebUtils.h"
 
 #include <algorithm>
 #include <cstdlib>
@@ -24,13 +23,26 @@
 #include <regex>
 #include <string>
 
-using namespace ADDON;
+#include <kodi/General.h>
+#include <kodi/TimingConstants.h>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-Enigma2::Enigma2(AddonProperties_PVR* pvrProps) : m_epgMaxDays(pvrProps->iEpgMaxDays)
+template<typename T> void SafeDelete(T*& p)
+{
+  if (p)
+  {
+    delete p;
+    p = nullptr;
+  }
+}
+
+Enigma2::Enigma2(KODI_HANDLE instance, const std::string& version)
+  : enigma2::IConnectionListener(instance, version),
+    m_epgMaxDays(EpgMaxDays())
 {
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
 
@@ -42,6 +54,56 @@ Enigma2::~Enigma2()
   if (connectionManager)
     connectionManager->Stop();
   delete connectionManager;
+}
+
+PVR_ERROR Enigma2::GetCapabilities(kodi::addon::PVRCapabilities& capabilities)
+{
+  capabilities.SetSupportsEPG(true);
+  capabilities.SetSupportsEPGEdl(false);
+  capabilities.SetSupportsTV(true);
+  capabilities.SetSupportsRadio(true);
+  capabilities.SetSupportsRecordings(true);
+  capabilities.SetSupportsRecordingsUndelete(true);
+  capabilities.SetSupportsTimers(true);
+  capabilities.SetSupportsChannelGroups(true);
+  capabilities.SetSupportsChannelScan(false);
+  capabilities.SetSupportsChannelSettings(false);
+  capabilities.SetHandlesInputStream(true);
+  capabilities.SetHandlesDemuxing(false);
+  capabilities.SetSupportsRecordingPlayCount(m_settings.SupportsEditingRecordings() && m_settings.GetStoreRecordingLastPlayedAndCount());
+  capabilities.SetSupportsLastPlayedPosition(m_settings.SupportsEditingRecordings() && m_settings.GetStoreRecordingLastPlayedAndCount());
+  capabilities.SetSupportsRecordingEdl(true);
+  capabilities.SetSupportsRecordingsRename(m_settings.SupportsEditingRecordings());
+  capabilities.SetSupportsRecordingsLifetimeChange(false);
+  capabilities.SetSupportsDescrambleInfo(false);
+  capabilities.SetSupportsAsyncEPGTransfer(false);
+  capabilities.SetSupportsRecordingSize(m_settings.SupportsRecordingSizes());
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetBackendName(std::string& name)
+{
+  name = m_admin.GetServerName();
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetBackendVersion(std::string& version)
+{
+  version = m_admin.GetServerVersion();
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetBackendHostname(std::string& hostname)
+{
+  hostname = m_settings.GetHostname();
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetConnectionString(std::string& connection)
+{
+  connection = StringUtils::Format("%s%s", m_settings.GetHostname().c_str(), IsConnected() ? "" : kodi::GetLocalizedString(30082).c_str()); // (Not connected!)
+  return PVR_ERROR_NO_ERROR;
 }
 
 /* **************************************************************************
@@ -95,7 +157,7 @@ void Enigma2::ConnectionEstablished()
   if (!m_isConnected)
   {
     Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __func__);
-    XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30515).c_str());
+    kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30515));
     return;
   }
 
@@ -110,7 +172,7 @@ void Enigma2::ConnectionEstablished()
     if (!m_channelGroups.LoadChannelGroups())
     {
       Logger::Log(LEVEL_ERROR, "%s No channel groups (bouquets) found, please check the addon channel settings, exiting", __func__);
-      XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30516).c_str());
+      kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30516));
 
       return;
     }
@@ -118,7 +180,7 @@ void Enigma2::ConnectionEstablished()
     if (!m_channels.LoadChannels(m_channelGroups))
     {
       Logger::Log(LEVEL_ERROR, "%s No channels found, please check the addon channel settings, exiting", __func__);
-      XBMC->QueueNotification(QUEUE_ERROR, LocalizedString(30517).c_str());
+      kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30517));
 
       return;
     }
@@ -139,14 +201,22 @@ void Enigma2::ConnectionEstablished()
  * Connection
  * *************************************************************************/
 
-void Enigma2::OnSleep()
+PVR_ERROR Enigma2::OnSystemSleep()
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   connectionManager->OnSleep();
+  return PVR_ERROR_NO_ERROR;
 }
 
-void Enigma2::OnWake()
+PVR_ERROR Enigma2::OnSystemWake()
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   connectionManager->OnWake();
+  return PVR_ERROR_NO_ERROR;
 }
 
 /***************************************************************************
@@ -204,7 +274,7 @@ void Enigma2::Process()
       // We need to check this again in case the thread is stopped (when destroying Enigma2) during the sleep, otherwise TimerUpdates could be called after the object is released
       if (m_running && m_isConnected)
       {
-        Logger::Log(LEVEL_DEBUG, "%s Perform Updates!", __func__);
+        Logger::Log(LEVEL_INFO, "%s Perform Updates!", __func__);
 
         if (m_settings.GetAutoTimerListCleanupEnabled())
         {
@@ -215,7 +285,7 @@ void Enigma2::Process()
         if (m_dueRecordingUpdate || m_settings.GetUpdateMode() == UpdateMode::TIMERS_AND_RECORDINGS)
         {
           m_dueRecordingUpdate = false;
-          PVR->TriggerRecordingUpdate();
+          kodi::addon::CInstancePVRClient::TriggerRecordingUpdate();
         }
       }
     }
@@ -262,12 +332,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, please restart to load changes", __func__);
-            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30518).c_str());
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30518));
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel changes detected, please restart to load changes", __func__);
-            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30519).c_str());
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30519));
           }
         }
         else // RELOAD_CHANNELS_AND_GROUPS
@@ -275,12 +345,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __func__);
-            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30521).c_str());
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30521));
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel changes detected, reloading channels, groups and EPG now", __func__);
-            XBMC->QueueNotification(QUEUE_INFO, LocalizedString(30522).c_str());
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30522));
           }
         }
       }
@@ -302,8 +372,8 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   m_channelGroups.LoadChannelGroups();
   m_channels.LoadChannels(m_channelGroups);
 
-  PVR->TriggerChannelGroupsUpdate();
-  PVR->TriggerChannelUpdate();
+  kodi::addon::CInstancePVRClient::TriggerChannelGroupsUpdate();
+  kodi::addon::CInstancePVRClient::TriggerChannelUpdate();
 
   m_skipInitialEpgLoad = true;
 
@@ -312,9 +382,9 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   m_timers.TimerUpdates();
 
   for (const auto& myChannel : m_channels.GetChannelsList())
-    PVR->TriggerEpgUpdate(myChannel->GetUniqueId());
+    kodi::addon::CInstancePVRClient::TriggerEpgUpdate(myChannel->GetUniqueId());
 
-  PVR->TriggerRecordingUpdate();
+  kodi::addon::CInstancePVRClient::TriggerRecordingUpdate();
 }
 
 void Enigma2::SendPowerstate()
@@ -322,16 +392,6 @@ void Enigma2::SendPowerstate()
   std::lock_guard<std::mutex> lock(m_mutex);
 
   m_admin.SendPowerstate();
-}
-
-const char* Enigma2::GetServerName() const
-{
-  return m_admin.GetServerName();
-}
-
-const char* Enigma2::GetServerVersion() const
-{
-  return m_admin.GetServerVersion();
 }
 
 bool Enigma2::IsConnected() const
@@ -343,14 +403,21 @@ bool Enigma2::IsConnected() const
  * Channel Groups
  **************************************************************************/
 
-unsigned int Enigma2::GetNumChannelGroups() const
+PVR_ERROR Enigma2::GetChannelGroupsAmount(int& amount)
 {
-  return m_channelGroups.GetNumChannelGroups();
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  amount = m_channelGroups.GetNumChannelGroups();
+  return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle, bool radio)
+PVR_ERROR Enigma2::GetChannelGroups(bool radio, kodi::addon::PVRChannelGroupsResultSet& results)
 {
-  std::vector<PVR_CHANNEL_GROUP> channelGroups;
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  std::vector<kodi::addon::PVRChannelGroup> channelGroups;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_channelGroups.GetChannelGroups(channelGroups, radio);
@@ -359,23 +426,26 @@ PVR_ERROR Enigma2::GetChannelGroups(ADDON_HANDLE handle, bool radio)
   Logger::Log(LEVEL_DEBUG, "%s - channel groups available '%d'", __func__, channelGroups.size());
 
   for (const auto& channelGroup : channelGroups)
-    PVR->TransferChannelGroup(handle, &channelGroup);
+    results.Add(channelGroup);
 
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP& group)
+PVR_ERROR Enigma2::GetChannelGroupMembers(const kodi::addon::PVRChannelGroup& group, kodi::addon::PVRChannelGroupMembersResultSet& results)
 {
-  std::vector<PVR_CHANNEL_GROUP_MEMBER> channelGroupMembers;
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  std::vector<kodi::addon::PVRChannelGroupMember> channelGroupMembers;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_channelGroups.GetChannelGroupMembers(channelGroupMembers, group.strGroupName);
+    m_channelGroups.GetChannelGroupMembers(channelGroupMembers, group.GetGroupName());
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - group '%s' members available '%d'", __func__, group.strGroupName, channelGroupMembers.size());
+  Logger::Log(LEVEL_DEBUG, "%s - group '%s' members available '%d'", __func__, group.GetGroupName().c_str(), channelGroupMembers.size());
 
   for (const auto& channelGroupMember : channelGroupMembers)
-      PVR->TransferChannelGroupMember(handle, &channelGroupMember);
+    results.Add(channelGroupMember);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -384,23 +454,61 @@ PVR_ERROR Enigma2::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL
  * Channels
  **************************************************************************/
 
-int Enigma2::GetChannelsAmount() const
+PVR_ERROR Enigma2::GetChannelsAmount(int& amount)
 {
-  return m_channels.GetNumChannels();
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  amount = m_channels.GetNumChannels();
+  return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
+PVR_ERROR Enigma2::GetChannels(bool radio, kodi::addon::PVRChannelsResultSet& results)
 {
-  std::vector<PVR_CHANNEL> channels;
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  std::vector<kodi::addon::PVRChannel> channels;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_channels.GetChannels(channels, bRadio);
+    m_channels.GetChannels(channels, radio);
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - channels available '%d', radio = %d", __func__, channels.size(), bRadio);
+  Logger::Log(LEVEL_DEBUG, "%s - channels available '%d', radio = %d", __func__, channels.size(), radio);
 
   for (auto& channel : channels)
-    PVR->TransferChannelEntry(handle, &channel);
+    results.Add(channel);
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& channel, std::vector<kodi::addon::PVRStreamProperty>& properties)
+{
+  if (!m_settings.SetStreamProgramID() && !IsIptvStream(channel))
+    return PVR_ERROR_NOT_IMPLEMENTED;
+
+  //
+  // We only use this function to set the program number which comes with every Enigma2 channel. For providers that
+  // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
+  //
+
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (IsIptvStream(channel))
+  {
+    properties.emplace_back(PVR_STREAM_PROPERTY_STREAMURL, GetLiveStreamURL(channel));
+  }
+
+  if (m_settings.SetStreamProgramID())
+  {
+    const std::string strStreamProgramNumber = std::to_string(GetChannelStreamProgramNumber(channel));
+
+    Logger::Log(LEVEL_INFO, "%s - for channel: %s, set Stream Program Number to %s - %s",
+                    __func__, channel.GetChannelName().c_str(), strStreamProgramNumber.c_str(), GetLiveStreamURL(channel).c_str());
+
+    properties.emplace_back("program", strStreamProgramNumber);
+  }
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -409,7 +517,7 @@ PVR_ERROR Enigma2::GetChannels(ADDON_HANDLE handle, bool bRadio)
  * EPG
  **************************************************************************/
 
-PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t iStart, time_t iEnd)
+PVR_ERROR Enigma2::GetEPGForChannel(int channelUid, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results)
 {
   if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
     std::this_thread::sleep_for(std::chrono::seconds(m_settings.GetEPGDelayPerChannelDelay()));
@@ -419,13 +527,13 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
   {
     std::lock_guard<std::mutex> lock(m_mutex);
 
-    if (!m_channels.IsValid(iChannelUid))
+    if (!m_channels.IsValid(channelUid))
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __func__, iChannelUid);
+      Logger::Log(LEVEL_ERROR, "%s Could not fetch channel object - not fetching EPG for channel with UniqueID '%d'", __func__, channelUid);
       return PVR_ERROR_SERVER_ERROR;
     }
 
-    myChannel = m_channels.GetChannel(iChannelUid);
+    myChannel = m_channels.GetChannel(channelUid);
   }
 
   if (m_skipInitialEpgLoad)
@@ -435,31 +543,39 @@ PVR_ERROR Enigma2::GetEPGForChannel(ADDON_HANDLE handle, int iChannelUid, time_t
     return PVR_ERROR_NO_ERROR;
   }
 
-  return m_epg.GetEPGForChannel(handle, myChannel->GetServiceReference(), iStart, iEnd);
+  return m_epg.GetEPGForChannel(myChannel->GetServiceReference(), start, end, results);
 }
 
-void Enigma2::SetEPGTimeFrame(int epgMaxDays)
+PVR_ERROR Enigma2::SetEPGTimeFrame(int epgMaxDays)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   m_epg.SetEPGTimeFrame(epgMaxDays);
+  return PVR_ERROR_NO_ERROR;
 }
 
 /***************************************************************************
  * Livestream
  **************************************************************************/
-bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
+
+bool Enigma2::OpenLiveStream(const kodi::addon::PVRChannel& channelinfo)
 {
-  Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __func__, channelinfo.iUniqueId);
+  if (!IsConnected())
+    return false;
+
+  Logger::Log(LEVEL_DEBUG, "%s: channel=%u", __func__, channelinfo.GetUniqueId());
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  if (channelinfo.iUniqueId != m_currentChannel)
+  if (channelinfo.GetUniqueId() != m_currentChannel)
   {
-    m_currentChannel = channelinfo.iUniqueId;
+    m_currentChannel = channelinfo.GetUniqueId();
     m_lastSignalStatusUpdateSeconds = 0;
 
     if (m_settings.GetZapBeforeChannelSwitch())
     {
       // Zapping is set to true, so send the zapping command to the PVR box
-      const std::string strServiceReference = m_channels.GetChannel(channelinfo.iUniqueId)->GetServiceReference().c_str();
+      const std::string strServiceReference = m_channels.GetChannel(channelinfo.GetUniqueId())->GetServiceReference().c_str();
 
       const std::string strCmd = StringUtils::Format("web/zap?sRef=%s", WebUtils::URLEncodeInline(strServiceReference).c_str());
 
@@ -468,16 +584,27 @@ bool Enigma2::OpenLiveStream(const PVR_CHANNEL& channelinfo)
         return false;
     }
   }
-  return true;
+
+  /* queue a warning if the timeshift buffer path does not exist */
+  if (m_settings.GetTimeshift() != Timeshift::OFF && !m_settings.IsTimeshiftBufferPathValid())
+    kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30514));
+
+  const std::string streamURL = GetLiveStreamURL(channelinfo);
+  m_streamReader = new StreamReader(streamURL, m_settings.GetReadTimeoutSecs());
+  if (m_settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
+    m_streamReader = new TimeshiftBuffer(m_streamReader, m_settings.GetTimeshiftBufferPath(), m_settings.GetReadTimeoutSecs());
+
+  return m_streamReader->Start();
 }
 
 void Enigma2::CloseLiveStream()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;
+  SafeDelete(m_streamReader);
 }
 
-const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL& channelinfo)
+const std::string Enigma2::GetLiveStreamURL(const kodi::addon::PVRChannel& channelinfo)
 {
   if (m_settings.GetAutoConfigLiveStreamsEnabled())
   {
@@ -485,20 +612,20 @@ const std::string Enigma2::GetLiveStreamURL(const PVR_CHANNEL& channelinfo)
     // we do it here for 2 reasons:
     //  1. This is faster than doing it during initialization
     //  2. The URL can change, so this is more up-to-date.
-    return GetStreamURL(m_channels.GetChannel(channelinfo.iUniqueId)->GetM3uURL());
+    return GetStreamURL(m_channels.GetChannel(channelinfo.GetUniqueId())->GetM3uURL());
   }
 
-  return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamURL();
+  return m_channels.GetChannel(channelinfo.GetUniqueId())->GetStreamURL();
 }
 
-bool Enigma2::IsIptvStream(const PVR_CHANNEL& channelinfo) const
+bool Enigma2::IsIptvStream(const kodi::addon::PVRChannel& channelinfo) const
 {
-  return m_channels.GetChannel(channelinfo.iUniqueId)->IsIptvStream();
+  return m_channels.GetChannel(channelinfo.GetUniqueId())->IsIptvStream();
 }
 
-int Enigma2::GetChannelStreamProgramNumber(const PVR_CHANNEL& channelinfo)
+int Enigma2::GetChannelStreamProgramNumber(const kodi::addon::PVRChannel& channelinfo)
 {
-  return m_channels.GetChannel(channelinfo.iUniqueId)->GetStreamProgramNumber();
+  return m_channels.GetChannel(channelinfo.GetUniqueId())->GetStreamProgramNumber();
 }
 
 /**
@@ -525,16 +652,23 @@ std::string Enigma2::GetStreamURL(const std::string& strM3uURL)
  * Recordings
  **************************************************************************/
 
-unsigned int Enigma2::GetRecordingsAmount(bool deleted)
+PVR_ERROR Enigma2::GetRecordingsAmount(bool deleted, int& amount)
 {
-  return m_recordings.GetNumRecordings(deleted);
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  amount = m_recordings.GetNumRecordings(deleted);
+  return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle, bool deleted)
+PVR_ERROR Enigma2::GetRecordings(bool deleted, kodi::addon::PVRRecordingsResultSet& results)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   m_recordings.LoadRecordings(deleted);
 
-  std::vector<PVR_RECORDING> recordings;
+  std::vector<kodi::addon::PVRRecording> recordings;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_recordings.GetRecordings(recordings, deleted);
@@ -543,62 +677,67 @@ PVR_ERROR Enigma2::GetRecordings(ADDON_HANDLE handle, bool deleted)
   Logger::Log(LEVEL_DEBUG, "%s - recordings available '%d'", __func__, recordings.size());
 
   for (const auto& recording : recordings)
-    PVR->TransferRecordingEntry(handle, &recording);
+    results.Add(recording);
 
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::DeleteRecording(const PVR_RECORDING& recinfo)
+PVR_ERROR Enigma2::DeleteRecording(const kodi::addon::PVRRecording& recinfo)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return m_recordings.DeleteRecording(recinfo);
 }
 
-PVR_ERROR Enigma2::UndeleteRecording(const PVR_RECORDING& recording)
+PVR_ERROR Enigma2::UndeleteRecording(const kodi::addon::PVRRecording& recording)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return m_recordings.UndeleteRecording(recording);
 }
 
 PVR_ERROR Enigma2::DeleteAllRecordingsFromTrash()
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return m_recordings.DeleteAllRecordingsFromTrash();
 }
 
-PVR_ERROR Enigma2::GetRecordingEdl(const PVR_RECORDING& recinfo, PVR_EDL_ENTRY edl[], int* size)
+PVR_ERROR Enigma2::GetRecordingEdl(const kodi::addon::PVRRecording& recording, std::vector<kodi::addon::PVREDLEntry>& edl)
 {
-  std::vector<PVR_EDL_ENTRY> edlEntries;
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    m_recordings.GetRecordingEdl(recinfo.strRecordingId, edlEntries);
-  }
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
 
-  Logger::Log(LEVEL_DEBUG, "%s - recording '%s' has '%d' EDL entries available", __func__, recinfo.strTitle, edlEntries.size());
+  if (!m_settings.GetRecordingEDLsEnabled())
+    return PVR_ERROR_NO_ERROR;
 
-  int index = 0;
-  int maxSize = *size;
-  for (auto& edlEntry : edlEntries)
-  {
-    if (index >= maxSize)
-      break;
 
-    edl[index].start = edlEntry.start;
-    edl[index].end = edlEntry.end;
-    edl[index].type = edlEntry.type;
+  std::lock_guard<std::mutex> lock(m_mutex);
 
-    index++;
-  }
-  *size = edlEntries.size();
+  m_recordings.GetRecordingEdl(recording.GetRecordingId(), edl);
+
+  Logger::Log(LEVEL_DEBUG, "%s - recording '%s' has '%d' EDL entries available", __func__, recording.GetTitle().c_str(), edl.size());
 
   return PVR_ERROR_NO_ERROR;
 }
 
-RecordingReader* Enigma2::OpenRecordedStream(const PVR_RECORDING& recinfo)
+bool Enigma2::OpenRecordedStream(const kodi::addon::PVRRecording& recinfo)
 {
+  if (m_recordingReader)
+    SafeDelete(m_recordingReader);
+
+  if (!IsConnected())
+    return false;
+
   std::lock_guard<std::mutex> lock(m_mutex);
   std::time_t now = std::time(nullptr), start = 0, end = 0;
-  std::string channelName = recinfo.strChannelName;
+  std::string channelName = recinfo.GetChannelName();
   auto timer = m_timers.GetTimer([&](const Timer &timer)
       {
-        return timer.IsRunning(&now, &channelName, recinfo.recordingTime);
+        return timer.IsRunning(&now, &channelName, recinfo.GetRecordingTime());
       });
   if (timer)
   {
@@ -606,77 +745,123 @@ RecordingReader* Enigma2::OpenRecordedStream(const PVR_RECORDING& recinfo)
     end = timer->GetRealEndTime();
   }
 
-  return new RecordingReader(m_recordings.GetRecordingURL(recinfo).c_str(), start, end, recinfo.iDuration);
+  m_recordingReader = new RecordingReader(m_recordings.GetRecordingURL(recinfo), start, end, recinfo.GetDuration());
+  return m_recordingReader->Start();
 }
 
-bool Enigma2::HasRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+bool Enigma2::HasRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording)
 {
   return m_recordings.HasRecordingStreamProgramNumber(recording);
 }
 
-int Enigma2::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+int Enigma2::GetRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording)
 {
   return m_recordings.GetRecordingStreamProgramNumber(recording);
 }
 
-PVR_ERROR Enigma2::RenameRecording(const PVR_RECORDING& recording)
+PVR_ERROR Enigma2::RenameRecording(const kodi::addon::PVRRecording& recording)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.RenameRecording(recording);
 }
 
-PVR_ERROR Enigma2::SetRecordingPlayCount(const PVR_RECORDING& recording, int count)
+PVR_ERROR Enigma2::SetRecordingPlayCount(const kodi::addon::PVRRecording& recording, int count)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.SetRecordingPlayCount(recording, count);
 }
 
-PVR_ERROR Enigma2::SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastPlayedPosition)
+PVR_ERROR Enigma2::SetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& recording, int lastPlayedPosition)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.SetRecordingLastPlayedPosition(recording, lastPlayedPosition);
 }
 
-int Enigma2::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
+PVR_ERROR Enigma2::GetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& recording, int& position)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   std::lock_guard<std::mutex> lock(m_mutex);
-  return m_recordings.GetRecordingLastPlayedPosition(recording);
+  position = m_recordings.GetRecordingLastPlayedPosition(recording);
+  return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes)
+PVR_ERROR Enigma2::GetRecordingSize(const kodi::addon::PVRRecording& recording, int64_t& sizeInBytes)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   std::lock_guard<std::mutex> lock(m_mutex);
   return m_recordings.GetRecordingSize(recording, sizeInBytes);
+}
+
+PVR_ERROR Enigma2::GetRecordingStreamProperties(const kodi::addon::PVRRecording& recording, std::vector<kodi::addon::PVRStreamProperty>& properties)
+{
+  if (!m_settings.SetStreamProgramID())
+    return PVR_ERROR_NOT_IMPLEMENTED;
+
+  //
+  // We only use this function to set the program number which may comes with every Enigma2 recording. For providers that
+  // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
+  //
+
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  if (HasRecordingStreamProgramNumber(recording))
+  {
+    const std::string strStreamProgramNumber = std::to_string(GetRecordingStreamProgramNumber(recording));
+
+    Logger::Log(LEVEL_INFO, "%s - for recording for channel: %s, set Stream Program Number to %s - %s",
+                    __func__, recording.GetChannelName().c_str(), strStreamProgramNumber.c_str(), recording.GetRecordingId().c_str());
+
+    properties.emplace_back("program", strStreamProgramNumber);
+  }
+
+  return PVR_ERROR_NO_ERROR;
 }
 
 /***************************************************************************
  * Timers
  **************************************************************************/
 
-void Enigma2::GetTimerTypes(PVR_TIMER_TYPE types[], int* size)
-{
-  std::vector<PVR_TIMER_TYPE> timerTypes;
-  {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    m_timers.GetTimerTypes(timerTypes);
-  }
-
-  int i = 0;
-  for (auto& timerType : timerTypes)
-    types[i++] = timerType;
-  *size = timerTypes.size();
-  Logger::Log(LEVEL_INFO, "%s Transfered %u timer types", __func__, *size);
-}
-
-int Enigma2::GetTimersAmount()
+PVR_ERROR Enigma2::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
-  return m_timers.GetTimerCount();
+  if (IsConnected())
+  {
+    m_timers.GetTimerTypes(types);
+    Logger::Log(LEVEL_INFO, "%s Transfered %u timer types", __func__, types.size());
+  }
+  return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetTimers(ADDON_HANDLE handle)
+PVR_ERROR Enigma2::GetTimersAmount(int& amount)
 {
-  std::vector<PVR_TIMER> timers;
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  std::lock_guard<std::mutex> lock(m_mutex);
+  amount = m_timers.GetTimerCount();
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetTimers(kodi::addon::PVRTimersResultSet& results)
+{
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  std::vector<kodi::addon::PVRTimer> timers;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_timers.GetTimers(timers);
@@ -686,23 +871,32 @@ PVR_ERROR Enigma2::GetTimers(ADDON_HANDLE handle)
   Logger::Log(LEVEL_DEBUG, "%s - timers available '%d'", __func__, timers.size());
 
   for (auto& timer : timers)
-    PVR->TransferTimerEntry(handle, &timer);
+    results.Add(timer);
 
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::AddTimer(const PVR_TIMER& timer)
+PVR_ERROR Enigma2::AddTimer(const kodi::addon::PVRTimer& timer)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return m_timers.AddTimer(timer);
 }
 
-PVR_ERROR Enigma2::UpdateTimer(const PVR_TIMER& timer)
+PVR_ERROR Enigma2::UpdateTimer(const kodi::addon::PVRTimer& timer)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return m_timers.UpdateTimer(timer);
 }
 
-PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER& timer)
+PVR_ERROR Enigma2::DeleteTimer(const kodi::addon::PVRTimer& timer, bool forceDelete)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   return m_timers.DeleteTimer(timer);
 }
 
@@ -710,22 +904,33 @@ PVR_ERROR Enigma2::DeleteTimer(const PVR_TIMER& timer)
  * Misc
  **************************************************************************/
 
-PVR_ERROR Enigma2::GetDriveSpace(long long* iTotal, long long* iUsed)
+PVR_ERROR Enigma2::GetDriveSpace(uint64_t& total, uint64_t& used)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   if (m_admin.GetDeviceHasHDD())
-    return m_admin.GetDriveSpace(iTotal, iUsed, m_locations);
+    return m_admin.GetDriveSpace(total, used, m_locations);
 
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
-PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS* signalStatus)
+PVR_ERROR Enigma2::GetSignalStatus(int channelUid, kodi::addon::PVRSignalStatus& signalStatus)
 {
-  if (m_currentChannel >= 0)
-  {
-    const std::shared_ptr<Channel> channel = m_channels.GetChannel(m_currentChannel);
+  // SNR = Signal to Noise Ratio - which means signal quality
+  // AGC = Automatic Gain Control - which means signal strength
+  // BER = Bit Error Rate - which shows the error rate of the signal.
+  // UNC = There is not notion of UNC on enigma devices
 
-    strncpy(signalStatus->strServiceName, channel->GetChannelName().c_str(), sizeof(signalStatus->strServiceName) - 1);
-    strncpy(signalStatus->strProviderName, channel->GetProviderName().c_str(), sizeof(signalStatus->strProviderName) - 1);
+  // So, SNR and AGC should be as high as possible.
+  // BER should be as low as possible, like 0. It can be higher, if your other values are higher.
+
+  if (channelUid >= 0)
+  {
+    const std::shared_ptr<Channel> channel = m_channels.GetChannel(channelUid);
+
+    signalStatus.SetServiceName(channel->GetChannelName());
+    signalStatus.SetProviderName(channel->GetProviderName());
 
     time_t now = std::time(nullptr);
     if ((now - m_lastSignalStatusUpdateSeconds) >= POLL_INTERVAL_SECONDS)
@@ -740,11 +945,141 @@ PVR_ERROR Enigma2::GetTunerSignal(PVR_SIGNAL_STATUS* signalStatus)
     }
   }
 
-  signalStatus->iSNR = m_signalStatus.m_snrPercentage;
-  signalStatus->iBER = m_signalStatus.m_ber;
-  signalStatus->iSignal = m_signalStatus.m_signalStrength;
-  strncpy(signalStatus->strAdapterName, m_signalStatus.m_adapterName.c_str(), sizeof(signalStatus->strAdapterName) - 1);
-  strncpy(signalStatus->strAdapterStatus, m_signalStatus.m_adapterStatus.c_str(), sizeof(signalStatus->strAdapterStatus) - 1);
+  signalStatus.SetSNR(m_signalStatus.m_snrPercentage);
+  signalStatus.SetBER(m_signalStatus.m_ber);
+  signalStatus.SetSignal(m_signalStatus.m_signalStrength);
+  signalStatus.SetAdapterName(m_signalStatus.m_adapterName);
+  signalStatus.SetAdapterStatus(m_signalStatus.m_adapterStatus);
+
+  Logger::Log(LEVEL_DEBUG, "%s Tuner Details - name: %s, status: %s",
+                  __func__, signalStatus.GetAdapterName().c_str(), signalStatus.GetAdapterStatus().c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Service Details - service: %s, provider: %s",
+                  __func__, signalStatus.GetServiceName().c_str(), signalStatus.GetProviderName().c_str());
+  // For some reason the iSNR and iSignal values need to multiplied by 655!
+  Logger::Log(LEVEL_DEBUG, "%s Signal - snrPercent: %d, ber: %u, signal strength: %d",
+                  __func__, signalStatus.GetSNR() / 655, signalStatus.GetBER(), signalStatus.GetSignal() / 655);
 
   return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetStreamReadChunkSize(int& chunksize)
+{
+  if (!chunksize)
+    return PVR_ERROR_INVALID_PARAMETERS;
+  int size = m_settings.GetStreamReadChunkSizeKb();
+  if (!size)
+    return PVR_ERROR_NOT_IMPLEMENTED;
+  chunksize = m_settings.GetStreamReadChunkSizeKb() * 1024;
+  return PVR_ERROR_NO_ERROR;
+}
+
+/* live stream functions */
+
+bool Enigma2::IsRealTimeStream()
+{
+  return (m_streamReader) ? m_streamReader->IsRealTime() : false;
+}
+
+bool Enigma2::CanPauseStream()
+{
+  if (!IsConnected())
+    return false;
+
+  if (m_settings.GetTimeshift() != Timeshift::OFF && m_streamReader)
+    return (m_streamReader->IsTimeshifting() || m_settings.IsTimeshiftBufferPathValid());
+
+  return false;
+}
+
+bool Enigma2::CanSeekStream()
+{
+  if (!IsConnected())
+    return false;
+
+  return (m_settings.GetTimeshift() != Timeshift::OFF);
+}
+
+int Enigma2::ReadLiveStream(unsigned char* buffer, unsigned int size)
+{
+  return (m_streamReader) ? m_streamReader->ReadData(buffer, size) : 0;
+}
+
+int64_t Enigma2::SeekLiveStream(int64_t position, int whence)
+{
+  return (m_streamReader) ? m_streamReader->Seek(position, whence) : -1;
+}
+
+int64_t Enigma2::LengthLiveStream()
+{
+  return (m_streamReader) ? m_streamReader->Length() : -1;
+}
+
+PVR_ERROR Enigma2::GetStreamTimes(kodi::addon::PVRStreamTimes& times)
+{
+  if (m_streamReader)
+  {
+    times.SetStartTime(m_streamReader->TimeStart());
+    times.SetPTSStart(0);
+    times.SetPTSBegin(0);
+    times.SetPTSEnd((!m_streamReader->IsTimeshifting()) ? 0
+      : (m_streamReader->TimeEnd() - m_streamReader->TimeStart()) * DVD_TIME_BASE);
+
+    return PVR_ERROR_NO_ERROR;
+  }
+  else if (m_recordingReader)
+  {
+    times.SetStartTime(0);
+    times.SetPTSStart(0);
+    times.SetPTSBegin(0);
+    times.SetPTSEnd(static_cast<int64_t>(m_recordingReader->CurrentDuration()) * DVD_TIME_BASE);
+
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+void Enigma2::PauseStream(bool paused)
+{
+  if (!IsConnected())
+    return;
+
+  /* start timeshift on pause */
+  if (paused && m_settings.GetTimeshift() == Timeshift::ON_PAUSE &&
+      m_streamReader && !m_streamReader->IsTimeshifting() &&
+      m_settings.IsTimeshiftBufferPathValid())
+  {
+    m_streamReader = new TimeshiftBuffer(m_streamReader, m_settings.GetTimeshiftBufferPath(), m_settings.GetReadTimeoutSecs());
+    m_streamReader->Start();
+  }
+}
+
+void Enigma2::CloseRecordedStream()
+{
+  if (m_recordingReader)
+    SafeDelete(m_recordingReader);
+}
+
+int Enigma2::ReadRecordedStream(unsigned char* buffer, unsigned int size)
+{
+  if (!m_recordingReader)
+    return 0;
+
+  return m_recordingReader->ReadData(buffer, size);
+}
+
+int64_t Enigma2::SeekRecordedStream(int64_t position, int whence)
+{
+  if (!m_recordingReader)
+    return 0;
+
+  return m_recordingReader->Seek(position, whence);
+}
+
+int64_t Enigma2::LengthRecordedStream()
+{
+  if (!m_recordingReader)
+    return -1;
+
+  return m_recordingReader->Length();
 }

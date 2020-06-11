@@ -8,7 +8,6 @@
 
 #include "ConnectionManager.h"
 
-#include "../client.h"
 #include "IConnectionListener.h"
 #include "Settings.h"
 #include "utilities/Logger.h"
@@ -16,6 +15,8 @@
 #include "utilities/WebUtils.h"
 
 #include <chrono>
+
+#include <kodi/Network.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
@@ -102,7 +103,7 @@ void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
     }
 
     /* Notify connection state change (callback!) */
-    PVR->ConnectionStateChange(Settings::GetInstance().GetConnectionURL().c_str(), newState, NULL);
+    m_connectionListener.ConnectionStateChange(Settings::GetInstance().GetConnectionURL(), newState, "");
   }
 }
 
@@ -142,7 +143,7 @@ void ConnectionManager::Process()
     if (!wolMac.empty())
     {
       Logger::Log(LogLevel::LEVEL_DEBUG, "%s - send wol packet...", __func__);
-      if (!XBMC->WakeOnLan(wolMac.c_str()))
+      if (!kodi::network::WakeOnLan(wolMac.c_str()))
       {
         Logger::Log(LogLevel::LEVEL_ERROR, "%s - Error waking up Server at MAC-Address: %s", __func__, wolMac.c_str());
       }

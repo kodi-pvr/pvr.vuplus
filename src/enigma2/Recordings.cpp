@@ -9,7 +9,6 @@
 #include "Recordings.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
@@ -30,22 +29,22 @@ using json = nlohmann::json;
 
 const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";
 
-Recordings::Recordings(Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor)
-      : m_channels(channels), m_entryExtractor(entryExtractor)
+Recordings::Recordings(IConnectionListener& connectionListener, Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor)
+  : m_connectionListener(connectionListener), m_channels(channels), m_entryExtractor(entryExtractor)
 {
   std::random_device randomDevice; //Will be used to obtain a seed for the random number engine
   m_randomGenerator = std::mt19937(randomDevice()); //Standard mersenne_twister_engine seeded with randomDevice()
   m_randomDistribution = std::uniform_int_distribution<>(E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MIN, E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MAX);
 }
 
-void Recordings::GetRecordings(std::vector<PVR_RECORDING>& kodiRecordings, bool deleted)
+void Recordings::GetRecordings(std::vector<kodi::addon::PVRRecording>& kodiRecordings, bool deleted)
 {
   auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
 
   for (auto& recording : recordings)
   {
     Logger::Log(LEVEL_DEBUG, "%s - Transfer recording '%s', Recording Id '%s'", __func__, recording.GetTitle().c_str(), recording.GetRecordingId().c_str());
-    PVR_RECORDING kodiRecording = {0};
+    kodi::addon::PVRRecording kodiRecording;
 
     recording.UpdateTo(kodiRecording, m_channels, IsInRecordingFolder(recording.GetTitle(), deleted));
 
@@ -75,7 +74,7 @@ void Recordings::ClearRecordings(bool deleted)
   }
 }
 
-void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR_EDL_ENTRY>& edlEntries) const
+void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<kodi::addon::PVREDLEntry>& edlEntries) const
 {
   const RecordingEntry recordingEntry = GetRecording(recordingId);
 
@@ -110,10 +109,10 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<PVR
 
         Logger::Log(LEVEL_INFO, "%s EDL for '%s', line %d -  start: %f stop: %f type: %d", __func__, recordingEntry.GetTitle().c_str(), lineNumber, start, stop, type);
 
-        PVR_EDL_ENTRY edlEntry;
-        edlEntry.start = static_cast<int64_t>(start * 1000.0f);
-        edlEntry.end = static_cast<int64_t>(stop * 1000.0f);
-        edlEntry.type = static_cast<PVR_EDL_TYPE>(type);
+        kodi::addon::PVREDLEntry edlEntry;
+        edlEntry.SetStart(static_cast<int64_t>(start * 1000.0f));
+        edlEntry.SetEnd(static_cast<int64_t>(stop * 1000.0f));
+        edlEntry.SetType(static_cast<PVR_EDL_TYPE>(type));
 
         edlEntries.emplace_back(edlEntry);
       }
@@ -156,37 +155,37 @@ bool Recordings::IsInRecordingFolder(const std::string& recordingFolder, bool de
   return false;
 }
 
-PVR_ERROR Recordings::RenameRecording(const PVR_RECORDING& recording)
+PVR_ERROR Recordings::RenameRecording(const kodi::addon::PVRRecording& recording)
 {
-  auto recordingEntry = GetRecording(recording.strRecordingId);
+  auto recordingEntry = GetRecording(recording.GetRecordingId());
 
   if (!recordingEntry.GetRecordingId().empty())
   {
-    Logger::Log(LEVEL_DEBUG, "%s Sending rename command for recording '%s' to '%s'", __func__, recordingEntry.GetTitle().c_str(), recording.strTitle);
+    Logger::Log(LEVEL_DEBUG, "%s Sending rename command for recording '%s' to '%s'", __func__, recordingEntry.GetTitle().c_str(), recording.GetTitle().c_str());
     const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&title=%s", Settings::GetInstance().GetConnectionURL().c_str(),
                                                     WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
-                                                    WebUtils::URLEncodeInline(recording.strTitle).c_str());
+                                                    WebUtils::URLEncodeInline(recording.GetTitle()).c_str());
     std::string strResult;
 
     if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
     {
-      PVR->TriggerRecordingUpdate();
+      m_connectionListener.TriggerRecordingUpdate();
       return PVR_ERROR_NO_ERROR;
     }
   }
 
-  PVR->TriggerRecordingUpdate();
+  m_connectionListener.TriggerRecordingUpdate();
 
   return PVR_ERROR_SERVER_ERROR;
 }
 
-PVR_ERROR Recordings::SetRecordingPlayCount(const PVR_RECORDING& recording, int count)
+PVR_ERROR Recordings::SetRecordingPlayCount(const kodi::addon::PVRRecording& recording, int count)
 {
-  auto recordingEntry = GetRecording(recording.strRecordingId);
+  auto recordingEntry = GetRecording(recording.GetRecordingId());
 
   if (!recordingEntry.GetRecordingId().empty())
   {
-    if (recording.iPlayCount == count)
+    if (recording.GetPlayCount() == count)
       return PVR_ERROR_NO_ERROR;
 
     std::vector<std::string> oldTags;
@@ -216,23 +215,23 @@ PVR_ERROR Recordings::SetRecordingPlayCount(const PVR_RECORDING& recording, int 
 
     if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
     {
-      PVR->TriggerRecordingUpdate();
+      m_connectionListener.TriggerRecordingUpdate();
       return PVR_ERROR_NO_ERROR;
     }
   }
 
-  PVR->TriggerRecordingUpdate();
+  m_connectionListener.TriggerRecordingUpdate();
 
   return PVR_ERROR_SERVER_ERROR;
 }
 
-PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastPlayedPosition)
+PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& recording, int lastPlayedPosition)
 {
-  auto recordingEntry = GetRecording(recording.strRecordingId);
+  auto recordingEntry = GetRecording(recording.GetRecordingId());
 
   if (!recordingEntry.GetRecordingId().empty())
   {
-    if (recording.iLastPlayedPosition == lastPlayedPosition)
+    if (recording.GetLastPlayedPosition() == lastPlayedPosition)
       return PVR_ERROR_NO_ERROR;
 
     std::vector<std::pair<int, int64_t>> cuts;
@@ -312,19 +311,19 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const PVR_RECORDING& record
 
     if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
     {
-      PVR->TriggerRecordingUpdate();
+      m_connectionListener.TriggerRecordingUpdate();
       return PVR_ERROR_NO_ERROR;
     }
   }
 
-  PVR->TriggerRecordingUpdate();
+  m_connectionListener.TriggerRecordingUpdate();
 
   return PVR_ERROR_SERVER_ERROR;
 }
 
-int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
+int Recordings::GetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& recording)
 {
-  auto recordingEntry = GetRecording(recording.strRecordingId);
+  auto recordingEntry = GetRecording(recording.GetRecordingId());
 
   time_t now = std::time(nullptr);
   time_t newNextSyncTime = now + m_randomDistribution(m_randomGenerator);
@@ -404,16 +403,16 @@ int Recordings::GetRecordingLastPlayedPosition(const PVR_RECORDING& recording)
   }
 }
 
-PVR_ERROR Recordings::GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes)
+PVR_ERROR Recordings::GetRecordingSize(const kodi::addon::PVRRecording& recording, int64_t& sizeInBytes)
 {
-  auto recordingEntry = GetRecording(recording.strRecordingId);
+  auto recordingEntry = GetRecording(recording.GetRecordingId());
   UpdateRecordingSizeFromMovieDetails(recordingEntry);
 
-  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __func__, recordingEntry.GetSizeInBytes(), recording.strRecordingId);
+  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __func__, recordingEntry.GetSizeInBytes(), recording.GetRecordingId().c_str());
 
-  *sizeInBytes = recordingEntry.GetSizeInBytes();
+  sizeInBytes = recordingEntry.GetSizeInBytes();
 
-  return PVR_ERROR_NO_ERROR;    
+  return PVR_ERROR_NO_ERROR;
 }
 
 bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEntry)
@@ -457,7 +456,7 @@ bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEn
     Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __func__, e.what(), e.id);
   }
 
-  return false;  
+  return false;
 }
 
 void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags)
@@ -493,23 +492,23 @@ void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t
   }
 }
 
-PVR_ERROR Recordings::DeleteRecording(const PVR_RECORDING& recinfo)
+PVR_ERROR Recordings::DeleteRecording(const kodi::addon::PVRRecording& recinfo)
 {
-  const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.strRecordingId).c_str());
+  const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.GetRecordingId()).c_str());
 
   std::string strResult;
   if (!WebUtils::SendSimpleCommand(strTmp, strResult))
     return PVR_ERROR_FAILED;
 
-  // No need to call PVR->TriggerRecordingUpdate() as it is handled by kodi PVR.
+  // No need to call m_connectionListener.TriggerRecordingUpdate() as it is handled by kodi PVR.
   // In fact when multiple recordings are removed at once, calling it here can cause hanging issues
 
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Recordings::UndeleteRecording(const PVR_RECORDING& recording)
+PVR_ERROR Recordings::UndeleteRecording(const kodi::addon::PVRRecording& recording)
 {
-  auto recordingEntry = GetRecording(recording.strRecordingId);
+  auto recordingEntry = GetRecording(recording.GetRecordingId());
 
   static const std::regex regex(TRASH_FOLDER);
 
@@ -538,19 +537,19 @@ PVR_ERROR Recordings::DeleteAllRecordingsFromTrash()
   return PVR_ERROR_NO_ERROR;
 }
 
-bool Recordings::HasRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+bool Recordings::HasRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording)
 {
-  return GetRecording(recording.strRecordingId).HasStreamProgramNumber();
+  return GetRecording(recording.GetRecordingId()).HasStreamProgramNumber();
 }
 
-int Recordings::GetRecordingStreamProgramNumber(const PVR_RECORDING& recording)
+int Recordings::GetRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording)
 {
-  return GetRecording(recording.strRecordingId).GetStreamProgramNumber();
+  return GetRecording(recording.GetRecordingId()).GetStreamProgramNumber();
 }
 
-const std::string Recordings::GetRecordingURL(const PVR_RECORDING& recinfo)
+const std::string Recordings::GetRecordingURL(const kodi::addon::PVRRecording& recinfo)
 {
-  auto recordingEntry = GetRecording(recinfo.strRecordingId);
+  auto recordingEntry = GetRecording(recinfo.GetRecordingId());
 
   if (!recordingEntry.GetRecordingId().empty())
     return recordingEntry.GetStreamURL();

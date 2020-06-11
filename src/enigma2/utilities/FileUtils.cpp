@@ -8,17 +8,16 @@
 
 #include "FileUtils.h"
 
-#include "../../client.h"
 #include "Logger.h"
 
-#include <kodi/libXBMC_addon.h>
+#include <kodi/Filesystem.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
 
 bool FileUtils::FileExists(const std::string& file)
 {
-  return XBMC->FileExists(file.c_str(), false);
+  return kodi::vfs::FileExists(file, false);
 }
 
 bool FileUtils::CopyFile(const std::string& sourceFile, const std::string& targetFile)
@@ -27,20 +26,20 @@ bool FileUtils::CopyFile(const std::string& sourceFile, const std::string& targe
 
   Logger::Log(LEVEL_DEBUG, "%s Copying file: %s, to %s", __func__, sourceFile.c_str(), targetFile.c_str());
 
-  void* sourceFileHandle = XBMC->OpenFile(sourceFile.c_str(), 0x08); //READ_NO_CACHE
+  kodi::vfs::CFile sourceFileHandle;
 
-  if (sourceFileHandle)
+  if (sourceFileHandle.OpenFile(sourceFile, ADDON_READ_NO_CACHE))
   {
     const std::string fileContents = ReadFileContents(sourceFileHandle);
 
-    XBMC->CloseFile(sourceFileHandle);
+    sourceFileHandle.Close();
 
-    void* targetFileHandle = XBMC->OpenFileForWrite(targetFile.c_str(), true);
+    kodi::vfs::CFile targetFileHandle;
 
-    if (targetFileHandle)
+    if (targetFileHandle.OpenFileForWrite(targetFile, true))
     {
-      XBMC->WriteFile(targetFileHandle, fileContents.c_str(), fileContents.length());
-      XBMC->CloseFile(targetFileHandle);
+      targetFileHandle.Write(fileContents.c_str(), fileContents.length());
+      targetFileHandle.Close();
     }
     else
     {
@@ -63,12 +62,12 @@ bool FileUtils::WriteStringToFile(const std::string& fileContents, const std::st
 
   Logger::Log(LEVEL_DEBUG, "%s Writing strig to file: %s", __func__, targetFile.c_str());
 
-  void* targetFileHandle = XBMC->OpenFileForWrite(targetFile.c_str(), true);
+  kodi::vfs::CFile targetFileHandle;
 
-  if (targetFileHandle)
+  if (targetFileHandle.OpenFileForWrite(targetFile, true))
   {
-    XBMC->WriteFile(targetFileHandle, fileContents.c_str(), fileContents.length());
-    XBMC->CloseFile(targetFileHandle);
+    targetFileHandle.Write(fileContents.c_str(), fileContents.length());
+    targetFileHandle.Close();
   }
   else
   {
@@ -90,13 +89,13 @@ std::string FileUtils::ReadFileToString(const std::string& sourceFile)
 
   Logger::Log(LEVEL_DEBUG, "%s Reading file to string: %s", __func__, sourceFile.c_str());
 
-  void* sourceFileHandle = XBMC->OpenFile(sourceFile.c_str(), 0x08); //READ_NO_CACHE
+  kodi::vfs::CFile sourceFileHandle;
 
-  if (sourceFileHandle)
+  if (sourceFileHandle.OpenFile(sourceFile, ADDON_READ_NO_CACHE))
   {
     fileContents = ReadFileContents(sourceFileHandle);
 
-    XBMC->CloseFile(sourceFileHandle);
+    sourceFileHandle.Close();
   }
   else
   {
@@ -106,7 +105,7 @@ std::string FileUtils::ReadFileToString(const std::string& sourceFile)
   return fileContents;
 }
 
-std::string FileUtils::ReadFileContents(void* fileHandle)
+std::string FileUtils::ReadFileContents(kodi::vfs::CFile& fileHandle)
 {
   std::string fileContents;
 
@@ -114,7 +113,7 @@ std::string FileUtils::ReadFileContents(void* fileHandle)
   int bytesRead = 0;
 
   // Read until EOF or explicit error
-  while ((bytesRead = XBMC->ReadFile(fileHandle, buffer, sizeof(buffer) - 1)) > 0)
+  while ((bytesRead = fileHandle.Read(buffer, sizeof(buffer) - 1)) > 0)
     fileContents.append(buffer, bytesRead);
 
   return fileContents;
@@ -124,26 +123,23 @@ bool FileUtils::CopyDirectory(const std::string& sourceDir, const std::string& t
 {
   bool copySuccessful = true;
 
-  XBMC->CreateDirectory(targetDir.c_str());
+  kodi::vfs::CreateDirectory(targetDir);
 
-  VFSDirEntry* entries;
-  unsigned int numEntries;
+  std::vector<kodi::vfs::CDirEntry> entries;
 
-  if (XBMC->GetDirectory(sourceDir.c_str(), "", &entries, &numEntries))
+  if (kodi::vfs::GetDirectory(sourceDir, "", entries))
   {
-    for (int i = 0; i < numEntries; i++)
+    for (const auto& entry : entries)
     {
-      if (entries[i].folder && recursiveCopy)
+      if (entry.IsFolder() && recursiveCopy)
       {
-        copySuccessful = CopyDirectory(sourceDir + "/" + entries[i].label, targetDir + "/" + entries[i].label, true);
+        copySuccessful = CopyDirectory(sourceDir + "/" + entry.Label(), targetDir + "/" + entry.Label(), true);
       }
-      else if (!entries[i].folder)
+      else if (!entry.IsFolder())
       {
-        copySuccessful = CopyFile(sourceDir + "/" + entries[i].label, targetDir + "/" + entries[i].label);
+        copySuccessful = CopyFile(sourceDir + "/" + entry.Label(), targetDir + "/" + entry.Label());
       }
     }
-
-    XBMC->FreeDirectory(entries, numEntries);
   }
   else
   {
@@ -157,20 +153,17 @@ std::vector<std::string> FileUtils::GetFilesInDirectory(const std::string& dir)
 {
   std::vector<std::string> files;
 
-  VFSDirEntry* entries;
-  unsigned int numEntries;
+  std::vector<kodi::vfs::CDirEntry> entries;
 
-  if (XBMC->GetDirectory(dir.c_str(), "", &entries, &numEntries))
+  if (kodi::vfs::GetDirectory(dir, "", entries))
   {
-    for (int i = 0; i < numEntries; i++)
+    for (const auto& entry : entries)
     {
-      if (!entries[i].folder)
+      if (entry.IsFolder())
       {
-        files.emplace_back(entries[i].label);
+        files.emplace_back(entry.Label());
       }
     }
-
-    XBMC->FreeDirectory(entries, numEntries);
   }
   else
   {
@@ -182,10 +175,5 @@ std::vector<std::string> FileUtils::GetFilesInDirectory(const std::string& dir)
 
 std::string FileUtils::GetResourceDataPath()
 {
-  char path[1024];
-  XBMC->GetSetting("__addonpath__", path);
-  std::string resourcesDataPath = path;
-  resourcesDataPath += "/resources/data";
-
-  return resourcesDataPath;
+  return kodi::GetAddonPath("/resources/data");
 }

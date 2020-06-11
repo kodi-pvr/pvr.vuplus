@@ -9,7 +9,6 @@
 #include "Channels.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "Admin.h"
 #include "ChannelGroups.h"
 #include "utilities/Logger.h"
@@ -45,7 +44,7 @@ int GenerateChannelUniqueId(const std::string& channelName, const std::string& e
 
 } // unnamed namespace
 
-void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) const
+void Channels::GetChannels(std::vector<kodi::addon::PVRChannel>& kodiChannels, bool bRadio) const
 {
   int channelOrder = 1;
 
@@ -53,10 +52,10 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) 
   {
     if (channel->IsRadio() == bRadio)
     {
-      PVR_CHANNEL kodiChannel = {0};
+      kodi::addon::PVRChannel kodiChannel;
 
       channel->UpdateTo(kodiChannel);
-      kodiChannel.iOrder = channelOrder; //Keep the channels in list order as per the load order on the STB
+      kodiChannel.SetOrder(channelOrder); //Keep the channels in list order as per the load order on the STB
 
       Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d', Order '%d''", __func__, channel->GetChannelName().c_str(),
                   channel->GetUniqueId(), channelOrder);

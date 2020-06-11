@@ -8,14 +8,14 @@
 
 #pragma once
 
-#include "kodi/libXBMC_addon.h"
-
 #include <ctime>
 #include <string>
 
+#include <kodi/Filesystem.h>
+
 namespace enigma2
 {
-  class RecordingReader
+  class ATTRIBUTE_HIDDEN RecordingReader
   {
   public:
     RecordingReader(const std::string& streamURL, std::time_t start, std::time_t end, int duration);
@@ -34,7 +34,7 @@ namespace enigma2
     static const int REOPEN_INTERVAL_FAST = 10;
 
     const std::string& m_streamURL;
-    void* m_readHandle;
+    kodi::vfs::CFile m_readHandle;
 
     int m_duration;
 

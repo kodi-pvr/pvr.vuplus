@@ -10,11 +10,11 @@
 
 #include <ctime>
 
-#include <kodi/libXBMC_addon.h>
+#include <kodi/Filesystem.h>
 
 namespace enigma2
 {
-  class IStreamReader
+  class ATTRIBUTE_HIDDEN IStreamReader
   {
   public:
     virtual ~IStreamReader() = default;

@@ -13,8 +13,6 @@
 
 #include <cstdlib>
 
-#include <kodi/libXBMC_pvr.h>
-
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;

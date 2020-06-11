@@ -17,7 +17,7 @@ namespace enigma2
 {
   namespace extract
   {
-    class IExtractor
+    class ATTRIBUTE_HIDDEN IExtractor
     {
     public:
       IExtractor() = default;

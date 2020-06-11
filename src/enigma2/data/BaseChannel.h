@@ -12,14 +12,14 @@
 #include <string>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/AddonBase.h>
 #include <tinyxml.h>
 
 namespace enigma2
 {
   namespace data
   {
-    class BaseChannel
+    class ATTRIBUTE_HIDDEN BaseChannel
     {
     public:
       BaseChannel() = default;

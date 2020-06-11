@@ -7,6 +7,7 @@
  */
 
 #include "EpgEntry.h"
+#include "Channel.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
@@ -15,41 +16,43 @@ using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 
-void EpgEntry::UpdateTo(EPG_TAG& left) const
+void EpgEntry::UpdateTo(kodi::addon::PVREPGTag& left) const
 {
-  left.iUniqueBroadcastId  = m_epgId;
-  left.strTitle            = m_title.c_str();
-  left.iUniqueChannelId    = m_channelId;
-  left.startTime           = m_startTime;
-  left.endTime             = m_endTime;
-  left.strPlotOutline      = m_plotOutline.c_str();
-  left.strPlot             = m_plot.c_str();
-  left.strOriginalTitle    = nullptr; // unused
-  left.strCast             = nullptr; // unused
-  left.strDirector         = nullptr; // unused
-  left.strWriter           = nullptr; // unused
-  left.iYear               = m_year;
-  left.strIMDBNumber       = nullptr; // unused
-  left.strIconPath         = ""; // unused
-  left.iGenreType          = m_genreType;
-  left.iGenreSubType       = m_genreSubType;
-  left.strGenreDescription = m_genreDescription.c_str();
-  left.strFirstAired = (m_new || m_live || m_premiere) ? m_startTimeW3CDateString.c_str() : "";
-  left.iParentalRating     = 0;  // unused
-  left.iStarRating         = 0;  // unused
-  left.iSeriesNumber       = m_seasonNumber;
-  left.iEpisodeNumber      = m_episodeNumber;
-  left.iEpisodePartNumber  = m_episodePartNumber;
-  left.strEpisodeName      = ""; // unused
-  left.iFlags              = EPG_TAG_FLAG_UNDEFINED;
+  left.SetUniqueBroadcastId(m_epgId);
+  left.SetTitle(m_title);
+  left.SetUniqueChannelId(m_channelId);
+  left.SetStartTime(m_startTime);
+  left.SetEndTime(m_endTime);
+  left.SetPlotOutline(m_plotOutline);
+  left.SetPlot(m_plot);
+  left.SetOriginalTitle(""); // unused
+  left.SetCast(""); // unused
+  left.SetDirector(""); // unused
+  left.SetWriter(""); // unused
+  left.SetYear(m_year);
+  left.SetIMDBNumber(""); // unused
+  left.SetIconPath(""); // unused
+  left.SetGenreType(m_genreType);
+  left.SetGenreSubType(m_genreSubType);
+  left.SetGenreDescription(m_genreDescription);
+  left.SetFirstAired((m_new || m_live || m_premiere) ? m_startTimeW3CDateString.c_str() : "");
+  left.SetParentalRating(0); // unused
+  left.SetStarRating(0); // unused
+  left.SetSeriesNumber(m_seasonNumber);
+  left.SetEpisodeNumber(m_episodeNumber);
+  left.SetEpisodePartNumber(m_episodePartNumber);
+  left.SetEpisodeName(""); // unused
+  unsigned int flags = EPG_TAG_FLAG_UNDEFINED;
   if (m_new)
-    left.iFlags |= EPG_TAG_FLAG_IS_NEW;
+    flags |= EPG_TAG_FLAG_IS_NEW;
   if (m_premiere)
-    left.iFlags |= EPG_TAG_FLAG_IS_PREMIERE;
+    flags |= EPG_TAG_FLAG_IS_PREMIERE;
   if (m_finale)
-    left.iFlags |= EPG_TAG_FLAG_IS_FINALE;
+    flags |= EPG_TAG_FLAG_IS_FINALE;
   if (m_live)
-    left.iFlags |= EPG_TAG_FLAG_IS_LIVE;
+    flags |= EPG_TAG_FLAG_IS_LIVE;
+
+  left.SetFlags(flags);
 }
 
 bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& epgChannelsMap)

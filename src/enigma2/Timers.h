@@ -20,39 +20,40 @@
 #include <string>
 #include <type_traits>
 
-#include <kodi/libXBMC_pvr.h>
 #include <tinyxml.h>
 
 namespace enigma2
 {
-  class Timers
+  class IConnectionListener;
+
+  class ATTRIBUTE_HIDDEN Timers
   {
   public:
-    Timers(Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)
-      : m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg), m_entryExtractor(entryExtractor)
+    Timers(IConnectionListener& connectionListener, Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)
+      : m_connectionListener(connectionListener), m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg), m_entryExtractor(entryExtractor)
     {
       m_clientIndexCounter = 1;
     };
 
-    void GetTimerTypes(std::vector<PVR_TIMER_TYPE>& types) const;
+    void GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const;
 
     int GetTimerCount() const;
     int GetAutoTimerCount() const;
 
-    void GetTimers(std::vector<PVR_TIMER>& timers) const;
-    void GetAutoTimers(std::vector<PVR_TIMER>& timers) const;
+    void GetTimers(std::vector<kodi::addon::PVRTimer>& timers) const;
+    void GetAutoTimers(std::vector<kodi::addon::PVRTimer>& timers) const;
 
     enigma2::data::Timer* GetTimer(std::function<bool(const enigma2::data::Timer&)> func);
     enigma2::data::AutoTimer* GetAutoTimer(std::function<bool(const enigma2::data::AutoTimer&)> func);
 
-    PVR_ERROR AddTimer(const PVR_TIMER& timer);
-    PVR_ERROR AddAutoTimer(const PVR_TIMER& timer);
+    PVR_ERROR AddTimer(const kodi::addon::PVRTimer& timer);
+    PVR_ERROR AddAutoTimer(const kodi::addon::PVRTimer& timer);
 
-    PVR_ERROR UpdateTimer(const PVR_TIMER& timer);
-    PVR_ERROR UpdateAutoTimer(const PVR_TIMER& timer);
+    PVR_ERROR UpdateTimer(const kodi::addon::PVRTimer& timer);
+    PVR_ERROR UpdateAutoTimer(const kodi::addon::PVRTimer& timer);
 
-    PVR_ERROR DeleteTimer(const PVR_TIMER& timer);
-    PVR_ERROR DeleteAutoTimer(const PVR_TIMER& timer);
+    PVR_ERROR DeleteTimer(const kodi::addon::PVRTimer& timer);
+    PVR_ERROR DeleteAutoTimer(const kodi::addon::PVRTimer& timer);
 
     void ClearTimers();
     bool TimerUpdates();
@@ -70,7 +71,7 @@ namespace enigma2
     static std::string ConvertToAutoTimerTag(std::string tag);
     static std::string RemovePaddingTag(std::string tag);
     bool LoadAutoTimers(std::vector<enigma2::data::AutoTimer>& autoTimers) const;
-    bool IsAutoTimer(const PVR_TIMER& timer) const;
+    bool IsAutoTimer(const kodi::addon::PVRTimer& timer) const;
     bool TimerUpdatesRegular();
     bool TimerUpdatesAuto();
     std::string BuildAddUpdateAutoTimerLimitGroupsParams(const std::shared_ptr<data::Channel>& channel);
@@ -86,6 +87,7 @@ namespace enigma2
     std::vector<enigma2::data::Timer> m_timers;
     std::vector<enigma2::data::AutoTimer> m_autotimers;
 
+    IConnectionListener& m_connectionListener;
     Channels& m_channels;
     ChannelGroups& m_channelGroups;
     std::vector<std::string>& m_locations;

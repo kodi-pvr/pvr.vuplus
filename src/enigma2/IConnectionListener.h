@@ -8,11 +8,15 @@
 
 #pragma once
 
+#include <kodi/addon-instance/PVR.h>
+
 namespace enigma2
 {
-  class IConnectionListener
+  class ATTRIBUTE_HIDDEN IConnectionListener : public kodi::addon::CInstancePVRClient
   {
   public:
+    IConnectionListener(KODI_HANDLE instance, const std::string& version)
+      : kodi::addon::CInstancePVRClient(instance, version) { }
     virtual ~IConnectionListener() = default;
 
     virtual void ConnectionLost() = 0;

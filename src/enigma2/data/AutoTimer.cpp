@@ -8,12 +8,13 @@
 
 #include "AutoTimer.h"
 
-#include "../utilities/LocalizedString.h"
 #include "../utilities/StringUtils.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
+
+#include <kodi/General.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -62,31 +63,31 @@ void AutoTimer::UpdateFrom(const AutoTimer& right)
   m_tags = right.m_tags;
 }
 
-void AutoTimer::UpdateTo(PVR_TIMER& left) const
+void AutoTimer::UpdateTo(kodi::addon::PVRTimer& left) const
 {
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
-  strncpy(left.strEpgSearchString, m_searchPhrase.c_str(), sizeof(left.strEpgSearchString) - 1);
-  left.iTimerType = m_type;
+  left.SetTitle(m_title);
+  left.SetEPGSearchString(m_searchPhrase);
+  left.SetTimerType(m_type);
   if (m_anyChannel)
-    left.iClientChannelUid = PVR_TIMER_ANY_CHANNEL;
+    left.SetClientChannelUid(PVR_TIMER_ANY_CHANNEL);
   else
-    left.iClientChannelUid = m_channelId;
-  left.startTime = m_startTime;
-  left.endTime = m_endTime;
-  left.state = m_state;
-  left.iPriority = 0; // unused
-  left.iLifetime = 0; // unused
-  left.firstDay = 0; // unused
-  left.iWeekdays = m_weekdays;
-  left.iMarginStart = 0; // unused
-  left.iMarginEnd = 0; // unused
-  left.iGenreType = 0; // unused
-  left.iGenreSubType = 0; // unused
-  left.iClientIndex = m_clientIndex;
-  left.bStartAnyTime = m_startAnyTime;
-  left.bEndAnyTime = m_endAnyTime;
-  left.bFullTextEpgSearch = m_searchFulltext;
-  left.iPreventDuplicateEpisodes = m_deDup;
+    left.SetClientChannelUid(m_channelId);
+  left.SetStartTime(m_startTime);
+  left.SetEndTime(m_endTime);
+  left.SetState(m_state);
+  left.SetPriority(0); // unused
+  left.SetLifetime(0); // unused
+  left.SetFirstDay(0); // unused
+  left.SetWeekdays(m_weekdays);
+  left.SetMarginStart(0); // unused
+  left.SetMarginEnd(0); // unused
+  left.SetGenreType(0); // unused
+  left.SetGenreSubType(0); // unused
+  left.SetClientIndex(m_clientIndex);
+  left.SetStartAnyTime(m_startAnyTime);
+  left.SetEndAnyTime(m_endAnyTime);
+  left.SetFullTextEpgSearch(m_searchFulltext);
+  left.SetPreventDuplicateEpisodes(m_deDup);
 }
 
 bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
@@ -171,7 +172,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
         {
           m_state = PVR_TIMER_STATE_ERROR;
           Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __func__);
-          m_channelName = LocalizedString(30520); // Invalid Channel
+          m_channelName = kodi::GetLocalizedString(30520); // Invalid Channel
           m_channelId = PVR_TIMER_ANY_CHANNEL;
           m_anyChannel = true;
         }

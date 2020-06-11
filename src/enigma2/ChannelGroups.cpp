@@ -9,9 +9,7 @@
 #include "ChannelGroups.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "utilities/FileUtils.h"
-#include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
 #include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
@@ -19,6 +17,7 @@
 
 #include <regex>
 
+#include <kodi/General.h>
 #include <nlohmann/json.hpp>
 
 using namespace enigma2;
@@ -26,7 +25,7 @@ using namespace enigma2::data;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
-void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& kodiChannelGroups, bool radio) const
+void ChannelGroups::GetChannelGroups(std::vector<kodi::addon::PVRChannelGroup>& kodiChannelGroups, bool radio) const
 {
   Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroups for PVR", __func__);
 
@@ -36,7 +35,7 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& kodiChannel
 
     if (channelGroup->IsRadio() == radio && !channelGroup->IsEmptyGroup())
     {
-      PVR_CHANNEL_GROUP kodiChannelGroup = {0};
+      kodi::addon::PVRChannelGroup kodiChannelGroup;
 
       channelGroup->UpdateTo(kodiChannelGroup);
 
@@ -47,7 +46,7 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& kodiChannel
   Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroups for PVR", __func__);
 }
 
-PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER>& channelGroupMembers, const std::string& groupName)
+PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<kodi::addon::PVRChannelGroupMember>& channelGroupMembers, const std::string& groupName)
 {
   std::shared_ptr<ChannelGroup> channelGroup = GetChannelGroupUsingName(groupName);
 
@@ -66,14 +65,14 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_ME
 
   for (const auto& channelMember : channelGroup->GetChannelGroupMembers())
   {
-    PVR_CHANNEL_GROUP_MEMBER tag = {0};
+    kodi::addon::PVRChannelGroupMember tag;
 
-    strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName) - 1);
-    tag.iChannelUniqueId = channelMember.GetChannel()->GetUniqueId();
-    tag.iChannelNumber = Settings::GetInstance().UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0;
-    tag.iOrder = channelOrder; //Keep the channels in list order as per the groups on the STB
+    tag.SetGroupName(groupName);
+    tag.SetChannelUniqueId(channelMember.GetChannel()->GetUniqueId());
+    tag.SetChannelNumber(Settings::GetInstance().UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0);
+    tag.SetOrder(channelOrder); //Keep the channels in list order as per the groups on the STB
 
-    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __func__, channelMember.GetChannel()->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channelOrder);
+    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __func__, channelMember.GetChannel()->GetChannelName().c_str(), tag.GetChannelUniqueId(), groupName.c_str(), channelOrder);
 
     channelGroupMembers.emplace_back(tag);
 
@@ -318,7 +317,7 @@ void ChannelGroups::AddTVFavouritesChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName(LocalizedString(30079)); //Favourites (TV)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30079)); //Favourites (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.tv\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
@@ -328,7 +327,7 @@ void ChannelGroups::AddRadioFavouritesChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(true);
-  newChannelGroup.SetGroupName(LocalizedString(30080)); //Favourites (Radio)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30080)); //Favourites (Radio)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
@@ -338,7 +337,7 @@ void ChannelGroups::AddTVLastScannedChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName(LocalizedString(30112)); //Last Scanned (TV)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30112)); //Last Scanned (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
@@ -350,7 +349,7 @@ void ChannelGroups::AddRadioLastScannedChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(true);
-  newChannelGroup.SetGroupName(LocalizedString(30113)); //Last Scanned (Radio)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30113)); //Last Scanned (Radio)
   //Hack used here, extra space in service reference so we can spearate TV and Radio, it must be unique
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
