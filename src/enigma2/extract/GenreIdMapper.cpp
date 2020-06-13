@@ -9,12 +9,9 @@
 #include "GenreIdMapper.h"
 
 #include "../utilities/FileUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cstdlib>
-
-#include <kodi/libXBMC_pvr.h>
-#include <kodi/util/XMLUtils.h>
-#include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -75,7 +72,7 @@ int GenreIdMapper::LookupGenreIdInMap(const int combinedGenreType)
 void GenreIdMapper::LoadGenreIdMapFile()
 {
   if (!LoadIdToIdGenreFile(Settings::GetInstance().GetMapGenreIdsFile(), m_genreIdToDvbIdMap))
-    Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __FUNCTION__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
+    Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __func__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
 }
 
 bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int, int>& map)
@@ -84,24 +81,24 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
   if (!FileUtils::FileExists(xmlFile.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __FUNCTION__, xmlFile.c_str());
+    Logger::Log(LEVEL_ERROR, "%s No XML file found: %s", __func__, xmlFile.c_str());
     return false;
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __FUNCTION__, xmlFile.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Loading XML File: %s", __func__, xmlFile.c_str());
 
   const std::string fileContents = FileUtils::ReadXmlFileToString(xmlFile);
 
   if (fileContents.empty())
   {
-    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __FUNCTION__, xmlFile.c_str());
+    Logger::Log(LEVEL_ERROR, "%s No Content in XML file: %s", __func__, xmlFile.c_str());
     return false;
   }
 
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(fileContents.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -111,13 +108,13 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <genreIdMappings> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <genreIdMappings> element!", __func__);
     return false;
   }
 
   std::string mapperName;
 
-  if (!XMLUtils::GetString(pElem, "mapperName", mapperName))
+  if (!xml::GetString(pElem, "mapperName", mapperName))
     return false;
 
   TiXmlHandle hRoot = TiXmlHandle(pElem);
@@ -126,7 +123,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <mappings> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <mappings> element", __func__);
     return false;
   }
 
@@ -134,7 +131,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <mapping> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <mapping> element", __func__);
     return false;
   }
 
@@ -150,7 +147,7 @@ bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int
 
       map.insert({sourceId, targetId});
 
-      Logger::Log(LEVEL_TRACE, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __FUNCTION__, mapperName.c_str(), sourceId, targetId);
+      Logger::Log(LEVEL_TRACE, "%s Read ID Mapping for: %s, sourceId=%#02X, targetId=%#02X", __func__, mapperName.c_str(), sourceId, targetId);
     }
   }
 

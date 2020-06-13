@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/Channels.h>
 
 namespace enigma2
 {
@@ -34,10 +34,10 @@ namespace enigma2
     CHANNELS_CHANGED
   };
 
-  class Channels
+  class ATTRIBUTE_HIDDEN Channels
   {
   public:
-    void GetChannels(std::vector<PVR_CHANNEL>& timers, bool bRadio) const;
+    void GetChannels(std::vector<kodi::addon::PVRChannel>& kodiChannels, bool bRadio) const;
 
     int GetChannelUniqueId(const std::string& channelServiceReference);
     std::shared_ptr<enigma2::data::Channel> GetChannel(int uniqueId);

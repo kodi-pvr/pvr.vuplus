@@ -15,7 +15,6 @@
 #include <string>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
 #include <tinyxml.h>
 
 namespace enigma2
@@ -24,7 +23,7 @@ namespace enigma2
   {
     class EpgEntry;
 
-    class EpgChannel : public BaseChannel
+    class ATTRIBUTE_HIDDEN EpgChannel : public BaseChannel
     {
     public:
       EpgChannel() = default;

@@ -9,14 +9,13 @@
 #include "Channel.h"
 
 #include "../Settings.h"
+#include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
+#include "../utilities/XMLUtils.h"
 #include "ChannelGroup.h"
 
 #include <cinttypes>
 #include <regex>
-
-#include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -51,14 +50,14 @@ bool Channel::operator!=(const Channel& right) const
 
 bool Channel::UpdateFrom(TiXmlElement* channelNode)
 {
-  if (!XMLUtils::GetString(channelNode, "e2servicereference", m_serviceReference))
+  if (!xml::GetString(channelNode, "e2servicereference", m_serviceReference))
     return false;
 
   // Check whether the current element is not just a label or that it's not a hidden entry
   if (m_serviceReference.compare(0, 5, "1:64:") == 0 || m_serviceReference.compare(0, 6, "1:320:") == 0)
     return false;
 
-  if (!XMLUtils::GetString(channelNode, "e2servicename", m_channelName))
+  if (!xml::GetString(channelNode, "e2servicename", m_channelName))
     return false;
 
   m_fuzzyChannelName = m_channelName;
@@ -81,11 +80,11 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
 
   std::sscanf(m_serviceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
 
-  Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s, program number: %d", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str(), m_streamProgramNumber);
+  Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, picon: %s, program number: %d", __func__, m_channelName.c_str(), m_serviceReference.c_str(), m_iconPath.c_str(), m_streamProgramNumber);
 
   if (m_isIptvStream)
   {
-    Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, IPTV Stream URL: %s", __FUNCTION__, m_channelName.c_str(), m_serviceReference.c_str(), iptvStreamURL.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, IPTV Stream URL: %s", __func__, m_channelName.c_str(), m_serviceReference.c_str(), iptvStreamURL.c_str());
   }
 
   m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
@@ -218,16 +217,15 @@ bool Channel::HasRadioServiceType()
   return radioServiceType == RADIO_SERVICE_TYPE;
 }
 
-void Channel::UpdateTo(PVR_CHANNEL& left) const
+void Channel::UpdateTo(kodi::addon::PVRChannel& left) const
 {
-  left.iUniqueId = m_uniqueId;
-  left.bIsRadio = m_radio;
-  left.iChannelNumber = m_channelNumber;
-  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName) - 1);
-  strncpy(left.strInputFormat, "", 0); // unused
-  left.iEncryptionSystem = 0;
-  left.bIsHidden = false;
-  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath) - 1);
+  left.SetUniqueId(m_uniqueId);
+  left.SetIsRadio(m_radio);
+  left.SetChannelNumber(m_channelNumber);
+  left.SetChannelName(m_channelName);
+  left.SetEncryptionSystem(0);
+  left.SetIsHidden(false);
+  left.SetIconPath(m_iconPath);
 }
 
 void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup>& channelGroup)

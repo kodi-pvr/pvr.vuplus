@@ -17,7 +17,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/EDL.h>
 
 namespace enigma2
 {
@@ -27,25 +27,27 @@ namespace enigma2
   static int E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MAX = 600;
   static constexpr const char* TRASH_FOLDER = ".Trash";
 
-  class Recordings
+  class IConnectionListener;
+
+  class ATTRIBUTE_HIDDEN Recordings
   {
   public:
-    Recordings(Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor);
-    void GetRecordings(std::vector<PVR_RECORDING>& recordings, bool deleted);
+    Recordings(IConnectionListener& connectionListener, Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor);
+    void GetRecordings(std::vector<kodi::addon::PVRRecording>& recordings, bool deleted);
     int GetNumRecordings(bool deleted) const;
     void ClearRecordings(bool deleted);
-    void GetRecordingEdl(const std::string& recordingId, std::vector<PVR_EDL_ENTRY>& edlEntries) const;
-    PVR_ERROR RenameRecording(const PVR_RECORDING& recording);
-    PVR_ERROR SetRecordingPlayCount(const PVR_RECORDING& recording, int count);
-    PVR_ERROR SetRecordingLastPlayedPosition(const PVR_RECORDING& recording, int lastplayedposition);
-    int GetRecordingLastPlayedPosition(const PVR_RECORDING& recording);
-    PVR_ERROR GetRecordingSize(const PVR_RECORDING& recording, int64_t* sizeInBytes);
-    const std::string GetRecordingURL(const PVR_RECORDING& recinfo);
-    PVR_ERROR DeleteRecording(const PVR_RECORDING& recinfo);
-    PVR_ERROR UndeleteRecording(const PVR_RECORDING& recording);
+    void GetRecordingEdl(const std::string& recordingId, std::vector<kodi::addon::PVREDLEntry>& edlEntries) const;
+    PVR_ERROR RenameRecording(const kodi::addon::PVRRecording& recording);
+    PVR_ERROR SetRecordingPlayCount(const kodi::addon::PVRRecording& recording, int count);
+    PVR_ERROR SetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& recording, int lastplayedposition);
+    int GetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& recording);
+    PVR_ERROR GetRecordingSize(const kodi::addon::PVRRecording& recording, int64_t& sizeInBytes);
+    const std::string GetRecordingURL(const kodi::addon::PVRRecording& recinfo);
+    PVR_ERROR DeleteRecording(const kodi::addon::PVRRecording& recinfo);
+    PVR_ERROR UndeleteRecording(const kodi::addon::PVRRecording& recording);
     PVR_ERROR DeleteAllRecordingsFromTrash();
-    bool HasRecordingStreamProgramNumber(const PVR_RECORDING& recording);
-    int GetRecordingStreamProgramNumber(const PVR_RECORDING& recording);
+    bool HasRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording);
+    int GetRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording);
 
     std::vector<std::string>& GetLocations();
     void ClearLocations();
@@ -72,6 +74,7 @@ namespace enigma2
     std::unordered_map<std::string, enigma2::data::RecordingEntry> m_recordingsIdMap;
     std::vector<std::string> m_locations;
 
+    IConnectionListener& m_connectionListener;
     Channels& m_channels;
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
   };

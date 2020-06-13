@@ -16,15 +16,15 @@
 #include <unordered_map>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/ChannelGroups.h>
 
 namespace enigma2
 {
-  class ChannelGroups
+  class ATTRIBUTE_HIDDEN ChannelGroups
   {
   public:
-    void GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& channelGroups, bool radio) const;
-    PVR_ERROR GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER>& channelGroupMembers, const std::string& groupName);
+    void GetChannelGroups(std::vector<kodi::addon::PVRChannelGroup>& channelGroups, bool radio) const;
+    PVR_ERROR GetChannelGroupMembers(std::vector<kodi::addon::PVRChannelGroupMember>& channelGroupMembers, const std::string& groupName);
 
     std::string GetChannelGroupServiceReference(const std::string& groupName);
     std::shared_ptr<enigma2::data::ChannelGroup> GetChannelGroup(const std::string& groupServiceReference);

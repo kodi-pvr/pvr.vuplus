@@ -8,13 +8,12 @@
 
 #include "RecordingEntry.h"
 
+#include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
-
-#include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -42,28 +41,28 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   m_directory = directory;
   m_deleted = deleted;
 
-  if (XMLUtils::GetString(recordingNode, "e2servicereference", strTmp))
+  if (xml::GetString(recordingNode, "e2servicereference", strTmp))
     m_recordingId = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2title", strTmp))
+  if (xml::GetString(recordingNode, "e2title", strTmp))
     m_title = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2description", strTmp))
+  if (xml::GetString(recordingNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2descriptionextended", strTmp))
+  if (xml::GetString(recordingNode, "e2descriptionextended", strTmp))
     m_plot = strTmp;
 
-  if (XMLUtils::GetString(recordingNode, "e2servicename", strTmp))
+  if (xml::GetString(recordingNode, "e2servicename", strTmp))
     m_channelName = strTmp;
 
-  if (XMLUtils::GetInt(recordingNode, "e2time", iTmp))
+  if (xml::GetInt(recordingNode, "e2time", iTmp))
   {
     m_startTime = iTmp;
     m_startTimeW3CDateString = ParseAsW3CDateString(m_startTime);
   }
 
-  if (XMLUtils::GetString(recordingNode, "e2length", strTmp))
+  if (xml::GetString(recordingNode, "e2length", strTmp))
   {
     iTmp = TimeStringToSeconds(strTmp.c_str());
     m_duration = iTmp;
@@ -71,7 +70,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   else
     m_duration = 0;
 
-  if (XMLUtils::GetString(recordingNode, "e2filename", strTmp))
+  if (xml::GetString(recordingNode, "e2filename", strTmp))
   {
     m_edlURL = strTmp;
 
@@ -83,13 +82,13 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   }
 
   double filesizeInBytes;
-  if (XMLUtils::GetDouble(recordingNode, "e2filesize", filesizeInBytes))
+  if (xml::GetDouble(recordingNode, "e2filesize", filesizeInBytes))
     m_sizeInBytes = static_cast<int64_t>(filesizeInBytes);
 
   ProcessPrependMode(PrependOutline::IN_RECORDINGS);
 
   m_tags.clear();
-  if (XMLUtils::GetString(recordingNode, "e2tags", strTmp))
+  if (xml::GetString(recordingNode, "e2tags", strTmp))
     m_tags = strTmp;
 
   if (ContainsTag(TAG_FOR_GENRE_ID))
@@ -170,15 +169,15 @@ long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
   return timeInSecs;
 }
 
-void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isInRecordingFolder)
+void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInRecordingFolder)
 {
   std::string strTmp;
-  strncpy(left.strRecordingId, m_recordingId.c_str(), sizeof(left.strRecordingId) - 1);
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
-  strncpy(left.strPlotOutline, m_plotOutline.c_str(), sizeof(left.strPlotOutline) - 1);
-  strncpy(left.strPlot, m_plot.c_str(), sizeof(left.strPlot) - 1);
-  strncpy(left.strChannelName, m_channelName.c_str(), sizeof(left.strChannelName) - 1);
-  strncpy(left.strIconPath, m_iconPath.c_str(), sizeof(left.strIconPath) - 1);
+  left.SetRecordingId(m_recordingId);
+  left.SetTitle(m_title);
+  left.SetPlotOutline(m_plotOutline);
+  left.SetPlot(m_plot);
+  left.SetChannelName(m_channelName);
+  left.SetIconPath(m_iconPath);
 
   if (!Settings::GetInstance().GetKeepRecordingsFolders())
   {
@@ -190,44 +189,45 @@ void RecordingEntry::UpdateTo(PVR_RECORDING& left, Channels& channels, bool isIn
     m_directory = strTmp;
   }
 
-  strncpy(left.strDirectory, m_directory.c_str(), sizeof(left.strDirectory) - 1);
-  left.bIsDeleted = m_deleted;
-  left.recordingTime = m_startTime;
-  left.iDuration = m_duration;
+  left.SetDirectory(m_directory);
+  left.SetIsDeleted(m_deleted);
+  left.SetRecordingTime(m_startTime);
+  left.SetDuration(m_duration);
 
-  left.iChannelUid = m_channelUniqueId;
-  left.channelType = PVR_RECORDING_CHANNEL_TYPE_UNKNOWN;
+  left.SetChannelUid(m_channelUniqueId);
+  left.SetChannelType(PVR_RECORDING_CHANNEL_TYPE_UNKNOWN);
 
   if (m_haveChannelType)
   {
     if (m_radio)
-      left.channelType = PVR_RECORDING_CHANNEL_TYPE_RADIO;
+      left.SetChannelType(PVR_RECORDING_CHANNEL_TYPE_RADIO);
     else
-      left.channelType = PVR_RECORDING_CHANNEL_TYPE_TV;
+      left.SetChannelType(PVR_RECORDING_CHANNEL_TYPE_TV);
   }
 
-  left.iPlayCount = m_playCount;
-  left.iLastPlayedPosition = m_lastPlayedPosition;
-  left.iSeriesNumber = m_seasonNumber;
-  left.iEpisodeNumber = m_episodeNumber;
-  left.iYear = m_year;
-  left.iGenreType = m_genreType;
-  left.iGenreSubType = m_genreSubType;
-  strncpy(left.strGenreDescription, m_genreDescription.c_str(), sizeof(left.strGenreDescription) - 1);
+  left.SetPlayCount(m_playCount);
+  left.SetLastPlayedPosition(m_lastPlayedPosition);
+  left.SetSeriesNumber(m_seasonNumber);
+  left.SetEpisodeNumber(m_episodeNumber);
+  left.SetYear(m_year);
+  left.SetGenreType(m_genreType);
+  left.SetGenreSubType(m_genreSubType);
+  left.SetGenreDescription(m_genreDescription);
 
   // If this recording was new when it aired, then we can infer the first aired date
   if (m_new || m_live || m_premiere)
-    strncpy(left.strFirstAired, m_startTimeW3CDateString.c_str(), sizeof(left.strFirstAired) - 1);
+    left.SetFirstAired(m_startTimeW3CDateString);
 
-  left.iFlags = PVR_RECORDING_FLAG_UNDEFINED;
+  unsigned int flags = PVR_RECORDING_FLAG_UNDEFINED;
   if (m_new)
-    left.iFlags |= PVR_RECORDING_FLAG_IS_NEW;
+    flags |= PVR_RECORDING_FLAG_IS_NEW;
   if (m_premiere)
-    left.iFlags |= PVR_RECORDING_FLAG_IS_PREMIERE;
+    flags |= PVR_RECORDING_FLAG_IS_PREMIERE;
   if (m_live)
-    left.iFlags |= PVR_RECORDING_FLAG_IS_LIVE;
+    flags |= PVR_RECORDING_FLAG_IS_LIVE;
+  left.SetFlags(flags);
 
-  left.sizeInBytes = m_sizeInBytes;
+  left.SetSizeInBytes(m_sizeInBytes);
 }
 
 std::shared_ptr<Channel> RecordingEntry::FindChannel(Channels& channels) const

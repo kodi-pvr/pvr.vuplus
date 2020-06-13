@@ -16,14 +16,14 @@
 #include <string>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/ChannelGroups.h>
 #include <tinyxml.h>
 
 namespace enigma2
 {
   namespace data
   {
-    class ChannelGroup
+    class ATTRIBUTE_HIDDEN ChannelGroup
     {
     public:
       ChannelGroup() = default;
@@ -60,7 +60,7 @@ namespace enigma2
       void SetMemberChannelNumber(std::shared_ptr<enigma2::data::Channel>& channel, int channelNumber);
 
       bool UpdateFrom(TiXmlElement* groupNode, bool radio);
-      void UpdateTo(PVR_CHANNEL_GROUP& left) const;
+      void UpdateTo(kodi::addon::PVRChannelGroup& left) const;
 
       std::vector<enigma2::data::ChannelGroupMember>& GetChannelGroupMembers() { return m_channelGroupMembers; };
 

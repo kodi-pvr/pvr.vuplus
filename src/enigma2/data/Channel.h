@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/Channels.h>
 #include <tinyxml.h>
 
 namespace enigma2
@@ -23,7 +23,7 @@ namespace enigma2
   {
     class ChannelGroup;
 
-    class Channel : public BaseChannel
+    class ATTRIBUTE_HIDDEN Channel : public BaseChannel
     {
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
@@ -75,7 +75,7 @@ namespace enigma2
       bool IsIptvStream() const { return m_isIptvStream; }
 
       bool UpdateFrom(TiXmlElement* channelNode);
-      void UpdateTo(PVR_CHANNEL& left) const;
+      void UpdateTo(kodi::addon::PVRChannel& left) const;
 
       void AddChannelGroup(std::shared_ptr<enigma2::data::ChannelGroup>& channelGroup);
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> GetChannelGroupList() { return m_channelGroupList; };

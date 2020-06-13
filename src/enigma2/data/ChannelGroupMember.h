@@ -16,12 +16,12 @@ namespace enigma2
 {
   namespace data
   {
-    class ChannelGroupMember
+    class ATTRIBUTE_HIDDEN ChannelGroupMember
     {
     public:
       ChannelGroupMember() = default;
       ChannelGroupMember(std::shared_ptr<enigma2::data::Channel>& channel) : m_channel(channel) {};
-      ChannelGroupMember(std::shared_ptr<enigma2::data::Channel>& channel, int channelNumber) : m_channel(channel), m_channelNumber(channelNumber) {};
+      ChannelGroupMember(std::shared_ptr<enigma2::data::Channel>& channel, int channelNumber) : m_channelNumber(channelNumber), m_channel(channel) {};
       ~ChannelGroupMember() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }

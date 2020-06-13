@@ -14,14 +14,14 @@
 #include <map>
 #include <string>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/EPG.h>
 #include <tinyxml.h>
 
 namespace enigma2
 {
   namespace data
   {
-    class EpgEntry : public BaseEntry
+    class ATTRIBUTE_HIDDEN EpgEntry : public BaseEntry
     {
     public:
       unsigned int GetEpgId() const { return m_epgId; }
@@ -42,7 +42,7 @@ namespace enigma2
       const std::string& GetStartTimeW3CDate() const { return m_startTimeW3CDateString; }
       void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }
 
-      void UpdateTo(EPG_TAG& left) const;
+      void UpdateTo(kodi::addon::PVREPGTag& left) const;
       bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& m_epgChannelsMap);
       bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
 

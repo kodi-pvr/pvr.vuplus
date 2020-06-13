@@ -8,10 +8,10 @@
 
 #pragma once
 
+#include "../utilities/StringUtils.h"
+
 #include <regex>
 #include <string>
-
-#include <p8-platform/util/StringUtils.h>
 
 namespace enigma2
 {
@@ -24,7 +24,7 @@ namespace enigma2
     static const std::string VALUE_FOR_CHANNEL_TYPE_TV = "TV";
     static const std::string VALUE_FOR_CHANNEL_TYPE_RADIO = "Radio";
 
-    class Tags
+    class ATTRIBUTE_HIDDEN Tags
     {
     public:
       Tags() = default;

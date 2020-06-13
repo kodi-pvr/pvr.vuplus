@@ -9,34 +9,33 @@
 #include "ChannelGroups.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "utilities/FileUtils.h"
-#include "utilities/LocalizedString.h"
 #include "utilities/Logger.h"
+#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
+#include "utilities/XMLUtils.h"
 
 #include <regex>
 
-#include <kodi/util/XMLUtils.h>
+#include <kodi/General.h>
 #include <nlohmann/json.hpp>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
 using json = nlohmann::json;
 
-void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& kodiChannelGroups, bool radio) const
+void ChannelGroups::GetChannelGroups(std::vector<kodi::addon::PVRChannelGroup>& kodiChannelGroups, bool radio) const
 {
-  Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroups for PVR", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroups for PVR", __func__);
 
   for (const auto& channelGroup : m_channelGroups)
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Transfer channelGroup '%s', ChannelGroupIndex '%d'", __FUNCTION__, channelGroup->GetGroupName().c_str(), channelGroup->GetUniqueId());
+    Logger::Log(LEVEL_DEBUG, "%s - Transfer channelGroup '%s', ChannelGroupIndex '%d'", __func__, channelGroup->GetGroupName().c_str(), channelGroup->GetUniqueId());
 
     if (channelGroup->IsRadio() == radio && !channelGroup->IsEmptyGroup())
     {
-      PVR_CHANNEL_GROUP kodiChannelGroup = {0};
+      kodi::addon::PVRChannelGroup kodiChannelGroup;
 
       channelGroup->UpdateTo(kodiChannelGroup);
 
@@ -44,43 +43,43 @@ void ChannelGroups::GetChannelGroups(std::vector<PVR_CHANNEL_GROUP>& kodiChannel
     }
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroups for PVR", __FUNCTION__);
+  Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroups for PVR", __func__);
 }
 
-PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<PVR_CHANNEL_GROUP_MEMBER>& channelGroupMembers, const std::string& groupName)
+PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<kodi::addon::PVRChannelGroupMember>& channelGroupMembers, const std::string& groupName)
 {
   std::shared_ptr<ChannelGroup> channelGroup = GetChannelGroupUsingName(groupName);
 
   if (!channelGroup)
   {
-    Logger::Log(LEVEL_INFO, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+    Logger::Log(LEVEL_INFO, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
 
     return PVR_ERROR_NO_ERROR;
   }
   else
   {
-    Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
   }
 
   int channelOrder = 1;
 
   for (const auto& channelMember : channelGroup->GetChannelGroupMembers())
   {
-    PVR_CHANNEL_GROUP_MEMBER tag = {0};
+    kodi::addon::PVRChannelGroupMember tag;
 
-    strncpy(tag.strGroupName, groupName.c_str(), sizeof(tag.strGroupName) - 1);
-    tag.iChannelUniqueId = channelMember.GetChannel()->GetUniqueId();
-    tag.iChannelNumber = Settings::GetInstance().UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0;
-    tag.iOrder = channelOrder; //Keep the channels in list order as per the groups on the STB
+    tag.SetGroupName(groupName);
+    tag.SetChannelUniqueId(channelMember.GetChannel()->GetUniqueId());
+    tag.SetChannelNumber(Settings::GetInstance().UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0);
+    tag.SetOrder(channelOrder); //Keep the channels in list order as per the groups on the STB
 
-    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __FUNCTION__, channelMember.GetChannel()->GetChannelName().c_str(), tag.iChannelUniqueId, groupName.c_str(), channelOrder);
+    Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __func__, channelMember.GetChannel()->GetChannelName().c_str(), tag.GetChannelUniqueId(), groupName.c_str(), channelOrder);
 
     channelGroupMembers.emplace_back(tag);
 
     channelOrder++;
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroupsMembers for PVR for group: %s", __FUNCTION__, groupName.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s - Finished getting ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -189,7 +188,7 @@ bool ChannelGroups::LoadTVChannelGroups()
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
       return false;
     }
 
@@ -199,7 +198,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __func__);
       return false;
     }
 
@@ -209,7 +208,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __func__);
       return false;
     }
 
@@ -222,7 +221,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
       AddChannelGroup(newChannelGroup);
 
-      Logger::Log(LEVEL_DEBUG, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
     }
   }
 
@@ -238,7 +237,7 @@ bool ChannelGroups::LoadTVChannelGroups()
       m_channelGroups.empty()) //If there are no channel groups default to including the last scanned group for TV Only
     AddTVLastScannedChannelGroup();
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
+  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channelgroups", __func__, m_channelGroups.size() - tempNumChannelGroups);
   return true;
 }
 
@@ -262,7 +261,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
       return false;
     }
 
@@ -272,7 +271,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __func__);
       return false;
     }
 
@@ -282,7 +281,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     if (!pNode)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __func__);
       return false;
     }
 
@@ -295,7 +294,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
       AddChannelGroup(newChannelGroup);
 
-      Logger::Log(LEVEL_DEBUG, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
     }
   }
 
@@ -310,7 +309,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
   if (!Settings::GetInstance().ExcludeLastScannedRadioGroup() && Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::ALL_GROUPS)
     AddRadioLastScannedChannelGroup();
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __FUNCTION__, m_channelGroups.size() - tempNumChannelGroups);
+  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __func__, m_channelGroups.size() - tempNumChannelGroups);
   return true;
 }
 
@@ -318,45 +317,45 @@ void ChannelGroups::AddTVFavouritesChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName(LocalizedString(30079)); //Favourites (TV)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30079)); //Favourites (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.tv\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
-  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::AddRadioFavouritesChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(true);
-  newChannelGroup.SetGroupName(LocalizedString(30080)); //Favourites (Radio)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30080)); //Favourites (Radio)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
-  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::AddTVLastScannedChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName(LocalizedString(30112)); //Last Scanned (TV)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30112)); //Last Scanned (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
   Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
-  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::AddRadioLastScannedChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(true);
-  newChannelGroup.SetGroupName(LocalizedString(30113)); //Last Scanned (Radio)
+  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30113)); //Last Scanned (Radio)
   //Hack used here, extra space in service reference so we can spearate TV and Radio, it must be unique
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
   Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
-  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __FUNCTION__, newChannelGroup.GetGroupName().c_str());
+  Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
@@ -368,12 +367,12 @@ void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
 
     if (!radio)
     {
-      Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all TV groups", __FUNCTION__);
+      Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all TV groups", __func__);
       jsonURL = StringUtils::Format("%sapi/getservices", Settings::GetInstance().GetConnectionURL().c_str());
     }
     else
     {
-      Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all Radio groups", __FUNCTION__);
+      Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all Radio groups", __func__);
       jsonURL = StringUtils::Format("%sapi/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
     }
 
@@ -401,7 +400,7 @@ void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
           {
             if (!jsonGroup["startpos"].empty())
             {
-              Logger::Log(LEVEL_DEBUG, "%s For Group %s, set start pos for channel number is %d", __FUNCTION__, jsonGroup["servicename"].get<std::string>().c_str(), jsonGroup["startpos"].get<int>());
+              Logger::Log(LEVEL_DEBUG, "%s For Group %s, set start pos for channel number is %d", __func__, jsonGroup["servicename"].get<std::string>().c_str(), jsonGroup["startpos"].get<int>());
               group->SetStartChannelNumber(jsonGroup["startpos"].get<int>());
             }
           }
@@ -410,11 +409,11 @@ void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
     }
     catch (nlohmann::detail::parse_error& e)
     {
-      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load start channel number for group from OpenWebIf - JSON parse error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load start channel number for group from OpenWebIf - JSON parse error - message: %s, exception id: %d", __func__, e.what(), e.id);
     }
     catch (nlohmann::detail::type_error& e)
     {
-      Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+      Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __func__, e.what(), e.id);
     }
   }
 }

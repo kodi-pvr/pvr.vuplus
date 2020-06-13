@@ -8,13 +8,13 @@
 
 #include "Timer.h"
 
-#include "../utilities/LocalizedString.h"
+#include "../utilities/StringUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <regex>
 
-#include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
+#include <kodi/General.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -82,27 +82,27 @@ void Timer::UpdateFrom(const Timer& right)
   m_year = right.m_year;
 }
 
-void Timer::UpdateTo(PVR_TIMER& left) const
+void Timer::UpdateTo(kodi::addon::PVRTimer& left) const
 {
-  strncpy(left.strTitle, m_title.c_str(), sizeof(left.strTitle) - 1);
-  strncpy(left.strDirectory, "/", sizeof(left.strDirectory) - 1); // unused
-  strncpy(left.strSummary, m_plot.c_str(), sizeof(left.strSummary) - 1);
-  left.iTimerType = m_type;
-  left.iClientChannelUid = m_channelId;
-  left.startTime = m_startTime;
-  left.endTime = m_endTime;
-  left.state = m_state;
-  left.iPriority = 0; // unused
-  left.iLifetime = 0; // unused
-  left.firstDay = 0; // unused
-  left.iWeekdays = m_weekdays;
-  left.iEpgUid = m_epgId;
-  left.iMarginStart = m_paddingStartMins;
-  left.iMarginEnd = m_paddingEndMins;
-  left.iGenreType = 0; // unused
-  left.iGenreSubType = 0; // unused
-  left.iClientIndex = m_clientIndex;
-  left.iParentClientIndex = m_parentClientIndex;
+  left.SetTitle(m_title);
+  left.SetDirectory("/"); // unused
+  left.SetSummary(m_plot);
+  left.SetTimerType(m_type);
+  left.SetClientChannelUid(m_channelId);
+  left.SetStartTime(m_startTime);
+  left.SetEndTime(m_endTime);
+  left.SetState(m_state);
+  left.SetPriority(0); // unused
+  left.SetLifetime(0); // unused
+  left.SetFirstDay(0); // unused
+  left.SetWeekdays(m_weekdays);
+  left.SetEPGUid(m_epgId);
+  left.SetMarginStart(m_paddingStartMins);
+  left.SetMarginEnd(m_paddingEndMins);
+  left.SetGenreType(0); // unused
+  left.SetGenreSubType(0); // unused
+  left.SetClientIndex(m_clientIndex);
+  left.SetParentClientIndex(m_parentClientIndex);
 }
 
 bool Timer::IsScheduled() const
@@ -170,18 +170,18 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   bool bTmp;
   int iDisabled;
 
-  if (XMLUtils::GetString(timerNode, "e2name", strTmp))
-    Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __FUNCTION__, strTmp.c_str());
+  if (xml::GetString(timerNode, "e2name", strTmp))
+    Logger::Log(LEVEL_DEBUG, "%s Processing timer '%s'", __func__, strTmp.c_str());
 
-  if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
+  if (!xml::GetInt(timerNode, "e2state", iTmp))
     return false;
 
-  if (!XMLUtils::GetInt(timerNode, "e2disabled", iDisabled))
+  if (!xml::GetInt(timerNode, "e2disabled", iDisabled))
     return false;
 
   m_title = strTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2servicereference", strTmp))
+  if (xml::GetString(timerNode, "e2servicereference", strTmp))
   {
     m_serviceReference = strTmp;
     m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
@@ -190,7 +190,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
   if (m_channelId == PVR_CHANNEL_INVALID_UID)
   {
-    m_channelName = LocalizedString(30520); // Invalid Channel
+    m_channelName = kodi::GetLocalizedString(30520); // Invalid Channel
   }
   else
   {
@@ -198,20 +198,20 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   }
 
 
-  if (!XMLUtils::GetInt(timerNode, "e2timebegin", iTmp))
+  if (!xml::GetInt(timerNode, "e2timebegin", iTmp))
     return false;
 
   m_startTime = iTmp;
 
-  if (!XMLUtils::GetInt(timerNode, "e2timeend", iTmp))
+  if (!xml::GetInt(timerNode, "e2timeend", iTmp))
     return false;
 
   m_endTime = iTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2descriptionextended", strTmp))
+  if (xml::GetString(timerNode, "e2descriptionextended", strTmp))
     m_plot = strTmp;
 
-  if (XMLUtils::GetString(timerNode, "e2description", strTmp))
+  if (xml::GetString(timerNode, "e2description", strTmp))
     m_plotOutline = strTmp;
 
   if (m_plot == "N/A")
@@ -230,42 +230,42 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
     m_plotOutline.clear();
   }
 
-  if (XMLUtils::GetInt(timerNode, "e2repeated", iTmp))
+  if (xml::GetInt(timerNode, "e2repeated", iTmp))
     m_weekdays = iTmp;
   else
     m_weekdays = 0;
 
-  if (XMLUtils::GetInt(timerNode, "e2eit", iTmp))
+  if (xml::GetInt(timerNode, "e2eit", iTmp))
     m_epgId = iTmp;
   else
     m_epgId = 0;
 
   m_state = PVR_TIMER_STATE_NEW;
 
-  if (!XMLUtils::GetInt(timerNode, "e2state", iTmp))
+  if (!xml::GetInt(timerNode, "e2state", iTmp))
     return false;
 
-  Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __FUNCTION__, iTmp);
+  Logger::Log(LEVEL_DEBUG, "%s e2state is: %d ", __func__, iTmp);
 
   if (iTmp == 0)
   {
     m_state = PVR_TIMER_STATE_SCHEDULED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: SCHEDULED", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: SCHEDULED", __func__);
   }
 
   if (iTmp == 2)
   {
     m_state = PVR_TIMER_STATE_RECORDING;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: RECORDING", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: RECORDING", __func__);
   }
 
   if (iTmp == 3 && iDisabled == 0)
   {
     m_state = PVR_TIMER_STATE_COMPLETED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: COMPLETED", __func__);
   }
 
-  if (XMLUtils::GetBoolean(timerNode, "e2cancled", bTmp))
+  if (xml::GetBoolean(timerNode, "e2cancled", bTmp))
   {
     if (bTmp)
     {
@@ -273,27 +273,27 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
       // We don't use CANCELLED or ABORTED as they are synonymous with DISABLED and we won't use them at all
       // Note there is no user/API action to change to cancelled
       m_state = PVR_TIMER_STATE_ERROR;
-      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ERROR", __FUNCTION__);
+      Logger::Log(LEVEL_DEBUG, "%s Timer state is: ERROR", __func__);
     }
   }
 
   if (iDisabled == 1)
   {
     m_state = PVR_TIMER_STATE_DISABLED;
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Disabled", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: Disabled", __func__);
   }
 
   if (m_state == PVR_TIMER_STATE_NEW)
-    Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Timer state is: NEW", __func__);
 
   if (m_channelId == PVR_CHANNEL_INVALID_UID)
   {
     m_state = PVR_TIMER_STATE_ERROR;
-    Logger::Log(LEVEL_DEBUG, "%s Overriding Timer as channel not found, state is: ERROR", __FUNCTION__);
+    Logger::Log(LEVEL_DEBUG, "%s Overriding Timer as channel not found, state is: ERROR", __func__);
   }
 
   m_tags.clear();
-  if (XMLUtils::GetString(timerNode, "e2tags", strTmp))
+  if (xml::GetString(timerNode, "e2tags", strTmp))
     m_tags = strTmp;
 
   if (ContainsTag(TAG_FOR_MANUAL_TIMER))

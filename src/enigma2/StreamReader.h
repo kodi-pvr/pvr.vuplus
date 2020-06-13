@@ -12,9 +12,11 @@
 
 #include <string>
 
+#include <kodi/Filesystem.h>
+
 namespace enigma2
 {
-  class StreamReader : public IStreamReader
+  class ATTRIBUTE_HIDDEN StreamReader : public IStreamReader
   {
   public:
     StreamReader(const std::string& streamURL, const unsigned int m_readTimeout);
@@ -31,7 +33,7 @@ namespace enigma2
     bool IsTimeshifting() override;
 
   private:
-    void* m_streamHandle;
+    kodi::vfs::CFile m_streamHandle;
     std::time_t m_start = std::time(nullptr);
   };
 } // namespace enigma2

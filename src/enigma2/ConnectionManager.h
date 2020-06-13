@@ -13,7 +13,7 @@
 #include <string>
 #include <thread>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/General.h>
 
 namespace enigma2
 {
@@ -22,7 +22,7 @@ namespace enigma2
 
   class IConnectionListener;
 
-  class ConnectionManager
+  class ATTRIBUTE_HIDDEN ConnectionManager
   {
   public:
     ConnectionManager(IConnectionListener& connectionListener);

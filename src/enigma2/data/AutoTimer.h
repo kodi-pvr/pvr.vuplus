@@ -14,7 +14,7 @@
 #include <string>
 #include <type_traits>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/Timers.h>
 #include <tinyxml.h>
 
 namespace enigma2
@@ -47,7 +47,7 @@ namespace enigma2
 
   namespace data
   {
-    class AutoTimer : public Timer
+    class ATTRIBUTE_HIDDEN AutoTimer : public Timer
     {
     public:
       enum DeDup : unsigned int // same type as PVR_TIMER_TYPE.iPreventDuplicateEpisodes
@@ -93,7 +93,7 @@ namespace enigma2
       bool Like(const AutoTimer& right) const;
       bool operator==(const AutoTimer& right) const;
       void UpdateFrom(const AutoTimer& right);
-      void UpdateTo(PVR_TIMER& right) const;
+      void UpdateTo(kodi::addon::PVRTimer& right) const;
       bool UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels);
       void ParseTime(const std::string& time, std::tm& timeinfo) const;
 

@@ -9,17 +9,16 @@
 #include "Channels.h"
 
 #include "../Enigma2.h"
-#include "../client.h"
 #include "Admin.h"
 #include "ChannelGroups.h"
 #include "utilities/Logger.h"
+#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
+#include "utilities/XMLUtils.h"
 
 #include <regex>
 
-#include <kodi/util/XMLUtils.h>
 #include <nlohmann/json.hpp>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -45,7 +44,7 @@ int GenerateChannelUniqueId(const std::string& channelName, const std::string& e
 
 } // unnamed namespace
 
-void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) const
+void Channels::GetChannels(std::vector<kodi::addon::PVRChannel>& kodiChannels, bool bRadio) const
 {
   int channelOrder = 1;
 
@@ -53,12 +52,12 @@ void Channels::GetChannels(std::vector<PVR_CHANNEL>& kodiChannels, bool bRadio) 
   {
     if (channel->IsRadio() == bRadio)
     {
-      PVR_CHANNEL kodiChannel = {0};
+      kodi::addon::PVRChannel kodiChannel;
 
       channel->UpdateTo(kodiChannel);
-      kodiChannel.iOrder = channelOrder; //Keep the channels in list order as per the load order on the STB
+      kodiChannel.SetOrder(channelOrder); //Keep the channels in list order as per the load order on the STB
 
-      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d', Order '%d''", __FUNCTION__, channel->GetChannelName().c_str(),
+      Logger::Log(LEVEL_DEBUG, "%s - Transfer channel '%s', ChannelIndex '%d', Order '%d''", __func__, channel->GetChannelName().c_str(),
                   channel->GetUniqueId(), channelOrder);
 
       kodiChannels.emplace_back(kodiChannel);
@@ -194,8 +193,8 @@ bool Channels::LoadChannels(ChannelGroups& channelGroups)
       numTVChannels += GetNumChannels() - currentChannelCount;
   }
 
-  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channels", __FUNCTION__, numTVChannels);
-  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channels", __FUNCTION__, numRadioChannels);
+  Logger::Log(LEVEL_INFO, "%s Loaded %d TV Channels", __func__, numTVChannels);
+  Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channels", __func__, numRadioChannels);
 
   // Load Channels extra data for groups
   int tvChannelNumberOffset = 0;
@@ -213,7 +212,7 @@ bool Channels::LoadChannels(ChannelGroups& channelGroups)
 
 bool Channels::LoadChannels(const std::string groupServiceReference, const std::string groupName, std::shared_ptr<ChannelGroup>& channelGroup)
 {
-  Logger::Log(LEVEL_DEBUG, "%s loading channel group: '%s'", __FUNCTION__, groupName.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s loading channel group: '%s'", __func__, groupName.c_str());
 
   const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
 
@@ -222,7 +221,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
   TiXmlDocument xmlDoc;
   if (!xmlDoc.Parse(strXML.c_str()))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
     return false;
   }
 
@@ -232,7 +231,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   if (!pElem)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __func__);
     return false;
   }
 
@@ -242,7 +241,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2service> element", __func__);
     return false;
   }
 
@@ -259,7 +258,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
       emptyGroup = false;
 
     AddChannel(newChannel, channelGroup);
-    Logger::Log(LEVEL_DEBUG, "%s Loaded channel: %s, Group: %s, Icon: %s, ID: %d", __FUNCTION__, newChannel.GetChannelName().c_str(), groupName.c_str(), newChannel.GetIconPath().c_str(), newChannel.GetUniqueId());
+    Logger::Log(LEVEL_DEBUG, "%s Loaded channel: %s, Group: %s, Icon: %s, ID: %d", __func__, newChannel.GetChannelName().c_str(), groupName.c_str(), newChannel.GetIconPath().c_str(), newChannel.GetUniqueId());
   }
 
   channelGroup->SetEmptyGroup(emptyGroup);
@@ -277,7 +276,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
 
   if (Settings::GetInstance().SupportsProviderNumberAndPiconForChannels())
   {
-    Logger::Log(LEVEL_DEBUG, "%s loading channel group extra data: '%s'", __FUNCTION__, channelGroup->GetGroupName().c_str());
+    Logger::Log(LEVEL_DEBUG, "%s loading channel group extra data: '%s'", __func__, channelGroup->GetGroupName().c_str());
 
     //We can use the JSON API so let's supplement the data with extra information
 
@@ -311,7 +310,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
           {
             if (!jsonChannel["provider"].empty())
             {
-              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());
+              Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider name to %s", __func__, jsonChannel["servicename"].get<std::string>().c_str(), jsonChannel["provider"].get<std::string>().c_str());
               channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
             }
 
@@ -322,7 +321,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
 
               if (channel->UsingDefaultChannelNumber())
               {
-                Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channelNumber);
+                Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set backend channel number to %d", __func__, jsonChannel["servicename"].get<std::string>().c_str(), channelNumber);
                 channel->SetChannelNumber(channelNumber);
                 channel->SetUsingDefaultChannelNumber(false);
               }
@@ -336,7 +335,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
                 connectionURL = connectionURL.substr(0, connectionURL.size() - 1);
                 channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), jsonChannel["picon"].get<std::string>().c_str()));
 
-                Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __FUNCTION__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
+                Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __func__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
               }
             }
           }
@@ -347,16 +346,16 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
       {
         newChannelPositionOffset += jsonDoc["pos"].get<int>();
 
-        Logger::Log(LEVEL_DEBUG, "%s For groupName %s, highest  backend channel number offset is %d", __FUNCTION__, channelGroup->GetGroupName().c_str(), newChannelPositionOffset);
+        Logger::Log(LEVEL_DEBUG, "%s For groupName %s, highest  backend channel number offset is %d", __func__, channelGroup->GetGroupName().c_str(), newChannelPositionOffset);
       }
     }
     catch (nlohmann::detail::parse_error& e)
     {
-      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf - JSON parse error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+      Logger::Log(LEVEL_ERROR, "%s Invalid JSON received, cannot load provider or picon paths from OpenWebIf - JSON parse error - message: %s, exception id: %d", __func__, e.what(), e.id);
     }
     catch (nlohmann::detail::type_error& e)
     {
-      Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __FUNCTION__, e.what(), e.id);
+      Logger::Log(LEVEL_ERROR, "%s JSON type error - message: %s, exception id: %d", __func__, e.what(), e.id);
     }
   }
 

@@ -11,10 +11,8 @@
 #include "../Settings.h"
 #include "CurlFile.h"
 #include "Logger.h"
-
-#include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
-#include <tinyxml.h>
+#include "StringUtils.h"
+#include "XMLUtils.h"
 
 using namespace enigma2;
 using namespace enigma2::utilities;
@@ -72,34 +70,34 @@ std::string WebUtils::URLEncodeInline(const std::string& sSrc)
 
 bool WebUtils::CheckHttp(const std::string& url)
 {
-  Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+  Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __func__, url.c_str());
 
   CurlFile http;
   if (!http.Check(url))
   {
-    Logger::Log(LEVEL_TRACE, "%s - Could not open webAPI.", __FUNCTION__);
+    Logger::Log(LEVEL_TRACE, "%s - Could not open webAPI.", __func__);
     return false;
   }
 
-  Logger::Log(LEVEL_TRACE, "%s WebAPI available", __FUNCTION__);
+  Logger::Log(LEVEL_TRACE, "%s WebAPI available", __func__);
 
   return true;
 }
 
 std::string WebUtils::GetHttp(const std::string& url)
 {
-  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __func__, url.c_str());
 
   std::string strTmp;
 
   CurlFile http;
   if (!http.Get(url, strTmp))
   {
-    Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __func__);
     return "";
   }
 
-  Logger::Log(LEVEL_DEBUG, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
+  Logger::Log(LEVEL_DEBUG, "%s Got result. Length: %u", __func__, strTmp.length());
 
   return strTmp;
 }
@@ -118,14 +116,14 @@ std::string WebUtils::GetHttpXML(const std::string& url)
 
 std::string WebUtils::PostHttpJson(const std::string& url)
 {
-  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __FUNCTION__, url.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __func__, url.c_str());
 
   std::string strTmp;
 
   CurlFile http;
   if (!http.Post(url, strTmp))
   {
-    Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __FUNCTION__);
+    Logger::Log(LEVEL_ERROR, "%s - Could not open webAPI.", __func__);
     return "";
   }
 
@@ -134,7 +132,7 @@ std::string WebUtils::PostHttpJson(const std::string& url)
   if (strTmp.back() != '\n')
     strTmp += "\n";
 
-  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __FUNCTION__, strTmp.length());
+  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __func__, strTmp.length());
 
   return strTmp;
 }
@@ -151,7 +149,7 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
     TiXmlDocument xmlDoc;
     if (!xmlDoc.Parse(strXML.c_str()))
     {
-      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __FUNCTION__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+      Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
       return false;
     }
 
@@ -163,27 +161,27 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
 
     if (!pElem)
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not find <e2simplexmlresult> element!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not find <e2simplexmlresult> element!", __func__);
       return false;
     }
 
     bool bTmp;
 
-    if (!XMLUtils::GetBoolean(pElem, "e2state", bTmp))
+    if (!xml::GetBoolean(pElem, "e2state", bTmp))
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __func__);
       strResultText = StringUtils::Format("Could not parse e2state!");
       return false;
     }
 
-    if (!XMLUtils::GetString(pElem, "e2statetext", strResultText))
+    if (!xml::GetString(pElem, "e2statetext", strResultText))
     {
-      Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __FUNCTION__);
+      Logger::Log(LEVEL_ERROR, "%s Could not parse e2state from result!", __func__);
       return false;
     }
 
     if (!bTmp)
-      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
+      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __func__, strResultText.c_str());
 
     return bTmp;
   }
@@ -205,7 +203,7 @@ bool WebUtils::SendSimpleJsonCommand(const std::string& strCommandURL, std::stri
     else
     {
       strResultText = StringUtils::Format("Invalid Command");
-      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
+      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __func__, strResultText.c_str());
       return false;
     }
   }
@@ -228,7 +226,7 @@ bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::
     else
     {
       strResultText = StringUtils::Format("Invalid Command");
-      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __FUNCTION__, strResultText.c_str());
+      Logger::Log(LEVEL_ERROR, "%s Error message from backend: '%s'", __func__, strResultText.c_str());
       return false;
     }
   }

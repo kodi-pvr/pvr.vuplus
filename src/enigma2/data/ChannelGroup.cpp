@@ -7,11 +7,10 @@
  */
 
 #include "ChannelGroup.h"
+#include "../utilities/StringUtils.h"
+#include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
-
-#include <kodi/util/XMLUtils.h>
-#include <p8-platform/util/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -53,14 +52,14 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   std::string serviceReference;
   std::string groupName;
 
-  if (!XMLUtils::GetString(groupNode, "e2servicereference", serviceReference))
+  if (!xml::GetString(groupNode, "e2servicereference", serviceReference))
     return false;
 
   // Check whether the current element is not just a label
   if (serviceReference.compare(0, 5, "1:64:") == 0)
     return false;
 
-  if (!XMLUtils::GetString(groupNode, "e2servicename", groupName))
+  if (!xml::GetString(groupNode, "e2servicename", groupName))
     return false;
 
   // Check if the current element is hidden or a separator
@@ -81,7 +80,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     if (it == customGroupNamelist.end())
       return false;
     else
-      Logger::Log(LEVEL_DEBUG, "%s Custom TV groups are set, current e2servicename '%s' matched", __FUNCTION__, groupName.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Custom TV groups are set, current e2servicename '%s' matched", __func__, groupName.c_str());
   }
   else if (radio && (Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
                      Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
@@ -93,7 +92,7 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     if (it == customGroupNamelist.end())
       return false;
     else
-      Logger::Log(LEVEL_DEBUG, "%s Custom Radio groups are set, current e2servicename '%s' matched", __FUNCTION__, groupName.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Custom Radio groups are set, current e2servicename '%s' matched", __func__, groupName.c_str());
   }
   else if (groupName == "Last Scanned")
   {
@@ -107,11 +106,11 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   return true;
 }
 
-void ChannelGroup::UpdateTo(PVR_CHANNEL_GROUP& left) const
+void ChannelGroup::UpdateTo(kodi::addon::PVRChannelGroup& left) const
 {
-  left.bIsRadio = m_radio;
-  left.iPosition = 0; // groups default order, unused
-  strncpy(left.strGroupName, m_groupName.c_str(), sizeof(left.strGroupName) - 1);
+  left.SetIsRadio(m_radio);
+  left.SetPosition(0); // groups default order, unused
+  left.SetGroupName(m_groupName);
 }
 
 void ChannelGroup::AddChannelGroupMember(std::shared_ptr<Channel>& channel)

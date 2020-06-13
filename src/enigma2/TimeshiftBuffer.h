@@ -15,9 +15,11 @@
 #include <mutex>
 #include <thread>
 
+#include <kodi/Filesystem.h>
+
 namespace enigma2
 {
-  class TimeshiftBuffer : public IStreamReader
+  class ATTRIBUTE_HIDDEN TimeshiftBuffer : public IStreamReader
   {
   public:
     TimeshiftBuffer(IStreamReader* strReader, const std::string& m_timeshiftBufferPath, const unsigned int m_readTimeoutX);
@@ -42,8 +44,8 @@ namespace enigma2
 
     std::string m_bufferPath;
     IStreamReader* m_streamReader;
-    void* m_filebufferReadHandle;
-    void* m_filebufferWriteHandle;
+    kodi::vfs::CFile m_filebufferReadHandle;
+    kodi::vfs::CFile m_filebufferWriteHandle;
     int m_readTimeout;
     std::time_t m_start = 0;
     std::atomic<uint64_t> m_writePos = {0};

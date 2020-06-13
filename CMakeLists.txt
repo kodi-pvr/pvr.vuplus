@@ -4,18 +4,14 @@ project(pvr.vuplus)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(Kodi REQUIRED)
-find_package(kodiplatform REQUIRED)
 find_package(NlohmannJson REQUIRED)
-find_package(p8-platform REQUIRED)
 find_package(TinyXML REQUIRED)
 
-include_directories(${kodiplatform_INCLUDE_DIRS}
-                    ${NLOHMANNJSON_INCLUDE_DIRS}
-                    ${p8-platform_INCLUDE_DIRS}
+include_directories(${NLOHMANNJSON_INCLUDE_DIRS}
                     ${TINYXML_INCLUDE_DIR}
                     ${KODI_INCLUDE_DIR})
 
-set(VUPLUS_SOURCES src/client.cpp
+set(VUPLUS_SOURCES src/addon.cpp
                    src/Enigma2.cpp
                    src/enigma2/Admin.cpp
                    src/enigma2/Channels.cpp
@@ -42,9 +38,10 @@ set(VUPLUS_SOURCES src/client.cpp
                    src/enigma2/utilities/CurlFile.cpp
                    src/enigma2/utilities/FileUtils.cpp
                    src/enigma2/utilities/Logger.cpp
+                   src/enigma2/utilities/StringUtils.cpp
                    src/enigma2/utilities/WebUtils.cpp)
 
-set(VUPLUS_HEADERS src/client.h
+set(VUPLUS_HEADERS src/addon.h
                    src/Enigma2.h
                    src/enigma2/Admin.h
                    src/enigma2/Channels.h
@@ -80,18 +77,17 @@ set(VUPLUS_HEADERS src/client.h
                    src/enigma2/utilities/CurlFile.h
                    src/enigma2/utilities/DeviceInfo.h
                    src/enigma2/utilities/DeviceSettings.h
-                   src/enigma2/utilities/LocalizedString.h
                    src/enigma2/utilities/UpdateState.h
                    src/enigma2/utilities/FileUtils.h
                    src/enigma2/utilities/Logger.h
                    src/enigma2/utilities/SignalStatus.h
                    src/enigma2/utilities/StreamStatus.h
+                   src/enigma2/utilities/StringUtils.h
                    src/enigma2/utilities/Tuner.h
-                   src/enigma2/utilities/WebUtils.h)
+                   src/enigma2/utilities/WebUtils.h
+                   src/enigma2/utilities/XMLUtils.h)
 
-set(DEPLIBS ${kodiplatform_LIBRARIES}
-            ${p8-platform_LIBRARIES}
-            ${TINYXML_LIBRARIES})
+set(DEPLIBS ${TINYXML_LIBRARIES})
 
 addon_version(pvr.vuplus VUPLUS)
 add_definitions(-DVUPLUS_VERSION=${VUPLUS_VERSION})

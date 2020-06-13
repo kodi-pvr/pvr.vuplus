@@ -18,11 +18,11 @@
 #include <string>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/General.h>
 
 namespace enigma2
 {
-  class Admin
+  class ATTRIBUTE_HIDDEN Admin
   {
   public:
     Admin();
@@ -34,7 +34,7 @@ namespace enigma2
     bool SendGlobalRecordingStartMarginSetting(int newValue);
     bool SendGlobalRecordingEndMarginSetting(int newValue);
     const utilities::DeviceInfo& GetDeviceInfo() const { return m_deviceInfo; }
-    PVR_ERROR GetDriveSpace(long long* iTotal, long long* iUsed, std::vector<std::string>& locations);
+    PVR_ERROR GetDriveSpace(uint64_t& iTotal, uint64_t& iUsed, std::vector<std::string>& locations);
     const char* GetServerName() const { return m_serverName; }
     const char* GetServerVersion() const { return m_serverVersion; }
     const std::string& GetDeviceName() const { return m_deviceInfo.GetServerName(); }
@@ -53,7 +53,7 @@ namespace enigma2
     bool LoadAutoTimerSettings();
     bool LoadRecordingMarginSettings();
     unsigned int ParseWebIfVersion(const std::string& webIfVersion);
-    long long GetKbFromString(const std::string& stringInMbGbTb) const;
+    uint64_t GetKbFromString(const std::string& stringInMbGbTb) const;
     utilities::StreamStatus GetStreamDetails(const std::shared_ptr<data::Channel>& channel);
     void GetTunerDetails(utilities::SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel);
 

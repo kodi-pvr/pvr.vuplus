@@ -20,24 +20,24 @@
 #include <string>
 #include <vector>
 
-#include <kodi/libXBMC_pvr.h>
-
 namespace enigma2
 {
   static const float LAST_SCANNED_INITIAL_EPG_SUCCESS_PERCENT = 0.99f;
   static const int DEFAULT_EPG_MAX_DAYS = 3;
 
-  class Epg
+  class IConnectionListener;
+
+  class ATTRIBUTE_HIDDEN Epg
   {
   public:
-    Epg(enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays);
+    Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays);
     Epg(const enigma2::Epg& epg);
 
     bool Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups);
     bool IsInitialEpgCompleted();
     void TriggerEpgUpdatesForChannels();
     void MarkChannelAsInitialEpgRead(const std::string& serviceReference);
-    PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const std::string& serviceReference, time_t iStart, time_t iEnd);
+    PVR_ERROR GetEPGForChannel(const std::string& serviceReference, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results);
     void SetEPGTimeFrame(int epgMaxDays);
     std::string LoadEPGEntryShortDescription(const std::string& serviceReference, unsigned int epgUid);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string& serviceReference, time_t startTime);
@@ -46,15 +46,16 @@ namespace enigma2
     void UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry>& timerBasedEntries);
 
   private:
-    PVR_ERROR TransferInitialEPGForChannel(ADDON_HANDLE handle, const std::shared_ptr<data::EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
+    PVR_ERROR TransferInitialEPGForChannel(kodi::addon::PVREPGTagsResultSet& results, const std::shared_ptr<data::EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
     std::shared_ptr<data::EpgChannel> GetEpgChannel(const std::string& serviceReference);
     bool LoadInitialEPGForGroup(const std::shared_ptr<enigma2::data::ChannelGroup> group);
     bool ChannelNeedsInitialEpg(const std::string& serviceReference);
     bool InitialEpgLoadedForChannel(const std::string& serviceReference);
     bool InitialEpgReadForChannel(const std::string& serviceReference);
     std::shared_ptr<data::EpgChannel> GetEpgChannelNeedingInitialEpg(const std::string& serviceReference);
-    int TransferTimerBasedEntries(ADDON_HANDLE handle, int epgChannelId);
+    int TransferTimerBasedEntries(kodi::addon::PVREPGTagsResultSet& results, int epgChannelId);
 
+    enigma2::IConnectionListener& m_connectionListener;
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
 
     bool m_initialEpgReady = false;

@@ -13,17 +13,18 @@
 
 #include <cstdarg>
 
+#include <kodi/Filesystem.h>
+
 using namespace enigma2::utilities;
 
 bool CurlFile::Get(const std::string& strURL, std::string& strResult)
 {
-  void* fileHandle = XBMC->OpenFile(strURL.c_str(), 0);
-  if (fileHandle)
+  kodi::vfs::CFile fileHandle;
+  if (fileHandle.OpenFile(strURL))
   {
-    char buffer[1024];
-    while (XBMC->ReadFileString(fileHandle, buffer, 1024))
+    std::string buffer;
+    while (fileHandle.ReadLine(buffer))
       strResult.append(buffer);
-    XBMC->CloseFile(fileHandle);
     return true;
   }
   return false;
@@ -31,27 +32,24 @@ bool CurlFile::Get(const std::string& strURL, std::string& strResult)
 
 bool CurlFile::Post(const std::string& strURL, std::string& strResult)
 {
-  void* fileHandle = XBMC->CURLCreate(strURL.c_str());
-
-  if (!fileHandle)
+  kodi::vfs::CFile fileHandle;
+  if (!fileHandle.CURLCreate(strURL))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __FUNCTION__, strURL.c_str());
+    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __func__, strURL.c_str());
     return false;
   }
 
-  XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL, "postdata", "POST");
+  fileHandle.CURLAddOption(ADDON_CURL_OPTION_PROTOCOL, "postdata", "POST");
 
-  if (!XBMC->CURLOpen(fileHandle, XFILE::READ_NO_CACHE))
+  if (!fileHandle.CURLOpen(ADDON_READ_NO_CACHE))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to open url: %s", __FUNCTION__, strURL.c_str());
-    XBMC->CloseFile(fileHandle);
+    Logger::Log(LEVEL_ERROR, "%s Unable to open url: %s", __func__, strURL.c_str());
     return false;
   }
 
-  char buffer[1024];
-  while (XBMC->ReadFileString(fileHandle, buffer, 1024))
+  std::string buffer;
+  while (fileHandle.ReadLine(buffer))
     strResult.append(buffer);
-  XBMC->CloseFile(fileHandle);
 
   if (!strResult.empty())
     return true;
@@ -61,25 +59,21 @@ bool CurlFile::Post(const std::string& strURL, std::string& strResult)
 
 bool CurlFile::Check(const std::string& strURL)
 {
-  void* fileHandle = XBMC->CURLCreate(strURL.c_str());
-
-  if (!fileHandle)
+  kodi::vfs::CFile fileHandle;
+  if (!fileHandle.CURLCreate(strURL))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __FUNCTION__, strURL.c_str());
+    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __func__, strURL.c_str());
     return false;
   }
 
-  XBMC->CURLAddOption(fileHandle, XFILE::CURL_OPTION_PROTOCOL, "connection-timeout",
-                      std::to_string(Settings::GetInstance().GetConnectioncCheckTimeoutSecs()).c_str());
+  fileHandle.CURLAddOption(ADDON_CURL_OPTION_PROTOCOL, "connection-timeout",
+                      std::to_string(Settings::GetInstance().GetConnectioncCheckTimeoutSecs()));
 
-  if (!XBMC->CURLOpen(fileHandle, XFILE::READ_NO_CACHE))
+  if (!fileHandle.CURLOpen(ADDON_READ_NO_CACHE))
   {
-    Logger::Log(LEVEL_TRACE, "%s Unable to open url: %s", __FUNCTION__, strURL.c_str());
-    XBMC->CloseFile(fileHandle);
+    Logger::Log(LEVEL_TRACE, "%s Unable to open url: %s", __func__, strURL.c_str());
     return false;
   }
-
-  XBMC->CloseFile(fileHandle);
 
   return true;
 }

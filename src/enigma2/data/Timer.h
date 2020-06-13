@@ -17,7 +17,7 @@
 #include <string>
 #include <type_traits>
 
-#include <kodi/libXBMC_pvr.h>
+#include <kodi/addon-instance/pvr/Timers.h>
 #include <tinyxml.h>
 
 namespace enigma2
@@ -29,7 +29,7 @@ namespace enigma2
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
     static const std::string TAG_FOR_PADDING = "Padding";
 
-    class Timer : public EpgEntry, public Tags
+    class ATTRIBUTE_HIDDEN Timer : public EpgEntry, public Tags
     {
     public:
 
@@ -88,7 +88,7 @@ namespace enigma2
       bool Like(const Timer& right) const;
       bool operator==(const Timer& right) const;
       void UpdateFrom(const Timer& right);
-      void UpdateTo(PVR_TIMER& right) const;
+      void UpdateTo(kodi::addon::PVRTimer& right) const;
       bool UpdateFrom(TiXmlElement* timerNode, Channels& channels);
 
     protected:
