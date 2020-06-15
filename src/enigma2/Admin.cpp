@@ -265,8 +265,7 @@ unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
 
 bool Admin::LoadDeviceSettings()
 {
-  //TODO: Include once addon starts to use new API
-  //kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
+  kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
 
   std::string autoTimerTagInTags = kodi::GetLocalizedString(30094); // N/A
   std::string autoTimerNameInTags = kodi::GetLocalizedString(30094); // N/A
@@ -287,9 +286,8 @@ bool Admin::LoadDeviceSettings()
     }
   }
 
-  //TODO: Include once addon starts to use new API
-  //kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
-  //kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
+  kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
+  kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
 
   if (!LoadRecordingMarginSettings())
   {
@@ -297,9 +295,8 @@ bool Admin::LoadDeviceSettings()
   }
   else
   {
-    //TODO: Include once addon starts to use new API
-    //kodi::SetSettingInt("globalstartpaddingstb", m_deviceSettings.GetGlobalRecordingStartMargin());
-    //kodi::SetSettingInt("globalendpaddingstb", m_deviceSettings.GetGlobalRecordingEndMargin());
+    kodi::SetSettingInt("globalstartpaddingstb", m_deviceSettings.GetGlobalRecordingStartMargin());
+    kodi::SetSettingInt("globalendpaddingstb", m_deviceSettings.GetGlobalRecordingEndMargin());
   }
 
   return true;

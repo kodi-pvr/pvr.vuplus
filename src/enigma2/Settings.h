@@ -212,7 +212,11 @@ namespace enigma2
     const std::string& GetWebIfVersion() const { return m_deviceInfo->GetWebIfVersion(); }
 
     const enigma2::utilities::DeviceInfo* GetDeviceInfo() const { return m_deviceInfo; }
-    void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo) { m_deviceInfo = deviceInfo; }
+    void SetDeviceInfo(enigma2::utilities::DeviceInfo* deviceInfo)
+    {
+      m_deviceInfo = deviceInfo;
+      m_deviceInfoSet = true;
+    }
 
     const enigma2::utilities::DeviceSettings* GetDeviceSettings() const { return m_deviceSettings; }
     void SetDeviceSettings(enigma2::utilities::DeviceSettings* deviceSettings)
@@ -232,7 +236,7 @@ namespace enigma2
 
     bool CheckOpenWebIfVersion(unsigned int major, unsigned int minor, unsigned int patch) const
     {
-      return m_deviceSettingsSet ? GetWebIfVersionAsNum() >= GenerateWebIfVersionAsNum(major, minor, patch) && StringUtils::StartsWith(GetWebIfVersion(), "OWIF") : m_deviceSettingsSet;
+      return m_deviceInfoSet ? GetWebIfVersionAsNum() >= GenerateWebIfVersionAsNum(major, minor, patch) && StringUtils::StartsWith(GetWebIfVersion(), "OWIF") : m_deviceInfoSet;
     }
 
     bool IsOpenWebIf() const { return StringUtils::StartsWith(GetWebIfVersion(), "OWIF"); }
@@ -415,6 +419,7 @@ namespace enigma2
     enigma2::utilities::DeviceInfo* m_deviceInfo;
     enigma2::utilities::DeviceSettings* m_deviceSettings;
     enigma2::Admin* m_admin;
+    bool m_deviceInfoSet = false;
     bool m_deviceSettingsSet = false;
 
     std::vector<std::string> m_customTVChannelGroupNameList;

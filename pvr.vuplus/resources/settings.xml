@@ -796,10 +796,8 @@
     </category>
 
     <!-- Backend -->
-    <!-- Add again one new addon API is supported -->
     <category id="backend" label="30086" help="30760">
-      <!-- Add again one new addon API is supported -->
-      <!-- <group id="1" label="30090">
+      <group id="1" label="30090">
         <setting id="webifversion" type="string" label="30091" help="30761">
           <level>0</level>
           <default>N/A</default>
@@ -824,7 +822,7 @@
           </dependencies>
           <control type="edit" format="string" />
         </setting>
-      </group> -->
+      </group>
 
       <group id="2" label="30145">
         <setting id="wakeonlanmac" type="string" label="30146" help="30766">
@@ -850,8 +848,7 @@
         </setting>
       </group>
 
-      <!-- Add again one new addon API is supported -->
-      <!-- <group id="3" label="30087">
+      <group id="3" label="30087">
         <setting id="globalstartpaddingstb" type="integer" label="30088" help="30764">
           <level>0</level>
           <default>0</default>
@@ -878,7 +875,7 @@
             <formatlabel>14044</formatlabel>
           </control>
         </setting>
-      </group> -->
+      </group>
     </category>
 
     <!-- Advanced -->
