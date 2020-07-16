@@ -25,7 +25,6 @@
 
 #include <kodi/General.h>
 #include <kodi/tools/StringUtils.h>
-#include <kodi/TimingConstants.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -1042,7 +1041,7 @@ PVR_ERROR Enigma2::GetStreamTimes(kodi::addon::PVRStreamTimes& times)
     times.SetPTSStart(0);
     times.SetPTSBegin(0);
     times.SetPTSEnd((!m_streamReader->IsTimeshifting()) ? 0
-      : (m_streamReader->TimeEnd() - m_streamReader->TimeStart()) * DVD_TIME_BASE);
+      : (m_streamReader->TimeEnd() - m_streamReader->TimeStart()) * STREAM_TIME_BASE);
 
     return PVR_ERROR_NO_ERROR;
   }
@@ -1051,7 +1050,7 @@ PVR_ERROR Enigma2::GetStreamTimes(kodi::addon::PVRStreamTimes& times)
     times.SetStartTime(0);
     times.SetPTSStart(0);
     times.SetPTSBegin(0);
-    times.SetPTSEnd(static_cast<int64_t>(m_recordingReader->CurrentDuration()) * DVD_TIME_BASE);
+    times.SetPTSEnd(static_cast<int64_t>(m_recordingReader->CurrentDuration()) * STREAM_TIME_BASE);
 
     return PVR_ERROR_NO_ERROR;
   }
