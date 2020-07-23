@@ -148,7 +148,7 @@ void Enigma2::ConnectionEstablished()
   {
     if ((m_settings.GetUsername().find("@") != std::string::npos) || (m_settings.GetPassword().find("@") != std::string::npos))
     {
-      Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuraton!", __func__);
+      Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuration!", __func__);
       return;
     }
   }
@@ -841,7 +841,7 @@ PVR_ERROR Enigma2::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types)
   if (IsConnected())
   {
     m_timers.GetTimerTypes(types);
-    Logger::Log(LEVEL_INFO, "%s Transfered %u timer types", __func__, types.size());
+    Logger::Log(LEVEL_INFO, "%s Transferred %u timer types", __func__, types.size());
   }
   return PVR_ERROR_NO_ERROR;
 }
