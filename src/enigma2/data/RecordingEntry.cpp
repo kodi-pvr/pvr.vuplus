@@ -26,7 +26,10 @@ std::string ParseAsW3CDateString(time_t time)
 {
   std::tm* tm = std::localtime(&time);
   char buffer[16];
-  std::strftime(buffer, 16, "%Y-%m-%d", tm);
+  if (tm)
+    std::strftime(buffer, 16, "%Y-%m-%d", tm);
+  else // negative time or other invalid time_t value
+     std::strcpy(buffer, "1970-01-01");
 
   return buffer;
 }
@@ -306,7 +309,12 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelNameFuzzySearch(Ch
   for (const auto& channel : channels.GetChannelsList())
   {
     fuzzyRecordingChannelName = m_channelName;
-    fuzzyRecordingChannelName.erase(remove_if(fuzzyRecordingChannelName.begin(), fuzzyRecordingChannelName.end(), isspace), fuzzyRecordingChannelName.end());
+    // We need to correctly cast to unsigned char as for some platforms such as windows it will
+    // fail on a negative value as it will be treated as an int instead of character
+    auto func = [](char c) { return isspace(static_cast<unsigned char>(c)); };
+    // alternatively this can be done as follows:
+    //auto func = [](unsigned char const c) { return isspace(std::char_traits<char>::to_int_type(c)); };
+    fuzzyRecordingChannelName.erase(remove_if(fuzzyRecordingChannelName.begin(), fuzzyRecordingChannelName.end(), func), fuzzyRecordingChannelName.end());
 
     if (fuzzyRecordingChannelName == channel->GetFuzzyChannelName() && (!m_haveChannelType || (channel->IsRadio() == m_radio)))
     {

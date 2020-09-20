@@ -90,7 +90,10 @@ std::string ParseAsW3CDateString(time_t time)
 {
   std::tm* tm = std::localtime(&time);
   char buffer[16];
-  std::strftime(buffer, 16, "%Y-%m-%d", tm);
+  if (tm)
+    std::strftime(buffer, 16, "%Y-%m-%d", tm);
+  else // negative time or other invalid time_t value
+     std::strcpy(buffer, "1970-01-01");
 
   return buffer;
 }

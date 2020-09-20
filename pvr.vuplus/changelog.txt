@@ -1,3 +1,7 @@
+v6.1.2
+- Fixed: Fix char treated as negative values on windows causes crash on isspace call
+- Fixed: Check for invalid time struct when converting epg/recording entry to string
+
 v6.1.1
 - Update: Spelling fixes (Closes: pvr.vuplus#292)
 

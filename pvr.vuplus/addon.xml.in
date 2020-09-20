@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="6.1.1"
+  version="6.1.2"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -181,6 +181,10 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v6.1.2
+- Fixed: Fix char treated as negative values on windows causes crash on isspace call
+- Fixed: Check for invalid time struct when converting epg/recording entry to string
+
 v6.1.1
 - Update: Spelling fixes (Closes: pvr.vuplus#292)
 

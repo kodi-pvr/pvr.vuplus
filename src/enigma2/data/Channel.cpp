@@ -61,7 +61,13 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
     return false;
 
   m_fuzzyChannelName = m_channelName;
-  m_fuzzyChannelName.erase(std::remove_if(m_fuzzyChannelName.begin(), m_fuzzyChannelName.end(), isspace), m_fuzzyChannelName.end());
+
+  // We need to correctly cast to unsigned char as for some platforms such as windows it will 
+  // fail on a negative value as it will be treated as an int instead of character
+  auto func = [](char c) { return isspace(static_cast<unsigned char>(c)); };
+  // alternatively this can be done as follows:
+  //auto func = [](unsigned char const c) { return isspace(std::char_traits<char>::to_int_type(c)); };
+  m_fuzzyChannelName.erase(std::remove_if(m_fuzzyChannelName.begin(), m_fuzzyChannelName.end(), func), m_fuzzyChannelName.end());
 
   if (m_radio != HasRadioServiceType())
     return false;
