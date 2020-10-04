@@ -11,11 +11,13 @@
 #include "../Settings.h"
 #include "CurlFile.h"
 #include "Logger.h"
-#include "StringUtils.h"
 #include "XMLUtils.h"
+
+#include <kodi/tools/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 const char SAFE[256] =
 {

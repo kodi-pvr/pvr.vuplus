@@ -10,7 +10,6 @@
 
 #include "../Enigma2.h"
 #include "utilities/Logger.h"
-#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
 #include "utilities/XMLUtils.h"
 
@@ -19,12 +18,14 @@
 #include <regex>
 #include <sstream>
 
+#include <kodi/tools/StringUtils.h>
 #include <nlohmann/json.hpp>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 using json = nlohmann::json;
 
 const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";

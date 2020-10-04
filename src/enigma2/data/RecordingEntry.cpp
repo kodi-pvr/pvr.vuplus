@@ -8,16 +8,18 @@
 
 #include "RecordingEntry.h"
 
-#include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
 
+#include <kodi/tools/StringUtils.h>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 namespace
 {
