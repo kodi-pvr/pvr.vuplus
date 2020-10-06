@@ -8,16 +8,18 @@
 
 #include "RecordingEntry.h"
 
-#include "../utilities/StringUtils.h"
 #include "../utilities/WebUtils.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <cstdlib>
 
+#include <kodi/tools/StringUtils.h>
+
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 namespace
 {
@@ -32,6 +34,38 @@ std::string ParseAsW3CDateString(time_t time)
      std::strcpy(buffer, "1970-01-01");
 
   return buffer;
+}
+
+time_t ExtractE2TimeFromFilename(const std::string& filename)
+{
+  static std::regex rgx(".*([1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9] [0-9][0-9][0-9][0-9]).*");
+  std::smatch match;
+  if (std::regex_search(filename, match, rgx))
+  {
+    std::string dateString = match[1].str();
+
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    int hour = 0;
+    int min = 0;
+    int count = std::sscanf(dateString.c_str(), "%4d%2d%2d %2d%2d", &year, &month, &day, &hour, &min);
+    if (count == 5)
+    {
+      std::tm tm = {};
+      tm.tm_year = year - 1900;
+      tm.tm_mon = month - 1;
+      tm.tm_mday = day;
+      tm.tm_hour = hour - 1;
+      tm.tm_min = min - 1;
+      tm.tm_sec = 0;
+      tm.tm_isdst = -1;
+
+      return std::mktime(&tm);
+    }
+  }
+
+  return -1;
 }
 
 } // unnamed namespace
@@ -62,6 +96,10 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   if (xml::GetInt(recordingNode, "e2time", iTmp))
   {
     m_startTime = iTmp;
+
+    if (m_startTime < 0 && xml::GetString(recordingNode, "e2filename", strTmp))
+      m_startTime = ExtractE2TimeFromFilename(strTmp);
+
     m_startTimeW3CDateString = ParseAsW3CDateString(m_startTime);
   }
 

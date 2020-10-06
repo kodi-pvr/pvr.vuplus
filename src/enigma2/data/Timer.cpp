@@ -8,17 +8,18 @@
 
 #include "Timer.h"
 
-#include "../utilities/StringUtils.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cinttypes>
 #include <regex>
 
+#include <kodi/tools/StringUtils.h>
 #include <kodi/General.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 bool Timer::Like(const Timer& right) const
 {

@@ -8,11 +8,12 @@
 
 #include "Logger.h"
 
-#include "StringUtils.h"
-
 #include <cstdarg>
 
+#include <kodi/tools/StringUtils.h>
+
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 Logger::Logger()
 {

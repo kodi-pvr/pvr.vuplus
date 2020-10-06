@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include "../utilities/StringUtils.h"
-
 #include <regex>
 #include <string>
+
+#include <kodi/tools/StringUtils.h>
 
 namespace enigma2
 {
@@ -54,7 +54,7 @@ namespace enigma2
           std::string val = tagValue;
           if (replaceUnderscores)
             std::replace(val.begin(), val.end(), ' ', '_');
-          m_tags.append(StringUtils::Format("=%s", val.c_str()));
+          m_tags.append(kodi::tools::StringUtils::Format("=%s", val.c_str()));
         }
       }
 
@@ -71,7 +71,7 @@ namespace enigma2
           if (found != std::string::npos)
             tagValue = tagValue.substr(0, found);
 
-          tagValue = StringUtils::Trim(tagValue);
+          tagValue = kodi::tools::StringUtils::Trim(tagValue);
 
           if (replaceUnderscores)
             std::replace(tagValue.begin(), tagValue.end(), '_', ' ');

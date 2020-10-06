@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="6.1.3"
+  version="6.2.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@</requires>
@@ -181,6 +181,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v6.2.0
+- Added: If no recording metadata use filename for recording date if possible
+
 v6.1.3
 - Fixed: Fixed StringUtils for cpp 17
 

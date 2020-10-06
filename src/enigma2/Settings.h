@@ -12,11 +12,11 @@
 #include "utilities/DeviceInfo.h"
 #include "utilities/DeviceSettings.h"
 #include "utilities/Logger.h"
-#include "utilities/StringUtils.h"
 
 #include <string>
 #include <vector>
 
+#include <kodi/tools/StringUtils.h>
 #include <kodi/AddonBase.h>
 
 class Vu;
@@ -236,10 +236,10 @@ namespace enigma2
 
     bool CheckOpenWebIfVersion(unsigned int major, unsigned int minor, unsigned int patch) const
     {
-      return m_deviceInfoSet ? GetWebIfVersionAsNum() >= GenerateWebIfVersionAsNum(major, minor, patch) && StringUtils::StartsWith(GetWebIfVersion(), "OWIF") : m_deviceInfoSet;
+      return m_deviceInfoSet ? GetWebIfVersionAsNum() >= GenerateWebIfVersionAsNum(major, minor, patch) && kodi::tools::StringUtils::StartsWith(GetWebIfVersion(), "OWIF") : m_deviceInfoSet;
     }
 
-    bool IsOpenWebIf() const { return StringUtils::StartsWith(GetWebIfVersion(), "OWIF"); }
+    bool IsOpenWebIf() const { return kodi::tools::StringUtils::StartsWith(GetWebIfVersion(), "OWIF"); }
     bool SupportsEditingRecordings() const { return CheckOpenWebIfVersion(1, 3, 6); }
     bool SupportsAutoTimers() const { return CheckOpenWebIfVersion(1, 3, 0); }
     bool SupportsTunerDetails() const { return CheckOpenWebIfVersion(1, 3, 5); }

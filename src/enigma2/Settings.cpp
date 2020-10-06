@@ -9,13 +9,14 @@
 #include "Settings.h"
 
 #include "utilities/FileUtils.h"
-#include "utilities/StringUtils.h"
 #include "utilities/XMLUtils.h"
 
+#include <kodi/tools/StringUtils.h>
 #include <tinyxml.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 /***************************************************************************
  * PVR settings

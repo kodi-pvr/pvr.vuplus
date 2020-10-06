@@ -11,18 +11,19 @@
 #include "../Enigma2.h"
 #include "utilities/FileUtils.h"
 #include "utilities/Logger.h"
-#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
 #include "utilities/XMLUtils.h"
 
 #include <regex>
 
 #include <kodi/General.h>
+#include <kodi/tools/StringUtils.h>
 #include <nlohmann/json.hpp>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 using json = nlohmann::json;
 
 void ChannelGroups::GetChannelGroups(std::vector<kodi::addon::PVRChannelGroup>& kodiChannelGroups, bool radio) const

@@ -11,15 +11,16 @@
 #include "IConnectionListener.h"
 #include "Settings.h"
 #include "utilities/Logger.h"
-#include "utilities/StringUtils.h"
 #include "utilities/WebUtils.h"
 
 #include <chrono>
 
+#include <kodi/tools/StringUtils.h>
 #include <kodi/Network.h>
 
 using namespace enigma2;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 /*
  * Enigma2 Connection handler

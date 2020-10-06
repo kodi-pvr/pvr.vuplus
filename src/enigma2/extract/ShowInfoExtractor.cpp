@@ -9,15 +9,17 @@
 #include "ShowInfoExtractor.h"
 
 #include "../utilities/FileUtils.h"
-#include "../utilities/StringUtils.h"
 #include "../utilities/XMLUtils.h"
 
 #include <cstdlib>
+
+#include <kodi/tools/StringUtils.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
 {

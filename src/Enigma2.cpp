@@ -11,7 +11,6 @@
 #include "enigma2/TimeshiftBuffer.h"
 #include "enigma2/utilities/CurlFile.h"
 #include "enigma2/utilities/Logger.h"
-#include "enigma2/utilities/StringUtils.h"
 #include "enigma2/utilities/XMLUtils.h"
 #include "enigma2/utilities/WebUtils.h"
 
@@ -24,12 +23,14 @@
 #include <string>
 
 #include <kodi/General.h>
+#include <kodi/tools/StringUtils.h>
 #include <kodi/TimingConstants.h>
 
 using namespace enigma2;
 using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
+using namespace kodi::tools;
 
 template<typename T> void SafeDelete(T*& p)
 {
