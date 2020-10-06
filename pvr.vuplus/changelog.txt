@@ -1,5 +1,9 @@
+v6.2.1
+- Fixed: changelog
+
 v6.2.0
 - Added: If no recording metadata use filename for recording date if possible
+- Update: Use add-on supplied StringUtils and remove local version
 
 v6.1.3
 - Fixed: Fixed StringUtils for cpp 17
