@@ -54,6 +54,9 @@ The option `Enable automatic configuration for live streams` is ignored for chan
 
 The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi from source and run it directly the addon will be available as a system addon.
 
+As an alternative to step 4 the following command can be run whic is addon agnostic:
+ - `cmake -DADDONS_TO_BUILD=$(basename $(dirname $(pwd))) -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
+
 ### Mac OSX
 
 In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi. Note that we checkout kodi to a separate directory as this repo will only only be used to build the addon and nothing else.
