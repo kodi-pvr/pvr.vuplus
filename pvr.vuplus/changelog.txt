@@ -1,3 +1,9 @@
+v6.3.0
+- Added: Timeshifting for IPTV streams using ffmpegdirect
+- Updated: Readme with generic linux build command
+- Update: Update travis.yml for cpp17 and debian
+- Added: Add option to return recordings recursively from recording locations
+
 v6.2.1
 - Fixed: changelog
 
