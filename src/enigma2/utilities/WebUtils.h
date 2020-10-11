@@ -14,6 +14,9 @@ namespace enigma2
 {
   namespace utilities
   {
+    static const std::string HTTP_PREFIX = "http://";
+    static const std::string HTTPS_PREFIX = "https://";
+
     class WebUtils
     {
     public:
@@ -26,6 +29,9 @@ namespace enigma2
       static bool SendSimpleJsonCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult = false);
       static bool SendSimpleJsonPostCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult = false);
       static std::string& Escape(std::string& s, const std::string from, const std::string to);
+      static const std::string UrlEncode(const std::string& value);
+      static std::string ReadFileContentsStartOnly(const std::string& url, int* httpCode);
+      static bool IsHttpUrl(const std::string& url);
     };
   } // namespace utilities
 } // namespace enigma2

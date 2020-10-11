@@ -38,6 +38,7 @@ set(VUPLUS_SOURCES src/addon.cpp
                    src/enigma2/utilities/CurlFile.cpp
                    src/enigma2/utilities/FileUtils.cpp
                    src/enigma2/utilities/Logger.cpp
+                   src/enigma2/utilities/StreamUtils.cpp
                    src/enigma2/utilities/WebUtils.cpp)
 
 set(VUPLUS_HEADERS src/addon.h
@@ -81,6 +82,7 @@ set(VUPLUS_HEADERS src/addon.h
                    src/enigma2/utilities/Logger.h
                    src/enigma2/utilities/SignalStatus.h
                    src/enigma2/utilities/StreamStatus.h
+                   src/enigma2/utilities/StreamUtils.h
                    src/enigma2/utilities/Tuner.h
                    src/enigma2/utilities/WebUtils.h
                    src/enigma2/utilities/XMLUtils.h)

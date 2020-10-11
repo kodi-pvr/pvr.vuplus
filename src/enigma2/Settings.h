@@ -193,6 +193,9 @@ namespace enigma2
     const Timeshift& GetTimeshift() const { return m_timeshift; }
     const std::string& GetTimeshiftBufferPath() const { return m_timeshiftBufferPath; }
     bool IsTimeshiftBufferPathValid() const;
+    bool IsTimeshiftEnabledIptv() const { return m_timeshiftEnabledIptv; }
+    bool UseFFmpegReconnect() const { return m_useFFmpegReconnect; }
+    bool UseMpegtsForUnknownStreams() const { return m_useMpegtsForUnknownStreams; }
 
     //Backend
     const std::string& GetWakeOnLanMac() const { return m_wakeOnLanMac; }
@@ -397,6 +400,9 @@ namespace enigma2
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
     std::string m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
+    bool m_timeshiftEnabledIptv = true;
+    bool m_useFFmpegReconnect = true;
+    bool m_useMpegtsForUnknownStreams = true;
 
     //Backend
     std::string m_wakeOnLanMac;
