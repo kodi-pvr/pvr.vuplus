@@ -667,6 +667,11 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
+        <setting id="recordingsrecursive" type="boolean" label="30022" help="30689">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
       </group>
 
       <group id="2" label="30107">

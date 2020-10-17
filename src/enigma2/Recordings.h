@@ -25,7 +25,6 @@ namespace enigma2
   static int CUTS_LAST_PLAYED_TYPE = 3;
   static int E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MIN = 300;
   static int E2_DEVICE_LAST_PLAYED_SYNC_INTERVAL_MAX = 600;
-  static constexpr const char* TRASH_FOLDER = ".Trash";
 
   class IConnectionListener;
 

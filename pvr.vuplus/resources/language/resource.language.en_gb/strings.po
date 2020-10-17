@@ -121,7 +121,12 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr ""
 
-#empty strings from id 30021 to 30022
+#empty string with id 30021
+
+#. label: Recordings - recordingsrecursive
+msgctxt "#30022"
+msgid "Use recursive listing for recording locations"
+msgstr ""
 
 #. label: Recordings - recordingpath
 msgctxt "#30023"
@@ -1212,7 +1217,12 @@ msgctxt "#30688"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
 msgstr ""
 
-#empty strings from id 30689 to 30699
+#. help: Recordings - recordingsrecursive
+msgctxt "#30689"
+msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
+msgstr ""
+
+#empty strings from id 30690 to 30699
 
 #. help info - Timers
 

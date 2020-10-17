@@ -133,6 +133,7 @@ void Settings::ReadFromAddon()
   m_recordingPath = kodi::GetSettingString("recordingpath");
   m_onlyCurrentLocation = kodi::GetSettingBoolean("onlycurrent", false);
   m_keepFolders = kodi::GetSettingBoolean("keepfolders", false);
+  m_recordingsRecursive = kodi::GetSettingBoolean("recordingsrecursive", false);
   m_enableRecordingEDLs = kodi::GetSettingBoolean("enablerecordingedls", false);
   m_edlStartTimePadding = kodi::GetSettingInt("edlpaddingstart", 0);
   m_edlStopTimePadding = kodi::GetSettingInt("edlpaddingstop", 0);
@@ -297,6 +298,8 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "recordingsrecursive")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_recordingsRecursive, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "enablerecordingedls")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableRecordingEDLs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "edlpaddingstart")

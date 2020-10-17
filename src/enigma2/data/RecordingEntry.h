@@ -25,6 +25,7 @@ namespace enigma2
     static const std::string TAG_FOR_PLAY_COUNT = "PlayCount";
     static const std::string TAG_FOR_LAST_PLAYED = "LastPlayed";
     static const std::string TAG_FOR_NEXT_SYNC_TIME = "NextSyncTime";
+    static constexpr const char* TRASH_FOLDER = ".Trash";
 
     class ATTRIBUTE_HIDDEN RecordingEntry : public BaseEntry, public Tags
     {
