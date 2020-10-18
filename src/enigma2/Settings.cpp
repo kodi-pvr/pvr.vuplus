@@ -133,6 +133,7 @@ void Settings::ReadFromAddon()
   m_recordingPath = kodi::GetSettingString("recordingpath");
   m_onlyCurrentLocation = kodi::GetSettingBoolean("onlycurrent", false);
   m_keepFolders = kodi::GetSettingBoolean("keepfolders", false);
+  m_recordingsRecursive = kodi::GetSettingBoolean("recordingsrecursive", false);
   m_enableRecordingEDLs = kodi::GetSettingBoolean("enablerecordingedls", false);
   m_edlStartTimePadding = kodi::GetSettingInt("edlpaddingstart", 0);
   m_edlStopTimePadding = kodi::GetSettingInt("edlpaddingstop", 0);
@@ -148,6 +149,9 @@ void Settings::ReadFromAddon()
   //Timeshift
   m_timeshift = kodi::GetSettingEnum<Timeshift>("enabletimeshift", Timeshift::OFF);
   m_timeshiftBufferPath = kodi::GetSettingString("timeshiftbufferpath", ADDON_DATA_BASE_DIR);
+  m_timeshiftEnabledIptv = kodi::GetSettingBoolean("timeshiftEnabledIptv", true);
+  m_useFFmpegReconnect = kodi::GetSettingBoolean("useFFmpegReconnect", true);
+  m_useMpegtsForUnknownStreams = kodi::GetSettingBoolean("useMpegtsForUnknownStreams", true);
 
   //Backend
   m_wakeOnLanMac = kodi::GetSettingString("wakeonlanmac");
@@ -294,6 +298,8 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "recordingsrecursive")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_recordingsRecursive, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "enablerecordingedls")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableRecordingEDLs, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "edlpaddingstart")
@@ -318,6 +324,12 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetEnumSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_timeshiftBufferPath, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "timeshiftEnabledIptv")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_timeshiftEnabledIptv, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "useFFmpegReconnect")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useFFmpegReconnect, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "useMpegtsForUnknownStreams")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useMpegtsForUnknownStreams, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Backend
   else if (settingName == "wakeonlanmac")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_wakeOnLanMac, ADDON_STATUS_OK, ADDON_STATUS_OK);

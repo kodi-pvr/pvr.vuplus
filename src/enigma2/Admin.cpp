@@ -681,9 +681,9 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel>& chann
           streamStatus.m_channelName = channel->GetChannelName(); //Use our channel name as from JSON is unreliable
 
           if (jsonStream["type"].get<std::string>() == "S")
-            streamStatus.m_streamType = StreamType::DIRECTLY_STREAMED;
+            streamStatus.m_streamType = StreamCodingType::DIRECTLY_STREAMED;
           else
-            streamStatus.m_streamType = StreamType::TRANSCODED;
+            streamStatus.m_streamType = StreamCodingType::TRANSCODED;
 
           break;
         }

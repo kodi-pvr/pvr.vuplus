@@ -121,7 +121,12 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr ""
 
-#empty strings from id 30021 to 30022
+#empty string with id 30021
+
+#. label: Recordings - recordingsrecursive
+msgctxt "#30022"
+msgid "Use recursive listing for recording locations"
+msgstr ""
 
 #. label: Recordings - recordingpath
 msgctxt "#30023"
@@ -745,7 +750,32 @@ msgctxt "#30146"
 msgid "Wake On LAN MAC"
 msgstr ""
 
-#empty strings from id 30147 to 30409
+#. label: Timeshift - IPTV
+msgctxt "#30147"
+msgid "IPTV"
+msgstr ""
+
+#. label: Timeshift - timeshiftEnabled
+msgctxt "#30148"
+msgid "Enable timeshift for IPTV streams"
+msgstr ""
+
+#. label: Timeshift - useFFmpegReconnect
+msgctxt "#30149"
+msgid "Use FFmpeg http reconnect options if possible"
+msgstr ""
+
+#. label: Timeshift - useMpegtsForUnknownStreams
+msgctxt "#30150"
+msgid "Use mpegts MIME type for unknown streams"
+msgstr ""
+
+#. label: Timeshift - timeshiftFFmpegdirectSettings
+msgctxt "#30151"
+msgid "- Modify inputstream.ffmpegdirect settings..."
+msgstr ""
+
+#empty strings from id 30152 to 30409
 
 #. ##############
 #. application #
@@ -1187,7 +1217,12 @@ msgctxt "#30688"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
 msgstr ""
 
-#empty strings from id 30689 to 30699
+#. help: Recordings - recordingsrecursive
+msgctxt "#30689"
+msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
+msgstr ""
+
+#empty strings from id 30690 to 30699
 
 #. help info - Timers
 
@@ -1245,7 +1280,27 @@ msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
 msgstr ""
 
-#empty strings from id 30723 to 30739
+#. help: Timeshift - timeshiftEnabled
+msgctxt "#30723"
+msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
+msgstr ""
+
+#. help: Timeshift - useFFmpegReconnect
+msgctxt "#30724"
+msgid "Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS)."
+msgstr ""
+
+#. help: Timeshift - useMpegtsForUnknownStreams
+msgctxt "#30725"
+msgid "If the type of stream cannot be determined assume it's an MPEG TS stream."
+msgstr ""
+
+#. help: Timeshift - timeshiftFFmpegdirectSettings
+msgctxt "#30726"
+msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
+msgstr ""
+
+#empty strings from id 30727 to 30739
 
 #. help info - Advanced
 

@@ -744,20 +744,42 @@ void Recordings::LoadRecordings(bool deleted)
   }
 }
 
+namespace
+{
+
+std::string GetRecursiveParam(const std::string recordingLocation, bool deleted)
+{
+  std::string recursiveParam;
+
+  if (!deleted && Settings::GetInstance().GetRecordingsRecursively())
+  {
+    if (recordingLocation == "default")
+      recursiveParam = "?recursive=1";
+    else
+      recursiveParam = "&recursive=1";
+  }
+
+  return recursiveParam;
+}
+
+} // unnamed namespace
+
 bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, bool deleted, std::vector<RecordingEntry>& recordings, std::unordered_map<std::string, enigma2::data::RecordingEntry>& recordingsIdMap)
 {
   std::string url;
   std::string directory;
 
+  std::string recursiveParam = GetRecursiveParam(recordingLocation, deleted);
+
   if (recordingLocation == "default")
   {
-    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist");
+    url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist", recursiveParam.c_str());
     directory = StringUtils::Format("/");
   }
   else
   {
-    url = StringUtils::Format("%s%s?dirname=%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist",
-                                          WebUtils::URLEncodeInline(recordingLocation).c_str());
+    url = StringUtils::Format("%s%s?dirname=%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist",
+                              WebUtils::URLEncodeInline(recordingLocation).c_str(), recursiveParam.c_str());
     directory = recordingLocation;
   }
 

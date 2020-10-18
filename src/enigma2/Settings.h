@@ -177,6 +177,7 @@ namespace enigma2
     const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
+    bool GetRecordingsRecursively() const { return m_recordingsRecursive; }
     bool GetRecordingEDLsEnabled() const { return m_enableRecordingEDLs; }
     int GetEDLStartTimePadding() const { return m_edlStartTimePadding; }
     int GetEDLStopTimePadding() const { return m_edlStopTimePadding; }
@@ -193,6 +194,9 @@ namespace enigma2
     const Timeshift& GetTimeshift() const { return m_timeshift; }
     const std::string& GetTimeshiftBufferPath() const { return m_timeshiftBufferPath; }
     bool IsTimeshiftBufferPathValid() const;
+    bool IsTimeshiftEnabledIptv() const { return m_timeshiftEnabledIptv; }
+    bool UseFFmpegReconnect() const { return m_useFFmpegReconnect; }
+    bool UseMpegtsForUnknownStreams() const { return m_useMpegtsForUnknownStreams; }
 
     //Backend
     const std::string& GetWakeOnLanMac() const { return m_wakeOnLanMac; }
@@ -382,6 +386,7 @@ namespace enigma2
     std::string m_recordingPath = "";
     bool m_onlyCurrentLocation = false;
     bool m_keepFolders = false;
+    bool m_recordingsRecursive = false;
     bool m_enableRecordingEDLs = false;
     int m_edlStartTimePadding = 0;
     int m_edlStopTimePadding = 0;
@@ -397,6 +402,9 @@ namespace enigma2
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
     std::string m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
+    bool m_timeshiftEnabledIptv = true;
+    bool m_useFFmpegReconnect = true;
+    bool m_useMpegtsForUnknownStreams = true;
 
     //Backend
     std::string m_wakeOnLanMac;

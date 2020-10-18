@@ -81,6 +81,10 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   if (xml::GetString(recordingNode, "e2servicereference", strTmp))
     m_recordingId = strTmp;
 
+  // Need to skip any trash folders for recursive list when not deleted items
+  if (!m_deleted && m_recordingId.find(directory + TRASH_FOLDER) != std::string::npos)
+    return false;
+
   if (xml::GetString(recordingNode, "e2title", strTmp))
     m_title = strTmp;
 

@@ -54,6 +54,9 @@ The option `Enable automatic configuration for live streams` is ignored for chan
 
 The addon files will be placed in `../../xbmc/build/addons` so if you build Kodi from source and run it directly the addon will be available as a system addon.
 
+As an alternative to step 4 the following command can be run whic is addon agnostic:
+ - `cmake -DADDONS_TO_BUILD=$(basename $(dirname $(pwd))) -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons`
+
 ### Mac OSX
 
 In order to build the addon on mac the steps are different to Linux and Windows as the cmake command above will not produce an addon that will run in kodi. Instead using make directly as per the supported build steps for kodi on mac we can build the tools and just the addon on it's own. Following this we copy the addon into kodi. Note that we checkout kodi to a separate directory as this repo will only only be used to build the addon and nothing else.
@@ -198,6 +201,7 @@ The following configuration is available on the Recordings tab of the addon sett
 * **Recording folder on receiver**: Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option.
 * **Use only the DVB boxes' current recording path**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.
 * **Keep folder structure for records**: If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path.
+* **Use recursive listing for recording locations**By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included.
 * **Enable EDLs support**: EDLs are used to define commericals etc. in recordings. If a tool like [Comskip]() is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called ```my recording.ts``` the EDL file should be call ```my recording.edl```. Note: enabling this setting has no effect if the files are not present.
 * **EDL start time padding**: Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0.
 * **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
@@ -253,6 +257,10 @@ Timeshifting allows you to pause live TV as well as move back and forward from y
     - `On Pause` - Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing.
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
 * **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata.
+* **Enable timeshift for IPTV streams**: Enable the timeshift feature for HTTP IPTV streams using `inputstream.ffmpegdirect`. Note that this feature only works `On playback` and will ignore the timeshift mode used for regular channel playback.
+* **Use FFMpeg http reconnect options if possible**: Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS).
+* **Use mpegts MIME type for unknown streams**: If the type of stream cannot be determined assume it's an MPEG TS stream.
+* **Modify inputstream.ffmpegdirect settings..**: Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings.
 
 ### Backend
 This category contains information and settings on/about the Enigma2 STB.

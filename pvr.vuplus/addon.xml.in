@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="6.2.1"
+  version="6.3.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
+  <requires>
+    @ADDON_DEPENDS@
+    <import addon="inputstream.ffmpegdirect" minversion="1.15.0" optional="true"/>
+  </requires>
   <requires>@ADDON_DEPENDS@</requires>
   <extension
     point="kodi.pvrclient"
@@ -181,6 +185,12 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v6.3.0
+- Added: Timeshifting for IPTV streams using ffmpegdirect
+- Updated: Readme with generic linux build command
+- Update: Update travis.yml for cpp17 and debian
+- Added: Add option to return recordings recursively from recording locations
+
 v6.2.1
 - Fixed: changelog
 

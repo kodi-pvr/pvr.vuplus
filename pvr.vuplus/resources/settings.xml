@@ -667,6 +667,11 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
+        <setting id="recordingsrecursive" type="boolean" label="30022" help="30689">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
       </group>
 
       <group id="2" label="30107">
@@ -790,6 +795,39 @@
           </dependencies>
           <control type="button" format="path">
             <heading>657</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2" label="30147">
+        <setting id="timeshiftEnabledIptv" type="boolean" label="30148" help="30723">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="useFFmpegReconnect" type="boolean" parent="timeshiftEnabledIptv" label="30149" help="30724">
+          <level>3</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftEnabledIptv" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="useMpegtsForUnknownStreams" type="boolean" parent="timeshiftEnabledIptv" label="30150" help="30725">
+          <level>3</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftEnabledIptv" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="ffmpegdirectSettings" type="action" label="30151" help="30726">
+          <level>0</level>
+          <data>Addon.OpenSettings(inputstream.ffmpegdirect)</data>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftEnabledIptv" operator="is">true</dependency>
+          </dependencies>
+          <control type="button" format="action">
+            <close>true</close>
           </control>
         </setting>
       </group>

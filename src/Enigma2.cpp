@@ -11,8 +11,9 @@
 #include "enigma2/TimeshiftBuffer.h"
 #include "enigma2/utilities/CurlFile.h"
 #include "enigma2/utilities/Logger.h"
-#include "enigma2/utilities/XMLUtils.h"
+#include "enigma2/utilities/StreamUtils.h"
 #include "enigma2/utilities/WebUtils.h"
+#include "enigma2/utilities/XMLUtils.h"
 
 #include <algorithm>
 #include <cstdlib>
@@ -498,7 +499,25 @@ PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& cha
 
   if (IsIptvStream(channel))
   {
-    properties.emplace_back(PVR_STREAM_PROPERTY_STREAMURL, GetLiveStreamURL(channel));
+    std::string streamURL = GetLiveStreamURL(channel);
+
+    if (StreamUtils::CheckInputstreamInstalledAndEnabled(INPUTSTREAM_FFMPEGDIRECT) &&
+        Settings::GetInstance().IsTimeshiftEnabledIptv())
+    {
+      StreamType streamType = StreamUtils::GetStreamType(streamURL);
+      if (streamType == StreamType::OTHER_TYPE)
+        streamType = StreamUtils::InspectStreamType(streamURL);
+
+      properties.emplace_back(PVR_STREAM_PROPERTY_INPUTSTREAM, INPUTSTREAM_FFMPEGDIRECT);
+      StreamUtils::SetFFmpegDirectManifestTypeStreamProperty(properties, streamURL, streamType);
+      properties.emplace_back("inputstream.ffmpegdirect.stream_mode", "timeshift");
+      properties.emplace_back("inputstream.ffmpegdirect.is_realtime_stream", "true");
+
+
+      streamURL = StreamUtils::GetURLWithFFmpegReconnectOptions(streamURL, streamType);
+    }
+
+    properties.emplace_back(PVR_STREAM_PROPERTY_STREAMURL, streamURL);
   }
 
   if (m_settings.SetStreamProgramID())

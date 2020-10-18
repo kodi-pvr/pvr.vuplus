@@ -14,7 +14,7 @@ namespace enigma2
 {
   namespace utilities
   {
-    enum class StreamType
+    enum class StreamCodingType
       : int // same type as addon settings
     {
       DIRECTLY_STREAMED = 0,
@@ -26,7 +26,7 @@ namespace enigma2
       std::string m_ipAddress;
       std::string m_serviceReference;
       std::string m_channelName;
-      StreamType m_streamType;
+      StreamCodingType m_streamType;
     };
   } //namespace utilities
 } //namespace enigma2
