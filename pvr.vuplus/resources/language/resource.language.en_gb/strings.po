@@ -775,7 +775,12 @@ msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
 msgstr ""
 
-#empty strings from id 30152 to 30409
+#. label: Channels - retrieveprovidername
+msgctxt "#30152"
+msgid "Retrieve provider name for channels"
+msgstr ""
+
+#empty strings from id 30153 to 30409
 
 #. ##############
 #. application #
@@ -1114,7 +1119,12 @@ msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
 msgstr ""
 
-#empty strings from id 30656 to 30659
+#. help: Channels - retrieveprovidername
+msgctxt "#30656"
+msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
+msgstr ""
+
+#empty strings from id 30657 to 30659
 
 #. help info - EPG
 

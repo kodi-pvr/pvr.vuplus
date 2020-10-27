@@ -53,6 +53,7 @@ void Settings::ReadFromAddon()
   m_zap = kodi::GetSettingBoolean("zap", false);
   m_useGroupSpecificChannelNumbers = kodi::GetSettingBoolean("usegroupspecificnumbers", false);
   m_useStandardServiceReference = kodi::GetSettingBoolean("usestandardserviceref", true);
+  m_retrieveProviderNameForChannels = kodi::GetSettingBoolean("retrieveprovidername", true);
   m_tvChannelGroupMode = kodi::GetSettingEnum<ChannelGroupMode>("tvgroupmode", ChannelGroupMode::ALL_GROUPS);
   m_numTVGroups = kodi::GetSettingInt("numtvgroups", DEFAULT_NUM_GROUPS);
   m_oneTVGroup = kodi::GetSettingString("onetvgroup");
@@ -228,6 +229,8 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useGroupSpecificChannelNumbers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "usestandardserviceref")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_useStandardServiceReference, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+  else if (settingName == "retrieveprovidername")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_retrieveProviderNameForChannels, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tvgroupmode")
     return SetEnumSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "numtvgroups")

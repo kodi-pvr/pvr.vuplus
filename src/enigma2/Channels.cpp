@@ -281,7 +281,10 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
 
     //We can use the JSON API so let's supplement the data with extra information
 
-    const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=1&picon=1&sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(channelGroup->GetServiceReference()).c_str());
+    const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=%d&picon=1&sRef=%s",
+                                                    Settings::GetInstance().GetConnectionURL().c_str(),
+                                                    Settings::GetInstance().RetrieveProviderNameForChannels() ? 1 : 0,
+                                                    WebUtils::URLEncodeInline(channelGroup->GetServiceReference()).c_str());
     const std::string strJson = WebUtils::GetHttpXML(jsonURL);
 
     try
