@@ -236,6 +236,11 @@
           <default>true</default>
           <control type="toggle" />
         </setting>
+        <setting id="retrieveprovidername" type="boolean" label="30152" help="30656">
+          <level>3</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
       </group>
       <group id="2" label="30056">
         <setting id="tvgroupmode" type="integer" label="30025" help="30643">

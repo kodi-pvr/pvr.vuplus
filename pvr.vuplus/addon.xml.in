@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="6.3.0"
+  version="6.4.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>
@@ -185,6 +185,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v6.4.0
+- Added: Add setting to disable provider retrieval which can improve perf on older devices
+
 v6.3.0
 - Added: Timeshifting for IPTV streams using ffmpegdirect
 - Updated: Readme with generic linux build command
