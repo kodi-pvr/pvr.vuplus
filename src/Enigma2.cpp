@@ -485,6 +485,9 @@ PVR_ERROR Enigma2::GetChannels(bool radio, kodi::addon::PVRChannelsResultSet& re
 
 PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& channel, std::vector<kodi::addon::PVRStreamProperty>& properties)
 {
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
   if (!m_settings.SetStreamProgramID() && !IsIptvStream(channel))
     return PVR_ERROR_NOT_IMPLEMENTED;
 
@@ -492,9 +495,6 @@ PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& cha
   // We only use this function to set the program number which comes with every Enigma2 channel. For providers that
   // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
   //
-
-  if (!IsConnected())
-    return PVR_ERROR_SERVER_ERROR;
 
   if (IsIptvStream(channel))
   {
