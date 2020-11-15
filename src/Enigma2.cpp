@@ -488,15 +488,32 @@ PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& cha
   if (!IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  if (!m_settings.SetStreamProgramID() && !IsIptvStream(channel))
-    return PVR_ERROR_NOT_IMPLEMENTED;
-
   //
-  // We only use this function to set the program number which comes with every Enigma2 channel. For providers that
-  // use MPTS it allows the FFMPEG Demux to identify the correct Program/PID.
+  // For Enimga2 native streams we only set properties that do not change the stream URL as they use
+  // their own inputstream within the add-on. First we set the MIME type as it will always be "video/mp2t" and
+  // will speed up channel open times. Secondly we set the program number which comes with every Enigma2 channel.
+  // For providers that use MPTS it allows the FFMPEG Demux to identify the correct Program/PID. This is controlled by
+  // a setting as there is a slight delay introdcued when opening channels and supplying this value.
+  //
+  // For IPTV streams this function is used to set the stream URL and ffmpegdirect inputstream properties as they
+  // do not use the add-ons own inputsream.
   //
 
-  if (IsIptvStream(channel))
+  if (!IsIptvStream(channel))
+  {
+    properties.emplace_back(PVR_STREAM_PROPERTY_MIMETYPE, "video/mp2t");
+
+    if (m_settings.SetStreamProgramID())
+    {
+      const std::string strStreamProgramNumber = std::to_string(GetChannelStreamProgramNumber(channel));
+
+      Logger::Log(LEVEL_INFO, "%s - for channel: %s, set Stream Program Number to %s - %s",
+                      __func__, channel.GetChannelName().c_str(), strStreamProgramNumber.c_str(), GetLiveStreamURL(channel).c_str());
+
+      properties.emplace_back("program", strStreamProgramNumber);
+    }
+  }
+  else
   {
     std::string streamURL = GetLiveStreamURL(channel);
 
@@ -517,16 +534,6 @@ PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& cha
     }
 
     properties.emplace_back(PVR_STREAM_PROPERTY_STREAMURL, streamURL);
-  }
-
-  if (m_settings.SetStreamProgramID())
-  {
-    const std::string strStreamProgramNumber = std::to_string(GetChannelStreamProgramNumber(channel));
-
-    Logger::Log(LEVEL_INFO, "%s - for channel: %s, set Stream Program Number to %s - %s",
-                    __func__, channel.GetChannelName().c_str(), strStreamProgramNumber.c_str(), GetLiveStreamURL(channel).c_str());
-
-    properties.emplace_back("program", strStreamProgramNumber);
   }
 
   return PVR_ERROR_NO_ERROR;
