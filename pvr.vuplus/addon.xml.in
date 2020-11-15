@@ -6,7 +6,7 @@
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>
     @ADDON_DEPENDS@
-    <import addon="inputstream.ffmpegdirect" minversion="1.15.0" optional="true"/>
+    <import addon="inputstream.ffmpegdirect" minversion="1.18.0" optional="true"/>
   </requires>
   <requires>@ADDON_DEPENDS@</requires>
   <extension
