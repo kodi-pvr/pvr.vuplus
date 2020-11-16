@@ -1,7 +1,10 @@
+v7.1.1
+- Update: release bump
+
 v7.1.0
-- Set MIME type for Enigma2 native streams and only set program/PID for native also
-- Set minimim inputstream.ffmpegdirect version to API stable version for Matrix
-- Fix seg fault if trying to play a channel when not connected
+- Added: Set MIME type for Enigma2 native streams and only set program/PID for native also
+- Update: Set minimim inputstream.ffmpegdirect version to API stable version for Matrix
+- Dixed: Fix seg fault if trying to play a channel when not connected
 
 v7.0.0
 - Update: PVR API 7.0.2
