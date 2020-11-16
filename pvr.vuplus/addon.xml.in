@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.0.0"
+  version="7.1.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>
     @ADDON_DEPENDS@
-    <import addon="inputstream.ffmpegdirect" minversion="1.15.0" optional="true"/>
+    <import addon="inputstream.ffmpegdirect" minversion="1.18.0" optional="true"/>
   </requires>
   <requires>@ADDON_DEPENDS@</requires>
   <extension
@@ -184,7 +184,13 @@
     <assets>
       <icon>icon.png</icon>
     </assets>
-    <news>v7.0.0
+    <news>
+v7.1.0
+- Set MIME type for Enigma2 native streams and only set program/PID for native also
+- Set minimim inputstream.ffmpegdirect version to API stable version for Matrix
+- Fix seg fault if trying to play a channel when not connected
+
+v7.0.0
 - Update: PVR API 7.0.2
 
 v6.4.0
