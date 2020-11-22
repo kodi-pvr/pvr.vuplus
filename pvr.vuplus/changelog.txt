@@ -1,7 +1,11 @@
+v7.1.1
+- Fixed: Fix crash on restart from settings change
+- Fixed: Always create autotimer once timer type and can be sent even if autotimers are disabled
+
 v7.1.0
-- Set MIME type for Enigma2 native streams and only set program/PID for native also
-- Set minimim inputstream.ffmpegdirect version to API stable version for Matrix
-- Fix seg fault if trying to play a channel when not connected
+- Added: Set MIME type for Enigma2 native streams and only set program/PID for native also
+- Added: Set minimim inputstream.ffmpegdirect version to API stable version for Matrix
+- Fixed: Fix seg fault if trying to play a channel when not connected
 
 v7.0.0
 - Update: PVR API 7.0.2
