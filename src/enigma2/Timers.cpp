@@ -381,26 +381,29 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
       groupValues, deDupValues, AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS);
     types.emplace_back(*t);
     delete t;
-
-    /* One-shot created by epg auto search */
-    t = new TimerType(
-      Timer::Type::EPG_AUTO_ONCE,
-      PVR_TIMER_TYPE_IS_MANUAL                 |
-      PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
-      PVR_TIMER_TYPE_IS_READONLY               |
-      PVR_TIMER_TYPE_SUPPORTS_READONLY_DELETE  |
-      PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
-      PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
-      PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
-      PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
-      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
-      PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP |
-      PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-      kodi::GetLocalizedString(30420), // Once off timer (set by auto guide-based rule)
-      groupValues);
-    types.emplace_back(*t);
-    delete t;
   }
+
+  // We always create this as even if autotimers are disabled the backend
+  // can still send regular timers of this type
+
+  /* One-shot created by epg auto search */
+  t = new TimerType(
+    Timer::Type::EPG_AUTO_ONCE,
+    PVR_TIMER_TYPE_IS_MANUAL                 |
+    PVR_TIMER_TYPE_FORBIDS_NEW_INSTANCES     |
+    PVR_TIMER_TYPE_IS_READONLY               |
+    PVR_TIMER_TYPE_SUPPORTS_READONLY_DELETE  |
+    PVR_TIMER_TYPE_SUPPORTS_ENABLE_DISABLE   |
+    PVR_TIMER_TYPE_SUPPORTS_CHANNELS         |
+    PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
+    PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
+    PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
+    PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP |
+    PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
+    kodi::GetLocalizedString(30420), // Once off timer (set by auto guide-based rule)
+    groupValues);
+  types.emplace_back(*t);
+  delete t;
 }
 
 int Timers::GetTimerCount() const
