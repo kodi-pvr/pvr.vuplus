@@ -85,7 +85,7 @@ bool Admin::Initialise()
     if (deviceSettingsLoaded)
     {
       //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-      if (Settings::GetInstance().SupportsAutoTimers())
+      if (Settings::GetInstance().SupportsAutoTimers() && Settings::GetInstance().GetAutoTimersEnabled())
         SendAutoTimerSettings();
     }
   }

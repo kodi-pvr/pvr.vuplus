@@ -311,7 +311,7 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStopTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Timers
   else if (settingName == "enablegenrepeattimers")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "numgenrepeattimers")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "timerlistcleanup")

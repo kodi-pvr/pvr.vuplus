@@ -1,3 +1,7 @@
+v7.1.2
+- Fixed: Fix setting wrong value for gen repeat timers
+- Fixed: Only send autotimers settings to device if they are enabled
+
 v7.1.1
 - Fixed: Fix crash on restart from settings change
 - Fixed: Always create autotimer once timer type and can be sent even if autotimers are disabled
