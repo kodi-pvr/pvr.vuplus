@@ -428,7 +428,7 @@ namespace enigma2
     std::string m_connectionURL;
     enigma2::utilities::DeviceInfo* m_deviceInfo;
     enigma2::utilities::DeviceSettings* m_deviceSettings;
-    enigma2::Admin* m_admin;
+    enigma2::Admin* m_admin = nullptr;
     bool m_deviceInfoSet = false;
     bool m_deviceSettingsSet = false;
 

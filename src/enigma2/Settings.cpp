@@ -338,12 +338,12 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_wakeOnLanMac, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "globalstartpaddingstb")
   {
-    if (SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
+    if (m_admin && SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
       m_admin->SendGlobalRecordingStartMarginSetting(m_globalStartPaddingStb);
   }
   else if (settingName == "globalendpaddingstb")
   {
-    if (SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
+    if (m_admin && SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
       m_admin->SendGlobalRecordingEndMarginSetting(m_globalEndPaddingStb);
   }
   //Advanced
