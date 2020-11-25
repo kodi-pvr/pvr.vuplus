@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.1.2"
+  version="7.1.3"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>
@@ -185,6 +185,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.1.3
+- Fixed: Set default values for start and end time to avoid overflow crash on windows
+
 v7.1.2
 - Fixed: Fix setting wrong value for gen repeat timers
 - Fixed: Only send autotimers settings to device if they are enabled
