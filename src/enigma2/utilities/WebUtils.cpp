@@ -113,7 +113,7 @@ std::string WebUtils::GetHttpXML(const std::string& url)
 
   // If there is no newline add it as it not being there will cause a parse error
   // TODO: Remove once bug is fixed in Open WebIf
-  if (strTmp.back() != '\n')
+  if (!strTmp.empty() && strTmp.back() != '\n')
     strTmp += "\n";
 
   return strTmp;
@@ -134,7 +134,7 @@ std::string WebUtils::PostHttpJson(const std::string& url)
 
   // If there is no newline add it as it not being there will cause a parse error
   // TODO: Remove once bug is fixed in Open WebIf
-  if (strTmp.back() != '\n')
+  if (!strTmp.empty() && strTmp.back() != '\n')
     strTmp += "\n";
 
   Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __func__, strTmp.length());
