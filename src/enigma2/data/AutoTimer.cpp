@@ -216,12 +216,24 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
     }
   }
 
-  if (m_weekdays != PVR_WEEKDAY_NONE)
+  if (m_weekdays == PVR_WEEKDAY_NONE)
+  {
+    for (int i = 0; i < DAYS_IN_WEEK; i++)
+    {
+      m_weekdays = m_weekdays |= (1 << i);
+    }
+    m_startAnyTime = true;
+    m_endAnyTime = true;
+  }
+
+  m_startTime = 0;
+  m_endTime = 0;
+
+  if (!from.empty() && !to.empty())
   {
     std::time_t t = std::time(nullptr);
     std::tm timeinfo = *std::localtime(&t);
     timeinfo.tm_sec = 0;
-    m_startTime = 0;
     if (!from.empty())
     {
       ParseTime(from, timeinfo);
@@ -230,19 +242,17 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
 
     timeinfo = *std::localtime(&t);
     timeinfo.tm_sec = 0;
-    m_endTime = 0;
     if (!to.empty())
     {
       ParseTime(to, timeinfo);
       m_endTime = std::mktime(&timeinfo);
     }
+
+    m_startAnyTime = false;
+    m_endAnyTime = false;
   }
   else
   {
-    for (int i = 0; i < DAYS_IN_WEEK; i++)
-    {
-      m_weekdays = m_weekdays |= (1 << i);
-    }
     m_startAnyTime = true;
     m_endAnyTime = true;
   }
