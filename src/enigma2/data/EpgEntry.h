@@ -50,8 +50,8 @@ namespace enigma2
       unsigned int m_epgId;
       std::string m_serviceReference;
       int m_channelId;
-      time_t m_startTime;
-      time_t m_endTime;
+      time_t m_startTime = 0;
+      time_t m_endTime = 0;
       std::string m_startTimeW3CDateString;
     };
   } //namespace data
