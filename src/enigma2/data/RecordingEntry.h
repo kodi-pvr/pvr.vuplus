@@ -80,8 +80,8 @@ namespace enigma2
       const std::string& GetStartTimeW3CDate() const { return m_startTimeW3CDateString; }
       void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }
 
-      int GetSizeInBytes() const { return m_sizeInBytes; }
-      void SetSizeInBytes(int value) { m_sizeInBytes = value; }
+      int64_t GetSizeInBytes() const { return m_sizeInBytes; }
+      void SetSizeInBytes(int64_t value) { m_sizeInBytes = value; }
 
       bool UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, enigma2::Channels& channels);
       void UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInRecordingFolder);

@@ -409,7 +409,7 @@ PVR_ERROR Recordings::GetRecordingSize(const kodi::addon::PVRRecording& recordin
   auto recordingEntry = GetRecording(recording.GetRecordingId());
   UpdateRecordingSizeFromMovieDetails(recordingEntry);
 
-  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __func__, recordingEntry.GetSizeInBytes(), recording.GetRecordingId().c_str());
+  Logger::Log(LEVEL_DEBUG, "%s In progress recording size is %lld for sRef: %s", __func__, static_cast<long long>(recordingEntry.GetSizeInBytes()), recording.GetRecordingId().c_str());
 
   sizeInBytes = recordingEntry.GetSizeInBytes();
 
@@ -432,8 +432,6 @@ bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEn
 
     if (!jsonDoc["movie"].empty())
     {
-      uint64_t size;
-
       for (const auto& element : jsonDoc["movie"].items())
       {
         if (element.key() == "filesize")
