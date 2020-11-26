@@ -125,7 +125,6 @@ void Enigma2::ConnectionLost()
   m_isConnected = false;
 }
 
-
 void Enigma2::ConnectionEstablished()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
