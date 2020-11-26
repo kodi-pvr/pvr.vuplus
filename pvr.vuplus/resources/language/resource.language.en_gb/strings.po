@@ -1380,12 +1380,12 @@ msgstr ""
 
 #. help: Backend - globalstartpaddingstb
 msgctxt "#30764"
-msgid "globalstartpaddingstb"
+msgid "This value reflects the backend setting [B]Margin before recording[/B]. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
 msgstr ""
 
 #. help: Backend - globalendpaddingstb
 msgctxt "#30765"
-msgid "globalendpaddingstb"
+msgid "This value reflects the backend setting [B]]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
 msgstr ""
 
 #. label: Backend - wakeonlanmac

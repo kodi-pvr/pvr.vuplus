@@ -272,6 +272,8 @@ This category contains information and settings on/about the Enigma2 STB.
     - `Standby` - Send the standby command on exit
     - `Deep standby` - Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent.
     - `Wakeup, then standby` - Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake.
+* **Global start padding**: This value reflects the backend setting `Margin before recording`. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value.
+* **Global end padding**: This value reflects the backend setting `Margin after recording`. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value.
 
 ### Advanced
 Within this tab more uncommon and advanced options can be configured.
