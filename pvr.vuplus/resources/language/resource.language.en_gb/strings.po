@@ -1009,12 +1009,12 @@ msgstr ""
 
 #. help: General - updatemode
 msgctxt "#30626"
-msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [Timers and Recordings] Update all timers and recordings; [Timers only] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
+msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
 msgstr ""
 
 #. help: General - channelandgroupupdatemode
 msgctxt "#30627"
-msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [Disabled] Never check for channel and group changes; [Notify on UI and Log] Display a notice in the UI and log the fact that a change was detectetd]; [Reload Channels and Groups] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
+msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
 msgstr ""
 
 #. help: General - channelandgroupupdatehour
@@ -1043,12 +1043,12 @@ msgstr ""
 
 #. help: Channels - zap
 msgctxt "#30642"
-msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [allow channel switching] needs to be enabled in the webinterface on the set-top box."
+msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
 msgstr ""
 
 #. help: Channels - tvgroupmode
 msgctxt "#30643"
-msgid "Choose from one of the following three modes: [All bouquets] Fetch all TV bouquets from the set-top box; [Some bouquets] Only fetch the bouquets specified in the next options; [Favourites group] Only fetch the system bouquet for TV favourites; [Custom groups] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
+msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all TV bouquets from the set-top box; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for TV favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
 msgstr ""
 
 #. help: Channels - onetvgroup
@@ -1062,7 +1062,7 @@ msgstr ""
 
 #. help: Channels - tvfavouritesmode
 msgctxt "#30645"
-msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch TV favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
+msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch TV favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
 msgstr ""
 
 #. help: Channels - excludelastscannedtv
@@ -1072,7 +1072,7 @@ msgstr ""
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
-msgid "Choose from one of the following three modes: [All bouquets] Fetch all Radio bouquets from the set-top box]; [Some bouquets] Only fetch the bouquets specified in the next options; [Favourites group] Only fetch the system bouquet for Radio favourites; [Custom groups] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
+msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
 msgstr ""
 
 #. help: Channels - oneradiogroup
@@ -1086,7 +1086,7 @@ msgstr ""
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
-msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch Radio favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
+msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
 msgstr ""
 
 #. help: Channels - excludelastscannedradio
@@ -1165,7 +1165,7 @@ msgstr ""
 
 #. help: EPG - logmissinggenremapping
 msgctxt "#30667"
-msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]"
+msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [B]TV Drama[/B], or for major, minor genres using a dot (.) to separate [B]TV Drama. Soap Opera[/B]"
 msgstr ""
 
 #. help: EPG - epgdelayperchannel
@@ -1194,7 +1194,7 @@ msgstr ""
 
 #. help: Recordings - sharerecordinglastplayed
 msgctxt "#30682"
-msgid "The options are: [Kodi instances] Only use the value in kodi and will not affect last played on the E2 device; [Kodi/E2 instances] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
+msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
 msgstr ""
 
 #. help: Recordings - recordingpath
@@ -1282,7 +1282,7 @@ msgstr ""
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
-msgid "What timeshift option do you want: [Disabled] No timeshifting; [On Pause] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [On Playback] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
+msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
 msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
@@ -1326,7 +1326,7 @@ msgstr ""
 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
-msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [Disabled] No command sent when the addon exits; [Standby] Send the standby command on exit; [Deep standby] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [Wakeup, then standby] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
+msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
 msgstr ""
 
 #. help: Advanced - readtimeout
@@ -1385,7 +1385,7 @@ msgstr ""
 
 #. help: Backend - globalendpaddingstb
 msgctxt "#30765"
-msgid "This value reflects the backend setting [B]]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
+msgid "This value reflects the backend setting [B]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
 msgstr ""
 
 #. label: Backend - wakeonlanmac
