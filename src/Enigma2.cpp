@@ -145,14 +145,6 @@ void Enigma2::ConnectionEstablished()
   else
     Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'true'", __func__);
 
-  if ((m_settings.GetUsername().length() > 0) && (m_settings.GetPassword().length() > 0))
-  {
-    if ((m_settings.GetUsername().find("@") != std::string::npos) || (m_settings.GetPassword().find("@") != std::string::npos))
-    {
-      Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuration!", __func__);
-      return;
-    }
-  }
   m_isConnected = m_admin.Initialise();
 
   if (!m_isConnected)

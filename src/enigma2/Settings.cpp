@@ -9,6 +9,7 @@
 #include "Settings.h"
 
 #include "utilities/FileUtils.h"
+#include "utilities/WebUtils.h"
 #include "utilities/XMLUtils.h"
 
 #include <kodi/tools/StringUtils.h>
@@ -171,7 +172,7 @@ void Settings::ReadFromAddon()
   m_connectionURL.clear();
   // simply add user@pass in front of the URL if username/password is set
   if ((m_username.length() > 0) && (m_password.length() > 0))
-    m_connectionURL = StringUtils::Format("%s:%s@", m_username.c_str(), m_password.c_str());
+    m_connectionURL = StringUtils::Format("%s:%s@", WebUtils::URLEncodeInline(m_username).c_str(), WebUtils::URLEncodeInline(m_password).c_str());
   if (!m_useSecureHTTP)
     m_connectionURL = StringUtils::Format("http://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
   else
