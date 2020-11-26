@@ -780,7 +780,22 @@ msgctxt "#30152"
 msgid "Retrieve provider name for channels"
 msgstr ""
 
-#empty strings from id 30153 to 30409
+#. label: Timeshift - enabletimeshiftdisklimit
+msgctxt "#30153"
+msgid "Enable timeshift disk limit"
+msgstr ""
+
+#. label: Timeshift - timeshiftdisklimit
+msgctxt "#30154"
+msgid "Timeshift disk limit"
+msgstr ""
+
+#. format-label: Timeshift - timeshiftdisklimit
+msgctxt "#30155"
+msgid "{0:.1f} GiB"
+msgstr ""
+
+#empty strings from id 30156 to 30409
 
 #. ##############
 #. application #
@@ -1310,7 +1325,17 @@ msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
 msgstr ""
 
-#empty strings from id 30727 to 30739
+#. help: Timeshift - enabletimeshiftdisklimit
+msgctxt "#30727"
+msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
+msgstr ""
+
+#. help: Timeshift - timeshiftdisklimit
+msgctxt "#30728"
+msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
+msgstr ""
+
+#empty strings from id 30729 to 30739
 
 #. help info - Advanced
 

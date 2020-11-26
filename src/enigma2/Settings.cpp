@@ -151,6 +151,8 @@ void Settings::ReadFromAddon()
   //Timeshift
   m_timeshift = kodi::GetSettingEnum<Timeshift>("enabletimeshift", Timeshift::OFF);
   m_timeshiftBufferPath = kodi::GetSettingString("timeshiftbufferpath", ADDON_DATA_BASE_DIR);
+  m_enableTimeshiftDiskLimit = kodi::GetSettingBoolean("enabletimeshiftdisklimit", false);
+  m_timeshiftDiskLimitGB = kodi::GetSettingFloat("timeshiftdisklimit", 4.0f);
   m_timeshiftEnabledIptv = kodi::GetSettingBoolean("timeshiftEnabledIptv", true);
   m_useFFmpegReconnect = kodi::GetSettingBoolean("useFFmpegReconnect", true);
   m_useMpegtsForUnknownStreams = kodi::GetSettingBoolean("useMpegtsForUnknownStreams", true);
@@ -328,6 +330,10 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetEnumSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_timeshiftBufferPath, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "enabletimeshiftdisklimit")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableTimeshiftDiskLimit, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "timeshiftdisklimit")
+    return SetSetting<float, ADDON_STATUS>(settingName, settingValue, m_timeshiftDiskLimitGB, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "timeshiftEnabledIptv")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_timeshiftEnabledIptv, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "useFFmpegReconnect")

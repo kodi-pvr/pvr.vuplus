@@ -195,6 +195,9 @@ namespace enigma2
     const Timeshift& GetTimeshift() const { return m_timeshift; }
     const std::string& GetTimeshiftBufferPath() const { return m_timeshiftBufferPath; }
     bool IsTimeshiftBufferPathValid() const;
+    bool EnableTimeshiftDiskLimit() const { return m_enableTimeshiftDiskLimit; };
+    float GetTimeshiftDiskLimitGB() const { return m_timeshiftDiskLimitGB; };
+    uint64_t GetTimeshiftDiskLimitBytes() const { return static_cast<uint64_t>(1024LL * 1024LL * 1024LL * m_timeshiftDiskLimitGB); }
     bool IsTimeshiftEnabledIptv() const { return m_timeshiftEnabledIptv; }
     bool UseFFmpegReconnect() const { return m_useFFmpegReconnect; }
     bool UseMpegtsForUnknownStreams() const { return m_useMpegtsForUnknownStreams; }
@@ -404,6 +407,8 @@ namespace enigma2
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
     std::string m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
+    bool m_enableTimeshiftDiskLimit = false;
+    float m_timeshiftDiskLimitGB = 0.0f;
     bool m_timeshiftEnabledIptv = true;
     bool m_useFFmpegReconnect = true;
     bool m_useMpegtsForUnknownStreams = true;
