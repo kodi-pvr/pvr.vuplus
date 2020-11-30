@@ -154,10 +154,13 @@ private:
   enigma2::utilities::SignalStatus m_signalStatus;
   enigma2::ConnectionManager* connectionManager;
 
-  enigma2::IStreamReader* m_streamReader = nullptr;
+  enigma2::IStreamReader* m_activeStreamReader = nullptr;
+  enigma2::IStreamReader* m_timeshiftInternalStreamReader = nullptr;
   enigma2::RecordingReader* m_recordingReader = nullptr;
 
   std::atomic<bool> m_running = {false};
   std::thread m_thread;
   mutable std::mutex m_mutex;
+
+  std::atomic<bool> m_paused = {false};
 };

@@ -369,6 +369,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
       PVR_TIMER_TYPE_SUPPORTS_ANY_CHANNEL        |
       PVR_TIMER_TYPE_SUPPORTS_START_TIME         |
       PVR_TIMER_TYPE_SUPPORTS_END_TIME           |
+      PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN   |
       PVR_TIMER_TYPE_SUPPORTS_START_ANYTIME      |
       PVR_TIMER_TYPE_SUPPORTS_END_ANYTIME        |
       PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS           |
@@ -597,6 +598,14 @@ PVR_ERROR Timers::AddAutoTimer(const kodi::addon::PVRTimer& timer)
     strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
   }
 
+  if (timer.GetMarginStart() != 0 || timer.GetMarginEnd() != 0)
+  {
+    if (timer.GetMarginStart() == timer.GetMarginEnd())
+      strTmp += StringUtils::Format("&offset=%d", timer.GetMarginStart());
+    else
+      strTmp += StringUtils::Format("&offset=%d,%d", timer.GetMarginStart(), timer.GetMarginEnd());
+  }
+
   strTmp += StringUtils::Format("&encoding=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENCODING).c_str());
   strTmp += StringUtils::Format("&searchCase=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_CASE_SENSITIVE).c_str());
   if (timer.GetFullTextEpgSearch())
@@ -821,6 +830,18 @@ PVR_ERROR Timers::UpdateAutoTimer(const kodi::addon::PVRTimer& timer)
       time_t endTime = timer.GetEndTime();
       std::tm timeinfo = *std::localtime(&endTime);
       strTmp += StringUtils::Format("&timespanTo=%02d:%02d", timeinfo.tm_hour, timeinfo.tm_min);
+    }
+
+    if (timer.GetMarginStart() == 0 && timer.GetMarginEnd() == 0)
+    {
+      strTmp += "&offset=";
+    }
+    else
+    {
+      if (timer.GetMarginStart() == timer.GetMarginEnd())
+        strTmp += StringUtils::Format("&offset=%d", timer.GetMarginStart());
+      else
+        strTmp += StringUtils::Format("&offset=%d,%d", timer.GetMarginStart(), timer.GetMarginEnd());
     }
 
     strTmp += StringUtils::Format("&encoding=%s", WebUtils::URLEncodeInline(AUTOTIMER_ENCODING).c_str());

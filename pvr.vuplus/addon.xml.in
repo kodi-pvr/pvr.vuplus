@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.1.3"
+  version="7.2.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>
@@ -185,6 +185,18 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.2.0
+- Added: Support timespans for anyday auto timers
+- Fixed: Fix illegal index access when reading empty string from XML
+- Added: Redact URLs when logged
+- Added: Support custom start/end padding for Autotimers
+- Added: URL encode username and password
+- Fixed: Only set backend recording padding/margin if device settings have been loaded
+- Added: Help and README text for Global start/end recording padding backend settings
+- Update: Replace square brackets with bold text in addon settings help text
+- Added: Timeshift disk limit for native Enigma2 streams for devices with limited space
+- Fixed: Fix incorrect type for recordings size in bytes
+
 v7.1.3
 - Fixed: Set default values for start and end time to avoid overflow crash on windows
 

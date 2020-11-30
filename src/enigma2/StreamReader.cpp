@@ -71,3 +71,8 @@ bool StreamReader::IsTimeshifting()
 {
   return false;
 }
+
+bool StreamReader::HasTimeshiftCapacity()
+{
+  return false;
+}

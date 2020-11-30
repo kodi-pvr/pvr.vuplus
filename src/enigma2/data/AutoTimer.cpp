@@ -33,6 +33,8 @@ bool AutoTimer::operator==(const AutoTimer& right) const
   isEqual &= (m_endTime == right.m_endTime);
   isEqual &= (m_channelId == right.m_channelId);
   isEqual &= (m_weekdays == right.m_weekdays);
+  isEqual &= (m_paddingStartMins == right.m_paddingStartMins);
+  isEqual &= (m_paddingEndMins == right.m_paddingEndMins);
 
   isEqual &= (m_searchPhrase == right.m_searchPhrase);
   isEqual &= (m_searchType == right.m_searchType);
@@ -80,8 +82,8 @@ void AutoTimer::UpdateTo(kodi::addon::PVRTimer& left) const
   left.SetLifetime(0); // unused
   left.SetFirstDay(0); // unused
   left.SetWeekdays(m_weekdays);
-  left.SetMarginStart(0); // unused
-  left.SetMarginEnd(0); // unused
+  left.SetMarginStart(m_paddingStartMins);
+  left.SetMarginEnd(m_paddingEndMins);
   left.SetGenreType(0); // unused
   left.SetGenreSubType(0); // unused
   left.SetClientIndex(m_clientIndex);
@@ -154,6 +156,21 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
   if (autoTimerNode->QueryStringAttribute("searchCase", &strTmp) == TIXML_SUCCESS)
     m_searchCase = strTmp;
 
+  if (autoTimerNode->QueryStringAttribute("offset", &strTmp) == TIXML_SUCCESS)
+  {
+    size_t found = strTmp.find(",");
+    if (found != std::string::npos)
+    {
+      m_paddingStartMins = std::atoi(strTmp.substr(0, found).c_str());
+      m_paddingEndMins = std::atoi(strTmp.substr(found + 1).c_str());
+    }
+    else
+    {
+      m_paddingStartMins = std::atoi(strTmp.c_str());
+      m_paddingEndMins = m_paddingStartMins;
+    }
+  }
+
   TiXmlElement* serviceNode = autoTimerNode->FirstChildElement("e2service");
 
   if (serviceNode)
@@ -216,12 +233,24 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
     }
   }
 
-  if (m_weekdays != PVR_WEEKDAY_NONE)
+  if (m_weekdays == PVR_WEEKDAY_NONE)
+  {
+    for (int i = 0; i < DAYS_IN_WEEK; i++)
+    {
+      m_weekdays = m_weekdays |= (1 << i);
+    }
+    m_startAnyTime = true;
+    m_endAnyTime = true;
+  }
+
+  m_startTime = 0;
+  m_endTime = 0;
+
+  if (!from.empty() && !to.empty())
   {
     std::time_t t = std::time(nullptr);
     std::tm timeinfo = *std::localtime(&t);
     timeinfo.tm_sec = 0;
-    m_startTime = 0;
     if (!from.empty())
     {
       ParseTime(from, timeinfo);
@@ -230,19 +259,17 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
 
     timeinfo = *std::localtime(&t);
     timeinfo.tm_sec = 0;
-    m_endTime = 0;
     if (!to.empty())
     {
       ParseTime(to, timeinfo);
       m_endTime = std::mktime(&timeinfo);
     }
+
+    m_startAnyTime = false;
+    m_endAnyTime = false;
   }
   else
   {
-    for (int i = 0; i < DAYS_IN_WEEK; i++)
-    {
-      m_weekdays = m_weekdays |= (1 << i);
-    }
     m_startAnyTime = true;
     m_endAnyTime = true;
   }

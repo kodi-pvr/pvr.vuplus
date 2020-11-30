@@ -73,14 +73,29 @@ std::string WebUtils::URLEncodeInline(const std::string& sSrc)
   return sResult;
 }
 
+std::string WebUtils::RedactUrl(const std::string& url)
+{
+  std::string redactedUrl = url;
+  static const std::regex regex("^(http:|https:)//[^@/]+:[^@/]+@.*$");
+  if (std::regex_match(url, regex))
+  {
+    std::string protocol = url.substr(0, url.find_first_of(":"));
+    std::string fullPrefix = url.substr(url.find_first_of("@") + 1);
+
+    redactedUrl = protocol + "://USERNAME:PASSWORD@" + fullPrefix;
+  }
+
+  return redactedUrl;
+}
+
 bool WebUtils::CheckHttp(const std::string& url)
 {
-  Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __func__, url.c_str());
+  Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __func__, RedactUrl(url).c_str());
 
   CurlFile http;
   if (!http.Check(url))
   {
-    Logger::Log(LEVEL_TRACE, "%s - Could not open webAPI.", __func__);
+    Logger::Log(LEVEL_DEBUG, "%s - Could not open webAPI.", __func__);
     return false;
   }
 
@@ -91,7 +106,7 @@ bool WebUtils::CheckHttp(const std::string& url)
 
 std::string WebUtils::GetHttp(const std::string& url)
 {
-  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __func__, url.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __func__, RedactUrl(url).c_str());
 
   std::string strTmp;
 
@@ -113,7 +128,7 @@ std::string WebUtils::GetHttpXML(const std::string& url)
 
   // If there is no newline add it as it not being there will cause a parse error
   // TODO: Remove once bug is fixed in Open WebIf
-  if (strTmp.back() != '\n')
+  if (!strTmp.empty() && strTmp.back() != '\n')
     strTmp += "\n";
 
   return strTmp;
@@ -121,7 +136,7 @@ std::string WebUtils::GetHttpXML(const std::string& url)
 
 std::string WebUtils::PostHttpJson(const std::string& url)
 {
-  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __func__, url.c_str());
+  Logger::Log(LEVEL_DEBUG, "%s Open webAPI with URL: '%s'", __func__, RedactUrl(url).c_str());
 
   std::string strTmp;
 
@@ -134,10 +149,10 @@ std::string WebUtils::PostHttpJson(const std::string& url)
 
   // If there is no newline add it as it not being there will cause a parse error
   // TODO: Remove once bug is fixed in Open WebIf
-  if (strTmp.back() != '\n')
+  if (!strTmp.empty() && strTmp.back() != '\n')
     strTmp += "\n";
 
-  Logger::Log(LEVEL_INFO, "%s Got result. Length: %u", __func__, strTmp.length());
+  Logger::Log(LEVEL_DEBUG, "%s Got result. Length: %u", __func__, strTmp.length());
 
   return strTmp;
 }

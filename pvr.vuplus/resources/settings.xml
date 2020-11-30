@@ -802,6 +802,26 @@
             <heading>657</heading>
           </control>
         </setting>
+        <setting id="enabletimeshiftdisklimit" type="boolean" label="30153" help="30727">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="timeshiftdisklimit" type="number" label="30154" help="30628">
+          <level>0</level>
+          <default>4.0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>0.1</step>
+            <maximum>128</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="enabletimeshiftdisklimit" operator="is">true</dependency>
+          </dependencies>
+          <control type="slider" format="number">
+            <formatlabel>30155</formatlabel>
+          </control>
+        </setting>
       </group>
       <group id="2" label="30147">
         <setting id="timeshiftEnabledIptv" type="boolean" label="30148" help="30723">

@@ -27,5 +27,6 @@ namespace enigma2
     virtual std::time_t TimeEnd() = 0;
     virtual bool IsRealTime() = 0;
     virtual bool IsTimeshifting() = 0;
+    virtual bool HasTimeshiftCapacity() = 0;
   };
 } // namespace enigma2

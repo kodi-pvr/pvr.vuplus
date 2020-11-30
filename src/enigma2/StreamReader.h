@@ -31,6 +31,7 @@ namespace enigma2
     std::time_t TimeEnd() override;
     bool IsRealTime() override;
     bool IsTimeshifting() override;
+    bool HasTimeshiftCapacity() override;
 
   private:
     kodi::vfs::CFile m_streamHandle;

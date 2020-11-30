@@ -10,6 +10,7 @@
 
 #include "../Settings.h"
 #include "Logger.h"
+#include "WebUtils.h"
 
 #include <cstdarg>
 
@@ -35,7 +36,7 @@ bool CurlFile::Post(const std::string& strURL, std::string& strResult)
   kodi::vfs::CFile fileHandle;
   if (!fileHandle.CURLCreate(strURL))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __func__, strURL.c_str());
+    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __func__, WebUtils::RedactUrl(strURL).c_str());
     return false;
   }
 
@@ -43,7 +44,7 @@ bool CurlFile::Post(const std::string& strURL, std::string& strResult)
 
   if (!fileHandle.CURLOpen(ADDON_READ_NO_CACHE))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to open url: %s", __func__, strURL.c_str());
+    Logger::Log(LEVEL_ERROR, "%s Unable to open url: %s", __func__, WebUtils::RedactUrl(strURL).c_str());
     return false;
   }
 
@@ -62,7 +63,7 @@ bool CurlFile::Check(const std::string& strURL)
   kodi::vfs::CFile fileHandle;
   if (!fileHandle.CURLCreate(strURL))
   {
-    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __func__, strURL.c_str());
+    Logger::Log(LEVEL_ERROR, "%s Unable to create curl handle for %s", __func__, WebUtils::RedactUrl(strURL).c_str());
     return false;
   }
 
@@ -71,7 +72,7 @@ bool CurlFile::Check(const std::string& strURL)
 
   if (!fileHandle.CURLOpen(ADDON_READ_NO_CACHE))
   {
-    Logger::Log(LEVEL_TRACE, "%s Unable to open url: %s", __func__, strURL.c_str());
+    Logger::Log(LEVEL_TRACE, "%s Unable to open url: %s", __func__, WebUtils::RedactUrl(strURL).c_str());
     return false;
   }
 

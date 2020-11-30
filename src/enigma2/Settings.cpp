@@ -9,6 +9,7 @@
 #include "Settings.h"
 
 #include "utilities/FileUtils.h"
+#include "utilities/WebUtils.h"
 #include "utilities/XMLUtils.h"
 
 #include <kodi/tools/StringUtils.h>
@@ -150,6 +151,8 @@ void Settings::ReadFromAddon()
   //Timeshift
   m_timeshift = kodi::GetSettingEnum<Timeshift>("enabletimeshift", Timeshift::OFF);
   m_timeshiftBufferPath = kodi::GetSettingString("timeshiftbufferpath", ADDON_DATA_BASE_DIR);
+  m_enableTimeshiftDiskLimit = kodi::GetSettingBoolean("enabletimeshiftdisklimit", false);
+  m_timeshiftDiskLimitGB = kodi::GetSettingFloat("timeshiftdisklimit", 4.0f);
   m_timeshiftEnabledIptv = kodi::GetSettingBoolean("timeshiftEnabledIptv", true);
   m_useFFmpegReconnect = kodi::GetSettingBoolean("useFFmpegReconnect", true);
   m_useMpegtsForUnknownStreams = kodi::GetSettingBoolean("useMpegtsForUnknownStreams", true);
@@ -171,7 +174,7 @@ void Settings::ReadFromAddon()
   m_connectionURL.clear();
   // simply add user@pass in front of the URL if username/password is set
   if ((m_username.length() > 0) && (m_password.length() > 0))
-    m_connectionURL = StringUtils::Format("%s:%s@", m_username.c_str(), m_password.c_str());
+    m_connectionURL = StringUtils::Format("%s:%s@", WebUtils::URLEncodeInline(m_username).c_str(), WebUtils::URLEncodeInline(m_password).c_str());
   if (!m_useSecureHTTP)
     m_connectionURL = StringUtils::Format("http://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
   else
@@ -327,6 +330,10 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetEnumSetting<Timeshift, ADDON_STATUS>(settingName, settingValue, m_timeshift, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "timeshiftbufferpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_timeshiftBufferPath, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "enabletimeshiftdisklimit")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableTimeshiftDiskLimit, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "timeshiftdisklimit")
+    return SetSetting<float, ADDON_STATUS>(settingName, settingValue, m_timeshiftDiskLimitGB, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "timeshiftEnabledIptv")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_timeshiftEnabledIptv, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "useFFmpegReconnect")
@@ -338,12 +345,12 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_wakeOnLanMac, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "globalstartpaddingstb")
   {
-    if (m_admin && SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
+    if (m_admin && m_deviceSettingsSet && SetSetting<int, bool>(settingName, settingValue, m_globalStartPaddingStb, true, false))
       m_admin->SendGlobalRecordingStartMarginSetting(m_globalStartPaddingStb);
   }
   else if (settingName == "globalendpaddingstb")
   {
-    if (m_admin && SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
+    if (m_admin && m_deviceSettingsSet && SetSetting<int, bool>(settingName, settingValue, m_globalEndPaddingStb, true, false))
       m_admin->SendGlobalRecordingEndMarginSetting(m_globalEndPaddingStb);
   }
   //Advanced

@@ -22,7 +22,7 @@ namespace enigma2
   class ATTRIBUTE_HIDDEN TimeshiftBuffer : public IStreamReader
   {
   public:
-    TimeshiftBuffer(IStreamReader* strReader, const std::string& m_timeshiftBufferPath, const unsigned int m_readTimeoutX);
+    TimeshiftBuffer(IStreamReader* strReader);
     ~TimeshiftBuffer();
 
     bool Start() override;
@@ -34,6 +34,7 @@ namespace enigma2
     std::time_t TimeEnd() override;
     bool IsRealTime() override;
     bool IsTimeshifting() override;
+    bool HasTimeshiftCapacity() override;
 
   private:
     void DoReadWrite();
@@ -49,6 +50,7 @@ namespace enigma2
     int m_readTimeout;
     std::time_t m_start = 0;
     std::atomic<uint64_t> m_writePos = {0};
+    uint64_t m_timeshiftBufferByteLimit = 0LL;
 
     std::atomic<bool> m_running = {false};
     std::thread m_inputThread;

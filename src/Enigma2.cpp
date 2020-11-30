@@ -125,7 +125,6 @@ void Enigma2::ConnectionLost()
   m_isConnected = false;
 }
 
-
 void Enigma2::ConnectionEstablished()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
@@ -145,14 +144,6 @@ void Enigma2::ConnectionEstablished()
   else
     Logger::Log(LEVEL_INFO, "%s Use HTTPS: 'true'", __func__);
 
-  if ((m_settings.GetUsername().length() > 0) && (m_settings.GetPassword().length() > 0))
-  {
-    if ((m_settings.GetUsername().find("@") != std::string::npos) || (m_settings.GetPassword().find("@") != std::string::npos))
-    {
-      Logger::Log(LEVEL_ERROR, "%s - You cannot use the '@' character in either the username or the password with this addon. Please change your configuration!", __func__);
-      return;
-    }
-  }
   m_isConnected = m_admin.Initialise();
 
   if (!m_isConnected)
@@ -616,18 +607,23 @@ bool Enigma2::OpenLiveStream(const kodi::addon::PVRChannel& channelinfo)
     kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30514));
 
   const std::string streamURL = GetLiveStreamURL(channelinfo);
-  m_streamReader = new StreamReader(streamURL, m_settings.GetReadTimeoutSecs());
-  if (m_settings.GetTimeshift() == Timeshift::ON_PLAYBACK)
-    m_streamReader = new TimeshiftBuffer(m_streamReader, m_settings.GetTimeshiftBufferPath(), m_settings.GetReadTimeoutSecs());
+  m_activeStreamReader = new StreamReader(streamURL, m_settings.GetReadTimeoutSecs());
+  if (m_settings.GetTimeshift() == Timeshift::ON_PLAYBACK && m_settings.IsTimeshiftBufferPathValid())
+  {
+    m_timeshiftInternalStreamReader = m_activeStreamReader;
+    m_activeStreamReader = new TimeshiftBuffer(m_activeStreamReader);
+  }
 
-  return m_streamReader->Start();
+  return m_activeStreamReader->Start();
 }
 
 void Enigma2::CloseLiveStream()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   m_currentChannel = -1;
-  SafeDelete(m_streamReader);
+  SafeDelete(m_activeStreamReader);
+  if (m_timeshiftInternalStreamReader)
+    SafeDelete(m_timeshiftInternalStreamReader);
 }
 
 const std::string Enigma2::GetLiveStreamURL(const kodi::addon::PVRChannel& channelinfo)
@@ -1003,7 +999,7 @@ PVR_ERROR Enigma2::GetStreamReadChunkSize(int& chunksize)
 
 bool Enigma2::IsRealTimeStream()
 {
-  return (m_streamReader) ? m_streamReader->IsRealTime() : false;
+  return (m_activeStreamReader) ? m_activeStreamReader->IsRealTime() : false;
 }
 
 bool Enigma2::CanPauseStream()
@@ -1011,8 +1007,8 @@ bool Enigma2::CanPauseStream()
   if (!IsConnected())
     return false;
 
-  if (m_settings.GetTimeshift() != Timeshift::OFF && m_streamReader)
-    return (m_streamReader->IsTimeshifting() || m_settings.IsTimeshiftBufferPathValid());
+  if (m_settings.GetTimeshift() != Timeshift::OFF && m_activeStreamReader && m_settings.IsTimeshiftBufferPathValid())
+    return (m_settings.GetTimeshift() == Timeshift::ON_PAUSE || m_paused || m_activeStreamReader->HasTimeshiftCapacity());
 
   return false;
 }
@@ -1027,28 +1023,40 @@ bool Enigma2::CanSeekStream()
 
 int Enigma2::ReadLiveStream(unsigned char* buffer, unsigned int size)
 {
-  return (m_streamReader) ? m_streamReader->ReadData(buffer, size) : 0;
+  return (m_activeStreamReader) ? m_activeStreamReader->ReadData(buffer, size) : 0;
 }
 
 int64_t Enigma2::SeekLiveStream(int64_t position, int whence)
 {
-  return (m_streamReader) ? m_streamReader->Seek(position, whence) : -1;
+  return (m_activeStreamReader) ? m_activeStreamReader->Seek(position, whence) : -1;
 }
 
 int64_t Enigma2::LengthLiveStream()
 {
-  return (m_streamReader) ? m_streamReader->Length() : -1;
+  return (m_activeStreamReader) ? m_activeStreamReader->Length() : -1;
 }
 
 PVR_ERROR Enigma2::GetStreamTimes(kodi::addon::PVRStreamTimes& times)
 {
-  if (m_streamReader)
+  if (m_activeStreamReader)
   {
-    times.SetStartTime(m_streamReader->TimeStart());
+    times.SetStartTime(m_activeStreamReader->TimeStart());
     times.SetPTSStart(0);
     times.SetPTSBegin(0);
-    times.SetPTSEnd((!m_streamReader->IsTimeshifting()) ? 0
-      : (m_streamReader->TimeEnd() - m_streamReader->TimeStart()) * STREAM_TIME_BASE);
+    times.SetPTSEnd((!m_activeStreamReader->IsTimeshifting()) ? 0
+      : (m_activeStreamReader->TimeEnd() - m_activeStreamReader->TimeStart()) * STREAM_TIME_BASE);
+
+    if (m_activeStreamReader->IsTimeshifting())
+    {
+      if (!m_activeStreamReader->HasTimeshiftCapacity())
+      {
+        Logger::Log(LEVEL_INFO, "%s Timeshift disk limit of %.1f GiB exceeded, switching to live stream without timehift", __func__, m_settings.GetTimeshiftDiskLimitGB());
+        IStreamReader* timeshiftedReader = m_activeStreamReader;
+        m_activeStreamReader = m_timeshiftInternalStreamReader;
+        m_timeshiftInternalStreamReader = nullptr;
+        SafeDelete(timeshiftedReader);
+      }
+    }
 
     return PVR_ERROR_NO_ERROR;
   }
@@ -1072,12 +1080,15 @@ void Enigma2::PauseStream(bool paused)
 
   /* start timeshift on pause */
   if (paused && m_settings.GetTimeshift() == Timeshift::ON_PAUSE &&
-      m_streamReader && !m_streamReader->IsTimeshifting() &&
+      m_activeStreamReader && !m_activeStreamReader->IsTimeshifting() &&
       m_settings.IsTimeshiftBufferPathValid())
   {
-    m_streamReader = new TimeshiftBuffer(m_streamReader, m_settings.GetTimeshiftBufferPath(), m_settings.GetReadTimeoutSecs());
-    m_streamReader->Start();
+    m_timeshiftInternalStreamReader = m_activeStreamReader;
+    m_activeStreamReader = new TimeshiftBuffer(m_activeStreamReader);
+    m_activeStreamReader->Start();
   }
+
+  m_paused = paused;
 }
 
 void Enigma2::CloseRecordedStream()

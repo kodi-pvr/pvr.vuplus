@@ -8,17 +8,20 @@
 
 #include "TimeshiftBuffer.h"
 
+#include "Settings.h"
 #include "StreamReader.h"
 #include "utilities/Logger.h"
 
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-TimeshiftBuffer::TimeshiftBuffer(IStreamReader* m_streamReader, const std::string& timeshiftBufferPath, const unsigned int readTimeout)
-  : m_streamReader(m_streamReader)
+TimeshiftBuffer::TimeshiftBuffer(IStreamReader* streamReader) : m_streamReader(streamReader)
 {
-  m_bufferPath = timeshiftBufferPath + "/tsbuffer.ts";
+  m_bufferPath = Settings::GetInstance().GetTimeshiftBufferPath() + "/tsbuffer.ts";
+  unsigned int readTimeout = Settings::GetInstance().GetReadTimeoutSecs();
   m_readTimeout = (readTimeout) ? readTimeout : DEFAULT_READ_TIMEOUT;
+  if (Settings::GetInstance().EnableTimeshiftDiskLimit())
+    m_timeshiftBufferByteLimit = Settings::GetInstance().GetTimeshiftDiskLimitBytes();
 
   m_filebufferWriteHandle.OpenFileForWrite(m_bufferPath, true);
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -45,11 +48,6 @@ TimeshiftBuffer::~TimeshiftBuffer()
   if (!kodi::vfs::DeleteFile(m_bufferPath))
     Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __func__, m_bufferPath.c_str());
 
-  if (m_streamReader)
-  {
-    delete m_streamReader;
-    m_streamReader = nullptr;
-  }
   Logger::Log(LEVEL_DEBUG, "%s Timeshift: Stopped", __func__);
 }
 
@@ -142,4 +140,9 @@ bool TimeshiftBuffer::IsRealTime()
 bool TimeshiftBuffer::IsTimeshifting()
 {
   return true;
+}
+
+bool TimeshiftBuffer::HasTimeshiftCapacity()
+{
+  return m_timeshiftBufferByteLimit == 0 || m_timeshiftBufferByteLimit > m_writePos;
 }
