@@ -1,3 +1,8 @@
+v7.3.0
+- Update: PVR API 7.1.0
+- Added: allow both epg max past and future days
+- Fixed: Default of 2 hours when a timer is created with an invalid end time
+
 v7.2.0
 - Added: Support timespans for anyday auto timers
 - Fixed: Fix illegal index access when reading empty string from XML
