@@ -503,6 +503,9 @@ PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
   }
   endTime = timer.GetEndTime() + (endPadding * 60);
 
+  if (endTime <= startTime)
+    endTime = timer.GetStartTime() + (60 * 60 * 2) + (endPadding * 60); // default to 2 hours for invalid end time
+
   tags.AddTag(TAG_FOR_PADDING, StringUtils::Format("%u,%u", startPadding, endPadding));
 
   std::string title = timer.GetTitle();
