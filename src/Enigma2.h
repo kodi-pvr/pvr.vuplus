@@ -70,7 +70,8 @@ public:
   PVR_ERROR GetChannels(bool radio, kodi::addon::PVRChannelsResultSet& results) override;
   PVR_ERROR GetChannelStreamProperties(const kodi::addon::PVRChannel& channel, std::vector<kodi::addon::PVRStreamProperty>& properties) override;
   PVR_ERROR GetEPGForChannel(int channelUid, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results) override;
-  PVR_ERROR SetEPGTimeFrame(int epgMaxDays) override;
+  PVR_ERROR SetEPGMaxPastDays(int epgMaxPastDays) override;
+  PVR_ERROR SetEPGMaxFutureDays(int epgMaxFutureDays) override;
 
   //recordings and Timers
   PVR_ERROR GetRecordingsAmount(bool deleted, int& amount) override;
@@ -140,13 +141,14 @@ private:
   std::atomic_bool m_dueRecordingUpdate{true};
   time_t m_lastSignalStatusUpdateSeconds;
   bool m_skipInitialEpgLoad;
-  int m_epgMaxDays;
+  int m_epgMaxPastDays;
+  int m_epgMaxFutureDays;
 
   mutable enigma2::Channels m_channels;
   enigma2::ChannelGroups m_channelGroups;
   enigma2::Recordings m_recordings{*this, m_channels, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg{*this, m_entryExtractor, m_epgMaxDays};
+  enigma2::Epg m_epg{*this, m_entryExtractor, m_epgMaxPastDays, m_epgMaxFutureDays};
   enigma2::Timers m_timers{*this, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
   enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;

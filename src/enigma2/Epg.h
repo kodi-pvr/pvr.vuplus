@@ -30,7 +30,7 @@ namespace enigma2
   class ATTRIBUTE_HIDDEN Epg
   {
   public:
-    Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays);
+    Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxPastDays, int epgMaxFutureDays);
     Epg(const enigma2::Epg& epg);
 
     bool Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups);
@@ -38,7 +38,8 @@ namespace enigma2
     void TriggerEpgUpdatesForChannels();
     void MarkChannelAsInitialEpgRead(const std::string& serviceReference);
     PVR_ERROR GetEPGForChannel(const std::string& serviceReference, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results);
-    void SetEPGTimeFrame(int epgMaxDays);
+    void SetEPGMaxPastDays(int epgMaxPastDays);
+    void SetEPGMaxFutureDays(int epgMaxFutureDays);
     std::string LoadEPGEntryShortDescription(const std::string& serviceReference, unsigned int epgUid);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string& serviceReference, time_t startTime);
     data::EpgPartialEntry LoadEPGEntryPartialDetails(const std::string& serviceReference, unsigned int epgUid);
@@ -59,8 +60,10 @@ namespace enigma2
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
 
     bool m_initialEpgReady = false;
-    int m_epgMaxDays;
-    long m_epgMaxDaysSeconds;
+    int m_epgMaxPastDays;
+    int m_epgMaxFutureDays;
+    long m_epgMaxPastDaysSeconds;
+    long m_epgMaxFutureDaysSeconds;
 
     std::vector<std::shared_ptr<data::EpgChannel>> m_epgChannels;
     std::map<std::string, std::shared_ptr<data::EpgChannel>> m_epgChannelsMap;
