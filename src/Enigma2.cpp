@@ -43,7 +43,8 @@ template<typename T> void SafeDelete(T*& p)
 
 Enigma2::Enigma2(KODI_HANDLE instance, const std::string& version)
   : enigma2::IConnectionListener(instance, version),
-    m_epgMaxDays(EpgMaxDays())
+    m_epgMaxPastDays(EpgMaxPastDays()),
+    m_epgMaxFutureDays(EpgMaxFutureDays())
 {
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
 
@@ -563,12 +564,21 @@ PVR_ERROR Enigma2::GetEPGForChannel(int channelUid, time_t start, time_t end, ko
   return m_epg.GetEPGForChannel(myChannel->GetServiceReference(), start, end, results);
 }
 
-PVR_ERROR Enigma2::SetEPGTimeFrame(int epgMaxDays)
+PVR_ERROR Enigma2::SetEPGMaxPastDays(int epgMaxPastDays)
 {
   if (!IsConnected())
     return PVR_ERROR_SERVER_ERROR;
 
-  m_epg.SetEPGTimeFrame(epgMaxDays);
+  m_epg.SetEPGMaxPastDays(epgMaxPastDays);
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::SetEPGMaxFutureDays(int epgMaxFutureDays)
+{
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  m_epg.SetEPGMaxFutureDays(epgMaxFutureDays);
   return PVR_ERROR_NO_ERROR;
 }
 

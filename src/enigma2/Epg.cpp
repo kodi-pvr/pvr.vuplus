@@ -27,14 +27,16 @@ using namespace enigma2::utilities;
 using namespace kodi::tools;
 using json = nlohmann::json;
 
-Epg::Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxDays)
-      : m_connectionListener(connectionListener), m_entryExtractor(entryExtractor), m_epgMaxDays(epgMaxDays) {}
+Epg::Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxPastDays, int epgMaxFutureDays)
+      : m_connectionListener(connectionListener), m_entryExtractor(entryExtractor), m_epgMaxPastDays(epgMaxPastDays),
+        m_epgMaxFutureDays(epgMaxFutureDays) {}
 
 Epg::Epg(const Epg& epg) : m_connectionListener(epg.m_connectionListener), m_entryExtractor(epg.m_entryExtractor) {}
 
 bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups)
 {
-  SetEPGTimeFrame(m_epgMaxDays);
+  SetEPGMaxPastDays(m_epgMaxPastDays);
+  SetEPGMaxFutureDays(m_epgMaxFutureDays);
 
   auto started = std::chrono::high_resolution_clock::now();
   Logger::Log(LEVEL_DEBUG, "%s Initial EPG Load Start", __func__);
@@ -264,16 +266,28 @@ PVR_ERROR Epg::GetEPGForChannel(const std::string& serviceReference, time_t star
   return PVR_ERROR_NO_ERROR;
 }
 
-void Epg::SetEPGTimeFrame(int epgMaxDays)
+void Epg::SetEPGMaxPastDays(int epgMaxPastDays)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
-  m_epgMaxDays = epgMaxDays;
+  m_epgMaxPastDays = epgMaxPastDays;
 
-  if (m_epgMaxDays > 0)
-    m_epgMaxDaysSeconds = m_epgMaxDays * 24 * 60 * 60;
+  if (m_epgMaxPastDays > EPG_TIMEFRAME_UNLIMITED)
+    m_epgMaxPastDaysSeconds = m_epgMaxPastDays * 24 * 60 * 60;
   else
-    m_epgMaxDaysSeconds = DEFAULT_EPG_MAX_DAYS * 24 * 60 * 60;
+    m_epgMaxPastDaysSeconds = DEFAULT_EPG_MAX_DAYS * 24 * 60 * 60;
+}
+
+void Epg::SetEPGMaxFutureDays(int epgMaxFutureDays)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  m_epgMaxFutureDays = epgMaxFutureDays;
+
+  if (m_epgMaxFutureDays > EPG_TIMEFRAME_UNLIMITED)
+    m_epgMaxFutureDaysSeconds = m_epgMaxFutureDays * 24 * 60 * 60;
+  else
+    m_epgMaxFutureDaysSeconds = DEFAULT_EPG_MAX_DAYS * 24 * 60 * 60;
 }
 
 PVR_ERROR Epg::TransferInitialEPGForChannel(kodi::addon::PVREPGTagsResultSet& results, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
@@ -550,13 +564,14 @@ void Epg::UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntr
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   time_t now = std::time(nullptr);
-  time_t until = now + m_epgMaxDaysSeconds;
+  time_t before = now - m_epgMaxPastDaysSeconds;
+  time_t until = now + m_epgMaxFutureDaysSeconds;
 
   m_timerBasedEntries.clear();
 
   for (auto& timerBasedEntry : timerBasedEntries)
   {
-    if (timerBasedEntry.GetEndTime() < now || timerBasedEntry.GetEndTime() > until)
+    if (timerBasedEntry.GetEndTime() < before || timerBasedEntry.GetEndTime() > until)
       m_timerBasedEntries.emplace_back(timerBasedEntry);
   }
 }

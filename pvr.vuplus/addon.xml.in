@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.2.0"
+  version="7.3.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>
@@ -185,6 +185,11 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.3.0
+- Update: PVR API 7.1.0
+- Added: allow both epg max past and future days
+- Fixed: Default of 2 hours when a timer is created with an invalid end time
+
 v7.2.0
 - Added: Support timespans for anyday auto timers
 - Fixed: Fix illegal index access when reading empty string from XML
