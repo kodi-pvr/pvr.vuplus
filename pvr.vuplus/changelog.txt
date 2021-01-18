@@ -1,3 +1,6 @@
+v7.3.1
+- Fix: Depends inside addon.xml defined two times
+
 v7.3.0
 - Update: PVR API 7.1.0
 - Added: allow both epg max past and future days
