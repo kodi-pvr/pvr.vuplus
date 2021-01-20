@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.3.0"
+  version="7.3.1"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
-  <requires>
-    @ADDON_DEPENDS@
+  <requires>@ADDON_DEPENDS@
     <import addon="inputstream.ffmpegdirect" minversion="1.18.0" optional="true"/>
   </requires>
-  <requires>@ADDON_DEPENDS@</requires>
   <extension
     point="kodi.pvrclient"
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
@@ -185,6 +183,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.3.1
+- Fix: Depends inside addon.xml defined two times
+
 v7.3.0
 - Update: PVR API 7.1.0
 - Added: allow both epg max past and future days
