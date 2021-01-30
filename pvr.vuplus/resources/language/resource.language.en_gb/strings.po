@@ -1072,7 +1072,7 @@ msgstr ""
 #. help: Channels - fourtvgroup
 #. help: Channels - fivetvgroup
 msgctxt "#30644"
-msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
+msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
 msgstr ""
 
 #. help: Channels - tvfavouritesmode
@@ -1096,7 +1096,7 @@ msgstr ""
 #. help: Channels - fourradiogroup
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
-msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
+msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
 msgstr ""
 
 #. help: Channels - radiofavouritesmode
