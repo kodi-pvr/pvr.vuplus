@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.3.1"
+  version="7.3.2"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -183,9 +183,11 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.3.2
+- Fixed: Fix incorrect parent setting for num radio groups
+
 v7.3.1
 - Fixed: Depends inside addon.xml defined two times
-- Fixed: Fix incorrect parent setting for num radio groups
 
 v7.3.0
 - Update: PVR API 7.1.0
