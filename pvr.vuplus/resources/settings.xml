@@ -403,7 +403,7 @@
           <control type="spinner" format="integer" />
         </setting>
 
-        <setting id="numradiogroups" type="integer" parent="tvgroupmode" label="30139" help="30654">
+        <setting id="numradiogroups" type="integer" parent="radiogroupmode" label="30139" help="30654">
           <level>0</level>
           <default>1</default>
           <constraints>

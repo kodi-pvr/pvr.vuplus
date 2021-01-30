@@ -184,7 +184,8 @@
     </assets>
     <news>
 v7.3.1
-- Fix: Depends inside addon.xml defined two times
+- Fixed: Depends inside addon.xml defined two times
+- Fixed: Fix incorrect parent setting for num radio groups
 
 v7.3.0
 - Update: PVR API 7.1.0
