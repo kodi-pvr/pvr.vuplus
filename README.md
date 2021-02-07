@@ -5,14 +5,9 @@
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
 # Enigma2 PVR
-Enigma2 PVR client addon for [Kodi](https://kodi.tv)
+Enigma2 PVR client addon for [Kodi](https://kodi.tv). Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. This add-on leverages the [OpenWebIf project](#https://github.com/E2OpenPlugins/e2openplugin-OpenWebif) to interact with the Enigma2 device via Restful APIs.
 
-## Overview
-Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers.
-
-This addon leverages the OpenWebIf project to interact with the Enigma2 device via Restful APIs: (https://github.com/E2OpenPlugins/e2openplugin-OpenWebif)
-
-### Compatibility
+Supports streaming of Live TV & Recordings with features such as Timeshifting, EPG, Timers and Autotimers. In addition the majority of Enigma2 devices support viewing and recording IPTV streams. The add-on supports IPTV by simply passing the URL to [inputstream.ffmpegdirect](#https://github.com/xbmc/inputstream.ffmpegdirect), allowing a local timeshift feature similar to native Enigma2 streams.
 
 **Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that may not function include:
 * Autotimers
@@ -24,23 +19,34 @@ This addon leverages the OpenWebIf project to interact with the Enigma2 device v
 * Bouquet (and group specific) Backend Channel Numbers
 
 Some features are only available with at least certain OpenWebIf versions:
-* 1.3.0
-  * AutoTimers
-* 1.3.5
-  * Embedded EPG Genres
-  * Tuner Details
-  * Provider Name
-  * Picon URLs
-* 1.3.6
-  * Editing Recordings
-* 1.3.7
-  * Backend Channel Numbers
+* `1.3.0`: AutoTimers
+* `1.3.5`: Embedded EPG Genres, Tuner Details, Provider Name, Picon URLs
+* `1.3.6`: Editing Recordings
+* `1.3.7`: Backend Channel Numbers
 
-### IPTV Streams
+The contents of this README.md file are as follows:
 
-The majority of Enigma2 devices support viewing and recording IPTV streams. They do not however support streaming IPTV from the device. The addon supports IPTV by simply passing the URL used on the device to Kodi PVR. This means that timeshifting cannot be used (and will not be supported in the future). Note that if your IPTV provider restricts the number of active streams each kodi instance viewing it will count as an active stream.
-
-The option `Enable automatic configuration for live streams` is ignored for channels that are IPTV Streams.
+1. [Build instructions](#build-instructions)
+2. [Support links](#support-links)
+3. [Compatibility with OpenWebIf and other WebIfs](#compatibility-with-openwebif-and-other-webifs)
+4. [Configuring the addon](#configuring-the-addon)
+   * [Connection](#connection)
+   * [General](#general)
+   * [Channels](#channels)
+   * [EPG](#epg)
+   * [Recordings](#recordings)
+   * [Timers](#timers)
+   * [Timeshift](#timeshift)
+   * [Backend](#backend)
+   * [Advanced](#advanced)
+5. [Customising Config Files](#customising-config-files)
+   * [Custom Channel Groups (Channels)](#custom-channel-groups-channels)
+   * [Season, Episode and Year Show Info (EPG)](#season-episode-and-year-show-info-epg)
+   * [Genre ID Mappings (EPG)](#genre-id-mappings-epg)
+   * [Rytec Genre Text Mappings (EPG)](#rytec-genre-text-mappings-epg)
+6. [Appendix](#appendix)
+   * [Manual Steps to rebuild the addon on MacOSX](#manual-steps-to-rebuild-the-addon-on-macosx)
+   * [Logging in detail](#logging-in-detail)
 
 ## Build instructions
 
@@ -85,9 +91,7 @@ Note that the steps in the following section need to be performed before the add
 
 If you would prefer to run the rebuild steps manually instead of using the above helper script check the appendix [here](#manual-steps-to-rebuild-the-addon-on-macosx)
 
-## Support
-
-### Useful links
+## Support links
 
 * [Kodi's PVR user support forum](https://forum.kodi.tv/forumdisplay.php?fid=167)
 * [Report an issue on Github](https://github.com/kodi-pvr/pvr.vuplus/issues)
@@ -251,7 +255,9 @@ The following are the settings in the Timers tab:
 * **Limit to groups of original EPG channel**: For the channel used to create the autotimer limit to channel groups that this channel is a member of.
 
 ### Timeshift
-Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped.
+Timeshifting allows for native Enigma2 live TV stream to be paused as well as moved back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped.
+
+Timeshifting is also available IPTV streams via [inputstream.ffmpegdirect](#https://github.com/xbmc/inputstream.ffmpegdirect). Note that if your IPTV provider restricts the number of active streams each kodi instance viewing it will count as an active stream.
 
 * **Enable timeshift**: What timeshift option do you want:
     - `Disabled` - No timeshifting
@@ -311,7 +317,7 @@ Note that both these files are provided as examples and are overwritten each tim
 
 The format is quite simple, containing a number of channel group/bouquet names.
 
-### Season, Episode and Year Show Info (EPG_)
+### Season, Episode and Year Show Info (EPG)
 
 Config files are located in the `userdata/addon_data/pvr.vuplus/showInfo` folder.
 
@@ -362,7 +368,7 @@ or
 1. `rm -rf "$HOME/Library/Application Support/Kodi/addons/pvr.vuplus"`
 2. `cp -rf $HOME/xbmc-addon/addons/pvr.vuplus "$HOME/Library/Application Support/Kodi/addons"`
 
-### Logging detailed
+### Logging in detail
 
 Some of the most useful information in your log are the details output at the start of the log, both for Kodi and the addon.
 
