@@ -70,7 +70,7 @@ In order to build the addon on mac the steps are different to Linux and Windows 
 2. Build the kodi tools
  * `cd $HOME/xbmc-addon/tools/depends`
  * `./bootstrap`
- * `./configure --host=x86_64-apple-darwin`
+ * `./configure --host=x86_64-apple-darwin --with-platform=macos`
  * `make -j$(getconf _NPROCESSORS_ONLN)`
 3. Build the addon
  * `cd $HOME/xbmc-addon`
