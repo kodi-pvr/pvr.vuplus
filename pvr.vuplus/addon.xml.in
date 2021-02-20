@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.3.2"
+  version="7.3.3"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -183,6 +183,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.3.3
+- Update: Readme - update description for Kodi 19 and add table of contents
+
 v7.3.2
 - Fixed: Fix incorrect parent setting for num radio groups
 

@@ -1,3 +1,6 @@
+v7.3.3
+- Update: Readme - update description for Kodi 19 and add table of contents
+
 v7.3.2
 - Fixed: Fix incorrect parent setting for num radio groups
 
