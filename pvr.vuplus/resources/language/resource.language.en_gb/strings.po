@@ -165,7 +165,7 @@ msgstr ""
 
 #. label: Reordings - keepfolders
 msgctxt "#30030"
-msgid "Keep folder structure for records"
+msgid "Keep folder structure for recordings"
 msgstr ""
 
 #. label-group: EPG - Seasons and Episodes
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #. help: Reordings - keepfolders
 msgctxt "#30685"
-msgid "If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path."
+msgid "If disabled create a virtual structure grouping recordings with the same name into folders. If enabled use the real path on the device to dictate the structure instead."
 msgstr ""
 
 #. help: Recordings - enablerecordingedls
