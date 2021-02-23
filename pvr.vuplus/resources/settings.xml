@@ -672,6 +672,14 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
+        <setting id="keepfoldersomitlocation" type="boolean" parent="keepfolders" label="30084" help="30690">
+          <level>2</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="visible" setting="keepfolders">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
         <setting id="recordingsrecursive" type="boolean" label="30022" help="30689">
           <level>2</level>
           <default>false</default>

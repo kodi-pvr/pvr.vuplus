@@ -163,7 +163,7 @@ msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr ""
 
-#. label: Reordings - keepfolders
+#. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
 msgstr ""
@@ -441,7 +441,12 @@ msgctxt "#30083"
 msgid "addon error"
 msgstr ""
 
-#empty strings from id 30084 to 30085
+#. label: Recordings - keepfoldersomitlocation
+msgctxt "#30084"
+msgid "Omit location path from recording directory"
+msgstr ""
+
+#empty strings from id 30085 to 30085
 
 #. label-category: backend
 msgctxt "#30086"
@@ -1222,9 +1227,9 @@ msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
 msgstr ""
 
-#. help: Reordings - keepfolders
+#. help: Recordings - keepfolders
 msgctxt "#30685"
-msgid "If disabled create a virtual structure grouping recordings with the same name into folders. If enabled use the real path on the device to dictate the structure instead."
+msgid "If disabled create a virtual structure grouping recordings with the same name into folders. If enabled use the real path on the backend to dictate the structure instead."
 msgstr ""
 
 #. help: Recordings - enablerecordingedls
@@ -1247,7 +1252,12 @@ msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
 msgstr ""
 
-#empty strings from id 30690 to 30699
+#. help: Recordings - keepfoldersomitlocation
+msgctxt "#30690"
+msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
+msgstr ""
+
+#empty strings from id 30691 to 30699
 
 #. help info - Timers
 

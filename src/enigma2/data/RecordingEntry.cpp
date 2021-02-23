@@ -76,6 +76,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   int iTmp;
 
   m_directory = directory;
+  m_location = directory;
   m_deleted = deleted;
 
   if (xml::GetString(recordingNode, "e2servicereference", strTmp))
@@ -120,7 +121,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
     const std::string& filename = strTmp;
     size_t found = filename.find_last_of('/');
     if (found != std::string::npos)
-      m_directory = filename.substr(0, found);
+      m_directory = filename.substr(0, found + 1);
 
     m_edlURL = strTmp;
 
@@ -229,7 +230,12 @@ void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channel
   left.SetChannelName(m_channelName);
   left.SetIconPath(m_iconPath);
 
-  if (!Settings::GetInstance().GetKeepRecordingsFolders())
+  if (Settings::GetInstance().GetKeepRecordingsFolders())
+  {
+    if (Settings::GetInstance().GetRecordingsFoldersOmitLocation() && StringUtils::StartsWith(m_directory, m_location))
+      m_directory = m_directory.substr(m_location.size());
+  }
+  else // Otherwise virtual directory grouping by recording title
   {
     if (isInRecordingFolder)
       strTmp = StringUtils::Format("/%s/", m_title.c_str());

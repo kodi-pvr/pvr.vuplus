@@ -178,6 +178,7 @@ namespace enigma2
     const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
+    bool GetRecordingsFoldersOmitLocation() const { return m_keepFoldersOmitLocation; }
     bool GetRecordingsRecursively() const { return m_recordingsRecursive; }
     bool GetRecordingEDLsEnabled() const { return m_enableRecordingEDLs; }
     int GetEDLStartTimePadding() const { return m_edlStartTimePadding; }
@@ -391,6 +392,7 @@ namespace enigma2
     std::string m_recordingPath = "";
     bool m_onlyCurrentLocation = false;
     bool m_keepFolders = false;
+    bool m_keepFoldersOmitLocation = false;
     bool m_recordingsRecursive = false;
     bool m_enableRecordingEDLs = false;
     int m_edlStartTimePadding = 0;
