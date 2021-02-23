@@ -654,22 +654,33 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
+      </group>
+
+      <group id="2" label="30157">
+        <setting id="virtualfolders" type="boolean" label="30085" help="30691">
+          <level>2</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
         <setting id="keepfolders" type="boolean" label="30030" help="30685">
           <level>2</level>
-          <default>false</default>
+          <default>true</default>
           <control type="toggle" />
         </setting>
         <setting id="keepfoldersomitlocation" type="boolean" parent="keepfolders" label="30084" help="30690">
           <level>2</level>
-          <default>false</default>
+          <default>true</default>
           <dependencies>
             <dependency type="visible" setting="keepfolders">true</dependency>
           </dependencies>
           <control type="toggle" />
         </setting>
+      </group>
+
+      <group id="3" label="30158">
         <setting id="recordingsrecursive" type="boolean" label="30022" help="30689">
           <level>2</level>
-          <default>false</default>
+          <default>true</default>
           <control type="toggle" />
         </setting>
         <setting id="onlycurrent" type="boolean" label="30017" help="30684">
@@ -679,7 +690,7 @@
         </setting>
       </group>
 
-      <group id="2" label="30107">
+      <group id="4" label="30107">
         <setting id="enablerecordingedls" type="boolean" label="30108" help="30686">
           <level>0</level>
           <default>false</default>

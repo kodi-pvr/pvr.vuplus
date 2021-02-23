@@ -446,7 +446,10 @@ msgctxt "#30084"
 msgid "Omit location path from recording directory"
 msgstr ""
 
-#empty strings from id 30085 to 30085
+#. label: Recordings - virtualfolders
+msgctxt "#30085"
+msgid "Group recordings into folders by title"
+msgstr ""
 
 #. label-category: backend
 msgctxt "#30086"
@@ -800,7 +803,17 @@ msgctxt "#30155"
 msgid "{0:.1f} GiB"
 msgstr ""
 
-#empty strings from id 30156 to 30409
+#. label-group: Recordings - Recording Paths
+msgctxt "#30157"
+msgid "Recording Paths"
+msgstr ""
+
+#. label-group: Recordings - Recording Locations
+msgctxt "#30158"
+msgid "Recording Locations"
+msgstr ""
+
+#empty strings from id 30159 to 30409
 
 #. ##############
 #. application #
@@ -1229,7 +1242,7 @@ msgstr ""
 
 #. help: Recordings - keepfolders
 msgctxt "#30685"
-msgid "If disabled create a virtual structure grouping recordings with the same name into folders. If enabled use the real path on the backend to dictate the structure instead."
+msgid "If enabled use the real path from the backend to dictate the folder structure."
 msgstr ""
 
 #. help: Recordings - enablerecordingedls
@@ -1257,7 +1270,12 @@ msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
 msgstr ""
 
-#empty strings from id 30691 to 30699
+#. help: Recordings - virtualfolders
+msgctxt "#30691"
+msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
+msgstr ""
+
+#empty strings from id 30692 to 30699
 
 #. help info - Timers
 

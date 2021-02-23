@@ -47,7 +47,7 @@ void Recordings::GetRecordings(std::vector<kodi::addon::PVRRecording>& kodiRecor
     Logger::Log(LEVEL_DEBUG, "%s - Transfer recording '%s', Recording Id '%s'", __func__, recording.GetTitle().c_str(), recording.GetRecordingId().c_str());
     kodi::addon::PVRRecording kodiRecording;
 
-    recording.UpdateTo(kodiRecording, m_channels, IsInRecordingFolder(recording.GetTitle(), deleted));
+    recording.UpdateTo(kodiRecording, m_channels, IsInVirtualRecordingFolder(recording, deleted));
 
     kodiRecordings.emplace_back(kodiRecording);
   }
@@ -134,20 +134,27 @@ RecordingEntry Recordings::GetRecording(const std::string& recordingId) const
   return entry;
 }
 
-bool Recordings::IsInRecordingFolder(const std::string& recordingFolder, bool deleted) const
+bool Recordings::IsInVirtualRecordingFolder(const RecordingEntry& recordingToCheck, bool deleted) const
 {
+  if (Settings::GetInstance().GetKeepRecordingsFolders() && !recordingToCheck.InLocationRoot())
+    return false;
+
+  const std::string& recordingFolderToCheck = recordingToCheck.GetTitle();
   const auto& recordings = (!deleted) ? m_recordings : m_deletedRecordings;
 
   int iMatches = 0;
   for (const auto& recording : recordings)
   {
-    if (recordingFolder == recording.GetTitle())
+    if (Settings::GetInstance().GetKeepRecordingsFolders() && !recording.InLocationRoot())
+      continue;
+
+    if (recordingFolderToCheck == recording.GetTitle())
     {
       iMatches++;
-      Logger::Log(LEVEL_DEBUG, "%s Found Recording title '%s' in recordings vector!", __func__, recordingFolder.c_str());
+      Logger::Log(LEVEL_DEBUG, "%s Found Recording title '%s' in recordings vector!", __func__, recordingFolderToCheck.c_str());
       if (iMatches > 1)
       {
-        Logger::Log(LEVEL_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __func__, recordingFolder.c_str());
+        Logger::Log(LEVEL_DEBUG, "%s Found Recording title twice '%s' in recordings vector!", __func__, recordingFolderToCheck.c_str());
         return true;
       }
     }

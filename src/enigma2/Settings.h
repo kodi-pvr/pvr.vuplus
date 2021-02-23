@@ -176,6 +176,7 @@ namespace enigma2
     bool GetStoreRecordingLastPlayedAndCount() const { return m_storeLastPlayedAndCount; }
     const RecordingLastPlayedMode& GetRecordingLastPlayedMode() const { return m_recordingLastPlayedMode; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
+    bool GetVirtualRecordingsFolders() const { return m_virtualFolders; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
     bool GetRecordingsFoldersOmitLocation() const { return m_keepFoldersOmitLocation; }
     bool GetRecordingsRecursively() const { return m_recordingsRecursive; }
@@ -391,6 +392,7 @@ namespace enigma2
     RecordingLastPlayedMode m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
     std::string m_newTimerRecordingPath = "";
     bool m_onlyCurrentLocation = false;
+    bool m_virtualFolders = false;
     bool m_keepFolders = false;
     bool m_keepFoldersOmitLocation = false;
     bool m_recordingsRecursive = false;

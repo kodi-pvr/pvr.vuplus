@@ -203,7 +203,8 @@ The following configuration is available on the Recordings tab of the addon sett
 * **Share last played across**: The options are:
     - `Kodi instances` - Only use the value in kodi and will not affect last played on the E2 device.
     - `Kodi/E2 instances` - Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled.
-* **Keep folder structure for recordings**: If disabled create a virtual structure grouping recordings with the same name into folders. If enabled use the real path on the backend to dictate the structure instead.
+* **Group recordings into folders by title**: Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location.
+* **Keep folder structure for recordings**: If enabled use the real path from the backend to dictate the folder structure.
 * **Omit location path from recording directory**: When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed.
 * **Use recursive listing for recording locations**: By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included.
 * **Only use current recording path from backend**: If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the "current recording path" on the set-top box.

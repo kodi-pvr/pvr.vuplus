@@ -62,7 +62,7 @@ namespace enigma2
     bool ReadExtaRecordingCutsInfo(const data::RecordingEntry& recordingEntry, std::vector<std::pair<int, int64_t>>& cuts, std::vector<std::string>& tags);
     bool ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& recordingEntry, std::vector<std::string>& tags);
     void SetRecordingNextSyncTime(data::RecordingEntry& recordingEntry, time_t nextSyncTime, std::vector<std::string>& oldTags);
-    bool IsInRecordingFolder(const std::string& strRecordingFolder, bool deleted) const;
+    bool IsInVirtualRecordingFolder(const data::RecordingEntry& recordingEntry, bool deleted) const;
     bool UpdateRecordingSizeFromMovieDetails(data::RecordingEntry& recordingEntry);
 
     std::mt19937 m_randomGenerator;

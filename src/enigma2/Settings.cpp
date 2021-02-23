@@ -133,6 +133,7 @@ void Settings::ReadFromAddon()
   m_storeLastPlayedAndCount = kodi::GetSettingBoolean("storeextrarecordinginfo", false);
   m_recordingLastPlayedMode = kodi::GetSettingEnum<RecordingLastPlayedMode>("sharerecordinglastplayed", RecordingLastPlayedMode::ACROSS_KODI_INSTANCES);
   m_onlyCurrentLocation = kodi::GetSettingBoolean("onlycurrent", false);
+  m_virtualFolders = kodi::GetSettingBoolean("virtualfolders", false);
   m_keepFolders = kodi::GetSettingBoolean("keepfolders", false);
   m_keepFoldersOmitLocation = kodi::GetSettingBoolean("keepfoldersomitlocation", false);
   m_recordingsRecursive = kodi::GetSettingBoolean("recordingsrecursive", false);
@@ -301,6 +302,8 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetEnumSetting<RecordingLastPlayedMode, ADDON_STATUS>(settingName, settingValue, m_recordingLastPlayedMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "virtualfolders")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_virtualFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_keepFolders, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfoldersomitlocation")

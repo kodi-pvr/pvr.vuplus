@@ -220,7 +220,7 @@ long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
   return timeInSecs;
 }
 
-void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInRecordingFolder)
+void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInVirtualRecordingFolder)
 {
   std::string strTmp;
   left.SetRecordingId(m_recordingId);
@@ -230,22 +230,36 @@ void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channel
   left.SetChannelName(m_channelName);
   left.SetIconPath(m_iconPath);
 
+  std::string newDirectory = m_directory;
+
   if (Settings::GetInstance().GetKeepRecordingsFolders())
   {
     if (Settings::GetInstance().GetRecordingsFoldersOmitLocation() && StringUtils::StartsWith(m_directory, m_location))
-      m_directory = m_directory.substr(m_location.size());
+      newDirectory = m_directory.substr(m_location.size());
   }
-  else // Otherwise virtual directory grouping by recording title
+
+  if (Settings::GetInstance().GetVirtualRecordingsFolders())
   {
-    if (isInRecordingFolder)
-      strTmp = StringUtils::Format("/%s/", m_title.c_str());
-    else
-      strTmp = StringUtils::Format("/");
-
-    m_directory = strTmp;
+    if (Settings::GetInstance().GetKeepRecordingsFolders())
+    {
+      if (InLocationRoot() && isInVirtualRecordingFolder)
+      {
+        if (Settings::GetInstance().GetRecordingsFoldersOmitLocation())
+          newDirectory = StringUtils::Format("/%s/", m_title.c_str());
+        else
+          newDirectory = StringUtils::Format("/%s/%s/", m_directory.c_str(), m_title.c_str());
+      }
+    }
+    else // otherwise we just use a virtual folder if we can
+    {
+      if (isInVirtualRecordingFolder)
+        newDirectory = StringUtils::Format("/%s/", m_title.c_str());
+      else
+        newDirectory = StringUtils::Format("/");
+    }
   }
 
-  left.SetDirectory(m_directory);
+  left.SetDirectory(newDirectory);
   left.SetIsDeleted(m_deleted);
   left.SetRecordingTime(m_startTime);
   left.SetDuration(m_duration);
