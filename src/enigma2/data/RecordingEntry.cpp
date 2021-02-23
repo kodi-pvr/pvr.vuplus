@@ -117,6 +117,11 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
 
   if (xml::GetString(recordingNode, "e2filename", strTmp))
   {
+    const std::string& filename = strTmp;
+    size_t found = filename.find_last_of('/');
+    if (found != std::string::npos)
+      m_directory = filename.substr(0, found);
+
     m_edlURL = strTmp;
 
     strTmp = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(strTmp).c_str());
