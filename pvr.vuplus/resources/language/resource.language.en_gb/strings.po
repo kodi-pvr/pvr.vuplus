@@ -101,7 +101,7 @@ msgstr ""
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
-msgid "Use only the DVB boxes' current recording path"
+msgid "Only use current recording path from backend"
 msgstr ""
 
 #. label-category: general
@@ -128,9 +128,9 @@ msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
 msgstr ""
 
-#. label: Recordings - recordingpath
+#. label: Timers - recordingpath
 msgctxt "#30023"
-msgid "Recording folder on the receiver"
+msgid "New timer default recording folder"
 msgstr ""
 
 #. label: Advanced - powerstatemode
@@ -1217,7 +1217,7 @@ msgctxt "#30682"
 msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
 msgstr ""
 
-#. help: Recordings - recordingpath
+#. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
 msgstr ""

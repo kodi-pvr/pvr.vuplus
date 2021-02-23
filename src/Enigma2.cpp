@@ -269,7 +269,7 @@ void Enigma2::Process()
       {
         Logger::Log(LEVEL_INFO, "%s Perform Updates!", __func__);
 
-        if (m_settings.GetAutoTimerListCleanupEnabled())
+        if (m_settings.GetAutomaticTimerListCleanupEnabled())
         {
           m_timers.RunAutoTimerListCleanup();
         }

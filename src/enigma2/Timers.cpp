@@ -543,11 +543,11 @@ PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
     tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", timer.GetGenreType() | timer.GetGenreSubType()));
 
   std::string strTmp;
-  if (!m_settings.GetRecordingPath().empty())
+  if (!m_settings.GetNewTimerRecordingPath().empty())
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s&dirname=&s",
               WebUtils::URLEncodeInline(serviceReference).c_str(), timer.GetWeekdays(), static_cast<long long>(startTime), static_cast<long long>(endTime),
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
-              WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings.GetRecordingPath()).c_str());
+              WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings.GetNewTimerRecordingPath()).c_str());
   else
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s",
               WebUtils::URLEncodeInline(serviceReference).c_str(), timer.GetWeekdays(), static_cast<long long>(startTime), static_cast<long long>(endTime),

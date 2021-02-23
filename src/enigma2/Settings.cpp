@@ -132,7 +132,6 @@ void Settings::ReadFromAddon()
   //Recording
   m_storeLastPlayedAndCount = kodi::GetSettingBoolean("storeextrarecordinginfo", false);
   m_recordingLastPlayedMode = kodi::GetSettingEnum<RecordingLastPlayedMode>("sharerecordinglastplayed", RecordingLastPlayedMode::ACROSS_KODI_INSTANCES);
-  m_recordingPath = kodi::GetSettingString("recordingpath");
   m_onlyCurrentLocation = kodi::GetSettingBoolean("onlycurrent", false);
   m_keepFolders = kodi::GetSettingBoolean("keepfolders", false);
   m_keepFoldersOmitLocation = kodi::GetSettingBoolean("keepfoldersomitlocation", false);
@@ -145,6 +144,7 @@ void Settings::ReadFromAddon()
   m_enableGenRepeatTimers = kodi::GetSettingBoolean("enablegenrepeattimers", true);
   m_numGenRepeatTimers = kodi::GetSettingInt("numgenrepeattimers", DEFAULT_NUM_GEN_REPEAT_TIMERS);
   m_automaticTimerlistCleanup = kodi::GetSettingBoolean("timerlistcleanup", false);
+  m_newTimerRecordingPath = kodi::GetSettingString("recordingpath");
   m_enableAutoTimers = kodi::GetSettingBoolean("enableautotimers", true);
   m_limitAnyChannelAutoTimers = kodi::GetSettingBoolean("limitanychannelautotimers", true);
   m_limitAnyChannelAutoTimersToChannelGroups = kodi::GetSettingBoolean("limitanychannelautotimerstogroups", true);
@@ -299,8 +299,6 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_storeLastPlayedAndCount, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "sharerecordinglastplayed")
     return SetEnumSetting<RecordingLastPlayedMode, ADDON_STATUS>(settingName, settingValue, m_recordingLastPlayedMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
-  else if (settingName == "recordingpath")
-    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_recordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onlycurrent")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_onlyCurrentLocation, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "keepfolders")
@@ -322,6 +320,8 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::CSet
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "timerlistcleanup")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_automaticTimerlistCleanup, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "recordingpath")
+    return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_newTimerRecordingPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "enableautotimers")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableAutoTimers, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "limitanychannelautotimers")

@@ -654,19 +654,6 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
-        <setting id="recordingpath" type="string" label="30023" help="30683">
-          <level>2</level>
-          <default></default>
-          <constraints>
-            <allowempty>true</allowempty>
-          </constraints>
-          <control type="edit" format="string" />
-        </setting>
-        <setting id="onlycurrent" type="boolean" label="30017" help="30684">
-          <level>2</level>
-          <default>false</default>
-          <control type="toggle" />
-        </setting>
         <setting id="keepfolders" type="boolean" label="30030" help="30685">
           <level>2</level>
           <default>false</default>
@@ -681,6 +668,11 @@
           <control type="toggle" />
         </setting>
         <setting id="recordingsrecursive" type="boolean" label="30022" help="30689">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="onlycurrent" type="boolean" label="30017" help="30684">
           <level>2</level>
           <default>false</default>
           <control type="toggle" />
@@ -753,6 +745,14 @@
           <level>0</level>
           <default>false</default>
           <control type="toggle" />
+        </setting>
+        <setting id="recordingpath" type="string" label="30023" help="30683">
+          <level>2</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
         </setting>
       </group>
       <group id="2" label="30123">
