@@ -808,7 +808,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
 
   if (!pNode)
   {
-    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movie> element, no movies at location: %s", directory.c_str(), __func__);
+    Logger::Log(LEVEL_DEBUG, "%s Could not find <e2movie> element, no movies at location: %s", __func__, directory.c_str());
   }
   else
   {
