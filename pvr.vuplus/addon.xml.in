@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.3.3"
+  version="7.4.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -183,6 +183,13 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.4.0
+- Added: Add setting to omit recording location base dir from recording path
+- Added: Correctly store the directory of a recording from the backend
+- Update: Move new timer recording path to timer settings and refactor other settings
+- Added: Split keep recordings folders into keep structure and group by title - this allows combining both options instead of one or the other
+- Update: Make ffmpegdirect a hard dependency
+
 v7.3.3
 - Update: Readme - update description for Kodi 19 and add table of contents
 
