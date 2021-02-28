@@ -101,7 +101,7 @@ msgstr ""
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
-msgid "Use only the DVB boxes' current recording path"
+msgid "Only use current recording path from backend"
 msgstr ""
 
 #. label-category: general
@@ -128,9 +128,9 @@ msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
 msgstr ""
 
-#. label: Recordings - recordingpath
+#. label: Timers - recordingpath
 msgctxt "#30023"
-msgid "Recording folder on the receiver"
+msgid "New timer default recording folder"
 msgstr ""
 
 #. label: Advanced - powerstatemode
@@ -163,9 +163,9 @@ msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
 msgstr ""
 
-#. label: Reordings - keepfolders
+#. label: Recordings - keepfolders
 msgctxt "#30030"
-msgid "Keep folder structure for records"
+msgid "Keep folder structure for recordings"
 msgstr ""
 
 #. label-group: EPG - Seasons and Episodes
@@ -441,7 +441,15 @@ msgctxt "#30083"
 msgid "addon error"
 msgstr ""
 
-#empty strings from id 30084 to 30085
+#. label: Recordings - keepfoldersomitlocation
+msgctxt "#30084"
+msgid "Omit location path from recording directory"
+msgstr ""
+
+#. label: Recordings - virtualfolders
+msgctxt "#30085"
+msgid "Group recordings into folders by title"
+msgstr ""
 
 #. label-category: backend
 msgctxt "#30086"
@@ -795,7 +803,17 @@ msgctxt "#30155"
 msgid "{0:.1f} GiB"
 msgstr ""
 
-#empty strings from id 30156 to 30409
+#. label-group: Recordings - Recording Paths
+msgctxt "#30157"
+msgid "Recording Paths"
+msgstr ""
+
+#. label-group: Recordings - Recording Locations
+msgctxt "#30158"
+msgid "Recording Locations"
+msgstr ""
+
+#empty strings from id 30159 to 30409
 
 #. ##############
 #. application #
@@ -1212,7 +1230,7 @@ msgctxt "#30682"
 msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
 msgstr ""
 
-#. help: Recordings - recordingpath
+#. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
 msgstr ""
@@ -1222,9 +1240,9 @@ msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
 msgstr ""
 
-#. help: Reordings - keepfolders
+#. help: Recordings - keepfolders
 msgctxt "#30685"
-msgid "If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path."
+msgid "If enabled use the real path from the backend to dictate the folder structure."
 msgstr ""
 
 #. help: Recordings - enablerecordingedls
@@ -1247,7 +1265,17 @@ msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
 msgstr ""
 
-#empty strings from id 30690 to 30699
+#. help: Recordings - keepfoldersomitlocation
+msgctxt "#30690"
+msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
+msgstr ""
+
+#. help: Recordings - virtualfolders
+msgctxt "#30691"
+msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
+msgstr ""
+
+#empty strings from id 30692 to 30699
 
 #. help info - Timers
 

@@ -76,6 +76,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   int iTmp;
 
   m_directory = directory;
+  m_location = directory;
   m_deleted = deleted;
 
   if (xml::GetString(recordingNode, "e2servicereference", strTmp))
@@ -117,6 +118,11 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
 
   if (xml::GetString(recordingNode, "e2filename", strTmp))
   {
+    const std::string& filename = strTmp;
+    size_t found = filename.find_last_of('/');
+    if (found != std::string::npos)
+      m_directory = filename.substr(0, found + 1);
+
     m_edlURL = strTmp;
 
     strTmp = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(strTmp).c_str());
@@ -214,7 +220,7 @@ long RecordingEntry::TimeStringToSeconds(const std::string& timeString)
   return timeInSecs;
 }
 
-void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInRecordingFolder)
+void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInVirtualRecordingFolder)
 {
   std::string strTmp;
   left.SetRecordingId(m_recordingId);
@@ -224,17 +230,36 @@ void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channel
   left.SetChannelName(m_channelName);
   left.SetIconPath(m_iconPath);
 
-  if (!Settings::GetInstance().GetKeepRecordingsFolders())
-  {
-    if (isInRecordingFolder)
-      strTmp = StringUtils::Format("/%s/", m_title.c_str());
-    else
-      strTmp = StringUtils::Format("/");
+  std::string newDirectory = m_directory;
 
-    m_directory = strTmp;
+  if (Settings::GetInstance().GetKeepRecordingsFolders())
+  {
+    if (Settings::GetInstance().GetRecordingsFoldersOmitLocation() && StringUtils::StartsWith(m_directory, m_location))
+      newDirectory = m_directory.substr(m_location.size());
   }
 
-  left.SetDirectory(m_directory);
+  if (Settings::GetInstance().GetVirtualRecordingsFolders())
+  {
+    if (Settings::GetInstance().GetKeepRecordingsFolders())
+    {
+      if (InLocationRoot() && isInVirtualRecordingFolder)
+      {
+        if (Settings::GetInstance().GetRecordingsFoldersOmitLocation())
+          newDirectory = StringUtils::Format("/%s/", m_title.c_str());
+        else
+          newDirectory = StringUtils::Format("/%s/%s/", m_directory.c_str(), m_title.c_str());
+      }
+    }
+    else // otherwise we just use a virtual folder if we can
+    {
+      if (isInVirtualRecordingFolder)
+        newDirectory = StringUtils::Format("/%s/", m_title.c_str());
+      else
+        newDirectory = StringUtils::Format("/");
+    }
+  }
+
+  left.SetDirectory(newDirectory);
   left.SetIsDeleted(m_deleted);
   left.SetRecordingTime(m_startTime);
   left.SetDuration(m_duration);

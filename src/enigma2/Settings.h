@@ -175,9 +175,10 @@ namespace enigma2
     //Recordings
     bool GetStoreRecordingLastPlayedAndCount() const { return m_storeLastPlayedAndCount; }
     const RecordingLastPlayedMode& GetRecordingLastPlayedMode() const { return m_recordingLastPlayedMode; }
-    const std::string& GetRecordingPath() const { return m_recordingPath; }
     bool GetRecordingsFromCurrentLocationOnly() const { return m_onlyCurrentLocation; }
+    bool GetVirtualRecordingsFolders() const { return m_virtualFolders; }
     bool GetKeepRecordingsFolders() const { return m_keepFolders; }
+    bool GetRecordingsFoldersOmitLocation() const { return m_keepFoldersOmitLocation; }
     bool GetRecordingsRecursively() const { return m_recordingsRecursive; }
     bool GetRecordingEDLsEnabled() const { return m_enableRecordingEDLs; }
     int GetEDLStartTimePadding() const { return m_edlStartTimePadding; }
@@ -186,7 +187,8 @@ namespace enigma2
     //Timers
     bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
     int GetNumGenRepeatTimers() const { return m_numGenRepeatTimers; }
-    bool GetAutoTimerListCleanupEnabled() const { return m_automaticTimerlistCleanup; }
+    bool GetAutomaticTimerListCleanupEnabled() const { return m_automaticTimerlistCleanup; }
+    const std::string& GetNewTimerRecordingPath() const { return m_newTimerRecordingPath; }
     bool GetAutoTimersEnabled() const { return m_enableAutoTimers; }
     bool GetLimitAnyChannelAutoTimers() const { return m_limitAnyChannelAutoTimers; }
     bool GetLimitAnyChannelAutoTimersToChannelGroups() const { return m_limitAnyChannelAutoTimersToChannelGroups; }
@@ -388,9 +390,11 @@ namespace enigma2
     //Recordings
     bool m_storeLastPlayedAndCount = true;
     RecordingLastPlayedMode m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
-    std::string m_recordingPath = "";
+    std::string m_newTimerRecordingPath = "";
     bool m_onlyCurrentLocation = false;
+    bool m_virtualFolders = false;
     bool m_keepFolders = false;
+    bool m_keepFoldersOmitLocation = false;
     bool m_recordingsRecursive = false;
     bool m_enableRecordingEDLs = false;
     int m_edlStartTimePadding = 0;

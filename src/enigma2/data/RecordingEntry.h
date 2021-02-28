@@ -63,6 +63,11 @@ namespace enigma2
       const std::string& GetDirectory() const { return m_directory; }
       void SetDirectory(const std::string& value) { m_directory = value; }
 
+      const std::string& GetLocation() const { return m_location; }
+      void GetLocation(const std::string& value) { m_location = value; }
+
+      bool InLocationRoot() const { return m_location == m_directory; }
+
       const std::string& GetIconPath() const { return m_iconPath; }
       void SetIconPath(const std::string& value) { m_iconPath = value; }
 
@@ -84,7 +89,7 @@ namespace enigma2
       void SetSizeInBytes(int64_t value) { m_sizeInBytes = value; }
 
       bool UpdateFrom(TiXmlElement* recordingNode, const std::string& directory, bool deleted, enigma2::Channels& channels);
-      void UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInRecordingFolder);
+      void UpdateTo(kodi::addon::PVRRecording& left, Channels& channels, bool isInVirtualRecordingFolder);
 
     private:
       long TimeStringToSeconds(const std::string& timeString);
@@ -105,6 +110,7 @@ namespace enigma2
       std::string m_channelName;
       int m_channelUniqueId = PVR_CHANNEL_INVALID_UID;
       std::string m_directory;
+      std::string m_location;
       std::string m_iconPath;
       mutable bool m_radio = false;
       mutable bool m_haveChannelType = false;
