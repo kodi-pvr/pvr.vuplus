@@ -14,6 +14,7 @@
 #include "utilities/XMLUtils.h"
 
 #include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <regex>
 #include <sstream>
@@ -726,6 +727,10 @@ void Recordings::LoadRecordings(bool deleted)
   std::vector<RecordingEntry> newRecordingsList;
   std::unordered_map<std::string, enigma2::data::RecordingEntry> newRecordingsIdMap;
   bool loadError = false;
+
+  auto started = std::chrono::high_resolution_clock::now();
+  Logger::Log(LEVEL_INFO, "%s Recordings Load Start: %s", __func__, deleted ? "deleted items" : "recordings");
+
   for (std::string location : m_locations)
   {
     if (deleted)
@@ -747,6 +752,9 @@ void Recordings::LoadRecordings(bool deleted)
     for (auto& pair : newRecordingsIdMap)
       m_recordingsIdMap.insert(pair);
   }
+
+  int milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - started).count();
+  Logger::Log(LEVEL_INFO, "%s Recordings Load: %s - %d (ms)", __func__, deleted ? "deleted items" : "recordings", milliseconds);
 }
 
 namespace
