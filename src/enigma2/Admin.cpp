@@ -181,7 +181,7 @@ bool Admin::LoadDeviceInfo()
   m_deviceInfo = DeviceInfo(deviceName, enigmaVersion, imageVersion, distroName, webIfVersion, webIfVersionAsNum);
 
   std::string version = webIfVersion + " - " + distroName + " (" + imageVersion + "/" + enigmaVersion + ")";
-  SetCharString(m_serverName, deviceName);
+  SetCharString(m_serverName, StringUtils::Format(kodi::GetLocalizedString(30001).c_str(), deviceName.c_str()));
   SetCharString(m_serverVersion, version);
 
   Logger::Log(LEVEL_INFO, "%s - ServerVersion: %s", __func__, m_serverVersion);
