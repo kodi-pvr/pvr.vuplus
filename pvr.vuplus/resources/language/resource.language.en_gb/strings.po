@@ -37,7 +37,10 @@ msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr ""
 
-#empty string with id 30001
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr ""
 
 #. label: Connection - streamport
 msgctxt "#30002"
