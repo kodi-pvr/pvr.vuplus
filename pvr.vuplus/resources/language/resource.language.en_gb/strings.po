@@ -828,7 +828,22 @@ msgctxt "#30158"
 msgid "Recording Locations"
 msgstr ""
 
-#empty strings from id 30159 to 30409
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr ""
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr ""
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
+msgstr ""
+
+#empty strings from id 30162 to 30409
 
 #. ##############
 #. application #
@@ -1172,7 +1187,17 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr ""
 
-#empty strings from id 30657 to 30659
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr ""
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr ""
+
+#empty string with id 30659
 
 #. help info - EPG
 

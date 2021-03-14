@@ -32,6 +32,7 @@ namespace enigma2
   static const int DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR = 4;
   static const int DEFAULT_NUM_GROUPS = 1;
   static const std::string ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus";
+  static const std::string DEFAULT_PROVIDER_NAME_MAP_FILE = ADDON_DATA_BASE_DIR + "/providers/providerMappings.xml";
   static const std::string DEFAULT_SHOW_INFO_FILE = ADDON_DATA_BASE_DIR + "/showInfo/English-ShowInfo.xml";
   static const std::string DEFAULT_GENRE_ID_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreIdMappings/Sky-UK.xml";
   static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml";
@@ -151,6 +152,9 @@ namespace enigma2
     bool UseGroupSpecificChannelNumbers() const { return m_useGroupSpecificChannelNumbers; }
     bool UseStandardServiceReference() const { return m_useStandardServiceReference; }
     bool RetrieveProviderNameForChannels() const { return m_retrieveProviderNameForChannels; }
+    bool HasDefaultProviderName() const { return !m_defaultProviderName.empty(); }
+    const std::string& GetDefaultProviderName() const { return m_defaultProviderName; }
+    const std::string& GetProviderNameMapFile() const { return m_mapProviderNameFile; }
     const ChannelGroupMode& GetTVChannelGroupMode() const { return m_tvChannelGroupMode; }
     const std::string& GetCustomTVGroupsFile() const { return m_customTVGroupsFile; }
     const FavouritesGroupMode& GetTVFavouritesMode() const { return m_tvFavouritesMode; }
@@ -356,6 +360,8 @@ namespace enigma2
     bool m_useGroupSpecificChannelNumbers = false;
     bool m_useStandardServiceReference = true;
     bool m_retrieveProviderNameForChannels = true;
+    std::string m_defaultProviderName;
+    std::string m_mapProviderNameFile = DEFAULT_PROVIDER_NAME_MAP_FILE;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
     unsigned int m_numTVGroups = DEFAULT_NUM_GROUPS;
     std::string m_oneTVGroup = "";
