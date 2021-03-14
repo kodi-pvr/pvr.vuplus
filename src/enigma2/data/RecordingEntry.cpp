@@ -185,6 +185,7 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
   {
     m_radio = channel->IsRadio();
     m_channelUniqueId = channel->GetUniqueId();
+    m_providerUniqueId = channel->GetUniqueId();
     m_iconPath = channel->GetIconPath();
     m_haveChannelType = true;
   }
@@ -265,6 +266,7 @@ void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channel
   left.SetDuration(m_duration);
 
   left.SetChannelUid(m_channelUniqueId);
+  left.SetClientProviderUid(m_providerUniqueId);
   left.SetChannelType(PVR_RECORDING_CHANNEL_TYPE_UNKNOWN);
 
   if (m_haveChannelType)
