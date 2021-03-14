@@ -59,6 +59,9 @@ namespace enigma2
       int GetChannelUniqueId() const { return m_channelUniqueId; }
       void SetChannelUniqueId(int value) { m_channelUniqueId = value; }
 
+      int GetProviderUniqueId() const { return m_providerUniqueId; }
+      void SetProviderUniqueId(unsigned int value) { m_providerUniqueId = value; }
+
       const std::string& GetDirectory() const { return m_directory; }
       void SetDirectory(const std::string& value) { m_directory = value; }
 
@@ -108,6 +111,7 @@ namespace enigma2
       std::string m_edlURL;
       std::string m_channelName;
       int m_channelUniqueId = PVR_CHANNEL_INVALID_UID;
+      int m_providerUniqueId = PVR_PROVIDER_INVALID_UID;
       std::string m_directory;
       std::string m_location;
       std::string m_iconPath;

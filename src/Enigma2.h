@@ -9,6 +9,7 @@
 
 #include "enigma2/Admin.h"
 #include "enigma2/ChannelGroups.h"
+#include "enigma2/Providers.h"
 #include "enigma2/Channels.h"
 #include "enigma2/ConnectionManager.h"
 #include "enigma2/Epg.h"
@@ -21,6 +22,7 @@
 #include "enigma2/data/BaseEntry.h"
 #include "enigma2/data/Channel.h"
 #include "enigma2/data/ChannelGroup.h"
+#include "enigma2/data/Provider.h"
 #include "enigma2/data/EpgEntry.h"
 #include "enigma2/data/RecordingEntry.h"
 #include "enigma2/extract/EpgEntryExtractor.h"
@@ -62,6 +64,8 @@ public:
   PVR_ERROR GetConnectionString(std::string& connection) override;
 
   //groups, channels and EPG
+  PVR_ERROR GetProvidersAmount(int& amount) override;
+  PVR_ERROR GetProviders(kodi::addon::PVRProvidersResultSet& results) override;
   PVR_ERROR GetChannelGroupsAmount(int& amount) override;
   PVR_ERROR GetChannelGroups(bool radio, kodi::addon::PVRChannelGroupsResultSet& results) override;
   PVR_ERROR GetChannelGroupMembers(const kodi::addon::PVRChannelGroup& group, kodi::addon::PVRChannelGroupMembersResultSet& results) override;
@@ -143,9 +147,10 @@ private:
   int m_epgMaxPastDays;
   int m_epgMaxFutureDays;
 
-  mutable enigma2::Channels m_channels;
+  enigma2::Providers m_providers;
+  mutable enigma2::Channels m_channels{m_providers};
   enigma2::ChannelGroups m_channelGroups;
-  enigma2::Recordings m_recordings{*this, m_channels, m_entryExtractor};
+  enigma2::Recordings m_recordings{*this, m_channels, m_providers, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
   enigma2::Epg m_epg{*this, m_entryExtractor, m_epgMaxPastDays, m_epgMaxFutureDays};
   enigma2::Timers m_timers{*this, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};

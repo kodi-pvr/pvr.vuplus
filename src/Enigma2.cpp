@@ -79,6 +79,7 @@ PVR_ERROR Enigma2::GetCapabilities(kodi::addon::PVRCapabilities& capabilities)
   capabilities.SetSupportsDescrambleInfo(false);
   capabilities.SetSupportsAsyncEPGTransfer(false);
   capabilities.SetSupportsRecordingSize(m_settings.SupportsRecordingSizes());
+  capabilities.SetSupportsProviders(true);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -132,6 +133,7 @@ void Enigma2::ConnectionEstablished()
   Logger::Log(LEVEL_DEBUG, "%s Removing internal channels and groups lists...", __func__);
   m_channels.ClearChannels();
   m_channelGroups.ClearChannelGroups();
+  m_providers.ClearProviders();
 
   Logger::Log(LEVEL_INFO, "%s Connection Established with Enigma2 device...", __func__);
 
@@ -309,8 +311,9 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
     Logger::Log(LEVEL_INFO, "%s Checking for Channel and Group Changes!", __func__);
 
     //Now check for any channel or group changes
+    Providers latestProviders;
     ChannelGroups latestChannelGroups;
-    Channels latestChannels;
+    Channels latestChannels{latestProviders};
 
     // Load the TV channels - close connection if no channels are found
     if (latestChannelGroups.LoadChannelGroups())
@@ -357,6 +360,7 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   Logger::Log(LEVEL_DEBUG, "%s Removing internal channels list...", __func__);
   m_channels.ClearChannels();
   m_channelGroups.ClearChannelGroups();
+  m_providers.ClearProviders();
 
   m_recordings.ClearLocations();
   m_recordings.LoadLocations();
@@ -364,6 +368,7 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   m_channelGroups.LoadChannelGroups();
   m_channels.LoadChannels(m_channelGroups);
 
+  kodi::addon::CInstancePVRClient::TriggerProvidersUpdate();
   kodi::addon::CInstancePVRClient::TriggerChannelGroupsUpdate();
   kodi::addon::CInstancePVRClient::TriggerChannelUpdate();
 
@@ -389,6 +394,39 @@ void Enigma2::SendPowerstate()
 bool Enigma2::IsConnected() const
 {
   return m_isConnected;
+}
+
+/***************************************************************************
+ * Providers
+ **************************************************************************/
+
+PVR_ERROR Enigma2::GetProvidersAmount(int& amount)
+{
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  amount = m_providers.GetNumProviders();
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetProviders(kodi::addon::PVRProvidersResultSet& results)
+{
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  std::vector<kodi::addon::PVRProvider> providers;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_providers.GetProviders(providers);
+  }
+
+  Logger::Log(LEVEL_DEBUG, "%s - providers available '%d'", __func__, providers.size());
+
+  for (const auto& provider : providers)
+    results.Add(provider);
+
+  return PVR_ERROR_NO_ERROR;
 }
 
 /***************************************************************************

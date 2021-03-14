@@ -15,6 +15,7 @@
 #include <array>
 
 #include <kodi/addon-instance/pvr/Channels.h>
+#include <kodi/addon-instance/pvr/Providers.h>
 #include <tinyxml.h>
 
 namespace enigma2
@@ -35,9 +36,9 @@ namespace enigma2
       Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
         m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
-        m_providerName(c.GetProviderName()), m_fuzzyChannelName(c.GetFuzzyChannelName()),
-        m_streamProgramNumber(c.GetStreamProgramNumber()), m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()),
-        m_isIptvStream(c.IsIptvStream()) {};
+        m_providerName(c.GetProviderName()), m_providerUniqueId(c.GetProviderUniqueId()),
+        m_fuzzyChannelName(c.GetFuzzyChannelName()), m_streamProgramNumber(c.GetStreamProgramNumber()),
+        m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()), m_isIptvStream(c.IsIptvStream()) {};
       ~Channel() = default;
 
       int GetChannelNumber() const { return m_channelNumber; }
@@ -63,6 +64,9 @@ namespace enigma2
 
       const std::string& GetProviderName() const { return m_providerName; }
       void SetProviderlName(const std::string& value) { m_providerName = value; }
+
+      int GetProviderUniqueId() const { return m_providerUniqueId; }
+      void SetProviderUniqueId(unsigned int value) { m_providerUniqueId = value; }
 
       const std::string& GetFuzzyChannelName() const { return m_fuzzyChannelName; }
       void SetFuzzyChannelName(const std::string& value) { m_fuzzyChannelName = value; }
@@ -105,6 +109,7 @@ namespace enigma2
       std::string m_m3uURL;
       std::string m_iconPath;
       std::string m_providerName;
+      int m_providerUniqueId = PVR_PROVIDER_INVALID_UID;
       std::string m_fuzzyChannelName;
       int m_streamProgramNumber;
 

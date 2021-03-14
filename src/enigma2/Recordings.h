@@ -30,7 +30,7 @@ namespace enigma2
   class ATTRIBUTE_HIDDEN Recordings
   {
   public:
-    Recordings(IConnectionListener& connectionListener, Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor);
+    Recordings(IConnectionListener& connectionListener, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor);
     void GetRecordings(std::vector<kodi::addon::PVRRecording>& recordings, bool deleted);
     int GetNumRecordings(bool deleted) const;
     void ClearRecordings(bool deleted);
@@ -74,6 +74,7 @@ namespace enigma2
 
     IConnectionListener& m_connectionListener;
     Channels& m_channels;
+    Providers& m_providers;
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
   };
 } //namespace enigma2

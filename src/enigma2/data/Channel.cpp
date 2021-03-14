@@ -40,6 +40,7 @@ bool Channel::operator==(const Channel& right) const
   isEqual &= (m_m3uURL == right.m_m3uURL);
   isEqual &= (m_iconPath == right.m_iconPath);
   isEqual &= (m_providerName == right.m_providerName);
+  isEqual &= (m_providerUniqueId == right.m_providerUniqueId);
 
   return isEqual;
 }
@@ -63,7 +64,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
 
   m_fuzzyChannelName = m_channelName;
 
-  // We need to correctly cast to unsigned char as for some platforms such as windows it will 
+  // We need to correctly cast to unsigned char as for some platforms such as windows it will
   // fail on a negative value as it will be treated as an int instead of character
   auto func = [](char c) { return isspace(static_cast<unsigned char>(c)); };
   // alternatively this can be done as follows:
@@ -233,6 +234,7 @@ void Channel::UpdateTo(kodi::addon::PVRChannel& left) const
   left.SetEncryptionSystem(0);
   left.SetIsHidden(false);
   left.SetIconPath(m_iconPath);
+  left.SetClientProviderUid(m_providerUniqueId);
 }
 
 void Channel::AddChannelGroup(std::shared_ptr<ChannelGroup>& channelGroup)

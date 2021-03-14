@@ -30,8 +30,8 @@ using json = nlohmann::json;
 
 const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";
 
-Recordings::Recordings(IConnectionListener& connectionListener, Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor)
-  : m_connectionListener(connectionListener), m_channels(channels), m_entryExtractor(entryExtractor)
+Recordings::Recordings(IConnectionListener& connectionListener, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor)
+  : m_connectionListener(connectionListener), m_channels(channels), m_providers(providers), m_entryExtractor(entryExtractor)
 {
   std::random_device randomDevice; //Will be used to obtain a seed for the random number engine
   m_randomGenerator = std::mt19937(randomDevice()); //Standard mersenne_twister_engine seeded with randomDevice()
