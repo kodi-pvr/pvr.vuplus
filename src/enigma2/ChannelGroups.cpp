@@ -53,14 +53,12 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<kodi::addon::PVRChan
 
   if (!channelGroup)
   {
-    Logger::Log(LEVEL_INFO, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
+    Logger::Log(LEVEL_DEBUG, "%s - Channel Group not found, could not get ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
 
     return PVR_ERROR_NO_ERROR;
   }
-  else
-  {
-    Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
-  }
+
+  Logger::Log(LEVEL_DEBUG, "%s - Starting to get ChannelGroupsMembers for PVR for group: %s", __func__, groupName.c_str());
 
   int channelOrder = 1;
 
