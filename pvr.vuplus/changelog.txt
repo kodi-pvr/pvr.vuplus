@@ -1,3 +1,6 @@
+v7.4.2
+- Update: Switch disk space logging to debug level
+
 v7.4.1
 - Fixed: Don't log channel group not found for members at INFO level
 

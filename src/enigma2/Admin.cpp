@@ -553,7 +553,7 @@ PVR_ERROR Admin::GetDriveSpace(uint64_t& iTotal, uint64_t& iUsed, std::vector<st
   iTotal = totalKb;
   iUsed = totalKb - freeKb;
 
-  Logger::Log(LEVEL_INFO, "%s Space Total: %lld, Used %lld", __func__, iTotal, iUsed);
+  Logger::Log(LEVEL_DEBUG, "%s Space Total: %lld, Used %lld", __func__, iTotal, iUsed);
 
   return PVR_ERROR_NO_ERROR;
 }
