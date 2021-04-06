@@ -64,6 +64,7 @@ PVR_ERROR Enigma2::GetCapabilities(kodi::addon::PVRCapabilities& capabilities)
   capabilities.SetSupportsTV(true);
   capabilities.SetSupportsRadio(true);
   capabilities.SetSupportsRecordings(true);
+  capabilities.SetSupportsRecordingsDelete(true);
   capabilities.SetSupportsRecordingsUndelete(true);
   capabilities.SetSupportsTimers(true);
   capabilities.SetSupportsChannelGroups(true);
