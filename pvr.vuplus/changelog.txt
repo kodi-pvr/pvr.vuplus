@@ -1,3 +1,6 @@
+v7.4.3
+- Fixed: Use OpenWebIfs internal MovieList to avoid memory leak on some images
+
 v7.4.2
 - Update: Switch disk space logging to debug level
 

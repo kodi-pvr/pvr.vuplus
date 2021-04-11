@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.4.2"
+  version="7.4.3"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -183,6 +183,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.4.3
+- Fixed: Use OpenWebIfs internal MovieList to avoid memory leak on some images
+
 v7.4.2
 - Update: Switch disk space logging to debug level
 

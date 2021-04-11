@@ -23,6 +23,9 @@ Some features are only available with at least certain OpenWebIf versions:
 * `1.3.5`: Embedded EPG Genres, Tuner Details, Provider Name, Picon URLs
 * `1.3.6`: Editing Recordings
 * `1.3.7`: Backend Channel Numbers
+* `1.3.9`: Recording Sizes
+* `1.4.4`: Recursive Movie listing
+* `1.4.6`: Use internal OWF MovieList (avoids memory leak on some images)
 
 The contents of this README.md file are as follows:
 

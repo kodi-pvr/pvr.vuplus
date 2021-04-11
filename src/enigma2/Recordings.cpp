@@ -760,19 +760,36 @@ void Recordings::LoadRecordings(bool deleted)
 namespace
 {
 
-std::string GetRecursiveParam(const std::string recordingLocation, bool deleted)
+std::string GetRecordingsParams(const std::string recordingLocation, bool deleted)
 {
-  std::string recursiveParam;
+  std::string recordingsParams;
 
-  if (!deleted && Settings::GetInstance().GetRecordingsRecursively())
+  if (!deleted && Settings::GetInstance().GetRecordingsRecursively() && Settings::GetInstance().SupportsMovieListRecursive())
   {
     if (recordingLocation == "default")
-      recursiveParam = "?recursive=1";
+      recordingsParams = "?recursive=1";
     else
-      recursiveParam = "&recursive=1";
+      recordingsParams = "&recursive=1";
+
+    // &internal=true requests that openwebif uses it own OWFMovieList instead of the E2 MovieList
+    // becuase the E2 MovieList causes memory leaks
+    if (Settings::GetInstance().SupportsMovieListOWFInternal())
+      recordingsParams += "&internal=1";
+  }
+  else
+  {
+    // &internal=true requests that openwebif uses it own OWFMovieList instead of the E2 MovieList
+    // becuase the E2 MovieList causes memory leaks
+    if (Settings::GetInstance().SupportsMovieListOWFInternal())
+    {
+      if (recordingLocation == "default")
+        recordingsParams += "?internal=1";
+      else
+        recordingsParams += "&internal=1";
+    }
   }
 
-  return recursiveParam;
+  return recordingsParams;
 }
 
 } // unnamed namespace
@@ -782,17 +799,17 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
   std::string url;
   std::string directory;
 
-  std::string recursiveParam = GetRecursiveParam(recordingLocation, deleted);
+  std::string recordingsParams = GetRecordingsParams(recordingLocation, deleted);
 
   if (recordingLocation == "default")
   {
-    url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist", recursiveParam.c_str());
+    url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist", recordingsParams.c_str());
     directory = StringUtils::Format("/");
   }
   else
   {
     url = StringUtils::Format("%s%s?dirname=%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist",
-                              WebUtils::URLEncodeInline(recordingLocation).c_str(), recursiveParam.c_str());
+                              WebUtils::URLEncodeInline(recordingLocation).c_str(), recordingsParams.c_str());
     directory = recordingLocation;
   }
 
