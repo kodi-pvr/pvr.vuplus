@@ -256,6 +256,8 @@ namespace enigma2
     bool SupportsProviderNumberAndPiconForChannels() const { return CheckOpenWebIfVersion(1, 3, 5); }
     bool SupportsChannelNumberGroupStartPos() const { return CheckOpenWebIfVersion(1, 3, 8); }
     bool SupportsRecordingSizes() const { return CheckOpenWebIfVersion(1, 3, 9); }
+    bool SupportsMovieListRecursive() const { return CheckOpenWebIfVersion(1, 4, 4); }
+    bool SupportsMovieListOWFInternal() const { return CheckOpenWebIfVersion(1, 4, 6); }
 
     bool UsesLastScannedChannelGroup() const { return m_usesLastScannedChannelGroup; }
     void SetUsesLastScannedChannelGroup(bool value) { m_usesLastScannedChannelGroup = value; }
