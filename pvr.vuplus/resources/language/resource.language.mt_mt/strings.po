@@ -10,92 +10,1408 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: Maltese (Malta) (http://www.transifex.com/projects/p/kodi-main/language/mt_MT/)\n"
+"Language: mt_MT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: mt_MT\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3);\n"
 
+#. ##################
+#. settings labels #
+#. ##################
+#. label: Connection - host
+msgctxt "#30000"
+msgid "Enigma2 hostname or IP address"
+msgstr ""
+
+# empty string with id 30001
+#. label: Connection - streamport
+msgctxt "#30002"
+msgid "Streaming port"
+msgstr ""
+
+#. label: Connection - user
 msgctxt "#30003"
 msgid "Username"
 msgstr "Username"
 
+#. label: Connection - pass
 msgctxt "#30004"
 msgid "Password"
 msgstr "Sigriet"
 
+#. label-category: connection
+msgctxt "#30005"
+msgid "Connection"
+msgstr ""
+
+#. label-group: General - Icons
 msgctxt "#30006"
 msgid "Icons"
 msgstr "Ajkons"
 
+#. label-group: General - Program Streams
+msgctxt "#30007"
+msgid "Program Streams"
+msgstr ""
+
+#. label: General - iconpath
+msgctxt "#30008"
+msgid "Icon path"
+msgstr ""
+
+#. label-group: General - Update Interval
+msgctxt "#30009"
+msgid "Update Interval"
+msgstr ""
+
+# empty string with id 30010
+#. label: Timers - timerlistcleanup
+msgctxt "#30011"
+msgid "Automatic timerlist cleanup"
+msgstr ""
+
+#. label: Connection - webport
+msgctxt "#30012"
+msgid "Web interface port"
+msgstr ""
+
+#. label: Channels - zap
+msgctxt "#30013"
+msgid "Zap before channelswitch (i.e. for single tuner boxes)"
+msgstr ""
+
+#. label: Channels - setprogramid
+msgctxt "#30014"
+msgid "Set program id for live channel or recorded streams"
+msgstr ""
+
+#. label: General - updateint
 msgctxt "#30015"
 msgid "Update interval"
 msgstr "Il-ħin bejn l-aġġornamenti"
 
+#. label: Channels - usegroupspecificnumbers
+msgctxt "#30016"
+msgid "Use bouquet specific channel numbers from backend"
+msgstr ""
+
+#. label: Recordings - onlycurrent
+msgctxt "#30017"
+msgid "Only use current recording path from backend"
+msgstr ""
+
+#. label-category: general
+#. label-group: Channels
 msgctxt "#30018"
 msgid "General"
 msgstr "Ġenerali"
 
+#. label-category: channels
 msgctxt "#30019"
 msgid "Channels"
 msgstr "Stazzjonijiet"
 
+#. label-category: advanced
+#. label-group: Connection - Advanced
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avvanzat"
 
+# empty string with id 30021
+#. label: Recordings - recordingsrecursive
+msgctxt "#30022"
+msgid "Use recursive listing for recording locations"
+msgstr ""
+
+#. label: Timers - recordingpath
+msgctxt "#30023"
+msgid "New timer default recording folder"
+msgstr ""
+
+#. label: Advanced - powerstatemode
+msgctxt "#30024"
+msgid "Send powerstate mode on addon exit"
+msgstr ""
+
+#. label: Channels - tvgroupmode
+msgctxt "#30025"
+msgid "TV bouquet fetch mode"
+msgstr ""
+
+#. label: Channels - onetvgroup
+msgctxt "#30026"
+msgid "TV bouquet 1"
+msgstr ""
+
+#. label: General - onlinepicons
+msgctxt "#30027"
+msgid "Fetch picons from web interface"
+msgstr ""
+
+#. label: Connection - use_secure
+msgctxt "#30028"
+msgid "Use secure HTTP (https)"
+msgstr ""
+
+#. label: Connection - autoconfig
+msgctxt "#30029"
+msgid "Enable automatic configuration for live streams"
+msgstr ""
+
+#. label: Recordings - keepfolders
+msgctxt "#30030"
+msgid "Keep folder structure for recordings"
+msgstr ""
+
+#. label-group: EPG - Seasons and Episodes
+msgctxt "#30031"
+msgid "Seasons and Episodes"
+msgstr ""
+
+#. label-category: epg
+msgctxt "#30032"
+msgid "EPG"
+msgstr ""
+
+#. label: EPG - extractshowinfoenabled
+msgctxt "#30033"
+msgid "Extract season, episode and year info where possible"
+msgstr ""
+
+#. label: Timers - enableautotimers
+msgctxt "#30034"
+msgid "Enable autotimers"
+msgstr ""
+
+#. label: General - usepiconseuformat
+msgctxt "#30035"
+msgid "Use picons.eu file format"
+msgstr ""
+
+#. label: Timers - enablegenrepeattimers
+msgctxt "#30036"
+msgid "Enable generate repeat timers"
+msgstr ""
+
+#. label: EPG - logmissinggenremapping
+msgctxt "#30037"
+msgid "Log missing genre text mappings"
+msgstr ""
+
+#. label-group: Connection - Web Interface
+msgctxt "#30038"
+msgid "Web Interface"
+msgstr ""
+
+#. label-group: Connection - Streaming
+msgctxt "#30039"
+msgid "Streaming"
+msgstr ""
+
+#. label: Advanced - prependoutline
+msgctxt "#30040"
+msgid "Put outline (e.g. sub-title) before plot"
+msgstr ""
+
+#. label: Advanced - streamreadchunksize
+msgctxt "#30041"
+msgid "Stream read chunk size"
+msgstr ""
+
+#. label - Advanced - prependoutline
 msgctxt "#30042"
 msgid "Never"
 msgstr "Qatt"
 
+#. label - Advanced - prependoutline
 msgctxt "#30043"
 msgid "In EPG only"
 msgstr "Fl-EPG biss"
 
+#. label - Advanced - prependoutline
 msgctxt "#30044"
 msgid "In recordings only"
 msgstr "Fir-rekordings biss"
 
+#. label - Advanced - prependoutline
 msgctxt "#30045"
 msgid "Always"
 msgstr "Dejjem"
 
+#. label: EPG - extractshowinfofile
+msgctxt "#30046"
+msgid "Extract show info file"
+msgstr ""
+
+#. label-group: EPG - Rytec genre text Mappings
+msgctxt "#30047"
+msgid "Rytec genre text Mappings"
+msgstr ""
+
+#. label: EPG - rytecgenretextmapenabled
+msgctxt "#30048"
+msgid "Enable Rytec genre text mappings"
+msgstr ""
+
+#. label: EPG - rytecgenretextmapfile
+msgctxt "#30049"
+msgid "Rytec genre text mappings file"
+msgstr ""
+
+#. label: Advanced - readtimeout
+msgctxt "#30050"
+msgid "Custom live TV timeout (0 to use default)"
+msgstr ""
+
+#. label-group: Connection - Login
+msgctxt "#30051"
+msgid "Login"
+msgstr ""
+
+#. label-group: Advanced - Misc
+msgctxt "#30052"
+msgid "Misc"
+msgstr ""
+
+#. label-group: EPG - Genre ID Mappings
+msgctxt "#30053"
+msgid "Genre ID Mappings"
+msgstr ""
+
+#. label: EPG - genreidmapenabled
+msgctxt "#30054"
+msgid "Enable genre ID Mappings"
+msgstr ""
+
+#. label: EPG - genreidmapfile
+msgctxt "#30055"
+msgid "Genre ID mappings file"
+msgstr ""
+
+#. label-group: Channels - TV
 msgctxt "#30056"
 msgid "TV"
 msgstr "Televixin"
 
+#. label-group: Channels - Radio
 msgctxt "#30057"
 msgid "Radio"
 msgstr "Radju"
 
+#. label: Channels - radiogroupmode
+msgctxt "#30058"
+msgid "Radio bouquet fetch mode"
+msgstr ""
+
+#. label: Channels - oneradiogroup
+msgctxt "#30059"
+msgid "Radio bouquet 1"
+msgstr ""
+
+#. label-category: timeshift
+#. label-group: Timeshift - Timeshift
+msgctxt "#30060"
+msgid "Timeshift"
+msgstr ""
+
+#. label: Timeshift - enabletimeshift
+msgctxt "#30061"
+msgid "Enable timeshift"
+msgstr ""
+
+#. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
 msgstr "Il-Buffer path tat-timeshift"
 
+#. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
 msgid "Off"
 msgstr "Xejn"
 
+#. label-option: Timeshift - enabletimeshift
+msgctxt "#30064"
+msgid "On playback"
+msgstr ""
+
+#. label-option: Timeshift - enabletimeshift
+msgctxt "#30065"
+msgid "On pause"
+msgstr ""
+
+#. label: Connection - use_secure_stream
+msgctxt "#30066"
+msgid "Use secure HTTP (https) for streams"
+msgstr ""
+
+#. label: Connection - use_login_stream
+msgctxt "#30067"
+msgid "Use login for streams"
+msgstr ""
+
+#. label: Channels - tvfavouritesmode
+msgctxt "#30068"
+msgid "Fetch TV favourites bouquet"
+msgstr ""
+
+#. label: Channels - radiofavouritesmode
+msgctxt "#30069"
+msgid "Fetch radio favourites bouquet"
+msgstr ""
+
+#. label-category: recordings
 msgctxt "#30070"
 msgid "Recordings"
 msgstr "Recordings"
 
+#. label-group: Recordings - Recordings
 msgctxt "#30071"
 msgid "Recordings"
 msgstr "Recordings"
 
+#. label-category: timers
+#. label-group: Timers - timers
+msgctxt "#30072"
+msgid "Timers"
+msgstr ""
+
+#. label: Timers - numgenrepeattimers
+msgctxt "#30073"
+msgid "Number of repeat timers to generate"
+msgstr ""
+
+#. label-option: Channels - tvgroupmode
+#. label-option: Channels - radiogroupmode
+msgctxt "#30074"
+msgid "All bouquets"
+msgstr ""
+
+#. label-option: Channels - tvgroupmode
+#. label-option: Channels - radiogroupmode
+msgctxt "#30075"
+msgid "Some bouquets"
+msgstr ""
+
+#. label-option: Channels - tvfavouritesmode
+#. label-option: Channels - radiofavouritesmode
+msgctxt "#30076"
+msgid "As first bouquet"
+msgstr ""
+
+#. label-option: Channels - tvfavouritesmode
+#. label-option: Channels - radiofavouritesmode
+msgctxt "#30077"
+msgid "As last bouquet"
+msgstr ""
+
+#. label-option: Channels - tvgroupmode
+#. label-option: Channels - radiogroupmode
+msgctxt "#30078"
+msgid "Favourites bouquet"
+msgstr ""
+
+#. application: ChannelGroups
+msgctxt "#30079"
+msgid "Favourites (TV)"
+msgstr ""
+
+#. application: ChannelGroups
+msgctxt "#30080"
+msgid "Favourites (Radio)"
+msgstr ""
+
+#. application: Client
+#. application: Admin
+msgctxt "#30081"
+msgid "unknown"
+msgstr ""
+
+#. application: Client
+msgctxt "#30082"
+msgid " (Not connected!)"
+msgstr ""
+
+#. application: Client
+msgctxt "#30083"
+msgid "addon error"
+msgstr ""
+
+#. label: Recordings - keepfoldersomitlocation
+msgctxt "#30084"
+msgid "Omit location path from recording directory"
+msgstr ""
+
+#. label: Recordings - virtualfolders
+msgctxt "#30085"
+msgid "Group recordings into folders by title"
+msgstr ""
+
+#. label-category: backend
+msgctxt "#30086"
+msgid "Backend"
+msgstr ""
+
+#. label-group: Backend - Recording Padding
+msgctxt "#30087"
+msgid "Recording Padding"
+msgstr ""
+
+#. label: Backend - globalstartpaddingstb
+msgctxt "#30088"
+msgid "Global start padding"
+msgstr ""
+
+#. label: Backend - globalendpaddingstb
+msgctxt "#30089"
+msgid "Global end padding"
+msgstr ""
+
+#. label-group: Backend - Device Info
+msgctxt "#30090"
+msgid "Device Info"
+msgstr ""
+
+#. label: Backend - webifversion
+msgctxt "#30091"
+msgid "WebIf version"
+msgstr ""
+
+#. label: Backend - autotimertagintags
+msgctxt "#30092"
+msgid "AutoTimer tag in timer tags"
+msgstr ""
+
+#. label: Backend - autotimernameintags
+msgctxt "#30093"
+msgid "AutoTimer name in timer tags"
+msgstr ""
+
+#. application: Admin
+msgctxt "#30094"
+msgid "N/A"
+msgstr ""
+
+#. application: Admin
 msgctxt "#30095"
 msgid "True"
 msgstr "Veru"
 
+#. application: Admin
 msgctxt "#30096"
 msgid "False"
 msgstr "Falz"
 
+#. label-option: Advanced - powerstatemode
+msgctxt "#30097"
+msgid "Standby"
+msgstr ""
+
+#. label-option: Advanced - powerstatemode
+msgctxt "#30098"
+msgid "Deep standby"
+msgstr ""
+
+#. label-option: Advanced - powerstatemode
+msgctxt "#30099"
+msgid "Wakeup, then standby"
+msgstr ""
+
+#. label: General - updatemode
+msgctxt "#30100"
+msgid "Update mode"
+msgstr ""
+
+#. label-option: General - updatemode
+msgctxt "#30101"
+msgid "Timers and recordings"
+msgstr ""
+
+#. label-option: General - updatemode
+msgctxt "#30102"
+msgid "Timers only"
+msgstr ""
+
+#. label: General - useopenwebifpiconpath
+msgctxt "#30103"
+msgid "Use OpenWebIf picon path"
+msgstr ""
+
+#. label: Advanced - tracedebug
+msgctxt "#30104"
+msgid "Enable trace logging in debug mode"
+msgstr ""
+
+#. label-group - EPG - Other
+msgctxt "#30105"
+msgid "Other"
+msgstr ""
+
+#. label: EPG - epgdelayperchannel
+msgctxt "#30106"
+msgid "EPG update delay per channel"
+msgstr ""
+
+#. label-group: Recordings - Recording EDLs (Edit Decision Lists)
+msgctxt "#30107"
+msgid "Recording EDLs (Edit Decision Lists)"
+msgstr ""
+
+#. label: Recordings - enablerecordingedls
+msgctxt "#30108"
+msgid "Enable EDLs support"
+msgstr ""
+
+#. label: Recordings - edlpaddingstart
+msgctxt "#30109"
+msgid "EDL start time padding"
+msgstr ""
+
+#. label: Recordings - edlpaddingstop
+msgctxt "#30110"
+msgid "EDL stop time padding"
+msgstr ""
+
+#. label: Advanced - debugnormal
+msgctxt "#30111"
+msgid "Enable debug logging in normal mode"
+msgstr ""
+
+#. application: ChannelGroups
+msgctxt "#30112"
+msgid "Last Scanned (TV)"
+msgstr ""
+
+#. application: ChannelGroups
+msgctxt "#30113"
+msgid "Last Scanned (Radio)"
+msgstr ""
+
+#. label: Channels - excludelastscannedtv
+#. label: Channels - excludelastscannedradio
+msgctxt "#30114"
+msgid "Exclude last scanned bouquet"
+msgstr ""
+
+#. label: EPG - skipinitialepg
+msgctxt "#30115"
+msgid "Skip Initial EPG Load"
+msgstr ""
+
+#. label: General - channelandgroupupdatemode
+msgctxt "#30116"
+msgid "Channels and groups update mode"
+msgstr ""
+
+#. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
 msgid "Disabled"
 msgstr "Mhux attiv"
 
+#. label-option: General - channelandgroupupdatemode
+msgctxt "#30118"
+msgid "Notify on UI and Log"
+msgstr ""
+
+#. label-option: General - channelandgroupupdatemode
+msgctxt "#30119"
+msgid "Reload Channels and Groups"
+msgstr ""
+
+#. label: General - channelandgroupupdatehour
+msgctxt "#30120"
+msgid "Channels and groups update hour (24h)"
+msgstr ""
+
+#. label: Connection - connectionchecktimeout
+msgctxt "#30121"
+msgid "Connection check timeout"
+msgstr ""
+
+#. label: Connection - connectioncheckinterval
+msgctxt "#30122"
+msgid "Connection check interval"
+msgstr ""
+
+#. label: Timers - Autotimers
+msgctxt "#30123"
+msgid "Autotimers"
+msgstr ""
+
+#. label: Timers - limitanychannelautotimers
+msgctxt "#30124"
+msgid "Limit 'Any Channel' autotimers to TV or Radio"
+msgstr ""
+
+#. label: Timers - limitanychannelautotimerstogroups
+msgctxt "#30125"
+msgid "Limit to groups of original EPG channel"
+msgstr ""
+
+#. label: Channels - usestandardserviceref
+msgctxt "#30126"
+msgid "Use standard channel service reference"
+msgstr ""
+
+#. label: Recordings - storeextrarecordinginfo
+msgctxt "#30127"
+msgid "Store last played/play count on the backend"
+msgstr ""
+
+#. label: Recordings - sharerecordinglastplayed
+msgctxt "#30128"
+msgid "Share last played across:"
+msgstr ""
+
+#. label-option: Recordings - sharerecordinglastplayed
+msgctxt "#30129"
+msgid "Kodi instances"
+msgstr ""
+
+#. label-option: Recordings - sharerecordinglastplayed
+msgctxt "#30130"
+msgid "Kodi/E2 instances"
+msgstr ""
+
+#. label-option: Channels - tvgroupmode
+#. label-option: Channels - radiogroupmode
+msgctxt "#30131"
+msgid "Custom bouquets"
+msgstr ""
+
+#. label: Channels - customtvgroupsfile
+msgctxt "#30132"
+msgid "Custom TV bouquets file"
+msgstr ""
+
+#. label: Channels - customradiogroupsfile
+msgctxt "#30133"
+msgid "Custom Radio bouquets file"
+msgstr ""
+
+#. label: Channels - numtvgroups
+msgctxt "#30134"
+msgid "Number of TV bouquets"
+msgstr ""
+
+#. label: Channels - twotvgroup
+msgctxt "#30135"
+msgid "TV bouquet 2"
+msgstr ""
+
+#. label: Channels - threetvgroup
+msgctxt "#30136"
+msgid "TV bouquet 3"
+msgstr ""
+
+#. label: Channels - fourtvgroup
+msgctxt "#30137"
+msgid "TV bouquet 4"
+msgstr ""
+
+#. label: Channels - fivetvgroup
+msgctxt "#30138"
+msgid "TV bouquet 5"
+msgstr ""
+
+#. label: Channels - numradiogroups
+msgctxt "#30139"
+msgid "Number of radio bouquets"
+msgstr ""
+
+#. label: Channels - tworadiogroup
+msgctxt "#30140"
+msgid "Radio bouquet 2"
+msgstr ""
+
+#. label: Channels - threeradiogroup
+msgctxt "#30141"
+msgid "Radio bouquet 3"
+msgstr ""
+
+#. label: Channels - fourradiogroup
+msgctxt "#30142"
+msgid "Radio bouquet 4"
+msgstr ""
+
+#. label: Channels - fiveradiogroup
+msgctxt "#30143"
+msgid "Radio bouquet 5"
+msgstr ""
+
+#. label: Advanced - ignoredebug
+msgctxt "#30144"
+msgid "No addon debug logging in Kodi debug mode"
+msgstr ""
+
+#. label-group: Backend - Power Settings
+msgctxt "#30145"
+msgid "Power Settings"
+msgstr ""
+
+#. label: Backend - wakeonlanmac
+msgctxt "#30146"
+msgid "Wake On LAN MAC"
+msgstr ""
+
+#. label: Timeshift - IPTV
+msgctxt "#30147"
+msgid "IPTV"
+msgstr ""
+
+#. label: Timeshift - timeshiftEnabled
+msgctxt "#30148"
+msgid "Enable timeshift for IPTV streams"
+msgstr ""
+
+#. label: Timeshift - useFFmpegReconnect
+msgctxt "#30149"
+msgid "Use FFmpeg http reconnect options if possible"
+msgstr ""
+
+#. label: Timeshift - useMpegtsForUnknownStreams
+msgctxt "#30150"
+msgid "Use mpegts MIME type for unknown streams"
+msgstr ""
+
+#. label: Timeshift - timeshiftFFmpegdirectSettings
+msgctxt "#30151"
+msgid "- Modify inputstream.ffmpegdirect settings..."
+msgstr ""
+
+#. label: Channels - retrieveprovidername
+msgctxt "#30152"
+msgid "Retrieve provider name for channels"
+msgstr ""
+
+#. label: Timeshift - enabletimeshiftdisklimit
+msgctxt "#30153"
+msgid "Enable timeshift disk limit"
+msgstr ""
+
+#. label: Timeshift - timeshiftdisklimit
+msgctxt "#30154"
+msgid "Timeshift disk limit"
+msgstr ""
+
+#. format-label: Timeshift - timeshiftdisklimit
+msgctxt "#30155"
+msgid "{0:.1f} GiB"
+msgstr ""
+
+#. label-group: Recordings - Recording Paths
+msgctxt "#30157"
+msgid "Recording Paths"
+msgstr ""
+
+#. label-group: Recordings - Recording Locations
+msgctxt "#30158"
+msgid "Recording Locations"
+msgstr ""
+
+# empty strings from id 30159 to 30409
+#. ##############
+#. application #
+#. ##############
+#. application: Timers
+msgctxt "#30410"
+msgid "Automatic"
+msgstr ""
+
+# empty strings from id 30411 to 30419
+#. application: Timers
+msgctxt "#30420"
+msgid "Once off timer (auto)"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30421"
+msgid "Once off timer (repeating)"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30422"
+msgid "Once off timer (channel)"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30423"
+msgid "Repeating time/channel based"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30424"
+msgid "One time guide-based"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30425"
+msgid "Repeating guide-based"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30426"
+msgid "Auto guide-based"
+msgstr ""
+
+#. label-option: Channels - tvfavouritesmode
+#. label-option: Channels - radiofavouritesmode
+#. label-option: Advanced - powerstatemode
+#. application: Timers
 msgctxt "#30430"
 msgid "Disabled"
 msgstr "Mhux attiv"
+
+#. application: Timers
+msgctxt "#30431"
+msgid "Record if EPG title differs"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30432"
+msgid "Record if EPG title and short description differs"
+msgstr ""
+
+#. application: Timers
+msgctxt "#30433"
+msgid "Record if EPG title and all descriptions differ"
+msgstr ""
+
+# empty strings from id 30434 to 30513
+#. ################
+#. notifications #
+#. ################
+#. notification: Client
+msgctxt "#30514"
+msgid "Timeshift buffer path does not exist"
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30515"
+msgid "Enigma2: Could not reach web interface"
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30516"
+msgid "Enigma2: No channel groups found"
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30517"
+msgid "Enigma2: No channels found"
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30518"
+msgid "Enigma2: Channel group changes detected, please restart to load changes"
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30519"
+msgid "Enigma2: Channel changes detected, please restart to load changes"
+msgstr ""
+
+#. application: AutoTimer
+#. application: Timer
+msgctxt "#30520"
+msgid "Invalid Channel"
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30521"
+msgid "Enigma2: Channel group changes detected, reloading..."
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30522"
+msgid "Enigma2: Channel changes detected, reloading..."
+msgstr ""
+
+# empty strings from id 30523 to 30599
+#. ############
+#. help info #
+#. ############
+#. help info - Connection
+#. help-category: connection
+msgctxt "#30600"
+msgid "This category cotains the settings for connecting to the Enigma2 device"
+msgstr ""
+
+#. help: Connection - host
+msgctxt "#30601"
+msgid "The IP address or hostname of your enigma2 based set-top box."
+msgstr ""
+
+#. help: Connection - webport
+msgctxt "#30602"
+msgid "The port used to connect to the web interface."
+msgstr ""
+
+#. help: Connection - use_secure
+msgctxt "#30603"
+msgid "Use https to connect to the web interface."
+msgstr ""
+
+#. help: Connection - user
+msgctxt "#30604"
+msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
+msgstr ""
+
+#. help: Connection - pass
+msgctxt "#30605"
+msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
+msgstr ""
+
+#. help: Connection - autoconfig
+msgctxt "#30606"
+msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
+msgstr ""
+
+#. help: Connection - streamport
+msgctxt "#30607"
+msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
+msgstr ""
+
+#. help: Connection - use_secure_stream
+msgctxt "#30608"
+msgid "Use https to connect to streams."
+msgstr ""
+
+#. help: Connection - use_login_stream
+msgctxt "#30609"
+msgid "Use the login username and password for streams."
+msgstr ""
+
+#. help: Connection - connectionchecktimeout
+msgctxt "#30610"
+msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
+msgstr ""
+
+#. help: Connection - connectioncheckinterval
+msgctxt "#30611"
+msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
+msgstr ""
+
+# empty strings from id 30612 to 30619
+#. help info - General
+#. help-category: general
+msgctxt "#30620"
+msgid "This category cotains the settings whivh generally need to be set by the user"
+msgstr ""
+
+#. help: General - onlinepicons
+msgctxt "#30621"
+msgid "Fetch the picons straight from the Enigma 2 set-top box."
+msgstr ""
+
+#. help: General - useopenwebifpiconpath
+msgctxt "#30622"
+msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
+msgstr ""
+
+#. help: General - usepiconseuformat
+msgctxt "#30623"
+msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
+msgstr ""
+
+#. help: General - iconpath
+msgctxt "#30624"
+msgid "In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property."
+msgstr ""
+
+#. help: General - updateint
+msgctxt "#30625"
+msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
+msgstr ""
+
+#. help: General - updatemode
+msgctxt "#30626"
+msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
+msgstr ""
+
+#. help: General - channelandgroupupdatemode
+msgctxt "#30627"
+msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
+msgstr ""
+
+#. help: General - channelandgroupupdatehour
+msgctxt "#30628"
+msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
+msgstr ""
+
+#. help: Channels - setprogramid
+msgctxt "#30629"
+msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
+msgstr ""
+
+# empty strings from id 30630 to 30639
+#. help info - Channels
+#. help-category: channels
+msgctxt "#30640"
+msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
+msgstr ""
+
+#. help: Channels - usestandardserviceref
+msgctxt "#30641"
+msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
+msgstr ""
+
+#. help: Channels - zap
+msgctxt "#30642"
+msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
+msgstr ""
+
+#. help: Channels - tvgroupmode
+msgctxt "#30643"
+msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all TV bouquets from the set-top box; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for TV favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
+msgstr ""
+
+#. help: Channels - onetvgroup
+#. help: Channels - twotvgroup
+#. help: Channels - threetvgroup
+#. help: Channels - fourtvgroup
+#. help: Channels - fivetvgroup
+msgctxt "#30644"
+msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
+msgstr ""
+
+#. help: Channels - tvfavouritesmode
+msgctxt "#30645"
+msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch TV favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
+msgstr ""
+
+#. help: Channels - excludelastscannedtv
+msgctxt "#30646"
+msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
+msgstr ""
+
+#. help: Channels - radiogroupmode
+msgctxt "#30647"
+msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
+msgstr ""
+
+#. help: Channels - oneradiogroup
+#. help: Channels - tworadiogroup
+#. help: Channels - threeradiogroup
+#. help: Channels - fourradiogroup
+#. help: Channels - fiveradiogroup
+msgctxt "#30648"
+msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
+msgstr ""
+
+#. help: Channels - radiofavouritesmode
+msgctxt "#30649"
+msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
+msgstr ""
+
+#. help: Channels - excludelastscannedradio
+msgctxt "#30650"
+msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
+msgstr ""
+
+#. help: Channels - customtvgroupsfile
+msgctxt "#30651"
+msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
+msgstr ""
+
+#. help: Channels - customradiogroupsfile
+msgctxt "#30652"
+msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
+msgstr ""
+
+#. help: Channels - numtvgroups
+msgctxt "#30653"
+msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
+msgstr ""
+
+#. help: Channels - numradiogroups
+msgctxt "#30654"
+msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
+msgstr ""
+
+#. help: Channels - usegroupspecificnumbers
+msgctxt "#30655"
+msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
+msgstr ""
+
+#. help: Channels - retrieveprovidername
+msgctxt "#30656"
+msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
+msgstr ""
+
+# empty strings from id 30657 to 30659
+#. help info - EPG
+#. help-category: epg
+msgctxt "#30660"
+msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
+msgstr ""
+
+#. help: EPG - extractshowinfoenabled
+msgctxt "#30661"
+msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info."
+msgstr ""
+
+#. help: EPG - extractshowinfofile
+msgctxt "#30662"
+msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
+msgstr ""
+
+#. help: EPG - genreidmapenabled
+msgctxt "#30663"
+msgid "If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi."
+msgstr ""
+
+#. help: EPG - genreidmapfile
+msgctxt "#30664"
+msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
+msgstr ""
+
+#. help: EPG - rytecgenretextmapenabled
+msgctxt "#30665"
+msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
+msgstr ""
+
+#. help: EPG - rytecgenretextmapfile
+msgctxt "#30666"
+msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
+msgstr ""
+
+#. help: EPG - logmissinggenremapping
+msgctxt "#30667"
+msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [B]TV Drama[/B], or for major, minor genres using a dot (.) to separate [B]TV Drama. Soap Opera[/B]"
+msgstr ""
+
+#. help: EPG - epgdelayperchannel
+msgctxt "#30668"
+msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
+msgstr ""
+
+#. help: EPG - skipinitialepg
+msgctxt "#30669"
+msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
+msgstr ""
+
+# empty strings from id 30670 to 30679
+#. help info - Recordings
+#. help-category: recordings
+msgctxt "#30680"
+msgid "This category cotains the settings for recordings"
+msgstr ""
+
+#. help: Recordings - storeextrarecordinginfo
+msgctxt "#30681"
+msgid "Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+."
+msgstr ""
+
+#. help: Recordings - sharerecordinglastplayed
+msgctxt "#30682"
+msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
+msgstr ""
+
+#. help: Timers - recordingpath
+msgctxt "#30683"
+msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
+msgstr ""
+
+#. help: Recordings - onlycurrent
+msgctxt "#30684"
+msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
+msgstr ""
+
+#. help: Recordings - keepfolders
+msgctxt "#30685"
+msgid "If enabled use the real path from the backend to dictate the folder structure."
+msgstr ""
+
+#. help: Recordings - enablerecordingedls
+msgctxt "#30686"
+msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
+msgstr ""
+
+#. help: Recordings - edlpaddingstart
+msgctxt "#30687"
+msgid "Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0."
+msgstr ""
+
+#. help: Recordings - edlpaddingstop
+msgctxt "#30688"
+msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
+msgstr ""
+
+#. help: Recordings - recordingsrecursive
+msgctxt "#30689"
+msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
+msgstr ""
+
+#. help: Recordings - keepfoldersomitlocation
+msgctxt "#30690"
+msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
+msgstr ""
+
+#. help: Recordings - virtualfolders
+msgctxt "#30691"
+msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
+msgstr ""
+
+# empty strings from id 30692 to 30699
+#. help info - Timers
+#. help-category: timers
+msgctxt "#30700"
+msgid "This category cotains the settings for timers (regular and auto)"
+msgstr ""
+
+#. help: Timers - enablegenrepeattimers
+msgctxt "#30701"
+msgid "Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer."
+msgstr ""
+
+#. help: Timers - numgenrepeattimers
+msgctxt "#30702"
+msgid "The number of Kodi PVR timers to generate."
+msgstr ""
+
+#. help: Timers - timerlistcleanup
+msgctxt "#30703"
+msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
+msgstr ""
+
+#. help: Timers - enableautotimers
+msgctxt "#30704"
+msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
+msgstr ""
+
+#. help: Timers - limitanychannelautotimers
+msgctxt "#30705"
+msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
+msgstr ""
+
+#. help: Timers - limitanychannelautotimerstogroups
+msgctxt "#30706"
+msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
+msgstr ""
+
+# empty strings from id 30707 to 30719
+#. help info - Timeshift
+#. help-category: timeshift
+msgctxt "#30720"
+msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
+msgstr ""
+
+#. help: Timeshift - enabletimeshift
+msgctxt "#30721"
+msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
+msgstr ""
+
+#. help: Timeshift - timeshiftbufferpath
+msgctxt "#30722"
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+msgstr ""
+
+#. help: Timeshift - timeshiftEnabled
+msgctxt "#30723"
+msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
+msgstr ""
+
+#. help: Timeshift - useFFmpegReconnect
+msgctxt "#30724"
+msgid "Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS)."
+msgstr ""
+
+#. help: Timeshift - useMpegtsForUnknownStreams
+msgctxt "#30725"
+msgid "If the type of stream cannot be determined assume it's an MPEG TS stream."
+msgstr ""
+
+#. help: Timeshift - timeshiftFFmpegdirectSettings
+msgctxt "#30726"
+msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
+msgstr ""
+
+#. help: Timeshift - enabletimeshiftdisklimit
+msgctxt "#30727"
+msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
+msgstr ""
+
+#. help: Timeshift - timeshiftdisklimit
+msgctxt "#30728"
+msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
+msgstr ""
+
+# empty strings from id 30729 to 30739
+#. help info - Advanced
+#. help-category: advanced
+msgctxt "#30740"
+msgid "This category cotains advanced/expert settings"
+msgstr ""
+
+#. help: Advanced - prependoutline
+msgctxt "#30741"
+msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
+msgstr ""
+
+#. help: Advanced - powerstatemode
+msgctxt "#30742"
+msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
+msgstr ""
+
+#. help: Advanced - readtimeout
+msgctxt "#30743"
+msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
+msgstr ""
+
+#. help: Advanced - streamreadchunksize
+msgctxt "#30744"
+msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
+msgstr ""
+
+#. help: Advanced - debugnormal
+msgctxt "#30745"
+msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
+msgstr ""
+
+#. help: Advanced - tracedebug
+msgctxt "#30746"
+msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
+msgstr ""
+
+#. help: Advanced - ignoredebug
+msgctxt "#30747"
+msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
+msgstr ""
+
+# empty strings from id 30748 to 30759
+#. help info - Backend
+#. help-category: backend
+msgctxt "#30760"
+msgid "This category contains information and settings on/about the Enigma2 STB."
+msgstr ""
+
+#. help: Backend - webifversion
+msgctxt "#30761"
+msgid "webifversion"
+msgstr ""
+
+#. help: Backend - autotimertagintags
+msgctxt "#30762"
+msgid "autotimertagintags"
+msgstr ""
+
+#. help: Backend - autotimernameintags
+msgctxt "#30763"
+msgid "autotimernameintags"
+msgstr ""
+
+#. help: Backend - globalstartpaddingstb
+msgctxt "#30764"
+msgid "This value reflects the backend setting [B]Margin before recording[/B]. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
+msgstr ""
+
+#. help: Backend - globalendpaddingstb
+msgctxt "#30765"
+msgid "This value reflects the backend setting [B]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
+msgstr ""
+
+#. label: Backend - wakeonlanmac
+msgctxt "#30766"
+msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
+msgstr ""
