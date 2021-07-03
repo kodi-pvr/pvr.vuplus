@@ -1,3 +1,6 @@
+v7.4.4
+- Language update from Weblate
+
 v7.4.3
 - Fixed: Use OpenWebIfs internal MovieList to avoid memory leak on some images
 
