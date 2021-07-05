@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ChannelGroups.h"
+#include "Providers.h"
 #include "data/Channel.h"
 
 #include <memory>
@@ -37,6 +38,8 @@ namespace enigma2
   class ATTRIBUTE_HIDDEN Channels
   {
   public:
+    Channels(Providers& providers) : m_providers(providers) {}
+
     void GetChannels(std::vector<kodi::addon::PVRChannel>& kodiChannels, bool bRadio) const;
 
     int GetChannelUniqueId(const std::string& channelServiceReference);
@@ -59,11 +62,13 @@ namespace enigma2
                       const std::string groupName,
                       std::shared_ptr<enigma2::data::ChannelGroup>& channelGroup);
     int LoadChannelsExtraData(const std::shared_ptr<enigma2::data::ChannelGroup> channelGroup, int lastGroupLatestChannelPosition);
+    void LoadProviders();
 
     std::vector<std::shared_ptr<enigma2::data::Channel>> m_channels;
     std::unordered_map<int, std::shared_ptr<enigma2::data::Channel>> m_channelsUniqueIdMap;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>> m_channelsServiceReferenceMap;
 
     ChannelGroups m_channelGroups;
+    Providers& m_providers;
   };
 } //namespace enigma2

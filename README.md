@@ -44,6 +44,7 @@ The contents of this README.md file are as follows:
    * [Advanced](#advanced)
 5. [Customising Config Files](#customising-config-files)
    * [Custom Channel Groups (Channels)](#custom-channel-groups-channels)
+   * [Provider Name Mappings (Channels)](#channel-provider-name-mappings-channels)
    * [Season, Episode and Year Show Info (EPG)](#season-episode-and-year-show-info-epg)
    * [Genre ID Mappings (EPG)](#genre-id-mappings-epg)
    * [Rytec Genre Text Mappings (EPG)](#rytec-genre-text-mappings-epg)
@@ -157,6 +158,8 @@ If Kodi PVR is set to use the channel numbers from the backend the numbers will 
 * **Use group specific channel numbers from backend**: If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded).
 * **Use standard channel service reference**: Usually service reference's for the channels are in a standard format like `1:0:1:27F6:806:2:11A0000:0:0:0:`. On occasion depending on provider they can be extended with some text e.g. `1:0:1:27F6:806:2:11A0000:0:0:0::UTV` or `1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1`. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference.
 * **Retrieve provider name for channels**: Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices.
+* **Default provider name**: If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file.
+* **Provider name mapping file**: The config file to map provider names received from the STB to custom names, icons etc. The default file is `providerMappings.xml`.
 * **TV bouquet fetch mode**: Choose from one of the following three modes:
     - `All bouquets` - Fetch all TV bouquets from the set-top box.
     - `Some bouquets` - Only fetch the bouquet specified in the next option
@@ -321,6 +324,17 @@ The following files are currently available with the addon:
 Note that both these files are provided as examples and are overwritten each time the addon starts. Therefore you should make copies and use those for your custom config.
 
 The format is quite simple, containing a number of channel group/bouquet names.
+
+### Provider Name Mappings (Channels)
+
+Config files are located in the `userdata/addon_data/pvr.vuplus/providers` folder.
+
+The following file is currently available with the addon:
+    - `providerMappings.xml`
+
+Note that the provided file is a working example but it is overwritten each time the addon starts. Therefore you should make copies and use those for your custom config.
+
+The format is quite simple, containing a number of <providerMapping> elements. Each one of those elements can map to name, type, icon path, country codes and language codes.
 
 ### Season, Episode and Year Show Info (EPG)
 

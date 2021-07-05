@@ -18,6 +18,7 @@ set(VUPLUS_SOURCES src/addon.cpp
                    src/enigma2/ChannelGroups.cpp
                    src/enigma2/ConnectionManager.cpp
                    src/enigma2/Epg.cpp
+                   src/enigma2/Providers.cpp
                    src/enigma2/RecordingReader.cpp
                    src/enigma2/Recordings.cpp
                    src/enigma2/Settings.cpp
@@ -29,6 +30,7 @@ set(VUPLUS_SOURCES src/addon.cpp
                    src/enigma2/data/Channel.cpp
                    src/enigma2/data/ChannelGroup.cpp
                    src/enigma2/data/EpgEntry.cpp
+                   src/enigma2/data/Provider.cpp
                    src/enigma2/data/RecordingEntry.cpp
                    src/enigma2/data/Timer.cpp
                    src/enigma2/extract/EpgEntryExtractor.cpp
@@ -50,6 +52,7 @@ set(VUPLUS_HEADERS src/addon.h
                    src/enigma2/Epg.h
                    src/enigma2/IConnectionListener.h
                    src/enigma2/IStreamReader.h
+                   src/enigma2/Providers.h
                    src/enigma2/RecordingReader.h
                    src/enigma2/Recordings.h
                    src/enigma2/Settings.h
@@ -65,6 +68,7 @@ set(VUPLUS_HEADERS src/addon.h
                    src/enigma2/data/EpgEntry.h
                    src/enigma2/data/EpgPartialEntry.h
                    src/enigma2/data/EpgChannel.h
+                   src/enigma2/data/Provider.h
                    src/enigma2/data/RecordingEntry.h
                    src/enigma2/data/Tags.h
                    src/enigma2/data/Timer.h

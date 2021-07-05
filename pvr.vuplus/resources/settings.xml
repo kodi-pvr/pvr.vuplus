@@ -236,13 +236,34 @@
           <default>true</default>
           <control type="toggle" />
         </setting>
+      </group>
+      <group id="2" label="30161">
+        <setting id="defaultprovidername" type="string" label="30160" help="30658">
+          <level>2</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="providermapfile" type="path" label="30159" help="30657">
+          <level>2</level>
+          <default>special://userdata/addon_data/pvr.vuplus/providers/providersMappings.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
         <setting id="retrieveprovidername" type="boolean" label="30152" help="30656">
           <level>3</level>
           <default>true</default>
           <control type="toggle" />
         </setting>
       </group>
-      <group id="2" label="30056">
+      <group id="3" label="30056">
         <setting id="tvgroupmode" type="integer" label="30025" help="30643">
           <level>0</level>
           <default>0</default>
@@ -388,7 +409,7 @@
           <control type="toggle" />
         </setting>
       </group>
-      <group id="3" label="30057">
+      <group id="4" label="30057">
         <setting id="radiogroupmode" type="integer" label="30058" help="30647">
           <level>0</level>
           <default>0</default>
