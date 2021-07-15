@@ -1,3 +1,6 @@
+v7.4.6
+Add missing radio service type for channels
+
 v7.4.5
 - Translations updates from Weblate
 	- da_dk

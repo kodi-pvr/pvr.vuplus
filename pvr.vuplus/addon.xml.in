@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.4.5"
+  version="7.4.6"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -183,6 +183,9 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.4.6
+Add missing radio service type for channels
+
 v7.4.5
 Translations updates from Weblate
 	- da_dk
