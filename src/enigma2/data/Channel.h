@@ -13,6 +13,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <array>
 
 #include <kodi/addon-instance/pvr/Channels.h>
 #include <tinyxml.h>
@@ -28,7 +29,8 @@ namespace enigma2
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
       const std::string SERVICE_REF_GENERIC_POSTFIX = ":0:0:0";
-      const std::string RADIO_SERVICE_TYPE = "2";
+      // There are at least two different service types for radio, see EN300468 Table 87
+      const std::array<std::string, 3> RADIO_SERVICE_TYPES = {"2", "A", "a"};
 
       Channel() = default;
       Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
