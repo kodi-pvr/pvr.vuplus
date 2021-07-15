@@ -1,5 +1,8 @@
+v7.4.7
+- Update: Release bump
+
 v7.4.6
-Add missing radio service type for channels
+- Fixed: Add missing radio service type for channels
 
 v7.4.5
 - Translations updates from Weblate
