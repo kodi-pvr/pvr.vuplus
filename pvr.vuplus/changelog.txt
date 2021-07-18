@@ -1,3 +1,6 @@
+v7.4.9
+- Automation test
+
 v7.4.8
 - Automation test relesae
 
