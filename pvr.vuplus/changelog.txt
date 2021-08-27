@@ -1,3 +1,7 @@
+v7.4.10
+- Translations updates from Weblate
+	- da_dk, eo, ko_kr, ru_ru
+
 v7.4.9
 - Automation test
 
