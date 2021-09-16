@@ -1,4 +1,5 @@
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
+[![Build and run tests](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml/badge.svg?branch=Matrix)](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml)
 [![Build Status](https://travis-ci.org/kodi-pvr/pvr.vuplus.svg?branch=Matrix)](https://travis-ci.org/kodi-pvr/pvr.vuplus/branches)
 [![Build Status](https://dev.azure.com/teamkodi/kodi-pvr/_apis/build/status/kodi-pvr.pvr.vuplus?branchName=Matrix)](https://dev.azure.com/teamkodi/kodi-pvr/_build/latest?definitionId=68&branchName=Matrix)
 [![Build Status](https://jenkins.kodi.tv/view/Addons/job/kodi-pvr/job/pvr.vuplus/job/Matrix/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/kodi-pvr%2Fpvr.vuplus/branches/)
