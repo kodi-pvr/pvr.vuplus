@@ -2,7 +2,7 @@ Format: http://dep.debian.net/deps/dep5
 Upstream-Name: pvr.vuplus
 
 Files: *
-Copyright: 2005-2020 Team Kodi
+Copyright: 2005-2021 Team Kodi
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,8 @@ License: GPL-2+
 
 
 Files: debian/*
-Copyright: 2013-2015 Cristiano A. Silva <hudokkow@gmail.com>
+Copyright: 2020-2021 Team Kodi
+           2013-2015 Cristiano A. Silva <hudokkow@gmail.com>
            2013 wsnipex <wsnipex@a1.net>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
