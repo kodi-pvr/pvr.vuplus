@@ -1,3 +1,13 @@
+v19.0.0
+- Translations updates from Weblate
+  - ko_kr, uk_ua
+  - To allow also addon.xml content update by Weblate
+- Improved debian packaging
+- Changed test builds to 'Kodi 19 Matrix'
+- Increased version to 19.0.0
+  - With start of Kodi 20 Nexus, takes addon as major the same version number as Kodi.
+    This done to know easier to which Kodi the addon works.
+
 v7.4.11
 - Translations updates from Weblate
 	- da_dk, eo, ko_kr, ru_ru
