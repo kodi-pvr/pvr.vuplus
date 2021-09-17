@@ -1,3 +1,7 @@
+v7.4.12
+- Translations updates from Weblate
+	- ko_kr, uk_ua
+
 v7.4.11
 - Translations updates from Weblate
 	- da_dk, eo, ko_kr, ru_ru

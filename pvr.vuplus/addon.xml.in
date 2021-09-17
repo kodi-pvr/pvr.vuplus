@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.4.11"
+  version="7.4.12"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -19,6 +19,10 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v7.4.12
+- Translations updates from Weblate
+	- ko_kr, uk_ua
+
 v7.4.11
 - Translations updates from Weblate
 	- da_dk, eo, ko_kr, ru_ru
