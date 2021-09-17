@@ -322,7 +322,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <summary lang="sv_SE">Kodi Frontend för Enigma2 baserade digitalboxar</summary>
     <summary lang="szl">Klijynt telewizyjny dlŏ dekoderōw VU+ / Enigma2 </summary>
     <summary lang="tr_TR">Kodi'nin Enigma2 tabanlı kutuları için ön ucu</summary>
-    <summary lang="uk_UA">Накладка VU+ /  Enigma2 для Kodi</summary>
+    <summary lang="uk_UA">Накладка VU+ / Enigma2 для Kodi</summary>
     <summary lang="vi_VN">Giao tiếp Kodi cho VU+ / Enigma2 dựa trên các bộ Settop Box</summary>
     <summary lang="zh_CN">基于 Enigma2 的机顶盒的 Kodi 前端</summary>
     <summary lang="zh_TW">Kodi 的前端基於 Enigma2 的機上盒</summary>
@@ -342,7 +342,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
     <description lang="es_ES">Frontend VU+; soporta TV en vivo, grabaciones, guía de programación (EPG) y temporizadores.</description>
     <description lang="es_MX">VU+ frontend; Soportando transmisión de TV en directo y grabaciones, EPG, Temporizadores.</description>
-    <description lang="et_EE">VU+ liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.</description>
+    <description lang="et_EE">Enigma2 liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.;    &#10; Dokumentatsiooni leiab aadressilt https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    </description>
     <description lang="fi_FI">VU+-asiakasohjelma. Tukee suorien tv-lähetysten ja tallennusten katsomista, ohjelmaopasta ja ohjelmien ajastamista.</description>
     <description lang="fr_CA">Frontale Enigma2 qui prend en charge la diffusion en continu des télés en direct et des enregistrements, le GÉP et les minuteries&#10;&#10;    &#10;Pour consulter la documentation, visitez https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md (page en anglais)</description>
     <description lang="fr_FR">Interface logicielle pour enregistreur VU+. Gère la diffusion et les enregistrements de la TV en direct, le guide électronique des programmes TV et les programmations.</description>
@@ -354,7 +354,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <description lang="is_IS">VU+ framendi; styður streymingu á beinum útsendingum og upptökum, rafrænum dagskrárvísum (EPG) og tímatöku.</description>
     <description lang="it_IT">Frontend VU+; supporta EPG, i timer e lo streaming della TV dal vivo e delle registrazioni.</description>
     <description lang="ja_JP">VU+ フロントエンド。ライブテレビのストリーミングや録画、EPG、タイマーをサポート。</description>
-    <description lang="ko_KR">VU+ 프론트엔드; TV 시청 &amp; 녹화, EPG, 타이머 지원</description>
+    <description lang="ko_KR">Enigma2 프론트엔드 - 라이브 TV &amp; 녹음, EPG, 타이머, 자동 타이머.&#10;    &#10;문서를 보려면 https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md를 방문하세요&#10;    </description>
     <description lang="lt_LT">TPB + sąsaja, remti transliacijos Live TV &amp; įrašai, EPG, Laikmačiai.</description>
     <description lang="lv_LV">VU+ galasistēma; atbalsta tiešraides TV &amp; ierakstu straumēšanu, EPG, taimerus.</description>
     <description lang="mk_MK">VU+ интерфејс;подржува стриминг на Live TV &amp; Recordings, EPG, Timers.</description>
