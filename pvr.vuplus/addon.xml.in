@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="7.4.11"
+  version="20.0.0"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -19,6 +19,16 @@
       <icon>icon.png</icon>
     </assets>
     <news>
+v20.0.0
+- Translations updates from Weblate
+  - ko_kr, uk_ua
+  - To allow also addon.xml content update by Weblate
+- Improved debian packaging
+- Changed test builds to 'Kodi 20 Nexus'
+- Increased version to 20.0.0
+  - With start of Kodi 20 Nexus, takes addon as major the same version number as Kodi.
+    This done to know easier to which Kodi the addon works.
+
 v7.4.11
 - Translations updates from Weblate
 	- da_dk, eo, ko_kr, ru_ru
