@@ -1,3 +1,8 @@
+v20.1.0
+- Fixed: Change reported backend name to include Enigma2
+- Added: Support pvr providers in Kodi 20
+- Added: Support recordings delete PVR API 8.0.0
+
 v20.0.0
 - Translations updates from Weblate
   - ko_kr, uk_ua
