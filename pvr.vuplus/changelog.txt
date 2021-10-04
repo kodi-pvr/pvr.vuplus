@@ -1,3 +1,6 @@
+v20.1.1
+- Remove news as Kodi 20 will load changelog.txt as a fallback anyway
+
 v20.1.0
 - Fixed: Change reported backend name to include Enigma2
 - Added: Support pvr providers in Kodi 20
@@ -15,11 +18,11 @@ v20.0.0
 
 v7.4.11
 - Translations updates from Weblate
-	- da_dk, eo, ko_kr, ru_ru
+  - da_dk, eo, ko_kr, ru_ru
 
 v7.4.10
 - Translations updates from Weblate
-	- da_dk, eo, ko_kr, ru_ru
+  - da_dk, eo, ko_kr, ru_ru
 
 v7.4.9
 - Automation test
@@ -35,7 +38,7 @@ v7.4.6
 
 v7.4.5
 - Translations updates from Weblate
-	- da_dk
+  - da_dk
 
 v7.4.4
 - Language update from Weblate
