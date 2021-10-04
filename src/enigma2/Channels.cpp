@@ -207,6 +207,10 @@ bool Channels::LoadChannels(ChannelGroups& channelGroups)
       tvChannelNumberOffset = LoadChannelsExtraData(group, tvChannelNumberOffset);
   }
 
+  LoadProviders();
+
+  Logger::Log(LEVEL_INFO, "%s Loaded %d Providers", __func__, m_providers.GetNumProviders());
+
   return bOk;
 }
 
@@ -363,6 +367,22 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
   }
 
   return newChannelPositionOffset;
+}
+
+void Channels::LoadProviders()
+{
+  for (const auto& channel : m_channels)
+  {
+    if (channel->GetProviderName().empty() && Settings::GetInstance().HasDefaultProviderName())
+    {
+      channel->SetProviderlName(Settings::GetInstance().GetDefaultProviderName());
+      Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider to default name: %s", __func__, channel->GetChannelName().c_str(), channel->GetProviderName().c_str());
+    }
+
+    const auto& provider = m_providers.AddProvider(channel->GetProviderName());
+    if (provider)
+      channel->SetProviderUniqueId(provider->GetUniqueId());
+  }
 }
 
 ChannelsChangeState Channels::CheckForChannelAndGroupChanges(enigma2::ChannelGroups& latestChannelGroups, enigma2::Channels& latestChannels)
