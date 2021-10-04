@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="pvr.vuplus"
-  version="20.1.0"
+  version="20.1.1"
   name="Enigma2 Client"
   provider-name="Joerg Dembski and Ross Nicholson">
   <requires>@ADDON_DEPENDS@
@@ -20,6 +20,10 @@
       <thumb>thumb.png</thumb>
     </assets>
     <news>
+v20.1.1
+- Translations updates from Weblate
+	- en_gb
+
 v20.1.0
 - Fixed: Change reported backend name to include Enigma2
 - Added: Support pvr providers in Kodi 20
