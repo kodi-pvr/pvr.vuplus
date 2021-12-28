@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-08-27 03:29+0000\n"
+"PO-Revision-Date: 2021-12-25 01:13+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/da_dk/>\n"
 "Language: da_dk\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.10.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Kodis frontend til VU+ / Enigma2 baseret på settopbokse"
+msgstr "Kodis frontend til VU+/Enigma2 baseret på settopbokse"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
-msgstr "VU+ frontend; understøtter streaming af TV og Optagelser, EPG og Timere."
+msgstr "Enigma2 frontend - understøttende streaming af direkte tv &amp; optagelser, EPG, timeroptagelser, automatiske timeroptagelser.&#10;   &#10;Se dokumentationen: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "Dette er ustabil software! Ophavsmændene er på ingen måde ansvarlige for mislykkede optagelser, ukorrekte timere, spildte timer, eller andre uønskede konsekvenser.."
+msgstr "Dette er ustabil software! Udviklerne er på ingen måde ansvarlige for mislykkede optagelser, ukorrekte timere, spildte timer eller andre uønskede konsekvenser."
 
 #. ##################
 #. settings labels #
@@ -41,7 +41,7 @@ msgstr "Enigma2-værtsnavn eller IP-adresse"
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr ""
+msgstr "Streamingport"
 
 #. label: Connection - user
 msgctxt "#30003"
@@ -66,7 +66,7 @@ msgstr "Ikoner"
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr ""
+msgstr "Udsendelses-streams"
 
 #. label: General - iconpath
 msgctxt "#30008"
@@ -86,17 +86,17 @@ msgstr "Automatisk oprydning af timerliste"
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr "Port for netgrænseflade"
+msgstr "Port for web-grænseflade"
 
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr "Zap før kanalskift (dvs. for single tuner-bokse)"
+msgstr "Zap før kanalskift (f.eks. til bokse med én tuner)"
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr ""
+msgstr "Indstil udsendelses-id for direkte-kanal eller optagede streams"
 
 #. label: General - updateint
 msgctxt "#30015"
@@ -169,7 +169,7 @@ msgstr "Brug sikker HTTP (https)"
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "Aktiver automatisk konfiguration for live udsendelser"
+msgstr "Aktiver automatisk konfiguration for direkte streams"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
@@ -179,7 +179,7 @@ msgstr "Gem mappestruktur for optagelser"
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr "Sæsoner og episoder"
+msgstr "Sæsoner og afsnit"
 
 #. label-category: epg
 msgctxt "#30032"
@@ -274,7 +274,7 @@ msgstr ""
 #. label: Advanced - readtimeout
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
-msgstr ""
+msgstr "Brugerdefineret tidsfrist for direkte tv (0 for at bruge standard)"
 
 #. label-group: Connection - Login
 msgctxt "#30051"
@@ -304,7 +304,7 @@ msgstr ""
 #. label-group: Channels - TV
 msgctxt "#30056"
 msgid "TV"
-msgstr "TV"
+msgstr "Tv"
 
 #. label-group: Channels - Radio
 msgctxt "#30057"
@@ -335,7 +335,7 @@ msgstr ""
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Stien til tidsforskydningsbuffer"
+msgstr "Sti til tidsforskydningsbuffer"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -447,7 +447,7 @@ msgstr ""
 #. application: Client
 msgctxt "#30083"
 msgid "addon error"
-msgstr "udvidelsesfejl"
+msgstr "add-on-fejl"
 
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
@@ -462,12 +462,12 @@ msgstr ""
 #. label-category: backend
 msgctxt "#30086"
 msgid "Backend"
-msgstr "Motor"
+msgstr "Backend"
 
 #. label-group: Backend - Recording Padding
 msgctxt "#30087"
 msgid "Recording Padding"
-msgstr "Optagelsesmellemrum"
+msgstr "Optagelsens omkringliggende tid"
 
 #. label: Backend - globalstartpaddingstb
 msgctxt "#30088"
@@ -502,7 +502,7 @@ msgstr ""
 #. application: Admin
 msgctxt "#30094"
 msgid "N/A"
-msgstr "N/A"
+msgstr "Ikke tilgængelig"
 
 #. application: Admin
 msgctxt "#30095"
@@ -683,7 +683,7 @@ msgstr "Kodi-instanser"
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30130"
 msgid "Kodi/E2 instances"
-msgstr "Kodi/E2-instanser"
+msgstr "Kodi-/E2-instanser"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
@@ -876,7 +876,7 @@ msgstr "Deaktiveret"
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr ""
+msgstr "Optag hvis EPG-titlen er forskellig"
 
 #. application: Timers
 msgctxt "#30432"
@@ -895,7 +895,7 @@ msgstr ""
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr ""
+msgstr "Buffersti til tidsforskydning findes ikke"
 
 #. notification: Enigma2
 msgctxt "#30515"
