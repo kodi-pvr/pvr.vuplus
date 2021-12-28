@@ -21,7 +21,7 @@ msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "Kodi'nin Enigma2 tabanlı kutuları için ön ucu"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "Enigma2 ön ucu - Canlı TV ve Kayıtlar, EPG, Zamanlayıcılar, Otomatik Zamanlayıcıların akışını destekler&#10;    &#10;Dökümantasyon için: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 
 msgctxt "Addon Disclaimer"
