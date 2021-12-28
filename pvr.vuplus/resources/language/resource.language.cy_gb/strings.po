@@ -21,7 +21,7 @@ msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "Blaen Kodi ar gyfer blychau teledu VU+ / Enigma2"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion"
 
 msgctxt "Addon Disclaimer"

@@ -21,7 +21,7 @@ msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "XBMS framendi fyrir tengibox byggð á VU+ / Enigma2"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "VU+ framendi; styður streymingu á beinum útsendingum og upptökum, rafrænum dagskrárvísum (EPG) og tímatöku."
 
 msgctxt "Addon Disclaimer"

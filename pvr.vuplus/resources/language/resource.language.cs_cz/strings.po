@@ -22,7 +22,7 @@ msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "Rozhraní Kodi pro přijímače založené na Enigma2"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "Rozhraní Enigma2 – podporuje streamování živého vysílání a nahrávání, televizní program, časovače, automatické časovače.&#10;&#10;Pro dokumentaci navštivte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md"
 
 msgctxt "Addon Disclaimer"
