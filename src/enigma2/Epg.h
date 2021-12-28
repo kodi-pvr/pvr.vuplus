@@ -26,7 +26,7 @@ namespace enigma2
 
   class IConnectionListener;
 
-  class ATTRIBUTE_HIDDEN Epg
+  class ATTR_DLL_LOCAL Epg
   {
   public:
     Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxPastDays, int epgMaxFutureDays);

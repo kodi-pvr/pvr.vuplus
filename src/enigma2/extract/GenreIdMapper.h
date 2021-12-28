@@ -16,7 +16,7 @@ namespace enigma2
 {
   namespace extract
   {
-    class ATTRIBUTE_HIDDEN GenreIdMapper : public IExtractor
+    class ATTR_DLL_LOCAL GenreIdMapper : public IExtractor
     {
     public:
       GenreIdMapper();

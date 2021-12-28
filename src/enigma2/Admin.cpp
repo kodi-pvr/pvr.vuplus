@@ -66,7 +66,7 @@ void Admin::SendPowerstate()
 
 bool Admin::Initialise()
 {
-  std::string unknown = kodi::GetLocalizedString(30081);
+  std::string unknown = kodi::addon::GetLocalizedString(30081);
   SetCharString(m_serverName, unknown);
   SetCharString(m_serverVersion, unknown);
 
@@ -150,7 +150,7 @@ bool Admin::LoadDeviceInfo()
   if (!xml::GetString(pElem, "e2distroversion", strTmp))
   {
     Logger::Log(LEVEL_INFO, "%s Could not parse e2distroversion from result, continuing as not available in all images!", __func__);
-    strTmp = kodi::GetLocalizedString(30081); //unknown
+    strTmp = kodi::addon::GetLocalizedString(30081); //unknown
   }
   else
   {
@@ -181,7 +181,7 @@ bool Admin::LoadDeviceInfo()
   m_deviceInfo = DeviceInfo(deviceName, enigmaVersion, imageVersion, distroName, webIfVersion, webIfVersionAsNum);
 
   std::string version = webIfVersion + " - " + distroName + " (" + imageVersion + "/" + enigmaVersion + ")";
-  SetCharString(m_serverName, StringUtils::Format(kodi::GetLocalizedString(30001).c_str(), deviceName.c_str()));
+  SetCharString(m_serverName, StringUtils::Format(kodi::addon::GetLocalizedString(30001).c_str(), deviceName.c_str()));
   SetCharString(m_serverVersion, version);
 
   Logger::Log(LEVEL_INFO, "%s - ServerVersion: %s", __func__, m_serverVersion);
@@ -265,10 +265,10 @@ unsigned int Admin::ParseWebIfVersion(const std::string& webIfVersion)
 
 bool Admin::LoadDeviceSettings()
 {
-  kodi::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
+  kodi::addon::SetSettingString("webifversion", m_deviceInfo.GetWebIfVersion());
 
-  std::string autoTimerTagInTags = kodi::GetLocalizedString(30094); // N/A
-  std::string autoTimerNameInTags = kodi::GetLocalizedString(30094); // N/A
+  std::string autoTimerTagInTags = kodi::addon::GetLocalizedString(30094); // N/A
+  std::string autoTimerNameInTags = kodi::addon::GetLocalizedString(30094); // N/A
 
   //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
   if (Settings::GetInstance().SupportsAutoTimers())
@@ -276,18 +276,18 @@ bool Admin::LoadDeviceSettings()
     if (LoadAutoTimerSettings())
     {
       if (m_deviceSettings.IsAddTagAutoTimerToTagsEnabled())
-        autoTimerTagInTags = kodi::GetLocalizedString(30095); // True
+        autoTimerTagInTags = kodi::addon::GetLocalizedString(30095); // True
       else
-        autoTimerTagInTags = kodi::GetLocalizedString(30096); // False
+        autoTimerTagInTags = kodi::addon::GetLocalizedString(30096); // False
       if (m_deviceSettings.IsAddAutoTimerNameToTagsEnabled())
-        autoTimerNameInTags = kodi::GetLocalizedString(30095); // True
+        autoTimerNameInTags = kodi::addon::GetLocalizedString(30095); // True
       else
-        autoTimerNameInTags = kodi::GetLocalizedString(30096); //False
+        autoTimerNameInTags = kodi::addon::GetLocalizedString(30096); //False
     }
   }
 
-  kodi::SetSettingString("autotimertagintags", autoTimerTagInTags);
-  kodi::SetSettingString("autotimernameintags", autoTimerNameInTags);
+  kodi::addon::SetSettingString("autotimertagintags", autoTimerTagInTags);
+  kodi::addon::SetSettingString("autotimernameintags", autoTimerNameInTags);
 
   if (!LoadRecordingMarginSettings())
   {
@@ -295,8 +295,8 @@ bool Admin::LoadDeviceSettings()
   }
   else
   {
-    kodi::SetSettingInt("globalstartpaddingstb", m_deviceSettings.GetGlobalRecordingStartMargin());
-    kodi::SetSettingInt("globalendpaddingstb", m_deviceSettings.GetGlobalRecordingEndMargin());
+    kodi::addon::SetSettingInt("globalstartpaddingstb", m_deviceSettings.GetGlobalRecordingStartMargin());
+    kodi::addon::SetSettingInt("globalendpaddingstb", m_deviceSettings.GetGlobalRecordingEndMargin());
   }
 
   return true;

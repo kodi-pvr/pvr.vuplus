@@ -22,7 +22,7 @@ namespace enigma2
   {
     class EpgEntry;
 
-    class ATTRIBUTE_HIDDEN EpgChannel : public BaseChannel
+    class ATTR_DLL_LOCAL EpgChannel : public BaseChannel
     {
     public:
       EpgChannel() = default;

@@ -22,7 +22,7 @@ namespace enigma2
 {
   namespace data
   {
-    class ATTRIBUTE_HIDDEN ChannelGroup
+    class ATTR_DLL_LOCAL ChannelGroup
     {
     public:
       ChannelGroup() = default;

@@ -13,7 +13,7 @@
 
 namespace enigma2
 {
-  class ATTRIBUTE_HIDDEN IStreamReader
+  class ATTR_DLL_LOCAL IStreamReader
   {
   public:
     virtual ~IStreamReader() = default;

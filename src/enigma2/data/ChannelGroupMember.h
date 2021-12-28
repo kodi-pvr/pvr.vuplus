@@ -15,7 +15,7 @@ namespace enigma2
 {
   namespace data
   {
-    class ATTRIBUTE_HIDDEN ChannelGroupMember
+    class ATTR_DLL_LOCAL ChannelGroupMember
     {
     public:
       ChannelGroupMember() = default;

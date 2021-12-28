@@ -17,7 +17,7 @@ namespace enigma2
 {
   namespace data
   {
-    class ATTRIBUTE_HIDDEN BaseEntry
+    class ATTR_DLL_LOCAL BaseEntry
     {
     public:
       const std::string& GetTitle() const { return m_title; }

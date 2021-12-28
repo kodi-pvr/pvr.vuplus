@@ -21,7 +21,7 @@
 
 namespace enigma2
 {
-  class ATTRIBUTE_HIDDEN Admin
+  class ATTR_DLL_LOCAL Admin
   {
   public:
     Admin();

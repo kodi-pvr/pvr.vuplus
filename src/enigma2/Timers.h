@@ -25,7 +25,7 @@ namespace enigma2
 {
   class IConnectionListener;
 
-  class ATTRIBUTE_HIDDEN Timers
+  class ATTR_DLL_LOCAL Timers
   {
   public:
     Timers(IConnectionListener& connectionListener, Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)

@@ -27,7 +27,7 @@ namespace enigma2
 
   class IConnectionListener;
 
-  class ATTRIBUTE_HIDDEN Recordings
+  class ATTR_DLL_LOCAL Recordings
   {
   public:
     Recordings(IConnectionListener& connectionListener, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor);

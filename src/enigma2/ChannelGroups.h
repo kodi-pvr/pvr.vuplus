@@ -19,7 +19,7 @@
 
 namespace enigma2
 {
-  class ATTRIBUTE_HIDDEN ChannelGroups
+  class ATTR_DLL_LOCAL ChannelGroups
   {
   public:
     void GetChannelGroups(std::vector<kodi::addon::PVRChannelGroup>& channelGroups, bool radio) const;

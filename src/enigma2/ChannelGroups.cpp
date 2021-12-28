@@ -315,7 +315,7 @@ void ChannelGroups::AddTVFavouritesChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30079)); //Favourites (TV)
+  newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30079)); //Favourites (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.tv\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
@@ -325,7 +325,7 @@ void ChannelGroups::AddRadioFavouritesChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(true);
-  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30080)); //Favourites (Radio)
+  newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30080)); //Favourites (Radio)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
   AddChannelGroup(newChannelGroup);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
@@ -335,7 +335,7 @@ void ChannelGroups::AddTVLastScannedChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(false);
-  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30112)); //Last Scanned (TV)
+  newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30112)); //Last Scanned (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
@@ -347,7 +347,7 @@ void ChannelGroups::AddRadioLastScannedChannelGroup()
 {
   ChannelGroup newChannelGroup;
   newChannelGroup.SetRadio(true);
-  newChannelGroup.SetGroupName(kodi::GetLocalizedString(30113)); //Last Scanned (Radio)
+  newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30113)); //Last Scanned (Radio)
   //Hack used here, extra space in service reference so we can spearate TV and Radio, it must be unique
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);

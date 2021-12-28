@@ -23,7 +23,7 @@ namespace enigma2
     static const std::string VALUE_FOR_CHANNEL_TYPE_TV = "TV";
     static const std::string VALUE_FOR_CHANNEL_TYPE_RADIO = "Radio";
 
-    class ATTRIBUTE_HIDDEN Tags
+    class ATTR_DLL_LOCAL Tags
     {
     public:
       Tags() = default;

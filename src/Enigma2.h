@@ -39,10 +39,10 @@
 #undef snprintf
 #endif
 
-class ATTRIBUTE_HIDDEN Enigma2 : public enigma2::IConnectionListener
+class ATTR_DLL_LOCAL Enigma2 : public enigma2::IConnectionListener
 {
 public:
-  Enigma2(KODI_HANDLE instance, const std::string& version);
+  Enigma2(const kodi::addon::IInstanceInfo& instance);
   ~Enigma2();
 
   // IConnectionListener implementation

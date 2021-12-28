@@ -174,5 +174,5 @@ std::vector<std::string> FileUtils::GetFilesInDirectory(const std::string& dir)
 
 std::string FileUtils::GetResourceDataPath()
 {
-  return kodi::GetAddonPath("/resources/data");
+  return kodi::addon::GetAddonPath("/resources/data");
 }

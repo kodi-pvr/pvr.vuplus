@@ -11,11 +11,11 @@
 
 namespace enigma2
 {
-  class ATTRIBUTE_HIDDEN IConnectionListener : public kodi::addon::CInstancePVRClient
+  class ATTR_DLL_LOCAL IConnectionListener : public kodi::addon::CInstancePVRClient
   {
   public:
-    IConnectionListener(KODI_HANDLE instance, const std::string& version)
-      : kodi::addon::CInstancePVRClient(instance, version) { }
+    IConnectionListener(const kodi::addon::IInstanceInfo& instance)
+      : kodi::addon::CInstancePVRClient(instance) { }
     virtual ~IConnectionListener() = default;
 
     virtual void ConnectionLost() = 0;
