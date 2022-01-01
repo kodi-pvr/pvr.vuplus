@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-09-17 08:36+0000\n"
+"PO-Revision-Date: 2021-12-16 14:13+0000\n"
 "Last-Translator: rimasx <riks_12@hot.ee>\n"
 "Language-Team: Estonian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/et_ee/>\n"
 "Language: et_ee\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Kodi liides VU+ / Enigma2 põhistele digiboksidele"
+msgstr "Kodi liides Enigma2 põhistele digiboksidele"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "Enigma2 liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.;    &#10; Dokumentatsiooni leiab aadressilt https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nurjunud salvestiste, ebaõige aegrelee, raisatud tundide ega muude soovimatute asjade eest."
+msgstr "See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nurjunud salvestiste, ebatäpsete taimerite, raisatud tundide ega muude soovimatute asjade eest."
 
 #. ##################
 #. settings labels #
@@ -35,13 +35,13 @@ msgstr "See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nu
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
-msgstr ""
+msgstr "Enigma2 masinanimi või IP-aadress"
 
 # empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr ""
+msgstr "Voogesituse port"
 
 #. label: Connection - user
 msgctxt "#30003"
@@ -71,23 +71,23 @@ msgstr ""
 #. label: General - iconpath
 msgctxt "#30008"
 msgid "Icon path"
-msgstr ""
+msgstr "Ikoonide rada"
 
 #. label-group: General - Update Interval
 msgctxt "#30009"
 msgid "Update Interval"
-msgstr ""
+msgstr "Värskendusintervall"
 
 # empty string with id 30010
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
-msgstr ""
+msgstr "Taimeriloendi automaatne puhastamine"
 
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr ""
+msgstr "Veebiliidese port"
 
 #. label: Channels - zap
 msgctxt "#30013"
@@ -107,12 +107,12 @@ msgstr "Uuendamise vahemik"
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr ""
+msgstr "Kasuta kaugvastuvõtja lemmiknimekirja numeratsiooni"
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr ""
+msgstr "Kasuta ainult praegust kaugvastuvõtja salvestuskausta"
 
 #. label-category: general
 #. label-group: Channels
@@ -129,7 +129,7 @@ msgstr "Kanalid"
 #. label-group: Connection - Advanced
 msgctxt "#30020"
 msgid "Advanced"
-msgstr "Põhjalikumad seaded"
+msgstr "Lisaseaded"
 
 # empty string with id 30021
 #. label: Recordings - recordingsrecursive
@@ -140,97 +140,97 @@ msgstr ""
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr ""
+msgstr "Uue taimeri vaikimisi salvestuskaust"
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr ""
+msgstr "Saada toitehalduse käsk lisamooduli sulgemisel"
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
-msgstr ""
+msgstr "TV kanalinimekirja laadimise moodus"
 
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr ""
+msgstr "TV kanalinimekiri 1"
 
 #. label: General - onlinepicons
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr ""
+msgstr "Laadi kanalilogod veebiliidesest"
 
 #. label: Connection - use_secure
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
-msgstr ""
+msgstr "Turvalise HTTP (https) kasutamine"
 
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr ""
+msgstr "Kasuta telesaadete jaoks automaatseid seadeid"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
-msgstr ""
+msgstr "Säilita salvestiste kausta struktuur"
 
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr ""
+msgstr "Hooajad ja episoodid"
 
 #. label-category: epg
 msgctxt "#30032"
 msgid "EPG"
-msgstr ""
+msgstr "EPG"
 
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr ""
+msgstr "Võimalusel eralda hooaja, episoodi ja aasta andmed"
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr ""
+msgstr "Luba autotaimerid"
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr ""
+msgstr "Kasuta picons.eu vormingut"
 
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
-msgstr ""
+msgstr "Luba korduvtaimerite loomine"
 
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr ""
+msgstr "Logi puuduvad žanrimääratlused"
 
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
 msgid "Web Interface"
-msgstr ""
+msgstr "Veebiliides"
 
 #. label-group: Connection - Streaming
 msgctxt "#30039"
 msgid "Streaming"
-msgstr ""
+msgstr "Voogesitus"
 
 #. label: Advanced - prependoutline
 msgctxt "#30040"
 msgid "Put outline (e.g. sub-title) before plot"
-msgstr ""
+msgstr "Kuva lühiülevaade enne sisututvustust"
 
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr ""
+msgstr "Voogesituse paketi suurus"
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
@@ -245,7 +245,7 @@ msgstr ""
 #. label - Advanced - prependoutline
 msgctxt "#30044"
 msgid "In recordings only"
-msgstr ""
+msgstr "Ainult salvestustel"
 
 #. label - Advanced - prependoutline
 msgctxt "#30045"

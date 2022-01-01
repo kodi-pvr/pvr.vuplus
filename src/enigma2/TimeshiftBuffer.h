@@ -18,7 +18,7 @@
 
 namespace enigma2
 {
-  class ATTRIBUTE_HIDDEN TimeshiftBuffer : public IStreamReader
+  class ATTR_DLL_LOCAL TimeshiftBuffer : public IStreamReader
   {
   public:
     TimeshiftBuffer(IStreamReader* strReader);

@@ -247,7 +247,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
 
   /* PVR_Timer.iRecordingGroup values and presentation.*/
   std::vector<kodi::addon::PVRTypeIntValue> groupValues = {
-      {0, kodi::GetLocalizedString(30410)}, //automatic
+      {0, kodi::addon::GetLocalizedString(30410)}, //automatic
   };
   for (const auto& recf : m_locations)
     groupValues.emplace_back(groupValues.size(), recf);
@@ -263,7 +263,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP  |
     PVR_TIMER_TYPE_FORBIDS_EPG_TAG_ON_CREATE,
-    kodi::GetLocalizedString(30422), // Once off time/channel based
+    kodi::addon::GetLocalizedString(30422), // Once off time/channel based
     groupValues);
   types.emplace_back(*t);
   delete t;
@@ -279,7 +279,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
     PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-    kodi::GetLocalizedString(30421), // Once off timer (set by repeating time/channel based rule)
+    kodi::addon::GetLocalizedString(30421), // Once off timer (set by repeating time/channel based rule)
     groupValues);
   types.emplace_back(*t);
   delete t;
@@ -297,7 +297,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP  |
     PVR_TIMER_TYPE_FORBIDS_EPG_TAG_ON_CREATE,
-    kodi::GetLocalizedString(30423), // Repeating time/channel based
+    kodi::addon::GetLocalizedString(30423), // Repeating time/channel based
     groupValues);
   types.emplace_back(*t);
   delete t;
@@ -311,7 +311,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
     PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-    kodi::GetLocalizedString(30424)); // One time guide-based
+    kodi::addon::GetLocalizedString(30424)); // One time guide-based
   types.emplace_back(*t);
   delete t;
 
@@ -328,7 +328,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
       PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
       PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
       PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
-      kodi::GetLocalizedString(30425)); // Repeating guide-based
+      kodi::addon::GetLocalizedString(30425)); // Repeating guide-based
     types.emplace_back(*t);
     delete t;
   }
@@ -346,17 +346,17 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
       PVR_TIMER_TYPE_SUPPORTS_START_TIME       |
       PVR_TIMER_TYPE_SUPPORTS_END_TIME         |
       PVR_TIMER_TYPE_SUPPORTS_WEEKDAYS,
-      kodi::GetLocalizedString(30425)); // Repeating guide-based
+      kodi::addon::GetLocalizedString(30425)); // Repeating guide-based
     types.emplace_back(*t);
     delete t;
 
     /* PVR_Timer.iPreventDuplicateEpisodes values and presentation.*/
     static std::vector<kodi::addon::PVRTypeIntValue> deDupValues =
     {
-      { AutoTimer::DeDup::DISABLED,                   kodi::GetLocalizedString(30430) },
-      { AutoTimer::DeDup::CHECK_TITLE,                kodi::GetLocalizedString(30431) },
-      { AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC, kodi::GetLocalizedString(30432) },
-      { AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS,  kodi::GetLocalizedString(30433) },
+      { AutoTimer::DeDup::DISABLED,                   kodi::addon::GetLocalizedString(30430) },
+      { AutoTimer::DeDup::CHECK_TITLE,                kodi::addon::GetLocalizedString(30431) },
+      { AutoTimer::DeDup::CHECK_TITLE_AND_SHORT_DESC, kodi::addon::GetLocalizedString(30432) },
+      { AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS,  kodi::addon::GetLocalizedString(30433) },
     };
 
      /* epg auto search */
@@ -377,7 +377,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
       PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP    |
       PVR_TIMER_TYPE_SUPPORTS_RECORD_ONLY_NEW_EPISODES |
       PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-      kodi::GetLocalizedString(30426), // Auto guide-based
+      kodi::addon::GetLocalizedString(30426), // Auto guide-based
       groupValues, deDupValues, AutoTimer::DeDup::CHECK_TITLE_AND_ALL_DESCS);
     types.emplace_back(*t);
     delete t;
@@ -400,7 +400,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
     PVR_TIMER_TYPE_SUPPORTS_START_END_MARGIN |
     PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP |
     PVR_TIMER_TYPE_REQUIRES_EPG_TAG_ON_CREATE,
-    kodi::GetLocalizedString(30420), // Once off timer (set by auto guide-based rule)
+    kodi::addon::GetLocalizedString(30420), // Once off timer (set by auto guide-based rule)
     groupValues);
   types.emplace_back(*t);
   delete t;

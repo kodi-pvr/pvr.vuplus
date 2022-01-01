@@ -28,7 +28,7 @@ namespace enigma2
     static const std::string TAG_FOR_EPG_TIMER = "EPG";
     static const std::string TAG_FOR_PADDING = "Padding";
 
-    class ATTRIBUTE_HIDDEN Timer : public EpgEntry, public Tags
+    class ATTR_DLL_LOCAL Timer : public EpgEntry, public Tags
     {
     public:
 

@@ -21,7 +21,7 @@ namespace enigma2
 
   class IConnectionListener;
 
-  class ATTRIBUTE_HIDDEN ConnectionManager
+  class ATTR_DLL_LOCAL ConnectionManager
   {
   public:
     ConnectionManager(IConnectionListener& connectionListener);

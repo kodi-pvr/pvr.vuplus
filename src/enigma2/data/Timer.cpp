@@ -190,7 +190,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
   if (m_channelId == PVR_CHANNEL_INVALID_UID)
   {
-    m_channelName = kodi::GetLocalizedString(30520); // Invalid Channel
+    m_channelName = kodi::addon::GetLocalizedString(30520); // Invalid Channel
   }
   else
   {

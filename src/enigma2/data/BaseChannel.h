@@ -18,7 +18,7 @@ namespace enigma2
 {
   namespace data
   {
-    class ATTRIBUTE_HIDDEN BaseChannel
+    class ATTR_DLL_LOCAL BaseChannel
     {
     public:
       BaseChannel() = default;

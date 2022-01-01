@@ -23,7 +23,7 @@ namespace enigma2
 
     static const std::string GENRE_KODI_DVB_FILEPATH = "special://userdata/addon_data/pvr.vuplus/genres/kodiDvbGenres.xml";
 
-    class ATTRIBUTE_HIDDEN GenreRytecTextMapper : public IExtractor
+    class ATTR_DLL_LOCAL GenreRytecTextMapper : public IExtractor
     {
     public:
       GenreRytecTextMapper();

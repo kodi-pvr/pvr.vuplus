@@ -5,24 +5,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-06-28 08:29+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2021-12-16 14:13+0000\n"
+"Last-Translator: Edson Armando <edsonarmando78@outlook.com>\n"
 "Language-Team: Spanish (Mexico) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/es_mx/>\n"
 "Language: es_mx\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "Kodi frontend para cajas fijas basadas en VU + / Enigma2"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "VU+ frontend; Soportando transmisión de TV en directo y grabaciones, EPG, Temporizadores."
 
 msgctxt "Addon Disclaimer"
@@ -895,7 +895,7 @@ msgstr "Graba si el título y todas las descripciones del EPG son diferentes"
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr ""
+msgstr "La ruta del búfer de Timeshift no existe"
 
 #. notification: Enigma2
 msgctxt "#30515"

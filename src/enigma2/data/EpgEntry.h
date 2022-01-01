@@ -20,7 +20,7 @@ namespace enigma2
 {
   namespace data
   {
-    class ATTRIBUTE_HIDDEN EpgEntry : public BaseEntry
+    class ATTR_DLL_LOCAL EpgEntry : public BaseEntry
     {
     public:
       unsigned int GetEpgId() const { return m_epgId; }

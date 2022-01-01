@@ -15,7 +15,7 @@
 
 namespace enigma2
 {
-  class ATTRIBUTE_HIDDEN StreamReader : public IStreamReader
+  class ATTR_DLL_LOCAL StreamReader : public IStreamReader
   {
   public:
     StreamReader(const std::string& streamURL, const unsigned int m_readTimeout);

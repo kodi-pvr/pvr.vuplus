@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-06-28 08:29+0000\n"
+"PO-Revision-Date: 2021-09-25 07:30+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Belarusian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/be_by/>\n"
 "Language: be_by\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.8\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "Kodi's frontend for VU+ / Enigma2 based settop boxes"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
-msgstr "VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers."
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgstr "VU+ frontend; supporting streaming of Live TV & Recordings, EPG, Timers."
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
+msgstr "Гэта нестабільнае праграмнае забеспячэнне! Аўтары не нясуць адказнасці за няўдалыя запісы, хібныя таймеры, змарнаваны час і іншае."
 
 #. ##################
 #. settings labels #
@@ -76,7 +76,7 @@ msgstr ""
 #. label-group: General - Update Interval
 msgctxt "#30009"
 msgid "Update Interval"
-msgstr ""
+msgstr "Прамежак паміж абнаўленнямі"
 
 # empty string with id 30010
 #. label: Timers - timerlistcleanup

@@ -46,7 +46,7 @@ namespace enigma2
 
   namespace data
   {
-    class ATTRIBUTE_HIDDEN AutoTimer : public Timer
+    class ATTR_DLL_LOCAL AutoTimer : public Timer
     {
     public:
       enum DeDup : unsigned int // same type as PVR_TIMER_TYPE.iPreventDuplicateEpisodes

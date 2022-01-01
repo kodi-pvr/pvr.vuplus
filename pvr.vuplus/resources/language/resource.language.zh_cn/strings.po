@@ -21,7 +21,7 @@ msgid "Kodi's frontend for Enigma2 based set-top boxes"
 msgstr "基于 Enigma2 的机顶盒的 Kodi 前端"
 
 msgctxt "Addon Description"
-msgid "Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
+msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
 msgstr "Enigma2 前端 - 支持直播电视播放和录像、电子节目单、定时器、自动定时器。&#10;&#10;文档见：https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md"
 
 msgctxt "Addon Disclaimer"

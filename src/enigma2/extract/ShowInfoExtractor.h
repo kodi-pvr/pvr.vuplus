@@ -50,7 +50,7 @@ namespace enigma2
     // (2018E25)
     static const std::string GET_YEAR_EPISODE_PATTERN = "^.*\\(([12][0-9][0-9][0-9])[eE][pP]?\\.?[0-9]+/?[0-9]*\\)[^]*$";
 
-    class ATTRIBUTE_HIDDEN ShowInfoExtractor : public IExtractor
+    class ATTR_DLL_LOCAL ShowInfoExtractor : public IExtractor
     {
     public:
       ShowInfoExtractor();

@@ -24,31 +24,31 @@ ADDON_STATUS CEnigma2Addon::Create()
       return;
 
     /* Convert the log level */
-    AddonLog addonLevel;
+    ADDON_LOG addonLevel;
 
     switch (level)
     {
       case LogLevel::LEVEL_FATAL:
-        addonLevel = AddonLog::ADDON_LOG_FATAL;
+        addonLevel = ADDON_LOG::ADDON_LOG_FATAL;
         break;
       case LogLevel::LEVEL_ERROR:
-        addonLevel = AddonLog::ADDON_LOG_ERROR;
+        addonLevel = ADDON_LOG::ADDON_LOG_ERROR;
         break;
       case LogLevel::LEVEL_WARNING:
-        addonLevel = AddonLog::ADDON_LOG_WARNING;
+        addonLevel = ADDON_LOG::ADDON_LOG_WARNING;
         break;
       case LogLevel::LEVEL_INFO:
-        addonLevel = AddonLog::ADDON_LOG_INFO;
+        addonLevel = ADDON_LOG::ADDON_LOG_INFO;
         break;
       default:
-        addonLevel = AddonLog::ADDON_LOG_DEBUG;
+        addonLevel = ADDON_LOG::ADDON_LOG_DEBUG;
     }
 
-    if (addonLevel == AddonLog::ADDON_LOG_DEBUG && Settings::GetInstance().GetNoDebug())
+    if (addonLevel == ADDON_LOG::ADDON_LOG_DEBUG && Settings::GetInstance().GetNoDebug())
       return;
 
-    if (addonLevel == AddonLog::ADDON_LOG_DEBUG && Settings::GetInstance().GetDebugNormal())
-      addonLevel = AddonLog::ADDON_LOG_INFO;
+    if (addonLevel == ADDON_LOG::ADDON_LOG_DEBUG && Settings::GetInstance().GetDebugNormal())
+      addonLevel = ADDON_LOG::ADDON_LOG_INFO;
 
     kodi::Log(addonLevel, "%s", message);
   });
@@ -62,38 +62,38 @@ ADDON_STATUS CEnigma2Addon::Create()
   return ADDON_STATUS_OK;
 }
 
-ADDON_STATUS CEnigma2Addon::SetSetting(const std::string& settingName, const kodi::CSettingValue& settingValue)
+ADDON_STATUS CEnigma2Addon::SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue)
 {
   return m_settings.SetValue(settingName, settingValue);
 }
 
-ADDON_STATUS CEnigma2Addon::CreateInstance(int instanceType, const std::string& instanceID, KODI_HANDLE instance, const std::string& version, KODI_HANDLE& addonInstance)
+ADDON_STATUS CEnigma2Addon::CreateInstance(const kodi::addon::IInstanceInfo& instance, KODI_ADDON_INSTANCE_HDL& hdl)
 {
-  if (instanceType == ADDON_INSTANCE_PVR)
+  if (instance.IsType(ADDON_INSTANCE_PVR))
   {
-    Enigma2* usedInstance = new Enigma2(instance, version);
+    Enigma2* usedInstance = new Enigma2(instance);
     if (!usedInstance->Start())
     {
       delete usedInstance;
       return ADDON_STATUS_PERMANENT_FAILURE;
     }
-    addonInstance = usedInstance;
+    hdl = usedInstance;
 
     // Store this instance also on this class, currently support Kodi only one
     // instance, for that it becomes stored here to interact e.g. about
     // settings. In future becomes another way added.
-    m_usedInstances.emplace(std::make_pair(instanceID, usedInstance));
+    m_usedInstances.emplace(std::make_pair(instance.GetID(), usedInstance));
     return ADDON_STATUS_OK;
   }
 
   return ADDON_STATUS_UNKNOWN;
 }
 
-void CEnigma2Addon::DestroyInstance(int instanceType, const std::string& instanceID, KODI_HANDLE addonInstance)
+void CEnigma2Addon::DestroyInstance(const kodi::addon::IInstanceInfo& instance, const KODI_ADDON_INSTANCE_HDL hdl)
 {
-  if (instanceType == ADDON_INSTANCE_PVR)
+  if (instance.IsType(ADDON_INSTANCE_PVR))
   {
-    const auto& it = m_usedInstances.find(instanceID);
+    const auto& it = m_usedInstances.find(instance.GetID());
     if (it != m_usedInstances.end())
     {
       it->second->SendPowerstate();

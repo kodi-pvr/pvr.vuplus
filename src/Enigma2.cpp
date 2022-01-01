@@ -40,8 +40,8 @@ template<typename T> void SafeDelete(T*& p)
   }
 }
 
-Enigma2::Enigma2(KODI_HANDLE instance, const std::string& version)
-  : enigma2::IConnectionListener(instance, version),
+Enigma2::Enigma2(const kodi::addon::IInstanceInfo& instance)
+  : enigma2::IConnectionListener(instance),
     m_epgMaxPastDays(EpgMaxPastDays()),
     m_epgMaxFutureDays(EpgMaxFutureDays())
 {
@@ -105,7 +105,7 @@ PVR_ERROR Enigma2::GetBackendHostname(std::string& hostname)
 
 PVR_ERROR Enigma2::GetConnectionString(std::string& connection)
 {
-  connection = StringUtils::Format("%s%s", m_settings.GetHostname().c_str(), IsConnected() ? "" : kodi::GetLocalizedString(30082).c_str()); // (Not connected!)
+  connection = StringUtils::Format("%s%s", m_settings.GetHostname().c_str(), IsConnected() ? "" : kodi::addon::GetLocalizedString(30082).c_str()); // (Not connected!)
   return PVR_ERROR_NO_ERROR;
 }
 
@@ -152,7 +152,7 @@ void Enigma2::ConnectionEstablished()
   if (!m_isConnected)
   {
     Logger::Log(LEVEL_ERROR, "%s It seem's that the webinterface cannot be reached. Make sure that you set the correct configuration options in the addon settings!", __func__);
-    kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30515));
+    kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30515));
     return;
   }
 
@@ -167,7 +167,7 @@ void Enigma2::ConnectionEstablished()
     if (!m_channelGroups.LoadChannelGroups())
     {
       Logger::Log(LEVEL_ERROR, "%s No channel groups (bouquets) found, please check the addon channel settings, exiting", __func__);
-      kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30516));
+      kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30516));
 
       return;
     }
@@ -175,7 +175,7 @@ void Enigma2::ConnectionEstablished()
     if (!m_channels.LoadChannels(m_channelGroups))
     {
       Logger::Log(LEVEL_ERROR, "%s No channels found, please check the addon channel settings, exiting", __func__);
-      kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30517));
+      kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30517));
 
       return;
     }
@@ -328,12 +328,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, please restart to load changes", __func__);
-            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30518));
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::addon::GetLocalizedString(30518));
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel changes detected, please restart to load changes", __func__);
-            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30519));
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::addon::GetLocalizedString(30519));
           }
         }
         else // RELOAD_CHANNELS_AND_GROUPS
@@ -341,12 +341,12 @@ ChannelsChangeState Enigma2::CheckForChannelAndGroupChanges()
           if (changeType == ChannelsChangeState::CHANNEL_GROUPS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel group (bouquet) changes detected, reloading channels, groups and EPG now", __func__);
-            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30521));
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::addon::GetLocalizedString(30521));
           }
           else if (changeType == ChannelsChangeState::CHANNELS_CHANGED)
           {
             Logger::Log(LEVEL_INFO, "%s Channel changes detected, reloading channels, groups and EPG now", __func__);
-            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30522));
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::addon::GetLocalizedString(30522));
           }
         }
       }
@@ -652,7 +652,7 @@ bool Enigma2::OpenLiveStream(const kodi::addon::PVRChannel& channelinfo)
 
   /* queue a warning if the timeshift buffer path does not exist */
   if (m_settings.GetTimeshift() != Timeshift::OFF && !m_settings.IsTimeshiftBufferPathValid())
-    kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30514));
+    kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30514));
 
   const std::string streamURL = GetLiveStreamURL(channelinfo);
   m_activeStreamReader = new StreamReader(streamURL, m_settings.GetReadTimeoutSecs());

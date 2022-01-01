@@ -24,7 +24,7 @@ namespace enigma2
   {
     class ChannelGroup;
 
-    class ATTRIBUTE_HIDDEN Channel : public BaseChannel
+    class ATTR_DLL_LOCAL Channel : public BaseChannel
     {
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";

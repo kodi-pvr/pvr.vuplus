@@ -189,7 +189,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
         {
           m_state = PVR_TIMER_STATE_ERROR;
           Logger::Log(LEVEL_DEBUG, "%s Overriding AutoTimer state as channel not found, state is: ERROR", __func__);
-          m_channelName = kodi::GetLocalizedString(30520); // Invalid Channel
+          m_channelName = kodi::addon::GetLocalizedString(30520); // Invalid Channel
           m_channelId = PVR_TIMER_ANY_CHANNEL;
           m_anyChannel = true;
         }

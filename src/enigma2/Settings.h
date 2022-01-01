@@ -108,7 +108,7 @@ namespace enigma2
     WAKEUP_THEN_STANDBY
   };
 
-  class ATTRIBUTE_HIDDEN Settings
+  class ATTR_DLL_LOCAL Settings
   {
   public:
     /**
@@ -121,7 +121,7 @@ namespace enigma2
     }
 
     void ReadFromAddon();
-    ADDON_STATUS SetValue(const std::string& settingName, const kodi::CSettingValue& settingValue);
+    ADDON_STATUS SetValue(const std::string& settingName, const kodi::addon::CSettingValue& settingValue);
 
     //Connection
     const std::string& GetHostname() const { return m_hostname; }
@@ -275,7 +275,7 @@ namespace enigma2
     void operator=(Settings const&) = delete;
 
     template<typename T, typename V>
-    V SetSetting(const std::string& settingName, const kodi::CSettingValue& settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
+    V SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       T newValue;
       if (std::is_same<T, float>::value)
@@ -301,7 +301,7 @@ namespace enigma2
     }
 
     template<typename T, typename V>
-    V SetEnumSetting(const std::string& settingName, const kodi::CSettingValue& settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
+    V SetEnumSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       T newValue = settingValue.GetEnum<T>();
       if (newValue != currentValue)
@@ -315,7 +315,7 @@ namespace enigma2
     }
 
     template<typename V>
-    V SetStringSetting(const std::string& settingName, const kodi::CSettingValue& settingValue, std::string& currentValue, V returnValueIfChanged, V defaultReturnValue)
+    V SetStringSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue, std::string& currentValue, V returnValueIfChanged, V defaultReturnValue)
     {
       const std::string strSettingValue = settingValue.GetString();
 

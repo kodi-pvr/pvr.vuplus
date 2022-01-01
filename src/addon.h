@@ -14,15 +14,15 @@
 
 class Enigma2;
 
-class ATTRIBUTE_HIDDEN CEnigma2Addon : public kodi::addon::CAddonBase
+class ATTR_DLL_LOCAL CEnigma2Addon : public kodi::addon::CAddonBase
 {
 public:
   CEnigma2Addon() = default;
 
   ADDON_STATUS Create() override;
-  ADDON_STATUS SetSetting(const std::string& settingName, const kodi::CSettingValue& settingValue) override;
-  ADDON_STATUS CreateInstance(int instanceType, const std::string& instanceID, KODI_HANDLE instance, const std::string& version, KODI_HANDLE& addonInstance) override;
-  void DestroyInstance(int instanceType, const std::string& instanceID, KODI_HANDLE addonInstance) override;
+  ADDON_STATUS SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue) override;
+  ADDON_STATUS CreateInstance(const kodi::addon::IInstanceInfo& instance, KODI_ADDON_INSTANCE_HDL& hdl) override;
+  void DestroyInstance(const kodi::addon::IInstanceInfo& instance, const KODI_ADDON_INSTANCE_HDL hdl) override;
 
 private:
   std::unordered_map<std::string, Enigma2*> m_usedInstances;

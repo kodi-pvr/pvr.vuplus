@@ -34,7 +34,7 @@ namespace enigma2
     CHANNELS_CHANGED
   };
 
-  class ATTRIBUTE_HIDDEN Channels
+  class ATTR_DLL_LOCAL Channels
   {
   public:
     Channels(Providers& providers) : m_providers(providers) {}
