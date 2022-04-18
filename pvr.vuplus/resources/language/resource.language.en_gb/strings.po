@@ -612,10 +612,7 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr ""
 
-#. label: EPG - skipinitialepg
-msgctxt "#30115"
-msgid "Skip Initial EPG Load"
-msgstr ""
+#empty string with id 30115
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -1246,12 +1243,7 @@ msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr ""
 
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr ""
-
-#empty strings from id 30670 to 30679
+#empty strings from id 30669 to 30679
 
 #. help info - Recordings
 

@@ -9,7 +9,6 @@
 
 #include "ChannelGroups.h"
 #include "Channels.h"
-#include "data/EpgChannel.h"
 #include "data/EpgPartialEntry.h"
 #include "extract/EpgEntryExtractor.h"
 
@@ -29,13 +28,12 @@ namespace enigma2
   class ATTR_DLL_LOCAL Epg
   {
   public:
-    Epg(IConnectionListener& connectionListener, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxPastDays, int epgMaxFutureDays);
+    Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxPastDays, int epgMaxFutureDays);
     Epg(const enigma2::Epg& epg);
 
     bool Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups);
     bool IsInitialEpgCompleted();
     void TriggerEpgUpdatesForChannels();
-    void MarkChannelAsInitialEpgRead(const std::string& serviceReference);
     PVR_ERROR GetEPGForChannel(const std::string& serviceReference, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results);
     void SetEPGMaxPastDays(int epgMaxPastDays);
     void SetEPGMaxFutureDays(int epgMaxFutureDays);
@@ -46,28 +44,18 @@ namespace enigma2
     void UpdateTimerEPGFallbackEntries(const std::vector<enigma2::data::EpgEntry>& timerBasedEntries);
 
   private:
-    PVR_ERROR TransferInitialEPGForChannel(kodi::addon::PVREPGTagsResultSet& results, const std::shared_ptr<data::EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
-    std::shared_ptr<data::EpgChannel> GetEpgChannel(const std::string& serviceReference);
-    bool LoadInitialEPGForGroup(const std::shared_ptr<enigma2::data::ChannelGroup> group);
-    bool ChannelNeedsInitialEpg(const std::string& serviceReference);
-    bool InitialEpgLoadedForChannel(const std::string& serviceReference);
-    bool InitialEpgReadForChannel(const std::string& serviceReference);
-    std::shared_ptr<data::EpgChannel> GetEpgChannelNeedingInitialEpg(const std::string& serviceReference);
-    int TransferTimerBasedEntries(kodi::addon::PVREPGTagsResultSet& results, int epgChannelId);
+    int TransferTimerBasedEntries(kodi::addon::PVREPGTagsResultSet& results, int channelId);
 
     enigma2::IConnectionListener& m_connectionListener;
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
 
-    bool m_initialEpgReady = false;
     int m_epgMaxPastDays;
     int m_epgMaxFutureDays;
     long m_epgMaxPastDaysSeconds;
     long m_epgMaxFutureDaysSeconds;
 
-    std::vector<std::shared_ptr<data::EpgChannel>> m_epgChannels;
-    std::map<std::string, std::shared_ptr<data::EpgChannel>> m_epgChannelsMap;
-    std::map<std::string, std::shared_ptr<data::EpgChannel>> m_readInitialEpgChannelsMap;
-    std::map<std::string, std::shared_ptr<data::EpgChannel>> m_needsInitialEpgChannelsMap;
+    Channels& m_channels;
+    std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>> m_channelsMap;
 
     std::vector<data::EpgEntry> m_timerBasedEntries;
 

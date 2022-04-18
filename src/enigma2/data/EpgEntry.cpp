@@ -54,7 +54,7 @@ void EpgEntry::UpdateTo(kodi::addon::PVREPGTag& left) const
   left.SetFlags(flags);
 }
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& epgChannelsMap)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<Channel>>& channelsMap)
 {
   if (!xml::GetString(eventNode, "e2eventservicereference", m_serviceReference))
     return false;
@@ -65,21 +65,21 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
 
   m_serviceReference = Channel::NormaliseServiceReference(m_serviceReference);
 
-  std::shared_ptr<data::EpgChannel> epgChannel = std::make_shared<data::EpgChannel>();
+  std::shared_ptr<data::Channel> channel = std::make_shared<data::Channel>();
 
-  auto epgChannelSearch = epgChannelsMap.find(m_serviceReference);
-  if (epgChannelSearch != epgChannelsMap.end())
-    epgChannel = epgChannelSearch->second;
+  auto channelSearch = channelsMap.find(m_serviceReference);
+  if (channelSearch != channelsMap.end())
+    channel = channelSearch->second;
 
-  if (!epgChannel)
+  if (!channel)
   {
     Logger::Log(LEVEL_DEBUG, "%s could not find channel so skipping entry", __func__);
     return false;
   }
 
-  m_channelId = epgChannel->GetUniqueId();
+  m_channelId = channel->GetUniqueId();
 
-  return UpdateFrom(eventNode, epgChannel, 0, 0);
+  return UpdateFrom(eventNode, channel, 0, 0);
 }
 
 namespace
@@ -99,7 +99,7 @@ std::string ParseAsW3CDateString(time_t time)
 
 } // unnamed namespace
 
-bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd)
+bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel>& channel, time_t iStart, time_t iEnd)
 {
   std::string strTmp;
 
@@ -128,14 +128,14 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChan
     return false;
 
   m_epgId = iTmp;
-  m_channelId = epgChannel->GetUniqueId();
+  m_channelId = channel->GetUniqueId();
 
   if (!xml::GetString(eventNode, "e2eventtitle", strTmp))
     return false;
 
   m_title = strTmp;
 
-  m_serviceReference = epgChannel->GetServiceReference().c_str();
+  m_serviceReference = channel->GetServiceReference().c_str();
 
   // Check that it's not an empty record
   if (m_epgId == 0 && m_title == "None")

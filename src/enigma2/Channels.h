@@ -50,6 +50,7 @@ namespace enigma2
     int GetNumChannels() const;
     void ClearChannels();
     std::vector<std::shared_ptr<enigma2::data::Channel>>& GetChannelsList();
+    std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>>& GetChannelsServiceReferenceMap();
     std::string GetChannelIconPath(std::string& channelName);
     bool LoadChannels(enigma2::ChannelGroups& channelGroups);
 

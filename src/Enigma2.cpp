@@ -181,8 +181,6 @@ void Enigma2::ConnectionEstablished()
     }
   }
 
-  m_skipInitialEpgLoad = m_settings.SkipInitialEpgLoad();
-
   m_epg.Initialise(m_channels, m_channelGroups);
 
   m_timers.TimerUpdates();
@@ -230,18 +228,6 @@ bool Enigma2::Start()
 void Enigma2::Process()
 {
   Logger::Log(LEVEL_DEBUG, "%s - starting", __func__);
-
-  // Wait for the initial EPG update to complete
-  int totalWaitSecs = 0;
-  while (m_running && totalWaitSecs < INITIAL_EPG_WAIT_SECS)
-  {
-    totalWaitSecs += INITIAL_EPG_STEP_SECS;
-
-    if (!m_epg.IsInitialEpgCompleted())
-      std::this_thread::sleep_for(std::chrono::milliseconds(INITIAL_EPG_STEP_SECS * 1000));
-  }
-
-  m_skipInitialEpgLoad = false;
 
   // Whether or not initial EPG updates occurred now Trigger "Real" EPG updates
   // This will regard Initial EPG as completed anyway.
@@ -372,8 +358,6 @@ void Enigma2::ReloadChannelsGroupsAndEPG()
   kodi::addon::CInstancePVRClient::TriggerProvidersUpdate();
   kodi::addon::CInstancePVRClient::TriggerChannelGroupsUpdate();
   kodi::addon::CInstancePVRClient::TriggerChannelUpdate();
-
-  m_skipInitialEpgLoad = true;
 
   m_epg.Initialise(m_channels, m_channelGroups);
 
@@ -575,7 +559,7 @@ PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& cha
 
 PVR_ERROR Enigma2::GetEPGForChannel(int channelUid, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results)
 {
-  if (m_epg.IsInitialEpgCompleted() && m_settings.GetEPGDelayPerChannelDelay() != 0)
+  if (m_settings.GetEPGDelayPerChannelDelay() != 0)
     std::this_thread::sleep_for(std::chrono::seconds(m_settings.GetEPGDelayPerChannelDelay()));
 
   //Have a lock while getting the channel. Then we don't have to worry about a disconnection while retrieving the EPG data.
@@ -590,13 +574,6 @@ PVR_ERROR Enigma2::GetEPGForChannel(int channelUid, time_t start, time_t end, ko
     }
 
     myChannel = m_channels.GetChannel(channelUid);
-  }
-
-  if (m_skipInitialEpgLoad)
-  {
-    Logger::Log(LEVEL_DEBUG, "%s Skipping Initial EPG for channel: %s", __func__, myChannel->GetChannelName().c_str());
-    m_epg.MarkChannelAsInitialEpgRead(myChannel->GetServiceReference());
-    return PVR_ERROR_NO_ERROR;
   }
 
   return m_epg.GetEPGForChannel(myChannel->GetServiceReference(), start, end, results);

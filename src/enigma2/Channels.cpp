@@ -159,6 +159,11 @@ std::vector<std::shared_ptr<Channel>>& Channels::GetChannelsList()
   return m_channels;
 }
 
+std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>>& Channels::GetChannelsServiceReferenceMap()
+{
+  return m_channelsServiceReferenceMap;
+}
+
 std::string Channels::GetChannelIconPath(std::string& channelName)
 {
   for (const auto& channel : m_channels)
