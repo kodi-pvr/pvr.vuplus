@@ -33,7 +33,6 @@ namespace enigma2
 
     bool Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups);
     bool IsInitialEpgCompleted();
-    void TriggerEpgUpdatesForChannels();
     PVR_ERROR GetEPGForChannel(const std::string& serviceReference, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results);
     void SetEPGMaxPastDays(int epgMaxPastDays);
     void SetEPGMaxFutureDays(int epgMaxFutureDays);

@@ -43,15 +43,6 @@ bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channe
   return true;
 }
 
-void Epg::TriggerEpgUpdatesForChannels()
-{
-  for (auto& channel : m_channels.GetChannelsList())
-  {
-    Logger::Log(LEVEL_DEBUG, "%s - Trigger EPG update for channel: %s (%d)", __func__, channel->GetChannelName().c_str(), channel->GetUniqueId());
-    m_connectionListener.TriggerEpgUpdate(channel->GetUniqueId());
-  }
-}
-
 PVR_ERROR Epg::GetEPGForChannel(const std::string& serviceReference, time_t start, time_t end, kodi::addon::PVREPGTagsResultSet& results)
 {
   std::shared_ptr<data::Channel> channel = m_channels.GetChannel(serviceReference);

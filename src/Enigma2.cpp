@@ -229,10 +229,6 @@ void Enigma2::Process()
 {
   Logger::Log(LEVEL_DEBUG, "%s - starting", __func__);
 
-  // Whether or not initial EPG updates occurred now Trigger "Real" EPG updates
-  // This will regard Initial EPG as completed anyway.
-  m_epg.TriggerEpgUpdatesForChannels();
-
   unsigned int updateTimer = 0;
   time_t lastUpdateTimeSeconds = std::time(nullptr);
   int lastUpdateHour = m_settings.GetChannelAndGroupUpdateHour(); //ignore if we start during same hour
