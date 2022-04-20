@@ -173,7 +173,6 @@ namespace enigma2
     const std::string& GetMapRytecTextGenresFile() const { return m_mapRytecTextGenresFile; }
     bool GetLogMissingGenreMappings() const { return m_logMissingGenreMappings; }
     int GetEPGDelayPerChannelDelay() const { return m_epgDelayPerChannel; }
-    bool SkipInitialEpgLoad() const { return m_skipInitialEpgLoad; }
 
     //Recordings
     bool GetStoreRecordingLastPlayedAndCount() const { return m_storeLastPlayedAndCount; }
@@ -392,7 +391,6 @@ namespace enigma2
     std::string m_mapRytecTextGenresFile;
     bool m_logMissingGenreMappings = true;
     int m_epgDelayPerChannel;
-    bool m_skipInitialEpgLoad = true;
 
     //Recordings
     bool m_storeLastPlayedAndCount = true;

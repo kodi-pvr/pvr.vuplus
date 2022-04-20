@@ -143,7 +143,6 @@ private:
   int m_currentChannel = -1;
   std::atomic_bool m_dueRecordingUpdate{true};
   time_t m_lastSignalStatusUpdateSeconds;
-  bool m_skipInitialEpgLoad;
   int m_epgMaxPastDays;
   int m_epgMaxFutureDays;
 
@@ -152,7 +151,7 @@ private:
   enigma2::ChannelGroups m_channelGroups;
   enigma2::Recordings m_recordings{*this, m_channels, m_providers, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg{*this, m_entryExtractor, m_epgMaxPastDays, m_epgMaxFutureDays};
+  enigma2::Epg m_epg{*this, m_channels, m_entryExtractor, m_epgMaxPastDays, m_epgMaxFutureDays};
   enigma2::Timers m_timers{*this, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
   enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
   enigma2::Admin m_admin;

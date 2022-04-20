@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "BaseChannel.h"
-
 #include <memory>
 #include <string>
 #include <vector>
@@ -24,7 +22,7 @@ namespace enigma2
   {
     class ChannelGroup;
 
-    class ATTR_DLL_LOCAL Channel : public BaseChannel
+    class ATTR_DLL_LOCAL Channel
     {
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
@@ -33,13 +31,27 @@ namespace enigma2
       const std::array<std::string, 3> RADIO_SERVICE_TYPES = {"2", "A", "a"};
 
       Channel() = default;
-      Channel(const Channel &c) : BaseChannel(c), m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
+      Channel(const Channel &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
+        m_channelName(c.GetChannelName()), m_serviceReference(c.GetServiceReference()),
+        m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
         m_extendedServiceReference(c.GetExtendedServiceReference()), m_genericServiceReference(c.GetGenericServiceReference()),
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
         m_providerName(c.GetProviderName()), m_providerUniqueId(c.GetProviderUniqueId()),
         m_fuzzyChannelName(c.GetFuzzyChannelName()), m_streamProgramNumber(c.GetStreamProgramNumber()),
         m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()), m_isIptvStream(c.IsIptvStream()) {};
       ~Channel() = default;
+
+      bool IsRadio() const { return m_radio; }
+      void SetRadio(bool value) { m_radio = value; }
+
+      int GetUniqueId() const { return m_uniqueId; }
+      void SetUniqueId(int value) { m_uniqueId = value; }
+
+      const std::string& GetChannelName() const { return m_channelName; }
+      void SetChannelName(const std::string& value) { m_channelName = value; }
+
+      const std::string& GetServiceReference() const { return m_serviceReference; }
+      void SetServiceReference(const std::string& value) { m_serviceReference = value; }
 
       int GetChannelNumber() const { return m_channelNumber; }
       void SetChannelNumber(int value) { m_channelNumber = value; }
@@ -99,6 +111,10 @@ namespace enigma2
       std::string ExtractIptvStreamURL();
       bool HasRadioServiceType();
 
+      bool m_radio;
+      int m_uniqueId = -1;
+      std::string m_channelName;
+      std::string m_serviceReference;
       int m_channelNumber;
       bool m_usingDefaultChannelNumber = true;
       bool m_isIptvStream = false;

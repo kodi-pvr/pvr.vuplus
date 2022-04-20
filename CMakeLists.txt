@@ -60,14 +60,12 @@ set(VUPLUS_HEADERS src/addon.h
                    src/enigma2/Timers.h
                    src/enigma2/TimeshiftBuffer.h
                    src/enigma2/data/AutoTimer.h
-                   src/enigma2/data/BaseChannel.h
                    src/enigma2/data/BaseEntry.h
                    src/enigma2/data/Channel.h
                    src/enigma2/data/ChannelGroup.h
                    src/enigma2/data/ChannelGroupMember.h
                    src/enigma2/data/EpgEntry.h
                    src/enigma2/data/EpgPartialEntry.h
-                   src/enigma2/data/EpgChannel.h
                    src/enigma2/data/Provider.h
                    src/enigma2/data/RecordingEntry.h
                    src/enigma2/data/Tags.h

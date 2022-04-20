@@ -8,7 +8,7 @@
 #pragma once
 
 #include "BaseEntry.h"
-#include "EpgChannel.h"
+#include "Channel.h"
 
 #include <map>
 #include <string>
@@ -42,8 +42,8 @@ namespace enigma2
       void SetStartTimeW3CDate(const std::string& value) { m_startTimeW3CDateString = value; }
 
       void UpdateTo(kodi::addon::PVREPGTag& left) const;
-      bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<EpgChannel>>& m_epgChannelsMap);
-      bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<EpgChannel>& epgChannel, time_t iStart, time_t iEnd);
+      bool UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::shared_ptr<Channel>>& m_channelsMap);
+      bool UpdateFrom(TiXmlElement* eventNode, const std::shared_ptr<Channel>& channel, time_t iStart, time_t iEnd);
 
     protected:
       unsigned int m_epgId;

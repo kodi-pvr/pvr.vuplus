@@ -128,7 +128,6 @@ void Settings::ReadFromAddon()
   m_mapRytecTextGenresFile = kodi::addon::GetSettingString("rytecgenretextmapfile", DEFAULT_GENRE_ID_MAP_FILE);
   m_logMissingGenreMappings = kodi::addon::GetSettingBoolean("logmissinggenremapping", false);
   m_epgDelayPerChannel = kodi::addon::GetSettingInt("epgdelayperchannel", 0);
-  m_skipInitialEpgLoad = kodi::addon::GetSettingBoolean("skipinitialepg", true);
 
   //Recording
   m_storeLastPlayedAndCount = kodi::addon::GetSettingBoolean("storeextrarecordinginfo", false);
@@ -298,8 +297,6 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::addo
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_logMissingGenreMappings, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "epgdelayperchannel")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_epgDelayPerChannel, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  else if (settingName == "skipinitialepg")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_skipInitialEpgLoad, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Recordings
   else if (settingName == "storeextrarecordinginfo")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_storeLastPlayedAndCount, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
