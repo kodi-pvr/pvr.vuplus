@@ -5,24 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/kodi-main/language/fi_FI/)\n"
-"Language: fi_FI\n"
+"PO-Revision-Date: 2022-08-26 10:14+0000\n"
+"Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
+"Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fi_fi/>\n"
+"Language: fi_fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Kodin VU+/ Enigma2-asiakasohjelma"
+msgstr "Enigma2-pohjaisten vastaanottimien käyttöliittymä Kodille"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md&#10;    "
-msgstr "VU+-asiakasohjelma. Tukee suorien tv-lähetysten ja tallennusten katsomista, ohjelmaopasta ja ohjelmien ajastamista."
+msgstr "Enigma2-käyttöliittymä, joka tukee televisiolähetysten ja tallenteiden suoratoistoa, ohjelmaopasta ja ajastuksia. Ohjeita löydät osoitteesta: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
@@ -277,7 +278,7 @@ msgstr "Tv-lähetyksen aikakatkaisu (0 on oletusarvo)"
 #. label-group: Connection - Login
 msgctxt "#30051"
 msgid "Login"
-msgstr "Käyttäjätunnus"
+msgstr "Kirjautuminen"
 
 #. label-group: Advanced - Misc
 msgctxt "#30052"
@@ -333,7 +334,7 @@ msgstr "Käytä ajansiirtoa"
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Ajansiirtopuskurin polku"
+msgstr "Ajansiirtopuskurin sijainti"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -440,7 +441,7 @@ msgstr "tuntematon"
 #. application: Client
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr "(Ei yhteyttä)"
+msgstr " (ei yhteyttä)"
 
 #. application: Client
 msgctxt "#30083"
@@ -606,7 +607,7 @@ msgstr ""
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
-msgstr ""
+msgstr "Ohita ensimmäinen ohjelmaoppaan lataus"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -772,7 +773,7 @@ msgstr ""
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr ""
+msgstr "Käytä ajansiirtoa IPTV-mediavirroille"
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
@@ -797,12 +798,12 @@ msgstr ""
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr ""
+msgstr "Käytä ajansiirron tallennusrajoitusta"
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr ""
+msgstr "Ajansiirron tallennusrajoitus"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
@@ -892,12 +893,12 @@ msgstr "Tallenna, jos ohjelman nimi, jakso ja juoni eroavat"
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "Ajansiirtopuskurin polkua ei ole olemassa"
+msgstr "Ajansiirtopuskurin sijaintia ei ole olemassa"
 
 #. notification: Enigma2
 msgctxt "#30515"
 msgid "Enigma2: Could not reach web interface"
-msgstr "Enigma2: Web-käyttöliittymään ei saatu yhteyttä"
+msgstr "Enigma2: Web-käyttöliittymää ei tavoitettu"
 
 #. notification: Enigma2
 msgctxt "#30516"
@@ -953,12 +954,12 @@ msgstr ""
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr ""
+msgstr "Web-käyttöliittymään yhdistettäessä käytettävä portti."
 
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr ""
+msgstr "Yhdistä web-käyttöliittymään HTTPS-protokollan välityksellä."
 
 #. help: Connection - user
 msgctxt "#30604"
