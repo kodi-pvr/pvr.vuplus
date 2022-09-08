@@ -7,27 +7,26 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-03-29 12:37+0000\n"
-"Last-Translator: Kryštof Černý <cleverline1mc@gmail.com>\n"
-"Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/cs_cz/>\n"
-"Language: cs_cz\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ast_es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Rozhraní Kodi pro přijímače založené na Enigma2"
+msgstr ""
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "Rozhraní Enigma2 – podporuje streamování živého vysílání a nahrávání, televizní program, časovače, automatické časovače.[CR][CR]Pro dokumentaci navštivte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md    "
+msgstr ""
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "Tento software není stabilní! Autoři nejsou žádným způsobem zodpovědní za neúspěšná nahrávání, chybné časovače, ztracený čas nebo jakékoliv jiné nežádoucí výsledky..."
+msgstr ""
 
 #. ##################
 #. settings labels #
@@ -35,32 +34,33 @@ msgstr "Tento software není stabilní! Autoři nejsou žádným způsobem zodpo
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
-msgstr "Název hostitele nebo IP adresa Enigma2"
+msgstr ""
 
+#empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr "Port streamování"
+msgstr ""
 
 #. label: Connection - user
 msgctxt "#30003"
 msgid "Username"
-msgstr "Uživatelské jméno"
+msgstr ""
 
 #. label: Connection - pass
 msgctxt "#30004"
 msgid "Password"
-msgstr "Heslo"
+msgstr ""
 
 #. label-category: connection
 msgctxt "#30005"
 msgid "Connection"
-msgstr "Spojení"
+msgstr ""
 
 #. label-group: General - Icons
 msgctxt "#30006"
 msgid "Icons"
-msgstr "Ikony"
+msgstr ""
 
 #. label-group: General - Program Streams
 msgctxt "#30007"
@@ -70,27 +70,28 @@ msgstr ""
 #. label: General - iconpath
 msgctxt "#30008"
 msgid "Icon path"
-msgstr "Cesta k ikoně"
+msgstr ""
 
 #. label-group: General - Update Interval
 msgctxt "#30009"
 msgid "Update Interval"
-msgstr "Interval aktualizace"
+msgstr ""
 
+#empty string with id 30010
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
-msgstr "Automatické čištění seznamu časovačů"
+msgstr ""
 
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr "Port webového rozhraní"
+msgstr ""
 
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr "Přepnout před přepnutím kanálu (např. pro jednotunerové přijímače)"
+msgstr ""
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
@@ -100,7 +101,7 @@ msgstr ""
 #. label: General - updateint
 msgctxt "#30015"
 msgid "Update interval"
-msgstr "Interval aktualizace"
+msgstr ""
 
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
@@ -116,20 +117,20 @@ msgstr ""
 #. label-group: Channels
 msgctxt "#30018"
 msgid "General"
-msgstr "Obecné"
+msgstr ""
 
 #. label-category: channels
 msgctxt "#30019"
 msgid "Channels"
-msgstr "Kanály"
+msgstr ""
 
 #. label-category: advanced
 #. label-group: Connection - Advanced
 msgctxt "#30020"
 msgid "Advanced"
-msgstr "Rozšířené"
+msgstr ""
 
-# empty string with id 30021
+#empty string with id 30021
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
@@ -143,12 +144,12 @@ msgstr ""
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr "Při ukončení doplňku poslat režim stavu napájení"
+msgstr ""
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
-msgstr "Mód pro přenos TV buketů"
+msgstr ""
 
 #. label: Channels - onetvgroup
 msgctxt "#30026"
@@ -158,17 +159,17 @@ msgstr ""
 #. label: General - onlinepicons
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr "Načíst ikony kanálů z webového rozhraní"
+msgstr ""
 
 #. label: Connection - use_secure
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
-msgstr "Použít zabezpečené HTTP (https)"
+msgstr ""
 
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "Povolit automatickou konfiguraci pro živé datové proudy"
+msgstr ""
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
@@ -178,142 +179,142 @@ msgstr ""
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr "Sezóny a epizody"
+msgstr ""
 
 #. label-category: epg
 msgctxt "#30032"
 msgid "EPG"
-msgstr "Televizní program"
+msgstr ""
 
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr "Extrahovat informaci o sezóně, epizodě a roku, kde je to možné"
+msgstr ""
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr "Povolit automatické časovače"
+msgstr ""
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr "Používat formát souboru picons.eu"
+msgstr ""
 
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
-msgstr "Povolit generování opakujících se časovačů"
+msgstr ""
 
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr "Loguj chybějící mapování žánru na text"
+msgstr ""
 
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
 msgid "Web Interface"
-msgstr "Webové rozhraní"
+msgstr ""
 
 #. label-group: Connection - Streaming
 msgctxt "#30039"
 msgid "Streaming"
-msgstr "Streamování"
+msgstr ""
 
 #. label: Advanced - prependoutline
 msgctxt "#30040"
 msgid "Put outline (e.g. sub-title) before plot"
-msgstr "Umístit stručné shrnutí (např. titulky) před obsah děje"
+msgstr ""
 
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr "Velikost bloku dat čtení streamu"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
 msgid "Never"
-msgstr "Nikdy"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30043"
 msgid "In EPG only"
-msgstr "Pouze v televizním programu"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30044"
 msgid "In recordings only"
-msgstr "Pouze v nahrávkách"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30045"
 msgid "Always"
-msgstr "Vždy"
+msgstr ""
 
 #. label: EPG - extractshowinfofile
 msgctxt "#30046"
 msgid "Extract show info file"
-msgstr "Extrahovat show info soubor"
+msgstr ""
 
 #. label-group: EPG - Rytec genre text Mappings
 msgctxt "#30047"
 msgid "Rytec genre text Mappings"
-msgstr "Rytec žánr text mapování"
+msgstr ""
 
 #. label: EPG - rytecgenretextmapenabled
 msgctxt "#30048"
 msgid "Enable Rytec genre text mappings"
-msgstr "Povolit Rytec žánr text mapování"
+msgstr ""
 
 #. label: EPG - rytecgenretextmapfile
 msgctxt "#30049"
 msgid "Rytec genre text mappings file"
-msgstr "Soubor pro Rytec žánr text mapování"
+msgstr ""
 
 #. label: Advanced - readtimeout
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
-msgstr "Vlastní časový limit živého vysílání (0 pro použití výchozího)"
+msgstr ""
 
 #. label-group: Connection - Login
 msgctxt "#30051"
 msgid "Login"
-msgstr "Přihlášení"
+msgstr ""
 
 #. label-group: Advanced - Misc
 msgctxt "#30052"
 msgid "Misc"
-msgstr "Různé"
+msgstr ""
 
 #. label-group: EPG - Genre ID Mappings
 msgctxt "#30053"
 msgid "Genre ID Mappings"
-msgstr "Mapování ID žánru"
+msgstr ""
 
 #. label: EPG - genreidmapenabled
 msgctxt "#30054"
 msgid "Enable genre ID Mappings"
-msgstr "Povolit mapování ID žánru"
+msgstr ""
 
 #. label: EPG - genreidmapfile
 msgctxt "#30055"
 msgid "Genre ID mappings file"
-msgstr "Soubor mapování ID žánru"
+msgstr ""
 
 #. label-group: Channels - TV
 msgctxt "#30056"
 msgid "TV"
-msgstr "Televize"
+msgstr ""
 
 #. label-group: Channels - Radio
 msgctxt "#30057"
 msgid "Radio"
-msgstr "Rádio"
+msgstr ""
 
 #. label: Channels - radiogroupmode
 msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
-msgstr "Mód pro přenos rádio buketů"
+msgstr ""
 
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
@@ -324,79 +325,79 @@ msgstr ""
 #. label-group: Timeshift - Timeshift
 msgctxt "#30060"
 msgid "Timeshift"
-msgstr "Časový posun"
+msgstr ""
 
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr "Povolit časový posun"
+msgstr ""
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Cesta k vyrovnávací paměti časového posunu"
+msgstr ""
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
 msgid "Off"
-msgstr "Vypnout"
+msgstr ""
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30064"
 msgid "On playback"
-msgstr "Při přehrávání"
+msgstr ""
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30065"
 msgid "On pause"
-msgstr "Při pozastavení"
+msgstr ""
 
 #. label: Connection - use_secure_stream
 msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
-msgstr "Použít zabezpečené HTTP (https) pro streamy"
+msgstr ""
 
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr "Použít přihlášení pro streamy"
+msgstr ""
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
 msgid "Fetch TV favourites bouquet"
-msgstr "Načíst Oblíbené TV bukety"
+msgstr ""
 
 #. label: Channels - radiofavouritesmode
 msgctxt "#30069"
 msgid "Fetch radio favourites bouquet"
-msgstr "Načíst Oblíbené rádio bukety"
+msgstr ""
 
 #. label-category: recordings
 msgctxt "#30070"
 msgid "Recordings"
-msgstr "Nahrávky"
+msgstr ""
 
 #. label-group: Recordings - Recordings
 msgctxt "#30071"
 msgid "Recordings"
-msgstr "Nahrávky"
+msgstr ""
 
 #. label-category: timers
 #. label-group: Timers - timers
 msgctxt "#30072"
 msgid "Timers"
-msgstr "Časovače"
+msgstr ""
 
 #. label: Timers - numgenrepeattimers
 msgctxt "#30073"
 msgid "Number of repeat timers to generate"
-msgstr "Počet opakování časovačů ke generování"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30074"
 msgid "All bouquets"
-msgstr "Všechny bukety"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
@@ -408,13 +409,13 @@ msgstr ""
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30076"
 msgid "As first bouquet"
-msgstr "Jako první buket"
+msgstr ""
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30077"
 msgid "As last bouquet"
-msgstr "Jako poslední buket"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
@@ -425,28 +426,28 @@ msgstr ""
 #. application: ChannelGroups
 msgctxt "#30079"
 msgid "Favourites (TV)"
-msgstr "Oblíbené (TV)"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30080"
 msgid "Favourites (Radio)"
-msgstr "Oblíbené (rádio)"
+msgstr ""
 
 #. application: Client
 #. application: Admin
 msgctxt "#30081"
 msgid "unknown"
-msgstr "neznámé"
+msgstr ""
 
 #. application: Client
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr " (Nepřipojeno!)"
+msgstr ""
 
 #. application: Client
 msgctxt "#30083"
 msgid "addon error"
-msgstr "chyba doplňku"
+msgstr ""
 
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
@@ -461,193 +462,193 @@ msgstr ""
 #. label-category: backend
 msgctxt "#30086"
 msgid "Backend"
-msgstr "Podpůrná vrstva"
+msgstr ""
 
 #. label-group: Backend - Recording Padding
 msgctxt "#30087"
 msgid "Recording Padding"
-msgstr "Zarovnání nahrávání"
+msgstr ""
 
 #. label: Backend - globalstartpaddingstb
 msgctxt "#30088"
 msgid "Global start padding"
-msgstr "Globální zarovnání začátku"
+msgstr ""
 
 #. label: Backend - globalendpaddingstb
 msgctxt "#30089"
 msgid "Global end padding"
-msgstr "Globální zarovnání konce"
+msgstr ""
 
 #. label-group: Backend - Device Info
 msgctxt "#30090"
 msgid "Device Info"
-msgstr "Informace o zařízení"
+msgstr ""
 
 #. label: Backend - webifversion
 msgctxt "#30091"
 msgid "WebIf version"
-msgstr "Verze WebIf"
+msgstr ""
 
 #. label: Backend - autotimertagintags
 msgctxt "#30092"
 msgid "AutoTimer tag in timer tags"
-msgstr "Štítek automatického časovače v štítcích časovačů"
+msgstr ""
 
 #. label: Backend - autotimernameintags
 msgctxt "#30093"
 msgid "AutoTimer name in timer tags"
-msgstr "Název automatického časovače v štítcích časovačů"
+msgstr ""
 
 #. application: Admin
 msgctxt "#30094"
 msgid "N/A"
-msgstr "Nezadáno"
+msgstr ""
 
 #. application: Admin
 msgctxt "#30095"
 msgid "True"
-msgstr "Pravda"
+msgstr ""
 
 #. application: Admin
 msgctxt "#30096"
 msgid "False"
-msgstr "Nepravda"
+msgstr ""
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30097"
 msgid "Standby"
-msgstr "Pohotovostní režim"
+msgstr ""
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30098"
 msgid "Deep standby"
-msgstr "Pohotovostní režim s nižší spotřebou"
+msgstr ""
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30099"
 msgid "Wakeup, then standby"
-msgstr "Probudit, pak pohotovostní režim"
+msgstr ""
 
 #. label: General - updatemode
 msgctxt "#30100"
 msgid "Update mode"
-msgstr "Režim aktualizace"
+msgstr ""
 
 #. label-option: General - updatemode
 msgctxt "#30101"
 msgid "Timers and recordings"
-msgstr "Časovače a nahrávání"
+msgstr ""
 
 #. label-option: General - updatemode
 msgctxt "#30102"
 msgid "Timers only"
-msgstr "Pouze časovače"
+msgstr ""
 
 #. label: General - useopenwebifpiconpath
 msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
-msgstr "Použij OpenWebIf cestu k pikonám"
+msgstr ""
 
 #. label: Advanced - tracedebug
 msgctxt "#30104"
 msgid "Enable trace logging in debug mode"
-msgstr "Povolit protokolování trasování v režimu ladění"
+msgstr ""
 
 #. label-group - EPG - Other
 msgctxt "#30105"
 msgid "Other"
-msgstr "Jiné"
+msgstr ""
 
 #. label: EPG - epgdelayperchannel
 msgctxt "#30106"
 msgid "EPG update delay per channel"
-msgstr "Zpoždění aktualizace EPG na kanál"
+msgstr ""
 
 #. label-group: Recordings - Recording EDLs (Edit Decision Lists)
 msgctxt "#30107"
 msgid "Recording EDLs (Edit Decision Lists)"
-msgstr "EDL (Edit Decision Lists) pro záznamy"
+msgstr ""
 
 #. label: Recordings - enablerecordingedls
 msgctxt "#30108"
 msgid "Enable EDLs support"
-msgstr "Povolit podporu EDL"
+msgstr ""
 
 #. label: Recordings - edlpaddingstart
 msgctxt "#30109"
 msgid "EDL start time padding"
-msgstr "Rezerva pro startovací čas EDL"
+msgstr ""
 
 #. label: Recordings - edlpaddingstop
 msgctxt "#30110"
 msgid "EDL stop time padding"
-msgstr "Rezerva pro koncový čas EDL"
+msgstr ""
 
 #. label: Advanced - debugnormal
 msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
-msgstr "Povolit protokolování ladících informací v normální režimu"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30112"
 msgid "Last Scanned (TV)"
-msgstr "Naposledy skanované(TV)"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr "Naposledy skanované(Rádio)"
+msgstr ""
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
 msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
-msgstr "Nezahrnovat buket Naposledy skanované"
+msgstr ""
 
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
-msgstr "Přeskočit úvodní načtení televizního programu"
+msgstr ""
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
 msgid "Channels and groups update mode"
-msgstr "Režim aktualizace kanálů a skupin"
+msgstr ""
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
 msgid "Disabled"
-msgstr "Zakázáno"
+msgstr ""
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30118"
 msgid "Notify on UI and Log"
-msgstr "Oznámit v uživatelském rozhraní a zaznamenat"
+msgstr ""
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30119"
 msgid "Reload Channels and Groups"
-msgstr "Znovu načíst kanály a skupiny"
+msgstr ""
 
 #. label: General - channelandgroupupdatehour
 msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
-msgstr "Hodina aktualizace kanálů a skupin (24h formát)"
+msgstr ""
 
 #. label: Connection - connectionchecktimeout
 msgctxt "#30121"
 msgid "Connection check timeout"
-msgstr "Časový limit kontroly připojení"
+msgstr ""
 
 #. label: Connection - connectioncheckinterval
 msgctxt "#30122"
 msgid "Connection check interval"
-msgstr "Interval kontroly připojen"
+msgstr ""
 
 #. label: Timers - Autotimers
 msgctxt "#30123"
 msgid "Autotimers"
-msgstr "Automatické časovače"
+msgstr ""
 
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
@@ -657,7 +658,7 @@ msgstr ""
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
-msgstr "Omezit na skupiny původního EPG kanálu"
+msgstr ""
 
 #. label: Channels - usestandardserviceref
 msgctxt "#30126"
@@ -672,17 +673,17 @@ msgstr ""
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr "Sdílet minule přehráváno napříč:"
+msgstr ""
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
 msgid "Kodi instances"
-msgstr "Instance Kodi"
+msgstr ""
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30130"
 msgid "Kodi/E2 instances"
-msgstr "Instance Kodi/E2"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
@@ -778,7 +779,7 @@ msgstr ""
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr "Pokud je to možné, použijte možnosti FFmpeg http reconnect"
+msgstr ""
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
@@ -788,7 +789,7 @@ msgstr ""
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
-msgstr "- Úprava nastavení inputstream.ffmpegdirect..."
+msgstr ""
 
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
@@ -820,15 +821,16 @@ msgctxt "#30158"
 msgid "Recording Locations"
 msgstr ""
 
+#empty strings from id 30159 to 30409
 #. ##############
 #. application #
 #. ##############
 #. application: Timers
 msgctxt "#30410"
 msgid "Automatic"
-msgstr "Automatické"
+msgstr ""
 
-# empty strings from id 30411 to 30419
+#empty strings from id 30411 to 30419
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
@@ -847,68 +849,70 @@ msgstr ""
 #. application: Timers
 msgctxt "#30423"
 msgid "Repeating time/channel based"
-msgstr "Opakující se na základě času/kanálu"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30424"
 msgid "One time guide-based"
-msgstr "Jednorázový podle EPG"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30425"
 msgid "Repeating guide-based"
-msgstr "Opakující se podle EPG"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30426"
 msgid "Auto guide-based"
-msgstr "Automatický podle názvu v EPG"
+msgstr ""
 
+#empty strings from id 30427 to 30429
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 #. label-option: Advanced - powerstatemode
 #. application: Timers
 msgctxt "#30430"
 msgid "Disabled"
-msgstr "Zakázáno"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr "Nahrávat, pokud se liší název televizního programu"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30432"
 msgid "Record if EPG title and short description differs"
-msgstr "Nahrávat, pokud se liší název a krátký popis televizního programu"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
-msgstr "Nahrávat, pokud se liší název a všechny popisy televizního programu"
+msgstr ""
 
+#empty strings from id 30434 to 30513
 #. ################
 #. notifications #
 #. ################
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "Cesta k vyrovnávací paměti časového posunu neexistuje"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30515"
 msgid "Enigma2: Could not reach web interface"
-msgstr "Enigma2: Nemohu se spojit s webovým rozhraním"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30516"
 msgid "Enigma2: No channel groups found"
-msgstr "Enigma2: Nenalezeny skupiny kanálů"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30517"
 msgid "Enigma2: No channels found"
-msgstr "Enigma2: Nenalezeny kanály"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30518"
@@ -918,13 +922,13 @@ msgstr ""
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr "Enigma2: Zjištěny změny kanálu, pro jejich načtení restartujte"
+msgstr ""
 
 #. application: AutoTimer
 #. application: Timer
 msgctxt "#30520"
 msgid "Invalid Channel"
-msgstr "Neplatný kanál"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30521"
@@ -936,7 +940,7 @@ msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
 msgstr ""
 
-# empty strings from id 30523 to 30599
+#empty strings from id 30523 to 30599
 #. ############
 #. help info #
 #. ############
@@ -954,12 +958,12 @@ msgstr ""
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr "Port sloužící pro připojení se k webovému rozhraní."
+msgstr ""
 
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr "Použít pro připojení k webovému rozhraní https."
+msgstr ""
 
 #. help: Connection - user
 msgctxt "#30604"
@@ -1001,11 +1005,12 @@ msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
 msgstr ""
 
+#empty strings from id 30612 to 30619
 #. help info - General
 #. help-category: general
 msgctxt "#30620"
 msgid "This category cotains the settings whivh generally need to be set by the user"
-msgstr "Tato kategorie obsahuje nastavení, která je obecně třeba nastavit uživatelem"
+msgstr ""
 
 #. help: General - onlinepicons
 msgctxt "#30621"
@@ -1052,7 +1057,7 @@ msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
 msgstr ""
 
-# empty strings from id 30630 to 30639
+#empty strings from id 30630 to 30639
 #. help info - Channels
 #. help-category: channels
 msgctxt "#30640"
@@ -1147,7 +1152,7 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr ""
 
-# empty strings from id 30657 to 30659
+#empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
@@ -1199,11 +1204,12 @@ msgctxt "#30669"
 msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
 msgstr ""
 
+#empty strings from id 30670 to 30679
 #. help info - Recordings
 #. help-category: recordings
 msgctxt "#30680"
 msgid "This category cotains the settings for recordings"
-msgstr "Tato kategorie obsahuje nastavení pro nahrávání"
+msgstr ""
 
 #. help: Recordings - storeextrarecordinginfo
 msgctxt "#30681"
@@ -1260,11 +1266,12 @@ msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr ""
 
+#empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
 msgctxt "#30700"
 msgid "This category cotains the settings for timers (regular and auto)"
-msgstr "Tato kategorie obsahuje nastavení pro časovače (běžné a automatické)"
+msgstr ""
 
 #. help: Timers - enablegenrepeattimers
 msgctxt "#30701"
@@ -1274,7 +1281,7 @@ msgstr ""
 #. help: Timers - numgenrepeattimers
 msgctxt "#30702"
 msgid "The number of Kodi PVR timers to generate."
-msgstr "Počet časovačů, které v Kodi PVR vytvořit."
+msgstr ""
 
 #. help: Timers - timerlistcleanup
 msgctxt "#30703"
@@ -1296,7 +1303,7 @@ msgctxt "#30706"
 msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
 msgstr ""
 
-# empty strings from id 30707 to 30719
+#empty strings from id 30707 to 30719
 #. help info - Timeshift
 #. help-category: timeshift
 msgctxt "#30720"
@@ -1331,7 +1338,7 @@ msgstr ""
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
-msgstr "Otevření dialogu nastavení pro inputstream.ffmpegdirect pro úpravu timeshift a dalších nastavení."
+msgstr ""
 
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"
@@ -1343,11 +1350,12 @@ msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
 msgstr ""
 
+#empty strings from id 30729 to 30739
 #. help info - Advanced
 #. help-category: advanced
 msgctxt "#30740"
 msgid "This category cotains advanced/expert settings"
-msgstr "Tato kategorie obsahuje pokročilá/expertní nastavení"
+msgstr ""
 
 #. help: Advanced - prependoutline
 msgctxt "#30741"
@@ -1384,7 +1392,7 @@ msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
 msgstr ""
 
-# empty strings from id 30748 to 30759
+#empty strings from id 30748 to 30759
 #. help info - Backend
 #. help-category: backend
 msgctxt "#30760"
@@ -1420,19 +1428,3 @@ msgstr ""
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr ""
-
-#~ msgctxt "#30017"
-#~ msgid "Use only the DVB boxes' current recording path"
-#~ msgstr "Používat pouze aktuální cestu nahrávání přijímače DVB"
-
-#~ msgctxt "#30023"
-#~ msgid "Recording folder on the receiver"
-#~ msgstr "Složka s nahrávkami na přijímači"
-
-#~ msgctxt "#30030"
-#~ msgid "Keep folder structure for records"
-#~ msgstr "Zachovat strukturu složky pro nahrávky"
-
-#~ msgctxt "#30760"
-#~ msgid "This category cotains advanced/expert settings"
-#~ msgstr "Tato kategorie obsahuje pokročilá/expertní nastavení"
