@@ -342,7 +342,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors;    </description>
     <description lang="cs_CZ">Rozhraní Enigma2 – podporuje streamování živého vysílání a nahrávání, televizní program, časovače, automatické časovače.[CR][CR]Pro dokumentaci navštivte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md    </description>
     <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
-    <description lang="da_DK">Enigma2 frontend - understøttende streaming af direkte tv og optagelser, EPG, timeroptagelser, automatiske timeroptagelser.[CR]   [CR]Se dokumentationen: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
+    <description lang="da_DK">Enigma2 frontend understøtter streaming af direkte tv og optagelser, EPG, timeroptagelser og automatiske timeroptagelser.[CR][CR]Se dokumentationen: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md    </description>
     <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.    </description>
     <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
     <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
