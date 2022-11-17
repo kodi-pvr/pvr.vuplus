@@ -28,6 +28,8 @@ namespace enigma2
     public:
       const std::string SERVICE_REF_GENERIC_PREFIX = "1:0:1:";
       const std::string SERVICE_REF_GENERIC_POSTFIX = ":0:0:0";
+      const std::string SAT_SERVICE_REFERENCE_POSTFIX = "C00000:0:0:0:";
+      const std::string STREAM_REPLAY_SERVICE_REFERENCE_POSTFIX = "21:0:0:0:";
       // There are at least two different service types for radio, see EN300468 Table 87
       const std::array<std::string, 3> RADIO_SERVICE_TYPES = {"2", "A", "a"};
 

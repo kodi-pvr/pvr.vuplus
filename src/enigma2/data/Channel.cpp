@@ -63,7 +63,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
 
   m_fuzzyChannelName = m_channelName;
 
-  // We need to correctly cast to unsigned char as for some platforms such as windows it will 
+  // We need to correctly cast to unsigned char as for some platforms such as windows it will
   // fail on a negative value as it will be treated as an int instead of character
   auto func = [](char c) { return isspace(static_cast<unsigned char>(c)); };
   // alternatively this can be done as follows:
@@ -72,6 +72,18 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
 
   if (m_radio != HasRadioServiceType())
     return false;
+
+  // Automatically convert stream relay service references to satellite service references
+  // There should be no downstream impact to other providers (hopefully!)
+  if (StringUtils::EndsWith(m_serviceReference, STREAM_REPLAY_SERVICE_REFERENCE_POSTFIX))
+  {
+    static const std::regex endPostfixRegex(STREAM_REPLAY_SERVICE_REFERENCE_POSTFIX + "$");
+    std::string replaceWith = "";
+    std::string m_satelliteServiceReference = std::regex_replace(m_serviceReference, endPostfixRegex, replaceWith) + SAT_SERVICE_REFERENCE_POSTFIX;
+
+    Logger::Log(LEVEL_DEBUG, "%s: Converted Stream Replay to Satellie Reference: %s, sRef=%s", __func__, m_channelName.c_str(), m_satelliteServiceReference.c_str());
+    m_serviceReference = m_satelliteServiceReference;
+  }
 
   m_extendedServiceReference = m_serviceReference;
   const std::string commonServiceReference = CreateCommonServiceReference(m_serviceReference);
