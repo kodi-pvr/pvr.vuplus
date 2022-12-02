@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-03-06 18:03+0000\n"
+"PO-Revision-Date: 2022-12-02 09:07+0000\n"
 "Last-Translator: Kai Sommerfeld <kai.sommerfeld@gmx.com>\n"
 "Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/de_de/>\n"
 "Language: de_de\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.14.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -35,13 +35,13 @@ msgstr "Dies ist instabile Software! Die Autoren sind in keiner Weise verantwort
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
-msgstr ""
+msgstr "Enigma2-Hostname oder IP-Adresse"
 
 # empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr ""
+msgstr "Streaming-Port"
 
 #. label: Connection - user
 msgctxt "#30003"
@@ -66,12 +66,12 @@ msgstr "Symbole"
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr ""
+msgstr "Programm-Streams"
 
 #. label: General - iconpath
 msgctxt "#30008"
 msgid "Icon path"
-msgstr ""
+msgstr "Pfad für Symbole"
 
 #. label-group: General - Update Interval
 msgctxt "#30009"
@@ -82,22 +82,22 @@ msgstr "Aktualisierungsintervall"
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
-msgstr ""
+msgstr "Automatische Bereinigung der Timer-Liste"
 
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr ""
+msgstr "Weboberflächen-Port"
 
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr ""
+msgstr "Umschalten vor Kanalwechsel (z. B. für Geräte mit nur einem Tuner)"
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr ""
+msgstr "Programm-ID für Live-Kanäle oder Aufnahmen festlegen"
 
 #. label: General - updateint
 msgctxt "#30015"
@@ -107,12 +107,12 @@ msgstr "Aktualisierungsintervall"
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr ""
+msgstr "Bouquetspezifische Kanalnummern des Backends verwenden"
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr ""
+msgstr "Nur den aktuellen Aufnahmepfad vom Backend vwerwenden"
 
 #. label-category: general
 #. label-group: Channels
@@ -123,7 +123,7 @@ msgstr "Allgemein"
 #. label-category: channels
 msgctxt "#30019"
 msgid "Channels"
-msgstr "Sender"
+msgstr "Kanäle"
 
 #. label-category: advanced
 #. label-group: Connection - Advanced
@@ -135,27 +135,27 @@ msgstr "Erweitert"
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
-msgstr ""
+msgstr "Aufnahmeorte rekursiv auflisten"
 
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr ""
+msgstr "Standardaufnahmeordner für neue Timer"
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr ""
+msgstr "Beim Beenden des Addons Powerstatusmodus senden"
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
-msgstr ""
+msgstr "Modus für Abruf von TV-Bouqets"
 
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr ""
+msgstr "TV Bouquet 1"
 
 #. label: General - onlinepicons
 msgctxt "#30027"
