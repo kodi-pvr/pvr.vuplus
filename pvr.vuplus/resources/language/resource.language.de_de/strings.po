@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-12-02 09:07+0000\n"
+"PO-Revision-Date: 2022-12-07 10:15+0000\n"
 "Last-Translator: Kai Sommerfeld <kai.sommerfeld@gmx.com>\n"
 "Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/de_de/>\n"
 "Language: de_de\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Kodi Oberfläche für VU+ / Enigma2-basierte Settop-Boxen"
+msgstr "Kodi-Oberfläche für VU+ / Enigma2-basierte Settop-Boxen"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "VU+ -Oberfläche; Unterstützt Live TV & Aufnahmen, EPG und Timer.    "
+msgstr "VU+/Enigma2-Oberfläche. Unterstützt TV, Aufnahmen, EPG und Timer.    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
@@ -155,7 +155,7 @@ msgstr "Modus für Abruf von TV-Bouqets"
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr "TV Bouquet 1"
+msgstr "TV-Bouquet 1"
 
 #. label: General - onlinepicons
 msgctxt "#30027"
@@ -170,7 +170,7 @@ msgstr ""
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "Aktiviere die Autokonfiguration für Liveübertragungen"
+msgstr "Autokonfiguration für Livestreams aktivieren"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
@@ -185,7 +185,7 @@ msgstr ""
 #. label-category: epg
 msgctxt "#30032"
 msgid "EPG"
-msgstr "EPG"
+msgstr "Programmübersicht"
 
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
@@ -200,7 +200,7 @@ msgstr ""
 #. label: General - usepiconseuformat
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr "Picons.eu Dateiformat verwenden"
+msgstr "Dateiformat picons.eu verwenden"
 
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
@@ -240,7 +240,7 @@ msgstr "Nie"
 #. label - Advanced - prependoutline
 msgctxt "#30043"
 msgid "In EPG only"
-msgstr "Nur im EPG"
+msgstr "Nur in der Programmübersicht"
 
 #. label - Advanced - prependoutline
 msgctxt "#30044"
@@ -285,7 +285,7 @@ msgstr "Anmeldung"
 #. label-group: Advanced - Misc
 msgctxt "#30052"
 msgid "Misc"
-msgstr "verschiedenes"
+msgstr "Verschiedenes"
 
 #. label-group: EPG - Genre ID Mappings
 msgctxt "#30053"
@@ -336,7 +336,7 @@ msgstr "Timeshift aktivieren"
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Timeshift Puffer-Pfad"
+msgstr "Pfad für Timeshift-Puffer"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -346,7 +346,7 @@ msgstr "Inaktiv"
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30064"
 msgid "On playback"
-msgstr "Beim Abspielen"
+msgstr "Bei der Wiedergabe"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30065"
@@ -619,7 +619,7 @@ msgstr ""
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
 msgid "Disabled"
-msgstr "Ausschalten"
+msgstr "Deaktiviert"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30118"
@@ -872,22 +872,22 @@ msgstr ""
 #. application: Timers
 msgctxt "#30430"
 msgid "Disabled"
-msgstr "Ausschalten"
+msgstr "Deaktiviert"
 
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr "Aufnahme bei abweichenden EPG-Titel"
+msgstr "Aufnahme bei abweichendem EPG-Titel"
 
 #. application: Timers
 msgctxt "#30432"
 msgid "Record if EPG title and short description differs"
-msgstr "Aufnahme, wenn EPG-Titel und Kurzbeschreibung voneinander abweichen."
+msgstr "Aufnahme, wenn EPG-Titel und Kurzbeschreibung voneinander abweichen"
 
 #. application: Timers
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
-msgstr "Aufnahme, wenn EPG-Titel und alle Beschreibung voneinander abweichen."
+msgstr "Aufnahme, wenn EPG-Titel und alle Beschreibung voneinander abweichen"
 
 #. ################
 #. notifications #
@@ -895,7 +895,7 @@ msgstr "Aufnahme, wenn EPG-Titel und alle Beschreibung voneinander abweichen."
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "Pfad für den Zeitversatz Puffer existiert nicht"
+msgstr "Pfad für den Timeshift-Puffer existiert nicht"
 
 #. notification: Enigma2
 msgctxt "#30515"
