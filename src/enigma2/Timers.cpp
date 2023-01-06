@@ -613,7 +613,7 @@ PVR_ERROR Timers::AddAutoTimer(const kodi::addon::PVRTimer& timer)
   if (timer.GetFullTextEpgSearch())
     strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_DESCRIPTION).c_str());
   else
-    strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_EXACT).c_str());
+    strTmp += StringUtils::Format("&searchType=%s", WebUtils::URLEncodeInline(AUTOTIMER_SEARCH_TYPE_START).c_str());
 
   std::underlying_type<AutoTimer::DeDup>::type deDup = static_cast<AutoTimer::DeDup>(timer.GetPreventDuplicateEpisodes());
   if (deDup == AutoTimer::DeDup::DISABLED)
