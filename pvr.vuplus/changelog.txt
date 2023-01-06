@@ -1,3 +1,6 @@
+v19.0.1
+- Always match auto timers from start then when not doing a full text search. Then episodes like finals etc. will still be caught by the autotimer.
+
 v19.0.0
 - Translations updates from Weblate
   - ko_kr, uk_ua
