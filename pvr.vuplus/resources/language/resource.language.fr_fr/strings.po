@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-05-29 18:14+0000\n"
-"Last-Translator: GregSKR <gregnet@free.fr>\n"
+"PO-Revision-Date: 2023-01-07 08:39+0000\n"
+"Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.12.2\n"
+"X-Generator: Weblate 4.15\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -23,7 +23,7 @@ msgstr "Interface logicielle pour les enregistreurs VU+/Enigma2"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "Interface logicielle pour enregistreur VU+. Gère la diffusion et les enregistrements de la TV en direct, le guide électronique des programmes TV et les programmations."
+msgstr "Interface Enigma2 - prenant en charge la diffusion en continu de la télévision en direct et des enregistrements, EPG, Timers, Autotimers.[CR]     [CR]Pour la documentation, visiter : https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md [CR]    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
@@ -143,7 +143,7 @@ msgstr ""
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr "Envoyer le mode « powerstate » quand une extension quitte"
+msgstr "Envoyer le mode powerstate à la sortie de l'addon"
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
@@ -193,7 +193,7 @@ msgstr "Extraire les infos de saison, d'épisode et d'année si possible"
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr "Activer les programmations auto."
+msgstr "Activer les programmations auto"
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
@@ -218,7 +218,7 @@ msgstr "Interface Web"
 #. label-group: Connection - Streaming
 msgctxt "#30039"
 msgid "Streaming"
-msgstr "Diffusion par flux"
+msgstr "Diffusion"
 
 #. label: Advanced - prependoutline
 msgctxt "#30040"
@@ -354,12 +354,12 @@ msgstr "En pause"
 #. label: Connection - use_secure_stream
 msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
-msgstr "Utiliser le HTTP sécurisé (https) pour la diffusion par flux"
+msgstr "Utiliser le HTTP sécurisé (https) pour la diffusion"
 
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr "Utiliser la connexion pour la diffusion par flux"
+msgstr "Utiliser la connexion pour la diffusion"
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
@@ -441,7 +441,7 @@ msgstr "inconnu"
 #. application: Client
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr "(Non connecté)"
+msgstr " (Non connecté)"
 
 #. application: Client
 msgctxt "#30083"
@@ -461,7 +461,7 @@ msgstr "Grouper les enregistrements dans des dossiers par titre"
 #. label-category: backend
 msgctxt "#30086"
 msgid "Backend"
-msgstr "Serveur"
+msgstr "Backend"
 
 #. label-group: Backend - Recording Padding
 msgctxt "#30087"
@@ -862,7 +862,7 @@ msgstr "Basé sur le guide, répété"
 #. application: Timers
 msgctxt "#30426"
 msgid "Auto guide-based"
-msgstr "Basé sur le guide, auto."
+msgstr "Basé sur le guide, auto"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
@@ -875,7 +875,7 @@ msgstr "Désactivé"
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr "Enregistrer si le titre du guide (EPG) diffère"
+msgstr "Enregistrer si le titre du guide (EPG) diffèrent"
 
 #. application: Timers
 msgctxt "#30432"
@@ -1350,7 +1350,7 @@ msgstr ""
 #. help-category: advanced
 msgctxt "#30740"
 msgid "This category cotains advanced/expert settings"
-msgstr "Cette catégorie contient les paramètres avancés/experts."
+msgstr "Cette catégorie contient les paramètres avancés/experts"
 
 #. help: Advanced - prependoutline
 msgctxt "#30741"

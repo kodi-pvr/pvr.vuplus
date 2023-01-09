@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-12-12 07:47+0000\n"
+"PO-Revision-Date: 2023-01-08 14:26+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 4.15\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Frontend di Kodi per ricevitori basati su Enigma2"
+msgstr "Frontend Kodi per ricevitori basati su Enigma2"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "Enigma2 frontend: supporta lo streaming di TV e registrazioni in diretta, EPG, timer, timer automatici. Per la documentazione visita: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md    "
+msgstr "Frontend Enigma2: supporta lo stream e la registrazione di Live TV, EPG, timer, timer automatici. Per la documentazione visita: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "Questo è un software instabile! Gli autori non sono in alcun modo responsabili per registrazioni non riuscite, timer errati, ore sprecate o qualsiasi altro effetto indesiderato.."
+msgstr "Questo è un software instabile! Gli autori non sono in alcun modo responsabili per registrazioni fallite, timer errati, ore sprecate o qualsiasi altro effetto indesiderato."
 
 #. ##################
 #. settings labels #
@@ -41,7 +41,7 @@ msgstr "Nome host o indirizzo IP di Enigma2"
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr "Porta per streaming"
+msgstr "Porta streaming"
 
 #. label: Connection - user
 msgctxt "#30003"
@@ -92,7 +92,7 @@ msgstr "Porta interfaccia web"
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr "Zap prima del cambio canale (per ricevitori con un sintonizzatore)"
+msgstr "Zap prima del cambio canale (ricevitori singolo tuner)"
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
@@ -112,7 +112,7 @@ msgstr "Usa i numeri di canale specifici del bouquet dal backend"
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr "Usa solo il percorso di registrazione del backend"
+msgstr "Usa solo il percorso di registrazione attuale del backend"
 
 #. label-category: general
 #. label-group: Channels
@@ -145,7 +145,7 @@ msgstr "Nuova cartella di registrazione predefinita del timer"
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr "Invia lo stato di alimentazione all'uscita Add-on"
+msgstr "Invia lo stato di alimentazione all'uscita dall'add-on"
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
@@ -170,7 +170,7 @@ msgstr "Usa HTTP sicuro (https)"
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "Abilita configurazione automatica per trasmissioni in diretta"
+msgstr "Abilita configurazione automatica per trasmissioni live"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
@@ -210,7 +210,7 @@ msgstr "Abilita generazione di timer ripetuti"
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr "Registra mappature di testo di generi mancanti"
+msgstr "Crea registro mappature di testo di generi mancanti"
 
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
@@ -260,22 +260,22 @@ msgstr "Estrai file di informazioni sullo spettacolo"
 #. label-group: EPG - Rytec genre text Mappings
 msgctxt "#30047"
 msgid "Rytec genre text Mappings"
-msgstr "Mappature del genere Rytec"
+msgstr "Mappature testo genere Rytec"
 
 #. label: EPG - rytecgenretextmapenabled
 msgctxt "#30048"
 msgid "Enable Rytec genre text mappings"
-msgstr "Abilita mappature del genere Rytec"
+msgstr "Abilita mappature testo genere Rytec"
 
 #. label: EPG - rytecgenretextmapfile
 msgctxt "#30049"
 msgid "Rytec genre text mappings file"
-msgstr "File mappature del genere Rytec"
+msgstr "File mappature testo genere Rytec"
 
 #. label: Advanced - readtimeout
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
-msgstr "Timeout TV in diretta (0 è l'impostazione predefinita)"
+msgstr "Timeout Live TV personalizzato (0 è l'impostazione predefinita)"
 
 #. label-group: Connection - Login
 msgctxt "#30051"
@@ -392,7 +392,7 @@ msgstr "Timer"
 #. label: Timers - numgenrepeattimers
 msgctxt "#30073"
 msgid "Number of repeat timers to generate"
-msgstr "Numero di timer di ripetizione da generare"
+msgstr "Numero di ripetizioni dei timer da creare"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
@@ -448,7 +448,7 @@ msgstr " (Non connesso!)"
 #. application: Client
 msgctxt "#30083"
 msgid "addon error"
-msgstr "errore Add-on"
+msgstr "errore add-on"
 
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
@@ -498,7 +498,7 @@ msgstr "Etichetta timer automatici in etichette timer"
 #. label: Backend - autotimernameintags
 msgctxt "#30093"
 msgid "AutoTimer name in timer tags"
-msgstr "Nome timer automatici in etichette timer"
+msgstr "Nome AutoTimer nei tag dei timer"
 
 #. application: Admin
 msgctxt "#30094"
@@ -568,7 +568,7 @@ msgstr "Ritardo aggiornamento EPG per canale"
 #. label-group: Recordings - Recording EDLs (Edit Decision Lists)
 msgctxt "#30107"
 msgid "Recording EDLs (Edit Decision Lists)"
-msgstr "Registrazione EDL (Edit Decision Lists)"
+msgstr "Registrazione EDL (modifica elenchi di decisioni)"
 
 #. label: Recordings - enablerecordingedls
 msgctxt "#30108"
@@ -588,7 +588,7 @@ msgstr "Riempimento ora di fine EDL"
 #. label: Advanced - debugnormal
 msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
-msgstr "Abilita debug logging in modalità normale"
+msgstr "Abilita registrazione di debug in modalità normale"
 
 #. application: ChannelGroups
 msgctxt "#30112"
@@ -604,7 +604,7 @@ msgstr "Last Scanned (Radio)"
 #. label: Channels - excludelastscannedradio
 msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
-msgstr "Escludi Last Scanned bouquet"
+msgstr "Escludi bouquet Last Scanned"
 
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
@@ -755,12 +755,12 @@ msgstr "Radio bouquet 5"
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
-msgstr "Nessun debug logging aggiuntivo nella modalità di debug di Kodi"
+msgstr "Nessun add-on registrazione debug nella modalità di debug di Kodi"
 
 #. label-group: Backend - Power Settings
 msgctxt "#30145"
 msgid "Power Settings"
-msgstr "Alimentazione"
+msgstr "Impostazioni alimentazione"
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30146"
@@ -805,7 +805,7 @@ msgstr "Abilita limite disco timeshift"
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr "Limita il timeshift su disco"
+msgstr "Limite timeshift sul disco"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
@@ -854,7 +854,7 @@ msgstr "Ripetizione basata su tempo/canale"
 #. application: Timers
 msgctxt "#30424"
 msgid "One time guide-based"
-msgstr "Una volta basato su guida"
+msgstr "Una volta basata sulla guida"
 
 #. application: Timers
 msgctxt "#30425"
@@ -864,7 +864,7 @@ msgstr "Ripetizione basata sulla guida"
 #. application: Timers
 msgctxt "#30426"
 msgid "Auto guide-based"
-msgstr "Basato sulla guida automatica"
+msgstr "Basata sulla guida automatica"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
@@ -921,7 +921,7 @@ msgstr "Enigma2: rilevate modifiche al gruppo di canali, riavvia per caricare le
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr "Enigma2: rilevate modifiche al canale, riavviare per caricare le modifiche"
+msgstr "Enigma2: rilevate modifiche al canale, riavvia per caricare le modifiche"
 
 #. application: AutoTimer
 #. application: Timer
@@ -932,12 +932,12 @@ msgstr "Canale non valido"
 #. notification: Enigma2
 msgctxt "#30521"
 msgid "Enigma2: Channel group changes detected, reloading..."
-msgstr "Enigma2: rilevate modifiche al gruppo di canali, ricarico..."
+msgstr "Enigma2: rilevate modifiche al gruppo di canali, ricarica in corso..."
 
 #. notification: Enigma2
 msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
-msgstr "Enigma2: rilevate modifiche al canale, ricarico..."
+msgstr "Enigma2: rilevate modifiche al canale, ricarica in corso..."
 
 # empty strings from id 30523 to 30599
 #. ############
@@ -962,17 +962,17 @@ msgstr "La porta utilizzata per la connessione all'interfaccia web."
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr "Usa https per connettersi all'interfaccia web."
+msgstr "Usa https per la connessione all'interfaccia web."
 
 #. help: Connection - user
 msgctxt "#30604"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nome utente/password, questa deve essere impostata in questa opzione."
+msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nome utente/password, deve essere impostata in questa opzione."
 
 #. help: Connection - pass
 msgctxt "#30605"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nome utente/password, questa deve essere impostata in questa opzione."
+msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nome utente/password, deve essere impostata in questa opzione."
 
 #. help: Connection - autoconfig
 msgctxt "#30606"
@@ -987,7 +987,7 @@ msgstr "Questa opzione definisce la porta di streaming utilizzata dal ricevitore
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr "Usa https per connetterti agli stream."
+msgstr "Usa https per connessione agli stream."
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
@@ -1014,7 +1014,7 @@ msgstr "Questa categoria contiene le impostazioni che generalmente devono essere
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr "Prendi i picon direttamente dal ricevitore Enigma 2."
+msgstr "Prendi i picon direttamente dal ricevitore Enigma2."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
@@ -1034,7 +1034,7 @@ msgstr "Per poter visualizzare i loghi dei canali di Kodi devi copiare i picon d
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr "Poiché il ricevitore può essere utilizzato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'Add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/elimina timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'Add-on controlla gli aggiornamenti. Si noti che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
+msgstr "Poiché il ricevitore può essere utilizzato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/elimina timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'add-on controlla gli aggiornamenti. Si noti che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
 
 #. help: General - updatemode
 msgctxt "#30626"
@@ -1071,7 +1071,7 @@ msgstr "Di solito i riferimenti del servizio per i canali sono in un formato sta
 #. help: Channels - zap
 msgctxt "#30642"
 msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
-msgstr "Quando si utilizza l'Add-on con un singolo sintonizzatore, potrebbe essere necessario che l'Add-on debba essere in grado di eseguire lo zapping su un altro canale sul ricevitore. Se questa opzione è abilitata, ogni cambio di canale in Kodi comporterà anche un cambio di canale sul ricevitore. Si noti che [B]Consenti cambio canale[/B] deve essere abilitato nell'interfaccia web sul ricevitore."
+msgstr "Quando si utilizza l'add-on con un ricevitore con un solo tuner, potrebbe essere necessario che l'add-on debba essere in grado di eseguire lo zap su un altro canale del ricevitore. Se questa opzione è abilitata, ogni cambio di canale in Kodi comporterà anche un cambio di canale sul ricevitore. Si noti che [B]Consenti cambio canale[/B] deve essere abilitato nell'interfaccia web del ricevitore."
 
 #. help: Channels - tvgroupmode
 msgctxt "#30643"
@@ -1223,12 +1223,12 @@ msgstr "Le opzioni sono: [B]Istanze Kodi[/B] Usa solo il valore in Kodi e non in
 #. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
-msgstr "Per impostazione predefinita, l'Add-on non specifica la cartella di registrazione nei timer appena creati, quindi verrà utilizzata l'impostazione predefinita nel ricevitore. Se desideri specificare una cartella diversa (ovvero perché desideri che tutte le registrazioni programmate tramite Kodi vengano archiviate in una cartella separata), devi impostare questa opzione."
+msgstr "Per impostazione predefinita, l'add-on non specifica la cartella di registrazione nei timer appena creati, quindi verrà utilizzata l'impostazione predefinita nel ricevitore. Se desideri specificare una cartella diversa (ovvero perché desideri che tutte le registrazioni programmate tramite Kodi vengano archiviate in una cartella separata), devi impostare questa opzione."
 
 #. help: Recordings - onlycurrent
 msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
-msgstr "Se questa opzione non è impostata, l'Add-on recupererà tutte le registrazioni disponibili da tutti i percorsi configurati dal ricevitore. Se questa opzione è impostata, elencherà solo le registrazioni che sono memorizzate all'interno del \"percorso di registrazione corrente\" sul ricevitore."
+msgstr "Se questa opzione non è impostata, l'add-on recupererà tutte le registrazioni disponibili da tutti i percorsi configurati dal ricevitore. Se questa opzione è impostata, elencherà solo le registrazioni che sono memorizzate all'interno del \"percorso di registrazione corrente\" sul ricevitore."
 
 #. help: Recordings - keepfolders
 msgctxt "#30685"
@@ -1285,12 +1285,12 @@ msgstr "Il numero di timer Kodi PVR da generare."
 #. help: Timers - timerlistcleanup
 msgctxt "#30703"
 msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
-msgstr "Se questa opzione è impostata, l'Add-on invierà il comando per eliminare i timer completati dal ricevitore dopo ogni intervallo di aggiornamento."
+msgstr "Se questa opzione è impostata, l'add-on invierà il comando per eliminare i timer completati dal ricevitore dopo ogni intervallo di aggiornamento."
 
 #. help: Timers - enableautotimers
 msgctxt "#30704"
 msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
-msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore per abilitare il collegamento di AutoTimer (regole timer) a timer nell'interfaccia utente di Kodi. L'Add-on tenta di impostarli automaticamente all'avvio."
+msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore per abilitare il collegamento di AutoTimer (regole timer) a timer nell'interfaccia utente di Kodi. L'add-on tenta di impostarli automaticamente all'avvio."
 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
@@ -1364,7 +1364,7 @@ msgstr "Per impostazione predefinita, il profilo della trama (breve descrizione 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
 msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-msgstr "Se questa opzione è impostata su un valore diverso da \"Disabilitato\", l'Add-on invierà un comando Powerstate al ricevitore quando Kodi verrà chiuso (o l'Add-on sarà disattivato): [B]Disabilitato[/B] Nessun comando inviato all'uscita dell'Add-on; [B]Standby[/B] Invia il comando di standby all'uscita; [B]Ricevitore spento[/B] Invia il comando di spegnimento all'uscita. Nota, il ricevitore non risponderà a Kodi dopo l'invio di questo comando; [B]Sveglia, quindi standby[/B] Simile allo standby ma invia prima un comando di riattivazione. Può essere utile se vuoi assicurarti che tutti gli stream siano stati interrotti. Nota: se utilizzi CEC, la TV potrebbe riattivarsi."
+msgstr "Se questa opzione è impostata su un valore diverso da \"Disabilitato\", l'add-on invierà un comando Powerstate al ricevitore quando Kodi verrà chiuso (o l'add-on sarà disattivato): [B]Disabilitato[/B] Nessun comando inviato all'uscita dell'add-on; [B]Standby[/B] Invia il comando di standby all'uscita; [B]Ricevitore spento[/B] Invia il comando di spegnimento all'uscita. Nota, il ricevitore non risponderà a Kodi dopo l'invio di questo comando; [B]Sveglia, quindi standby[/B] Simile allo standby ma invia prima un comando di riattivazione. Può essere utile se vuoi assicurarti che tutti gli stream siano stati interrotti. Nota: se utilizzi CEC, la TV potrebbe riattivarsi."
 
 #. help: Advanced - readtimeout
 msgctxt "#30743"
@@ -1379,7 +1379,7 @@ msgstr "La dimensione del blocco utilizzata da Kodi per i flussi. Il valore pred
 #. help: Advanced - debugnormal
 msgctxt "#30745"
 msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
-msgstr "Le istruzioni del registro di debug verranno visualizzate per l'Add-on anche se la registrazione del debug potrebbe non essere abilitata in Kodi. Si noti che tutte le istruzioni del registro di debug verranno visualizzate a livello di AVVISO."
+msgstr "Le istruzioni del registro di debug verranno visualizzate per l'add-on anche se la registrazione del debug potrebbe non essere abilitata in Kodi. Si noti che tutte le istruzioni del registro di debug verranno visualizzate a livello di AVVISO."
 
 #. help: Advanced - tracedebug
 msgctxt "#30746"
@@ -1389,7 +1389,7 @@ msgstr "Oltre alle istruzioni di debug standard verranno visualizzate istruzioni
 #. help: Advanced - ignoredebug
 msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
-msgstr "Le istruzioni del registro di debug non verranno visualizzate per l'Add-on anche se la registrazione del debug è abilitata in Kodi. Questo può essere utile quando si tenta di eseguire il debug di un problema in Kodi che non è correlato a componenti aggiuntivi."
+msgstr "Le istruzioni del registro di debug non verranno visualizzate per l'add-on anche se la registrazione del debug è abilitata in Kodi. Questo può essere utile quando si tenta di eseguire il debug di un problema in Kodi che non è correlato a componenti aggiuntivi."
 
 # empty strings from id 30748 to 30759
 #. help info - Backend
