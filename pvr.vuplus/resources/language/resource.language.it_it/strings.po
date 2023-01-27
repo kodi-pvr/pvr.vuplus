@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-01-08 14:26+0000\n"
+"PO-Revision-Date: 2023-01-27 11:15+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15\n"
+"X-Generator: Weblate 4.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -503,7 +503,7 @@ msgstr "Nome AutoTimer nei tag dei timer"
 #. application: Admin
 msgctxt "#30094"
 msgid "N/A"
-msgstr "N.D"
+msgstr "N.D."
 
 #. application: Admin
 msgctxt "#30095"
@@ -553,7 +553,7 @@ msgstr "Usa percorso picon di OpenWebIf"
 #. label: Advanced - tracedebug
 msgctxt "#30104"
 msgid "Enable trace logging in debug mode"
-msgstr "Abilita trace logging in modalità debug"
+msgstr "Abilita tracciamento log in modalità debug"
 
 #. label-group - EPG - Other
 msgctxt "#30105"
@@ -674,7 +674,7 @@ msgstr "Memorizza ultima riproduzione/conta riproduzioni sul backend"
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr "Condividi l'ultima volta che hai riprodotto:"
+msgstr "Condividi l'ultima volta che hai riprodotto su:"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
@@ -977,17 +977,17 @@ msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nom
 #. help: Connection - autoconfig
 msgctxt "#30606"
 msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
-msgstr "Quando abilitato, l'URL del flusso verrà letto da un file M3U8. Quando disabilitato viene costruito in base al riferimento di servizio del canale. Questa opzione è raramente richiesta e non dovrebbe essere abilitata a meno che tu non abbia un caso d'uso speciale. Se si visualizza uno streaming IPTV, questa opzione non ha effetto su quei canali."
+msgstr "Se abilitato, l'URL del flusso verrà letto da un file M3U8. Quando disabilitato viene costruito in base al riferimento al servizio del canale. Questa opzione è raramente richiesta e non dovrebbe essere abilitata a meno che tu non abbia un caso d'uso speciale. Se stai visualizzando un flusso IPTV questa opzione non ha effetto su quei canali."
 
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr "Questa opzione definisce la porta di streaming utilizzata dal ricevitore per trasmettere in streaming la TV in diretta. L'impostazione predefinita è 8001, che dovrebbe andare bene se l'utente non ha definito una porta personalizzata all'interno dell'interfaccia web."
+msgstr "Questa opzione definisce la porta di streaming utilizzata dal ricevitore per trasmettere in streaming la Live TV. L'impostazione predefinita è 8001, che dovrebbe andare bene se l'utente non ha definito una porta personalizzata all'interno dell'interfaccia web."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr "Usa https per connessione agli stream."
+msgstr "Usa https per connetterti agli stream."
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
@@ -1014,7 +1014,7 @@ msgstr "Questa categoria contiene le impostazioni che generalmente devono essere
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr "Prendi i picon direttamente dal ricevitore Enigma2."
+msgstr "Recupera picon direttamente dal ricevitore Enigma2."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
@@ -1034,7 +1034,7 @@ msgstr "Per poter visualizzare i loghi dei canali di Kodi devi copiare i picon d
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr "Poiché il ricevitore può essere utilizzato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/elimina timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'add-on controlla gli aggiornamenti. Si noti che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
+msgstr "Poiché il ricevitore può essere utilizzato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/eliminare timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'add-on controlla gli aggiornamenti. Si prega di notare che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
 
 #. help: General - updatemode
 msgctxt "#30626"
@@ -1061,7 +1061,7 @@ msgstr "Alcuni provider TV (ad es. Nos - Portogallo) che utilizzano MPTS inviano
 #. help-category: channels
 msgctxt "#30640"
 msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
-msgstr "Questa categoria contiene le impostazioni per i canali. Quando si cambiano i bouquet potrebbe essere necessario svuotare la cache del canale nelle impostazioni affinché abbiano effetto. Puoi farlo andando a quanto segue nelle impostazioni di Kodi: \"Impostazioni->PVR e TV in diretta->Generale->Cancella cache\"."
+msgstr "Questa categoria contiene le impostazioni per i canali. Quando si modificano i bouquet potrebbe essere necessario svuotare la cache del canale per rendere effettive le impostazioni. Puoi farlo andando nelle seguenti impostazioni di Kodi: \"Impostazioni->PVR e Live TV->Generale->Svuota cache\"."
 
 #. help: Channels - usestandardserviceref
 msgctxt "#30641"
@@ -1156,7 +1156,7 @@ msgstr "Recupera il nome del provider dal backend durante il recupero dei canali
 #. help-category: epg
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
-msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e TV in diretta-> Guida-> Cancella cache\" in Kodi dopo il riavvio del componente aggiuntivo."
+msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e Live TV-> Guida-> Cancella cache\" in Kodi dopo il riavvio del componente aggiuntivo."
 
 #. help: EPG - extractshowinfoenabled
 msgctxt "#30661"
@@ -1307,7 +1307,7 @@ msgstr "Per il canale usato per creare il limite del timer automatico per i grup
 #. help-category: timeshift
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
-msgstr "Questa categoria contiene le impostazioni per il timeshift. Il timeshift ti consente di mettere in pausa la TV in diretta e di spostarti avanti e indietro dalla posizione attuale in modo simile alla riproduzione di una registrazione. Il buffer viene cancellato ogni volta che un canale viene modificato o interrotto."
+msgstr "Questa categoria contiene le impostazioni per il timeshift. Il timeshift ti consente di mettere in pausa la Live TV e di spostarti avanti e indietro dalla posizione attuale in modo simile alla riproduzione di una registrazione. Il buffer viene cancellato ogni volta che un canale viene modificato o interrotto."
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
@@ -1317,7 +1317,7 @@ msgstr "Quale opzione di timeshift desideri: [B]Disabilitato[/B] Nessun timeshif
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "Il percorso utilizzato per memorizzare il buffer timeshift. L'impostazione predefinita è la cartella \"Add-on_data/pvr.vuplus\" in userdata."
+msgstr "Il percorso utilizzato per memorizzare il buffer timeshift. L'impostazione predefinita è la cartella \"addon_data/pvr.vuplus\" in userdata."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
@@ -1359,7 +1359,7 @@ msgstr "Questa categoria contiene impostazioni avanzate/esperte"
 #. help: Advanced - prependoutline
 msgctxt "#30741"
 msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
-msgstr "Per impostazione predefinita, il profilo della trama (breve descrizione su Enigma2) non viene visualizzato nell'interfaccia utente. Può essere visualizzato in EPG, Registrazioni o entrambi. Dopo aver modificato questa opzione, sarà necessario svuotare la cache EPG in \"Impostazioni->PVR e TV in diretta->Guida->Cancella cache\" affinché abbia effetto."
+msgstr "Per impostazione predefinita, il profilo della trama (breve descrizione su Enigma2) non viene visualizzato nell'interfaccia utente. Può essere visualizzato in EPG, Registrazioni o entrambi. Dopo aver modificato questa opzione, sarà necessario svuotare la cache EPG in \"Impostazioni->PVR e Live TV->Guida->Cancella cache\" affinché abbia effetto."
 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
@@ -1369,7 +1369,7 @@ msgstr "Se questa opzione è impostata su un valore diverso da \"Disabilitato\",
 #. help: Advanced - readtimeout
 msgctxt "#30743"
 msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
-msgstr "Il timeout da utilizzare quando si tenta di leggere i live streaming. Il valore predefinito per i live streaming è 0. Il valore predefinito per il time shift è 10 secondi."
+msgstr "Il timeout da utilizzare quando si tenta di leggere i live streaming. Il valore predefinito per i live streaming è 0. Il valore predefinito per il timeshift è 10 secondi."
 
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"

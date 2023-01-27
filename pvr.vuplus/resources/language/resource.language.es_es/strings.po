@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-09-23 01:14+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2023-01-18 17:15+0000\n"
+"Last-Translator: José Antonio Alvarado <jalvarado0.eses@gmail.com>\n"
 "Language-Team: Spanish (Spain) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/es_es/>\n"
 "Language: es_es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.15\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -334,7 +334,7 @@ msgstr "Activar timeshift"
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Ruta del buffer de Timeshift"
+msgstr "Ruta del Buffer de Timeshift"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -892,7 +892,7 @@ msgstr "Grabar aunque el título y cualquier descripción en EPG difiera"
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "La ruta para el buffer de timeshift no existe"
+msgstr "La Ruta del Buffer Timeshift No Existe"
 
 #. notification: Enigma2
 msgctxt "#30515"
@@ -1336,7 +1336,7 @@ msgstr ""
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
-msgstr ""
+msgstr "El límite de espacio en disco a utilizar para el buffer timeshift en Gigabytes."
 
 #. help info - Advanced
 #. help-category: advanced
@@ -1362,7 +1362,7 @@ msgstr "Tiempo de espera para intentar leer una emisión en directo. Por defecto
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr ""
+msgstr "El tamaño del bloque usado por Kodi para los streams. Por defecto en 0 para dejar que Kodi decida. Puede ser útil configurarlo manualmente cuando se visualizan streams remotamente, donde puede producirse buffering, ya que el PVR está optimizado para una red local."
 
 #. help: Advanced - debugnormal
 msgctxt "#30745"
