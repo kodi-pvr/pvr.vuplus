@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-01-07 08:39+0000\n"
+"PO-Revision-Date: 2023-01-27 11:15+0000\n"
 "Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.15\n"
+"X-Generator: Weblate 4.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -65,7 +65,7 @@ msgstr "Icônes"
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr ""
+msgstr "Volets du programme"
 
 #. label: General - iconpath
 msgctxt "#30008"
@@ -95,7 +95,7 @@ msgstr "Zapper avant le changement de chaîne (par ex. pour les appareils à tun
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr ""
+msgstr "Définir l'identifiant du programme pour la chaîne en direct ou les flux enregistrés"
 
 #. label: General - updateint
 msgctxt "#30015"
@@ -105,12 +105,12 @@ msgstr "Intervalle de mise à jour"
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr ""
+msgstr "Utiliser des numéros de canaux spécifiques au bouquet depuis le backend"
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr ""
+msgstr "Utiliser uniquement le chemin d'enregistrement actuel à partir du backend"
 
 #. label-category: general
 #. label-group: Channels
@@ -133,12 +133,12 @@ msgstr "Avancé"
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
-msgstr ""
+msgstr "Utiliser la liste récursive pour enregistrer les emplacements"
 
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr ""
+msgstr "Nouveau dossier d'enregistrement par défaut de la minuterie"
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
