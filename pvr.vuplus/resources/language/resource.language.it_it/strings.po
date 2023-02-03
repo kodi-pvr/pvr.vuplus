@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-01-27 11:15+0000\n"
+"PO-Revision-Date: 2023-02-02 10:59+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -1238,7 +1238,7 @@ msgstr "Se abilitato, usa il percorso reale dal backend per dettare la struttura
 #. help: Recordings - enablerecordingedls
 msgctxt "#30686"
 msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
-msgstr "Gli EDL sono usati per definire pubblicità ecc. nelle registrazioni. Se uno strumento come Comskip viene utilizzato per generare file EDL, l'abilitazione di ciò consentirà a Kodi PVR di utilizzarli. Per esempio. se c'è un file chiamato 'my recording.ts' il file EDL dovrebbe essere chiamato 'my recording.edl'. Nota: l'abilitazione di questa impostazione non ha effetto se i file non sono presenti."
+msgstr "Gli EDL sono usati per definire pubblicità ecc. nelle registrazioni. Se uno strumento come Comskip viene utilizzato per generare file EDL, l'abilitazione di questo consentirà a Kodi PVR di utilizzarli. Per esempio. se c'è un file chiamato 'my recording.ts' il file EDL dovrebbe essere chiamato 'my recording.edl'. Nota: l'abilitazione di questa impostazione non ha effetto se i file non sono presenti."
 
 #. help: Recordings - edlpaddingstart
 msgctxt "#30687"
@@ -1295,7 +1295,7 @@ msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla Radio (a seconda del canale utilizzato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, ciò non è possibile e l'impostazione verrà ignorata."
+msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla Radio (a seconda del canale utilizzato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
