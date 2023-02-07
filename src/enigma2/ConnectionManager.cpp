@@ -8,7 +8,7 @@
 #include "ConnectionManager.h"
 
 #include "IConnectionListener.h"
-#include "Settings.h"
+#include "InstanceSettings.h"
 #include "utilities/Logger.h"
 #include "utilities/WebUtils.h"
 
@@ -25,7 +25,7 @@ using namespace kodi::tools;
  * Enigma2 Connection handler
  */
 
-ConnectionManager::ConnectionManager(IConnectionListener& connectionListener, std::shared_ptr<enigma2::Settings> settings)
+ConnectionManager::ConnectionManager(IConnectionListener& connectionListener, std::shared_ptr<enigma2::InstanceSettings> settings)
   : m_connectionListener(connectionListener), m_settings(settings), m_suspended(false), m_state(PVR_CONNECTION_STATE_UNKNOWN)
 {
 }

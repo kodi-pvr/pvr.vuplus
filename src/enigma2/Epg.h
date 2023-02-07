@@ -9,7 +9,7 @@
 
 #include "ChannelGroups.h"
 #include "Channels.h"
-#include "Settings.h"
+#include "InstanceSettings.h"
 #include "data/EpgPartialEntry.h"
 #include "extract/EpgEntryExtractor.h"
 
@@ -29,7 +29,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL Epg
   {
   public:
-    Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, std::shared_ptr<enigma2::Settings>& settings, int epgMaxPastDays, int epgMaxFutureDays);
+    Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, std::shared_ptr<enigma2::InstanceSettings>& settings, int epgMaxPastDays, int epgMaxFutureDays);
     Epg(const enigma2::Epg& epg);
 
     bool Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups);
@@ -61,6 +61,6 @@ namespace enigma2
 
     mutable std::mutex m_mutex;
 
-    std::shared_ptr<enigma2::Settings> m_settings;
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } //namespace enigma2

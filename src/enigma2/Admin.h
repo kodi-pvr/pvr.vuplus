@@ -21,12 +21,12 @@
 
 namespace enigma2
 {
-  class Settings;
+  class InstanceSettings;
 
   class ATTR_DLL_LOCAL Admin
   {
   public:
-    Admin(std::shared_ptr<enigma2::Settings> settings);
+    Admin(std::shared_ptr<enigma2::InstanceSettings> settings);
 
     void SendPowerstate();
     bool Initialise();
@@ -66,6 +66,6 @@ namespace enigma2
     enigma2::utilities::DeviceSettings m_deviceSettings;
     std::vector<enigma2::utilities::Tuner> m_tuners;
 
-    std::shared_ptr<enigma2::Settings> m_settings;
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } //namespace enigma2

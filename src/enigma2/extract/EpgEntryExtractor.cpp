@@ -17,7 +17,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-EpgEntryExtractor::EpgEntryExtractor(const std::shared_ptr<enigma2::Settings>& settings)
+EpgEntryExtractor::EpgEntryExtractor(const std::shared_ptr<enigma2::InstanceSettings>& settings)
   : IExtractor(settings)
 {
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + GENRE_DIR, GENRE_ADDON_DATA_BASE_DIR, true);

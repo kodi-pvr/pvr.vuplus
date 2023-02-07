@@ -14,9 +14,9 @@
 #include "enigma2/ConnectionManager.h"
 #include "enigma2/Epg.h"
 #include "enigma2/IConnectionListener.h"
+#include "enigma2/InstanceSettings.h"
 #include "enigma2/RecordingReader.h"
 #include "enigma2/Recordings.h"
-#include "enigma2/Settings.h"
 #include "enigma2/StreamReader.h"
 #include "enigma2/Timers.h"
 #include "enigma2/data/BaseEntry.h"
@@ -42,7 +42,7 @@
 class ATTR_DLL_LOCAL Enigma2 : public enigma2::IConnectionListener
 {
 public:
-  Enigma2(const kodi::addon::IInstanceInfo& instance, std::shared_ptr<enigma2::Settings>& settings);
+  Enigma2(const kodi::addon::IInstanceInfo& instance);
   ~Enigma2();
 
   // IConnectionListener implementation
@@ -53,6 +53,10 @@ public:
   bool Start();
   void SendPowerstate();
   bool IsConnected() const;
+
+  // kodi::addon::CInstancePVRClient -> kodi::addon::IAddonInstance overrides
+  ADDON_STATUS SetInstanceSetting(const std::string& settingName,
+                                  const kodi::addon::CSettingValue& settingValue) override;
 
   PVR_ERROR OnSystemSleep() override;
   PVR_ERROR OnSystemWake() override;
@@ -146,7 +150,7 @@ private:
   int m_epgMaxPastDays;
   int m_epgMaxFutureDays;
 
-  std::shared_ptr<enigma2::Settings> m_settings;
+  std::shared_ptr<enigma2::InstanceSettings> m_settings;
   enigma2::Providers m_providers{m_settings};
   mutable enigma2::Channels m_channels{m_providers, m_settings};
   enigma2::ChannelGroups m_channelGroups{m_settings};

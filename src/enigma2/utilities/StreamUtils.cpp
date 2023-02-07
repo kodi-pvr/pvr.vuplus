@@ -7,7 +7,7 @@
 
 #include "StreamUtils.h"
 
-#include "../Settings.h"
+#include "../InstanceSettings.h"
 #include "FileUtils.h"
 #include "Logger.h"
 #include "WebUtils.h"

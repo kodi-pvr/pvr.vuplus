@@ -26,7 +26,7 @@ namespace enigma2
     class ATTR_DLL_LOCAL GenreRytecTextMapper : public IExtractor
     {
     public:
-      GenreRytecTextMapper(const std::shared_ptr<enigma2::Settings>& settings);
+      GenreRytecTextMapper(const std::shared_ptr<enigma2::InstanceSettings>& settings);
       ~GenreRytecTextMapper();
 
       void ExtractFromEntry(enigma2::data::BaseEntry& entry);

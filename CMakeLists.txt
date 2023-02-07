@@ -13,15 +13,16 @@ include_directories(${NLOHMANNJSON_INCLUDE_DIRS}
 
 set(VUPLUS_SOURCES src/addon.cpp
                    src/Enigma2.cpp
+                   src/enigma2/AddonSettings.cpp
                    src/enigma2/Admin.cpp
                    src/enigma2/Channels.cpp
                    src/enigma2/ChannelGroups.cpp
                    src/enigma2/ConnectionManager.cpp
                    src/enigma2/Epg.cpp
+                   src/enigma2/InstanceSettings.cpp
                    src/enigma2/Providers.cpp
                    src/enigma2/RecordingReader.cpp
                    src/enigma2/Recordings.cpp
-                   src/enigma2/Settings.cpp
                    src/enigma2/StreamReader.cpp
                    src/enigma2/Timers.cpp
                    src/enigma2/TimeshiftBuffer.cpp
@@ -45,17 +46,18 @@ set(VUPLUS_SOURCES src/addon.cpp
 
 set(VUPLUS_HEADERS src/addon.h
                    src/Enigma2.h
+                   src/enigma2/AddonSettings.h
                    src/enigma2/Admin.h
                    src/enigma2/Channels.h
                    src/enigma2/ChannelGroups.h
                    src/enigma2/ConnectionManager.h
                    src/enigma2/Epg.h
                    src/enigma2/IConnectionListener.h
+                   src/enigma2/InstanceSettings.h
                    src/enigma2/IStreamReader.h
                    src/enigma2/Providers.h
                    src/enigma2/RecordingReader.h
                    src/enigma2/Recordings.h
-                   src/enigma2/Settings.h
                    src/enigma2/StreamReader.h
                    src/enigma2/Timers.h
                    src/enigma2/TimeshiftBuffer.h

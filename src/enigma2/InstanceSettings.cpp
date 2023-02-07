@@ -5,7 +5,7 @@
  *  See LICENSE.md for more information.
  */
 
-#include "Settings.h"
+#include "InstanceSettings.h"
 
 #include "utilities/FileUtils.h"
 #include "utilities/WebUtils.h"
@@ -21,53 +21,52 @@ using namespace kodi::tools;
 /***************************************************************************
  * PVR settings
  **************************************************************************/
-Settings::Settings()
+InstanceSettings::InstanceSettings(kodi::addon::IAddonInstance& instance)
+  : m_instance(instance)
 {
   ReadSettings();
 }
 
-void Settings::ReadSettings()
+void InstanceSettings::ReadSettings()
 {
-  FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + CHANNEL_GROUPS_DIR, CHANNEL_GROUPS_ADDON_DATA_BASE_DIR, true);
-
   //Connection
-  m_hostname = kodi::addon::GetSettingString("host", DEFAULT_HOST);
-  m_portWeb = kodi::addon::GetSettingInt("webport", DEFAULT_WEB_PORT);
-  m_useSecureHTTP = kodi::addon::GetSettingBoolean("use_secure", false);
-  m_username = kodi::addon::GetSettingString("user");
-  m_password = kodi::addon::GetSettingString("pass");
-  m_autoConfig = kodi::addon::GetSettingBoolean("autoconfig", false);
-  m_portStream = kodi::addon::GetSettingInt("streamport", DEFAULT_STREAM_PORT);
-  m_useSecureHTTPStream = kodi::addon::GetSettingBoolean("use_secure_stream", false);
-  m_useLoginStream = kodi::addon::GetSettingBoolean("use_login_stream", false);
-  m_connectioncCheckTimeoutSecs = kodi::addon::GetSettingInt("connectionchecktimeout", DEFAULT_CONNECTION_CHECK_TIMEOUT_SECS);
-  m_connectioncCheckIntervalSecs = kodi::addon::GetSettingInt("connectioncheckinterval", DEFAULT_CONNECTION_CHECK_INTERVAL_SECS);
+  m_instance.CheckInstanceSettingString("host", m_hostname);
+  m_instance.CheckInstanceSettingInt("webport", m_portWeb);
+  m_instance.CheckInstanceSettingBoolean("use_secure", m_useSecureHTTP);
+  m_instance.CheckInstanceSettingString("user", m_username);
+  m_instance.CheckInstanceSettingString("pass", m_password);
+  m_instance.CheckInstanceSettingBoolean("autoconfig", m_autoConfig);
+  m_instance.CheckInstanceSettingInt("streamport", m_portStream);
+  m_instance.CheckInstanceSettingBoolean("use_secure_stream", m_useSecureHTTPStream);
+  m_instance.CheckInstanceSettingBoolean("use_login_stream", m_useLoginStream);
+  m_instance.CheckInstanceSettingInt("connectionchecktimeout", m_connectioncCheckTimeoutSecs);
+  m_instance.CheckInstanceSettingInt("connectioncheckinterval", m_connectioncCheckIntervalSecs);
 
   //General
-  m_setStreamProgramId = kodi::addon::GetSettingBoolean("setprogramid", false);
-  m_onlinePicons = kodi::addon::GetSettingBoolean("onlinepicons", true);
-  m_usePiconsEuFormat = kodi::addon::GetSettingBoolean("usepiconseuformat", false);
-  m_useOpenWebIfPiconPath = kodi::addon::GetSettingBoolean("useopenwebifpiconpath", false);
-  m_iconPath = kodi::addon::GetSettingString("iconpath");
-  m_updateInterval = kodi::addon::GetSettingInt("updateint", DEFAULT_UPDATE_INTERVAL);
-  m_updateMode = kodi::addon::GetSettingEnum<UpdateMode>("updatemode", UpdateMode::TIMERS_AND_RECORDINGS);
-  m_channelAndGroupUpdateMode = kodi::addon::GetSettingEnum<ChannelAndGroupUpdateMode>("channelandgroupupdatemode", ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS);
-  m_channelAndGroupUpdateHour = kodi::addon::GetSettingInt("channelandgroupupdatehour", DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR);
+  m_instance.CheckInstanceSettingBoolean("setprogramid", m_setStreamProgramId);
+  m_instance.CheckInstanceSettingBoolean("onlinepicons", m_onlinePicons);
+  m_instance.CheckInstanceSettingBoolean("usepiconseuformat", m_usePiconsEuFormat);
+  m_instance.CheckInstanceSettingBoolean("useopenwebifpiconpath", m_useOpenWebIfPiconPath);
+  m_instance.CheckInstanceSettingString("iconpath", m_iconPath);
+  m_instance.CheckInstanceSettingInt("updateint", m_updateInterval);
+  m_instance.CheckInstanceSettingEnum<UpdateMode>("updatemode", m_updateMode);
+  m_instance.CheckInstanceSettingEnum<ChannelAndGroupUpdateMode>("channelandgroupupdatemode", m_channelAndGroupUpdateMode);
+  m_instance.CheckInstanceSettingInt("channelandgroupupdatehour", m_channelAndGroupUpdateHour);
 
   //Channels
-  m_zap = kodi::addon::GetSettingBoolean("zap", false);
-  m_useGroupSpecificChannelNumbers = kodi::addon::GetSettingBoolean("usegroupspecificnumbers", false);
-  m_useStandardServiceReference = kodi::addon::GetSettingBoolean("usestandardserviceref", true);
-  m_retrieveProviderNameForChannels = kodi::addon::GetSettingBoolean("retrieveprovidername", true);
-  m_defaultProviderName = kodi::addon::GetSettingString("defaultprovidername", "");
-  m_mapProviderNameFile = kodi::addon::GetSettingString("providermapfile", DEFAULT_PROVIDER_NAME_MAP_FILE);
-  m_tvChannelGroupMode = kodi::addon::GetSettingEnum<ChannelGroupMode>("tvgroupmode", ChannelGroupMode::ALL_GROUPS);
-  m_numTVGroups = kodi::addon::GetSettingInt("numtvgroups", DEFAULT_NUM_GROUPS);
-  m_oneTVGroup = kodi::addon::GetSettingString("onetvgroup");
-  m_twoTVGroup = kodi::addon::GetSettingString("twotvgroup");
-  m_threeTVGroup = kodi::addon::GetSettingString("threetvgroup");
-  m_fourTVGroup = kodi::addon::GetSettingString("fourtvgroup");
-  m_fiveTVGroup = kodi::addon::GetSettingString("fivetvgroup");
+  m_instance.CheckInstanceSettingBoolean("zap", m_zap);
+  m_instance.CheckInstanceSettingBoolean("usegroupspecificnumbers", m_useGroupSpecificChannelNumbers);
+  m_instance.CheckInstanceSettingBoolean("usestandardserviceref", m_useStandardServiceReference);
+  m_instance.CheckInstanceSettingBoolean("retrieveprovidername", m_retrieveProviderNameForChannels);
+  m_instance.CheckInstanceSettingString("defaultprovidername", m_defaultProviderName);
+  m_instance.CheckInstanceSettingString("providermapfile", m_mapProviderNameFile);
+  m_instance.CheckInstanceSettingEnum<ChannelGroupMode>("tvgroupmode", m_tvChannelGroupMode);
+  m_instance.CheckInstanceSettingInt("numtvgroups", m_numTVGroups);
+  m_instance.CheckInstanceSettingString("onetvgroup", m_oneTVGroup);
+  m_instance.CheckInstanceSettingString("twotvgroup", m_twoTVGroup);
+  m_instance.CheckInstanceSettingString("threetvgroup", m_threeTVGroup);
+  m_instance.CheckInstanceSettingString("fourtvgroup", m_fourTVGroup);
+  m_instance.CheckInstanceSettingString("fivetvgroup", m_fiveTVGroup);
 
   if (m_tvChannelGroupMode == ChannelGroupMode::SOME_GROUPS)
   {
@@ -85,20 +84,20 @@ void Settings::ReadSettings()
       m_customTVChannelGroupNameList.emplace_back(m_fiveTVGroup);
   }
 
-  m_customTVGroupsFile = kodi::addon::GetSettingString("customtvgroupsfile", DEFAULT_CUSTOM_TV_GROUPS_FILE);
+  m_instance.CheckInstanceSettingString("customtvgroupsfile", m_customTVGroupsFile);
 
   if (m_tvChannelGroupMode == ChannelGroupMode::CUSTOM_GROUPS)
     LoadCustomChannelGroupFile(m_customTVGroupsFile, m_customTVChannelGroupNameList);
 
-  m_tvFavouritesMode = kodi::addon::GetSettingEnum<FavouritesGroupMode>("tvfavouritesmode", FavouritesGroupMode::DISABLED);
-  m_excludeLastScannedTVGroup = kodi::addon::GetSettingBoolean("excludelastscannedtv", true);
-  m_radioChannelGroupMode = kodi::addon::GetSettingEnum<ChannelGroupMode>("radiogroupmode", ChannelGroupMode::ALL_GROUPS);
-  m_numRadioGroups = kodi::addon::GetSettingInt("numradiogroups", DEFAULT_NUM_GROUPS);
-  m_oneRadioGroup = kodi::addon::GetSettingString("oneradiogroup");
-  m_twoRadioGroup = kodi::addon::GetSettingString("tworadiogroup");
-  m_threeRadioGroup = kodi::addon::GetSettingString("threeradiogroup");
-  m_fourRadioGroup = kodi::addon::GetSettingString("fourradiogroup");
-  m_fiveRadioGroup = kodi::addon::GetSettingString("fiveradiogroup");
+  m_instance.CheckInstanceSettingEnum<FavouritesGroupMode>("tvfavouritesmode", m_tvFavouritesMode);
+  m_instance.CheckInstanceSettingBoolean("excludelastscannedtv", m_excludeLastScannedTVGroup);
+  m_instance.CheckInstanceSettingEnum<ChannelGroupMode>("radiogroupmode", m_radioChannelGroupMode);
+  m_instance.CheckInstanceSettingInt("numradiogroups", m_numRadioGroups);
+  m_instance.CheckInstanceSettingString("oneradiogroup", m_oneRadioGroup);
+  m_instance.CheckInstanceSettingString("tworadiogroup", m_twoRadioGroup);
+  m_instance.CheckInstanceSettingString("threeradiogroup", m_threeRadioGroup);
+  m_instance.CheckInstanceSettingString("fourradiogroup", m_fourRadioGroup);
+  m_instance.CheckInstanceSettingString("fiveradiogroup", m_fiveRadioGroup);
 
   if (m_radioChannelGroupMode == ChannelGroupMode::SOME_GROUPS)
   {
@@ -116,65 +115,62 @@ void Settings::ReadSettings()
       m_customRadioChannelGroupNameList.emplace_back(m_fiveRadioGroup);
   }
 
-  m_customRadioGroupsFile = kodi::addon::GetSettingString("customradiogroupsfile", DEFAULT_CUSTOM_RADIO_GROUPS_FILE);
+  m_instance.CheckInstanceSettingString("customradiogroupsfile", m_customRadioGroupsFile);
 
   if (m_radioChannelGroupMode == ChannelGroupMode::CUSTOM_GROUPS)
     LoadCustomChannelGroupFile(m_customRadioGroupsFile, m_customRadioChannelGroupNameList);
 
-  m_radioFavouritesMode = kodi::addon::GetSettingEnum<FavouritesGroupMode>("radiofavouritesmode", FavouritesGroupMode::DISABLED);
-  m_excludeLastScannedRadioGroup = kodi::addon::GetSettingBoolean("excludelastscannedradio", true);
+  m_instance.CheckInstanceSettingEnum<FavouritesGroupMode>("radiofavouritesmode", m_radioFavouritesMode);
+  m_instance.CheckInstanceSettingBoolean("excludelastscannedradio", m_excludeLastScannedRadioGroup);
 
   //EPG
-  m_extractShowInfo = kodi::addon::GetSettingBoolean("extractshowinfoenabled", false);
-  m_extractShowInfoFile = kodi::addon::GetSettingString("extractshowinfofile", DEFAULT_SHOW_INFO_FILE);
-  m_mapGenreIds = kodi::addon::GetSettingBoolean("genreidmapenabled", false);
-  m_mapGenreIdsFile = kodi::addon::GetSettingString("genreidmapfile", DEFAULT_GENRE_ID_MAP_FILE);
-  m_mapRytecTextGenres = kodi::addon::GetSettingBoolean("rytecgenretextmapenabled", false);
-  m_mapRytecTextGenresFile = kodi::addon::GetSettingString("rytecgenretextmapfile", DEFAULT_GENRE_ID_MAP_FILE);
-  m_logMissingGenreMappings = kodi::addon::GetSettingBoolean("logmissinggenremapping", false);
-  m_epgDelayPerChannel = kodi::addon::GetSettingInt("epgdelayperchannel", 0);
+  m_instance.CheckInstanceSettingBoolean("extractshowinfoenabled", m_extractShowInfo);
+  m_instance.CheckInstanceSettingString("extractshowinfofile", m_extractShowInfoFile);
+  m_instance.CheckInstanceSettingBoolean("genreidmapenabled", m_mapGenreIds);
+  m_instance.CheckInstanceSettingString("genreidmapfile", m_mapGenreIdsFile);
+  m_instance.CheckInstanceSettingBoolean("rytecgenretextmapenabled", m_mapRytecTextGenres);
+  m_instance.CheckInstanceSettingString("rytecgenretextmapfile", m_mapRytecTextGenresFile);
+  m_instance.CheckInstanceSettingBoolean("logmissinggenremapping", m_logMissingGenreMappings);
+  m_instance.CheckInstanceSettingInt("epgdelayperchannel", m_epgDelayPerChannel);
 
   //Recording
-  m_storeLastPlayedAndCount = kodi::addon::GetSettingBoolean("storeextrarecordinginfo", false);
-  m_recordingLastPlayedMode = kodi::addon::GetSettingEnum<RecordingLastPlayedMode>("sharerecordinglastplayed", RecordingLastPlayedMode::ACROSS_KODI_INSTANCES);
-  m_onlyCurrentLocation = kodi::addon::GetSettingBoolean("onlycurrent", false);
-  m_virtualFolders = kodi::addon::GetSettingBoolean("virtualfolders", false);
-  m_keepFolders = kodi::addon::GetSettingBoolean("keepfolders", false);
-  m_keepFoldersOmitLocation = kodi::addon::GetSettingBoolean("keepfoldersomitlocation", false);
-  m_recordingsRecursive = kodi::addon::GetSettingBoolean("recordingsrecursive", false);
-  m_enableRecordingEDLs = kodi::addon::GetSettingBoolean("enablerecordingedls", false);
-  m_edlStartTimePadding = kodi::addon::GetSettingInt("edlpaddingstart", 0);
-  m_edlStopTimePadding = kodi::addon::GetSettingInt("edlpaddingstop", 0);
+  m_instance.CheckInstanceSettingBoolean("storeextrarecordinginfo", m_storeLastPlayedAndCount);
+  m_instance.CheckInstanceSettingEnum<RecordingLastPlayedMode>("sharerecordinglastplayed", m_recordingLastPlayedMode);
+  m_instance.CheckInstanceSettingBoolean("onlycurrent", m_onlyCurrentLocation);
+  m_instance.CheckInstanceSettingBoolean("virtualfolders", m_virtualFolders);
+  m_instance.CheckInstanceSettingBoolean("keepfolders", m_keepFolders);
+  m_instance.CheckInstanceSettingBoolean("keepfoldersomitlocation", m_keepFoldersOmitLocation);
+  m_instance.CheckInstanceSettingBoolean("recordingsrecursive", m_recordingsRecursive);
+  m_instance.CheckInstanceSettingBoolean("enablerecordingedls", m_enableRecordingEDLs);
+  m_instance.CheckInstanceSettingInt("edlpaddingstart", m_edlStartTimePadding);
+  m_instance.CheckInstanceSettingInt("edlpaddingstop", m_edlStopTimePadding);
 
   //Timers
-  m_enableGenRepeatTimers = kodi::addon::GetSettingBoolean("enablegenrepeattimers", true);
-  m_numGenRepeatTimers = kodi::addon::GetSettingInt("numgenrepeattimers", DEFAULT_NUM_GEN_REPEAT_TIMERS);
-  m_automaticTimerlistCleanup = kodi::addon::GetSettingBoolean("timerlistcleanup", false);
-  m_newTimerRecordingPath = kodi::addon::GetSettingString("recordingpath");
-  m_enableAutoTimers = kodi::addon::GetSettingBoolean("enableautotimers", true);
-  m_limitAnyChannelAutoTimers = kodi::addon::GetSettingBoolean("limitanychannelautotimers", true);
-  m_limitAnyChannelAutoTimersToChannelGroups = kodi::addon::GetSettingBoolean("limitanychannelautotimerstogroups", true);
+  m_instance.CheckInstanceSettingBoolean("enablegenrepeattimers", m_enableGenRepeatTimers);
+  m_instance.CheckInstanceSettingInt("numgenrepeattimers", m_numGenRepeatTimers);
+  m_instance.CheckInstanceSettingBoolean("timerlistcleanup", m_automaticTimerlistCleanup);
+  m_instance.CheckInstanceSettingString("recordingpath", m_newTimerRecordingPath);
+  m_instance.CheckInstanceSettingBoolean("enableautotimers", m_enableAutoTimers);
+  m_instance.CheckInstanceSettingBoolean("limitanychannelautotimers", m_limitAnyChannelAutoTimers);
+  m_instance.CheckInstanceSettingBoolean("limitanychannelautotimerstogroups", m_limitAnyChannelAutoTimersToChannelGroups);
 
   //Timeshift
-  m_timeshift = kodi::addon::GetSettingEnum<Timeshift>("enabletimeshift", Timeshift::OFF);
-  m_timeshiftBufferPath = kodi::addon::GetSettingString("timeshiftbufferpath", ADDON_DATA_BASE_DIR);
-  m_enableTimeshiftDiskLimit = kodi::addon::GetSettingBoolean("enabletimeshiftdisklimit", false);
-  m_timeshiftDiskLimitGB = kodi::addon::GetSettingFloat("timeshiftdisklimit", 4.0f);
-  m_timeshiftEnabledIptv = kodi::addon::GetSettingBoolean("timeshiftEnabledIptv", true);
-  m_useFFmpegReconnect = kodi::addon::GetSettingBoolean("useFFmpegReconnect", true);
-  m_useMpegtsForUnknownStreams = kodi::addon::GetSettingBoolean("useMpegtsForUnknownStreams", true);
+  m_instance.CheckInstanceSettingEnum<Timeshift>("enabletimeshift", m_timeshift);
+  m_instance.CheckInstanceSettingString("timeshiftbufferpath", m_timeshiftBufferPath);
+  m_instance.CheckInstanceSettingBoolean("enabletimeshiftdisklimit", m_enableTimeshiftDiskLimit);
+  m_instance.CheckInstanceSettingFloat("timeshiftdisklimit", m_timeshiftDiskLimitGB);
+  m_instance.CheckInstanceSettingBoolean("timeshiftEnabledIptv", m_timeshiftEnabledIptv);
+  m_instance.CheckInstanceSettingBoolean("useFFmpegReconnect", m_useFFmpegReconnect);
+  m_instance.CheckInstanceSettingBoolean("useMpegtsForUnknownStreams", m_useMpegtsForUnknownStreams);
 
   //Backend
-  m_wakeOnLanMac = kodi::addon::GetSettingString("wakeonlanmac");
-  m_powerstateMode = kodi::addon::GetSettingEnum<PowerstateMode>("powerstatemode", PowerstateMode::DISABLED);
+  m_instance.CheckInstanceSettingString("wakeonlanmac", m_wakeOnLanMac);
+  m_instance.CheckInstanceSettingEnum<PowerstateMode>("powerstatemode", m_powerstateMode);
 
   //Advanced
-  m_prependOutline = kodi::addon::GetSettingEnum<PrependOutline>("prependoutline", PrependOutline::IN_EPG);
-  m_readTimeout = kodi::addon::GetSettingInt("readtimeout", 0);
-  m_streamReadChunkSize = kodi::addon::GetSettingInt("streamreadchunksize", 0);
-  m_noDebug = kodi::addon::GetSettingBoolean("nodebug", false);
-  m_debugNormal = kodi::addon::GetSettingBoolean("debugnormal", false);
-  m_traceDebug = kodi::addon::GetSettingBoolean("tracedebug", false);
+  m_instance.CheckInstanceSettingEnum<PrependOutline>("prependoutline", m_prependOutline);
+  m_instance.CheckInstanceSettingInt("readtimeout", m_readTimeout);
+  m_instance.CheckInstanceSettingInt("streamreadchunksize", m_streamReadChunkSize);
 
   // Now that we've read all the settings construct the connection URL
 
@@ -188,7 +184,7 @@ void Settings::ReadSettings()
     m_connectionURL = StringUtils::Format("https://%s%s:%u/", m_connectionURL.c_str(), m_hostname.c_str(), m_portWeb);
 }
 
-ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::addon::CSettingValue& settingValue)
+ADDON_STATUS InstanceSettings::SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue)
 {
   //Connection
   if (settingName == "host")
@@ -225,13 +221,13 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::addo
   else if (settingName == "iconpath")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_iconPath, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "updateint")
-    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_updateInterval, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "updatemode")
     return SetEnumSetting<UpdateMode, ADDON_STATUS>(settingName, settingValue, m_updateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "channelandgroupupdatemode")
     return SetEnumSetting<ChannelAndGroupUpdateMode, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateMode, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "channelandgroupupdatehour")
-    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateHour, ADDON_STATUS_OK, ADDON_STATUS_OK);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_channelAndGroupUpdateHour, ADDON_STATUS_OK, ADDON_STATUS_OK);
   //Channels
   else if (settingName == "zap")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_zap, ADDON_STATUS_OK, ADDON_STATUS_OK);
@@ -248,7 +244,7 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::addo
   else if (settingName == "tvgroupmode")
     return SetEnumSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_tvChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "numtvgroups")
-    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_numTVGroups, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numTVGroups, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "onetvgroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "twotvgroup")
@@ -268,7 +264,7 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::addo
   else if (settingName == "radiogroupmode")
     return SetEnumSetting<ChannelGroupMode, ADDON_STATUS>(settingName, settingValue, m_radioChannelGroupMode, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "numradiogroups")
-    return SetSetting<unsigned int, ADDON_STATUS>(settingName, settingValue, m_numRadioGroups, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
+    return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_numRadioGroups, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "oneradiogroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_oneRadioGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "tworadiogroup")
@@ -375,22 +371,16 @@ ADDON_STATUS Settings::SetValue(const std::string& settingName, const kodi::addo
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_readTimeout, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "streamreadchunksize")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_streamReadChunkSize, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  else if (settingName == "nodebug")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_noDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  else if (settingName == "debugnormal")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_debugNormal, ADDON_STATUS_OK, ADDON_STATUS_OK);
-  else if (settingName == "tracedebug")
-    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_traceDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
 
   return ADDON_STATUS_OK;
 }
 
-bool Settings::IsTimeshiftBufferPathValid() const
+bool InstanceSettings::IsTimeshiftBufferPathValid() const
 {
   return kodi::vfs::DirectoryExists(m_timeshiftBufferPath);
 }
 
-bool Settings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std::string>& channelGroupNameList)
+bool InstanceSettings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std::string>& channelGroupNameList)
 {
   channelGroupNameList.clear();
 
