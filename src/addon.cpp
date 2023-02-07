@@ -14,13 +14,16 @@ using namespace enigma2::utilities;
 
 ADDON_STATUS CEnigma2Addon::Create()
 {
+  /* Init settings */
+  m_settings.reset(new Settings());
+
   Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __func__);
 
   /* Configure the logger */
-  Logger::GetInstance().SetImplementation([](LogLevel level, const char* message)
+  Logger::GetInstance().SetImplementation([this](LogLevel level, const char* message)
   {
     /* Don't log trace messages unless told so */
-    if (level == LogLevel::LEVEL_TRACE && !Settings::GetInstance().GetTraceDebug())
+    if (level == LogLevel::LEVEL_TRACE && !m_settings->GetTraceDebug())
       return;
 
     /* Convert the log level */
@@ -44,10 +47,10 @@ ADDON_STATUS CEnigma2Addon::Create()
         addonLevel = ADDON_LOG::ADDON_LOG_DEBUG;
     }
 
-    if (addonLevel == ADDON_LOG::ADDON_LOG_DEBUG && Settings::GetInstance().GetNoDebug())
+    if (addonLevel == ADDON_LOG::ADDON_LOG_DEBUG && m_settings->GetNoDebug())
       return;
 
-    if (addonLevel == ADDON_LOG::ADDON_LOG_DEBUG && Settings::GetInstance().GetDebugNormal())
+    if (addonLevel == ADDON_LOG::ADDON_LOG_DEBUG && m_settings->GetDebugNormal())
       addonLevel = ADDON_LOG::ADDON_LOG_INFO;
 
     kodi::Log(addonLevel, "%s", message);
@@ -57,21 +60,19 @@ ADDON_STATUS CEnigma2Addon::Create()
 
   Logger::Log(LogLevel::LEVEL_INFO, "%s starting PVR client...", __func__);
 
-  m_settings.ReadFromAddon();
-
   return ADDON_STATUS_OK;
 }
 
 ADDON_STATUS CEnigma2Addon::SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue)
 {
-  return m_settings.SetValue(settingName, settingValue);
+  return m_settings->SetValue(settingName, settingValue);
 }
 
 ADDON_STATUS CEnigma2Addon::CreateInstance(const kodi::addon::IInstanceInfo& instance, KODI_ADDON_INSTANCE_HDL& hdl)
 {
   if (instance.IsType(ADDON_INSTANCE_PVR))
   {
-    Enigma2* usedInstance = new Enigma2(instance);
+    Enigma2* usedInstance = new Enigma2(instance, m_settings);
     if (!usedInstance->Start())
     {
       delete usedInstance;

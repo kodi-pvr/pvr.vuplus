@@ -71,10 +71,10 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
   m_groupName = groupName;
   m_radio = radio;
 
-  if (!radio && (Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
-                 Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
+  if (!radio && (m_settings->GetTVChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
+                 m_settings->GetTVChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    auto& customGroupNamelist = Settings::GetInstance().GetCustomTVChannelGroupNameList();
+    auto& customGroupNamelist = m_settings->GetCustomTVChannelGroupNameList();
     auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
       [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
 
@@ -83,10 +83,10 @@ bool ChannelGroup::UpdateFrom(TiXmlElement* groupNode, bool radio)
     else
       Logger::Log(LEVEL_DEBUG, "%s Custom TV groups are set, current e2servicename '%s' matched", __func__, groupName.c_str());
   }
-  else if (radio && (Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
-                     Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
+  else if (radio && (m_settings->GetRadioChannelGroupMode() == ChannelGroupMode::SOME_GROUPS ||
+                     m_settings->GetRadioChannelGroupMode() == ChannelGroupMode::CUSTOM_GROUPS))
   {
-    auto& customGroupNamelist = Settings::GetInstance().GetCustomRadioChannelGroupNameList();
+    auto& customGroupNamelist = m_settings->GetCustomRadioChannelGroupNameList();
     auto it = std::find_if(customGroupNamelist.begin(), customGroupNamelist.end(),
       [&groupName](std::string& customGroupName) { return customGroupName == groupName; });
 

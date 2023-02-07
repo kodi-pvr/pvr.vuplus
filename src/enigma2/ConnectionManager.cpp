@@ -25,8 +25,8 @@ using namespace kodi::tools;
  * Enigma2 Connection handler
  */
 
-ConnectionManager::ConnectionManager(IConnectionListener& connectionListener)
-  : m_connectionListener(connectionListener), m_suspended(false), m_state(PVR_CONNECTION_STATE_UNKNOWN)
+ConnectionManager::ConnectionManager(IConnectionListener& connectionListener, std::shared_ptr<enigma2::Settings> settings)
+  : m_connectionListener(connectionListener), m_settings(settings), m_suspended(false), m_state(PVR_CONNECTION_STATE_UNKNOWN)
 {
 }
 
@@ -103,7 +103,7 @@ void ConnectionManager::SetState(PVR_CONNECTION_STATE state)
     }
 
     /* Notify connection state change (callback!) */
-    m_connectionListener.ConnectionStateChange(Settings::GetInstance().GetConnectionURL(), newState, "");
+    m_connectionListener.ConnectionStateChange(m_settings->GetConnectionURL(), newState, "");
   }
 }
 
@@ -125,8 +125,8 @@ void ConnectionManager::Process()
 {
   static bool log = false;
   static unsigned int retryAttempt = 0;
-  int fastReconnectIntervalMs = (Settings::GetInstance().GetConnectioncCheckIntervalSecs() * 1000) / 2;
-  int intervalMs = Settings::GetInstance().GetConnectioncCheckIntervalSecs() * 1000;
+  int fastReconnectIntervalMs = (m_settings->GetConnectioncCheckIntervalSecs() * 1000) / 2;
+  int intervalMs = m_settings->GetConnectioncCheckIntervalSecs() * 1000;
 
   while (m_running)
   {
@@ -139,7 +139,7 @@ void ConnectionManager::Process()
     }
 
     /* wakeup server */
-    const std::string& wolMac = Settings::GetInstance().GetWakeOnLanMac();
+    const std::string& wolMac = m_settings->GetWakeOnLanMac();
     if (!wolMac.empty())
     {
       Logger::Log(LogLevel::LEVEL_DEBUG, "%s - send wol packet...", __func__);
@@ -149,10 +149,10 @@ void ConnectionManager::Process()
       }
     }
 
-    const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/currenttime");
+    const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/currenttime");
 
     /* Connect */
-    if (!WebUtils::CheckHttp(url))
+    if (!WebUtils::CheckHttp(url, m_settings->GetConnectioncCheckTimeoutSecs()))
     {
       /* Unable to connect */
       if (retryAttempt == 0)

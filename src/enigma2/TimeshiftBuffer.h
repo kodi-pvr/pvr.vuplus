@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IStreamReader.h"
+#include "Settings.h"
 
 #include <atomic>
 #include <condition_variable>
@@ -21,7 +22,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL TimeshiftBuffer : public IStreamReader
   {
   public:
-    TimeshiftBuffer(IStreamReader* strReader);
+    TimeshiftBuffer(IStreamReader* strReader, std::shared_ptr<enigma2::Settings>& settings);
     ~TimeshiftBuffer();
 
     bool Start() override;

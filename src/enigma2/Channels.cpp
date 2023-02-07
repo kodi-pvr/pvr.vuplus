@@ -223,7 +223,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 {
   Logger::Log(LEVEL_DEBUG, "%s loading channel group: '%s'", __func__, groupName.c_str());
 
-  const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
+  const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline(groupServiceReference).c_str());
 
   const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
@@ -258,7 +258,7 @@ bool Channels::LoadChannels(const std::string groupServiceReference, const std::
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
   {
-    Channel newChannel;
+    Channel newChannel{m_settings};
     newChannel.SetRadio(channelGroup->IsRadio());
 
     if (!newChannel.UpdateFrom(pNode))
@@ -283,15 +283,15 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
   if (!channelGroup->HasStartChannelNumber())
     newChannelPositionOffset = lastGroupLatestChannelPosition;
 
-  if (Settings::GetInstance().SupportsProviderNumberAndPiconForChannels())
+  if (m_settings->SupportsProviderNumberAndPiconForChannels())
   {
     Logger::Log(LEVEL_DEBUG, "%s loading channel group extra data: '%s'", __func__, channelGroup->GetGroupName().c_str());
 
     //We can use the JSON API so let's supplement the data with extra information
 
     const std::string jsonURL = StringUtils::Format("%sapi/getservices?provider=%d&picon=1&sRef=%s",
-                                                    Settings::GetInstance().GetConnectionURL().c_str(),
-                                                    Settings::GetInstance().RetrieveProviderNameForChannels() ? 1 : 0,
+                                                    m_settings->GetConnectionURL().c_str(),
+                                                    m_settings->RetrieveProviderNameForChannels() ? 1 : 0,
                                                     WebUtils::URLEncodeInline(channelGroup->GetServiceReference()).c_str());
     const std::string strJson = WebUtils::GetHttpXML(jsonURL);
 
@@ -311,7 +311,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
           if (serviceReference.compare(0, 5, "1:64:") == 0 || serviceReference.compare(0, 6, "1:320:") == 0)
             continue;
 
-          if (Settings::GetInstance().UseStandardServiceReference())
+          if (m_settings->UseStandardServiceReference())
           {
             serviceReference = Channel::CreateStandardServiceReference(serviceReference);
           }
@@ -326,7 +326,7 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
               channel->SetProviderlName(jsonChannel["provider"].get<std::string>());
             }
 
-            if (!jsonChannel["pos"].empty() && Settings::GetInstance().SupportsChannelNumberGroupStartPos())
+            if (!jsonChannel["pos"].empty() && m_settings->SupportsChannelNumberGroupStartPos())
             {
               int channelNumber = jsonChannel["pos"].get<int>() + newChannelPositionOffset;
               channelGroup->SetMemberChannelNumber(channel, channelNumber);
@@ -339,11 +339,11 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
               }
             }
 
-            if (Settings::GetInstance().UseOpenWebIfPiconPath())
+            if (m_settings->UseOpenWebIfPiconPath())
             {
               if (!jsonChannel["picon"].empty())
               {
-                std::string connectionURL = Settings::GetInstance().GetConnectionURL();
+                std::string connectionURL = m_settings->GetConnectionURL();
                 connectionURL = connectionURL.substr(0, connectionURL.size() - 1);
                 channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), jsonChannel["picon"].get<std::string>().c_str()));
 
@@ -378,9 +378,9 @@ void Channels::LoadProviders()
 {
   for (const auto& channel : m_channels)
   {
-    if (channel->GetProviderName().empty() && Settings::GetInstance().HasDefaultProviderName())
+    if (channel->GetProviderName().empty() && m_settings->HasDefaultProviderName())
     {
-      channel->SetProviderlName(Settings::GetInstance().GetDefaultProviderName());
+      channel->SetProviderlName(m_settings->GetDefaultProviderName());
       Logger::Log(LEVEL_DEBUG, "%s For Channel %s, set provider to default name: %s", __func__, channel->GetChannelName().c_str(), channel->GetProviderName().c_str());
     }
 

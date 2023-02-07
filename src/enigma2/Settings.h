@@ -111,16 +111,9 @@ namespace enigma2
   class ATTR_DLL_LOCAL Settings
   {
   public:
-    /**
-     * Singleton getter for the instance
-     */
-    static Settings& GetInstance()
-    {
-      static Settings settings;
-      return settings;
-    }
+    Settings();
 
-    void ReadFromAddon();
+    void ReadSettings();
     ADDON_STATUS SetValue(const std::string& settingName, const kodi::addon::CSettingValue& settingValue);
 
     //Connection
@@ -268,10 +261,10 @@ namespace enigma2
     std::vector<std::string>& GetCustomRadioChannelGroupNameList() { return m_customRadioChannelGroupNameList; }
 
   private:
-    Settings() = default;
+    // Settings() = default;
 
-    Settings(Settings const&) = delete;
-    void operator=(Settings const&) = delete;
+    // Settings(Settings const&) = delete;
+    // void operator=(Settings const&) = delete;
 
     template<typename T, typename V>
     V SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)

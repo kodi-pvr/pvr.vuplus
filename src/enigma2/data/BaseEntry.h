@@ -79,6 +79,8 @@ namespace enigma2
       bool m_live = false;
       bool m_premiere = false;
       bool m_finale = false;
+
+      std::shared_ptr<enigma2::Settings> m_settings;
     };
   } //namespace data
 } //namespace enigma2

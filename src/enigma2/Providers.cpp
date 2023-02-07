@@ -20,11 +20,11 @@ using namespace enigma2::data;
 using namespace enigma2::utilities;
 using namespace kodi::tools;
 
-Providers::Providers()
+Providers::Providers(std::shared_ptr<Settings>& settings) : m_settings(settings)
 {
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + PROVIDER_DIR, PROVIDER_ADDON_DATA_BASE_DIR, true);
 
-  std::string providerMappingsFile = Settings::GetInstance().GetProviderNameMapFile();
+  std::string providerMappingsFile = m_settings->GetProviderNameMapFile();
   if (LoadProviderMappingFile(providerMappingsFile))
     Logger::Log(LEVEL_INFO, "%s - Loaded '%d' providers mappings", __func__, m_providerMappingsMap.size());
   else

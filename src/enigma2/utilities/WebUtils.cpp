@@ -87,12 +87,12 @@ std::string WebUtils::RedactUrl(const std::string& url)
   return redactedUrl;
 }
 
-bool WebUtils::CheckHttp(const std::string& url)
+bool WebUtils::CheckHttp(const std::string& url, int connectionTimeoutSecs)
 {
   Logger::Log(LEVEL_TRACE, "%s Check webAPI with URL: '%s'", __func__, RedactUrl(url).c_str());
 
   CurlFile http;
-  if (!http.Check(url))
+  if (!http.Check(url, connectionTimeoutSecs))
   {
     Logger::Log(LEVEL_DEBUG, "%s - Could not open webAPI.", __func__);
     return false;
@@ -156,9 +156,9 @@ std::string WebUtils::PostHttpJson(const std::string& url)
   return strTmp;
 }
 
-bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
+bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, const std::string& connectionURL, std::string& strResultText, bool bIgnoreResult)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
+  const std::string url = StringUtils::Format("%s%s", connectionURL.c_str(), strCommandURL.c_str());
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -207,9 +207,9 @@ bool WebUtils::SendSimpleCommand(const std::string& strCommandURL, std::string& 
   return true;
 }
 
-bool WebUtils::SendSimpleJsonCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
+bool WebUtils::SendSimpleJsonCommand(const std::string& strCommandURL, const std::string& connectionURL,std::string& strResultText, bool bIgnoreResult)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
+  const std::string url = StringUtils::Format("%s%s", connectionURL.c_str(), strCommandURL.c_str());
 
   const std::string strJson = WebUtils::GetHttp(url);
 
@@ -230,9 +230,9 @@ bool WebUtils::SendSimpleJsonCommand(const std::string& strCommandURL, std::stri
   return true;
 }
 
-bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, std::string& strResultText, bool bIgnoreResult)
+bool WebUtils::SendSimpleJsonPostCommand(const std::string& strCommandURL, const std::string& connectionURL,std::string& strResultText, bool bIgnoreResult)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), strCommandURL.c_str());
+  const std::string url = StringUtils::Format("%s%s", connectionURL.c_str(), strCommandURL.c_str());
 
   const std::string strJson = WebUtils::PostHttpJson(url);
 

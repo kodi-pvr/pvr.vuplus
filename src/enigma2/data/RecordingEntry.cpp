@@ -124,11 +124,11 @@ bool RecordingEntry::UpdateFrom(TiXmlElement* recordingNode, const std::string& 
 
     m_edlURL = strTmp;
 
-    strTmp = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(strTmp).c_str());
+    strTmp = StringUtils::Format("%sfile?file=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline(strTmp).c_str());
     m_streamURL = strTmp;
 
     m_edlURL = m_edlURL.substr(0, m_edlURL.find_last_of('.')) + ".edl";
-    m_edlURL = StringUtils::Format("%sfile?file=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_edlURL).c_str());
+    m_edlURL = StringUtils::Format("%sfile?file=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_edlURL).c_str());
   }
 
   double filesizeInBytes;
@@ -232,19 +232,19 @@ void RecordingEntry::UpdateTo(kodi::addon::PVRRecording& left, Channels& channel
 
   std::string newDirectory = m_directory;
 
-  if (Settings::GetInstance().GetKeepRecordingsFolders())
+  if (m_settings->GetKeepRecordingsFolders())
   {
-    if (Settings::GetInstance().GetRecordingsFoldersOmitLocation() && StringUtils::StartsWith(m_directory, m_location))
+    if (m_settings->GetRecordingsFoldersOmitLocation() && StringUtils::StartsWith(m_directory, m_location))
       newDirectory = m_directory.substr(m_location.size());
   }
 
-  if (Settings::GetInstance().GetVirtualRecordingsFolders())
+  if (m_settings->GetVirtualRecordingsFolders())
   {
-    if (Settings::GetInstance().GetKeepRecordingsFolders())
+    if (m_settings->GetKeepRecordingsFolders())
     {
       if (InLocationRoot() && isInVirtualRecordingFolder)
       {
-        if (Settings::GetInstance().GetRecordingsFoldersOmitLocation())
+        if (m_settings->GetRecordingsFoldersOmitLocation())
           newDirectory = StringUtils::Format("/%s/", m_title.c_str());
         else
           newDirectory = StringUtils::Format("/%s/%s/", m_directory.c_str(), m_title.c_str());
@@ -346,7 +346,7 @@ std::shared_ptr<Channel> RecordingEntry::GetChannelFromChannelReferenceTag(Chann
 
   if (ContainsTag(TAG_FOR_CHANNEL_REFERENCE))
   {
-    channelServiceReference = Channel::NormaliseServiceReference(ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true));
+    channelServiceReference = Channel::NormaliseServiceReference(ReadTagValue(TAG_FOR_CHANNEL_REFERENCE, true), m_settings->UseStandardServiceReference());
 
     std::sscanf(channelServiceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
     m_hasStreamProgramNumber = true;

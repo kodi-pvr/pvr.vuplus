@@ -20,12 +20,14 @@
 
 namespace enigma2
 {
+  class Settings;
+
   namespace data
   {
     class ATTR_DLL_LOCAL ChannelGroup
     {
     public:
-      ChannelGroup() = default;
+      ChannelGroup(std::shared_ptr<enigma2::Settings> settings) : m_settings(settings) {}
       ChannelGroup(ChannelGroup &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
         m_groupName(c.GetGroupName()), m_serviceReference(c.GetServiceReference()), m_lastScannedGroup(c.IsLastScannedGroup()),
         m_startChannelNumber(c.GetStartChannelNumber()), m_emptyGroup(c.IsEmptyGroup()) {};
@@ -77,6 +79,8 @@ namespace enigma2
       int m_startChannelNumber = -1;
 
       std::vector<enigma2::data::ChannelGroupMember> m_channelGroupMembers;
+
+      std::shared_ptr<enigma2::Settings> m_settings;
     };
   } //namespace data
 } //namespace enigma2

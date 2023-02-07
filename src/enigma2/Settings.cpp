@@ -21,7 +21,12 @@ using namespace kodi::tools;
 /***************************************************************************
  * PVR settings
  **************************************************************************/
-void Settings::ReadFromAddon()
+Settings::Settings()
+{
+  ReadSettings();
+}
+
+void Settings::ReadSettings()
 {
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + CHANNEL_GROUPS_DIR, CHANNEL_GROUPS_ADDON_DATA_BASE_DIR, true);
 

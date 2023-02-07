@@ -20,10 +20,10 @@ using namespace enigma2::extract;
 using namespace enigma2::utilities;
 using namespace kodi::tools;
 
-ShowInfoExtractor::ShowInfoExtractor() : IExtractor()
+ShowInfoExtractor::ShowInfoExtractor(const std::shared_ptr<enigma2::Settings>& settings) : IExtractor(settings)
 {
-  if (!LoadShowInfoPatternsFile(Settings::GetInstance().GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns, m_titleTextPatterns, m_descriptionTextPatterns))
-    Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __func__, Settings::GetInstance().GetExtractShowInfoFile().c_str());
+  if (!LoadShowInfoPatternsFile(m_settings->GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns, m_titleTextPatterns, m_descriptionTextPatterns))
+    Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __func__, m_settings->GetExtractShowInfoFile().c_str());
 }
 
 ShowInfoExtractor::~ShowInfoExtractor() {}
@@ -116,7 +116,7 @@ void ShowInfoExtractor::ExtractFromEntry(BaseEntry& entry)
 
 bool ShowInfoExtractor::IsEnabled()
 {
-  return Settings::GetInstance().GetExtractShowInfo();
+  return m_settings->GetExtractShowInfo();
 }
 
 bool ShowInfoExtractor::LoadShowInfoPatternsFile(const std::string& xmlFile, std::vector<EpisodeSeasonPattern>& episodeSeasonPatterns, std::vector<std::regex>& yearPatterns, std::vector<std::pair<TextPropertyType, std::regex>>& titleTextPatterns, std::vector<std::pair<TextPropertyType, std::regex>>& descTextPatterns)

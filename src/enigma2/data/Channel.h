@@ -18,6 +18,8 @@
 
 namespace enigma2
 {
+  class Settings;
+
   namespace data
   {
     class ChannelGroup;
@@ -30,7 +32,7 @@ namespace enigma2
       // There are at least two different service types for radio, see EN300468 Table 87
       const std::array<std::string, 3> RADIO_SERVICE_TYPES = {"2", "A", "a"};
 
-      Channel() = default;
+      Channel(std::shared_ptr<enigma2::Settings> settings) : m_settings(settings) {}
       Channel(const Channel &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
         m_channelName(c.GetChannelName()), m_serviceReference(c.GetServiceReference()),
         m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
@@ -38,7 +40,7 @@ namespace enigma2
         m_streamURL(c.GetStreamURL()), m_m3uURL(c.GetM3uURL()), m_iconPath(c.GetIconPath()),
         m_providerName(c.GetProviderName()), m_providerUniqueId(c.GetProviderUniqueId()),
         m_fuzzyChannelName(c.GetFuzzyChannelName()), m_streamProgramNumber(c.GetStreamProgramNumber()),
-        m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()), m_isIptvStream(c.IsIptvStream()) {};
+        m_usingDefaultChannelNumber(c.UsingDefaultChannelNumber()), m_isIptvStream(c.IsIptvStream()), m_settings(c.m_settings) {};
       ~Channel() = default;
 
       bool IsRadio() const { return m_radio; }
@@ -101,7 +103,7 @@ namespace enigma2
       bool operator==(const Channel& right) const;
       bool operator!=(const Channel& right) const;
 
-      static std::string NormaliseServiceReference(const std::string& serviceReference);
+      static std::string NormaliseServiceReference(const std::string& serviceReference, bool useStandardServiceReference);
       static std::string CreateStandardServiceReference(const std::string& serviceReference);
 
     private:
@@ -130,6 +132,8 @@ namespace enigma2
       int m_streamProgramNumber;
 
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupList;
+
+      std::shared_ptr<enigma2::Settings> m_settings;
     };
   } //namespace data
 } //namespace enigma2

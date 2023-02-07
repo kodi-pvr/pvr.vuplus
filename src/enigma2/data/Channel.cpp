@@ -82,8 +82,7 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
 
   const std::string iptvStreamURL = ExtractIptvStreamURL();
 
-  Settings& settings = Settings::GetInstance();
-  if (settings.UseStandardServiceReference())
+  if (m_settings->UseStandardServiceReference())
     m_serviceReference = m_standardServiceReference;
 
   std::sscanf(m_serviceReference.c_str(), "%*X:%*X:%*X:%X:%*s", &m_streamProgramNumber);
@@ -95,16 +94,16 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
     Logger::Log(LEVEL_DEBUG, "%s: Loaded Channel: %s, sRef=%s, IPTV Stream URL: %s", __func__, m_channelName.c_str(), m_serviceReference.c_str(), iptvStreamURL.c_str());
   }
 
-  m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
+  m_m3uURL = StringUtils::Format("%sweb/stream.m3u?ref=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline(m_serviceReference).c_str());
 
   if (!m_isIptvStream)
   {
     m_streamURL = StringUtils::Format(
       "http%s://%s%s:%d/%s",
-      settings.UseSecureConnectionStream() ? "s" : "",
-      settings.UseLoginStream() ? StringUtils::Format("%s:%s@", settings.GetUsername().c_str(), settings.GetPassword().c_str()).c_str() : "",
-      settings.GetHostname().c_str(),
-      settings.GetStreamPortNum(),
+      m_settings->UseSecureConnectionStream() ? "s" : "",
+      m_settings->UseLoginStream() ? StringUtils::Format("%s:%s@", m_settings->GetUsername().c_str(), m_settings->GetPassword().c_str()).c_str() : "",
+      m_settings->GetHostname().c_str(),
+      m_settings->GetStreamPortNum(),
       commonServiceReference.c_str()
     );
   }
@@ -116,9 +115,9 @@ bool Channel::UpdateFrom(TiXmlElement* channelNode)
   return true;
 }
 
-std::string Channel::NormaliseServiceReference(const std::string& serviceReference)
+std::string Channel::NormaliseServiceReference(const std::string& serviceReference, bool useStandardServiceReference)
 {
-  if (Settings::GetInstance().UseStandardServiceReference())
+  if (useStandardServiceReference)
     return CreateStandardServiceReference(serviceReference);
   else
     return serviceReference;
@@ -174,17 +173,17 @@ std::string Channel::CreateIconPath(const std::string& commonServiceReference)
 {
   std::string iconPath = commonServiceReference;
 
-  if (Settings::GetInstance().UsePiconsEuFormat())
+  if (m_settings->UsePiconsEuFormat())
   {
     iconPath = m_genericServiceReference;
   }
 
   std::replace(iconPath.begin(), iconPath.end(), ':', '_');
 
-  if (Settings::GetInstance().UseOnlinePicons())
-    iconPath = StringUtils::Format("%spicon/%s.png", Settings::GetInstance().GetConnectionURL().c_str(), iconPath.c_str());
+  if (m_settings->UseOnlinePicons())
+    iconPath = StringUtils::Format("%spicon/%s.png", m_settings->GetConnectionURL().c_str(), iconPath.c_str());
   else
-    iconPath = Settings::GetInstance().GetIconPath().c_str() + iconPath + ".png";
+    iconPath = m_settings->GetIconPath().c_str() + iconPath + ".png";
 
   return iconPath;
 }
