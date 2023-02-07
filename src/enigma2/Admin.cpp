@@ -27,7 +27,7 @@ using namespace enigma2::utilities;
 using namespace kodi::tools;
 using json = nlohmann::json;
 
-Admin::Admin(std::shared_ptr<Settings> settings) : m_settings(settings), m_addonVersion(STR(VUPLUS_VERSION))
+Admin::Admin(std::shared_ptr<InstanceSettings> settings) : m_settings(settings), m_addonVersion(STR(VUPLUS_VERSION))
 {
   m_serverName[0] = '\0';
   m_serverVersion[0] = '\0';

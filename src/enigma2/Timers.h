@@ -28,7 +28,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL Timers
   {
   public:
-    Timers(IConnectionListener& connectionListener, std::shared_ptr<Settings>& settings, Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)
+    Timers(IConnectionListener& connectionListener, std::shared_ptr<InstanceSettings>& settings, Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)
       : m_connectionListener(connectionListener), m_settings(settings), m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg), m_entryExtractor(entryExtractor)
     {
       m_clientIndexCounter = 1;
@@ -91,6 +91,6 @@ namespace enigma2
     std::vector<std::string>& m_locations;
     Epg& m_epg;
 
-    std::shared_ptr<enigma2::Settings> m_settings;
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } // namespace enigma2

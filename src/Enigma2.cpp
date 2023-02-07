@@ -40,15 +40,15 @@ template<typename T> void SafeDelete(T*& p)
   }
 }
 
-Enigma2::Enigma2(const kodi::addon::IInstanceInfo& instance, std::shared_ptr<enigma2::Settings>& settings)
+Enigma2::Enigma2(const kodi::addon::IInstanceInfo& instance)
   : enigma2::IConnectionListener(instance),
-    m_settings(settings),
+    m_settings(new InstanceSettings(*this)),
     m_epgMaxPastDays(EpgMaxPastDays()),
     m_epgMaxFutureDays(EpgMaxFutureDays())
 {
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
 
-  connectionManager = new ConnectionManager(*this, settings);
+  connectionManager = new ConnectionManager(*this, m_settings);
 }
 
 Enigma2::~Enigma2()
@@ -56,6 +56,12 @@ Enigma2::~Enigma2()
   if (connectionManager)
     connectionManager->Stop();
   delete connectionManager;
+}
+
+ADDON_STATUS Enigma2::SetInstanceSetting(const std::string& settingName,
+                                         const kodi::addon::CSettingValue& settingValue)
+{
+  return m_settings->SetSetting(settingName, settingValue);
 }
 
 PVR_ERROR Enigma2::GetCapabilities(kodi::addon::PVRCapabilities& capabilities)

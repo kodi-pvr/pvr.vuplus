@@ -10,7 +10,7 @@
 
 #include "data/Provider.h"
 
-#include "Settings.h"
+#include "InstanceSettings.h"
 
 #include <memory>
 #include <string>
@@ -27,7 +27,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL Providers
   {
   public:
-    Providers(std::shared_ptr<Settings>& settings);
+    Providers(std::shared_ptr<InstanceSettings>& settings);
 
     void GetProviders(std::vector<kodi::addon::PVRProvider>& kodiProviders) const;
 
@@ -52,6 +52,6 @@ namespace enigma2
 
     std::unordered_map<std::string, enigma2::data::Provider> m_providerMappingsMap;
 
-    std::shared_ptr<enigma2::Settings> m_settings;
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } //namespace enigma2

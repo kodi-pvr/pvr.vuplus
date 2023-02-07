@@ -7,14 +7,14 @@
 
 #include "TimeshiftBuffer.h"
 
-#include "Settings.h"
+#include "InstanceSettings.h"
 #include "StreamReader.h"
 #include "utilities/Logger.h"
 
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-TimeshiftBuffer::TimeshiftBuffer(IStreamReader* streamReader, std::shared_ptr<Settings>& settings) : m_streamReader(streamReader)
+TimeshiftBuffer::TimeshiftBuffer(IStreamReader* streamReader, std::shared_ptr<InstanceSettings>& settings) : m_streamReader(streamReader)
 {
   m_bufferPath = settings->GetTimeshiftBufferPath() + "/tsbuffer.ts";
   unsigned int readTimeout = settings->GetReadTimeoutSecs();

@@ -17,7 +17,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreIdMapper::GenreIdMapper(const std::shared_ptr<enigma2::Settings>& settings) : IExtractor(settings)
+GenreIdMapper::GenreIdMapper(const std::shared_ptr<enigma2::InstanceSettings>& settings) : IExtractor(settings)
 {
   LoadGenreIdMapFile();
 }

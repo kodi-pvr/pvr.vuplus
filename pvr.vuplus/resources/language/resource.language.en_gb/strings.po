@@ -612,7 +612,10 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr ""
 
-#empty string with id 30115
+#. label-group: Advanced - Misc
+msgctxt "#30115"
+msgid "Debug"
+msgstr ""
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"

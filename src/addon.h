@@ -12,7 +12,7 @@
 #include <memory>
 #include <unordered_map>
 
-#include "enigma2/Settings.h"
+#include "enigma2/AddonSettings.h"
 
 class Enigma2;
 
@@ -28,5 +28,5 @@ public:
 
 private:
   std::unordered_map<std::string, Enigma2*> m_usedInstances;
-  std::shared_ptr<enigma2::Settings> m_settings;
+  std::shared_ptr<enigma2::AddonSettings> m_settings;
 };

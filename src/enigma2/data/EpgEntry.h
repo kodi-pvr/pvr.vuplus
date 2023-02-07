@@ -23,7 +23,7 @@ namespace enigma2
     class ATTR_DLL_LOCAL EpgEntry : public BaseEntry
     {
     public:
-      EpgEntry(std::shared_ptr<enigma2::Settings> settings)
+      EpgEntry(std::shared_ptr<enigma2::InstanceSettings> settings)
       {
         m_settings = settings;
       };

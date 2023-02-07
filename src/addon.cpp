@@ -15,7 +15,7 @@ using namespace enigma2::utilities;
 ADDON_STATUS CEnigma2Addon::Create()
 {
   /* Init settings */
-  m_settings.reset(new Settings());
+  m_settings.reset(new AddonSettings());
 
   Logger::Log(LEVEL_DEBUG, "%s - Creating VU+ PVR-Client", __func__);
 
@@ -65,14 +65,14 @@ ADDON_STATUS CEnigma2Addon::Create()
 
 ADDON_STATUS CEnigma2Addon::SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue)
 {
-  return m_settings->SetValue(settingName, settingValue);
+  return m_settings->SetSetting(settingName, settingValue);
 }
 
 ADDON_STATUS CEnigma2Addon::CreateInstance(const kodi::addon::IInstanceInfo& instance, KODI_ADDON_INSTANCE_HDL& hdl)
 {
   if (instance.IsType(ADDON_INSTANCE_PVR))
   {
-    Enigma2* usedInstance = new Enigma2(instance, m_settings);
+    Enigma2* usedInstance = new Enigma2(instance);
     if (!usedInstance->Start())
     {
       delete usedInstance;

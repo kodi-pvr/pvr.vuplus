@@ -20,7 +20,7 @@ using namespace enigma2::extract;
 using namespace enigma2::utilities;
 using namespace kodi::tools;
 
-ShowInfoExtractor::ShowInfoExtractor(const std::shared_ptr<enigma2::Settings>& settings) : IExtractor(settings)
+ShowInfoExtractor::ShowInfoExtractor(const std::shared_ptr<enigma2::InstanceSettings>& settings) : IExtractor(settings)
 {
   if (!LoadShowInfoPatternsFile(m_settings->GetExtractShowInfoFile(), m_episodeSeasonPatterns, m_yearPatterns, m_titleTextPatterns, m_descriptionTextPatterns))
     Logger::Log(LEVEL_ERROR, "%s Could not load show info patterns file: %s", __func__, m_settings->GetExtractShowInfoFile().c_str());

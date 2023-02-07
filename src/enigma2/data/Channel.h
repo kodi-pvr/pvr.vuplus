@@ -18,7 +18,7 @@
 
 namespace enigma2
 {
-  class Settings;
+  class InstanceSettings;
 
   namespace data
   {
@@ -32,7 +32,7 @@ namespace enigma2
       // There are at least two different service types for radio, see EN300468 Table 87
       const std::array<std::string, 3> RADIO_SERVICE_TYPES = {"2", "A", "a"};
 
-      Channel(std::shared_ptr<enigma2::Settings> settings) : m_settings(settings) {}
+      Channel(std::shared_ptr<enigma2::InstanceSettings> settings) : m_settings(settings) {}
       Channel(const Channel &c) : m_radio(c.IsRadio()), m_uniqueId(c.GetUniqueId()),
         m_channelName(c.GetChannelName()), m_serviceReference(c.GetServiceReference()),
         m_channelNumber(c.GetChannelNumber()), m_standardServiceReference(c.GetStandardServiceReference()),
@@ -133,7 +133,7 @@ namespace enigma2
 
       std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupList;
 
-      std::shared_ptr<enigma2::Settings> m_settings;
+      std::shared_ptr<enigma2::InstanceSettings> m_settings;
     };
   } //namespace data
 } //namespace enigma2

@@ -40,9 +40,6 @@ namespace enigma2
   static const std::string DEFAULT_CUSTOM_RADIO_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
-  static const std::string CHANNEL_GROUPS_DIR = "/channelGroups";
-  static const std::string CHANNEL_GROUPS_ADDON_DATA_BASE_DIR = ADDON_DATA_BASE_DIR + CHANNEL_GROUPS_DIR;
-
   enum class UpdateMode
     : int // same type as addon settings
   {
@@ -108,13 +105,13 @@ namespace enigma2
     WAKEUP_THEN_STANDBY
   };
 
-  class ATTR_DLL_LOCAL Settings
+  class ATTR_DLL_LOCAL InstanceSettings
   {
   public:
-    Settings();
+    explicit InstanceSettings(kodi::addon::IAddonInstance& instance);
 
     void ReadSettings();
-    ADDON_STATUS SetValue(const std::string& settingName, const kodi::addon::CSettingValue& settingValue);
+    ADDON_STATUS SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue);
 
     //Connection
     const std::string& GetHostname() const { return m_hostname; }
@@ -135,9 +132,9 @@ namespace enigma2
     bool UsePiconsEuFormat() const { return m_usePiconsEuFormat; }
     bool UseOpenWebIfPiconPath() const { return m_useOpenWebIfPiconPath; }
     const std::string& GetIconPath() const { return m_iconPath; }
-    unsigned int GetUpdateIntervalMins() const { return m_updateInterval; }
+    int GetUpdateIntervalMins() const { return m_updateInterval; }
     UpdateMode GetUpdateMode() const { return m_updateMode; }
-    unsigned int GetChannelAndGroupUpdateHour() const { return m_channelAndGroupUpdateHour; }
+    int GetChannelAndGroupUpdateHour() const { return m_channelAndGroupUpdateHour; }
     ChannelAndGroupUpdateMode GetChannelAndGroupUpdateMode() const { return m_channelAndGroupUpdateMode; }
 
     //Channel
@@ -207,9 +204,6 @@ namespace enigma2
     const PrependOutline& GetPrependOutline() const { return m_prependOutline; }
     int GetReadTimeoutSecs() const { return m_readTimeout; }
     int GetStreamReadChunkSizeKb() const { return m_streamReadChunkSize; }
-    bool GetNoDebug() const { return m_noDebug; };
-    bool GetDebugNormal() const { return m_debugNormal; };
-    bool GetTraceDebug() const { return m_traceDebug; };
 
     const std::string& GetConnectionURL() const { return m_connectionURL; }
 
@@ -261,10 +255,8 @@ namespace enigma2
     std::vector<std::string>& GetCustomRadioChannelGroupNameList() { return m_customRadioChannelGroupNameList; }
 
   private:
-    // Settings() = default;
-
-    // Settings(Settings const&) = delete;
-    // void operator=(Settings const&) = delete;
+    InstanceSettings(const InstanceSettings&) = delete;
+    void operator=(const InstanceSettings&) = delete;
 
     template<typename T, typename V>
     V SetSetting(const std::string& settingName, const kodi::addon::CSettingValue& settingValue, T& currentValue, V returnValueIfChanged, V defaultReturnValue)
@@ -342,10 +334,10 @@ namespace enigma2
     bool m_usePiconsEuFormat = false;
     bool m_useOpenWebIfPiconPath = false;
     std::string m_iconPath = "";
-    unsigned int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
+    int m_updateInterval = DEFAULT_UPDATE_INTERVAL;
     UpdateMode m_updateMode = UpdateMode::TIMERS_AND_RECORDINGS;
     ChannelAndGroupUpdateMode m_channelAndGroupUpdateMode = ChannelAndGroupUpdateMode::RELOAD_CHANNELS_AND_GROUPS;
-    unsigned int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
+    int m_channelAndGroupUpdateHour = DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR;
 
     //Channel
     bool m_zap = false;
@@ -355,7 +347,7 @@ namespace enigma2
     std::string m_defaultProviderName;
     std::string m_mapProviderNameFile = DEFAULT_PROVIDER_NAME_MAP_FILE;
     ChannelGroupMode m_tvChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
-    unsigned int m_numTVGroups = DEFAULT_NUM_GROUPS;
+    int m_numTVGroups = DEFAULT_NUM_GROUPS;
     std::string m_oneTVGroup = "";
     std::string m_twoTVGroup = "";
     std::string m_threeTVGroup = "";
@@ -365,7 +357,7 @@ namespace enigma2
     FavouritesGroupMode m_tvFavouritesMode = FavouritesGroupMode::DISABLED;
     bool m_excludeLastScannedTVGroup = true;
     ChannelGroupMode m_radioChannelGroupMode = ChannelGroupMode::ALL_GROUPS;
-    unsigned int m_numRadioGroups = DEFAULT_NUM_GROUPS;
+    int m_numRadioGroups = DEFAULT_NUM_GROUPS;
     std::string m_oneRadioGroup = "";
     std::string m_twoRadioGroup = "";
     std::string m_threeRadioGroup = "";
@@ -425,9 +417,6 @@ namespace enigma2
     PrependOutline m_prependOutline = PrependOutline::IN_EPG;
     int m_readTimeout = 0;
     int m_streamReadChunkSize = 0;
-    bool m_noDebug = false;
-    bool m_debugNormal = false;
-    bool m_traceDebug = false;
 
     //Last Scanned
     bool m_usesLastScannedChannelGroup = false;
@@ -445,5 +434,7 @@ namespace enigma2
     //PVR Props
     std::string m_szUserPath = "";
     std::string m_szClientPath = "";
+
+    kodi::addon::IAddonInstance& m_instance;
   };
 } //namespace enigma2

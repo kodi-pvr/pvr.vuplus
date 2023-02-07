@@ -26,7 +26,7 @@ using namespace enigma2::utilities;
 using namespace kodi::tools;
 using json = nlohmann::json;
 
-Epg::Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, std::shared_ptr<enigma2::Settings>& settings, int epgMaxPastDays, int epgMaxFutureDays)
+Epg::Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, std::shared_ptr<enigma2::InstanceSettings>& settings, int epgMaxPastDays, int epgMaxFutureDays)
       : m_connectionListener(connectionListener), m_channels(channels), m_entryExtractor(entryExtractor), m_settings(settings), m_epgMaxPastDays(epgMaxPastDays),
         m_epgMaxFutureDays(epgMaxFutureDays)
 {

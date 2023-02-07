@@ -7,7 +7,7 @@
 
 #include "CurlFile.h"
 
-#include "../Settings.h"
+#include "../InstanceSettings.h"
 #include "Logger.h"
 #include "WebUtils.h"
 

@@ -30,7 +30,7 @@ using json = nlohmann::json;
 
 const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";
 
-Recordings::Recordings(IConnectionListener& connectionListener, std::shared_ptr<Settings>& settings, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor)
+Recordings::Recordings(IConnectionListener& connectionListener, std::shared_ptr<InstanceSettings>& settings, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor)
   : m_connectionListener(connectionListener), m_settings(settings), m_channels(channels), m_providers(providers), m_entryExtractor(entryExtractor)
 {
   std::random_device randomDevice; //Will be used to obtain a seed for the random number engine

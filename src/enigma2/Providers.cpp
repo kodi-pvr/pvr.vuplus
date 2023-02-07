@@ -20,7 +20,7 @@ using namespace enigma2::data;
 using namespace enigma2::utilities;
 using namespace kodi::tools;
 
-Providers::Providers(std::shared_ptr<Settings>& settings) : m_settings(settings)
+Providers::Providers(std::shared_ptr<InstanceSettings>& settings) : m_settings(settings)
 {
   FileUtils::CopyDirectory(FileUtils::GetResourceDataPath() + PROVIDER_DIR, PROVIDER_ADDON_DATA_BASE_DIR, true);
 
