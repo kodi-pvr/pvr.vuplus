@@ -9,6 +9,7 @@
 
 #include "utilities/FileUtils.h"
 #include "utilities/Logger.h"
+#include "utilities/SettingsMigration.h"
 
 #include "kodi/General.h"
 
@@ -62,6 +63,12 @@ ADDON_STATUS AddonSettings::SetSetting(const std::string& settingName,
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_debugNormal, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "tracedebug")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_traceDebug, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (SettingsMigration::IsMigrationSetting(settingName))
+  {
+    // ignore settings from pre-multi-instance setup
+    return ADDON_STATUS_OK;
+  }
+
   Logger::Log(LogLevel::LEVEL_ERROR, "AddonSettings::SetSetting - unknown setting '%s'",
               settingName.c_str());
   return ADDON_STATUS_UNKNOWN;

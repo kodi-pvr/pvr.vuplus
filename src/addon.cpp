@@ -7,6 +7,7 @@
 
 #include "addon.h"
 #include "Enigma2.h"
+#include "enigma2/utilities/SettingsMigration.h"
 
 using namespace enigma2;
 using namespace enigma2::data;
@@ -77,6 +78,14 @@ ADDON_STATUS CEnigma2Addon::CreateInstance(const kodi::addon::IInstanceInfo& ins
     {
       delete usedInstance;
       return ADDON_STATUS_PERMANENT_FAILURE;
+    }
+
+    // Try to migrate settings from a pre-multi-instance setup
+    if (SettingsMigration::MigrateSettings(*usedInstance))
+    {
+      // Initial client operated on old/incomplete settings
+      delete usedInstance;
+      usedInstance = new Enigma2(instance);
     }
     hdl = usedInstance;
 

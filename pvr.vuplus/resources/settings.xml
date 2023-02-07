@@ -28,5 +28,427 @@
         </setting>
       </group>
     </category>
+
+    <!-- Hidden category with all settings which were add-on settings before multi-instance
+         support was added to this add-on. Used for settings migration, which needs minimal
+         settings definition to work.
+
+         Note that empty default values still require an allowampty constraint -->
+    <category id="hidden_obsolete">
+      <group id="1" label="-1">
+        <setting id="host" type="string">
+          <level>4</level> <!-- hidden -->
+          <default>127.0.0.1</default>
+        </setting>
+        <setting id="webport" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>80</default>
+        </setting>
+        <setting id="use_secure" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="user" type="string">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="pass" type="string">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="autoconfig" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="streamport" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>8001</default>
+        </setting>
+        <setting id="use_secure_stream" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="use_login_stream" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="connectionchecktimeout" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>30</default>
+        </setting>
+        <setting id="connectioncheckinterval" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>10</default>
+        </setting>
+
+        <!-- General -->
+        <setting id="setprogramid" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="onlinepicons" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="usepiconseuformat" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="iconpath" type="path">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="updateint" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>2</default>
+        </setting>
+        <setting id="updatemode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="channelandgroupupdatemode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>2</default>
+        </setting>
+        <setting id="channelandgroupupdatehour" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>4</default>
+        </setting>
+
+        <!-- Channels -->
+        <setting id="zap" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="usegroupspecificnumbers" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="usestandardserviceref" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="defaultprovidername" type="string">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="providermapfile" type="path">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus/providers/providerMappings.xml</default>
+        </setting>
+        <setting id="retrieveprovidername" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="tvgroupmode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="numtvgroups" type="integer" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default>1</default>
+        </setting>
+        <setting id="onetvgroup" type="string" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="twotvgroup" type="string" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="threetvgroup" type="string" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="fourtvgroup" type="string" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="fivetvgroup" type="string" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+
+        <setting id="customtvgroupsfile" type="path" parent="tvgroupmode">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus/channelGroups/customTVGroups-example.xml</default>
+        </setting>
+        <setting id="tvfavouritesmode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="excludelastscannedtv" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="radiogroupmode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+
+        <setting id="numradiogroups" type="integer" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default>1</default>
+        </setting>
+        <setting id="oneradiogroup" type="string" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="tworadiogroup" type="string" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="threeradiogroup" type="string" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="fourradiogroup" type="string" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="fiveradiogroup" type="string" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+
+        <setting id="customradiogroupsfile" type="path" parent="radiogroupmode">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus/channelGroups/customRadioGroups-example.xml</default>
+        </setting>
+        <setting id="radiofavouritesmode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="excludelastscannedradio" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+
+        <!-- EPG -->
+        <setting id="extractshowinfoenabled" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+
+        </setting>
+        <setting id="extractshowinfofile" type="path" parent="extractshowinfoenabled">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml</default>
+        </setting>
+        <setting id="genreidmapenabled" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="genreidmapfile" type="path" parent="genreidmapenabled">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml</default>
+        </setting>
+        <setting id="rytecgenretextmapenabled" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="rytecgenretextmapfile" type="path" parent="rytecgenretextmapenabled">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml</default>
+        </setting>
+        <setting id="logmissinggenremapping" type="boolean" parent="rytecgenretextmapenabled">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="epgdelayperchannel" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+
+        <!-- Recordings -->
+        <setting id="storeextrarecordinginfo" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+
+        </setting>
+        <setting id="sharerecordinglastplayed" type="integer" parent="storeextrarecordinginfo">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="virtualfolders" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="keepfolders" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="keepfoldersomitlocation" type="boolean" parent="keepfolders">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="recordingsrecursive" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="onlycurrent" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="enablerecordingedls" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+        </setting>
+        <setting id="edlpaddingstart" type="integer" parent="enablerecordingedls">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="edlpaddingstop" type="integer" parent="enablerecordingedls">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+
+        <!-- Timers-->
+        <setting id="enablegenrepeattimers" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="numgenrepeattimers" type="integer" parent="enablegenrepeattimers">
+          <level>4</level> <!-- hidden -->
+          <default>1</default>
+        </setting>
+        <setting id="timerlistcleanup" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+
+        </setting>
+        <setting id="recordingpath" type="string">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="enableautotimers" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="limitanychannelautotimers" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="limitanychannelautotimerstogroups" type="boolean" parent="limitanychannelautotimers">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+
+        <!-- Timeshift -->
+        <setting id="enabletimeshift" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="timeshiftbufferpath" type="path" parent="enabletimeshift">
+          <level>4</level> <!-- hidden -->
+          <default>special://userdata/addon_data/pvr.vuplus</default>
+        </setting>
+        <setting id="enabletimeshiftdisklimit" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>false</default>
+
+        </setting>
+        <setting id="timeshiftdisklimit" type="number">
+          <level>4</level> <!-- hidden -->
+          <default>4.0</default>
+        </setting>
+        <setting id="timeshiftEnabledIptv" type="boolean">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+
+        </setting>
+        <setting id="useFFmpegReconnect" type="boolean" parent="timeshiftEnabledIptv">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+        <setting id="useMpegtsForUnknownStreams" type="boolean" parent="timeshiftEnabledIptv">
+          <level>4</level> <!-- hidden -->
+          <default>true</default>
+        </setting>
+
+        <!-- Backend -->
+        <setting id="wakeonlanmac" type="string">
+          <level>4</level> <!-- hidden -->
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+        </setting>
+        <setting id="powerstatemode" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="globalstartpaddingstb" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="globalendpaddingstb" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+
+        <!-- Advanced -->
+        <setting id="prependoutline" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="readtimeout" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+        <setting id="streamreadchunksize" type="integer">
+          <level>4</level> <!-- hidden -->
+          <default>0</default>
+        </setting>
+      </group>
+    </category>
   </section>
 </settings>
