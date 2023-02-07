@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Settings.h"
 #include "data/Channel.h"
 #include "data/ChannelGroup.h"
 
@@ -22,6 +23,8 @@ namespace enigma2
   class ATTR_DLL_LOCAL ChannelGroups
   {
   public:
+    ChannelGroups(std::shared_ptr<enigma2::Settings> settings) : m_settings(settings) {}
+
     void GetChannelGroups(std::vector<kodi::addon::PVRChannelGroup>& channelGroups, bool radio) const;
     PVR_ERROR GetChannelGroupMembers(std::vector<kodi::addon::PVRChannelGroupMember>& channelGroupMembers, const std::string& groupName);
 
@@ -47,5 +50,7 @@ namespace enigma2
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroups;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupsNameMap;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::ChannelGroup>> m_channelGroupsServiceReferenceMap;
+
+    std::shared_ptr<enigma2::Settings> m_settings;
   };
 } //namespace enigma2

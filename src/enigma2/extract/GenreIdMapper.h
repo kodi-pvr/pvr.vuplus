@@ -19,7 +19,7 @@ namespace enigma2
     class ATTR_DLL_LOCAL GenreIdMapper : public IExtractor
     {
     public:
-      GenreIdMapper();
+      GenreIdMapper(const std::shared_ptr<enigma2::Settings>& settings);
       ~GenreIdMapper();
 
       void ExtractFromEntry(enigma2::data::BaseEntry& entry);

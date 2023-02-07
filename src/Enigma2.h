@@ -42,7 +42,7 @@
 class ATTR_DLL_LOCAL Enigma2 : public enigma2::IConnectionListener
 {
 public:
-  Enigma2(const kodi::addon::IInstanceInfo& instance);
+  Enigma2(const kodi::addon::IInstanceInfo& instance, std::shared_ptr<enigma2::Settings>& settings);
   ~Enigma2();
 
   // IConnectionListener implementation
@@ -146,16 +146,16 @@ private:
   int m_epgMaxPastDays;
   int m_epgMaxFutureDays;
 
-  enigma2::Providers m_providers;
-  mutable enigma2::Channels m_channels{m_providers};
-  enigma2::ChannelGroups m_channelGroups;
-  enigma2::Recordings m_recordings{*this, m_channels, m_providers, m_entryExtractor};
+  std::shared_ptr<enigma2::Settings> m_settings;
+  enigma2::Providers m_providers{m_settings};
+  mutable enigma2::Channels m_channels{m_providers, m_settings};
+  enigma2::ChannelGroups m_channelGroups{m_settings};
+  enigma2::Recordings m_recordings{*this, m_settings, m_channels, m_providers, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg{*this, m_channels, m_entryExtractor, m_epgMaxPastDays, m_epgMaxFutureDays};
-  enigma2::Timers m_timers{*this, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
-  enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
-  enigma2::Admin m_admin;
-  enigma2::extract::EpgEntryExtractor m_entryExtractor;
+  enigma2::Epg m_epg{*this, m_channels, m_entryExtractor, m_settings, m_epgMaxPastDays, m_epgMaxFutureDays};
+  enigma2::Timers m_timers{*this, m_settings, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
+  enigma2::Admin m_admin{m_settings};
+  enigma2::extract::EpgEntryExtractor m_entryExtractor{m_settings};
   enigma2::utilities::SignalStatus m_signalStatus;
   enigma2::ConnectionManager* connectionManager;
 

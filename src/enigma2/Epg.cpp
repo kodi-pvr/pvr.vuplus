@@ -26,14 +26,14 @@ using namespace enigma2::utilities;
 using namespace kodi::tools;
 using json = nlohmann::json;
 
-Epg::Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, int epgMaxPastDays, int epgMaxFutureDays)
-      : m_connectionListener(connectionListener), m_channels(channels), m_entryExtractor(entryExtractor), m_epgMaxPastDays(epgMaxPastDays),
+Epg::Epg(IConnectionListener& connectionListener, enigma2::Channels& channels, enigma2::extract::EpgEntryExtractor& entryExtractor, std::shared_ptr<enigma2::Settings>& settings, int epgMaxPastDays, int epgMaxFutureDays)
+      : m_connectionListener(connectionListener), m_channels(channels), m_entryExtractor(entryExtractor), m_settings(settings), m_epgMaxPastDays(epgMaxPastDays),
         m_epgMaxFutureDays(epgMaxFutureDays)
 {
   m_channelsMap = channels.GetChannelsServiceReferenceMap();
 }
 
-Epg::Epg(const Epg& epg) : m_connectionListener(epg.m_connectionListener), m_channels(epg.m_channels), m_entryExtractor(epg.m_entryExtractor) {}
+Epg::Epg(const Epg& epg) : m_connectionListener(epg.m_connectionListener), m_channels(epg.m_channels), m_entryExtractor(epg.m_entryExtractor), m_settings(epg.m_settings) {}
 
 bool Epg::Initialise(enigma2::Channels& channels, enigma2::ChannelGroups& channelGroups)
 {
@@ -51,7 +51,7 @@ PVR_ERROR Epg::GetEPGForChannel(const std::string& serviceReference, time_t star
   {
     Logger::Log(LEVEL_DEBUG, "%s Getting EPG for channel '%s'", __func__, channel->GetChannelName().c_str());
 
-    const std::string url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(),
+    const std::string url = StringUtils::Format("%s%s%s", m_settings->GetConnectionURL().c_str(),
                                                 "web/epgservice?sRef=", WebUtils::URLEncodeInline(serviceReference).c_str());
 
     const std::string strXML = WebUtils::GetHttpXML(url);
@@ -89,7 +89,7 @@ PVR_ERROR Epg::GetEPGForChannel(const std::string& serviceReference, time_t star
 
     for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2event"))
     {
-      EpgEntry entry;
+      EpgEntry entry{m_settings};
 
       if (!entry.UpdateFrom(pNode, channel, start, end))
         continue;
@@ -148,7 +148,7 @@ std::string Epg::LoadEPGEntryShortDescription(const std::string& serviceReferenc
 {
   std::string shortDescription;
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(),
+  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", m_settings->GetConnectionURL().c_str(),
                                                   WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
@@ -187,7 +187,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 
   Logger::Log(LEVEL_DEBUG, "%s Looking for EPG event partial details for sref: %s, epgUid: %u", __func__, serviceReference.c_str(), epgUid);
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", Settings::GetInstance().GetConnectionURL().c_str(),
+  const std::string jsonUrl = StringUtils::Format("%sapi/event?sref=%s&idev=%u", m_settings->GetConnectionURL().c_str(),
                                                   WebUtils::URLEncodeInline(serviceReference).c_str(), epgUid);
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
@@ -240,7 +240,7 @@ EpgPartialEntry Epg::LoadEPGEntryPartialDetails(const std::string& serviceRefere
 
   Logger::Log(LEVEL_DEBUG, "%s Looking for EPG event partial details for sref: %s, time: %lld", __func__, serviceReference.c_str(), static_cast<long long>(startTime));
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/epgservice?sRef=%s&time=%lld&endTime=1", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), static_cast<long long>(startTime));
+  const std::string jsonUrl = StringUtils::Format("%sapi/epgservice?sRef=%s&time=%lld&endTime=1", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline(serviceReference).c_str(), static_cast<long long>(startTime));
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -295,7 +295,7 @@ std::string Epg::FindServiceReference(const std::string& title, int epgUid, time
 
   const auto started = std::chrono::high_resolution_clock::now();
 
-  const std::string jsonUrl = StringUtils::Format("%sapi/epgsearch?search=%s&endtime=%lld", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline(title).c_str(), static_cast<long long>(endTime));
+  const std::string jsonUrl = StringUtils::Format("%sapi/epgsearch?search=%s&endtime=%lld", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline(title).c_str(), static_cast<long long>(endTime));
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -312,7 +312,7 @@ std::string Epg::FindServiceReference(const std::string& title, int epgUid, time
             event.value()["begin_timestamp"].get<time_t>() == startTime &&
             event.value()["duration_sec"].get<int>() == (endTime - startTime))
         {
-          serviceReference = Channel::NormaliseServiceReference(event.value()["sref"].get<std::string>());
+          serviceReference = Channel::NormaliseServiceReference(event.value()["sref"].get<std::string>(), m_settings->UseStandardServiceReference());
 
           break; //We only want first event
         }

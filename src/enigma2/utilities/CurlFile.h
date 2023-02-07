@@ -21,7 +21,7 @@ namespace enigma2
 
       bool Get(const std::string& strURL, std::string& strResult);
       bool Post(const std::string& strURL, std::string& strResult);
-      bool Check(const std::string& strURL);
+      bool Check(const std::string& strURL, int connectionTimeoutSecs);
     };
   } // namespace utilities
 } // namespace enigma2

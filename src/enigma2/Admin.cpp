@@ -27,7 +27,7 @@ using namespace enigma2::utilities;
 using namespace kodi::tools;
 using json = nlohmann::json;
 
-Admin::Admin() : m_addonVersion(STR(VUPLUS_VERSION))
+Admin::Admin(std::shared_ptr<Settings> settings) : m_settings(settings), m_addonVersion(STR(VUPLUS_VERSION))
 {
   m_serverName[0] = '\0';
   m_serverVersion[0] = '\0';
@@ -35,31 +35,33 @@ Admin::Admin() : m_addonVersion(STR(VUPLUS_VERSION))
 
 void Admin::SendPowerstate()
 {
-  if (Settings::GetInstance().GetPowerstateModeOnAddonExit() != PowerstateMode::DISABLED)
+  if (m_settings->GetPowerstateModeOnAddonExit() != PowerstateMode::DISABLED)
   {
-    if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
+    std::string connectionURL = m_settings->GetConnectionURL();
+
+    if (m_settings->GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
       const std::string strCmd = StringUtils::Format("web/powerstate?newstate=4"); //Wakeup
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strCmd, strResult, true);
+      WebUtils::SendSimpleCommand(strCmd, connectionURL, strResult, true);
     }
 
-    if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::STANDBY ||
-      Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
+    if (m_settings->GetPowerstateModeOnAddonExit() == PowerstateMode::STANDBY ||
+      m_settings->GetPowerstateModeOnAddonExit() == PowerstateMode::WAKEUP_THEN_STANDBY)
     {
       const std::string strCmd = StringUtils::Format("web/powerstate?newstate=5"); //Standby
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strCmd, strResult, true);
+      WebUtils::SendSimpleCommand(strCmd, connectionURL, strResult, true);
     }
 
-    if (Settings::GetInstance().GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
+    if (m_settings->GetPowerstateModeOnAddonExit() == PowerstateMode::DEEP_STANDBY)
     {
       const std::string strCmd = StringUtils::Format("web/powerstate?newstate=1"); //Deep Standby
 
       std::string strResult;
-      WebUtils::SendSimpleCommand(strCmd, strResult, true);
+      WebUtils::SendSimpleCommand(strCmd, connectionURL, strResult, true);
     }
   }
 }
@@ -70,21 +72,21 @@ bool Admin::Initialise()
   SetCharString(m_serverName, unknown);
   SetCharString(m_serverVersion, unknown);
 
-  Settings::GetInstance().SetAdmin(this);
+  m_settings->SetAdmin(this);
 
   bool deviceInfoLoaded = LoadDeviceInfo();
 
   if (deviceInfoLoaded)
   {
-    Settings::GetInstance().SetDeviceInfo(&m_deviceInfo);
+    m_settings->SetDeviceInfo(&m_deviceInfo);
 
     bool deviceSettingsLoaded = LoadDeviceSettings();
-    Settings::GetInstance().SetDeviceSettings(&m_deviceSettings);
+    m_settings->SetDeviceSettings(&m_deviceSettings);
 
     if (deviceSettingsLoaded)
     {
       //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-      if (Settings::GetInstance().SupportsAutoTimers() && Settings::GetInstance().GetAutoTimersEnabled())
+      if (m_settings->SupportsAutoTimers() && m_settings->GetAutoTimersEnabled())
         SendAutoTimerSettings();
     }
   }
@@ -94,7 +96,7 @@ bool Admin::Initialise()
 
 bool Admin::LoadDeviceInfo()
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/deviceinfo");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -271,7 +273,7 @@ bool Admin::LoadDeviceSettings()
   std::string autoTimerNameInTags = kodi::addon::GetLocalizedString(30094); // N/A
 
   //If OpenWebVersion is new enough to allow the setting of AutoTimer setttings
-  if (Settings::GetInstance().SupportsAutoTimers())
+  if (m_settings->SupportsAutoTimers())
   {
     if (LoadAutoTimerSettings())
     {
@@ -304,7 +306,7 @@ bool Admin::LoadDeviceSettings()
 
 bool Admin::LoadAutoTimerSettings()
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "autotimer/get");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "autotimer/get");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -369,7 +371,7 @@ bool Admin::LoadAutoTimerSettings()
 
 bool Admin::LoadRecordingMarginSettings()
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/settings");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/settings");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -440,7 +442,7 @@ bool Admin::SendAutoTimerSettings()
     const std::string url = StringUtils::Format("%s", "autotimer/set?add_name_to_tags=true&add_autotimer_to_tags=true");
     std::string strResult;
 
-    if (!WebUtils::SendSimpleCommand(url, strResult))
+    if (!WebUtils::SendSimpleCommand(url, m_settings->GetConnectionURL(), strResult))
       return false;
   }
 
@@ -455,7 +457,7 @@ bool Admin::SendGlobalRecordingStartMarginSetting(int newValue)
     const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_before&value=", newValue);
     std::string strResult;
 
-    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult))
+    if (!WebUtils::SendSimpleJsonPostCommand(url, m_settings->GetConnectionURL(), strResult))
       return false;
     else
       m_deviceSettings.SetGlobalRecordingStartMargin(newValue);
@@ -472,7 +474,7 @@ bool Admin::SendGlobalRecordingEndMarginSetting(int newValue)
     const std::string url = StringUtils::Format("%s%d", "api/saveconfig?key=config.recording.margin_after&value=", newValue);
     std::string strResult;
 
-    if (!WebUtils::SendSimpleJsonPostCommand(url, strResult))
+    if (!WebUtils::SendSimpleJsonPostCommand(url, m_settings->GetConnectionURL(), strResult))
       return false;
     else
       m_deviceSettings.SetGlobalRecordingEndMargin(newValue);
@@ -486,7 +488,7 @@ PVR_ERROR Admin::GetDriveSpace(uint64_t& iTotal, uint64_t& iUsed, std::vector<st
   uint64_t totalKb = 0;
   uint64_t freeKb = 0;
 
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/deviceinfo");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/deviceinfo");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -586,7 +588,7 @@ uint64_t Admin::GetKbFromString(const std::string& stringInMbGbTb) const
 
 bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel)
 {
-  const std::string url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/signal");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/signal");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -644,7 +646,7 @@ bool Admin::GetTunerSignal(SignalStatus& signalStatus, const std::shared_ptr<dat
   signalStatus.m_ber = std::atol(ber.c_str());
   signalStatus.m_signalStrength = std::atoi(std::regex_replace(signalStrength, regexReplacePercent, regexReplace).c_str()) * 655;
 
-  if (Settings::GetInstance().SupportsTunerDetails())
+  if (m_settings->SupportsTunerDetails())
   {
     //TODO: Cross reference against tuners once OpenWebIf API is updated.
     //StreamStatus streamStatus = GetStreamDetails(channel);
@@ -658,7 +660,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel>& chann
 {
   StreamStatus streamStatus;
 
-  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/deviceinfo");
+  const std::string jsonUrl = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "api/deviceinfo");
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 
@@ -727,7 +729,7 @@ StreamStatus Admin::GetStreamDetails(const std::shared_ptr<data::Channel>& chann
 
 void Admin::GetTunerDetails(SignalStatus& signalStatus, const std::shared_ptr<data::Channel>& channel)
 {
-  const std::string jsonUrl = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "api/tunersignal");
+  const std::string jsonUrl = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "api/tunersignal");
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
 

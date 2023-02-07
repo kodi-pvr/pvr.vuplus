@@ -64,7 +64,7 @@ const StreamType StreamUtils::GetStreamType(const std::string& url)
   return StreamType::OTHER_TYPE;
 }
 
-const StreamType StreamUtils::InspectStreamType(const std::string& url)
+const StreamType StreamUtils::InspectStreamType(const std::string& url, bool useMpegtsForUnknownStreams)
 {
   if (!FileUtils::FileExists(url))
     return StreamType::OTHER_TYPE;
@@ -85,7 +85,7 @@ const StreamType StreamUtils::InspectStreamType(const std::string& url)
   }
 
   // There is no other way to select this stream type other than this setting
-  if (Settings::GetInstance().UseMpegtsForUnknownStreams())
+  if (useMpegtsForUnknownStreams)
     return StreamType::TS;
 
   return StreamType::OTHER_TYPE;
@@ -130,7 +130,7 @@ std::string StreamUtils::GetURLWithFFmpegReconnectOptions(const std::string& str
 {
   std::string newStreamUrl = streamUrl;
 
-  if (WebUtils::IsHttpUrl(streamUrl) && Settings::GetInstance().UseFFmpegReconnect())
+  if (WebUtils::IsHttpUrl(streamUrl))
   {
     newStreamUrl = AddHeaderToStreamUrl(newStreamUrl, "reconnect", "1");
     if (streamType != StreamType::HLS)
