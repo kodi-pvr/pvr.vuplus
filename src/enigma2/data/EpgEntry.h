@@ -23,6 +23,11 @@ namespace enigma2
     class ATTR_DLL_LOCAL EpgEntry : public BaseEntry
     {
     public:
+      EpgEntry(std::shared_ptr<enigma2::InstanceSettings> settings)
+      {
+        m_settings = settings;
+      };
+
       unsigned int GetEpgId() const { return m_epgId; }
       void SetEpgId(int value) { m_epgId = value; }
 

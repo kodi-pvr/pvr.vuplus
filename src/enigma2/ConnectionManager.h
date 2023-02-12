@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "InstanceSettings.h"
+
 #include <atomic>
 #include <mutex>
 #include <string>
@@ -24,7 +26,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL ConnectionManager
   {
   public:
-    ConnectionManager(IConnectionListener& connectionListener);
+    ConnectionManager(IConnectionListener& connectionListener, std::shared_ptr<enigma2::InstanceSettings> settings);
     ~ConnectionManager();
 
     void Start();
@@ -46,5 +48,7 @@ namespace enigma2
     mutable std::mutex m_mutex;
     bool m_suspended;
     PVR_CONNECTION_STATE m_state;
+
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } // namespace enigma2

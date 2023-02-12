@@ -29,6 +29,11 @@ namespace enigma2
     class ATTR_DLL_LOCAL RecordingEntry : public BaseEntry, public Tags
     {
     public:
+      RecordingEntry(std::shared_ptr<enigma2::InstanceSettings> settings)
+      {
+        m_settings = settings;
+      };
+
       const std::string& GetRecordingId() const { return m_recordingId; }
       void SetRecordingId(const std::string& value) { m_recordingId = value; }
 

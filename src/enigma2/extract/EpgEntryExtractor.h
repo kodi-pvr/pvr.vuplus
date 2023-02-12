@@ -25,7 +25,7 @@ namespace enigma2
     class ATTR_DLL_LOCAL EpgEntryExtractor : public IExtractor
     {
     public:
-      EpgEntryExtractor();
+      EpgEntryExtractor(const std::shared_ptr<enigma2::InstanceSettings>& settings);
       ~EpgEntryExtractor();
 
       void ExtractFromEntry(enigma2::data::BaseEntry& entry);

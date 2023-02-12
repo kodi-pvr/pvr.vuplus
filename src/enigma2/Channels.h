@@ -9,6 +9,7 @@
 
 #include "ChannelGroups.h"
 #include "Providers.h"
+#include "InstanceSettings.h"
 #include "data/Channel.h"
 
 #include <memory>
@@ -37,7 +38,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL Channels
   {
   public:
-    Channels(Providers& providers) : m_providers(providers) {}
+    Channels(Providers& providers, std::shared_ptr<enigma2::InstanceSettings> settings) : m_providers(providers), m_settings(settings) {}
 
     void GetChannels(std::vector<kodi::addon::PVRChannel>& kodiChannels, bool bRadio) const;
 
@@ -68,7 +69,9 @@ namespace enigma2
     std::unordered_map<int, std::shared_ptr<enigma2::data::Channel>> m_channelsUniqueIdMap;
     std::unordered_map<std::string, std::shared_ptr<enigma2::data::Channel>> m_channelsServiceReferenceMap;
 
-    ChannelGroups m_channelGroups;
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
+
+    ChannelGroups m_channelGroups{m_settings};
     Providers& m_providers;
   };
 } //namespace enigma2

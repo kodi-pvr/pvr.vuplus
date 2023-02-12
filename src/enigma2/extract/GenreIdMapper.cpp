@@ -17,7 +17,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreIdMapper::GenreIdMapper() : IExtractor()
+GenreIdMapper::GenreIdMapper(const std::shared_ptr<enigma2::InstanceSettings>& settings) : IExtractor(settings)
 {
   LoadGenreIdMapFile();
 }
@@ -42,7 +42,7 @@ void GenreIdMapper::ExtractFromEntry(BaseEntry& entry)
 
 bool GenreIdMapper::IsEnabled()
 {
-  return Settings::GetInstance().GetMapGenreIds();
+  return m_settings->GetMapGenreIds();
 }
 
 int GenreIdMapper::GetGenreTypeFromCombined(int combinedGenreType)
@@ -70,8 +70,8 @@ int GenreIdMapper::LookupGenreIdInMap(const int combinedGenreType)
 
 void GenreIdMapper::LoadGenreIdMapFile()
 {
-  if (!LoadIdToIdGenreFile(Settings::GetInstance().GetMapGenreIdsFile(), m_genreIdToDvbIdMap))
-    Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __func__, Settings::GetInstance().GetMapGenreIdsFile().c_str());
+  if (!LoadIdToIdGenreFile(m_settings->GetMapGenreIdsFile(), m_genreIdToDvbIdMap))
+    Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __func__, m_settings->GetMapGenreIdsFile().c_str());
 }
 
 bool GenreIdMapper::LoadIdToIdGenreFile(const std::string& xmlFile, std::map<int, int>& map)

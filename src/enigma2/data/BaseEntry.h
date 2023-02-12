@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../Settings.h"
+#include "../InstanceSettings.h"
 
 #include <string>
 
@@ -79,6 +79,8 @@ namespace enigma2
       bool m_live = false;
       bool m_premiere = false;
       bool m_finale = false;
+
+      std::shared_ptr<enigma2::InstanceSettings> m_settings;
     };
   } //namespace data
 } //namespace enigma2

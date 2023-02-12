@@ -7,7 +7,7 @@
 
 #include "CurlFile.h"
 
-#include "../Settings.h"
+#include "../InstanceSettings.h"
 #include "Logger.h"
 #include "WebUtils.h"
 
@@ -57,7 +57,7 @@ bool CurlFile::Post(const std::string& strURL, std::string& strResult)
   return false;
 }
 
-bool CurlFile::Check(const std::string& strURL)
+bool CurlFile::Check(const std::string& strURL, int connectionTimeoutSecs)
 {
   kodi::vfs::CFile fileHandle;
   if (!fileHandle.CURLCreate(strURL))
@@ -67,7 +67,7 @@ bool CurlFile::Check(const std::string& strURL)
   }
 
   fileHandle.CURLAddOption(ADDON_CURL_OPTION_PROTOCOL, "connection-timeout",
-                      std::to_string(Settings::GetInstance().GetConnectioncCheckTimeoutSecs()));
+                      std::to_string(connectionTimeoutSecs));
 
   if (!fileHandle.CURLOpen(ADDON_READ_NO_CACHE))
   {

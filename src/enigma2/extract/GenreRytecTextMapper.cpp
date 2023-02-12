@@ -17,7 +17,7 @@ using namespace enigma2::data;
 using namespace enigma2::extract;
 using namespace enigma2::utilities;
 
-GenreRytecTextMapper::GenreRytecTextMapper() : IExtractor()
+GenreRytecTextMapper::GenreRytecTextMapper(const std::shared_ptr<enigma2::InstanceSettings>& settings) : IExtractor(settings)
 {
   LoadGenreTextMappingFiles();
 
@@ -44,7 +44,7 @@ void GenreRytecTextMapper::ExtractFromEntry(BaseEntry& entry)
 
       if (combinedGenreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
       {
-        if (m_settings.GetLogMissingGenreMappings())
+        if (m_settings->GetLogMissingGenreMappings())
           Logger::Log(LEVEL_INFO, "%s: Could not lookup genre using genre description string instead:'%s'", __func__, genreText.c_str());
 
         entry.SetGenreType(EPG_GENRE_USE_STRING);
@@ -61,7 +61,7 @@ void GenreRytecTextMapper::ExtractFromEntry(BaseEntry& entry)
 
 bool GenreRytecTextMapper::IsEnabled()
 {
-  return Settings::GetInstance().GetMapRytecTextGenres();
+  return m_settings->GetMapRytecTextGenres();
 }
 
 int GenreRytecTextMapper::GetGenreTypeFromCombined(int combinedGenreType)
@@ -80,7 +80,7 @@ int GenreRytecTextMapper::GetGenreTypeFromText(const std::string& genreText, con
 
   if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED)
   {
-    if (m_settings.GetLogMissingGenreMappings())
+    if (m_settings->GetLogMissingGenreMappings())
       Logger::Log(LEVEL_INFO, "%s: Tried to find genre text but no value: '%s', show - '%s'", __func__, genreText.c_str(), showName.c_str());
 
     std::string genreMajorText = GetMatchTextFromString(genreText, m_genreMajorPattern);
@@ -89,7 +89,7 @@ int GenreRytecTextMapper::GetGenreTypeFromText(const std::string& genreText, con
     {
       genreType = LookupGenreValueInMaps(genreMajorText);
 
-      if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && m_settings.GetLogMissingGenreMappings())
+      if (genreType == EPG_EVENT_CONTENTMASK_UNDEFINED && m_settings->GetLogMissingGenreMappings())
         Logger::Log(LEVEL_INFO, "%s: Tried to find major genre text but no value: '%s', show - '%s'", __func__, genreMajorText.c_str(), showName.c_str());
     }
   }
@@ -123,8 +123,8 @@ void GenreRytecTextMapper::LoadGenreTextMappingFiles()
   if (!LoadTextToIdGenreFile(GENRE_KODI_DVB_FILEPATH, m_kodiGenreTextToDvbIdMap))
     Logger::Log(LEVEL_ERROR, "%s Could not load text to genre id file: %s", __func__, GENRE_KODI_DVB_FILEPATH.c_str());
 
-  if (!LoadTextToIdGenreFile(Settings::GetInstance().GetMapRytecTextGenresFile(), m_genreMap))
-    Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __func__, Settings::GetInstance().GetMapRytecTextGenresFile().c_str());
+  if (!LoadTextToIdGenreFile(m_settings->GetMapRytecTextGenresFile(), m_genreMap))
+    Logger::Log(LEVEL_ERROR, "%s Could not load genre id to dvb id file: %s", __func__, m_settings->GetMapRytecTextGenresFile().c_str());
 }
 
 bool GenreRytecTextMapper::LoadTextToIdGenreFile(const std::string& xmlFile, std::map<std::string, int>& map)

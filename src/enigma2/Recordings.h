@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Channels.h"
+#include "InstanceSettings.h"
 #include "data/RecordingEntry.h"
 #include "extract/EpgEntryExtractor.h"
 
@@ -30,7 +31,7 @@ namespace enigma2
   class ATTR_DLL_LOCAL Recordings
   {
   public:
-    Recordings(IConnectionListener& connectionListener, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor);
+    Recordings(IConnectionListener& connectionListener, std::shared_ptr<enigma2::InstanceSettings>& settings, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor);
     void GetRecordings(std::vector<kodi::addon::PVRRecording>& recordings, bool deleted);
     int GetNumRecordings(bool deleted) const;
     void ClearRecordings(bool deleted);
@@ -76,5 +77,7 @@ namespace enigma2
     Channels& m_channels;
     Providers& m_providers;
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
+
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } //namespace enigma2

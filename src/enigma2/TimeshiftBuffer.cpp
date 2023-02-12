@@ -7,20 +7,20 @@
 
 #include "TimeshiftBuffer.h"
 
-#include "Settings.h"
+#include "InstanceSettings.h"
 #include "StreamReader.h"
 #include "utilities/Logger.h"
 
 using namespace enigma2;
 using namespace enigma2::utilities;
 
-TimeshiftBuffer::TimeshiftBuffer(IStreamReader* streamReader) : m_streamReader(streamReader)
+TimeshiftBuffer::TimeshiftBuffer(IStreamReader* streamReader, std::shared_ptr<InstanceSettings>& settings) : m_streamReader(streamReader)
 {
-  m_bufferPath = Settings::GetInstance().GetTimeshiftBufferPath() + "/tsbuffer.ts";
-  unsigned int readTimeout = Settings::GetInstance().GetReadTimeoutSecs();
+  m_bufferPath = settings->GetTimeshiftBufferPath() + "/tsbuffer.ts";
+  unsigned int readTimeout = settings->GetReadTimeoutSecs();
   m_readTimeout = (readTimeout) ? readTimeout : DEFAULT_READ_TIMEOUT;
-  if (Settings::GetInstance().EnableTimeshiftDiskLimit())
-    m_timeshiftBufferByteLimit = Settings::GetInstance().GetTimeshiftDiskLimitBytes();
+  if (settings->EnableTimeshiftDiskLimit())
+    m_timeshiftBufferByteLimit = settings->GetTimeshiftDiskLimitBytes();
 
   m_filebufferWriteHandle.OpenFileForWrite(m_bufferPath, true);
   std::this_thread::sleep_for(std::chrono::milliseconds(100));

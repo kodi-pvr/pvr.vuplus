@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<settings version="1">
+  <section id="addon" help="-1">
+
+    <!-- Connection -->
+    <category id="connection" label="30005" help="30600">
+      <group id="1" label="30038">
+        <setting id="host" type="string" label="30000" help="30601">
+          <level>0</level>
+          <default>127.0.0.1</default>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="webport" type="integer" label="30012" help="30602">
+          <level>0</level>
+          <default>80</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>65535</maximum>
+          </constraints>
+          <control type="edit" format="integer" />
+        </setting>
+        <setting id="use_secure" type="boolean" label="30028" help="30603">
+          <level>1</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="2" label="30051">
+        <setting id="user" type="string" label="30003" help="30604">
+          <level>1</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="pass" type="string" label="30004" help="30605">
+          <level>1</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string">
+            <hidden>true</hidden>
+          </control>
+        </setting>
+      </group>
+      <group id="3" label="30039">
+        <setting id="autoconfig" type="boolean" label="30029" help="30606">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="streamport" type="integer" label="30002" help="30607">
+          <level>2</level>
+          <default>8001</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>65535</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="autoconfig">false</dependency>
+          </dependencies>
+          <control type="edit" format="integer" />
+        </setting>
+        <setting id="use_secure_stream" type="boolean" label="30066" help="30608">
+          <level>2</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="autoconfig">false</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="use_login_stream" type="boolean" label="30067" help="30609">
+          <level>2</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="autoconfig">false</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="4" label="30020">
+        <setting id="connectionchecktimeout" type="integer" label="30121" help="30610">
+          <level>3</level>
+          <default>30</default>
+          <constraints>
+            <minimum>10</minimum>
+            <step>10</step>
+            <maximum>60</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14045</formatlabel>
+          </control>
+        </setting>
+        <setting id="connectioncheckinterval" type="integer" label="30122" help="30611">
+          <level>3</level>
+          <default>10</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>60</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14045</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- General -->
+    <category id="general" label="30018" help="30620">
+      <group id="1" label="30007">
+        <setting id="setprogramid" type="boolean" label="30014" help="30629">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+
+      <group id="2" label="30006">
+        <setting id="onlinepicons" type="boolean" label="30027" help="30621">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="useopenwebifpiconpath" type="boolean" parent="onlinepicons" label="30103" help="30622">
+          <level>1</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="enable" setting="onlinepicons">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="usepiconseuformat" type="boolean" label="30035" help="30623">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="iconpath" type="path" label="30008" help="30624">
+          <level>1</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+            <writable>true</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="onlinepicons">false</dependency>
+          </dependencies>
+          <control type="button" format="path">
+            <heading>657</heading>
+          </control>
+        </setting>
+      </group>
+
+      <group id="3" label="30009">
+        <setting id="updateint" type="integer" label="30015" help="30625">
+          <level>1</level>
+          <default>2</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>1440</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14044</formatlabel>
+          </control>
+        </setting>
+        <setting id="updatemode" type="integer" label="30100" help="30626">
+          <level>1</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30101">0</option> <!-- TIMERS_AND_RECORDINGS -->
+              <option label="30102">1</option> <!-- TIMERS_ONLY -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
+        <setting id="channelandgroupupdatemode" type="integer" label="30116" help="30627">
+          <level>2</level>
+          <default>2</default>
+          <constraints>
+            <options>
+              <option label="30117">0</option> <!-- DISABLED -->
+              <option label="30118">1</option> <!-- NOTIFY_AND_LOG -->
+              <option label="30119">2</option> <!-- RELOAD_CHANNELS_AND_GROUPS -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
+        <setting id="channelandgroupupdatehour" type="integer" label="30120" help="30628">
+          <level>2</level>
+          <default>4</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>23</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <or>
+                <condition setting="channelandgroupupdatemode" operator="is">1</condition>
+                <condition setting="channelandgroupupdatemode" operator="is">2</condition>
+              </or>
+            </dependency>
+          </dependencies>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>17998</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- Channels -->
+    <category id="channels" label="30019" help="30640">
+      <group id="1" label="30018">
+        <setting id="zap" type="boolean" label="30013" help="30642">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="usegroupspecificnumbers" type="boolean" label="30016" help="30655">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="usestandardserviceref" type="boolean" label="30126" help="30641">
+          <level>3</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="2" label="30161">
+        <setting id="defaultprovidername" type="string" label="30160" help="30658">
+          <level>2</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="providermapfile" type="path" label="30159" help="30657">
+          <level>2</level>
+          <default>special://userdata/addon_data/pvr.vuplus/providers/providerMappings.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+        <setting id="retrieveprovidername" type="boolean" label="30152" help="30656">
+          <level>3</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="3" label="30056">
+        <setting id="tvgroupmode" type="integer" label="30025" help="30643">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30074">0</option> <!-- ALL_GROUPS -->
+              <option label="30075">1</option> <!-- SOME_GROUPS -->
+              <option label="30078">2</option> <!-- FAVOURITES_GROUP -->
+              <option label="30131">3</option> <!-- CUSTOM_GROUPS -->
+            </options>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="numtvgroups" type="integer" parent="tvgroupmode" label="30134" help="30653">
+          <level>0</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>5</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">1</dependency>
+          </dependencies>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="onetvgroup" type="string" parent="tvgroupmode" label="30026" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">1</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="twotvgroup" type="string" parent="tvgroupmode" label="30135" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">1</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="threetvgroup" type="string" parent="tvgroupmode" label="30136" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">2</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fourtvgroup" type="string" parent="tvgroupmode" label="30137" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">3</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fivetvgroup" type="string" parent="tvgroupmode" label="30138" help="30644">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+                <condition setting="numtvgroups" operator="gt">4</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+
+        <setting id="customtvgroupsfile" type="path" parent="tvgroupmode" label="30132" help="30651">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/channelGroups/customTVGroups-example.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">3</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+        <setting id="tvfavouritesmode" type="integer" label="30068" help="30645">
+          <level>2</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30430">0</option> <!-- DISABLED -->
+              <option label="30076">1</option> <!-- AS_FIRST_GROUP -->
+              <option label="30077">2</option> <!-- AS_LAST_GROUP -->
+            </options>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <or>
+                <condition setting="tvgroupmode" operator="is">0</condition>
+                <condition setting="tvgroupmode" operator="is">1</condition>
+              </or>
+            </dependency>
+          </dependencies>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="excludelastscannedtv" type="boolean" label="30114" help="30646">
+          <level>3</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="tvgroupmode" operator="is">0</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="4" label="30057">
+        <setting id="radiogroupmode" type="integer" label="30058" help="30647">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30074">0</option> <!-- ALL_GROUPS -->
+              <option label="30075">1</option> <!-- SOME_GROUPS -->
+              <option label="30078">2</option> <!-- FAVOURITES_GROUP -->
+              <option label="30131">3</option> <!-- CUSTOM_GROUPS -->
+            </options>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+
+        <setting id="numradiogroups" type="integer" parent="radiogroupmode" label="30139" help="30654">
+          <level>0</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>5</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">1</dependency>
+          </dependencies>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="oneradiogroup" type="string" parent="radiogroupmode" label="30059" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">1</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="tworadiogroup" type="string" parent="radiogroupmode" label="30140" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">1</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="threeradiogroup" type="string" parent="radiogroupmode" label="30141" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">2</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fourradiogroup" type="string" parent="radiogroupmode" label="30142" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">3</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="fiveradiogroup" type="string" parent="radiogroupmode" label="30143" help="30648">
+          <level>0</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <and>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+                <condition setting="numradiogroups" operator="gt">4</condition>
+              </and>
+            </dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+
+        <setting id="customradiogroupsfile" type="path" parent="radiogroupmode" label="30133" help="30652">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/channelGroups/customRadioGroups-example.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">3</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+        <setting id="radiofavouritesmode" type="integer" label="30069" help="30649">
+          <level>2</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30430">0</option> <!-- DISABLED -->
+              <option label="30076">1</option> <!-- AS_FIRST_GROUP -->
+              <option label="30077">2</option> <!-- AS_LAST_GROUP -->
+            </options>
+          </constraints>
+          <dependencies>
+            <dependency type="visible">
+              <or>
+                <condition setting="radiogroupmode" operator="is">0</condition>
+                <condition setting="radiogroupmode" operator="is">1</condition>
+              </or>
+            </dependency>
+          </dependencies>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="excludelastscannedradio" type="boolean" label="30114" help="30650">
+          <level>3</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="radiogroupmode" operator="is">0</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+
+    <!-- EPG -->
+    <category id="epg" label="30032" help="30660">
+      <group id="1" label="30031">
+        <setting id="extractshowinfoenabled" type="boolean" label="30033" help="30661">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="extractshowinfofile" type="path" parent="extractshowinfoenabled" label="30046" help="30662">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus/showInfo/English-ShowInfo.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="extractshowinfoenabled" operator="is">true</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2" label="30053">
+        <setting id="genreidmapenabled" type="boolean" label="30054" help="30663">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="genreidmapfile" type="path" parent="genreidmapenabled" label="30055" help="30664">
+          <level>2</level>
+          <default>special://userdata/addon_data/pvr.vuplus/genres/genreIdMappings/Sky-UK.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="genreidmapenabled" operator="is">true</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="3" label="30047">
+        <setting id="rytecgenretextmapenabled" type="boolean" label="30048" help="30665">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="rytecgenretextmapfile" type="path" parent="rytecgenretextmapenabled" label="30049" help="30666">
+          <level>2</level>
+          <default>special://userdata/addon_data/pvr.vuplus/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml</default>
+          <constraints>
+            <allowempty>false</allowempty>
+            <writable>false</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="rytecgenretextmapenabled" operator="is">true</dependency>
+          </dependencies>
+          <control type="button" format="file">
+            <heading>1033</heading>
+          </control>
+        </setting>
+        <setting id="logmissinggenremapping" type="boolean" parent="rytecgenretextmapenabled" label="30037" help="30667">
+          <level>2</level>
+          <default>false</default>
+          <dependencies>
+            <dependency type="visible" setting="rytecgenretextmapenabled" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+      <group id="4" label="30105">
+        <setting id="epgdelayperchannel" type="integer" label="30106" help="30668">
+          <level>2</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>250</step>
+            <maximum>5000</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14046</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- Recordings -->
+    <category id="recordings" label="30070" help="30680">
+      <group id="1" label="30071">
+        <setting id="storeextrarecordinginfo" type="boolean" label="30127" help="30681">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="sharerecordinglastplayed" type="integer" parent="storeextrarecordinginfo" label="30128" help="30682">
+          <level>0</level>
+          <default>0</default>
+          <dependencies>
+            <dependency type="enable" setting="storeextrarecordinginfo" operator="is">true</dependency>
+          </dependencies>
+          <constraints>
+            <options>
+              <option label="30129">0</option> <!-- ACROSS_KODI_INSTANCES -->
+              <option label="30130">1</option> <!-- ACROSS_KODI_AND_E2_INSTANCES -->
+            </options>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+      </group>
+
+      <group id="2" label="30157">
+        <setting id="virtualfolders" type="boolean" label="30085" help="30691">
+          <level>2</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="keepfolders" type="boolean" label="30030" help="30685">
+          <level>2</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="keepfoldersomitlocation" type="boolean" parent="keepfolders" label="30084" help="30690">
+          <level>2</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="keepfolders">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+
+      <group id="3" label="30158">
+        <setting id="recordingsrecursive" type="boolean" label="30022" help="30689">
+          <level>2</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="onlycurrent" type="boolean" label="30017" help="30684">
+          <level>2</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+      </group>
+
+      <group id="4" label="30107">
+        <setting id="enablerecordingedls" type="boolean" label="30108" help="30686">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="edlpaddingstart" type="integer" parent="enablerecordingedls" label="30109" help="30687">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>-10000</minimum>
+            <step>500</step>
+            <maximum>10000</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="enablerecordingedls">true</dependency>
+          </dependencies>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14046</formatlabel>
+          </control>
+        </setting>
+        <setting id="edlpaddingstop" type="integer" parent="enablerecordingedls" label="30110" help="30688">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>-10000</minimum>
+            <step>500</step>
+            <maximum>10000</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="enablerecordingedls">true</dependency>
+          </dependencies>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14046</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- Timers-->
+    <category id="timers" label="30072" help="30700">
+      <group id="1" label="30072">
+        <setting id="enablegenrepeattimers" type="boolean" label="30036" help="30701">
+          <level>1</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="numgenrepeattimers" type="integer" parent="enablegenrepeattimers" label="30073" help="30702">
+          <level>1</level>
+          <default>1</default>
+          <constraints>
+            <minimum>1</minimum>
+            <step>1</step>
+            <maximum>10</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="enablegenrepeattimers">true</dependency>
+          </dependencies>
+          <control type="edit" format="integer" />
+        </setting>
+        <setting id="timerlistcleanup" type="boolean" label="30011" help="30703">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="recordingpath" type="string" label="30023" help="30683">
+          <level>2</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+      </group>
+      <group id="2" label="30123">
+        <setting id="enableautotimers" type="boolean" label="30034" help="30704">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="limitanychannelautotimers" type="boolean" label="30124" help="30705">
+          <level>2</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="enableautotimers" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="limitanychannelautotimerstogroups" type="boolean" parent="limitanychannelautotimers" label="30125" help="30706">
+          <level>2</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="visible" setting="enableautotimers" operator="is">true</dependency>
+            <dependency type="enable" setting="limitanychannelautotimers">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+      </group>
+    </category>
+
+    <!-- Timeshift -->
+    <category id="timeshift" label="30060" help="30720">
+      <group id="1" label="30060">
+        <setting id="enabletimeshift" type="integer" label="30061" help="30721">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30063">0</option> <!-- OFF -->
+              <option label="30064">1</option> <!-- ON_PLAYBACK -->
+              <option label="30065">2</option> <!-- ON_PAUSE -->
+            </options>
+          </constraints>
+          <control type="spinner" format="integer" />
+        </setting>
+        <setting id="timeshiftbufferpath" type="path" parent="enabletimeshift" label="30062" help="30722">
+          <level>0</level>
+          <default>special://userdata/addon_data/pvr.vuplus</default>
+          <constraints>
+            <allowempty>true</allowempty>
+            <writable>true</writable>
+          </constraints>
+          <dependencies>
+            <dependency type="enable" setting="enabletimeshift" operator="gt">0</dependency>
+          </dependencies>
+          <control type="button" format="path">
+            <heading>657</heading>
+          </control>
+        </setting>
+        <setting id="enabletimeshiftdisklimit" type="boolean" label="30153" help="30727">
+          <level>0</level>
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="timeshiftdisklimit" type="number" label="30154" help="30628">
+          <level>0</level>
+          <default>4.0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>0.1</step>
+            <maximum>128</maximum>
+          </constraints>
+          <dependencies>
+            <dependency type="visible" setting="enabletimeshiftdisklimit" operator="is">true</dependency>
+          </dependencies>
+          <control type="slider" format="number">
+            <formatlabel>30155</formatlabel>
+          </control>
+        </setting>
+      </group>
+      <group id="2" label="30147">
+        <setting id="timeshiftEnabledIptv" type="boolean" label="30148" help="30723">
+          <level>0</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="useFFmpegReconnect" type="boolean" parent="timeshiftEnabledIptv" label="30149" help="30724">
+          <level>3</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftEnabledIptv" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="useMpegtsForUnknownStreams" type="boolean" parent="timeshiftEnabledIptv" label="30150" help="30725">
+          <level>3</level>
+          <default>true</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftEnabledIptv" operator="is">true</dependency>
+          </dependencies>
+          <control type="toggle" />
+        </setting>
+        <setting id="ffmpegdirectSettings" type="action" label="30151" help="30726">
+          <level>0</level>
+          <data>Addon.OpenSettings(inputstream.ffmpegdirect)</data>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftEnabledIptv" operator="is">true</dependency>
+          </dependencies>
+          <control type="button" format="action">
+            <close>true</close>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- Backend -->
+    <category id="backend" label="30086" help="30760">
+      <group id="1" label="30090">
+        <setting id="webifversion" type="string" label="30091" help="30761">
+          <level>0</level>
+          <default>N/A</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="autotimertagintags" type="string" label="30092" help="30762">
+          <level>0</level>
+          <default>N/A</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="autotimernameintags" type="string" label="30093" help="30763">
+          <level>0</level>
+          <default>N/A</default>
+          <dependencies>
+            <dependency type="enable" setting="timeshiftbufferpath" operator="is">AnyTextThatDoesNotMatch</dependency>
+          </dependencies>
+          <control type="edit" format="string" />
+        </setting>
+      </group>
+
+      <group id="2" label="30145">
+        <setting id="wakeonlanmac" type="string" label="30146" help="30766">
+          <level>1</level>
+          <default></default>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string" />
+        </setting>
+        <setting id="powerstatemode" type="integer" label="30024" help="30742">
+          <level>1</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30430">0</option> <!-- DISABLED -->
+              <option label="30097">1</option> <!-- STANDBY -->
+              <option label="30098">2</option> <!-- DEEP_STANDBY -->
+              <option label="30099">3</option> <!-- WAKEUP_THEN_STANDBY -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
+      </group>
+
+      <group id="3" label="30087">
+        <setting id="globalstartpaddingstb" type="integer" label="30088" help="30764">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>120</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14044</formatlabel>
+          </control>
+        </setting>
+        <setting id="globalendpaddingstb" type="integer" label="30089" help="30765">
+          <level>0</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>120</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14044</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+
+    <!-- Advanced -->
+    <category id="advanced" label="30020" help="30740">
+      <group id="1" label="30052">
+        <setting id="prependoutline" type="integer" label="30040" help="30741">
+          <level>1</level>
+          <default>0</default>
+          <constraints>
+            <options>
+              <option label="30042">0</option> <!-- NEVER -->
+              <option label="30043">1</option> <!-- IN_EPG -->
+              <option label="30044">2</option> <!-- IN_RECORDINGS -->
+              <option label="30045">3</option> <!-- ALWAYS -->
+            </options>
+          </constraints>
+          <control type="list" format="integer" />
+        </setting>
+        <setting id="readtimeout" type="integer" label="30050" help="30743">
+          <level>3</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>1</step>
+            <maximum>60</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14045</formatlabel>
+          </control>
+        </setting>
+        <setting id="streamreadchunksize" type="integer" label="30041" help="30744">
+          <level>3</level>
+          <default>0</default>
+          <constraints>
+            <minimum>0</minimum>
+            <step>4</step>
+            <maximum>128</maximum>
+          </constraints>
+          <control type="slider" format="integer">
+            <popup>true</popup>
+            <formatlabel>14049</formatlabel>
+          </control>
+        </setting>
+      </group>
+    </category>
+  </section>
+</settings>
