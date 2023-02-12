@@ -298,7 +298,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <summary lang="en_NZ">Kodi&apos;s frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="en_US">Kodi&apos;s frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="es_AR">Kodi frontend para decodificadores equipados con VU+/Enigma2</summary>
-    <summary lang="es_ES">Frontend Kodi para decodificadores basados en VU+/Enigma2</summary>
+    <summary lang="es_ES">Interfaz de Kodi para decodificadores basados en Enigma2</summary>
     <summary lang="es_MX">Kodi frontend para cajas fijas basadas en VU + / Enigma2</summary>
     <summary lang="et_EE">Kodi liides Enigma2 põhistele digiboksidele</summary>
     <summary lang="fi_FI">Enigma2-pohjaisten vastaanottimien käyttöliittymä Kodille</summary>
@@ -350,7 +350,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
-    <description lang="es_ES">Frontend VU+; soporta TV en vivo, grabaciones, guía de programación (EPG) y temporizadores.</description>
+    <description lang="es_ES">Interfaz Enigma2 - soporta transmisión de TV en directo y grabaciones, EPG, temporizadores, temporizadores automáticos.[CR] [CR]Para documentación visite: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="es_MX">VU+ frontend; Soportando transmisión de TV en directo y grabaciones, EPG, Temporizadores.</description>
     <description lang="et_EE">Enigma2 liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.;    [CR] Dokumentatsiooni leiab aadressilt https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="fi_FI">Enigma2-käyttöliittymä, joka tukee televisiolähetysten ja tallenteiden suoratoistoa, ohjelmaopasta ja ajastuksia. Ohjeita löydät osoitteesta: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.    </description>
@@ -402,7 +402,7 @@ Full changelog here: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/pvr.vupl
     <disclaimer lang="en_NZ">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
     <disclaimer lang="en_US">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
     <disclaimer lang="es_AR">¡Este software es inestable! Los autores no se responsabilizan por grabaciones fallidas, temporizadores incorrectos, horas perdidas, o cualquier otro efecto no deseado..</disclaimer>
-    <disclaimer lang="es_ES">¡Este es un software inestable! Los autores no son de ninguna manera responsables de las grabaciones fallidas o incorrectas, las temporizadores perdidas, ni otros efectos no deseables..</disclaimer>
+    <disclaimer lang="es_ES">¡Este software es inestable! Los autores no se hacen responsables de grabaciones fallidas, temporizadores incorrectos, horas perdidas o cualquier otro efecto no deseado...</disclaimer>
     <disclaimer lang="es_MX">¡Esto es software inestable! Los autores no son de ninguna manera responsables por grabaciones fallidas, temporizadores incorrectos, horas perdidas o cualquier otro efecto no deseado...</disclaimer>
     <disclaimer lang="et_EE">See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nurjunud salvestiste, ebatäpsete taimerite, raisatud tundide ega muude soovimatute asjade eest.</disclaimer>
     <disclaimer lang="eu_ES">Software hau ezegonkorra da! Egilea ez da arduratzen grabazio-erroreetaz, kronometro-erroreetaz, ordu galduetaz edo beste edozein ondorio ezerosoetaz.</disclaimer>
