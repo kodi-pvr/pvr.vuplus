@@ -5,29 +5,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-06-28 08:29+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2023-02-02 10:59+0000\n"
+"Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Frontend con Kodi per i settop box basati su VU+ / Enigma2"
+msgstr "Frontend Kodi per ricevitori basati su Enigma2"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "Frontend VU+; supporta EPG, i timer e lo streaming della TV dal vivo e delle registrazioni."
+msgstr "Frontend Enigma2: supporta lo stream e la registrazione di Live TV, EPG, timer, timer automatici. Per la documentazione visita: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "Questo software è instabile! Gli autori non sono in alcun modo responsabile per le fallite registrazioni, timer non corretti, ore perse o qualsiasi altro effetto non desiderato..."
+msgstr "Questo è un software instabile! Gli autori non sono in alcun modo responsabili per registrazioni fallite, timer errati, ore sprecate o qualsiasi altro effetto indesiderato."
 
 #. ##################
 #. settings labels #
@@ -35,13 +35,13 @@ msgstr "Questo software è instabile! Gli autori non sono in alcun modo responsa
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
-msgstr ""
+msgstr "Nome host o indirizzo IP di Enigma2"
 
 # empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr ""
+msgstr "Porta streaming"
 
 #. label: Connection - user
 msgctxt "#30003"
@@ -66,38 +66,38 @@ msgstr "Icone"
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr ""
+msgstr "Stream programma"
 
 #. label: General - iconpath
 msgctxt "#30008"
 msgid "Icon path"
-msgstr ""
+msgstr "Percorso icona"
 
 #. label-group: General - Update Interval
 msgctxt "#30009"
 msgid "Update Interval"
-msgstr ""
+msgstr "Intervallo aggiornamento"
 
 # empty string with id 30010
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
-msgstr ""
+msgstr "Pulizia automatica elenco timer"
 
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr ""
+msgstr "Porta interfaccia web"
 
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr ""
+msgstr "Zap prima del cambio canale (ricevitori singolo tuner)"
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr ""
+msgstr "Imposta ID programma per canale live o stream registrati"
 
 #. label: General - updateint
 msgctxt "#30015"
@@ -107,12 +107,12 @@ msgstr "Intervallo aggiornamento"
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr ""
+msgstr "Usa i numeri di canale specifici del bouquet dal backend"
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr ""
+msgstr "Usa solo il percorso di registrazione attuale del backend"
 
 #. label-category: general
 #. label-group: Channels
@@ -135,52 +135,52 @@ msgstr "Avanzate"
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
-msgstr ""
+msgstr "Usa elenco ricorsivo per le posizioni di registrazione"
 
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr ""
+msgstr "Nuova cartella di registrazione predefinita del timer"
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr ""
+msgstr "Invia lo stato di alimentazione all'uscita dall'add-on"
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
-msgstr ""
+msgstr "Modalità recupero bouquet TV"
 
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr ""
+msgstr "TV bouquet 1"
 
 #. label: General - onlinepicons
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr ""
+msgstr "Recupera picon dall'interfaccia web"
 
 #. label: Connection - use_secure
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
-msgstr ""
+msgstr "Usa HTTP sicuro (https)"
 
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "Abilita configurazione automatica per trasmissioni in diretta"
+msgstr "Abilita configurazione automatica per trasmissioni live"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
-msgstr ""
+msgstr "Mantieni la struttura delle cartelle per le registrazioni"
 
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr ""
+msgstr "Stagioni ed episodi"
 
 #. label-category: epg
 msgctxt "#30032"
@@ -190,47 +190,47 @@ msgstr "EPG"
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr ""
+msgstr "Estrai le informazioni su stagione, episodio e anno ove possibile"
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr ""
+msgstr "Abilita timer automatici"
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr ""
+msgstr "Usa formato file picons.eu"
 
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
-msgstr ""
+msgstr "Abilita generazione di timer ripetuti"
 
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr ""
+msgstr "Crea registro mappature di testo di generi mancanti"
 
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
 msgid "Web Interface"
-msgstr ""
+msgstr "Interfaccia web"
 
 #. label-group: Connection - Streaming
 msgctxt "#30039"
 msgid "Streaming"
-msgstr ""
+msgstr "Streaming"
 
 #. label: Advanced - prependoutline
 msgctxt "#30040"
 msgid "Put outline (e.g. sub-title) before plot"
-msgstr ""
+msgstr "Metti il contorno (ad es. il sottotitolo) prima della trama"
 
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr ""
+msgstr "Dimensione blocco di lettura stream"
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
@@ -255,27 +255,27 @@ msgstr "Sempre"
 #. label: EPG - extractshowinfofile
 msgctxt "#30046"
 msgid "Extract show info file"
-msgstr ""
+msgstr "Estrai file di informazioni sullo spettacolo"
 
 #. label-group: EPG - Rytec genre text Mappings
 msgctxt "#30047"
 msgid "Rytec genre text Mappings"
-msgstr ""
+msgstr "Mappature testo genere Rytec"
 
 #. label: EPG - rytecgenretextmapenabled
 msgctxt "#30048"
 msgid "Enable Rytec genre text mappings"
-msgstr ""
+msgstr "Abilita mappature testo genere Rytec"
 
 #. label: EPG - rytecgenretextmapfile
 msgctxt "#30049"
 msgid "Rytec genre text mappings file"
-msgstr ""
+msgstr "File mappature testo genere Rytec"
 
 #. label: Advanced - readtimeout
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
-msgstr ""
+msgstr "Timeout Live TV personalizzato (0 è l'impostazione predefinita)"
 
 #. label-group: Connection - Login
 msgctxt "#30051"
@@ -290,17 +290,17 @@ msgstr "Varie"
 #. label-group: EPG - Genre ID Mappings
 msgctxt "#30053"
 msgid "Genre ID Mappings"
-msgstr ""
+msgstr "Mappature genere ID"
 
 #. label: EPG - genreidmapenabled
 msgctxt "#30054"
 msgid "Enable genre ID Mappings"
-msgstr ""
+msgstr "Abilita mappature genere ID"
 
 #. label: EPG - genreidmapfile
 msgctxt "#30055"
 msgid "Genre ID mappings file"
-msgstr ""
+msgstr "File mappature genere ID"
 
 #. label-group: Channels - TV
 msgctxt "#30056"
@@ -315,12 +315,12 @@ msgstr "Radio"
 #. label: Channels - radiogroupmode
 msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
-msgstr ""
+msgstr "Modalità recupero bouquet Radio"
 
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
 msgid "Radio bouquet 1"
-msgstr ""
+msgstr "Radio bouquet 1"
 
 #. label-category: timeshift
 #. label-group: Timeshift - Timeshift
@@ -331,12 +331,12 @@ msgstr "Timeshift"
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr ""
+msgstr "Abilita timeshift"
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Path per il buffer del timeshift"
+msgstr "Percorso buffer timeshift"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -356,22 +356,22 @@ msgstr "In pausa"
 #. label: Connection - use_secure_stream
 msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
-msgstr ""
+msgstr "Usa HTTP sicuro (https) per lo stream"
 
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr ""
+msgstr "Usa il login per gli stream"
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
 msgid "Fetch TV favourites bouquet"
-msgstr ""
+msgstr "Recupera bouquet dai preferiti della TV"
 
 #. label: Channels - radiofavouritesmode
 msgctxt "#30069"
 msgid "Fetch radio favourites bouquet"
-msgstr ""
+msgstr "Recupera bouquet dai preferiti della Radio"
 
 #. label-category: recordings
 msgctxt "#30070"
@@ -392,118 +392,118 @@ msgstr "Timer"
 #. label: Timers - numgenrepeattimers
 msgctxt "#30073"
 msgid "Number of repeat timers to generate"
-msgstr ""
+msgstr "Numero di ripetizioni dei timer da creare"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30074"
 msgid "All bouquets"
-msgstr ""
+msgstr "Tutti i bouquet"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30075"
 msgid "Some bouquets"
-msgstr ""
+msgstr "Alcuni bouquet"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30076"
 msgid "As first bouquet"
-msgstr ""
+msgstr "Come primo bouquet"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30077"
 msgid "As last bouquet"
-msgstr ""
+msgstr "Come ultimo bouquet"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30078"
 msgid "Favourites bouquet"
-msgstr ""
+msgstr "Bouquet preferiti"
 
 #. application: ChannelGroups
 msgctxt "#30079"
 msgid "Favourites (TV)"
-msgstr ""
+msgstr "Preferiti (TV)"
 
 #. application: ChannelGroups
 msgctxt "#30080"
 msgid "Favourites (Radio)"
-msgstr ""
+msgstr "Preferiti (Radio)"
 
 #. application: Client
 #. application: Admin
 msgctxt "#30081"
 msgid "unknown"
-msgstr ""
+msgstr "sconosciuto"
 
 #. application: Client
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr ""
+msgstr " (Non connesso!)"
 
 #. application: Client
 msgctxt "#30083"
 msgid "addon error"
-msgstr ""
+msgstr "errore add-on"
 
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
 msgid "Omit location path from recording directory"
-msgstr ""
+msgstr "Ometti il percorso della posizione dalla directory di registrazione"
 
 #. label: Recordings - virtualfolders
 msgctxt "#30085"
 msgid "Group recordings into folders by title"
-msgstr ""
+msgstr "Raggruppa le registrazioni in cartelle per titolo"
 
 #. label-category: backend
 msgctxt "#30086"
 msgid "Backend"
-msgstr ""
+msgstr "Backend"
 
 #. label-group: Backend - Recording Padding
 msgctxt "#30087"
 msgid "Recording Padding"
-msgstr ""
+msgstr "Riempimento registrazione"
 
 #. label: Backend - globalstartpaddingstb
 msgctxt "#30088"
 msgid "Global start padding"
-msgstr ""
+msgstr "Riempimento globale all'inizio"
 
 #. label: Backend - globalendpaddingstb
 msgctxt "#30089"
 msgid "Global end padding"
-msgstr ""
+msgstr "Riempimento globale alla fine"
 
 #. label-group: Backend - Device Info
 msgctxt "#30090"
 msgid "Device Info"
-msgstr ""
+msgstr "Informazioni dispositivo"
 
 #. label: Backend - webifversion
 msgctxt "#30091"
 msgid "WebIf version"
-msgstr ""
+msgstr "Versione WebIf"
 
 #. label: Backend - autotimertagintags
 msgctxt "#30092"
 msgid "AutoTimer tag in timer tags"
-msgstr ""
+msgstr "Etichetta timer automatici in etichette timer"
 
 #. label: Backend - autotimernameintags
 msgctxt "#30093"
 msgid "AutoTimer name in timer tags"
-msgstr ""
+msgstr "Nome AutoTimer nei tag dei timer"
 
 #. application: Admin
 msgctxt "#30094"
 msgid "N/A"
-msgstr "N.D"
+msgstr "N.D."
 
 #. application: Admin
 msgctxt "#30095"
@@ -518,42 +518,42 @@ msgstr "Falso"
 #. label-option: Advanced - powerstatemode
 msgctxt "#30097"
 msgid "Standby"
-msgstr ""
+msgstr "Standby"
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30098"
 msgid "Deep standby"
-msgstr ""
+msgstr "Spegnimento"
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30099"
 msgid "Wakeup, then standby"
-msgstr ""
+msgstr "Sveglia, quindi standby"
 
 #. label: General - updatemode
 msgctxt "#30100"
 msgid "Update mode"
-msgstr ""
+msgstr "Modalità aggiornamento"
 
 #. label-option: General - updatemode
 msgctxt "#30101"
 msgid "Timers and recordings"
-msgstr ""
+msgstr "Timer e registrazioni"
 
 #. label-option: General - updatemode
 msgctxt "#30102"
 msgid "Timers only"
-msgstr ""
+msgstr "Solo timer"
 
 #. label: General - useopenwebifpiconpath
 msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
-msgstr ""
+msgstr "Usa percorso picon di OpenWebIf"
 
 #. label: Advanced - tracedebug
 msgctxt "#30104"
 msgid "Enable trace logging in debug mode"
-msgstr ""
+msgstr "Abilita tracciamento log in modalità debug"
 
 #. label-group - EPG - Other
 msgctxt "#30105"
@@ -563,58 +563,58 @@ msgstr "Altro"
 #. label: EPG - epgdelayperchannel
 msgctxt "#30106"
 msgid "EPG update delay per channel"
-msgstr ""
+msgstr "Ritardo aggiornamento EPG per canale"
 
 #. label-group: Recordings - Recording EDLs (Edit Decision Lists)
 msgctxt "#30107"
 msgid "Recording EDLs (Edit Decision Lists)"
-msgstr ""
+msgstr "Registrazione EDL (modifica elenchi di decisioni)"
 
 #. label: Recordings - enablerecordingedls
 msgctxt "#30108"
 msgid "Enable EDLs support"
-msgstr ""
+msgstr "Abilita supporto EDL"
 
 #. label: Recordings - edlpaddingstart
 msgctxt "#30109"
 msgid "EDL start time padding"
-msgstr ""
+msgstr "Riempimento ora di inizio EDL"
 
 #. label: Recordings - edlpaddingstop
 msgctxt "#30110"
 msgid "EDL stop time padding"
-msgstr ""
+msgstr "Riempimento ora di fine EDL"
 
 #. label: Advanced - debugnormal
 msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
-msgstr ""
+msgstr "Abilita registrazione di debug in modalità normale"
 
 #. application: ChannelGroups
 msgctxt "#30112"
 msgid "Last Scanned (TV)"
-msgstr ""
+msgstr "Last Scanned (TV)"
 
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr ""
+msgstr "Last Scanned (Radio)"
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
 msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
-msgstr ""
+msgstr "Escludi bouquet Last Scanned"
 
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
-msgstr ""
+msgstr "Salta caricamento EPG all'inizio"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
 msgid "Channels and groups update mode"
-msgstr ""
+msgstr "Modalità aggiornamento canali e gruppi"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
@@ -624,203 +624,203 @@ msgstr "Disabilitato"
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30118"
 msgid "Notify on UI and Log"
-msgstr ""
+msgstr "Notifica su interfaccia utente e log"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30119"
 msgid "Reload Channels and Groups"
-msgstr ""
+msgstr "Ricarica canali e gruppi"
 
 #. label: General - channelandgroupupdatehour
 msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
-msgstr ""
+msgstr "Orario aggiornamento canali e gruppi (24h)"
 
 #. label: Connection - connectionchecktimeout
 msgctxt "#30121"
 msgid "Connection check timeout"
-msgstr ""
+msgstr "Timeout controllo connessione"
 
 #. label: Connection - connectioncheckinterval
 msgctxt "#30122"
 msgid "Connection check interval"
-msgstr ""
+msgstr "Intervallo controllo connessione"
 
 #. label: Timers - Autotimers
 msgctxt "#30123"
 msgid "Autotimers"
-msgstr ""
+msgstr "Timer automatici"
 
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
 msgid "Limit 'Any Channel' autotimers to TV or Radio"
-msgstr ""
+msgstr "Limita i timer automatici \"Qualsiasi canale\" a TV o Radio"
 
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
-msgstr ""
+msgstr "Limita ai gruppi del canale EPG originale"
 
 #. label: Channels - usestandardserviceref
 msgctxt "#30126"
 msgid "Use standard channel service reference"
-msgstr ""
+msgstr "Usa il canale standard come riferimento al servizio"
 
 #. label: Recordings - storeextrarecordinginfo
 msgctxt "#30127"
 msgid "Store last played/play count on the backend"
-msgstr ""
+msgstr "Memorizza ultima riproduzione/conta riproduzioni sul backend"
 
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr ""
+msgstr "Condividi l'ultima volta che hai riprodotto su:"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
 msgid "Kodi instances"
-msgstr ""
+msgstr "Istanze di Kodi"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30130"
 msgid "Kodi/E2 instances"
-msgstr ""
+msgstr "Istanze Kodi/E2"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30131"
 msgid "Custom bouquets"
-msgstr ""
+msgstr "Bouquet personalizzati"
 
 #. label: Channels - customtvgroupsfile
 msgctxt "#30132"
 msgid "Custom TV bouquets file"
-msgstr ""
+msgstr "File bouquet TV personalizzati"
 
 #. label: Channels - customradiogroupsfile
 msgctxt "#30133"
 msgid "Custom Radio bouquets file"
-msgstr ""
+msgstr "File bouquet Radio personalizzati"
 
 #. label: Channels - numtvgroups
 msgctxt "#30134"
 msgid "Number of TV bouquets"
-msgstr ""
+msgstr "Numero di bouquet TV"
 
 #. label: Channels - twotvgroup
 msgctxt "#30135"
 msgid "TV bouquet 2"
-msgstr ""
+msgstr "TV bouquet 2"
 
 #. label: Channels - threetvgroup
 msgctxt "#30136"
 msgid "TV bouquet 3"
-msgstr ""
+msgstr "TV bouquet 3"
 
 #. label: Channels - fourtvgroup
 msgctxt "#30137"
 msgid "TV bouquet 4"
-msgstr ""
+msgstr "TV bouquet 4"
 
 #. label: Channels - fivetvgroup
 msgctxt "#30138"
 msgid "TV bouquet 5"
-msgstr ""
+msgstr "TV bouquet 5"
 
 #. label: Channels - numradiogroups
 msgctxt "#30139"
 msgid "Number of radio bouquets"
-msgstr ""
+msgstr "Numero di bouquet Radio"
 
 #. label: Channels - tworadiogroup
 msgctxt "#30140"
 msgid "Radio bouquet 2"
-msgstr ""
+msgstr "Radio bouquet 2"
 
 #. label: Channels - threeradiogroup
 msgctxt "#30141"
 msgid "Radio bouquet 3"
-msgstr ""
+msgstr "Radio bouquet 3"
 
 #. label: Channels - fourradiogroup
 msgctxt "#30142"
 msgid "Radio bouquet 4"
-msgstr ""
+msgstr "Radio bouquet 4"
 
 #. label: Channels - fiveradiogroup
 msgctxt "#30143"
 msgid "Radio bouquet 5"
-msgstr ""
+msgstr "Radio bouquet 5"
 
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
-msgstr ""
+msgstr "Nessun add-on registrazione debug nella modalità di debug di Kodi"
 
 #. label-group: Backend - Power Settings
 msgctxt "#30145"
 msgid "Power Settings"
-msgstr ""
+msgstr "Impostazioni alimentazione"
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30146"
 msgid "Wake On LAN MAC"
-msgstr ""
+msgstr "Wake On LAN MAC"
 
 #. label: Timeshift - IPTV
 msgctxt "#30147"
 msgid "IPTV"
-msgstr ""
+msgstr "IPTV"
 
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr ""
+msgstr "Abilita timeshift per stream IPTV"
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr ""
+msgstr "Usa le opzioni di riconnessione http di FFmpeg se possibile"
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
 msgid "Use mpegts MIME type for unknown streams"
-msgstr ""
+msgstr "Usa il tipo MIME mpegts per stream sconosciuti"
 
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
-msgstr ""
+msgstr "- Modifica impostazioni di inputstream.ffmpegdirect..."
 
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
 msgid "Retrieve provider name for channels"
-msgstr ""
+msgstr "Recupera nome provider per i canali"
 
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr ""
+msgstr "Abilita limite disco timeshift"
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr ""
+msgstr "Limite timeshift sul disco"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
 msgid "{0:.1f} GiB"
-msgstr ""
+msgstr "{0:.1f} GiB"
 
 #. label-group: Recordings - Recording Paths
 msgctxt "#30157"
 msgid "Recording Paths"
-msgstr ""
+msgstr "Percorsi di registrazione"
 
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
-msgstr ""
+msgstr "Posizioni di registrazione"
 
 #. ##############
 #. application #
@@ -834,37 +834,37 @@ msgstr "Automatico"
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
-msgstr ""
+msgstr "Timer una volta spento (auto)"
 
 #. application: Timers
 msgctxt "#30421"
 msgid "Once off timer (repeating)"
-msgstr ""
+msgstr "Timer una volta spento (ripetuto)"
 
 #. application: Timers
 msgctxt "#30422"
 msgid "Once off timer (channel)"
-msgstr ""
+msgstr "Timer una volta spento (canale)"
 
 #. application: Timers
 msgctxt "#30423"
 msgid "Repeating time/channel based"
-msgstr ""
+msgstr "Ripetizione basata su tempo/canale"
 
 #. application: Timers
 msgctxt "#30424"
 msgid "One time guide-based"
-msgstr ""
+msgstr "Una volta basata sulla guida"
 
 #. application: Timers
 msgctxt "#30425"
 msgid "Repeating guide-based"
-msgstr ""
+msgstr "Ripetizione basata sulla guida"
 
 #. application: Timers
 msgctxt "#30426"
 msgid "Auto guide-based"
-msgstr ""
+msgstr "Basata sulla guida automatica"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
@@ -877,17 +877,17 @@ msgstr "Disabilitato"
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr ""
+msgstr "Registra se il titolo EPG è diverso"
 
 #. application: Timers
 msgctxt "#30432"
 msgid "Record if EPG title and short description differs"
-msgstr ""
+msgstr "Registra se il titolo EPG e la breve descrizione differiscono"
 
 #. application: Timers
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
-msgstr ""
+msgstr "Registra se il titolo EPG e tutte le descrizioni differiscono"
 
 # empty strings from id 30434 to 30513
 #. ################
@@ -896,48 +896,48 @@ msgstr ""
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr ""
+msgstr "Il percorso del buffer timeshift non esiste"
 
 #. notification: Enigma2
 msgctxt "#30515"
 msgid "Enigma2: Could not reach web interface"
-msgstr ""
+msgstr "Enigma2: impossibile raggiungere l'interfaccia web"
 
 #. notification: Enigma2
 msgctxt "#30516"
 msgid "Enigma2: No channel groups found"
-msgstr ""
+msgstr "Enigma2: nessun gruppo di canali trovato"
 
 #. notification: Enigma2
 msgctxt "#30517"
 msgid "Enigma2: No channels found"
-msgstr ""
+msgstr "Enigma2: nessun canale trovato"
 
 #. notification: Enigma2
 msgctxt "#30518"
 msgid "Enigma2: Channel group changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2: rilevate modifiche al gruppo di canali, riavvia per caricare le modifiche"
 
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2: rilevate modifiche al canale, riavvia per caricare le modifiche"
 
 #. application: AutoTimer
 #. application: Timer
 msgctxt "#30520"
 msgid "Invalid Channel"
-msgstr ""
+msgstr "Canale non valido"
 
 #. notification: Enigma2
 msgctxt "#30521"
 msgid "Enigma2: Channel group changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2: rilevate modifiche al gruppo di canali, ricarica in corso..."
 
 #. notification: Enigma2
 msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2: rilevate modifiche al canale, ricarica in corso..."
 
 # empty strings from id 30523 to 30599
 #. ############
@@ -947,136 +947,136 @@ msgstr ""
 #. help-category: connection
 msgctxt "#30600"
 msgid "This category cotains the settings for connecting to the Enigma2 device"
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni per la connessione al dispositivo Enigma2"
 
 #. help: Connection - host
 msgctxt "#30601"
 msgid "The IP address or hostname of your enigma2 based set-top box."
-msgstr ""
+msgstr "L'indirizzo IP o il nome host del tuo ricevitore basato su Enigma2."
 
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr ""
+msgstr "La porta utilizzata per la connessione all'interfaccia web."
 
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr ""
+msgstr "Usa https per la connessione all'interfaccia web."
 
 #. help: Connection - user
 msgctxt "#30604"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nome utente/password, deve essere impostata in questa opzione."
 
 #. help: Connection - pass
 msgctxt "#30605"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Se l'interfaccia web del ricevitore è protetta con una combinazione nome utente/password, deve essere impostata in questa opzione."
 
 #. help: Connection - autoconfig
 msgctxt "#30606"
 msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
-msgstr ""
+msgstr "Se abilitato, l'URL del flusso verrà letto da un file M3U8. Quando disabilitato viene costruito in base al riferimento al servizio del canale. Questa opzione è raramente richiesta e non dovrebbe essere abilitata a meno che tu non abbia un caso d'uso speciale. Se stai visualizzando un flusso IPTV questa opzione non ha effetto su quei canali."
 
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr ""
+msgstr "Questa opzione definisce la porta di streaming utilizzata dal ricevitore per trasmettere in streaming la Live TV. L'impostazione predefinita è 8001, che dovrebbe andare bene se l'utente non ha definito una porta personalizzata all'interno dell'interfaccia web."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr ""
+msgstr "Usa https per connetterti agli stream."
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
 msgid "Use the login username and password for streams."
-msgstr ""
+msgstr "Usa nome utente e password di accesso per gli stream."
 
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
 msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
-msgstr ""
+msgstr "Il valore in secondi per attendere il completamento di un controllo della connessione prima dell'errore. Utile per la messa a punto su vecchi dispositivi Enigma2. Nota, questa impostazione dovrebbe raramente essere modificata. È più probabile che l'impostazione \"Intervallo di controllo della connessione\" abbia l'effetto desiderato. L'impostazione predefinita è 30 secondi."
 
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
-msgstr ""
+msgstr "Il valore in secondi da attendere tra i controlli di connessione. Utile per la messa a punto su vecchi dispositivi Enigma2. L'impostazione predefinita è 10 secondi."
 
 # empty strings from id 30612 to 30619
 #. help info - General
 #. help-category: general
 msgctxt "#30620"
 msgid "This category cotains the settings whivh generally need to be set by the user"
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni che generalmente devono essere impostate dall'utente"
 
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr ""
+msgstr "Recupera picon direttamente dal ricevitore Enigma2."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
 msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
-msgstr ""
+msgstr "Recupera il percorso picon da OpenWebIf invece che da ServiceRef. Richiede OpenWebIf 1.3.5 o versioni successive. Non vi è alcun effetto se utilizzato su una versione inferiore di OpenWebIf."
 
 #. help: General - usepiconseuformat
 msgctxt "#30623"
 msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
-msgstr ""
+msgstr "Si suppone che tutti i file picon recuperati dal ricevitore inizino con '1_1_1_' e terminino con '_0_0_0'."
 
 #. help: General - iconpath
 msgctxt "#30624"
 msgid "In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property."
-msgstr ""
+msgstr "Per poter visualizzare i loghi dei canali di Kodi devi copiare i picon dal tuo ricevitore sulla tua macchina OpenELEC. È quindi necessario specificare questo percorso in questa proprietà."
 
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr ""
+msgstr "Poiché il ricevitore può essere utilizzato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/eliminare timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'add-on controlla gli aggiornamenti. Si prega di notare che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
 
 #. help: General - updatemode
 msgctxt "#30626"
 msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
-msgstr ""
+msgstr "La modalità utilizzata quando viene raggiunto l'intervallo di aggiornamento. Si noti che se viene rilevata una modifica del timer, si verificherà sempre un aggiornamento delle registrazioni indipendentemente dalla modalità di aggiornamento. Scegli tra una delle seguenti due modalità: [B]Timer e registrazioni[/B] Aggiorna tutti i timer e le registrazioni; [B]Solo timer[/B] Aggiorna solo i timer. Se è importante non far girare l'HDD sul tuo ricevitore, usa questa opzione. L'HDD dovrebbe quindi avviarsi solo quando si verifica un evento timer."
 
 #. help: General - channelandgroupupdatemode
 msgctxt "#30627"
 msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
-msgstr ""
+msgstr "La modalità utilizzata quando viene raggiunta l'ora nelle impostazioni successive. Scegli tra una delle seguenti tre modalità: [B]Disabilitato[/B] Non controllare mai le modifiche ai canali e ai gruppi; [B]Notifica sull'interfaccia utente e registro[/B] Visualizza un avviso nell'interfaccia utente e registra il fatto che è stata rilevata una modifica[/B]; [B]Ricarica canali e gruppi[/B] Scollega e ricollega il dispositivo E2 per ricaricare i canali solo se viene rilevata una modifica."
 
 #. help: General - channelandgroupupdatehour
 msgctxt "#30628"
 msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
-msgstr ""
+msgstr "L'ora del giorno in cui dovrebbe verificarsi il controllo dei nuovi canali. L'impostazione predefinita è 4 ore poiché l'Auto Bouquet Maker (ABM) sul dispositivo E2 è impostato alle 3:00."
 
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr ""
+msgstr "Alcuni provider TV (ad es. Nos - Portogallo) che utilizzano MPTS inviano informazioni aggiuntive sul flusso del programma. L'impostazione dell'id del programma consente a Kodi di selezionare lo stream corretto e quindi rende riproducibile il canale/la registrazione. Tieni presente che ci vuole circa il 33% in più per aprire qualsiasi stream con questa opzione abilitata."
 
 # empty strings from id 30630 to 30639
 #. help info - Channels
 #. help-category: channels
 msgctxt "#30640"
 msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni per i canali. Quando si modificano i bouquet potrebbe essere necessario svuotare la cache del canale per rendere effettive le impostazioni. Puoi farlo andando nelle seguenti impostazioni di Kodi: \"Impostazioni->PVR e Live TV->Generale->Svuota cache\"."
 
 #. help: Channels - usestandardserviceref
 msgctxt "#30641"
 msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
-msgstr ""
+msgstr "Di solito i riferimenti del servizio per i canali sono in un formato standard come '1:0:1:27F6:806:2:11A0000:0:0:0:'. A volte, a seconda del provider, possono essere estesi con del testo, ad es. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' o '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1 '. Se questa opzione è abilitata, tutti i riferimenti del servizio di lettura verranno letti come standard. Questo è il comportamento predefinito. Funzionalità come i timer automatici verranno sempre convertite in un riferimento standard."
 
 #. help: Channels - zap
 msgctxt "#30642"
 msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
-msgstr ""
+msgstr "Quando si utilizza l'add-on con un ricevitore con un solo tuner, potrebbe essere necessario che l'add-on debba essere in grado di eseguire lo zap su un altro canale del ricevitore. Se questa opzione è abilitata, ogni cambio di canale in Kodi comporterà anche un cambio di canale sul ricevitore. Si noti che [B]Consenti cambio canale[/B] deve essere abilitato nell'interfaccia web del ricevitore."
 
 #. help: Channels - tvgroupmode
 msgctxt "#30643"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all TV bouquets from the set-top box; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for TV favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr ""
+msgstr "Scegli tra una delle seguenti tre modalità: [B]Tutti i bouquet[/B] Recupera tutti i bouquet TV dal ricevitore; [B]Alcuni bouquet[/B] Recupera solo i bouquet specificati nelle opzioni successive; [B]Gruppo Preferiti[/B] Recupera il bouquet di sistema solo per i preferiti TV; [B]Gruppi personalizzati[/B] Recupera una serie di bouquet dal ricevitore i cui nomi sono caricati da un file XML."
 
 #. help: Channels - onetvgroup
 #. help: Channels - twotvgroup
@@ -1085,22 +1085,22 @@ msgstr ""
 #. help: Channels - fivetvgroup
 msgctxt "#30644"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
-msgstr ""
+msgstr "Se l'opzione precedente è stata impostata su \"Alcuni bouquet\", è necessario specificare un bouquet TV da prelevare dal ricevitore. Si prega di notare che questo è il nome del bouquet come mostrato sul ricevitore (ad esempio \"Preferiti (TV)\"). Questa impostazione fa distinzione tra maiuscole e minuscole."
 
 #. help: Channels - tvfavouritesmode
 msgctxt "#30645"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch TV favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr ""
+msgstr "Se la modalità di recupero è \"Tutti i bouquet\" o \"Alcuni bouquet\", a seconda dell'immagine di Enigma2, potrebbe essere necessario recuperare esplicitamente i preferiti se ne hai bisogno. Le opzioni sono: [B]Disabilitato[/B] Non recuperare esplicitamente i preferiti TV; [B]Come primo bouquet[/B] Recuperali esplicitamente come primo bouquet; [B]Come ultimo bouquet[/B] Recuperali esplicitamente come ultimo bouquet."
 
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr ""
+msgstr "L'ultima scansione è un bouquet di sistema contenente tutti i canali TV e radio trovati nell'ultima scansione. Tutti i canali TV trovati nel bouquet Last Scanned possono essere visualizzati come un gruppo chiamato \"Last Scanned (TV)\" in Kodi. Per la TV questo gruppo è escluso per impostazione predefinita. Disabilita questa opzione per escludere questo gruppo. Si noti che se non sono caricati gruppi TV, l'ultimo gruppo scansionato per TV verrà caricato per impostazione predefinita indipendentemente da questa impostazione."
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr ""
+msgstr "Scegli tra una delle seguenti tre modalità: [B]Tutti i bouquet[/B] Recupera tutti i bouquet radio dal ricevitore[/B]; [B]Alcuni bouquet[/B] Recupera solo i bouquet specificati nelle opzioni successive; [B]Gruppo Preferiti[/B] Recupera il bouquet di sistema solo per i preferiti Radio; [B]Gruppi personalizzati[/B] Recupera una serie di bouquet dal Set-top box i cui nomi sono caricati da un file XML."
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
@@ -1109,324 +1109,324 @@ msgstr ""
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr ""
+msgstr "Se l'opzione precedente è stata impostata su 'Alcuni bouquet' è necessario specificare un bouquet Radio da prelevare dal ricevitore. Si prega di notare che questo è il nome del bouquet come mostrato sul ricevitore (cioè \"Preferiti (Radio)\"). Questa impostazione fa distinzione tra maiuscole e minuscole."
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr ""
+msgstr "Se la modalità di recupero è \"Tutti i bouquet\" o \"Alcuni bouquet\", a seconda dell'immagine di Enigma2, potrebbe essere necessario recuperare esplicitamente i preferiti se ne hai bisogno. Le opzioni sono: [B]Disabilitato[/B] Non recuperare esplicitamente i preferiti Radio; [B]Come primo bouquet[/B] Recuperali esplicitamente come primo bouquet; [B]Come ultimo bouquet[/B] Recuperali esplicitamente come ultimo bouquet."
 
 #. help: Channels - excludelastscannedradio
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr ""
+msgstr "L'ultima scansione è un bouquet di sistema contenente tutti i canali TV e radio trovati nell'ultima scansione. Tutti i canali radio trovati nel bouquet Last Scanned possono essere visualizzati come un gruppo chiamato \"Last Scanned (Radio)\" in Kodi. Per Radio questo gruppo è escluso per impostazione predefinita. Disabilita questa opzione per mostrare questo gruppo."
 
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
 msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
-msgstr ""
+msgstr "Il file utilizzato per caricare i bouquet TV personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (TV)\". Il file predefinito è \"customTVGroups-example.xml\"."
 
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr ""
+msgstr "Il file utilizzato per caricare i bouquet Radio personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (Radio)\". Il file predefinito è \"customRadioGroups-example.xml\"."
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
 msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr ""
+msgstr "Il numero di bouquet TV da caricare quando \"Alcuni bouquet\" è la modalità di recupero selezionata. Se ne possono scegliere fino a 5. Se sono richiesti più di 5, è necessario utilizzare invece la modalità di recupero \"Bouquet personalizzati\"."
 
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr ""
+msgstr "Il numero di bouquet Radio da caricare quando \"Alcuni bouquet\" è la modalità di recupero selezionata. Se ne possono scegliere fino a 5. Se sono richiesti più di 5, è necessario utilizzare invece la modalità di recupero \"Bouquet personalizzati\"."
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
-msgstr ""
+msgstr "Se questa opzione è abilitata, ogni gruppo in Kodi corrisponderà ai numeri di canale esatti utilizzati sui bouquet di backend. Se disabilitato (predefinito), ogni canale avrà un solo numero di canale di backend (prima occorrenza quando viene caricato)."
 
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr ""
+msgstr "Recupera il nome del provider dal backend durante il recupero dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di recupero sui dispositivi meno recenti."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e Live TV-> Guida-> Cancella cache\" in Kodi dopo il riavvio del componente aggiuntivo."
 
 #. help: EPG - extractshowinfoenabled
 msgctxt "#30661"
 msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info."
-msgstr ""
+msgstr "Controlla i campi della descrizione nei dati EPG e tenta di estrarre informazioni su stagione, episodio e anno ove possibile. Inoltre puoi anche estrarre proprietà come nuove informazioni, live e premiere."
 
 #. help: EPG - extractshowinfofile
 msgctxt "#30662"
 msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
-msgstr ""
+msgstr "La configurazione utilizzata per estrarre informazioni su stagione, episodio e anno. Il file predefinito è \"English-ShowInfo.xml\"."
 
 #. help: EPG - genreidmapenabled
 msgctxt "#30663"
 msgid "If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi."
-msgstr ""
+msgstr "Se gli ID di genere inviati con i dati EPG dal ricevitore non utilizzano lo standard DVB, mappa da questi agli ID standard DVB. Sky UK, ad esempio, utilizza OpenTV, in tal caso senza questa opzione impostata la colorazione del genere e il testo non sarebbero corretti in Kodi."
 
 #. help: EPG - genreidmapfile
 msgctxt "#30664"
 msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
-msgstr ""
+msgstr "La configurazione utilizzata per mappare gli ID di genere EPG del ricevitore su ID standard DVB. Il file predefinito è \"Sky-UK.xml\"."
 
 #. help: EPG - rytecgenretextmapenabled
 msgctxt "#30665"
 msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
-msgstr ""
+msgstr "Se si utilizzano dati EPG Rytec XMLTV, questa opzione può essere utilizzata per mappare i generi di testo su ID standard DVB."
 
 #. help: EPG - rytecgenretextmapfile
 msgctxt "#30666"
 msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
-msgstr ""
+msgstr "La configurazione utilizzata per mappare il testo del genere Rytec sugli ID DVB. Il file predefinito è \"Rytec-UK-Ireland.xml\"."
 
 #. help: EPG - logmissinggenremapping
 msgctxt "#30667"
 msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [B]TV Drama[/B], or for major, minor genres using a dot (.) to separate [B]TV Drama. Soap Opera[/B]"
-msgstr ""
+msgstr "Se desideri che le mappature di genere mancanti vengano registrate in modo da poterle segnalare, abilita questa opzione. Nota: tutti i generi trovati che non hanno una mappatura verranno comunque estratti e inviati a Kodi come stringhe. Attualmente i generi vengono estratti cercando il testo tra parentesi quadre, ad es. [B]Drammatico TV[/B], o per i generi maggiori e minori utilizzando un punto (.) per separare [B]Drammatico TV. Soap opera[/B]"
 
 #. help: EPG - epgdelayperchannel
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
-msgstr ""
+msgstr "Per i dispositivi Enigma2 meno recenti, gli aggiornamenti EPG possono influire sulla qualità dello streaming (come i timeout del buffer). È possibile introdurre un ritardo compreso tra 250 ms e 5000 ms per migliorare la qualità. Consigliato solo per dispositivi meno recenti. Scegli il valore più basso che evita i timeout del buffer."
 
 #. help: EPG - skipinitialepg
 msgctxt "#30669"
 msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr ""
+msgstr "Ignora il caricamento EPG iniziale (ora e prossimo). Abilitato per impostazione predefinita per prevenire problemi di arresto anomalo su LibreElec/CoreElec."
 
 # empty strings from id 30670 to 30679
 #. help info - Recordings
 #. help-category: recordings
 msgctxt "#30680"
 msgid "This category cotains the settings for recordings"
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni per le registrazioni"
 
 #. help: Recordings - storeextrarecordinginfo
 msgctxt "#30681"
 msgid "Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+."
-msgstr ""
+msgstr "Memorizza l'ultima posizione riprodotta e l'aggiorna sul backend in modo che possano essere condivisi tra le istanze Kodi. Supportato solo su OpenWebIf versione 1.3.6+."
 
 #. help: Recordings - sharerecordinglastplayed
 msgctxt "#30682"
 msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
-msgstr ""
+msgstr "Le opzioni sono: [B]Istanze Kodi[/B] Usa solo il valore in Kodi e non influirà sull'ultima riproduzione sul dispositivo E2; [B]Istanze Kodi/E2[/B] Usa il valore tra Kodi e il dispositivo E2 in modo che rimangano sincronizzati. L'ultima riproduzione verrà sincronizzata con il dispositivo E2 una volta ogni 5-10 minuti per registrazione se sono in uso i menu PVR. Nota che è necessaria solo una singola istanza di Kodi per abilitare questa opzione."
 
 #. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
-msgstr ""
+msgstr "Per impostazione predefinita, l'add-on non specifica la cartella di registrazione nei timer appena creati, quindi verrà utilizzata l'impostazione predefinita nel ricevitore. Se desideri specificare una cartella diversa (ovvero perché desideri che tutte le registrazioni programmate tramite Kodi vengano archiviate in una cartella separata), devi impostare questa opzione."
 
 #. help: Recordings - onlycurrent
 msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
-msgstr ""
+msgstr "Se questa opzione non è impostata, l'add-on recupererà tutte le registrazioni disponibili da tutti i percorsi configurati dal ricevitore. Se questa opzione è impostata, elencherà solo le registrazioni che sono memorizzate all'interno del \"percorso di registrazione corrente\" sul ricevitore."
 
 #. help: Recordings - keepfolders
 msgctxt "#30685"
 msgid "If enabled use the real path from the backend to dictate the folder structure."
-msgstr ""
+msgstr "Se abilitato, usa il percorso reale dal backend per dettare la struttura delle cartelle."
 
 #. help: Recordings - enablerecordingedls
 msgctxt "#30686"
 msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
-msgstr ""
+msgstr "Gli EDL sono usati per definire pubblicità ecc. nelle registrazioni. Se uno strumento come Comskip viene utilizzato per generare file EDL, l'abilitazione di questo consentirà a Kodi PVR di utilizzarli. Per esempio. se c'è un file chiamato 'my recording.ts' il file EDL dovrebbe essere chiamato 'my recording.edl'. Nota: l'abilitazione di questa impostazione non ha effetto se i file non sono presenti."
 
 #. help: Recordings - edlpaddingstart
 msgctxt "#30687"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0."
-msgstr ""
+msgstr "Riempimento da utilizzare in uno stop EDL. Utilizza un numero negativo per iniziare il taglio prima e positivo per iniziare il taglio più tardi. Predefinito 0."
 
 #. help: Recordings - edlpaddingstop
 msgctxt "#30688"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
-msgstr ""
+msgstr "Riempimento da utilizzare in uno stop EDL. Utilizza un numero negativo per iniziare il taglio prima e positivo per iniziare il taglio più tardi. Predefinito 0."
 
 #. help: Recordings - recordingsrecursive
 msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
-msgstr ""
+msgstr "Per impostazione predefinita, per elencare le registrazioni verrà utilizzata solo la radice della posizione. Quando abilitato, verrà incluso il contenuto delle cartelle figlie."
 
 #. help: Recordings - keepfoldersomitlocation
 msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
-msgstr ""
+msgstr "Quando si utilizza la struttura delle cartelle dal backend, omette il percorso della posizione dalla directory. Utile in quanto può eliminare la necessità di attraversare cartelle inutilizzate ogni volta che si accede alle registrazioni."
 
 #. help: Recordings - virtualfolders
 msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
-msgstr ""
+msgstr "Crea una struttura virtuale che raggruppa le registrazioni con lo stesso nome in cartelle. Verrà applicato a tutte le registrazioni a meno che non si mantenga la struttura delle cartelle sul backend. In tal caso verrà applicato solo alle registrazioni nella radice di ciascuna posizione di registrazione."
 
 # empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
 msgctxt "#30700"
 msgid "This category cotains the settings for timers (regular and auto)"
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni per i timer (normali e automatici)"
 
 #. help: Timers - enablegenrepeattimers
 msgctxt "#30701"
 msgid "Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer."
-msgstr ""
+msgstr "I timer ripetuti verranno visualizzati come regole del timer. Abilitando questa opzione, Kodi genererà timer regolari in modo che corrispondano alle regole del timer ripetuto in modo che l'interfaccia utente possa mostrare cosa è programmato e cosa sta registrando attualmente per ogni timer ripetuto."
 
 #. help: Timers - numgenrepeattimers
 msgctxt "#30702"
 msgid "The number of Kodi PVR timers to generate."
-msgstr ""
+msgstr "Il numero di timer Kodi PVR da generare."
 
 #. help: Timers - timerlistcleanup
 msgctxt "#30703"
 msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
-msgstr ""
+msgstr "Se questa opzione è impostata, l'add-on invierà il comando per eliminare i timer completati dal ricevitore dopo ogni intervallo di aggiornamento."
 
 #. help: Timers - enableautotimers
 msgctxt "#30704"
 msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
-msgstr ""
+msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore per abilitare il collegamento di AutoTimer (regole timer) a timer nell'interfaccia utente di Kodi. L'add-on tenta di impostarli automaticamente all'avvio."
 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr ""
+msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla Radio (a seconda del canale utilizzato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
 msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
-msgstr ""
+msgstr "Per il canale usato per creare il limite del timer automatico per i gruppi di canali di cui questo canale è membro."
 
 # empty strings from id 30707 to 30719
 #. help info - Timeshift
 #. help-category: timeshift
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
-msgstr ""
+msgstr "Questa categoria contiene le impostazioni per il timeshift. Il timeshift ti consente di mettere in pausa la Live TV e di spostarti avanti e indietro dalla posizione attuale in modo simile alla riproduzione di una registrazione. Il buffer viene cancellato ogni volta che un canale viene modificato o interrotto."
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
 msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
-msgstr ""
+msgstr "Quale opzione di timeshift desideri: [B]Disabilitato[/B] Nessun timeshift; [B]In pausa[/B] Il timeshift inizia quando un live streaming viene messo in pausa. Per esempio. vuoi continuare da dove eri dopo la pausa; [B]In riproduzione[/B] Il timeshift inizia quando viene aperto un live streaming. Per esempio puoi andare in qualsiasi punto dello stream da quando è stato aperto."
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr ""
+msgstr "Il percorso utilizzato per memorizzare il buffer timeshift. L'impostazione predefinita è la cartella \"addon_data/pvr.vuplus\" in userdata."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
 msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
-msgstr ""
+msgstr "Abilita la funzione timeshift per i flussi IPTV utilizzando inputstream.ffmpegdirect. Si noti che questa funzione funziona solo durante la riproduzione e ignorerà la modalità timeshift utilizzata per la normale riproduzione del canale."
 
 #. help: Timeshift - useFFmpegReconnect
 msgctxt "#30724"
 msgid "Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS)."
-msgstr ""
+msgstr "Nota che questo può applicarsi solo ai flussi http/https elaborati da libavformat (ad es. M3u8/HLS)."
 
 #. help: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30725"
 msgid "If the type of stream cannot be determined assume it's an MPEG TS stream."
-msgstr ""
+msgstr "Se non è possibile determinare il tipo di flusso, supponiamo che sia un flusso MPEG TS."
 
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
-msgstr ""
+msgstr "Apre la finestra di dialogo delle impostazioni per inputstream.ffmpegdirect per modificare il timeshift e altre impostazioni."
 
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"
 msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
-msgstr ""
+msgstr "Per i dispositivi con spazio su disco limitato è possibile impostare un limite in Gigabyte per cui il timeshift verrà disattivato e la riproduzione tornerà allo streaming live. Tieni presente che per il timeshift durante la riproduzione non sarà possibile eseguire nuovamente il timeshift fino a quando uno stream non viene riavviato una volta raggiunto questo limite."
 
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
-msgstr ""
+msgstr "Il limite di spazio su disco da utilizzare per il buffer timeshift in Gigabyte."
 
 # empty strings from id 30729 to 30739
 #. help info - Advanced
 #. help-category: advanced
 msgctxt "#30740"
 msgid "This category cotains advanced/expert settings"
-msgstr ""
+msgstr "Questa categoria contiene impostazioni avanzate/esperte"
 
 #. help: Advanced - prependoutline
 msgctxt "#30741"
 msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
-msgstr ""
+msgstr "Per impostazione predefinita, il profilo della trama (breve descrizione su Enigma2) non viene visualizzato nell'interfaccia utente. Può essere visualizzato in EPG, Registrazioni o entrambi. Dopo aver modificato questa opzione, sarà necessario svuotare la cache EPG in \"Impostazioni->PVR e Live TV->Guida->Cancella cache\" affinché abbia effetto."
 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
 msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-msgstr ""
+msgstr "Se questa opzione è impostata su un valore diverso da \"Disabilitato\", l'add-on invierà un comando Powerstate al ricevitore quando Kodi verrà chiuso (o l'add-on sarà disattivato): [B]Disabilitato[/B] Nessun comando inviato all'uscita dell'add-on; [B]Standby[/B] Invia il comando di standby all'uscita; [B]Ricevitore spento[/B] Invia il comando di spegnimento all'uscita. Nota, il ricevitore non risponderà a Kodi dopo l'invio di questo comando; [B]Sveglia, quindi standby[/B] Simile allo standby ma invia prima un comando di riattivazione. Può essere utile se vuoi assicurarti che tutti gli stream siano stati interrotti. Nota: se utilizzi CEC, la TV potrebbe riattivarsi."
 
 #. help: Advanced - readtimeout
 msgctxt "#30743"
 msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
-msgstr ""
+msgstr "Il timeout da utilizzare quando si tenta di leggere i live streaming. Il valore predefinito per i live streaming è 0. Il valore predefinito per il timeshift è 10 secondi."
 
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr ""
+msgstr "La dimensione del blocco utilizzata da Kodi per i flussi. Il valore predefinito è 0 per lasciare che sia Kodi a decidere. Può essere utile impostare manualmente durante la visualizzazione di flussi in remoto in cui può verificarsi il buffering poiché il PVR è ottimizzato per una rete locale."
 
 #. help: Advanced - debugnormal
 msgctxt "#30745"
 msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
-msgstr ""
+msgstr "Le istruzioni del registro di debug verranno visualizzate per l'add-on anche se la registrazione del debug potrebbe non essere abilitata in Kodi. Si noti che tutte le istruzioni del registro di debug verranno visualizzate a livello di AVVISO."
 
 #. help: Advanced - tracedebug
 msgctxt "#30746"
 msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
-msgstr ""
+msgstr "Oltre alle istruzioni di debug standard verranno visualizzate istruzioni di registro molto dettagliate e dettagliate. Se abilitato insieme a \"Abilita registrazione debug in modalità normale\", verranno visualizzati sia la traccia che il debug senza che la registrazione del debug sia abilitata. In questo caso, le istruzioni di debug e di registro di traccia verranno visualizzate a livello di AVVISO."
 
 #. help: Advanced - ignoredebug
 msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
-msgstr ""
+msgstr "Le istruzioni del registro di debug non verranno visualizzate per l'add-on anche se la registrazione del debug è abilitata in Kodi. Questo può essere utile quando si tenta di eseguire il debug di un problema in Kodi che non è correlato a componenti aggiuntivi."
 
 # empty strings from id 30748 to 30759
 #. help info - Backend
 #. help-category: backend
 msgctxt "#30760"
 msgid "This category contains information and settings on/about the Enigma2 STB."
-msgstr ""
+msgstr "Questa categoria contiene informazioni e impostazioni sul ricevitore Enigma2."
 
 #. help: Backend - webifversion
 msgctxt "#30761"
 msgid "webifversion"
-msgstr ""
+msgstr "webifversion"
 
 #. help: Backend - autotimertagintags
 msgctxt "#30762"
 msgid "autotimertagintags"
-msgstr ""
+msgstr "autotimertagintags"
 
 #. help: Backend - autotimernameintags
 msgctxt "#30763"
 msgid "autotimernameintags"
-msgstr ""
+msgstr "autotimernameintags"
 
 #. help: Backend - globalstartpaddingstb
 msgctxt "#30764"
 msgid "This value reflects the backend setting [B]Margin before recording[/B]. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
-msgstr ""
+msgstr "Questo valore riflette l'impostazione del backend [B]Margine prima della registrazione[/B]. Verrà applicato all'inizio di tutti i nuovi timer regolari creati, inclusi quelli creati da Autotimer. Si noti che se un riempimento/margine è impostato su un Autotimer, sarà personalizzato per quell'Autotimer e sostituirà questo valore."
 
 #. help: Backend - globalendpaddingstb
 msgctxt "#30765"
 msgid "This value reflects the backend setting [B]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
-msgstr ""
+msgstr "Questo valore riflette l'impostazione del backend [B]Margine dopo la registrazione[/B]. Verrà applicato alla fine di tutti i nuovi timer regolari creati, inclusi quelli creati da Autotimer. Si noti che se un riempimento/margine è impostato su un Autotimer, sarà personalizzato per quell'Autotimer e sostituirà questo valore."
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
-msgstr ""
+msgstr "Indirizzo MAC del ricevitore E2 da utilizzare per WoL (Wake On LAN)."
 
 #~ msgctxt "#30017"
 #~ msgid "Use only the DVB boxes' current recording path"
