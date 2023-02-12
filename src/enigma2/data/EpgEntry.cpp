@@ -63,9 +63,9 @@ bool EpgEntry::UpdateFrom(TiXmlElement* eventNode, std::map<std::string, std::sh
   if (m_serviceReference.compare(0, 5, "1:64:") == 0)
     return false;
 
-  m_serviceReference = Channel::NormaliseServiceReference(m_serviceReference);
+  m_serviceReference = Channel::NormaliseServiceReference(m_serviceReference, m_settings->UseStandardServiceReference());
 
-  std::shared_ptr<data::Channel> channel = std::make_shared<data::Channel>();
+  std::shared_ptr<data::Channel> channel = std::make_shared<data::Channel>(m_settings);
 
   auto channelSearch = channelsMap.find(m_serviceReference);
   if (channelSearch != channelsMap.end())

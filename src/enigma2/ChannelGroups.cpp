@@ -67,7 +67,7 @@ PVR_ERROR ChannelGroups::GetChannelGroupMembers(std::vector<kodi::addon::PVRChan
 
     tag.SetGroupName(groupName);
     tag.SetChannelUniqueId(channelMember.GetChannel()->GetUniqueId());
-    tag.SetChannelNumber(Settings::GetInstance().UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0);
+    tag.SetChannelNumber(m_settings->UseGroupSpecificChannelNumbers() ? channelMember.GetChannelNumber() : 0);
     tag.SetOrder(channelOrder); //Keep the channels in list order as per the groups on the STB
 
     Logger::Log(LEVEL_DEBUG, "%s - add channel %s (%d) to group '%s' with channel order %d", __func__, channelMember.GetChannel()->GetChannelName().c_str(), tag.GetChannelUniqueId(), groupName.c_str(), channelOrder);
@@ -130,7 +130,7 @@ void ChannelGroups::ClearChannelGroups()
   m_channelGroupsNameMap.clear();
   m_channelGroupsServiceReferenceMap.clear();
 
-  Settings::GetInstance().SetUsesLastScannedChannelGroup(false);
+  m_settings->SetUsesLastScannedChannelGroup(false);
 }
 
 void ChannelGroups::AddChannelGroup(ChannelGroup& newChannelGroup)
@@ -170,16 +170,16 @@ bool ChannelGroups::LoadTVChannelGroups()
 {
   int tempNumChannelGroups = m_channelGroups.size();
 
-  if ((Settings::GetInstance().GetTVFavouritesMode() == FavouritesGroupMode::AS_FIRST_GROUP &&
-      Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP) ||
-      Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::FAVOURITES_GROUP)
+  if ((m_settings->GetTVFavouritesMode() == FavouritesGroupMode::AS_FIRST_GROUP &&
+      m_settings->GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP) ||
+      m_settings->GetTVChannelGroupMode() == ChannelGroupMode::FAVOURITES_GROUP)
   {
     AddTVFavouritesChannelGroup();
   }
 
-  if (Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
+  if (m_settings->GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {
-    const std::string strTmp = StringUtils::Format("%sweb/getservices", Settings::GetInstance().GetConnectionURL().c_str());
+    const std::string strTmp = StringUtils::Format("%sweb/getservices", m_settings->GetConnectionURL().c_str());
 
     const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
@@ -212,7 +212,7 @@ bool ChannelGroups::LoadTVChannelGroups()
 
     for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
     {
-      ChannelGroup newChannelGroup;
+      ChannelGroup newChannelGroup{m_settings};
 
       if (!newChannelGroup.UpdateFrom(pNode, false))
         continue;
@@ -225,13 +225,13 @@ bool ChannelGroups::LoadTVChannelGroups()
 
   LoadChannelGroupsStartPosition(false);
 
-  if (Settings::GetInstance().GetTVFavouritesMode() == FavouritesGroupMode::AS_LAST_GROUP &&
-      Settings::GetInstance().GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
+  if (m_settings->GetTVFavouritesMode() == FavouritesGroupMode::AS_LAST_GROUP &&
+      m_settings->GetTVChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {
     AddTVFavouritesChannelGroup();
   }
 
-  if ((!Settings::GetInstance().ExcludeLastScannedTVGroup() && Settings::GetInstance().GetTVChannelGroupMode() == ChannelGroupMode::ALL_GROUPS) ||
+  if ((!m_settings->ExcludeLastScannedTVGroup() && m_settings->GetTVChannelGroupMode() == ChannelGroupMode::ALL_GROUPS) ||
       m_channelGroups.empty()) //If there are no channel groups default to including the last scanned group for TV Only
     AddTVLastScannedChannelGroup();
 
@@ -243,16 +243,16 @@ bool ChannelGroups::LoadRadioChannelGroups()
 {
   int tempNumChannelGroups = m_channelGroups.size();
 
-  if ((Settings::GetInstance().GetRadioFavouritesMode() == FavouritesGroupMode::AS_FIRST_GROUP &&
-      Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP) ||
-      Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::FAVOURITES_GROUP)
+  if ((m_settings->GetRadioFavouritesMode() == FavouritesGroupMode::AS_FIRST_GROUP &&
+      m_settings->GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP) ||
+      m_settings->GetRadioChannelGroupMode() == ChannelGroupMode::FAVOURITES_GROUP)
   {
     AddRadioFavouritesChannelGroup();
   }
 
-  if (Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
+  if (m_settings->GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {
-    const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
+    const std::string strTmp = StringUtils::Format("%sweb/getservices?sRef=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
 
     const std::string strXML = WebUtils::GetHttpXML(strTmp);
 
@@ -285,7 +285,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
     for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
     {
-      ChannelGroup newChannelGroup;
+      ChannelGroup newChannelGroup{m_settings};
 
       if (!newChannelGroup.UpdateFrom(pNode, true))
         continue;
@@ -298,13 +298,13 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
   LoadChannelGroupsStartPosition(true);
 
-  if (Settings::GetInstance().GetRadioFavouritesMode() == FavouritesGroupMode::AS_LAST_GROUP &&
-      Settings::GetInstance().GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
+  if (m_settings->GetRadioFavouritesMode() == FavouritesGroupMode::AS_LAST_GROUP &&
+      m_settings->GetRadioChannelGroupMode() != ChannelGroupMode::FAVOURITES_GROUP)
   {
     AddRadioFavouritesChannelGroup();
   }
 
-  if (!Settings::GetInstance().ExcludeLastScannedRadioGroup() && Settings::GetInstance().GetRadioChannelGroupMode() == ChannelGroupMode::ALL_GROUPS)
+  if (!m_settings->ExcludeLastScannedRadioGroup() && m_settings->GetRadioChannelGroupMode() == ChannelGroupMode::ALL_GROUPS)
     AddRadioLastScannedChannelGroup();
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __func__, m_channelGroups.size() - tempNumChannelGroups);
@@ -313,7 +313,7 @@ bool ChannelGroups::LoadRadioChannelGroups()
 
 void ChannelGroups::AddTVFavouritesChannelGroup()
 {
-  ChannelGroup newChannelGroup;
+  ChannelGroup newChannelGroup{m_settings};
   newChannelGroup.SetRadio(false);
   newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30079)); //Favourites (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.tv\" ORDER BY bouquet");
@@ -323,7 +323,7 @@ void ChannelGroups::AddTVFavouritesChannelGroup()
 
 void ChannelGroups::AddRadioFavouritesChannelGroup()
 {
-  ChannelGroup newChannelGroup;
+  ChannelGroup newChannelGroup{m_settings};
   newChannelGroup.SetRadio(true);
   newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30080)); //Favourites (Radio)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.favourites.radio\" ORDER BY bouquet");
@@ -333,32 +333,32 @@ void ChannelGroups::AddRadioFavouritesChannelGroup()
 
 void ChannelGroups::AddTVLastScannedChannelGroup()
 {
-  ChannelGroup newChannelGroup;
+  ChannelGroup newChannelGroup{m_settings};
   newChannelGroup.SetRadio(false);
   newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30112)); //Last Scanned (TV)
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
-  Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
+  m_settings->SetUsesLastScannedChannelGroup(true);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::AddRadioLastScannedChannelGroup()
 {
-  ChannelGroup newChannelGroup;
+  ChannelGroup newChannelGroup{m_settings};
   newChannelGroup.SetRadio(true);
   newChannelGroup.SetGroupName(kodi::addon::GetLocalizedString(30113)); //Last Scanned (Radio)
   //Hack used here, extra space in service reference so we can spearate TV and Radio, it must be unique
   newChannelGroup.SetServiceReference("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET  \"userbouquet.LastScanned.tv\" ORDER BY bouquet");
   newChannelGroup.SetLastScannedGroup(true);
   AddChannelGroup(newChannelGroup);
-  Settings::GetInstance().SetUsesLastScannedChannelGroup(true);
+  m_settings->SetUsesLastScannedChannelGroup(true);
   Logger::Log(LEVEL_INFO, "%s Loaded channelgroup: %s", __func__, newChannelGroup.GetGroupName().c_str());
 }
 
 void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
 {
-  if (Settings::GetInstance().SupportsChannelNumberGroupStartPos())
+  if (m_settings->SupportsChannelNumberGroupStartPos())
   {
     //We can use the JSON API so let's supplement the existing groups with start channel numbers
     std::string jsonURL;
@@ -366,12 +366,12 @@ void ChannelGroups::LoadChannelGroupsStartPosition(bool radio)
     if (!radio)
     {
       Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all TV groups", __func__);
-      jsonURL = StringUtils::Format("%sapi/getservices", Settings::GetInstance().GetConnectionURL().c_str());
+      jsonURL = StringUtils::Format("%sapi/getservices", m_settings->GetConnectionURL().c_str());
     }
     else
     {
       Logger::Log(LEVEL_DEBUG, "%s loading channel group start channel number for all Radio groups", __func__);
-      jsonURL = StringUtils::Format("%sapi/getservices?sRef=%s", Settings::GetInstance().GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
+      jsonURL = StringUtils::Format("%sapi/getservices?sRef=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
     }
 
     const std::string strJson = WebUtils::GetHttpXML(jsonURL);

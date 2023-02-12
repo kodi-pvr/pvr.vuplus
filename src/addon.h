@@ -8,9 +8,11 @@
 #pragma once
 
 #include <kodi/AddonBase.h>
+
+#include <memory>
 #include <unordered_map>
 
-#include "enigma2/Settings.h"
+#include "enigma2/AddonSettings.h"
 
 class Enigma2;
 
@@ -26,5 +28,5 @@ public:
 
 private:
   std::unordered_map<std::string, Enigma2*> m_usedInstances;
-  enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
+  std::shared_ptr<enigma2::AddonSettings> m_settings;
 };

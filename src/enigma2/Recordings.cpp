@@ -30,8 +30,8 @@ using json = nlohmann::json;
 
 const std::string Recordings::FILE_NOT_FOUND_RESPONSE_SUFFIX = "not found";
 
-Recordings::Recordings(IConnectionListener& connectionListener, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor)
-  : m_connectionListener(connectionListener), m_channels(channels), m_providers(providers), m_entryExtractor(entryExtractor)
+Recordings::Recordings(IConnectionListener& connectionListener, std::shared_ptr<InstanceSettings>& settings, Channels& channels, Providers& providers, enigma2::extract::EpgEntryExtractor& entryExtractor)
+  : m_connectionListener(connectionListener), m_settings(settings), m_channels(channels), m_providers(providers), m_entryExtractor(entryExtractor)
 {
   std::random_device randomDevice; //Will be used to obtain a seed for the random number engine
   m_randomGenerator = std::mt19937(randomDevice()); //Standard mersenne_twister_engine seeded with randomDevice()
@@ -100,8 +100,8 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<kod
           continue;
         }
 
-        start += static_cast<float>(Settings::GetInstance().GetEDLStartTimePadding()) / 1000.0f;
-        stop += static_cast<float>(Settings::GetInstance().GetEDLStopTimePadding()) / 1000.0f;
+        start += static_cast<float>(m_settings->GetEDLStartTimePadding()) / 1000.0f;
+        stop += static_cast<float>(m_settings->GetEDLStopTimePadding()) / 1000.0f;
 
         start = std::max(start, 0.0f);
         stop = std::max(stop, 0.0f);
@@ -123,7 +123,7 @@ void Recordings::GetRecordingEdl(const std::string& recordingId, std::vector<kod
 
 RecordingEntry Recordings::GetRecording(const std::string& recordingId) const
 {
-  RecordingEntry entry;
+  RecordingEntry entry{m_settings};
 
   auto recordingPair = m_recordingsIdMap.find(recordingId);
   if (recordingPair != m_recordingsIdMap.end())
@@ -136,7 +136,7 @@ RecordingEntry Recordings::GetRecording(const std::string& recordingId) const
 
 bool Recordings::IsInVirtualRecordingFolder(const RecordingEntry& recordingToCheck, bool deleted) const
 {
-  if (Settings::GetInstance().GetKeepRecordingsFolders() && !recordingToCheck.InLocationRoot())
+  if (m_settings->GetKeepRecordingsFolders() && !recordingToCheck.InLocationRoot())
     return false;
 
   const std::string& recordingFolderToCheck = recordingToCheck.GetTitle();
@@ -145,7 +145,7 @@ bool Recordings::IsInVirtualRecordingFolder(const RecordingEntry& recordingToChe
   int iMatches = 0;
   for (const auto& recording : recordings)
   {
-    if (Settings::GetInstance().GetKeepRecordingsFolders() && !recording.InLocationRoot())
+    if (m_settings->GetKeepRecordingsFolders() && !recording.InLocationRoot())
       continue;
 
     if (recordingFolderToCheck == recording.GetTitle())
@@ -170,12 +170,12 @@ PVR_ERROR Recordings::RenameRecording(const kodi::addon::PVRRecording& recording
   if (!recordingEntry.GetRecordingId().empty())
   {
     Logger::Log(LEVEL_DEBUG, "%s Sending rename command for recording '%s' to '%s'", __func__, recordingEntry.GetTitle().c_str(), recording.GetTitle().c_str());
-    const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&title=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+    const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&title=%s", m_settings->GetConnectionURL().c_str(),
                                                     WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                                                     WebUtils::URLEncodeInline(recording.GetTitle()).c_str());
     std::string strResult;
 
-    if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
+    if (WebUtils::SendSimpleJsonCommand(jsonUrl, m_settings->GetConnectionURL(), strResult))
     {
       m_connectionListener.TriggerRecordingUpdate();
       return PVR_ERROR_NO_ERROR;
@@ -215,13 +215,13 @@ PVR_ERROR Recordings::SetRecordingPlayCount(const kodi::addon::PVRRecording& rec
 
     Logger::Log(LEVEL_DEBUG, "%s Setting playcount for recording '%s' to '%d'", __func__, recordingEntry.GetTitle().c_str(), count);
     const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s",
-                                Settings::GetInstance().GetConnectionURL().c_str(),
+                                m_settings->GetConnectionURL().c_str(),
                                 WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                                 WebUtils::URLEncodeInline(deleteTagsArg).c_str(),
                                 WebUtils::URLEncodeInline(addTagsArg).c_str());
     std::string strResult;
 
-    if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
+    if (WebUtils::SendSimpleJsonCommand(jsonUrl, m_settings->GetConnectionURL(), strResult))
     {
       m_connectionListener.TriggerRecordingUpdate();
       return PVR_ERROR_NO_ERROR;
@@ -248,7 +248,7 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const kodi::addon::PVRRecor
     bool readExtraCutsInfo = ReadExtaRecordingCutsInfo(recordingEntry, cuts, oldTags);
     std::string cutsArg;
     bool cutsLastPlayedSet = false;
-    if (readExtraCutsInfo && Settings::GetInstance().GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_AND_E2_INSTANCES)
+    if (readExtraCutsInfo && m_settings->GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_AND_E2_INSTANCES)
     {
       for (auto cut : cuts)
       {
@@ -298,10 +298,10 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const kodi::addon::PVRRecor
     Logger::Log(LEVEL_DEBUG, "%s Setting last played position for recording '%s' to '%d'", __func__, recordingEntry.GetTitle().c_str(), lastPlayedPosition);
 
     std::string jsonUrl;
-    if (Settings::GetInstance().GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_INSTANCES || !cutsLastPlayedSet)
+    if (m_settings->GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_INSTANCES || !cutsLastPlayedSet)
     {
       jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s",
-                Settings::GetInstance().GetConnectionURL().c_str(),
+                m_settings->GetConnectionURL().c_str(),
                 WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                 WebUtils::URLEncodeInline(deleteTagsArg).c_str(),
                 WebUtils::URLEncodeInline(addTagsArg).c_str());
@@ -309,7 +309,7 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const kodi::addon::PVRRecor
     else
     {
       jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s&cuts=%s",
-                Settings::GetInstance().GetConnectionURL().c_str(),
+                m_settings->GetConnectionURL().c_str(),
                 WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                 WebUtils::URLEncodeInline(deleteTagsArg).c_str(),
                 WebUtils::URLEncodeInline(addTagsArg).c_str(),
@@ -317,7 +317,7 @@ PVR_ERROR Recordings::SetRecordingLastPlayedPosition(const kodi::addon::PVRRecor
     }
     std::string strResult;
 
-    if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
+    if (WebUtils::SendSimpleJsonCommand(jsonUrl, m_settings->GetConnectionURL(), strResult))
     {
       m_connectionListener.TriggerRecordingUpdate();
       return PVR_ERROR_NO_ERROR;
@@ -338,7 +338,7 @@ int Recordings::GetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& 
 
   Logger::Log(LEVEL_DEBUG, "%s Recording: %s - Checking if Next Sync Time: %lld < Now: %lld ", __func__, recordingEntry.GetTitle().c_str(), static_cast<long long>(recordingEntry.GetNextSyncTime()), static_cast<long long>(now));
 
-  if (Settings::GetInstance().GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_AND_E2_INSTANCES &&
+  if (m_settings->GetRecordingLastPlayedMode() == RecordingLastPlayedMode::ACROSS_KODI_AND_E2_INSTANCES &&
       recordingEntry.GetNextSyncTime() < now)
   {
     //We need to get this value separately as it's not returned by the movielist api
@@ -383,13 +383,13 @@ int Recordings::GetRecordingLastPlayedPosition(const kodi::addon::PVRRecording& 
       Logger::Log(LEVEL_DEBUG, "%s Setting last played position from E2 cuts file to tags for recording '%s' to '%d'", __func__, recordingEntry.GetTitle().c_str(), lastPlayedPosition);
 
       std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s",
-                            Settings::GetInstance().GetConnectionURL().c_str(),
+                            m_settings->GetConnectionURL().c_str(),
                             WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                             WebUtils::URLEncodeInline(deleteTagsArg).c_str(),
                             WebUtils::URLEncodeInline(addTagsArg).c_str());
       std::string strResult;
 
-      if (WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
+      if (WebUtils::SendSimpleJsonCommand(jsonUrl, m_settings->GetConnectionURL(), strResult))
       {
         recordingEntry.SetLastPlayedPosition(lastPlayedPosition);
         recordingEntry.SetNextSyncTime(newNextSyncTime);
@@ -425,7 +425,7 @@ PVR_ERROR Recordings::GetRecordingSize(const kodi::addon::PVRRecording& recordin
 
 bool Recordings::UpdateRecordingSizeFromMovieDetails(RecordingEntry& recordingEntry)
 {
-  const std::string jsonUrl = StringUtils::Format("%sapi/moviedetails?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+  const std::string jsonUrl = StringUtils::Format("%sapi/moviedetails?sref=%s", m_settings->GetConnectionURL().c_str(),
                                                   WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
@@ -485,13 +485,13 @@ void Recordings::SetRecordingNextSyncTime(RecordingEntry& recordingEntry, time_t
   }
 
   const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s&deltag=%s&addtag=%s",
-                              Settings::GetInstance().GetConnectionURL().c_str(),
+                              m_settings->GetConnectionURL().c_str(),
                               WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(),
                               WebUtils::URLEncodeInline(deleteTagsArg).c_str(),
                               WebUtils::URLEncodeInline(addTagsArg).c_str());
   std::string strResult;
 
-  if (!WebUtils::SendSimpleJsonCommand(jsonUrl, strResult))
+  if (!WebUtils::SendSimpleJsonCommand(jsonUrl, m_settings->GetConnectionURL(), strResult))
   {
     recordingEntry.SetNextSyncTime(nextSyncTime);
     Logger::Log(LEVEL_ERROR, "%s Error setting next sync time for recording '%s' to '%lld'", __func__, recordingEntry.GetTitle().c_str(), static_cast<long long>(nextSyncTime));
@@ -503,7 +503,7 @@ PVR_ERROR Recordings::DeleteRecording(const kodi::addon::PVRRecording& recinfo)
   const std::string strTmp = StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(recinfo.GetRecordingId()).c_str());
 
   std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
     return PVR_ERROR_FAILED;
 
   // No need to call m_connectionListener.TriggerRecordingUpdate() as it is handled by kodi PVR.
@@ -523,7 +523,7 @@ PVR_ERROR Recordings::UndeleteRecording(const kodi::addon::PVRRecording& recordi
   const std::string strTmp = StringUtils::Format("web/moviemove?sRef=%s&dirname=%s", WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str(), WebUtils::URLEncodeInline(newRecordingDirectory).c_str());
 
   std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
     return PVR_ERROR_FAILED;
 
   return PVR_ERROR_NO_ERROR;
@@ -537,7 +537,7 @@ PVR_ERROR Recordings::DeleteAllRecordingsFromTrash()
         StringUtils::Format("web/moviedelete?sRef=%s", WebUtils::URLEncodeInline(deletedRecording.GetRecordingId()).c_str());
 
     std::string strResult;
-    WebUtils::SendSimpleCommand(strTmp, strResult, true);
+    WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult, true);
   }
 
   return PVR_ERROR_NO_ERROR;
@@ -565,7 +565,7 @@ const std::string Recordings::GetRecordingURL(const kodi::addon::PVRRecording& r
 
 bool Recordings::ReadExtaRecordingCutsInfo(const data::RecordingEntry& recordingEntry, std::vector<std::pair<int, int64_t>>& cuts, std::vector<std::string>& tags)
 {
-  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", m_settings->GetConnectionURL().c_str(),
                                                   WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
@@ -623,7 +623,7 @@ bool Recordings::ReadExtaRecordingCutsInfo(const data::RecordingEntry& recording
 
 bool Recordings::ReadExtraRecordingPlayCountInfo(const data::RecordingEntry& recordingEntry, std::vector<std::string>& tags)
 {
-  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", Settings::GetInstance().GetConnectionURL().c_str(),
+  const std::string jsonUrl = StringUtils::Format("%sapi/movieinfo?sref=%s", m_settings->GetConnectionURL().c_str(),
                                                   WebUtils::URLEncodeInline(recordingEntry.GetRecordingId()).c_str());
 
   const std::string strJson = WebUtils::GetHttpXML(jsonUrl);
@@ -673,10 +673,10 @@ void Recordings::ClearLocations()
 bool Recordings::LoadLocations()
 {
   std::string url;
-  if (Settings::GetInstance().GetRecordingsFromCurrentLocationOnly())
-    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/getcurrlocation");
+  if (m_settings->GetRecordingsFromCurrentLocationOnly())
+    url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/getcurrlocation");
   else
-    url = StringUtils::Format("%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/getlocations");
+    url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/getlocations");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -759,11 +759,11 @@ void Recordings::LoadRecordings(bool deleted)
 namespace
 {
 
-std::string GetRecordingsParams(const std::string recordingLocation, bool deleted)
+std::string GetRecordingsParams(const std::string recordingLocation, bool deleted, bool getRecordingsRecursively, bool supportsMovieListRecursive, bool supportsMovieListOWFInternal)
 {
   std::string recordingsParams;
 
-  if (!deleted && Settings::GetInstance().GetRecordingsRecursively() && Settings::GetInstance().SupportsMovieListRecursive())
+  if (!deleted && getRecordingsRecursively && supportsMovieListRecursive)
   {
     if (recordingLocation == "default")
       recordingsParams = "?recursive=1";
@@ -772,14 +772,14 @@ std::string GetRecordingsParams(const std::string recordingLocation, bool delete
 
     // &internal=true requests that openwebif uses it own OWFMovieList instead of the E2 MovieList
     // becuase the E2 MovieList causes memory leaks
-    if (Settings::GetInstance().SupportsMovieListOWFInternal())
+    if (supportsMovieListOWFInternal)
       recordingsParams += "&internal=1";
   }
   else
   {
     // &internal=true requests that openwebif uses it own OWFMovieList instead of the E2 MovieList
     // becuase the E2 MovieList causes memory leaks
-    if (Settings::GetInstance().SupportsMovieListOWFInternal())
+    if (supportsMovieListOWFInternal)
     {
       if (recordingLocation == "default")
         recordingsParams += "?internal=1";
@@ -798,16 +798,16 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
   std::string url;
   std::string directory;
 
-  std::string recordingsParams = GetRecordingsParams(recordingLocation, deleted);
+  std::string recordingsParams = GetRecordingsParams(recordingLocation, deleted, m_settings->GetRecordingsRecursively(), m_settings->SupportsMovieListRecursive(), m_settings->SupportsMovieListOWFInternal());
 
   if (recordingLocation == "default")
   {
-    url = StringUtils::Format("%s%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist", recordingsParams.c_str());
+    url = StringUtils::Format("%s%s%s", m_settings->GetConnectionURL().c_str(), "web/movielist", recordingsParams.c_str());
     directory = StringUtils::Format("/");
   }
   else
   {
-    url = StringUtils::Format("%s%s?dirname=%s%s", Settings::GetInstance().GetConnectionURL().c_str(), "web/movielist",
+    url = StringUtils::Format("%s%s?dirname=%s%s", m_settings->GetConnectionURL().c_str(), "web/movielist",
                               WebUtils::URLEncodeInline(recordingLocation).c_str(), recordingsParams.c_str());
     directory = recordingLocation;
   }
@@ -845,8 +845,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
   {
     for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2movie"))
     {
-
-      RecordingEntry recordingEntry;
+      RecordingEntry recordingEntry{m_settings};
 
       if (!recordingEntry.UpdateFrom(pNode, directory, deleted, m_channels))
         continue;

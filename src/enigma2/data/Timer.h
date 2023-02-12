@@ -44,7 +44,7 @@ namespace enigma2
         EPG_AUTO_ONCE           = PVR_TIMER_TYPE_NONE + 7,
       };
 
-      Timer()
+      Timer(std::shared_ptr<enigma2::InstanceSettings> settings) : EpgEntry(settings)
       {
         m_updateState = enigma2::utilities::UPDATE_STATE_NEW;
         m_parentClientIndex = PVR_TIMER_NO_PARENT;

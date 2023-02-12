@@ -28,8 +28,8 @@ namespace enigma2
   class ATTR_DLL_LOCAL Timers
   {
   public:
-    Timers(IConnectionListener& connectionListener, Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)
-      : m_connectionListener(connectionListener), m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg), m_entryExtractor(entryExtractor)
+    Timers(IConnectionListener& connectionListener, std::shared_ptr<InstanceSettings>& settings, Channels& channels, ChannelGroups& channelGroups, std::vector<std::string>& locations, Epg& epg, enigma2::extract::EpgEntryExtractor& entryExtractor)
+      : m_connectionListener(connectionListener), m_settings(settings), m_channels(channels), m_channelGroups(channelGroups), m_locations(locations), m_epg(epg), m_entryExtractor(entryExtractor)
     {
       m_clientIndexCounter = 1;
     };
@@ -82,7 +82,6 @@ namespace enigma2
 
     enigma2::extract::EpgEntryExtractor& m_entryExtractor;
 
-    enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
     std::vector<enigma2::data::Timer> m_timers;
     std::vector<enigma2::data::AutoTimer> m_autotimers;
 
@@ -91,5 +90,7 @@ namespace enigma2
     ChannelGroups& m_channelGroups;
     std::vector<std::string>& m_locations;
     Epg& m_epg;
+
+    std::shared_ptr<enigma2::InstanceSettings> m_settings;
   };
 } // namespace enigma2

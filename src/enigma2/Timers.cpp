@@ -39,7 +39,7 @@ T* Timers::GetTimer(std::function<bool(const T&)> func, std::vector<T>& timerlis
 
 bool Timers::LoadTimers(std::vector<Timer>& timers) const
 {
-  const std::string url = StringUtils::Format("%s%s", m_settings.GetConnectionURL().c_str(), "web/timerlist");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "web/timerlist");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -72,7 +72,7 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("e2timer"))
   {
-    Timer newTimer;
+    Timer newTimer{m_settings};
 
     if (!newTimer.UpdateFrom(pNode, m_channels))
       continue;
@@ -83,7 +83,7 @@ bool Timers::LoadTimers(std::vector<Timer>& timers) const
     timers.emplace_back(newTimer);
 
     if ((newTimer.GetType() == Timer::MANUAL_REPEATING || newTimer.GetType() == Timer::EPG_REPEATING) &&
-        m_settings.GetGenRepeatTimersEnabled() && m_settings.GetNumGenRepeatTimers() > 0)
+        m_settings->GetGenRepeatTimersEnabled() && m_settings->GetNumGenRepeatTimers() > 0)
     {
       GenerateChildManualRepeatingTimers(&timers, &newTimer);
     }
@@ -102,12 +102,12 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
   int weekdays = timer->GetWeekdays();
   const time_t ONE_DAY = 24 * 60 * 60;
 
-  if (m_settings.GetNumGenRepeatTimers() && weekdays != PVR_WEEKDAY_NONE)
+  if (m_settings->GetNumGenRepeatTimers() && weekdays != PVR_WEEKDAY_NONE)
   {
     time_t nextStartTime = timer->GetStartTime();
     time_t nextEndTime = timer->GetEndTime();
 
-    for (int i = 0; i < m_settings.GetNumGenRepeatTimers(); i++)
+    for (int i = 0; i < m_settings->GetNumGenRepeatTimers(); i++)
     {
       //Even if one day a week the max we can hit is 3 weeks
       for (int i = 0; i < DAYS_IN_WEEK; i++)
@@ -122,7 +122,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
         if (timer->GetWeekdays() & (1 << pvrWeekday))
         {
           //Create a timer
-          Timer newTimer;
+          Timer newTimer{m_settings};
           newTimer.SetType(Timer::READONLY_REPEATING_ONCE);
           newTimer.SetTitle(timer->GetTitle());
           newTimer.SetChannelId(timer->GetChannelId());
@@ -148,7 +148,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
 
           genTimerCount++;
 
-          if (genTimerCount >= m_settings.GetNumGenRepeatTimers())
+          if (genTimerCount >= m_settings->GetNumGenRepeatTimers())
             break;
         }
 
@@ -156,7 +156,7 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
         nextEndTime += ONE_DAY;
       }
 
-      if (genTimerCount >= m_settings.GetNumGenRepeatTimers())
+      if (genTimerCount >= m_settings->GetNumGenRepeatTimers())
         break;
     }
   }
@@ -172,7 +172,7 @@ std::string Timers::ConvertToAutoTimerTag(std::string tag)
 
 bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 {
-  const std::string url = StringUtils::Format("%s%s", m_settings.GetConnectionURL().c_str(), "autotimer");
+  const std::string url = StringUtils::Format("%s%s", m_settings->GetConnectionURL().c_str(), "autotimer");
 
   const std::string strXML = WebUtils::GetHttpXML(url);
 
@@ -205,7 +205,7 @@ bool Timers::LoadAutoTimers(std::vector<AutoTimer>& autoTimers) const
 
   for (; pNode != nullptr; pNode = pNode->NextSiblingElement("timer"))
   {
-    AutoTimer newAutoTimer;
+    AutoTimer newAutoTimer{m_settings};
 
     if (!newAutoTimer.UpdateFrom(pNode, m_channels))
       continue;
@@ -315,7 +315,7 @@ void Timers::GetTimerTypes(std::vector<kodi::addon::PVRTimerType>& types) const
   types.emplace_back(*t);
   delete t;
 
-  if (!Settings::GetInstance().SupportsAutoTimers() || !m_settings.GetAutoTimersEnabled())
+  if (!m_settings->SupportsAutoTimers() || !m_settings->GetAutoTimersEnabled())
   {
     // Allow this type of timer to be created from kodi if autotimers are not available
     // as otherwise there is no way to create a repeating EPG timer rule
@@ -480,8 +480,8 @@ PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
 
   if (startPadding == 0 && endPadding == 0)
   {
-    startPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin();
-    endPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin();
+    startPadding = m_settings->GetDeviceSettings()->GetGlobalRecordingStartMargin();
+    endPadding = m_settings->GetDeviceSettings()->GetGlobalRecordingEndMargin();
   }
 
   bool alreadyStarted = false;
@@ -512,7 +512,7 @@ PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
   unsigned int epgUid = timer.GetEPGUid();
   bool foundEntry = false;
 
-  if (Settings::GetInstance().IsOpenWebIf() && (timer.GetTimerType() == Timer::EPG_ONCE || timer.GetTimerType() == Timer::MANUAL_ONCE))
+  if (m_settings->IsOpenWebIf() && (timer.GetTimerType() == Timer::EPG_ONCE || timer.GetTimerType() == Timer::MANUAL_ONCE))
   {
     // We try to find the EPG Entry and use it's details
     EpgPartialEntry partialEntry = m_epg.LoadEPGEntryPartialDetails(serviceReference, timer.GetStartTime() < now ? now : timer.GetStartTime());
@@ -542,11 +542,11 @@ PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
     tags.AddTag(TAG_FOR_GENRE_ID, StringUtils::Format("0x%02X", timer.GetGenreType() | timer.GetGenreSubType()));
 
   std::string strTmp;
-  if (!m_settings.GetNewTimerRecordingPath().empty())
+  if (!m_settings->GetNewTimerRecordingPath().empty())
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s&dirname=&s",
               WebUtils::URLEncodeInline(serviceReference).c_str(), timer.GetWeekdays(), static_cast<long long>(startTime), static_cast<long long>(endTime),
               WebUtils::URLEncodeInline(title).c_str(), WebUtils::URLEncodeInline(description).c_str(), epgUid,
-              WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings.GetNewTimerRecordingPath()).c_str());
+              WebUtils::URLEncodeInline(tags.GetTags()).c_str(), WebUtils::URLEncodeInline(m_settings->GetNewTimerRecordingPath()).c_str());
   else
     strTmp = StringUtils::Format("web/timeradd?sRef=%s&repeated=%d&begin=%lld&end=%lld&name=%s&description=%s&eit=%d&tags=%s",
               WebUtils::URLEncodeInline(serviceReference).c_str(), timer.GetWeekdays(), static_cast<long long>(startTime), static_cast<long long>(endTime),
@@ -556,7 +556,7 @@ PVR_ERROR Timers::AddTimer(const kodi::addon::PVRTimer& timer)
   Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __func__, strTmp.c_str());
 
   std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
     return PVR_ERROR_SERVER_ERROR;
 
   Logger::Log(LEVEL_DEBUG, "%s - Updating timers", __func__);
@@ -673,7 +673,7 @@ PVR_ERROR Timers::AddAutoTimer(const kodi::addon::PVRTimer& timer)
         std::replace(tagValue.begin(), tagValue.end(), ' ', '_');
         strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_CHANNEL_REFERENCE.c_str(), tagValue.c_str())).c_str());
 
-        if (!m_settings.UsesLastScannedChannelGroup())
+        if (!m_settings->UsesLastScannedChannelGroup())
           strTmp += BuildAddUpdateAutoTimerLimitGroupsParams(channel);
       }
     }
@@ -688,7 +688,7 @@ PVR_ERROR Timers::AddAutoTimer(const kodi::addon::PVRTimer& timer)
   Logger::Log(LEVEL_DEBUG, "%s - Command: %s", __func__, strTmp.c_str());
 
   std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
     return PVR_ERROR_SERVER_ERROR;
 
   if (timer.GetState() == PVR_TIMER_STATE_RECORDING)
@@ -736,8 +736,8 @@ PVR_ERROR Timers::UpdateTimer(const kodi::addon::PVRTimer& timer)
 
     if (startPadding == 0 && endPadding == 0)
     {
-      startPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin();
-      endPadding = Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin();
+      startPadding = m_settings->GetDeviceSettings()->GetGlobalRecordingStartMargin();
+      endPadding = m_settings->GetDeviceSettings()->GetGlobalRecordingEndMargin();
     }
 
     bool alreadyStarted = false;
@@ -777,7 +777,7 @@ PVR_ERROR Timers::UpdateTimer(const kodi::addon::PVRTimer& timer)
                                     static_cast<long long>(oldTimer.GetRealEndTime()));
 
     std::string strResult;
-    if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+    if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
       return PVR_ERROR_SERVER_ERROR;
 
     TimerUpdates();
@@ -927,14 +927,14 @@ PVR_ERROR Timers::UpdateAutoTimer(const kodi::addon::PVRTimer& timer)
         strTmp += StringUtils::Format("&tag=%s", WebUtils::URLEncodeInline(StringUtils::Format("%s=%s", TAG_FOR_GENRE_ID.c_str(), timerToUpdate.ReadTagValue(TAG_FOR_GENRE_ID).c_str())).c_str());
 
       //Limit Channel Groups
-      if (!m_settings.UsesLastScannedChannelGroup())
+      if (!m_settings->UsesLastScannedChannelGroup())
         strTmp += BuildAddUpdateAutoTimerLimitGroupsParams(channel);
     }
 
     strTmp += Timers::BuildAddUpdateAutoTimerIncludeParams(timer.GetWeekdays());
 
     std::string strResult;
-    if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+    if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
       return PVR_ERROR_SERVER_ERROR;
 
     if (timer.GetState() == PVR_TIMER_STATE_RECORDING)
@@ -951,9 +951,9 @@ std::string Timers::BuildAddUpdateAutoTimerLimitGroupsParams(const std::shared_p
 {
   std::string limitGroupParams;
 
-  if (m_settings.GetLimitAnyChannelAutoTimers() && channel)
+  if (m_settings->GetLimitAnyChannelAutoTimers() && channel)
   {
-    if (m_settings.GetLimitAnyChannelAutoTimersToChannelGroups())
+    if (m_settings->GetLimitAnyChannelAutoTimersToChannelGroups())
     {
       for (const auto& group : channel->GetChannelGroupList())
         limitGroupParams += StringUtils::Format("%s,", group->GetServiceReference().c_str());
@@ -1020,7 +1020,7 @@ PVR_ERROR Timers::DeleteTimer(const kodi::addon::PVRTimer& timer)
                                                    static_cast<long long>(timerToDelete.GetRealEndTime()));
 
     std::string strResult;
-    if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+    if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
       return PVR_ERROR_SERVER_ERROR;
 
     if (timer.GetState() == PVR_TIMER_STATE_RECORDING)
@@ -1057,7 +1057,7 @@ PVR_ERROR Timers::DeleteAutoTimer(const kodi::addon::PVRTimer &timer)
                                                        static_cast<long long>(childTimer.GetRealEndTime()));
 
         std::string strResult;
-        WebUtils::SendSimpleCommand(strTmp, strResult, true);
+        WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult, true);
 
         if (childTimer.GetState() == PVR_TIMER_STATE_RECORDING)
           childTimerIsRecording = true;
@@ -1067,7 +1067,7 @@ PVR_ERROR Timers::DeleteAutoTimer(const kodi::addon::PVRTimer &timer)
     const std::string strTmp = StringUtils::Format("autotimer/remove?id=%u", timerToDelete.GetBackendId());
 
     std::string strResult;
-    if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+    if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
       return PVR_ERROR_SERVER_ERROR;
 
     if (timer.GetState() == PVR_TIMER_STATE_RECORDING || childTimerIsRecording)
@@ -1098,7 +1098,7 @@ bool Timers::TimerUpdates()
   bool regularTimersChanged = TimerUpdatesRegular();
   bool autoTimersChanged = false;
 
-  if (Settings::GetInstance().SupportsAutoTimers() && m_settings.GetAutoTimersEnabled())
+  if (m_settings->SupportsAutoTimers() && m_settings->GetAutoTimersEnabled())
     autoTimersChanged = TimerUpdatesAuto();
 
   if (regularTimersChanged || autoTimersChanged)
@@ -1310,6 +1310,6 @@ void Timers::RunAutoTimerListCleanup()
 {
   const std::string strTmp = StringUtils::Format("web/timercleanup?cleanup=true");
   std::string strResult;
-  if (!WebUtils::SendSimpleCommand(strTmp, strResult))
+  if (!WebUtils::SendSimpleCommand(strTmp, m_settings->GetConnectionURL(), strResult))
     Logger::Log(LEVEL_ERROR, "%s - AutomaticTimerlistCleanup failed!", __func__);
 }

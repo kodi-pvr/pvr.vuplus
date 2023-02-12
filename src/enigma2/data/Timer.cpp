@@ -184,7 +184,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
   if (xml::GetString(timerNode, "e2servicereference", strTmp))
   {
     m_serviceReference = strTmp;
-    m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
+    m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str(), m_settings->UseStandardServiceReference()));
   }
 
   // Skip timers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
@@ -223,7 +223,7 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
     m_plot = m_plotOutline;
     m_plotOutline.clear();
   }
-  else if (Settings::GetInstance().GetPrependOutline() == PrependOutline::ALWAYS &&
+  else if (m_settings->GetPrependOutline() == PrependOutline::ALWAYS &&
            m_plot != m_plotOutline && !m_plotOutline.empty() && m_plotOutline != "N/A")
   {
     m_plot.insert(0, m_plotOutline + "\n");
@@ -324,8 +324,8 @@ bool Timer::UpdateFrom(TiXmlElement* timerNode, Channels& channels)
         {
           //We need to add this as these timers are created by the backend so won't have a padding to read
           m_tags.append(StringUtils::Format(" Padding=%u,%u",
-            Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingStartMargin(),
-            Settings::GetInstance().GetDeviceSettings()->GetGlobalRecordingEndMargin()));
+            m_settings->GetDeviceSettings()->GetGlobalRecordingStartMargin(),
+            m_settings->GetDeviceSettings()->GetGlobalRecordingEndMargin()));
         }
       }
       else

@@ -181,7 +181,7 @@ bool AutoTimer::UpdateFrom(TiXmlElement* autoTimerNode, Channels& channels)
       //If we only have one channel
       if (xml::GetString(serviceNode, "e2servicereference", strTmp))
       {
-        m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str()));
+        m_channelId = channels.GetChannelUniqueId(Channel::NormaliseServiceReference(strTmp.c_str(), m_settings->UseStandardServiceReference()));
 
         // For autotimers for channels we don't know about, such as when the addon only uses one bouquet or an old channel referene that doesn't exist
         // we'll default to any channel (as that is what kodi PVR does) and leave in ERROR state

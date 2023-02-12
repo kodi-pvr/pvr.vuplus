@@ -14,9 +14,9 @@
 #include "enigma2/ConnectionManager.h"
 #include "enigma2/Epg.h"
 #include "enigma2/IConnectionListener.h"
+#include "enigma2/InstanceSettings.h"
 #include "enigma2/RecordingReader.h"
 #include "enigma2/Recordings.h"
-#include "enigma2/Settings.h"
 #include "enigma2/StreamReader.h"
 #include "enigma2/Timers.h"
 #include "enigma2/data/BaseEntry.h"
@@ -53,6 +53,10 @@ public:
   bool Start();
   void SendPowerstate();
   bool IsConnected() const;
+
+  // kodi::addon::CInstancePVRClient -> kodi::addon::IAddonInstance overrides
+  ADDON_STATUS SetInstanceSetting(const std::string& settingName,
+                                  const kodi::addon::CSettingValue& settingValue) override;
 
   PVR_ERROR OnSystemSleep() override;
   PVR_ERROR OnSystemWake() override;
@@ -146,16 +150,16 @@ private:
   int m_epgMaxPastDays;
   int m_epgMaxFutureDays;
 
-  enigma2::Providers m_providers;
-  mutable enigma2::Channels m_channels{m_providers};
-  enigma2::ChannelGroups m_channelGroups;
-  enigma2::Recordings m_recordings{*this, m_channels, m_providers, m_entryExtractor};
+  std::shared_ptr<enigma2::InstanceSettings> m_settings;
+  enigma2::Providers m_providers{m_settings};
+  mutable enigma2::Channels m_channels{m_providers, m_settings};
+  enigma2::ChannelGroups m_channelGroups{m_settings};
+  enigma2::Recordings m_recordings{*this, m_settings, m_channels, m_providers, m_entryExtractor};
   std::vector<std::string>& m_locations = m_recordings.GetLocations();
-  enigma2::Epg m_epg{*this, m_channels, m_entryExtractor, m_epgMaxPastDays, m_epgMaxFutureDays};
-  enigma2::Timers m_timers{*this, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
-  enigma2::Settings& m_settings = enigma2::Settings::GetInstance();
-  enigma2::Admin m_admin;
-  enigma2::extract::EpgEntryExtractor m_entryExtractor;
+  enigma2::Epg m_epg{*this, m_channels, m_entryExtractor, m_settings, m_epgMaxPastDays, m_epgMaxFutureDays};
+  enigma2::Timers m_timers{*this, m_settings, m_channels, m_channelGroups, m_locations, m_epg, m_entryExtractor};
+  enigma2::Admin m_admin{m_settings};
+  enigma2::extract::EpgEntryExtractor m_entryExtractor{m_settings};
   enigma2::utilities::SignalStatus m_signalStatus;
   enigma2::ConnectionManager* connectionManager;
 

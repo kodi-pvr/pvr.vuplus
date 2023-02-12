@@ -20,8 +20,8 @@ void BaseEntry::ProcessPrependMode(PrependOutline prependOutlineMode)
     m_plot = m_plotOutline;
     m_plotOutline.clear();
   }
-  else if ((Settings::GetInstance().GetPrependOutline() == prependOutlineMode ||
-            Settings::GetInstance().GetPrependOutline() == PrependOutline::ALWAYS) &&
+  else if ((m_settings->GetPrependOutline() == prependOutlineMode ||
+            m_settings->GetPrependOutline() == PrependOutline::ALWAYS) &&
            !m_plotOutline.empty() && m_plotOutline != "N/A")
   {
     m_plot.insert(0, m_plotOutline + "\n");

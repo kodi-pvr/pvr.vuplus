@@ -1,3 +1,6 @@
+v20.5.0
+- Support Multiple Enigma2 Backends
+
 v20.4.2
 - Support Kodi filesystem API 1.1.8, which fixes a buffer overrun (https://github.com/xbmc/xbmc/pull/22593)
 

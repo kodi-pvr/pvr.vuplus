@@ -57,7 +57,7 @@ namespace enigma2
         CHECK_TITLE_AND_ALL_DESCS = 3
       };
 
-      AutoTimer() = default;
+      AutoTimer(std::shared_ptr<enigma2::InstanceSettings> settings) : Timer(settings) {}
 
       const std::string& GetSearchPhrase() const { return m_searchPhrase; }
       void SetSearchPhrase(const std::string& value) { m_searchPhrase = value; }

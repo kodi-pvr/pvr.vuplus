@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../Settings.h"
+#include "../InstanceSettings.h"
 #include "../data/BaseEntry.h"
 
 #include <regex>
@@ -19,7 +19,7 @@ namespace enigma2
     class ATTR_DLL_LOCAL IExtractor
     {
     public:
-      IExtractor() = default;
+      IExtractor(const std::shared_ptr<enigma2::InstanceSettings>& settings) : m_settings(settings) {};
       virtual ~IExtractor() = default;
       virtual void ExtractFromEntry(enigma2::data::BaseEntry& entry) = 0;
       virtual bool IsEnabled() = 0;
@@ -70,7 +70,7 @@ namespace enigma2
         return matches;
       };
 
-      enigma2::Settings& m_settings = Settings::GetInstance();
+      std::shared_ptr<enigma2::InstanceSettings> m_settings;
     };
   } //namespace extract
 } //namespace enigma2

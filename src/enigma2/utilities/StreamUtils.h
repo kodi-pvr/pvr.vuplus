@@ -32,7 +32,7 @@ namespace enigma2
     {
     public:
       static const StreamType GetStreamType(const std::string& url);
-      static const StreamType InspectStreamType(const std::string& url);
+      static const StreamType InspectStreamType(const std::string& url, bool useMpegtsForUnknownStreams);
       static std::string GetURLWithFFmpegReconnectOptions(const std::string& streamUrl, const StreamType& streamType);
       static bool CheckInputstreamInstalledAndEnabled(const std::string& inputstreamName);
       static void SetFFmpegDirectManifestTypeStreamProperty(std::vector<kodi::addon::PVRStreamProperty>& properties, const std::string& streamURL, const StreamType& streamType);
