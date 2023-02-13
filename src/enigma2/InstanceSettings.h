@@ -36,7 +36,7 @@ namespace enigma2
   static const std::string DEFAULT_SHOW_INFO_FILE = ADDON_DATA_BASE_DIR + "/showInfo/English-ShowInfo.xml";
   static const std::string DEFAULT_GENRE_ID_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreIdMappings/Sky-UK.xml";
   static const std::string DEFAULT_GENRE_TEXT_MAP_FILE = ADDON_DATA_BASE_DIR + "/genres/genreRytecTextMappings/Rytec-UK-Ireland.xml";
-  static const std::string DEFAULT_CUSTOM_TV_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
+  static const std::string DEFAULT_CUSTOM_TV_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customTVGroups-example.xml";
   static const std::string DEFAULT_CUSTOM_RADIO_GROUPS_FILE = ADDON_DATA_BASE_DIR + "/channelGroups/customRadioGroups-example.xml";
   static const int DEFAULT_NUM_GEN_REPEAT_TIMERS = 1;
 
@@ -369,23 +369,23 @@ namespace enigma2
 
     //EPG
     bool m_extractShowInfo = true;
-    std::string m_extractShowInfoFile;
+    std::string m_extractShowInfoFile = DEFAULT_SHOW_INFO_FILE;
     bool m_mapGenreIds = true;
-    std::string m_mapGenreIdsFile;
-    bool m_mapRytecTextGenres = true;
-    std::string m_mapRytecTextGenresFile;
+    std::string m_mapGenreIdsFile = DEFAULT_GENRE_ID_MAP_FILE;
+    bool m_mapRytecTextGenres = false;
+    std::string m_mapRytecTextGenresFile = DEFAULT_GENRE_TEXT_MAP_FILE;
     bool m_logMissingGenreMappings = true;
-    int m_epgDelayPerChannel;
+    int m_epgDelayPerChannel = 0;
 
     //Recordings
     bool m_storeLastPlayedAndCount = true;
     RecordingLastPlayedMode m_recordingLastPlayedMode = RecordingLastPlayedMode::ACROSS_KODI_INSTANCES;
     std::string m_newTimerRecordingPath = "";
     bool m_onlyCurrentLocation = false;
-    bool m_virtualFolders = false;
-    bool m_keepFolders = false;
-    bool m_keepFoldersOmitLocation = false;
-    bool m_recordingsRecursive = false;
+    bool m_virtualFolders = true;
+    bool m_keepFolders = true;
+    bool m_keepFoldersOmitLocation = true;
+    bool m_recordingsRecursive = true;
     bool m_enableRecordingEDLs = false;
     int m_edlStartTimePadding = 0;
     int m_edlStopTimePadding = 0;
@@ -396,13 +396,13 @@ namespace enigma2
     bool m_automaticTimerlistCleanup = false;
     bool m_enableAutoTimers = true;
     bool m_limitAnyChannelAutoTimers = true;
-    bool m_limitAnyChannelAutoTimersToChannelGroups = false;
+    bool m_limitAnyChannelAutoTimersToChannelGroups = true;
 
     //Timeshift
     Timeshift m_timeshift = Timeshift::OFF;
     std::string m_timeshiftBufferPath = ADDON_DATA_BASE_DIR;
     bool m_enableTimeshiftDiskLimit = false;
-    float m_timeshiftDiskLimitGB = 0.0f;
+    float m_timeshiftDiskLimitGB = 4.0f;
     bool m_timeshiftEnabledIptv = true;
     bool m_useFFmpegReconnect = true;
     bool m_useMpegtsForUnknownStreams = true;
