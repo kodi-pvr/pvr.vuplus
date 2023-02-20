@@ -1,3 +1,6 @@
+v21.1.1
+- Set default settings correctly and update settings migration
+
 v21.1.0
 - Support Multiple Enigma2 Backends
 

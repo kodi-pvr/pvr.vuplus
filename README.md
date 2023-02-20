@@ -7,6 +7,8 @@
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv). Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. This add-on leverages the [OpenWebIf project](#https://github.com/E2OpenPlugins/e2openplugin-OpenWebif) to interact with the Enigma2 device via Restful APIs.
 
+Multiple E2 devices can be configured via Kodi PVR since Kodi 20 (Nexus). To setup multiple devices simply visit the add-ons settings under `Configure`, and choose new `Add add-on configuration`.
+
 Supports streaming of Live TV & Recordings with features such as Timeshifting, EPG, Timers and Autotimers. In addition the majority of Enigma2 devices support viewing and recording IPTV streams. The add-on supports IPTV by simply passing the URL to [inputstream.ffmpegdirect](#https://github.com/xbmc/inputstream.ffmpegdirect), allowing a local timeshift feature similar to native Enigma2 streams.
 
 **Note:** Some images do not use OpenWebIf as the default web interface. In these images some standard functionality may still work but is not guaranteed. Some features that may not function include:
