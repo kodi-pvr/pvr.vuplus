@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-02-22 23:15+0000\n"
+"PO-Revision-Date: 2023-03-17 20:48+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -315,7 +315,7 @@ msgstr "Radio"
 #. label: Channels - radiogroupmode
 msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
-msgstr "Modalità recupero bouquet Radio"
+msgstr "Modalità recupero bouquet radio"
 
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
@@ -371,7 +371,7 @@ msgstr "Recupera bouquet dai preferiti della TV"
 #. label: Channels - radiofavouritesmode
 msgctxt "#30069"
 msgid "Fetch radio favourites bouquet"
-msgstr "Recupera bouquet dai preferiti della Radio"
+msgstr "Recupera bouquet dai preferiti della radio"
 
 #. label-category: recordings
 msgctxt "#30070"
@@ -654,7 +654,7 @@ msgstr "Timer automatici"
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
 msgid "Limit 'Any Channel' autotimers to TV or Radio"
-msgstr "Limita i timer automatici \"Qualsiasi canale\" a TV o Radio"
+msgstr "Limita i timer automatici \"Qualsiasi canale\" a TV o radio"
 
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
@@ -700,7 +700,7 @@ msgstr "File bouquet TV personalizzati"
 #. label: Channels - customradiogroupsfile
 msgctxt "#30133"
 msgid "Custom Radio bouquets file"
-msgstr "File bouquet Radio personalizzati"
+msgstr "File bouquet radio personalizzati"
 
 #. label: Channels - numtvgroups
 msgctxt "#30134"
@@ -730,7 +730,7 @@ msgstr "TV bouquet 5"
 #. label: Channels - numradiogroups
 msgctxt "#30139"
 msgid "Number of radio bouquets"
-msgstr "Numero di bouquet Radio"
+msgstr "Numero di bouquet radio"
 
 #. label: Channels - tworadiogroup
 msgctxt "#30140"
@@ -780,7 +780,7 @@ msgstr "Abilita timeshift per stream IPTV"
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr "Usa le opzioni di riconnessione http di FFmpeg se possibile"
+msgstr "Usa opzioni di riconnessione http di FFmpeg se possibile"
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
@@ -1100,7 +1100,7 @@ msgstr "L'ultima scansione è un bouquet di sistema contenente tutti i canali TV
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr "Scegli tra una delle seguenti tre modalità: [B]Tutti i bouquet[/B] Recupera tutti i bouquet radio dal ricevitore[/B]; [B]Alcuni bouquet[/B] Recupera solo i bouquet specificati nelle opzioni successive; [B]Gruppo Preferiti[/B] Recupera il bouquet di sistema solo per i preferiti Radio; [B]Gruppi personalizzati[/B] Recupera una serie di bouquet dal Set-top box i cui nomi sono caricati da un file XML."
+msgstr "Scegli tra una delle seguenti tre modalità: [B]Tutti i bouquet[/B] Recupera tutti i bouquet radio dal ricevitore[/B]; [B]Alcuni bouquet[/B] Recupera solo i bouquet specificati nelle opzioni successive; [B]Gruppo Preferiti[/B] Recupera il bouquet di sistema solo per i preferiti radio; [B]Gruppi personalizzati[/B] Recupera una serie di bouquet dal Set-top box i cui nomi sono caricati da un file XML."
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
@@ -1109,17 +1109,17 @@ msgstr "Scegli tra una delle seguenti tre modalità: [B]Tutti i bouquet[/B] Recu
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr "Se l'opzione precedente è stata impostata su 'Alcuni bouquet' è necessario specificare un bouquet Radio da prelevare dal ricevitore. Si prega di notare che questo è il nome del bouquet come mostrato sul ricevitore (cioè \"Preferiti (Radio)\"). Questa impostazione fa distinzione tra maiuscole e minuscole."
+msgstr "Se l'opzione precedente è stata impostata su 'Alcuni bouquet' è necessario specificare un bouquet radio da prelevare dal ricevitore. Si prega di notare che questo è il nome del bouquet come mostrato sul ricevitore (cioè \"Preferiti (Radio)\"). Questa impostazione fa distinzione tra maiuscole e minuscole."
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr "Se la modalità di recupero è \"Tutti i bouquet\" o \"Alcuni bouquet\", a seconda dell'immagine di Enigma2, potrebbe essere necessario recuperare esplicitamente i preferiti se ne hai bisogno. Le opzioni sono: [B]Disabilitato[/B] Non recuperare esplicitamente i preferiti Radio; [B]Come primo bouquet[/B] Recuperali esplicitamente come primo bouquet; [B]Come ultimo bouquet[/B] Recuperali esplicitamente come ultimo bouquet."
+msgstr "Se la modalità di recupero è \"Tutti i bouquet\" o \"Alcuni bouquet\", a seconda dell'immagine di Enigma2, potrebbe essere necessario recuperare esplicitamente i preferiti se ne hai bisogno. Le opzioni sono: [B]Disabilitato[/B] Non recuperare esplicitamente i preferiti radio; [B]Come primo bouquet[/B] Recuperali esplicitamente come primo bouquet; [B]Come ultimo bouquet[/B] Recuperali esplicitamente come ultimo bouquet."
 
 #. help: Channels - excludelastscannedradio
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr "L'ultima scansione è un bouquet di sistema contenente tutti i canali TV e radio trovati nell'ultima scansione. Tutti i canali radio trovati nel bouquet Last Scanned possono essere visualizzati come un gruppo chiamato \"Last Scanned (Radio)\" in Kodi. Per Radio questo gruppo è escluso per impostazione predefinita. Disabilita questa opzione per mostrare questo gruppo."
+msgstr "L'ultima scansione è un bouquet di sistema contenente tutti i canali TV e radio trovati nell'ultima scansione. Tutti i canali radio trovati nel bouquet Last Scanned possono essere visualizzati come un gruppo chiamato \"Last Scanned (Radio)\" in Kodi. Per radio questo gruppo è escluso per impostazione predefinita. Disabilita questa opzione per mostrare questo gruppo."
 
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
@@ -1129,7 +1129,7 @@ msgstr "Il file utilizzato per caricare i bouquet TV personalizzati (gruppi). Se
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr "Il file utilizzato per caricare i bouquet Radio personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (Radio)\". Il file predefinito è \"customRadioGroups-example.xml\"."
+msgstr "Il file utilizzato per caricare i bouquet radio personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (Radio)\". Il file predefinito è \"customRadioGroups-example.xml\"."
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
@@ -1139,7 +1139,7 @@ msgstr "Il numero di bouquet TV da caricare quando \"Alcuni bouquet\" è la moda
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "Il numero di bouquet Radio da caricare quando \"Alcuni bouquet\" è la modalità di recupero selezionata. Se ne possono scegliere fino a 5. Se sono richiesti più di 5, è necessario utilizzare invece la modalità di recupero \"Bouquet personalizzati\"."
+msgstr "Il numero di bouquet radio da caricare quando \"Alcuni bouquet\" è la modalità di recupero selezionata. Se ne possono scegliere fino a 5. Se sono richiesti più di 5, è necessario utilizzare invece la modalità di recupero \"Bouquet personalizzati\"."
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
@@ -1295,7 +1295,7 @@ msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla Radio (a seconda del canale utilizzato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
+msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla radio (a seconda del canale utilizzato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
@@ -1337,7 +1337,7 @@ msgstr "Se non è possibile determinare il tipo di flusso, supponiamo che sia un
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
-msgstr "Apre la finestra di dialogo delle impostazioni per inputstream.ffmpegdirect per modificare il timeshift e altre impostazioni."
+msgstr "Apri la finestra di dialogo delle impostazioni per inputstream.ffmpegdirect per modificare il timeshift e altre impostazioni."
 
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"

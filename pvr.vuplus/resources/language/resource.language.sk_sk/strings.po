@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-02-04 23:13+0000\n"
+"PO-Revision-Date: 2023-03-08 13:16+0000\n"
 "Last-Translator: Patrik Špaňo <patrik.spano@gmail.com>\n"
 "Language-Team: Slovak <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/sk_sk/>\n"
 "Language: sk_sk\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -826,7 +826,7 @@ msgstr ""
 #. application: Timers
 msgctxt "#30410"
 msgid "Automatic"
-msgstr "Automatické"
+msgstr "Automaticky"
 
 # empty strings from id 30411 to 30419
 #. application: Timers
@@ -875,7 +875,7 @@ msgstr "Zakázané"
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr "Nahrávať, pokiaľ sa líši názov v televíznom programe"
+msgstr "Nahrávať, ak je názov televízneho programu odlišný"
 
 #. application: Timers
 msgctxt "#30432"
