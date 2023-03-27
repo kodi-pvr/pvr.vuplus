@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-02-01 15:54+0000\n"
+"PO-Revision-Date: 2023-03-24 12:16+0000\n"
 "Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
@@ -798,27 +798,27 @@ msgstr "Récupérer le nom du fournisseur pour les chaînes"
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr ""
+msgstr "Activer la limite de disque timeshift"
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr ""
+msgstr "Limite de disque Timeshift"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
 msgid "{0:.1f} GiB"
-msgstr ""
+msgstr "{0:.1f} GiB"
 
 #. label-group: Recordings - Recording Paths
 msgctxt "#30157"
 msgid "Recording Paths"
-msgstr ""
+msgstr "Chemins d'enregistrement"
 
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
-msgstr ""
+msgstr "Emplacements d'enregistrement"
 
 #. ##############
 #. application #
@@ -832,17 +832,17 @@ msgstr "Automatique"
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
-msgstr ""
+msgstr "Minuterie unique (auto)"
 
 #. application: Timers
 msgctxt "#30421"
 msgid "Once off timer (repeating)"
-msgstr ""
+msgstr "Minuterie unique (répétitive)"
 
 #. application: Timers
 msgctxt "#30422"
 msgid "Once off timer (channel)"
-msgstr ""
+msgstr "Minuterie unique (canal)"
 
 #. application: Timers
 msgctxt "#30423"
@@ -913,28 +913,28 @@ msgstr "Enigma2 : aucune chaîne trouvée"
 #. notification: Enigma2
 msgctxt "#30518"
 msgid "Enigma2: Channel group changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2 : Changements de groupe de canaux détectés, veuillez redémarrer pour charger les modifications"
 
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2 : Changements de canal détectés, veuillez redémarrer pour charger les modifications"
 
 #. application: AutoTimer
 #. application: Timer
 msgctxt "#30520"
 msgid "Invalid Channel"
-msgstr ""
+msgstr "Canal non valide"
 
 #. notification: Enigma2
 msgctxt "#30521"
 msgid "Enigma2: Channel group changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2 : Changements de groupe de canaux détectés, rechargement..."
 
 #. notification: Enigma2
 msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2 : Changements de canal détectés, rechargement..."
 
 # empty strings from id 30523 to 30599
 #. ############
@@ -944,17 +944,17 @@ msgstr ""
 #. help-category: connection
 msgctxt "#30600"
 msgid "This category cotains the settings for connecting to the Enigma2 device"
-msgstr ""
+msgstr "Cette catégorie contient les paramètres de connexion à l'appareil Enigma2"
 
 #. help: Connection - host
 msgctxt "#30601"
 msgid "The IP address or hostname of your enigma2 based set-top box."
-msgstr ""
+msgstr "L'adresse IP ou nom d'hôte de votre décodeur basé sur enigma2."
 
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr ""
+msgstr "Port utilisé pour se connecter à l'interface Web."
 
 #. help: Connection - use_secure
 msgctxt "#30603"
@@ -964,22 +964,22 @@ msgstr "Utiliser HTTPS pour se connecter à l'interface Web."
 #. help: Connection - user
 msgctxt "#30604"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Si l'interface Web du décodeur est protégée par une combinaison nom d'utilisateur/mot de passe, celle-ci doit être définie dans cette option."
 
 #. help: Connection - pass
 msgctxt "#30605"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Si l'interface Web du décodeur est protégée par une combinaison nom d'utilisateur/mot de passe, celle-ci doit être définie dans cette option."
 
 #. help: Connection - autoconfig
 msgctxt "#30606"
 msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
-msgstr ""
+msgstr "Lorsqu'activée, l'URL du flux sera lue à partir d'un fichier M3U8. Lorsque désactivée, il est construit en fonction de la référence de service du canal. Cette option est rarement requise et ne doit pas être activée, sauf si vous avez un cas d'utilisation particulier. Si vous regardez un flux IPTV, cette option n'a aucun effet sur les chaînes."
 
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr ""
+msgstr "Cette option définit le port de diffusion que le décodeur utilise pour diffuser la télévision en direct. La valeur par défaut est 8001, ce qui devrait convenir si l'utilisateur n'a pas défini de port personnalisé dans l'interface Web."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
@@ -989,91 +989,91 @@ msgstr "Utilise HTTPS pour se connecter aux flux."
 #. help: Connection - use_login_stream
 msgctxt "#30609"
 msgid "Use the login username and password for streams."
-msgstr ""
+msgstr "Utiliser le nom d'utilisateur et le mot de passe de connexion pour les flux."
 
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
 msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
-msgstr ""
+msgstr "La valeur en secondes pour attendre la fin d'une vérification de connexion avant l'échec. Utile pour le réglage sur les anciens appareils Enigma2. Notez que ce paramètre doit rarement être modifié. Il est plus probable que le paramètre \"Intervalle de vérification de la connexion\" ait l'effet souhaité. La valeur par défaut est de 30 secondes."
 
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
-msgstr ""
+msgstr "Valeur en secondes à attendre entre les vérifications de connexion. Utile pour le réglage sur les anciens appareils Enigma2. La valeur par défaut est 10 secondes."
 
 # empty strings from id 30612 to 30619
 #. help info - General
 #. help-category: general
 msgctxt "#30620"
 msgid "This category cotains the settings whivh generally need to be set by the user"
-msgstr ""
+msgstr "Cette catégorie contient les paramètres qui doivent généralement être définis par l'utilisateur"
 
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr ""
+msgstr "Récupérer les picons directement depuis le décodeur Enigma 2."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
 msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
-msgstr ""
+msgstr "Récupérer le chemin du picon depuis OpenWebIf au lieu de le construire depuis ServiceRef. Nécessite OpenWebIf 1.3.5 ou supérieur. Il n'y a aucun effet s'il est utilisé sur une version inférieure d'OpenWebIf."
 
 #. help: General - usepiconseuformat
 msgctxt "#30623"
 msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
-msgstr ""
+msgstr "Supposons que tous les fichiers picons extraits du décodeur commencent par '1_1_1_' et se terminent par '_0_0_0'."
 
 #. help: General - iconpath
 msgctxt "#30624"
 msgid "In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property."
-msgstr ""
+msgstr "Pour que Kodi affiche les logos des chaînes, vous devez copier les picons de votre décodeur sur votre machine OpenELEC. Vous devez ensuite spécifier ce chemin dans cette propriété."
 
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr ""
+msgstr "Comme le décodeur peut également être utilisé pour modifier les minuteries, supprimer des enregistrements, etc. et que le décodeur ne notifie pas l'installation de Kodi, l'addon doit vérifier régulièrement les mises à jour (nouvelles chaînes, nouvelles minuteries /modifiées/supprimées, enregistrements supprimés, etc.) Cette propriété définit la fréquence à laquelle l'addon vérifie les mises à jour. Veuillez noter que la mise à jour fréquente des enregistrements peut empêcher votre récepteur et son disque dur de se mettre en veille automatiquement."
 
 #. help: General - updatemode
 msgctxt "#30626"
 msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
-msgstr ""
+msgstr "Mode utilisé lorsque l'intervalle de mise à jour est atteint. Notez que si un changement de minuterie est détecté, une mise à jour des enregistrements se produira toujours quel que soit le mode de mise à jour. Choisissez l'un des deux modes suivants : [B]Minuteries et enregistrements[/B] Mettez à jour toutes les minuteries et tous les enregistrements ; [B]Minuteurs uniquement[/B] Ne mettez à jour que les minuteurs. S'il est important de ne pas faire tourner le disque dur de votre décodeur, utilisez cette option. Le disque dur ne devrait alors démarrer que lorsqu'un événement de minuterie se produit."
 
 #. help: General - channelandgroupupdatemode
 msgctxt "#30627"
 msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
-msgstr ""
+msgstr "Mode utilisé lorsque l'heure dans les paramètres suivants est atteinte. Choisissez l'un des trois modes suivants : [B]Désactivé[/B] Ne jamais vérifier les changements de canal et de groupe ; [B]Notifier sur l'interface utilisateur et enregistrer[/B] Afficher un avis dans l'interface utilisateur et enregistrer le fait qu'un changement a été détecté[/B] ; [B]Recharger les chaînes et les groupes[/B] Déconnectez-vous et reconnectez-vous à l'appareil E2 pour recharger les chaînes uniquement si un changement est détecté."
 
 #. help: General - channelandgroupupdatehour
 msgctxt "#30628"
 msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
-msgstr ""
+msgstr "Heure de la journée à laquelle la recherche de nouvelles chaînes doit avoir lieu. La valeur par défaut est 4h car l'Auto Bouquet Maker (ABM) sur l'appareil E2 est réglé par défaut sur 3AM."
 
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr ""
+msgstr "Certains fournisseurs de télévision (par exemple, Nos - Portugal) utilisant MPTS envoient des informations supplémentaires sur le flux de programmes. La définition de l'identifiant du programme permet à kodi de sélectionner le flux correct et rend donc la chaîne/l'enregistrement jouable. Notez qu'il faut environ 33 % de plus pour ouvrir un flux avec cette option activée."
 
 # empty strings from id 30630 to 30639
 #. help info - Channels
 #. help-category: channels
 msgctxt "#30640"
 msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
-msgstr ""
+msgstr "Cette catégorie contient les paramètres des canaux. Lorsque vous modifiez des bouquets, vous devrez peut-être vider le cache de la chaîne pour que les paramètres prennent effet. Vous pouvez le faire en accédant à ce qui suit dans les paramètres Kodi : \"Paramètres->PVR et TV en direct->Général->Effacer le cache\"."
 
 #. help: Channels - usestandardserviceref
 msgctxt "#30641"
 msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
-msgstr ""
+msgstr "Habituellement, les références de service pour les canaux sont dans un format standard comme '1:0:1:27F6:806:2:11A0000:0:0:0:'. À l'occasion, selon le fournisseur, ils peuvent être étendus avec du texte, par ex. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' ou '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1 '. Si cette option est activée, toutes les références de service lues seront lues en standard. C'est le comportement par défaut. Les fonctionnalités telles que les minuteries automatiques seront toujours converties en une référence standard."
 
 #. help: Channels - zap
 msgctxt "#30642"
 msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
-msgstr ""
+msgstr "Lors de l'utilisation de l'addon avec un seul décodeur, il peut être nécessaire que l'addon soit capable de zapper sur une autre chaîne sur le décodeur. Si cette option est activée, chaque changement de canal dans Kodi entraînera également un changement de canal sur le décodeur. Veuillez noter que [B]autoriser le changement de chaîne[/B] doit être activé dans l'interface Web du décodeur."
 
 #. help: Channels - tvgroupmode
 msgctxt "#30643"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all TV bouquets from the set-top box; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for TV favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr ""
+msgstr "Choisir l'un des trois modes suivants : [B]Tous les bouquets[/B] Récupére tous les bouquets TV du décodeur ; [B]Certains bouquets[/B] Ne récupère que les bouquets spécifiés dans les options suivantes ; [B]Groupe de favoris[/B] Récupère uniquement le bouquet système pour les favoris TV ; [B]Groupes personnalisés[/B] Récupère un ensemble de bouquets du décodeur dont les noms sont chargés à partir d'un fichier XML."
 
 #. help: Channels - onetvgroup
 #. help: Channels - twotvgroup
