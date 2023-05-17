@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-03-17 20:48+0000\n"
+"PO-Revision-Date: 2023-05-17 03:42+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 4.17\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -245,7 +245,7 @@ msgstr "Solo in EPG"
 #. label - Advanced - prependoutline
 msgctxt "#30044"
 msgid "In recordings only"
-msgstr "Solo in registrazione"
+msgstr "Solo nelle registrazioni"
 
 #. label - Advanced - prependoutline
 msgctxt "#30045"
@@ -280,7 +280,7 @@ msgstr "Timeout Live TV personalizzato (0 è l'impostazione predefinita)"
 #. label-group: Connection - Login
 msgctxt "#30051"
 msgid "Login"
-msgstr "Login"
+msgstr "Accedi"
 
 #. label-group: Advanced - Misc
 msgctxt "#30052"
@@ -361,7 +361,7 @@ msgstr "Usa HTTP sicuro (https) per lo stream"
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr "Usa il login per gli stream"
+msgstr "Usa accesso per gli streaming"
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
@@ -553,7 +553,7 @@ msgstr "Usa percorso picon di OpenWebIf"
 #. label: Advanced - tracedebug
 msgctxt "#30104"
 msgid "Enable trace logging in debug mode"
-msgstr "Abilita tracciamento registrazione in modalità debug"
+msgstr "Abilita tracciamento eventi in modalità debug"
 
 #. label-group - EPG - Other
 msgctxt "#30105"
@@ -588,7 +588,7 @@ msgstr "Riempimento ora di fine EDL"
 #. label: Advanced - debugnormal
 msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
-msgstr "Abilita registrazione di debug in modalità normale"
+msgstr "Abilita registrazione eventi di debug in modalità normale"
 
 #. application: ChannelGroups
 msgctxt "#30112"
@@ -795,7 +795,7 @@ msgstr "- Modifica impostazioni di inputstream.ffmpegdirect..."
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
 msgid "Retrieve provider name for channels"
-msgstr "Recupera nome provider per i canali"
+msgstr "Recupera nome fornitore per i canali"
 
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
@@ -1054,7 +1054,7 @@ msgstr "L'ora del giorno in cui dovrebbe verificarsi il controllo dei nuovi cana
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr "Alcuni provider TV (ad es. Nos - Portogallo) che utilizzano MPTS inviano informazioni aggiuntive sul flusso del programma. L'impostazione dell'id del programma consente a Kodi di selezionare lo stream corretto e quindi rende riproducibile il canale/la registrazione. Tieni presente che ci vuole circa il 33% in più per aprire qualsiasi stream con questa opzione abilitata."
+msgstr "Alcuni fornitori TV (ad es. Nos - Portogallo) che utilizzano MPTS inviano informazioni aggiuntive sul flusso del programma. L'impostazione dell'id del programma consente a Kodi di selezionare lo stream corretto e quindi rende riproducibile il canale/la registrazione. Tieni presente che ci vuole circa il 33% in più per aprire qualsiasi stream con questa opzione abilitata."
 
 # empty strings from id 30630 to 30639
 #. help info - Channels
@@ -1066,7 +1066,7 @@ msgstr "Questa categoria contiene le impostazioni per i canali. Quando si modifi
 #. help: Channels - usestandardserviceref
 msgctxt "#30641"
 msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
-msgstr "Di solito i riferimenti del servizio per i canali sono in un formato standard come '1:0:1:27F6:806:2:11A0000:0:0:0:'. A volte, a seconda del provider, possono essere estesi con del testo, ad es. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' o '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1 '. Se questa opzione è abilitata, tutti i riferimenti del servizio di lettura verranno letti come standard. Questo è il comportamento predefinito. Funzionalità come i timer automatici verranno sempre convertite in un riferimento standard."
+msgstr "Di solito i riferimenti del servizio per i canali sono in un formato standard come '1:0:1:27F6:806:2:11A0000:0:0:0:'. A volte, a seconda del fornitore, possono essere estesi con del testo, ad es. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' o '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1 '. Se questa opzione è abilitata, tutti i riferimenti del servizio di lettura verranno letti come standard. Questo è il comportamento predefinito. Funzionalità come i timer automatici verranno sempre convertite in un riferimento standard."
 
 #. help: Channels - zap
 msgctxt "#30642"
@@ -1149,14 +1149,14 @@ msgstr "Se questa opzione è abilitata, ogni gruppo in Kodi corrisponderà ai nu
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr "Recupera il nome del provider dal backend durante il recupero dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di recupero sui dispositivi meno recenti."
+msgstr "Recupera il nome dal fornitore dal backend durante il recupero dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di recupero sui dispositivi meno recenti."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
-msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e Live TV-> Guida-> Cancella cache\" in Kodi dopo il riavvio del componente aggiuntivo."
+msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione eventi delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e Live TV-> Guida-> Cancella cache\" in Kodi dopo il riavvio del componente aggiuntivo."
 
 #. help: EPG - extractshowinfoenabled
 msgctxt "#30661"
@@ -1379,7 +1379,7 @@ msgstr "La dimensione del blocco utilizzata da Kodi per i flussi. Il valore pred
 #. help: Advanced - debugnormal
 msgctxt "#30745"
 msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
-msgstr "Le istruzioni del registro di debug verranno visualizzate per l'add-on anche se la registrazione del debug potrebbe non essere abilitata in Kodi. Si noti che tutte le istruzioni del registro di debug verranno visualizzate a livello di AVVISO."
+msgstr "Verranno visualizzate le istruzioni del registro di debug per l'add-on anche se la registrazione eventi di debug potrebbe non essere abilitata in Kodi. Si noti che tutte le istruzioni del registro di debug verranno visualizzate a livello di AVVISO."
 
 #. help: Advanced - tracedebug
 msgctxt "#30746"
@@ -1389,7 +1389,7 @@ msgstr "Oltre alle istruzioni di debug standard verranno visualizzate istruzioni
 #. help: Advanced - ignoredebug
 msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
-msgstr "Le istruzioni del registro di debug non verranno visualizzate per l'add-on anche se la registrazione del debug è abilitata in Kodi. Questo può essere utile quando si tenta di eseguire il debug di un problema in Kodi che non è correlato a componenti aggiuntivi."
+msgstr "Le istruzioni del registro di debug non verranno visualizzate per l'add-on anche se la registrazione eventi di debug è abilitata in Kodi. Questo può essere utile quando si tenta di eseguire il debug di un problema in Kodi che non è correlato all'add-on."
 
 # empty strings from id 30748 to 30759
 #. help info - Backend
