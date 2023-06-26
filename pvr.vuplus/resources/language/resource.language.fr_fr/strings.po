@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-03-24 12:16+0000\n"
+"PO-Revision-Date: 2023-05-29 16:42+0000\n"
 "Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 4.17\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -999,7 +999,7 @@ msgstr "La valeur en secondes pour attendre la fin d'une vérification de connex
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
-msgstr "Valeur en secondes à attendre entre les vérifications de connexion. Utile pour le réglage sur les anciens appareils Enigma2. La valeur par défaut est 10 secondes."
+msgstr "Valeur en secondes à attendre entre les tests de connexion. Utile pour le réglage sur les anciens appareils Enigma2. La valeur par défaut est 10 secondes."
 
 # empty strings from id 30612 to 30619
 #. help info - General
@@ -1334,7 +1334,7 @@ msgstr ""
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
-msgstr "[\"Ouvrir la boîte de dialogue des paramètres pour inputstream.ffmpegdirect pour modifier le décalage temporel et d'autres paramètres.\"]"
+msgstr "Ouvrir la boîte de dialogue des paramètres pour inputstream.ffmpegdirect pour modifier le différé et d'autres paramètres."
 
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"
