@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-08-26 10:14+0000\n"
+"PO-Revision-Date: 2023-07-28 09:11+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fi_fi/>\n"
 "Language: fi_fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -27,7 +27,7 @@ msgstr "Enigma2-käyttöliittymä, joka tukee televisiolähetysten ja tallenteid
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "Tämä on epävakaa ohjelma! Sen tekijät eivät ole millään muotoa vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, haaskatusta ajasta, verenpaineen noususta tai mistään muusta epäsuotuisasta vaikutuksesta."
+msgstr "Tämä on epävakaa ohjelmisto! Sen kehittäjät eivät ole millään tavoin vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, hukatusta ajasta tai mistään muistakaan ei-toivotuista seurauksista."
 
 #. ##################
 #. settings labels #
