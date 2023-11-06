@@ -4,7 +4,9 @@ variables:
 trigger:
   branches:
     include:
+    - Matrix
     - Nexus
+    - Omega
     - releases/*
   paths:
     include:
