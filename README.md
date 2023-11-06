@@ -2,7 +2,6 @@
 [![Build and run tests](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml/badge.svg?branch=Nexus)](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml)
 [![Build Status](https://dev.azure.com/teamkodi/kodi-pvr/_apis/build/status/kodi-pvr.pvr.vuplus?branchName=Nexus)](https://dev.azure.com/teamkodi/kodi-pvr/_build/latest?definitionId=68&branchName=Nexus)
 [![Build Status](https://jenkins.kodi.tv/view/Addons/job/kodi-pvr/job/pvr.vuplus/job/Nexus/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/kodi-pvr%2Fpvr.vuplus/branches/)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv). Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. This add-on leverages the [OpenWebIf project](#https://github.com/E2OpenPlugins/e2openplugin-OpenWebif) to interact with the Enigma2 device via Restful APIs.
