@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-05-17 03:42+0000\n"
+"PO-Revision-Date: 2023-12-12 14:11+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.2.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -453,7 +453,7 @@ msgstr "errore add-on"
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
 msgid "Omit location path from recording directory"
-msgstr "Ometti il percorso della posizione dalla directory di registrazione"
+msgstr "Ometti il percorso della posizione dalla cartella di registrazione"
 
 #. label: Recordings - virtualfolders
 msgctxt "#30085"
@@ -1258,7 +1258,7 @@ msgstr "Per impostazione predefinita, per elencare le registrazioni verrà utili
 #. help: Recordings - keepfoldersomitlocation
 msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
-msgstr "Quando si utilizza la struttura delle cartelle dal backend, omette il percorso della posizione dalla directory. Utile in quanto può eliminare la necessità di attraversare cartelle inutilizzate ogni volta che si accede alle registrazioni."
+msgstr "Quando si utilizza la struttura delle cartelle dal backend, omette il percorso della posizione dalla cartella. Utile in quanto può eliminare la necessità di attraversare cartelle inutilizzate ogni volta che si accede alle registrazioni."
 
 #. help: Recordings - virtualfolders
 msgctxt "#30691"
