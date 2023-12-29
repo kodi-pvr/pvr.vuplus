@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-05-29 16:42+0000\n"
-"Last-Translator: skypichat <skypichat@hotmail.fr>\n"
+"PO-Revision-Date: 2023-12-12 14:11+0000\n"
+"Last-Translator: Azgar <azgar4485@gmail.com>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.2.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -1082,22 +1082,22 @@ msgstr "Choisir l'un des trois modes suivants : [B]Tous les bouquets[/B] Récup�
 #. help: Channels - fivetvgroup
 msgctxt "#30644"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
-msgstr ""
+msgstr "Si l'option précédente a été réglée sur \"Certains bouquets\", vous devez spécifier un bouquet TV à extraire du décodeur. Veuillez noter qu'il s'agit du nom du bouquet tel qu'il apparaît sur le décodeur (c'est-à-dire \"Favoris (TV)\"). Ce paramètre est sensible à la casse."
 
 #. help: Channels - tvfavouritesmode
 msgctxt "#30645"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch TV favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr ""
+msgstr "Si le mode de récupération est 'Tous les bouquets' ou 'Certains bouquets', selon votre image Enigma2, vous devrez peut-être récupérer explicitement les favoris si vous en avez besoin. Les options sont les suivantes : [B]Désactivé[/B] Ne pas récupérer explicitement les favoris TV ; [B]Comme premier bouquet[/B] Les récupérer explicitement comme premier bouquet ; [B]Comme dernier bouquet[/B] Les récupérer explicitement comme dernier bouquet."
 
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr ""
+msgstr "Dernier balayage est un bouquet système contenant toutes les chaînes de télévision et de radio trouvées lors du dernier balayage. Toutes les chaînes de télévision trouvées dans le bouquet Dernier balayage peuvent être affichées dans un groupe appelé \"Dernier balayage (TV)\" dans Kodi. Pour la télévision, ce groupe est exclu par défaut. Désactivez cette option pour exclure ce groupe. Notez que si aucun groupe TV n'est chargé, le groupe Dernier balayage pour la TV sera chargé par défaut, quel que soit ce paramètre."
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr ""
+msgstr "Choisissez l'un des trois modes suivants : [B]Tous les bouquets[/B] Récupérer tous les bouquets Radio du décodeur[/B] ; [B]Certains bouquets[/B] Récupérer uniquement les bouquets spécifiés dans les options suivantes ; [B]Groupe de favoris[/B] Récupérer uniquement le bouquet système pour les favoris Radio ; [B]Groupes personnalisés[/B] Récupérer un ensemble de bouquets du décodeur dont les noms sont chargés à partir d'un fichier XML."
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
@@ -1106,47 +1106,47 @@ msgstr ""
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr ""
+msgstr "Si l'option précédente a été réglée sur \"Certains bouquets\", vous devez spécifier un bouquet radio à récupérer à partir du décodeur. Veuillez noter qu'il s'agit du nom du bouquet tel qu'il apparaît sur le décodeur (c'est-à-dire 'Favoris (Radio)'). Ce paramètre est sensible à la casse."
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr ""
+msgstr "Si le mode de récupération est 'Tous les bouquets' ou 'Certains bouquets', selon votre image Enigma2, vous devrez peut-être récupérer explicitement les favoris si vous en avez besoin. Les options sont les suivantes : [B]Désactivé[/B] Ne pas récupérer explicitement les favoris Radio ; [B]Comme premier bouquet[/B] Les récupérer explicitement comme premier bouquet ; [B]Comme dernier bouquet[/B] Les récupérer explicitement comme dernier bouquet."
 
 #. help: Channels - excludelastscannedradio
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr ""
+msgstr "Dernier balayage est un bouquet système contenant toutes les chaînes de télévision et de radio trouvées lors du dernier balayage. Toutes les chaînes radio trouvées dans le bouquet Dernier balayage peuvent être affichées sous la forme d'un groupe appelé \"Dernier balayage (Radio)\" dans Kodi. Pour la radio, ce groupe est exclu par défaut. Désactivez cette option pour afficher ce groupe."
 
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
 msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
-msgstr ""
+msgstr "Le fichier utilisé pour charger les bouquets TV personnalisés (groupes). Si aucun groupe ne peut être trouvé, la liste des chaînes sera par défaut 'Last Scanned (TV)'. Le fichier par défaut est `customTVGroups-example.xml`."
 
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr ""
+msgstr "Le fichier utilisé pour charger les bouquets radio personnalisés (groupes). Si aucun groupe ne peut être trouvé, la liste des chaînes sera par défaut 'Last Scanned (Radio)'. Le fichier par défaut est `customRadioGroups-example.xml`."
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
 msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr ""
+msgstr "Le nombre de bouquets TV à charger lorsque le mode de recherche sélectionné est \"Quelques bouquets\". Vous pouvez en choisir jusqu'à 5. Si plus de 5 bouquets sont nécessaires, le mode de recherche \"Bouquets personnalisés\" doit être utilisé à la place."
 
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr ""
+msgstr "Le nombre de bouquets radio à charger lorsque le mode de récupération sélectionné est \"Quelques bouquets\". Vous pouvez en choisir jusqu'à 5. Si plus de 5 bouquets sont nécessaires, le mode de recherche \"Bouquets personnalisés\" doit être utilisé à la place."
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
-msgstr ""
+msgstr "Si cette option est activée, chaque groupe dans Kodi correspondra aux numéros de chaîne exacts utilisés dans les bouquets du backend. Si elle est désactivée (par défaut), chaque chaîne n'aura qu'un seul numéro de chaîne (première occurrence lors du chargement)."
 
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr ""
+msgstr "Récupère le nom du fournisseur depuis l'application dorsale lors de la récupération des chaînes. La valeur par défaut est activée, mais la désactivation peut accélérer les temps de recherche sur les appareils plus anciens."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG

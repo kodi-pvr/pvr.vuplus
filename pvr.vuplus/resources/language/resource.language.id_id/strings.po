@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-06-28 08:29+0000\n"
+"PO-Revision-Date: 2023-12-12 14:11+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Indonesian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/id_id/>\n"
 "Language: id_id\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 5.2.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -331,7 +331,7 @@ msgstr "Pergeseran waktu"
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr ""
+msgstr "Aktifkan pergeseran waktu"
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
@@ -780,7 +780,7 @@ msgstr ""
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr ""
+msgstr "Gunakan opsi hubung kembali FFmpeg http jika memungkinkan"
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
@@ -790,7 +790,7 @@ msgstr ""
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
-msgstr ""
+msgstr "‐ Ubah pengaturan inputstream.ffmpegdirect…"
 
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
