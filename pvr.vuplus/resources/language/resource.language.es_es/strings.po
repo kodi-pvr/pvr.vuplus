@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-11-26 20:11+0000\n"
+"PO-Revision-Date: 2024-01-02 08:54+0000\n"
 "Last-Translator: José Antonio Alvarado <jalvarado0.eses@gmail.com>\n"
 "Language-Team: Spanish (Spain) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/es_es/>\n"
 "Language: es_es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.3\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -168,7 +168,7 @@ msgstr "Usar HTTP Seguro (https)"
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "Activar la configuración automática de las transmisiones en directo"
+msgstr "Activar la configuración automática de las retransmisiones en directo"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
@@ -228,7 +228,7 @@ msgstr "Poner frase (p. ej. subtítulo) antes del argumento"
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr "Tamaño del bloque de lectura de la transmisión"
+msgstr "Tamaño del fragmento de lectura de la transmisión"
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
@@ -334,7 +334,7 @@ msgstr "Activar timeshift"
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "Ruta del Buffer de Timeshift"
+msgstr "Ruta del búfer de timeshift"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -892,7 +892,7 @@ msgstr "Grabar aunque el título y cualquier descripción en EPG difiera"
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "La Ruta del Buffer Timeshift No Existe"
+msgstr "La ruta del búfer de timeshift no existe"
 
 #. notification: Enigma2
 msgctxt "#30515"
@@ -1296,7 +1296,7 @@ msgstr "Para cada canal usado para crear la autograbación, limitar a los grupos
 #. help-category: timeshift
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
-msgstr "Esta categoría contiene los ajustes para el TimeShift. TimeShift permite pausar la TV en directo y rebobinar y avanzar como si fuera una grabación. El buffer se limpiará cada vez que se cambie de canal o se deje de reproducir."
+msgstr "Esta categoría contiene los ajustes para el timeshift. Timeshifting te permite pausar la televisión en directo, así como retroceder y avanzar desde tu posición actual, de forma similar a la reproducción de una grabación. El búfer se borra cada vez que se cambia o se detiene un canal."
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
@@ -1306,12 +1306,12 @@ msgstr "Qué opción de Timeshift quieres: [B]Desactivado[/B] Sin Timeshifting; 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "La ruta utilizada para almacenar el búfer de Timeshift. Por defecto es la carpeta `addon_data/pvr.vuplus` en userdata."
+msgstr "La ruta utilizada para almacenar el búfer de timeshift. Por defecto es la carpeta `addon_data/pvr.vuplus` en userdata."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
 msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
-msgstr "Activar la función Timeshift para transmisiones IPTV utilizando inputstream.ffmpegdirect. Tenga en cuenta que esta función solo funciona en la reproducción e ignorará el modo Timeshift utilizado para la reproducción de canales normales."
+msgstr "Activar la función timeshift para transmisiones IPTV utilizando inputstream.ffmpegdirect. Tenga en cuenta que esta función solo funciona en la reproducción e ignorará el modo timeshift utilizado para la reproducción de canales normales."
 
 #. help: Timeshift - useFFmpegReconnect
 msgctxt "#30724"
@@ -1336,7 +1336,7 @@ msgstr "Para dispositivos con espacio de disco limitado, se puede establecer un 
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
-msgstr "El límite de espacio en disco a utilizar para el buffer timeshift en Gigabytes."
+msgstr "El límite de espacio en disco a utilizar para el búfer de timeshift en Gigabytes."
 
 #. help info - Advanced
 #. help-category: advanced
@@ -1362,7 +1362,7 @@ msgstr "El tiempo de espera a utilizar cuando se intenta leer transmisiones en d
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr "El tamaño del bloque usado por Kodi para las transmisiones. Por defecto en 0 para dejar que Kodi decida. Puede ser útil configurarlo manualmente cuando se ven transmisiones de forma remota, ya que el PVR está optimizado para una red local."
+msgstr "El tamaño del fragmento usado por Kodi para las transmisiones. Por defecto en 0 para dejar que Kodi decida. Puede ser útil configurarlo manualmente cuando se ven transmisiones de forma remota donde puede producirse almacenamiento en búfer, ya que el PVR está optimizado para una red local."
 
 #. help: Advanced - debugnormal
 msgctxt "#30745"
