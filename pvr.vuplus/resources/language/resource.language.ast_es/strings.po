@@ -7,27 +7,26 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-09-06 13:29+0000\n"
-"Last-Translator: Minho Park <parkmino@gmail.com>\n"
-"Language-Team: Korean <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ko_kr/>\n"
-"Language: ko_kr\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ast_es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "VU+ / Enigma2 베이스 셋탑박스를 위한 Kodi 프론트엔드"
+msgstr ""
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "Enigma2 프론트엔드 - 라이브 TV & 녹음, EPG, 타이머, 자동 타이머.[CR]    [CR]문서를 보려면 https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md를 방문하세요[CR]    "
+msgstr ""
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr "이 소프트웨어는 불안정합니다! 제작자는 녹화 실패, 부정확한 타이머, 시간 낭비 및 기타 예상하지 못한 결과에 대해 책임지지 않습니다.."
+msgstr ""
 
 #. ##################
 #. settings labels #
@@ -35,906 +34,913 @@ msgstr "이 소프트웨어는 불안정합니다! 제작자는 녹화 실패, �
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
-msgstr "Enigma2 호스트명이나 IP 주소"
+msgstr ""
 
+#empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr "스트리밍 포트"
+msgstr ""
 
 #. label: Connection - user
 msgctxt "#30003"
 msgid "Username"
-msgstr "사용자명"
+msgstr ""
 
 #. label: Connection - pass
 msgctxt "#30004"
 msgid "Password"
-msgstr "비밀번호"
+msgstr ""
 
 #. label-category: connection
 msgctxt "#30005"
 msgid "Connection"
-msgstr "연결"
+msgstr ""
 
 #. label-group: General - Icons
 msgctxt "#30006"
 msgid "Icons"
-msgstr "아이콘"
+msgstr ""
 
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr "프로그램 스트림"
+msgstr ""
 
 #. label: General - iconpath
 msgctxt "#30008"
 msgid "Icon path"
-msgstr "아이콘 경로"
+msgstr ""
 
 #. label-group: General - Update Interval
 msgctxt "#30009"
 msgid "Update Interval"
-msgstr "업데이트 주기"
+msgstr ""
 
+#empty string with id 30010
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
-msgstr "자동 타이머 항목 지움"
+msgstr ""
 
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr "웹 인터페이스 포트"
+msgstr ""
 
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr "채널 변경 전에 빠르게 변경 (하나의 튜너 박스의 경우)"
+msgstr ""
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr "라이브 채널이나 녹화된 스트림의 프로그램 ID 설정"
+msgstr ""
 
 #. label: General - updateint
 msgctxt "#30015"
 msgid "Update interval"
-msgstr "업데이트 주기"
+msgstr ""
 
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr "백엔드의 특정 묶음 채널 사용"
+msgstr ""
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr "백엔드의 현재 녹화 경로만 사용"
+msgstr ""
 
 #. label-category: general
 #. label-group: Channels
 msgctxt "#30018"
 msgid "General"
-msgstr "일반"
+msgstr ""
 
 #. label-category: channels
 msgctxt "#30019"
 msgid "Channels"
-msgstr "채널"
+msgstr ""
 
 #. label-category: advanced
 #. label-group: Connection - Advanced
 msgctxt "#30020"
 msgid "Advanced"
-msgstr "고급"
+msgstr ""
 
-# empty string with id 30021
+#empty string with id 30021
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
-msgstr "기록 위치에 반복 목록 사용"
+msgstr ""
 
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr "새 타이머 기본 녹화 폴더"
+msgstr ""
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr "애드온을 나갈 때 전원 상태 모드 보내기"
+msgstr ""
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
-msgstr "TV 묶음 가져오기 모드"
+msgstr ""
 
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr "TV 묶음 1"
+msgstr ""
 
 #. label: General - onlinepicons
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr "웹 인터페이스에서 picons 가져오기"
+msgstr ""
 
 #. label: Connection - use_secure
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
-msgstr "안전한 HTTP (https) 사용"
+msgstr ""
 
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr "라이브 스트림에 자동 설정 사용"
+msgstr ""
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
-msgstr "녹화을 위한 폴더 구조 유지"
+msgstr ""
 
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr "시즌과 에피소드"
+msgstr ""
 
 #. label-category: epg
 msgctxt "#30032"
 msgid "EPG"
-msgstr "EPG"
+msgstr ""
 
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr "시즌, 에피소드와 가능하면 연도 정보 추출"
+msgstr ""
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr "자동 타이머 사용"
+msgstr ""
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr "picons.eu 파일 포맷 사용"
+msgstr ""
 
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
-msgstr "반복 타이머 생성 사용"
+msgstr ""
 
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr "장르 텍스트 매핑 로그 없음"
+msgstr ""
 
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
 msgid "Web Interface"
-msgstr "웹 인터페이스"
+msgstr ""
 
 #. label-group: Connection - Streaming
 msgctxt "#30039"
 msgid "Streaming"
-msgstr "스트리밍"
+msgstr ""
 
 #. label: Advanced - prependoutline
 msgctxt "#30040"
 msgid "Put outline (e.g. sub-title) before plot"
-msgstr "줄거리 앞에 개요 (예. 부제) 넣기"
+msgstr ""
 
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr "스트림 읽기 청크 크기"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
 msgid "Never"
-msgstr "사용 안 함"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30043"
 msgid "In EPG only"
-msgstr "EPG에서만"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30044"
 msgid "In recordings only"
-msgstr "녹화 중에만"
+msgstr ""
 
 #. label - Advanced - prependoutline
 msgctxt "#30045"
 msgid "Always"
-msgstr "항상"
+msgstr ""
 
 #. label: EPG - extractshowinfofile
 msgctxt "#30046"
 msgid "Extract show info file"
-msgstr "쇼 정보 파일 추출"
+msgstr ""
 
 #. label-group: EPG - Rytec genre text Mappings
 msgctxt "#30047"
 msgid "Rytec genre text Mappings"
-msgstr "Rytec 장르 텍스트 매핑"
+msgstr ""
 
 #. label: EPG - rytecgenretextmapenabled
 msgctxt "#30048"
 msgid "Enable Rytec genre text mappings"
-msgstr "Rytec 장르 텍스트 매핑 사용"
+msgstr ""
 
 #. label: EPG - rytecgenretextmapfile
 msgctxt "#30049"
 msgid "Rytec genre text mappings file"
-msgstr "Rytec 장르 텍스트 매핑 파일"
+msgstr ""
 
 #. label: Advanced - readtimeout
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
-msgstr "사용자 라이브 TV 마침 (0은 기본 값)"
+msgstr ""
 
 #. label-group: Connection - Login
 msgctxt "#30051"
 msgid "Login"
-msgstr "로그인"
+msgstr ""
 
 #. label-group: Advanced - Misc
 msgctxt "#30052"
 msgid "Misc"
-msgstr "기타"
+msgstr ""
 
 #. label-group: EPG - Genre ID Mappings
 msgctxt "#30053"
 msgid "Genre ID Mappings"
-msgstr "장르 ID 매핑"
+msgstr ""
 
 #. label: EPG - genreidmapenabled
 msgctxt "#30054"
 msgid "Enable genre ID Mappings"
-msgstr "장르 ID 매핑 사용"
+msgstr ""
 
 #. label: EPG - genreidmapfile
 msgctxt "#30055"
 msgid "Genre ID mappings file"
-msgstr "장르 ID 매핑 파일"
+msgstr ""
 
 #. label-group: Channels - TV
 msgctxt "#30056"
 msgid "TV"
-msgstr "TV"
+msgstr ""
 
 #. label-group: Channels - Radio
 msgctxt "#30057"
 msgid "Radio"
-msgstr "라디오"
+msgstr ""
 
 #. label: Channels - radiogroupmode
 msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
-msgstr "라디오 묶음 가져오기 모드"
+msgstr ""
 
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
 msgid "Radio bouquet 1"
-msgstr "라디오 묶음 1"
+msgstr ""
 
 #. label-category: timeshift
 #. label-group: Timeshift - Timeshift
 msgctxt "#30060"
 msgid "Timeshift"
-msgstr "타임시프트"
+msgstr ""
 
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr "시간차 시청 사용"
+msgstr ""
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr "타임시프트 버퍼 경로"
+msgstr ""
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
 msgid "Off"
-msgstr "끔"
+msgstr ""
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30064"
 msgid "On playback"
-msgstr "재생 중"
+msgstr ""
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30065"
 msgid "On pause"
-msgstr "중지"
+msgstr ""
 
 #. label: Connection - use_secure_stream
 msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
-msgstr "스트림에 안전한 HTTP (https) 사용"
+msgstr ""
 
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr "스트림에 로그인 사용"
+msgstr ""
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
 msgid "Fetch TV favourites bouquet"
-msgstr "TV 즐겨찾기 묶음 가져오기"
+msgstr ""
 
 #. label: Channels - radiofavouritesmode
 msgctxt "#30069"
 msgid "Fetch radio favourites bouquet"
-msgstr "라디오 즐겨찾기 묶음 가져오기"
+msgstr ""
 
 #. label-category: recordings
 msgctxt "#30070"
 msgid "Recordings"
-msgstr "녹화"
+msgstr ""
 
 #. label-group: Recordings - Recordings
 msgctxt "#30071"
 msgid "Recordings"
-msgstr "녹화"
+msgstr ""
 
 #. label-category: timers
 #. label-group: Timers - timers
 msgctxt "#30072"
 msgid "Timers"
-msgstr "녹화 예약"
+msgstr ""
 
 #. label: Timers - numgenrepeattimers
 msgctxt "#30073"
 msgid "Number of repeat timers to generate"
-msgstr "생성할 반복 타이머 숫자"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30074"
 msgid "All bouquets"
-msgstr "모든 묶음"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30075"
 msgid "Some bouquets"
-msgstr "일부 묶음"
+msgstr ""
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30076"
 msgid "As first bouquet"
-msgstr "처음 묶음으로"
+msgstr ""
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30077"
 msgid "As last bouquet"
-msgstr "마지막 묶음으로"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30078"
 msgid "Favourites bouquet"
-msgstr "즐겨찾기 묶음"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30079"
 msgid "Favourites (TV)"
-msgstr "즐겨찾기 (TV)"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30080"
 msgid "Favourites (Radio)"
-msgstr "즐겨찾기 (라디오)"
+msgstr ""
 
 #. application: Client
 #. application: Admin
 msgctxt "#30081"
 msgid "unknown"
-msgstr "알 수 없음"
+msgstr ""
 
 #. application: Client
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr " (연결 안 됨!)"
+msgstr ""
 
 #. application: Client
 msgctxt "#30083"
 msgid "addon error"
-msgstr "애드온 오류"
+msgstr ""
 
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
 msgid "Omit location path from recording directory"
-msgstr "녹화 디렉터리에서 위치 경로 생략"
+msgstr ""
 
 #. label: Recordings - virtualfolders
 msgctxt "#30085"
 msgid "Group recordings into folders by title"
-msgstr "제목별 폴더로 녹음 묶음"
+msgstr ""
 
 #. label-category: backend
 msgctxt "#30086"
 msgid "Backend"
-msgstr "백엔드"
+msgstr ""
 
 #. label-group: Backend - Recording Padding
 msgctxt "#30087"
 msgid "Recording Padding"
-msgstr "녹화 붙이기"
+msgstr ""
 
 #. label: Backend - globalstartpaddingstb
 msgctxt "#30088"
 msgid "Global start padding"
-msgstr "전체 시작 붙이기"
+msgstr ""
 
 #. label: Backend - globalendpaddingstb
 msgctxt "#30089"
 msgid "Global end padding"
-msgstr "전체 종료 붙이기"
+msgstr ""
 
 #. label-group: Backend - Device Info
 msgctxt "#30090"
 msgid "Device Info"
-msgstr "장치 정보"
+msgstr ""
 
 #. label: Backend - webifversion
 msgctxt "#30091"
 msgid "WebIf version"
-msgstr "WebIf 버전"
+msgstr ""
 
 #. label: Backend - autotimertagintags
 msgctxt "#30092"
 msgid "AutoTimer tag in timer tags"
-msgstr "타이머 태그의 자동 타이머 태그"
+msgstr ""
 
 #. label: Backend - autotimernameintags
 msgctxt "#30093"
 msgid "AutoTimer name in timer tags"
-msgstr "타이머 태그의 자동 타이머 이름"
+msgstr ""
 
 #. application: Admin
 msgctxt "#30094"
 msgid "N/A"
-msgstr "사용할 수 없음"
+msgstr ""
 
 #. application: Admin
 msgctxt "#30095"
 msgid "True"
-msgstr "사실"
+msgstr ""
 
 #. application: Admin
 msgctxt "#30096"
 msgid "False"
-msgstr "없음"
+msgstr ""
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30097"
 msgid "Standby"
-msgstr "대기 모드"
+msgstr ""
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30098"
 msgid "Deep standby"
-msgstr "깊은 대기 모드"
+msgstr ""
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30099"
 msgid "Wakeup, then standby"
-msgstr "기동하고 대기 모드"
+msgstr ""
 
 #. label: General - updatemode
 msgctxt "#30100"
 msgid "Update mode"
-msgstr "업데이트 모드"
+msgstr ""
 
 #. label-option: General - updatemode
 msgctxt "#30101"
 msgid "Timers and recordings"
-msgstr "타이머와 녹화"
+msgstr ""
 
 #. label-option: General - updatemode
 msgctxt "#30102"
 msgid "Timers only"
-msgstr "타이머만"
+msgstr ""
 
 #. label: General - useopenwebifpiconpath
 msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
-msgstr "OpenWebIf picon 경로 사용"
+msgstr ""
 
 #. label: Advanced - tracedebug
 msgctxt "#30104"
 msgid "Enable trace logging in debug mode"
-msgstr "디버그 모드에서 로그 추적"
+msgstr ""
 
 #. label-group - EPG - Other
 msgctxt "#30105"
 msgid "Other"
-msgstr "기타"
+msgstr ""
 
 #. label: EPG - epgdelayperchannel
 msgctxt "#30106"
 msgid "EPG update delay per channel"
-msgstr "EPG 채널별 지연 업데이트"
+msgstr ""
 
 #. label-group: Recordings - Recording EDLs (Edit Decision Lists)
 msgctxt "#30107"
 msgid "Recording EDLs (Edit Decision Lists)"
-msgstr "EDLs (Edit Decision Lists) 녹화"
+msgstr ""
 
 #. label: Recordings - enablerecordingedls
 msgctxt "#30108"
 msgid "Enable EDLs support"
-msgstr "EDLs 지원 사용"
+msgstr ""
 
 #. label: Recordings - edlpaddingstart
 msgctxt "#30109"
 msgid "EDL start time padding"
-msgstr "EDL 시작 시간 덧붙임"
+msgstr ""
 
 #. label: Recordings - edlpaddingstop
 msgctxt "#30110"
 msgid "EDL stop time padding"
-msgstr "EDL 종료 시간 덧붙임"
+msgstr ""
 
 #. label: Advanced - debugnormal
 msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
-msgstr "일반 모드에서 디버그 로그 사용"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30112"
 msgid "Last Scanned (TV)"
-msgstr "마지막 검색 (TV)"
+msgstr ""
 
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr "마지막 검색 (라디오)"
+msgstr ""
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
 msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
-msgstr "마지막 검색 묶음 제외"
+msgstr ""
 
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
-msgstr "초기 EPG 읽기 건너뜀"
+msgstr ""
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
 msgid "Channels and groups update mode"
-msgstr "채널과 그룹 업데이트 모드"
+msgstr ""
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
 msgid "Disabled"
-msgstr "사용 안 함"
+msgstr ""
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30118"
 msgid "Notify on UI and Log"
-msgstr "사용자 인터페이스와 로그에 알림"
+msgstr ""
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30119"
 msgid "Reload Channels and Groups"
-msgstr "채널과 그룹 다시 읽기"
+msgstr ""
 
 #. label: General - channelandgroupupdatehour
 msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
-msgstr "채널과 그룹 업데이트 시간 (24시)"
+msgstr ""
 
 #. label: Connection - connectionchecktimeout
 msgctxt "#30121"
 msgid "Connection check timeout"
-msgstr "연결 확인 시간 제한"
+msgstr ""
 
 #. label: Connection - connectioncheckinterval
 msgctxt "#30122"
 msgid "Connection check interval"
-msgstr "연결 확인 간격"
+msgstr ""
 
 #. label: Timers - Autotimers
 msgctxt "#30123"
 msgid "Autotimers"
-msgstr "자동 타이머"
+msgstr ""
 
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
 msgid "Limit 'Any Channel' autotimers to TV or Radio"
-msgstr "'모든 채널' 자동 타이머를 TV나 라디오로 제한"
+msgstr ""
 
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
-msgstr "원본 EPG 채널의 그룹으로 제한"
+msgstr ""
 
 #. label: Channels - usestandardserviceref
 msgctxt "#30126"
 msgid "Use standard channel service reference"
-msgstr "표준 채널 서비스 참조 사용"
+msgstr ""
 
 #. label: Recordings - storeextrarecordinginfo
 msgctxt "#30127"
 msgid "Store last played/play count on the backend"
-msgstr "백엔드에 마지막 재생 회수 저장"
+msgstr ""
 
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr "마지막 재생 공유:"
+msgstr ""
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
 msgid "Kodi instances"
-msgstr "Kodi 사례"
+msgstr ""
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30130"
 msgid "Kodi/E2 instances"
-msgstr "Kodi/E2 사례"
+msgstr ""
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30131"
 msgid "Custom bouquets"
-msgstr "사용자 묶음"
+msgstr ""
 
 #. label: Channels - customtvgroupsfile
 msgctxt "#30132"
 msgid "Custom TV bouquets file"
-msgstr "사용자 TV 묶음 파일"
+msgstr ""
 
 #. label: Channels - customradiogroupsfile
 msgctxt "#30133"
 msgid "Custom Radio bouquets file"
-msgstr "사용자 라디오 묶음 파일"
+msgstr ""
 
 #. label: Channels - numtvgroups
 msgctxt "#30134"
 msgid "Number of TV bouquets"
-msgstr "TV 묶음 개수"
+msgstr ""
 
 #. label: Channels - twotvgroup
 msgctxt "#30135"
 msgid "TV bouquet 2"
-msgstr "TV 묶음 2"
+msgstr ""
 
 #. label: Channels - threetvgroup
 msgctxt "#30136"
 msgid "TV bouquet 3"
-msgstr "TV 묶음 3"
+msgstr ""
 
 #. label: Channels - fourtvgroup
 msgctxt "#30137"
 msgid "TV bouquet 4"
-msgstr "TV 묶음 4"
+msgstr ""
 
 #. label: Channels - fivetvgroup
 msgctxt "#30138"
 msgid "TV bouquet 5"
-msgstr "TV 묶음 5"
+msgstr ""
 
 #. label: Channels - numradiogroups
 msgctxt "#30139"
 msgid "Number of radio bouquets"
-msgstr "라디오 묶음 개수"
+msgstr ""
 
 #. label: Channels - tworadiogroup
 msgctxt "#30140"
 msgid "Radio bouquet 2"
-msgstr "라디오 묶음 2"
+msgstr ""
 
 #. label: Channels - threeradiogroup
 msgctxt "#30141"
 msgid "Radio bouquet 3"
-msgstr "라디오 묶음 3"
+msgstr ""
 
 #. label: Channels - fourradiogroup
 msgctxt "#30142"
 msgid "Radio bouquet 4"
-msgstr "라디오 묶음 4"
+msgstr ""
 
 #. label: Channels - fiveradiogroup
 msgctxt "#30143"
 msgid "Radio bouquet 5"
-msgstr "라디오 묶음 5"
+msgstr ""
 
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
-msgstr "Kodi 디버그 모드의 애드온 디버그 로그 없음"
+msgstr ""
 
 #. label-group: Backend - Power Settings
 msgctxt "#30145"
 msgid "Power Settings"
-msgstr "전원 설정"
+msgstr ""
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30146"
 msgid "Wake On LAN MAC"
-msgstr "Wake On LAN MAC"
+msgstr ""
 
 #. label: Timeshift - IPTV
 msgctxt "#30147"
 msgid "IPTV"
-msgstr "IPTV"
+msgstr ""
 
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr "IPTV 스트림에 대한 시간이동 활성화"
+msgstr ""
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr "가능하면 FFmpeg http 다시 연결 사용"
+msgstr ""
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
 msgid "Use mpegts MIME type for unknown streams"
-msgstr "알 수 없는 스트림에 mpegts MIME 유형 사용"
+msgstr ""
 
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
-msgstr "- inputstream.ffmpegdirect 설정 수정..."
+msgstr ""
 
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
 msgid "Retrieve provider name for channels"
-msgstr "채널의 공급자 이름 검색"
+msgstr ""
 
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr "시간이동에 디스크 제한 사용함"
+msgstr ""
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr "시간이동 디스크 제한"
+msgstr ""
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
 msgid "{0:.1f} GiB"
-msgstr "{0:.1f} GiB"
+msgstr ""
 
 #. label-group: Recordings - Recording Paths
 msgctxt "#30157"
 msgid "Recording Paths"
-msgstr "녹화 경로"
+msgstr ""
 
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
-msgstr "녹화 위치"
+msgstr ""
 
+#empty strings from id 30159 to 30409
 #. ##############
 #. application #
 #. ##############
 #. application: Timers
 msgctxt "#30410"
 msgid "Automatic"
-msgstr "자동"
+msgstr ""
 
+#empty strings from id 30411 to 30419
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
-msgstr "한 번 꺼짐 타이머 (자동)"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30421"
 msgid "Once off timer (repeating)"
-msgstr "한 번 꺼짐 타이머 (반복)"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30422"
 msgid "Once off timer (channel)"
-msgstr "한 번 꺼짐 타이머 (채널)"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30423"
 msgid "Repeating time/channel based"
-msgstr "반복 타이머/채널 기반"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30424"
 msgid "One time guide-based"
-msgstr "한 번만 편성표 기반"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30425"
 msgid "Repeating guide-based"
-msgstr "반복 편성표 기반"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30426"
 msgid "Auto guide-based"
-msgstr "자동 편성표 기반"
+msgstr ""
 
+#empty strings from id 30427 to 30429
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 #. label-option: Advanced - powerstatemode
 #. application: Timers
 msgctxt "#30430"
 msgid "Disabled"
-msgstr "사용 안 함"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr "EPG 제목이 다르면 녹화"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30432"
 msgid "Record if EPG title and short description differs"
-msgstr "EPG 제목과 간략한 개요가 다르면 녹화"
+msgstr ""
 
 #. application: Timers
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
-msgstr "EPG 제목과 전체 개요가 다르면 녹화"
+msgstr ""
 
+#empty strings from id 30434 to 30513
 #. ################
 #. notifications #
 #. ################
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "시간차 시청 버퍼 경로가 없습니다"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30515"
 msgid "Enigma2: Could not reach web interface"
-msgstr "Enigma2: 웹 인터페이스에 연결할 수 없음"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30516"
 msgid "Enigma2: No channel groups found"
-msgstr "Enigma2: 채널 그룹 없음"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30517"
 msgid "Enigma2: No channels found"
-msgstr "Enigma2: 채널 없음"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30518"
 msgid "Enigma2: Channel group changes detected, please restart to load changes"
-msgstr "Enigma2: 변경된 채널 그룹을 반영하려면 다시 시작합니다"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr "Enigma2: 변경된 채널을 반영하려면 다시 시작합니다"
+msgstr ""
 
 #. application: AutoTimer
 #. application: Timer
 msgctxt "#30520"
 msgid "Invalid Channel"
-msgstr "틀린 채널"
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30521"
 msgid "Enigma2: Channel group changes detected, reloading..."
-msgstr "Enigma2: 채널 그룹이 변경되어 다시 읽음..."
+msgstr ""
 
 #. notification: Enigma2
 msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
-msgstr "Enigma2: 채널이 변경되어 다시 읽음..."
+msgstr ""
 
+#empty strings from id 30523 to 30599
 #. ############
 #. help info #
 #. ############
@@ -942,134 +948,136 @@ msgstr "Enigma2: 채널이 변경되어 다시 읽음..."
 #. help-category: connection
 msgctxt "#30600"
 msgid "This category cotains the settings for connecting to the Enigma2 device"
-msgstr "여기에는 Enigma2 장치에 연결하는 설정이 있습니다"
+msgstr ""
 
 #. help: Connection - host
 msgctxt "#30601"
 msgid "The IP address or hostname of your enigma2 based set-top box."
-msgstr "enigma2 기반 셋톱박스의 IP 주소나 호스트명."
+msgstr ""
 
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr "웹 인터페이스에 연결할 포트."
+msgstr ""
 
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr "웹 인터페이스 연결에 https 사용."
+msgstr ""
 
 #. help: Connection - user
 msgctxt "#30604"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr "셋톱박스의 웹 인터페이스가 사용자명/비밀번호로 보호된다면, 이 옵션을 설정해야 합니다."
+msgstr ""
 
 #. help: Connection - pass
 msgctxt "#30605"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr "셋톱박스의 웹 인터페이스가 사용자명/비밀번호로 보호된다면, 이 옵션을 설정해야 합니다."
+msgstr ""
 
 #. help: Connection - autoconfig
 msgctxt "#30606"
 msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
-msgstr "사용하면 M3U8 파일에서 스트림 URL을 읽고, 아니면 채널의 서비스 참조에 따라 구성합니다. 이 옵션은 거의 필요하지 않으며 특별한 경우가 아니면 사용하지 않아야 합니다. IPTV 스트림을 본다면, 이 옵션은 그 채널에 적용되지 않습니다."
+msgstr ""
 
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr "이 옵션은 라이브 tv 스트림을 전송할 셋톱박스의 스트리밍 포트를 정합니다. 웹 인터페이스의 사용자 포트를 정하지 않으면 기본값인 8001입니다."
+msgstr ""
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr "스트림 연결에 https 사용."
+msgstr ""
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
 msgid "Use the login username and password for streams."
-msgstr "스트림에 사용자명과 비밀번호 사용."
+msgstr ""
 
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
 msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
-msgstr "이 값은 실패까지 연결을 기다릴 초 시간입니다. 구형 Enigma2 장치를 조율하는 데에 유용합니다. 참고로 이 설정은 거의 바꿀 필요가 없습니다. 대게 `연결 확인 간격` 설정이 바람직합니다. 기본은 30초입니다."
+msgstr ""
 
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
-msgstr "이 값은 연결 확인 간에 기다릴 초 시간입니다. 구형 Enigma2 장치를 조율하는 데에 유용합니다. 기본은 10초입니다."
+msgstr ""
 
+#empty strings from id 30612 to 30619
 #. help info - General
 #. help-category: general
 msgctxt "#30620"
 msgid "This category cotains the settings whivh generally need to be set by the user"
-msgstr "사용자가 설정한 값을 갖습니다"
+msgstr ""
 
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr "Enigma2 셋톱박스로부터 직접 picons을 가져옵니다."
+msgstr ""
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
 msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
-msgstr "ServiceRef을 대신해 OpenWeblf로부터 picon 경로를 가져옵니다. OpenWeblf 1.3.5 이상이 필요합니다. 낮은 OpenWeblf 버전을 사용하면 효과가 없습니다."
+msgstr ""
 
 #. help: General - usepiconseuformat
 msgctxt "#30623"
 msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
-msgstr "셋톱박스의 '1_1_1_'에서 시작해서 '_0_0_0'까지 가져온 모든 picons 파일을 취합니다."
+msgstr ""
 
 #. help: General - iconpath
 msgctxt "#30624"
 msgid "In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property."
-msgstr "Kodi 디스플레이 채널 로고를 사용하려면 셋톱박스의 picons를 OpenELEC 장치로 복사해야 합니다. 그리고 항목에서 경로를 설정해야 합니다."
+msgstr ""
 
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr "셋톱박스도 타이머를 수정하거나 녹화를 지울 수 있고, Kodi 설치를 알리지 않아서, 애드온은 정기적으로 업데이트(신규 채널, 타이머 신규/변경/삭제, 녹화 삭제 등) 를 확인해야 합니다. 이 항목은 애드온 업데이트를 얼마나 자주 확인할지 정합니다. 녹화 간격을 자주 업데이트하면 수신기나 하드디스크가 대기 모드로 자동 진입하는 것을 막을 수 있습니다."
+msgstr ""
 
 #. help: General - updatemode
 msgctxt "#30626"
 msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
-msgstr "업데이트 간격에 도달했을 때 사용되는 모드입니다. 타이머 변경이 감지되면 업데이트 모드에 관계없이 녹화 업데이트가 항상 발생합니다. 다음 두 가지 모드 중 하나를 선택하십시오. [B]타이머 및 녹음[/B] 모든 타이머와 녹음을 업데이트합니다. [B]타이머만[/B] 타이머만 업데이트합니다. 셋탑박스의 HDD를 회전시키지 않는 것이 중요하다면 이 옵션을 사용하십시오. 그러면 HDD는 타이머 이벤트가 발생할 때만 회전합니다."
+msgstr ""
 
 #. help: General - channelandgroupupdatemode
 msgctxt "#30627"
 msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
-msgstr "다음 설정의 시간에 도달했을 때 사용되는 모드입니다. 다음 세 가지 모드 중 하나를 선택하십시오. [B]사용 안 함[/B] 채널 및 그룹 변경 사항을 확인하지 않습니다. [B]UI로 알림 및 로그[/B] UI에 알림을 표시하고 변경 사항이 감지되었다는 사실을 기록합니다[/B]. [B]채널 및 그룹 다시 읽음[/B] E2 장치의 연결을 끊었다가 다시 연결하여 변경 사항이 감지된 경우에만 채널을 다시 읽습니다."
+msgstr ""
 
 #. help: General - channelandgroupupdatehour
 msgctxt "#30628"
 msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
-msgstr "새 채널을 확인할 시간. 기본은 4시인데, E2 장치의 Auto Bouquet Maker (ABM)가 오전 3시이기 때문입니다."
+msgstr ""
 
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr "어떤 MPTS를 사용하는 TV 제공자(예. Nos- 포르투갈)는 따로 프로그램 스트림 정보를 보냅니다. 프로그램 ID를 설정하면 정확한 스트림를 선택해서 채널과 녹화가 가능합니다. 이 옵션을 사용한 다른 스트림을 여는 것보다 약 33% 더 오래 겁립니다."
+msgstr ""
 
+#empty strings from id 30630 to 30639
 #. help info - Channels
 #. help-category: channels
 msgctxt "#30640"
 msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
-msgstr "여기에는 채널에 대한 설정이 있습니다. 묶음을 바꾸려면 설정의 채널 캐시를 지워야 할 수도 있습니다. Kodi 설정에서 '설정->PVR 및 라이브 TV->일반->캐시 지우기'에서 할 수 있습니다."
+msgstr ""
 
 #. help: Channels - usestandardserviceref
 msgctxt "#30641"
 msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
-msgstr "대부분의 채널 서비스 참조는 '1:0:1:27F6:806:2:11A0000:0:0:0:' 같은 표준 포맷 형식입니다. 제공자에 따라 '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' 이나 '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1' 같은 문자로 확장될 수 있습니다. 이 옵션을 사용하면 모든 서비스 참조를 표준으로 읽습니다. 이것이 기본입니다. 자동타이머 같은 기능은 항상 기본 참조로 바뀝니다."
+msgstr ""
 
 #. help: Channels - zap
 msgctxt "#30642"
 msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
-msgstr "단일 튜너 박스와 함께 애드온을 사용할 때 애드온이 셋톱박스의 다른 채널로 이동할 수 있어야 할 수도 있습니다. 이 옵션을 쓰면 Kodi의 각 채널 스위치도 셋톱 박스의 채널을 전환합니다. 셋톱박스의 웹 인터페이스에서 [B]채널 전환 허용[/B]을 사용해야 합니다."
+msgstr ""
 
 #. help: Channels - tvgroupmode
 msgctxt "#30643"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all TV bouquets from the set-top box; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for TV favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr "다음 세 가지 모드 중 하나를 선택하십시오. [B]모든 묶음[/B] 셋톱 박스에서 모든 TV 묶음을 가져옵니다. [B]일부 묶음[/B] 다음 옵션에 지정된 묶음만 가져옵니다. [B]즐겨찾기 그룹[/B] TV 즐겨찾기에 대한 시스템 묶음만 가져옵니다. [B]사용자 지정 그룹[/B] XML 파일의 이름을 읽은 셋톱박스에서 묶음 세트를 가져옵니다."
+msgstr ""
 
 #. help: Channels - onetvgroup
 #. help: Channels - twotvgroup
@@ -1078,22 +1086,22 @@ msgstr "다음 세 가지 모드 중 하나를 선택하십시오. [B]모든 묶
 #. help: Channels - fivetvgroup
 msgctxt "#30644"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
-msgstr "이전 옵션이 '일부 묶음'으로 설정되면 셋톱박스에서 가져올 TV 묶음을 지정해야 합니다. 셋톱박스에 표시된 묶음 이름(예: '즐겨찾기(TV)')입니다. 이 설정은 대소문자를 구분합니다."
+msgstr ""
 
 #. help: Channels - tvfavouritesmode
 msgctxt "#30645"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch TV favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr "가져오기 모드가 Enigma2 이미지에 따라 '모든 묶음' 또는 '일부 묶음'인 경우 필요하면 즐겨찾기를 명확하게 가져와야 할 수도 있습니다. 옵션은 다음과 같습니다. [B]사용 안 함[/B] TV 즐겨찾기를 명확하게 가져오지 않습니다. [B]첫 번째 묶음으로[/B] 첫 번째 묶음을 명확하게 가져옵니다. [B]마지막 묶음으로[/B] 마지막 묶음을 명확하게 가져옵니다."
+msgstr ""
 
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr "마지막 검색은 마지막 검색에서 찾은 TV와 라디오를 포함한 시스템 묶음입니다. 마지막 검색된 묶음에서 찾은 모든 TV 채널은 Kodi의 '마지막 검색(TV)' 그룹에 보입니다. TV에서 이 그룹은 기본으로 제외됩니다. 이 옵션을 사용하지 않으면 이 그룹을 사용하지 않습니다. TV 그룹을 읽지 않으면 설정에 상관없이 기본으로 마지막 검색된 그룹을 읽습니다."
+msgstr ""
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr "다음 세 가지 모드 중 하나를 선택하십시오. [B]모든 묶음[/B] 셋톱 박스에서 모든 라디오 묶음 가져오기[/B]; [B]일부 묶음[/B] 다음 옵션에 지정된 묶음만 가져옵니다. [B]즐겨찾기 그룹[/B] 라디오 즐겨찾기에 대한 시스템 묶음만 가져옵니다. [B]사용자 지정 그룹[/B] XML 파일의 이름을 읽은 셋톱 박스에서 묶음 세트를 가져옵니다."
+msgstr ""
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
@@ -1102,400 +1110,321 @@ msgstr "다음 세 가지 모드 중 하나를 선택하십시오. [B]모든 묶
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr "이전 옵션이 '일부 묶음'으로 설정된 경우 셋톱 박스에서 가져올 라디오 묶음을 지정해야 합니다. 이것은 셋톱박스에 표시된 묶음 이름입니다(즉, '즐겨찾기(라디오)'). 이 설정은 대소문자를 구분합니다."
+msgstr ""
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr "가져오기 모드가 Enigma2 이미지에 따라 '모든 묶음' 또는 '일부 묶음'인 경우 필요하면 즐겨찾기를 명확하게 가져와야 할 수도 있습니다. 옵션은 다음과 같습니다. [B]사용 안 함[/B] 라디오 즐겨찾기를 명확하게 가져오지 않습니다. [B]첫 번째 묶음으로[/B] 첫 번째 묶음으로 명확하게 가져옵니다. [B]마지막 묶음으로[/B] 마지막 묶음으로 명확하게 가져옵니다."
+msgstr ""
 
 #. help: Channels - excludelastscannedradio
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr "마지막 검색은 마지막 검색에서 찾은 TV와 라디오를 포함한 시스템 묶음입니다. 마지막 검색된 묶음에서 찾은 모든 라디오 채널은 Kodi의 '마지막 검색(라디오)' 그룹에 보입니다. 라디오에서 이 그룹은 기본으로 제외됩니다. 이 옵션을 사용하지 않으면 이 그룹을 사용하지 않습니다. 라디오 그룹을 읽지 않으면 설정에 상관없이 기본으로 마지막 검색된 그룹을 읽습니다."
+msgstr ""
 
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
 msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
-msgstr "이 파일은 사용자 TV 묶음(그룹)을 읽는 데에 쓰입니다. 그룹이 채널 리스트에 없으면 '이전 검색(TV)'이 기본입니다. 기본 파일은 `customTVGroups-example.xml`입니다."
+msgstr ""
 
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr "이 파일은 사용자 라디오 묶음(그룹)을 읽는 데에 쓰입니다. 그룹이 채널 리스트에 없으면 '이전 검색(라디오)'이 기본입니다. 기본 파일은 `customRadioGroups-example.xml`입니다."
+msgstr ""
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
 msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "읽기 모드에서 `일부 묶음`이 선택되면 읽을 TV 묶음 개수입니다. 5까지 선택할 수 있습니다. 5개 이상이면 '사용자 묶음' 읽기 모드가 쓰여야 합니다."
+msgstr ""
 
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "읽기 모드에서 `일부 묶음`이 선택되면 읽을 라디오 묶음 개수입니다. 5까지 선택할 수 있습니다. 5개 이상이면 '사용자 묶음' 읽기 모드가 쓰여야 합니다."
+msgstr ""
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
-msgstr "이 옵션을 사용하면 각 그룹은 백엔드 묶음에서 사용되는 정확한 채널 번호와 일치합니다. 사용하지 않으면 (기본) 각 그룹은 단일 백엔드 채널 번호만 가집니다 (읽고 처음 맞는)."
+msgstr ""
 
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr "채널을 가져올 때 백엔드에서 공급자 이름을 검색합니다. 기본값은 활성화되어 있지만 비활성화하면 이전 장치에서 가져오기 시간이 빨라질 수 있습니다."
+msgstr ""
 
+#empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
-msgstr "EPG (Electronic Programme Guide)의 설정 그룹입니다. 모든 옵션이 반영되려면 EPG 캐시를 지워야 합니다. 이것은 애드온을 다시 시작하고 Kodi의 '설정->PVR과 Live TV->편성표->캐시 삭제'에서 할 수 있습니다."
+msgstr ""
 
 #. help: EPG - extractshowinfoenabled
 msgctxt "#30661"
 msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info."
-msgstr "EPG 데이터의 설명을 확인하고 시즌, 에피소드와 가능하면 연도 정보를 추출합니다. 더해서 신규, 생방송, 개봉 정보 등을 추출합니다."
+msgstr ""
 
 #. help: EPG - extractshowinfofile
 msgctxt "#30662"
 msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
-msgstr "시즌, 에피소드와 연도 정보를 추출할 설정. 기본 파일은 `English-ShowInfo.xml`."
+msgstr ""
 
 #. help: EPG - genreidmapenabled
 msgctxt "#30663"
 msgid "If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi."
-msgstr "셋톱박스의 EPG 데이터와 보내진 장르 ID가 DVB 표준을 따르지 않으면, DVB 표준 ID에 넣습니다. 예로 Sky UK는 OpenTV를 쓰는데, 이 옵션이 없으면 Kodi의 장르 색상이나 글자가 틀릴 수 있습니다."
+msgstr ""
 
 #. help: EPG - genreidmapfile
 msgctxt "#30664"
 msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
-msgstr "이 설정은 셋톱박스 EPG 장르 ID를 DVB 표준 ID에 넣습니다. 기본 파일은 `Sky-UK.xml`."
+msgstr ""
 
 #. help: EPG - rytecgenretextmapenabled
 msgctxt "#30665"
 msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
-msgstr "Rytec XMLTV EPG 데이터를 사용하면, 이 옵션은 글자 장르를 DVB 표준 ID에 넣습니다."
+msgstr ""
 
 #. help: EPG - rytecgenretextmapfile
 msgctxt "#30666"
 msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
-msgstr "이 설정은 Rytec Genre Text를 DVB ID에 넣습니다. 기본 파일은 `Rytec-UK-Ireland.xml`."
+msgstr ""
 
 #. help: EPG - logmissinggenremapping
 msgctxt "#30667"
 msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [B]TV Drama[/B], or for major, minor genres using a dot (.) to separate [B]TV Drama. Soap Opera[/B]"
-msgstr "보고할 수 있도록 누락된 장르 매핑을 기록하려면 이 옵션을 사용합니다. 참고: 매핑이 없는 장르는 모두 추출되어 Kodi에 문자열로 전송됩니다. 현재 장르는 대괄호 사이의 텍스트를 검색하여 추출됩니다. [B]TV 드라마[/B] 또는 메이저, 마이너 장르의 경우 점(.)을 사용하여 [B]TV 드라마. 연속극[/B] 구분합니다"
+msgstr ""
 
 #. help: EPG - epgdelayperchannel
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
-msgstr "구형 Enigma2 장치의 EPG 업데이트는 스트리밍 품질 (버퍼 시간 제한 같은)에 영향을 줄 수 있습니다. 250ms와 5000ms 사이의 지연은 품질을 향상시킬 수 있습니다. 구형 장치만 권장합니다. 버퍼 시간 제한을 피하는 최소값을 선택합니다."
+msgstr ""
 
 #. help: EPG - skipinitialepg
 msgctxt "#30669"
 msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr "초기 EPG(지금과 다음) 읽지 않음. LibreElec/CoreElec에서 충돌을 방지합니다."
+msgstr ""
 
+#empty strings from id 30670 to 30679
 #. help info - Recordings
 #. help-category: recordings
 msgctxt "#30680"
 msgid "This category cotains the settings for recordings"
-msgstr "여기에는 녹음에 대한 설정이 있습니다"
+msgstr ""
 
 #. help: Recordings - storeextrarecordinginfo
 msgctxt "#30681"
 msgid "Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+."
-msgstr "백엔드에서 마지막 재생 위치와 회수를 저장하여 kodi에서 공유합니다. OpenWeblf 버전 1.3.6+에서만 지원합니다."
+msgstr ""
 
 #. help: Recordings - sharerecordinglastplayed
 msgctxt "#30682"
 msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
-msgstr "옵션은 다음과 같습니다. [B]Kodi 규범[/B] kodi의 값만 사용하고 E2 장치에서 마지막으로 재생된 항목에는 영향을 주지 않습니다. [B]Kodi/E2 규범[/B] kodi와 E2 장치에서 값을 사용하여 동기화 상태를 유지합니다. 마지막 재생은 PVR 메뉴를 사용 중인 경우 녹화당 5-10분마다 한 번씩 E2 장치와 동기화됩니다. 이 옵션을 사용하려면 하나의 kodi 규범만 있으면 됩니다."
+msgstr ""
 
 #. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
-msgstr "기본으로 애드온은 새로 생성된 타이머의 녹화 폴더를 지정하지 않으므로, 셋톱박스의 기본값이 사용됩니다. 다른 폴더를 지정하려면 (즉, 모든 녹화를 Kodi를 통해서 각각의 폴더에 저장하려면), 이 옵션을 설정합니다."
+msgstr ""
 
 #. help: Recordings - onlycurrent
 msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
-msgstr "이 옵션이 없으면, 애드온이 셋톱박스에 설정된 경로의 모든 녹화를 읽습니다. 이 옵션이 있으면, 셋톱박스의 '현재 녹화 경로'에 저장된 녹화만 올립니다."
+msgstr ""
 
 #. help: Recordings - keepfolders
 msgctxt "#30685"
 msgid "If enabled use the real path from the backend to dictate the folder structure."
-msgstr "사용하면 백엔드의 실제 경로를 사용하여 폴더 구조를 지정합니다."
+msgstr ""
 
 #. help: Recordings - enablerecordingedls
 msgctxt "#30686"
 msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
-msgstr "EDL은 녹화에서 광고 등을 지정합니다. EDL 파일을 생성하는 Comskip 같은 도구가 사용되면, Kodi PVR이 이를 사용합니다. 예. 'my recording.ts' 파일이 있으면 EDL 파일은 'my recording.edl'이 됩니다. 참고: 파일이 없으면 이 설정은 효과가 없습니다."
+msgstr ""
 
 #. help: Recordings - edlpaddingstart
 msgctxt "#30687"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0."
-msgstr "EDL 정지에 사용할 덪붙임. 즉, 음수를 사용해서 이전을 자르고 양수로 이후를 자름. 기본 0."
+msgstr ""
 
 #. help: Recordings - edlpaddingstop
 msgctxt "#30688"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
-msgstr "EDL 정지에 사용할 덪붙임. 즉, 음수를 사용해서 이전을 자르지 않고 양수로 이후를 자르지 않음. 기본 0."
+msgstr ""
 
 #. help: Recordings - recordingsrecursive
 msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
-msgstr "기본으로 녹음 나열에 위치의 루트만 사용됩니다. 사용하면 하위 폴더의 내용이 포함됩니다."
+msgstr ""
 
 #. help: Recordings - keepfoldersomitlocation
 msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
-msgstr "백엔드에서 폴더 구조를 사용하는 경우 디렉토리의 위치 경로를 생략합니다. 녹화에 접근할 때마다 사용하지 않는 폴더를 탐색할 필요가 없으므로 유용합니다."
+msgstr ""
 
 #. help: Recordings - virtualfolders
 msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
-msgstr "같은 이름의 녹음을 폴더로 그룹화하는 가상 구조를 만듭니다. 백엔드에서 폴더 구조를 관리하지 않는 한 모든 녹음에 적용됩니다. 이 경우 각 녹음 위치의 루트에 있는 녹음에만 적용됩니다."
+msgstr ""
 
+#empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
 msgctxt "#30700"
 msgid "This category cotains the settings for timers (regular and auto)"
-msgstr "타이머 설정 (일반과 자동) 그룹입니다"
+msgstr ""
 
 #. help: Timers - enablegenrepeattimers
 msgctxt "#30701"
 msgid "Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer."
-msgstr "반복 타이머는 타이머 규칙을 나타냅니다. 사용하면 Kodi가 반복 타이머 규칙에 맞는 일반 타이머를 생성해서 사용자 인터페이스가 각 반복 타이머의 예약과 현재 녹화를 보여줍니다."
+msgstr ""
 
 #. help: Timers - numgenrepeattimers
 msgctxt "#30702"
 msgid "The number of Kodi PVR timers to generate."
-msgstr "생성할 Kodi PVR 타이머의 수입니다."
+msgstr ""
 
 #. help: Timers - timerlistcleanup
 msgctxt "#30703"
 msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
-msgstr "이 옵션을 사용하면 애드온이 매 업데이트 주기마다 셋톱박스의 완료된 타이머를 삭제하는 명령어를 보냅니다."
+msgstr ""
 
 #. help: Timers - enableautotimers
 msgctxt "#30704"
 msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
-msgstr "사용하면 셋톱박스를 AutoTimers(타이머 규칙)을 Kodi 사용자 인터페이스의 타이머에 연결하기 위한 설정이 있습니다. 이 애드온은 부팅 시에 이를 자동으로 설정합니다."
+msgstr ""
 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr "마지막으로 검색한 그룹이 제외되면, TV나 라디오에 (자동 타이머를 생성하기 위한 채널에 따라) 새로운 자동 타이머를 제한합니다. 마지막 검색 그룹이 사용되면, 이는 가능하지 않고 설정은 무시됩니다."
+msgstr ""
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
 msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
-msgstr "이 채널이 속한 채널 그룹에 자동 타이머 제한을 만드는 채널."
+msgstr ""
 
+#empty strings from id 30707 to 30719
 #. help info - Timeshift
 #. help-category: timeshift
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
-msgstr "시간 이동을 위한 설정 그룹입니다. 시간 이동으로 녹화를 재생하는 것처럼 라이브 TV를 정지하거나 현재 위치에서 뒤나 앞으로 이동할 수 있습니다. 버퍼는 채널이 바뀌거나 정지할 때마다 삭제됩니다."
+msgstr ""
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
 msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
-msgstr "원하는 시간이동 옵션: [B]사용 안 함[/B] 시간이동 없음; [B]일시 중지 시[/B] 라이브 스트림이 일시 중지되면 시간이동이 시작됩니다. 예를 들어 일시 중지 후 있던 위치에서 계속하고 싶습니다. [B]재생 시[/B] 라이브 스트림이 열리면 시간이동이 시작됩니다. 예를 들어 스트림이 열린 이후 스트림의 어느 지점으로든 이동할 수 있습니다."
+msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "시간 이동 버퍼를 저장할 경로, 기본은 userdata의 `addon_data/pvr.vuplus` 폴더."
+msgstr ""
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
 msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
-msgstr "inputstream.ffmpegdirect를 사용하여 IPTV 스트림에 대한 시간이동 기능을 활성화합니다. 이 기능은 재생 시에만 작동하며 일반 채널 재생에 사용되는 시간이동 모드는 무시합니다."
+msgstr ""
 
 #. help: Timeshift - useFFmpegReconnect
 msgctxt "#30724"
 msgid "Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS)."
-msgstr "이것은 libavformat(예: M3u8/HLS)으로 처리되는 http/https 스트림에만 적용할 수 있습니다."
+msgstr ""
 
 #. help: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30725"
 msgid "If the type of stream cannot be determined assume it's an MPEG TS stream."
-msgstr "스트림 유형을 결정할 수 없는 경우 MPEG TS 스트림이라고 가정합니다."
+msgstr ""
 
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
-msgstr "시간이동 및 기타 설정 수정을 위해 inputstream.ffmpegdirect 설정 대화 상자를 엽니다."
+msgstr ""
 
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"
 msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
-msgstr "디스크 공간이 제한된 장치의 경우, 시간이동이 꺼지고 재생이 라이브 스트림으로 돌아가도록 기가바이트 단위로 제한을 설정할 수 있습니다. 재생 시 시간 이동의 경우, 이 제한에 도달하면 스트림이 다시 시작될 때까지 시간이동이 불가능합니다."
+msgstr ""
 
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
-msgstr "시간이동 버퍼에 사용할 디스크 공간 제한(기가바이트)입니다."
+msgstr ""
 
+#empty strings from id 30729 to 30739
 #. help info - Advanced
 #. help-category: advanced
 msgctxt "#30740"
 msgid "This category cotains advanced/expert settings"
-msgstr "고급/전문가 설정 그룹입니다"
+msgstr ""
 
 #. help: Advanced - prependoutline
 msgctxt "#30741"
 msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
-msgstr "기본으로 줄거리 요약(Enigma2의 짧은 설명)은 사용자 인터페이스에 보이지 않습니다. EPG와 녹화에는 모두 보입니다. 사용하려면 이 옵션을 바꾸고 '설정->PVR과 Live TV->편성표->캐시 삭제'에서 EPG 캐시를 지우면 됩니다."
+msgstr ""
 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
 msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-msgstr "이 옵션이 '사용 안 함' 이외의 값으로 설정되어 있으면 Kodi가 닫힐 때(또는 애드온이 비활성화될 때) 애드온이 셋톱 박스에 Powerstate 명령을 보냅니다. [B]사용 안 함[/B] 애드온이 종료될 때 명령이 전송되지 않습니다; [B]대기[/B] 종료 시 대기 명령을 보냅니다. [B]절전[/B] 종료 시 절전 명령을 보냅니다. 이 명령이 전송된 후 셋톱 박스는 Kodi에 응답하지 않습니다. [B]깨고 대기[/B] 대기와 유사하지만 먼저 깨기 명령을 보냅니다. 모든 스트림이 중지되었는지 확인하려는 경우 유용할 수 있습니다. 참고: CEC를 사용하면 TV가 깨어날 수 있습니다."
+msgstr ""
 
 #. help: Advanced - readtimeout
 msgctxt "#30743"
 msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
-msgstr "라이브 스트림을 읽을 때 사용하는 시간 제한. 기본 라이브 스트림은 0. 기본 시간 이동은 10초."
+msgstr ""
 
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr "스트림에 대해 Kodi에서 사용하는 단위 데이터 크기입니다. 기본값은 0으로 Kodi가 결정합니다. PVR이 로컬 네트워크에 최적화되어 있어, 버퍼링이 발생할 수 있는 원격 스트림을 볼 때 수동 설정이 유용할 수 있습니다."
+msgstr ""
 
 #. help: Advanced - debugnormal
 msgctxt "#30745"
 msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
-msgstr "Kodi에 디버그 로그가 설정되지 않아도 로그 내역이 애드온에 표시됩니다. 모든 디버그 로그 내역은 NOTICE 레벨로 표시됩니다."
+msgstr ""
 
 #. help: Advanced - tracedebug
 msgctxt "#30746"
 msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
-msgstr "기본 로그에 더해 상세하고 자세한 로그 내역이 표시됩니다. '기본 모드에서 디버그 로그 사용'과 더불어 사용하면 디버그 사용없이 추적과 디버그가 표시됩니다. 이 경우 디버그와 추적 로그는 NOTICE 레벨로 나타납니다."
+msgstr ""
 
 #. help: Advanced - ignoredebug
 msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
-msgstr "Kodi에 디버그 로그가 설정되어도 로그 내역이 애드온에 표시되지 않습니다. 애드온에 상관없는 문제를 디버그할 때 유용합니다."
+msgstr ""
 
-# empty strings from id 30748 to 30759
+#empty strings from id 30748 to 30759
 #. help info - Backend
 #. help-category: backend
 msgctxt "#30760"
 msgid "This category contains information and settings on/about the Enigma2 STB."
-msgstr "여기에는 Enigma2 STB에 대한 정보 및 설정이 포함되어 있습니다."
+msgstr ""
 
 #. help: Backend - webifversion
 msgctxt "#30761"
 msgid "webifversion"
-msgstr "webifversion"
+msgstr ""
 
 #. help: Backend - autotimertagintags
 msgctxt "#30762"
 msgid "autotimertagintags"
-msgstr "autotimertagintags"
+msgstr ""
 
 #. help: Backend - autotimernameintags
 msgctxt "#30763"
 msgid "autotimernameintags"
-msgstr "autotimernameintags"
+msgstr ""
 
 #. help: Backend - globalstartpaddingstb
 msgctxt "#30764"
 msgid "This value reflects the backend setting [B]Margin before recording[/B]. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
-msgstr "이 값은 백엔드 설정 [B]기록 전 여유[/B]를 반영합니다. Autotimer에서 생성된 타이머를 포함하여 모든 생성된 새로운 일반 타이머의 시작 부분에 적용됩니다. 패딩/여백이 Autotimer에 설정되어 있으면 해당 Autotimer에 대해 사용자 지정이 되고 이 값을 무시합니다."
+msgstr ""
 
 #. help: Backend - globalendpaddingstb
 msgctxt "#30765"
 msgid "This value reflects the backend setting [B]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
-msgstr "이 값은 백엔드 설정 [B]기록 후 여유[/B]를 반영합니다. Autotimer에서 생성된 타이머를 포함하여 생성된 모든 새로운 일반 타이머의 끝에 적용됩니다. 패딩/여백이 Autotimer에 설정되어 있으면 해당 Autotimer에 대해 사용자 지정이 되고 이 값을 무시합니다."
+msgstr ""
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
-msgstr "WoL(Wake On LAN)에 사용할 Engima2 STB의 MAC 주소입니다."
-
-#~ msgctxt "#30017"
-#~ msgid "Use only the DVB boxes' current recording path"
-#~ msgstr "DVB 박스의 현재 녹화 경로만 사용"
-
-#~ msgctxt "#30023"
-#~ msgid "Recording folder on the receiver"
-#~ msgstr "리시버 녹화 폴더"
-
-#~ msgctxt "#30030"
-#~ msgid "Keep folder structure for records"
-#~ msgstr "녹화에 폴더 구조 유지"
-
-#~ msgctxt "#30626"
-#~ msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [Timers and Recordings] Update all timers and recordings; [Timers only] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
-#~ msgstr "이 모드는 업데이트가 도래하면 쓰입니다. 업데이트 모드에 상관없이 녹화 업데이트를 감지한 모든 타이머가 변경됩니다. 아래 두 모드 중에서 고릅니다: [타이머와 녹화] 모든 타이머와 녹화 업데이트; [타이머만] 타이머만 업데이트. 셋톱박스 HDD 가동이 중요하다면 이 옵션을 사용하시기 바랍니다. 이때 타이머 이벤트가 있을 때만 HDD가 가동됩니다."
-
-#~ msgctxt "#30627"
-#~ msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [Disabled] Never check for channel and group changes; [Notify on UI and Log] Display a notice in the UI and log the fact that a change was detectetd]; [Reload Channels and Groups] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
-#~ msgstr "이 모드는 다음 설정이 도달하면 쓰입니다. 아래 세 모드 중에서 고릅니다: [사용 안 함] 채널과 그룹 변경 확인 안 함; [사용자 인터페이스와 로그에 알림] 변경되면 사용자 인터페이스와 로그에 알림 표시; [채널과 그룹 다시 읽기] 변경되면 채널을 다시 읽을 E2 장치를 끊고 다시 연결."
-
-#~ msgctxt "#30642"
-#~ msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that \"allow channel switching\" needs to be enabled in the webinterface on the set-top box."
-#~ msgstr "단일 튜너 박스에 애드온을 사용하면 셋톱박스의 다른 채널을 바꿀 필요가 있습니다. 이 옵션으로 Kodi의 채널을 변경하면 셋톱박스의 채널이 변경됩니다. 셋톱박스 웹 인터페이스의 \"채널 변경 허용\"을 사용해야 합니다."
-
-#~ msgctxt "#30643"
-#~ msgid "Choose from one of the following three modes: [All bouquets] Fetch all TV bouquets from the set-top box; [Some bouquets] Only fetch the bouquets specified in the next options; [Favourites group] Only fetch the system bouquet for TV favourites; [Custom groups] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-#~ msgstr "아래 세 모드 중에 고릅니다: [모든 묶음] 셋톱박스로부터 모든 TV 묶음 읽기; [일부 묶음] 다음 옵션에서 지정된 묶음만 읽기; [즐겨찾기 그룹] 즐겨찾는 TV의 시스템 묶음만 읽기; [사용자 그룹] XML 파일로부터 읽은 셋톱박스의 한 묶음 세트만 읽기."
-
-#~ msgctxt "#30644"
-#~ msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
-#~ msgstr "이전 옵션으로 '일부 묶음'을 설정하면, 셋톱박스로부터 읽을 TV 묶음을 지정해야 합니다. 셋톱박스에서 보일 묶음 이름입니다 (즉, '즐겨찾기 (TV)'). 대소문자를 구분합니다."
-
-#~ msgctxt "#30645"
-#~ msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch TV favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
-#~ msgstr "읽을 모드가 '모든 묶음'이나 '일부 묶음'이면, Enigma2 이미지에 따라 즐겨찾기를 지정해야 합니다. 옵션은: [사용 안 함] TV 즐겨찾기 읽지 않음; [첫 묶음으로] 첫 묶음 읽음; [마지막 묶음으로] 마지막 묶음 읽음."
-
-#~ msgctxt "#30647"
-#~ msgid "Choose from one of the following three modes: [All bouquets] Fetch all Radio bouquets from the set-top box]; [Some bouquets] Only fetch the bouquets specified in the next options; [Favourites group] Only fetch the system bouquet for Radio favourites; [Custom groups] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-#~ msgstr "아래 세 모드 중에 고릅니다: [모든 묶음] 셋톱박스로부터 모든 라디오 묶음 읽기; [일부 묶음] 다음 옵션에서 지정된 묶음만 읽기; [즐겨찾기 그룹] 즐겨찾는 라디오의 시스템 묶음만 읽기; [사용자 그룹] XML 파일로부터 읽은 셋톱박스의 한 묶음 세트만 읽기."
-
-#~ msgctxt "#30648"
-#~ msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please not that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-#~ msgstr "이전 옵션으로 '일부 묶음'을 설정하면, 셋톱박스로부터 읽을 라디오 묶음을 지정해야 합니다. 셋톱박스에서 보일 묶음 이름입니다 (즉, '즐겨찾기 (라디오)'). 대소문자를 구분합니다. "
-
-#~ msgctxt "#30649"
-#~ msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [Disabled] Don't explicitly fetch Radio favourites; [As first bouquet] Explicitly fetch them as the first bouquet; [As last bouquet] Explicitly fetch them as the last bouquet."
-#~ msgstr "읽을 모드가 '모든 묶음'이나 '일부 묶음'이면, Enigma2 이미지에 따라 즐겨찾기를 지정해야 합니다. 옵션은: [사용 안 함] 라디오 즐겨찾기 읽지 않음; [첫 묶음으로] 첫 묶음 읽음; [마지막 묶음으로] 마지막 묶음 읽음."
-
-#~ msgctxt "#30667"
-#~ msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [TV Drama], or for major, minor genres using a dot (.) to separate [TV Drama. Soap Opera]"
-#~ msgstr "없는 장르 매핑의 로그를 사용하려면 이 옵션을 사용할 수 있습니다. 참고: 매핑이 없는 모든 장르는 여전히 추출하고 Kodi에 문자열로 보냅니다. 현재 장르는 꺾쇠괄호 사이의 문자를 추출하거나, 예. [TV 드라마], 점(.)을 구분자로 주, 부 장르를 나눕니다 예. [TV 드라마. Soap Opera]."
-
-#~ msgctxt "#30682"
-#~ msgid "The options are: [Kodi instances] Only use the value in kodi and will not affect last played on the E2 device; [Kodi/E2 instances] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
-#~ msgstr "옵션: [Kodi 사례] kodi에서만 사용하고 E2 장치의 마지막 재생에는 영향을 미치지 않습니다; [Kodi/E2 사례] kodi와 E2 장치 모두에 사용하여 일치됩니다. PVR 메뉴를 사용하면, E2 장치의 마지막 재생은 매 녹화에서 5-10분에만 일치됩니다. kodi 한 사례로도 이 옵션 사용합니다."
-
-#~ msgctxt "#30685"
-#~ msgid "If enabled do not specify a recording folder, when disabled (defaut), check if the recording is in it's own folder or in the root of the recording path."
-#~ msgstr "사용하면 녹화 폴더를 지정하지 않고, (기본으로) 사용하지 않으면 녹화가 해당 폴더나 녹화 경로의 맨 위에 있는지 확인합니다."
-
-#~ msgctxt "#30721"
-#~ msgid "What timeshift option do you want: [Disabled] No timeshifting; [On Pause] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [On Playback] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
-#~ msgstr "시간 이동 옵션 선택: [사용 안 함] 시간 이동 없음; [정지 시] 라이브 스트림이 정지될 때 시간 이동을 시작함. 예. 정지한 다음 거기에서 시작하고 싶을 때; [재생 중] 라이브 스트림 중일 때 시간 이동을 시작함. 예. 스트림을 시작한 다음 어떤 지점에도 갈 수 있음. "
-
-#~ msgctxt "#30742"
-#~ msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [Disabled] No command sent when the addon exits; [Standby] Send the standby command on exit; [Deep standby] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [Wakeup, then standby] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-#~ msgstr "이 옵션이 `사용 안 함`이외의 값이면 Kodi가 닫히거나 이 애드온이 비 활성화될 때 셋톱박스에 Powerstate 명령어를 보냅니다: [사용 안 함] 이 애드온을 나가면 명령어를 보내지 않음; [대기] 나가면 대기 명령어 보냄; [최대 절전] 나가면 최대 절전 명령어 보냄. 참고, 이 명령어를 보내면 셋톱박스가 Kodi에 더 이상 응답하지 않음; [깨우기와 대기] 대기와 비슷하지만 먼저 깨우기 명령어를 보냄. 모든 스트림이 정지되었는지 확인할 때 유용함. 참고: CEC를 사용하면 TV 깨우기를 할 수 있음."
-
-#~ msgctxt "#30744"
-#~ msgid "The chunk size used by Kodi for streams. Default 0 to leave it to Kodi to decide."
-#~ msgstr "Kodi 스트림에 쓰이는 단위 데이터 크기. 기본 0은 Kodi가 결정."
-
-#~ msgctxt "#30760"
-#~ msgid "This category cotains advanced/expert settings"
-#~ msgstr "고급/전문가 설정 그룹입니다"
-
-#~ msgctxt "#30764"
-#~ msgid "globalstartpaddingstb"
-#~ msgstr "globalstartpaddingstb"
-
-#~ msgctxt "#30765"
-#~ msgid "globalendpaddingstb"
-#~ msgstr "globalendpaddingstb"
+msgstr ""
