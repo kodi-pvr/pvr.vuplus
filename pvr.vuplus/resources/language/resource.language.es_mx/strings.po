@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-12-16 14:13+0000\n"
-"Last-Translator: Edson Armando <edsonarmando78@outlook.com>\n"
+"PO-Revision-Date: 2022-04-09 10:15+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Spanish (Mexico) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/es_mx/>\n"
 "Language: es_mx\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 4.11.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -330,7 +330,7 @@ msgstr "Cambio de hora"
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr ""
+msgstr "Activar timeshift"
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
@@ -779,7 +779,7 @@ msgstr ""
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr ""
+msgstr "Utilizar opciones de reconexión http de FFmpeg si es posible"
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
@@ -789,7 +789,7 @@ msgstr ""
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
-msgstr ""
+msgstr "- Modificar configuración de inputstream.ffmpegdirect..."
 
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
