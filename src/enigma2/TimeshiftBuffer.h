@@ -43,7 +43,7 @@ namespace enigma2
     static const int DEFAULT_READ_TIMEOUT = 10;
     static const int READ_WAITTIME = 50;
 
-    std::string m_bufferPath;
+    std::string m_bufferFile;
     IStreamReader* m_streamReader;
     kodi::vfs::CFile m_filebufferReadHandle;
     kodi::vfs::CFile m_filebufferWriteHandle;

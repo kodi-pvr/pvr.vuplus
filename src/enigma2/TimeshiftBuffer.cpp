@@ -16,15 +16,19 @@ using namespace enigma2::utilities;
 
 TimeshiftBuffer::TimeshiftBuffer(IStreamReader* streamReader, std::shared_ptr<InstanceSettings>& settings) : m_streamReader(streamReader)
 {
-  m_bufferPath = settings->GetTimeshiftBufferPath() + "/tsbuffer.ts";
+  if (kodi::vfs::DirectoryExists(settings->GetTimeshiftBufferPath()))
+    m_bufferFile = settings->GetTimeshiftBufferPath() + "/tsbuffer.ts";
+  else
+    m_bufferFile = ADDON_DATA_BASE_DIR + "/tsbuffer.ts";
+
   unsigned int readTimeout = settings->GetReadTimeoutSecs();
   m_readTimeout = (readTimeout) ? readTimeout : DEFAULT_READ_TIMEOUT;
   if (settings->EnableTimeshiftDiskLimit())
     m_timeshiftBufferByteLimit = settings->GetTimeshiftDiskLimitBytes();
 
-  m_filebufferWriteHandle.OpenFileForWrite(m_bufferPath, true);
+  m_filebufferWriteHandle.OpenFileForWrite(m_bufferFile, true);
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  m_filebufferReadHandle.OpenFile(m_bufferPath, ADDON_READ_NO_CACHE);
+  m_filebufferReadHandle.OpenFile(m_bufferFile, ADDON_READ_NO_CACHE);
 }
 
 TimeshiftBuffer::~TimeshiftBuffer()
@@ -38,14 +42,14 @@ TimeshiftBuffer::~TimeshiftBuffer()
     // XBMC->TruncateFile doesn't work for unknown reasons
     m_filebufferWriteHandle.Close();
     kodi::vfs::CFile tmp;
-    if (tmp.OpenFileForWrite(m_bufferPath, true))
+    if (tmp.OpenFileForWrite(m_bufferFile, true))
       tmp.Close();
   }
   if (m_filebufferReadHandle.IsOpen())
     m_filebufferReadHandle.Close();
 
-  if (!kodi::vfs::DeleteFile(m_bufferPath))
-    Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __func__, m_bufferPath.c_str());
+  if (!kodi::vfs::DeleteFile(m_bufferFile))
+    Logger::Log(LEVEL_ERROR, "%s Unable to delete file when timeshift buffer is deleted: %s", __func__, m_bufferFile.c_str());
 
   Logger::Log(LEVEL_DEBUG, "%s Timeshift: Stopped", __func__);
 }

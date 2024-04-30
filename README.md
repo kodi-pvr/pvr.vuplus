@@ -271,7 +271,7 @@ Timeshifting is also available IPTV streams via [inputstream.ffmpegdirect](#http
     - `Disabled` - No timeshifting
     - `On Pause` - Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing.
     - `On Playback` - Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened.
-* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata.
+* **Timeshift buffer path**: The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead.
 * **Enable timeshift disk limit**: For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached.
 * **Timeshift disk limit**: The disk space limit to use for the timeshift buffer in Gigabytes.
 * **Enable timeshift for IPTV streams**: Enable the timeshift feature for HTTP IPTV streams using `inputstream.ffmpegdirect`. Note that this feature only works `On playback` and will ignore the timeshift mode used for regular channel playback.

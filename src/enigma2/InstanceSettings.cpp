@@ -377,7 +377,7 @@ ADDON_STATUS InstanceSettings::SetSetting(const std::string& settingName, const 
 
 bool InstanceSettings::IsTimeshiftBufferPathValid() const
 {
-  return kodi::vfs::DirectoryExists(m_timeshiftBufferPath);
+  return kodi::vfs::DirectoryExists(m_timeshiftBufferPath) || kodi::vfs::DirectoryExists(ADDON_DATA_BASE_DIR);
 }
 
 bool InstanceSettings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std::string>& channelGroupNameList)
