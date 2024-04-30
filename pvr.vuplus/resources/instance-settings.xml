@@ -842,7 +842,7 @@
           <default>false</default>
           <control type="toggle" />
         </setting>
-        <setting id="timeshiftdisklimit" type="number" label="30154" help="30628">
+        <setting id="timeshiftdisklimit" type="number" label="30154" help="30728">
           <level>0</level>
           <default>4.0</default>
           <constraints>

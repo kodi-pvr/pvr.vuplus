@@ -164,7 +164,8 @@ void Timers::GenerateChildManualRepeatingTimers(std::vector<Timer>* timers, Time
 
 std::string Timers::ConvertToAutoTimerTag(std::string tag)
 {
-  static const std::regex regex(" ");
+  // Replace spaces and any special regex characters with underscores
+  static const std::regex regex(" |\\*|\\?|\\+|\\{");
   std::string replaceWith = "_";
 
   return std::regex_replace(tag, regex, replaceWith);
