@@ -37,6 +37,11 @@ msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr "Nome de servidor Enigma2 ou endereço IP"
 
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr ""
+
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
@@ -604,10 +609,10 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr "Excluir o último pacote analisado"
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
-msgstr "Pular o carregamento incial de EPG"
+msgid "Debug"
+msgstr ""
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -818,6 +823,21 @@ msgstr ""
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
+msgstr ""
+
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr ""
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr ""
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
 msgstr ""
 
 #. ##############
@@ -1145,6 +1165,16 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr ""
 
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr ""
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr ""
+
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
@@ -1190,11 +1220,6 @@ msgstr ""
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr "Para dispositivos Enigma2 mais antigos, as atualizações de EPG podem afetar a qualidade da transmissão (como tempos limite de buffer). Um atraso entre 250ms e 5000ms pode ser introduzido para melhorar a qualidade. Recomendado apenas para dispositivos mais antigos. Escolha o valor mais baixo que evita tempos limite do buffer."
-
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr "Ignorar o carregamento inicial do EPG (agora e depois). Ativado por defeito para prevenir problemas de quebra no LibreElec/CoreElec."
 
 #. help info - Recordings
 #. help-category: recordings
@@ -1306,8 +1331,8 @@ msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "O caminho usado para armazenar o buffer de Ver mais tarde. O padrão é a pasta `addon_data / pvr.vuplus` no 'userdata'."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
+msgstr ""
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
@@ -1416,6 +1441,18 @@ msgstr ""
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr ""
+
+#~ msgctxt "#30115"
+#~ msgid "Skip Initial EPG Load"
+#~ msgstr "Pular o carregamento incial de EPG"
+
+#~ msgctxt "#30669"
+#~ msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
+#~ msgstr "Ignorar o carregamento inicial do EPG (agora e depois). Ativado por defeito para prevenir problemas de quebra no LibreElec/CoreElec."
+
+#~ msgctxt "#30722"
+#~ msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+#~ msgstr "O caminho usado para armazenar o buffer de Ver mais tarde. O padrão é a pasta `addon_data / pvr.vuplus` no 'userdata'."
 
 #~ msgctxt "#30017"
 #~ msgid "Use only the DVB boxes' current recording path"

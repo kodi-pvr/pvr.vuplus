@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-09-06 13:29+0000\n"
+"PO-Revision-Date: 2024-05-05 07:44+0000\n"
 "Last-Translator: Minho Park <parkmino@gmail.com>\n"
 "Language-Team: Korean <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ko_kr/>\n"
 "Language: ko_kr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 5.5.3\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -36,6 +36,11 @@ msgstr "이 소프트웨어는 불안정합니다! 제작자는 녹화 실패, �
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr "Enigma2 호스트명이나 IP 주소"
+
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr "에니그마2 - %s"
 
 #. label: Connection - streamport
 msgctxt "#30002"
@@ -604,10 +609,10 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr "마지막 검색 묶음 제외"
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
-msgstr "초기 EPG 읽기 건너뜀"
+msgid "Debug"
+msgstr "디버그"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -819,6 +824,21 @@ msgstr "녹화 경로"
 msgctxt "#30158"
 msgid "Recording Locations"
 msgstr "녹화 위치"
+
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr "공급자 이름 매핑 파일"
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr "기본 공급자 이름"
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
+msgstr "공급자"
 
 #. ##############
 #. application #
@@ -1144,6 +1164,16 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr "채널을 가져올 때 백엔드에서 공급자 이름을 검색합니다. 기본값은 활성화되어 있지만 비활성화하면 이전 장치에서 가져오기 시간이 빨라질 수 있습니다."
 
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr "STB로부터 받은 공급자 이름을 사용자 정의 이름, 아이콘 등에 매핑하기 위한 설정 파일입니다. 기본 파일은 [I]providerMappings.xml[/I]입니다."
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr "이 값이 주어지면 백엔드에서 검색되지 않은 채널 공급자 이름으로 사용됩니다. 공급자 매핑 파일과 함께 사용할 수 있습니다."
+
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
@@ -1189,11 +1219,6 @@ msgstr "보고할 수 있도록 누락된 장르 매핑을 기록하려면 이 �
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr "구형 Enigma2 장치의 EPG 업데이트는 스트리밍 품질 (버퍼 시간 제한 같은)에 영향을 줄 수 있습니다. 250ms와 5000ms 사이의 지연은 품질을 향상시킬 수 있습니다. 구형 장치만 권장합니다. 버퍼 시간 제한을 피하는 최소값을 선택합니다."
-
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr "초기 EPG(지금과 다음) 읽지 않음. LibreElec/CoreElec에서 충돌을 방지합니다."
 
 #. help info - Recordings
 #. help-category: recordings
@@ -1305,8 +1330,8 @@ msgstr "원하는 시간이동 옵션: [B]사용 안 함[/B] 시간이동 없음
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "시간 이동 버퍼를 저장할 경로, 기본은 userdata의 `addon_data/pvr.vuplus` 폴더."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
+msgstr "타임시프트 버퍼를 저장하는 데 사용되는 경로입니다. 기본값은 userdata의 `addon_data/pvr.vuplus` 폴더입니다. 다른 디렉토리가 지정되었지만 없으면 기본값이 대신 사용됩니다."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
@@ -1415,6 +1440,18 @@ msgstr "이 값은 백엔드 설정 [B]기록 후 여유[/B]를 반영합니다.
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr "WoL(Wake On LAN)에 사용할 Engima2 STB의 MAC 주소입니다."
+
+#~ msgctxt "#30115"
+#~ msgid "Skip Initial EPG Load"
+#~ msgstr "초기 EPG 읽기 건너뜀"
+
+#~ msgctxt "#30669"
+#~ msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
+#~ msgstr "초기 EPG(지금과 다음) 읽지 않음. LibreElec/CoreElec에서 충돌을 방지합니다."
+
+#~ msgctxt "#30722"
+#~ msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+#~ msgstr "시간 이동 버퍼를 저장할 경로, 기본은 userdata의 `addon_data/pvr.vuplus` 폴더."
 
 #~ msgctxt "#30017"
 #~ msgid "Use only the DVB boxes' current recording path"
