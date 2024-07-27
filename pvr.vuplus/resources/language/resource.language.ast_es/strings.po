@@ -36,7 +36,12 @@ msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr ""
 
-#empty string with id 30001
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr ""
+
+# empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
@@ -77,7 +82,7 @@ msgctxt "#30009"
 msgid "Update Interval"
 msgstr ""
 
-#empty string with id 30010
+# empty string with id 30010
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
@@ -130,7 +135,7 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr ""
 
-#empty string with id 30021
+# empty string with id 30021
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
@@ -605,9 +610,9 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr ""
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
+msgid "Debug"
 msgstr ""
 
 #. label: General - channelandgroupupdatemode
@@ -821,7 +826,22 @@ msgctxt "#30158"
 msgid "Recording Locations"
 msgstr ""
 
-#empty strings from id 30159 to 30409
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr ""
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr ""
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
+msgstr ""
+
+# empty strings from id 30159 to 30409
 #. ##############
 #. application #
 #. ##############
@@ -830,7 +850,7 @@ msgctxt "#30410"
 msgid "Automatic"
 msgstr ""
 
-#empty strings from id 30411 to 30419
+# empty strings from id 30411 to 30419
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
@@ -866,7 +886,7 @@ msgctxt "#30426"
 msgid "Auto guide-based"
 msgstr ""
 
-#empty strings from id 30427 to 30429
+# empty strings from id 30427 to 30429
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 #. label-option: Advanced - powerstatemode
@@ -890,7 +910,7 @@ msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
 msgstr ""
 
-#empty strings from id 30434 to 30513
+# empty strings from id 30434 to 30513
 #. ################
 #. notifications #
 #. ################
@@ -940,7 +960,7 @@ msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
 msgstr ""
 
-#empty strings from id 30523 to 30599
+# empty strings from id 30523 to 30599
 #. ############
 #. help info #
 #. ############
@@ -1005,7 +1025,7 @@ msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
 msgstr ""
 
-#empty strings from id 30612 to 30619
+# empty strings from id 30612 to 30619
 #. help info - General
 #. help-category: general
 msgctxt "#30620"
@@ -1057,7 +1077,7 @@ msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
 msgstr ""
 
-#empty strings from id 30630 to 30639
+# empty strings from id 30630 to 30639
 #. help info - Channels
 #. help-category: channels
 msgctxt "#30640"
@@ -1152,7 +1172,17 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr ""
 
-#empty strings from id 30657 to 30659
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr ""
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr ""
+
+# empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
@@ -1199,12 +1229,7 @@ msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr ""
 
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr ""
-
-#empty strings from id 30670 to 30679
+# empty strings from id 30670 to 30679
 #. help info - Recordings
 #. help-category: recordings
 msgctxt "#30680"
@@ -1266,7 +1291,7 @@ msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr ""
 
-#empty strings from id 30692 to 30699
+# empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
 msgctxt "#30700"
@@ -1303,7 +1328,7 @@ msgctxt "#30706"
 msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
 msgstr ""
 
-#empty strings from id 30707 to 30719
+# empty strings from id 30707 to 30719
 #. help info - Timeshift
 #. help-category: timeshift
 msgctxt "#30720"
@@ -1317,7 +1342,7 @@ msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
 msgstr ""
 
 #. help: Timeshift - timeshiftEnabled
@@ -1350,7 +1375,7 @@ msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
 msgstr ""
 
-#empty strings from id 30729 to 30739
+# empty strings from id 30729 to 30739
 #. help info - Advanced
 #. help-category: advanced
 msgctxt "#30740"
@@ -1392,7 +1417,7 @@ msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
 msgstr ""
 
-#empty strings from id 30748 to 30759
+# empty strings from id 30748 to 30759
 #. help info - Backend
 #. help-category: backend
 msgctxt "#30760"

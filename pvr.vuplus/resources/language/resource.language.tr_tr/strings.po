@@ -36,6 +36,11 @@ msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr "Enigma2 ana bilgisayar adı veya IP adresi"
 
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr ""
+
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
@@ -603,9 +608,9 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr ""
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
+msgid "Debug"
 msgstr ""
 
 #. label: General - channelandgroupupdatemode
@@ -817,6 +822,21 @@ msgstr ""
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
+msgstr ""
+
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr ""
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr ""
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
 msgstr ""
 
 #. ##############
@@ -1147,6 +1167,16 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr ""
 
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr ""
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr ""
+
 # empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
@@ -1192,11 +1222,6 @@ msgstr ""
 #. help: EPG - epgdelayperchannel
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
-msgstr ""
-
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
 msgstr ""
 
 # empty strings from id 30670 to 30679
@@ -1312,7 +1337,7 @@ msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
 msgstr ""
 
 #. help: Timeshift - timeshiftEnabled

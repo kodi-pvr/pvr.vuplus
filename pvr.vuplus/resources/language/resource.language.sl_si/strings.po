@@ -5,16 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/kodi-main/language/sl_SI/)\n"
-"Language: sl_SI\n"
+"PO-Revision-Date: 2024-06-11 08:50+0000\n"
+"Last-Translator: Simon <dolenec@gmail.com>\n"
+"Language-Team: Slovenian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/sl_si/>\n"
+"Language: sl_si\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.5.5\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -22,7 +23,7 @@ msgstr "Kodijev vmesnik za sprejemnike VU+ / Enigma2"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr "Vmesnik za VU+; podpira pretakanje televizije v živo in posnetkov, EPG, časovnike."
+msgstr "Enigma2 frontend - podpira pretakanje TV v živo in posnetkov, EPG, časovnikov, samodejnih časovnikov.[CR]    [CR]Za dokumentacijo obiščite: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
@@ -34,6 +35,11 @@ msgstr "To je nestabilna programska oprema! Avtorji niso odgovorni za neuspela s
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
+msgstr ""
+
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
 msgstr ""
 
 # empty string with id 30001
@@ -605,9 +611,9 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr ""
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
+msgid "Debug"
 msgstr ""
 
 #. label: General - channelandgroupupdatemode
@@ -819,6 +825,21 @@ msgstr ""
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
+msgstr ""
+
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr ""
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr ""
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
 msgstr ""
 
 #. ##############
@@ -1150,6 +1171,16 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr ""
 
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr ""
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr ""
+
 # empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
@@ -1195,11 +1226,6 @@ msgstr ""
 #. help: EPG - epgdelayperchannel
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
-msgstr ""
-
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
 msgstr ""
 
 # empty strings from id 30670 to 30679
@@ -1315,7 +1341,7 @@ msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
 msgstr ""
 
 #. help: Timeshift - timeshiftEnabled

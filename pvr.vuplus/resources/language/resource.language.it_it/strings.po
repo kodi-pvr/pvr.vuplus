@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-12-12 14:11+0000\n"
+"PO-Revision-Date: 2024-05-02 06:49+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.5.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -36,6 +36,11 @@ msgstr "Questo è un software instabile! Gli autori non sono in alcun modo respo
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr "Nome host o indirizzo IP di Enigma2"
+
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr "Enigma2 - %s"
 
 # empty string with id 30001
 #. label: Connection - streamport
@@ -606,10 +611,10 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr "Escludi bouquet Last Scanned"
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
-msgstr "Salta caricamento EPG all'inizio"
+msgid "Debug"
+msgstr "Debug"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -822,6 +827,21 @@ msgctxt "#30158"
 msgid "Recording Locations"
 msgstr "Posizioni di registrazione"
 
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr "File di mappatura del nome del fornitore"
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr "Nome fornitore predefinito"
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
+msgstr "Fornitori"
+
 #. ##############
 #. application #
 #. ##############
@@ -957,7 +977,7 @@ msgstr "L'indirizzo IP o il nome host del tuo ricevitore basato su Enigma2."
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr "La porta utilizzata per la connessione all'interfaccia web."
+msgstr "La porta usata per la connessione all'interfaccia web."
 
 #. help: Connection - use_secure
 msgctxt "#30603"
@@ -982,7 +1002,7 @@ msgstr "Se abilitato, l'URL del flusso verrà letto da un file M3U8. Quando disa
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr "Questa opzione definisce la porta di streaming utilizzata dal ricevitore per trasmettere in streaming la Live TV. L'impostazione predefinita è 8001, che dovrebbe andare bene se l'utente non ha definito una porta personalizzata all'interno dell'interfaccia web."
+msgstr "Questa opzione definisce la porta di streaming usata dal ricevitore per trasmettere in streaming la Live TV. L'impostazione predefinita è 8001, che dovrebbe andare bene se l'utente non ha definito una porta personalizzata all'interno dell'interfaccia web."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
@@ -1019,7 +1039,7 @@ msgstr "Recupera picon direttamente dal ricevitore Enigma2."
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
 msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
-msgstr "Recupera il percorso picon da OpenWebIf invece che da ServiceRef. Richiede OpenWebIf 1.3.5 o versioni successive. Non vi è alcun effetto se utilizzato su una versione inferiore di OpenWebIf."
+msgstr "Recupera il percorso picon da OpenWebIf invece che da ServiceRef. Richiede OpenWebIf 1.3.5 o versioni successive. Non vi è alcun effetto se usato su una versione inferiore di OpenWebIf."
 
 #. help: General - usepiconseuformat
 msgctxt "#30623"
@@ -1034,17 +1054,17 @@ msgstr "Per poter visualizzare i loghi dei canali di Kodi devi copiare i picon d
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr "Poiché il ricevitore può essere utilizzato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/eliminare timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'add-on controlla gli aggiornamenti. Si prega di notare che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
+msgstr "Poiché il ricevitore può essere usato anche per modificare i timer, eliminare le registrazioni ecc. e il ricevitore non notifica l'installazione di Kodi, l'add-on deve controllare regolarmente gli aggiornamenti (nuovi canali, nuovi/modificati/eliminare timer, registrazioni cancellate, ecc.) Questa proprietà definisce la frequenza con cui l'add-on controlla gli aggiornamenti. Si prega di notare che l'aggiornamento frequente delle registrazioni può impedire al ricevitore e al suo disco rigido di entrare automaticamente in standby."
 
 #. help: General - updatemode
 msgctxt "#30626"
 msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
-msgstr "La modalità utilizzata quando viene raggiunto l'intervallo di aggiornamento. Si noti che se viene rilevata una modifica del timer, si verificherà sempre un aggiornamento delle registrazioni indipendentemente dalla modalità di aggiornamento. Scegli tra una delle seguenti due modalità: [B]Timer e registrazioni[/B] Aggiorna tutti i timer e le registrazioni; [B]Solo timer[/B] Aggiorna solo i timer. Se è importante non far girare l'HDD sul tuo ricevitore, usa questa opzione. L'HDD dovrebbe quindi avviarsi solo quando si verifica un evento timer."
+msgstr "La modalità usata quando viene raggiunto l'intervallo di aggiornamento. Si noti che se viene rilevata una modifica del timer, si verificherà sempre un aggiornamento delle registrazioni indipendentemente dalla modalità di aggiornamento. Scegli tra una delle seguenti due modalità: [B]Timer e registrazioni[/B] Aggiorna tutti i timer e le registrazioni; [B]Solo timer[/B] Aggiorna solo i timer. Se è importante non far girare l'HDD sul tuo ricevitore, usa questa opzione. L'HDD dovrebbe quindi avviarsi solo quando si verifica un evento timer."
 
 #. help: General - channelandgroupupdatemode
 msgctxt "#30627"
 msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
-msgstr "La modalità utilizzata quando viene raggiunta l'ora nelle impostazioni successive. Scegli tra una delle seguenti tre modalità: [B]Disabilitato[/B] Non controllare mai le modifiche ai canali e ai gruppi; [B]Notifica sull'interfaccia utente e registro[/B] Visualizza un avviso nell'interfaccia utente e registra il fatto che è stata rilevata una modifica[/B]; [B]Ricarica canali e gruppi[/B] Scollega e ricollega il dispositivo E2 per ricaricare i canali solo se viene rilevata una modifica."
+msgstr "La modalità usata quando viene raggiunta l'ora nelle impostazioni successive. Scegli tra una delle seguenti tre modalità: [B]Disabilitato[/B] Non controllare mai le modifiche ai canali e ai gruppi; [B]Notifica sull'interfaccia utente e registro[/B] Visualizza un avviso nell'interfaccia utente e registra il fatto che è stata rilevata una modifica[/B]; [B]Ricarica canali e gruppi[/B] Scollega e ricollega il dispositivo E2 per ricaricare i canali solo se viene rilevata una modifica."
 
 #. help: General - channelandgroupupdatehour
 msgctxt "#30628"
@@ -1124,12 +1144,12 @@ msgstr "L'ultima scansione è un bouquet di sistema contenente tutti i canali TV
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
 msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
-msgstr "Il file utilizzato per caricare i bouquet TV personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (TV)\". Il file predefinito è \"customTVGroups-example.xml\"."
+msgstr "Il file usato per caricare i bouquet TV personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (TV)\". Il file predefinito è \"customTVGroups-example.xml\"."
 
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr "Il file utilizzato per caricare i bouquet radio personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (Radio)\". Il file predefinito è \"customRadioGroups-example.xml\"."
+msgstr "Il file usato per caricare i bouquet radio personalizzati (gruppi). Se nessun gruppo può essere abbinato, l'elenco dei canali verrà impostato automaticamente su \"Last Scanned (Radio)\". Il file predefinito è \"customRadioGroups-example.xml\"."
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
@@ -1144,12 +1164,22 @@ msgstr "Il numero di bouquet radio da caricare quando \"Alcuni bouquet\" è la m
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
-msgstr "Se questa opzione è abilitata, ogni gruppo in Kodi corrisponderà ai numeri di canale esatti utilizzati sui bouquet di backend. Se disabilitato (predefinito), ogni canale avrà un solo numero di canale di backend (prima occorrenza quando viene caricato)."
+msgstr "Se questa opzione è abilitata, ogni gruppo in Kodi corrisponderà ai numeri di canale esatti usati sui bouquet di backend. Se disabilitato (predefinito), ogni canale avrà un solo numero di canale di backend (prima occorrenza quando viene caricato)."
 
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr "Recupera il nome dal fornitore dal backend durante il recupero dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di recupero sui dispositivi meno recenti."
+
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr "Il file di configurazione per mappare i nomi dei fornitori ricevuti dal STB a nomi personalizzati, icone, ecc. Il file predefinito è [I]providerMappings.xml[/I]."
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr "Se fornito, questo valore verrà usato come nome del fornitore del canale se non ne è stato recuperato uno dal backend. Può essere usato in combinazione con il file di mappatura del fornitore."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG
@@ -1166,7 +1196,7 @@ msgstr "Controlla i campi della descrizione nei dati EPG e tenta di estrarre inf
 #. help: EPG - extractshowinfofile
 msgctxt "#30662"
 msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
-msgstr "La configurazione utilizzata per estrarre informazioni su stagione, episodio e anno. Il file predefinito è \"English-ShowInfo.xml\"."
+msgstr "La configurazione usata per estrarre informazioni su stagione, episodio e anno. Il file predefinito è \"English-ShowInfo.xml\"."
 
 #. help: EPG - genreidmapenabled
 msgctxt "#30663"
@@ -1176,17 +1206,17 @@ msgstr "Se gli ID di genere inviati con i dati EPG dal ricevitore non utilizzano
 #. help: EPG - genreidmapfile
 msgctxt "#30664"
 msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
-msgstr "La configurazione utilizzata per mappare gli ID di genere EPG del ricevitore su ID standard DVB. Il file predefinito è \"Sky-UK.xml\"."
+msgstr "La configurazione usata per mappare gli ID di genere EPG del ricevitore su ID standard DVB. Il file predefinito è \"Sky-UK.xml\"."
 
 #. help: EPG - rytecgenretextmapenabled
 msgctxt "#30665"
 msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
-msgstr "Se si utilizzano dati EPG Rytec XMLTV, questa opzione può essere utilizzata per mappare i generi di testo su ID standard DVB."
+msgstr "Se si utilizzano dati EPG Rytec XMLTV, questa opzione può essere usata per mappare i generi di testo su ID standard DVB."
 
 #. help: EPG - rytecgenretextmapfile
 msgctxt "#30666"
 msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
-msgstr "La configurazione utilizzata per mappare il testo del genere Rytec sugli ID DVB. Il file predefinito è \"Rytec-UK-Ireland.xml\"."
+msgstr "La configurazione usata per mappare il testo del genere Rytec sugli ID DVB. Il file predefinito è \"Rytec-UK-Ireland.xml\"."
 
 #. help: EPG - logmissinggenremapping
 msgctxt "#30667"
@@ -1197,11 +1227,6 @@ msgstr "Se desideri che le mappature di genere mancanti vengano registrate in mo
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr "Per i dispositivi Enigma2 meno recenti, gli aggiornamenti EPG possono influire sulla qualità dello streaming (come i timeout del buffer). È possibile introdurre un ritardo compreso tra 250 ms e 5000 ms per migliorare la qualità. Consigliato solo per dispositivi meno recenti. Scegli il valore più basso che evita i timeout del buffer."
-
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr "Ignora il caricamento EPG iniziale (ora e prossimo). Abilitato per impostazione predefinita per prevenire problemi di arresto anomalo su LibreElec/CoreElec."
 
 # empty strings from id 30670 to 30679
 #. help info - Recordings
@@ -1223,7 +1248,7 @@ msgstr "Le opzioni sono: [B]Istanze Kodi[/B] Usa solo il valore in Kodi e non in
 #. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
-msgstr "Per impostazione predefinita, l'add-on non specifica la cartella di registrazione nei timer appena creati, quindi verrà utilizzata l'impostazione predefinita nel ricevitore. Se desideri specificare una cartella diversa (ovvero perché desideri che tutte le registrazioni programmate tramite Kodi vengano archiviate in una cartella separata), devi impostare questa opzione."
+msgstr "Per impostazione predefinita, l'add-on non specifica la cartella di registrazione nei timer appena creati, quindi verrà usata l'impostazione predefinita nel ricevitore. Se desideri specificare una cartella diversa (ovvero perché desideri che tutte le registrazioni programmate tramite Kodi vengano archiviate in una cartella separata), devi impostare questa opzione."
 
 #. help: Recordings - onlycurrent
 msgctxt "#30684"
@@ -1238,7 +1263,7 @@ msgstr "Se abilitato, usa il percorso reale dal backend per dettare la struttura
 #. help: Recordings - enablerecordingedls
 msgctxt "#30686"
 msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
-msgstr "Gli EDL sono usati per definire pubblicità ecc. nelle registrazioni. Se uno strumento come Comskip viene utilizzato per generare file EDL, l'abilitazione di questo consentirà a Kodi PVR di utilizzarli. Per esempio. se c'è un file chiamato 'my recording.ts' il file EDL dovrebbe essere chiamato 'my recording.edl'. Nota: l'abilitazione di questa impostazione non ha effetto se i file non sono presenti."
+msgstr "Gli EDL sono usati per definire pubblicità ecc. nelle registrazioni. Se uno strumento come Comskip viene usato per generare file EDL, l'abilitazione di questo consentirà a Kodi PVR di utilizzarli. Per esempio. se c'è un file chiamato 'my recording.ts' il file EDL dovrebbe essere chiamato 'my recording.edl'. Nota: l'abilitazione di questa impostazione non ha effetto se i file non sono presenti."
 
 #. help: Recordings - edlpaddingstart
 msgctxt "#30687"
@@ -1253,12 +1278,12 @@ msgstr "Riempimento da utilizzare in uno stop EDL. Utilizza un numero negativo p
 #. help: Recordings - recordingsrecursive
 msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
-msgstr "Per impostazione predefinita, per elencare le registrazioni verrà utilizzata solo la radice della posizione. Quando abilitato, verrà incluso il contenuto delle cartelle figlie."
+msgstr "Per impostazione predefinita, per elencare le registrazioni verrà usata solo la radice della posizione. Quando abilitato, verrà incluso il contenuto delle cartelle figlie."
 
 #. help: Recordings - keepfoldersomitlocation
 msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
-msgstr "Quando si utilizza la struttura delle cartelle dal backend, omette il percorso della posizione dalla cartella. Utile in quanto può eliminare la necessità di attraversare cartelle inutilizzate ogni volta che si accede alle registrazioni."
+msgstr "Quando si utilizza la struttura delle cartelle dal backend, omette il percorso della posizione dalla cartella. Utile in quanto può eliminare la necessità di attraversare cartelle non usate ogni volta che si accede alle registrazioni."
 
 #. help: Recordings - virtualfolders
 msgctxt "#30691"
@@ -1295,7 +1320,7 @@ msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla radio (a seconda del canale utilizzato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
+msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla radio (a seconda del canale usato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
@@ -1316,13 +1341,13 @@ msgstr "Quale opzione di timeshift desideri: [B]Disabilitato[/B] Nessun timeshif
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "Il percorso utilizzato per memorizzare il buffer timeshift. L'impostazione predefinita è la cartella \"addon_data/pvr.vuplus\" in userdata."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
+msgstr "Il percorso usato per archiviare il buffer del timeshift. L'impostazione predefinita è la cartella \"addon_data/pvr.vuplus\" in userdata. Tieni presente che se viene specificata un'altra directory e non esiste, verrà usata quella predefinita."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
 msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
-msgstr "Abilita la funzione timeshift per i flussi IPTV utilizzando inputstream.ffmpegdirect. Si noti che questa funzione funziona solo durante la riproduzione e ignorerà la modalità timeshift utilizzata per la normale riproduzione del canale."
+msgstr "Abilita la funzione timeshift per i flussi IPTV utilizzando inputstream.ffmpegdirect. Si noti che questa funzione funziona solo durante la riproduzione e ignorerà la modalità timeshift usata per la normale riproduzione del canale."
 
 #. help: Timeshift - useFFmpegReconnect
 msgctxt "#30724"
@@ -1374,7 +1399,7 @@ msgstr "Il timeout da utilizzare quando si tenta di leggere i live streaming. Il
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr "La dimensione del blocco utilizzata da Kodi per i flussi. Il valore predefinito è 0 per lasciare che sia Kodi a decidere. Può essere utile impostare manualmente durante la visualizzazione di flussi in remoto in cui può verificarsi il buffering poiché il PVR è ottimizzato per una rete locale."
+msgstr "La dimensione del blocco usata da Kodi per i flussi. Il valore predefinito è 0 per lasciare che sia Kodi a decidere. Può essere utile impostare manualmente durante la visualizzazione di flussi in remoto in cui può verificarsi il buffering poiché il PVR è ottimizzato per una rete locale."
 
 #. help: Advanced - debugnormal
 msgctxt "#30745"
@@ -1427,6 +1452,18 @@ msgstr "Questo valore riflette l'impostazione del backend [B]Margine dopo la reg
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr "Indirizzo MAC del ricevitore E2 da utilizzare per WoL (Wake On LAN)."
+
+#~ msgctxt "#30115"
+#~ msgid "Skip Initial EPG Load"
+#~ msgstr "Salta caricamento EPG all'inizio"
+
+#~ msgctxt "#30669"
+#~ msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
+#~ msgstr "Ignora il caricamento EPG iniziale (ora e prossimo). Abilitato per impostazione predefinita per prevenire problemi di arresto anomalo su LibreElec/CoreElec."
+
+#~ msgctxt "#30722"
+#~ msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+#~ msgstr "Il percorso utilizzato per memorizzare il buffer timeshift. L'impostazione predefinita è la cartella \"addon_data/pvr.vuplus\" in userdata."
 
 #~ msgctxt "#30017"
 #~ msgid "Use only the DVB boxes' current recording path"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-01-02 08:54+0000\n"
+"PO-Revision-Date: 2024-05-01 00:45+0000\n"
 "Last-Translator: José Antonio Alvarado <jalvarado0.eses@gmail.com>\n"
 "Language-Team: Spanish (Spain) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/es_es/>\n"
 "Language: es_es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.5.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -36,6 +36,11 @@ msgstr "¡Este software es inestable! Los autores no se hacen responsables de gr
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
 msgstr "Dirección IP o nombre de equipo Enigma2"
+
+#. format-string: For backend name %s is server name
+msgctxt "#30001"
+msgid "Enigma2 - %s"
+msgstr "Enigma2 - %s"
 
 #. label: Connection - streamport
 msgctxt "#30002"
@@ -604,10 +609,10 @@ msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
 msgstr "Excluir paquete Últimos Escaneados"
 
-#. label: EPG - skipinitialepg
+#. label-group: Advanced - Misc
 msgctxt "#30115"
-msgid "Skip Initial EPG Load"
-msgstr "Saltar Carga Inicial EPG"
+msgid "Debug"
+msgstr "Depurar"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -819,6 +824,21 @@ msgstr "Rutas de las grabaciones"
 msgctxt "#30158"
 msgid "Recording Locations"
 msgstr "Lugares de grabación"
+
+#. label: Channels - providermapfile
+msgctxt "#30159"
+msgid "Provider name mapping file"
+msgstr "Archivo de asignación de nombres de proveedores"
+
+#. label: Channels - defaultprovidername
+msgctxt "#30160"
+msgid "Default provider name"
+msgstr "Nombre predeterminado del proveedor"
+
+#. group-label: Channels - Providers
+msgctxt "#30161"
+msgid "Providers"
+msgstr "Proveedores"
 
 #. ##############
 #. application #
@@ -1144,6 +1164,16 @@ msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr "Recupera el nombre del proveedor del backend cuando se obtienen canales. Por defecto está activado, pero desactivarlo puede acelerar los tiempos de obtención en dispositivos antiguos."
 
+#. help: Channels - providermapfile
+msgctxt "#30657"
+msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
+msgstr "El archivo de configuración para asignar nombres de proveedores recibidos desde el STB a nombres personalizados, iconos, etc. El archivo por defecto es [I]providerMappings.xml[/I]."
+
+#. help: Channels - defaultprovidername
+msgctxt "#30658"
+msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
+msgstr "Si se proporciona, este valor se utilizará como nombre del proveedor del canal si no se ha recuperado ninguno del backend. Puede utilizarse en combinación con el archivo de asignación de proveedores."
+
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
@@ -1189,11 +1219,6 @@ msgstr "Si desea registrar las asignaciones de género que faltan para poder inf
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr "En los dispositivos Enigma2 más antiguos, las actualizaciones de la EPG pueden afectar a la calidad de la transmisión (como los tiempos de espera del búfer). Se puede introducir un retardo de entre 250ms y 5000ms para mejorar la calidad. Sólo se recomienda para dispositivos antiguos. Elija el valor más bajo que evite tiempos de espera en el búfer."
-
-#. help: EPG - skipinitialepg
-msgctxt "#30669"
-msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr "Ignora la carga inicial de EPG (ahora y siguiente). Activado por defecto para prevenir problemas de cuelgues en LibreElec/CoreElec."
 
 #. help info - Recordings
 #. help-category: recordings
@@ -1305,8 +1330,8 @@ msgstr "Qué opción de Timeshift quieres: [B]Desactivado[/B] Sin Timeshifting; 
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
-msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr "La ruta utilizada para almacenar el búfer de timeshift. Por defecto es la carpeta `addon_data/pvr.vuplus` en userdata."
+msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
+msgstr "La ruta utilizada para almacenar el buffer de timeshift. Por defecto es la carpeta en userdata `addon_data/pvr.vuplus`. Tenga en cuenta que si se especifica otro directorio y no existe, se utilizará el predeterminado."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
@@ -1415,6 +1440,18 @@ msgstr "Este valor refleja el ajuste del backend [B]Margen tras grabación[/B]. 
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr "La dirección MAC del STB Engima2 que se utilizará para WoL (Wake On LAN)."
+
+#~ msgctxt "#30115"
+#~ msgid "Skip Initial EPG Load"
+#~ msgstr "Saltar Carga Inicial EPG"
+
+#~ msgctxt "#30669"
+#~ msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
+#~ msgstr "Ignora la carga inicial de EPG (ahora y siguiente). Activado por defecto para prevenir problemas de cuelgues en LibreElec/CoreElec."
+
+#~ msgctxt "#30722"
+#~ msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
+#~ msgstr "La ruta utilizada para almacenar el búfer de timeshift. Por defecto es la carpeta `addon_data/pvr.vuplus` en userdata."
 
 #~ msgctxt "#30017"
 #~ msgid "Use only the DVB boxes' current recording path"
