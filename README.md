@@ -1,7 +1,7 @@
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
-[![Build and run tests](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml/badge.svg?branch=Omega)](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml)
-[![Build Status](https://dev.azure.com/teamkodi/kodi-pvr/_apis/build/status/kodi-pvr.pvr.vuplus?branchName=Omega)](https://dev.azure.com/teamkodi/kodi-pvr/_build/latest?definitionId=68&branchName=Omega)
-[![Build Status](https://jenkins.kodi.tv/view/Addons/job/kodi-pvr/job/pvr.vuplus/job/Omega/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/kodi-pvr%2Fpvr.vuplus/branches/)
+[![Build and run tests](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml/badge.svg?branch=Piers)](https://github.com/kodi-pvr/pvr.vuplus/actions/workflows/build.yml)
+[![Build Status](https://dev.azure.com/teamkodi/kodi-pvr/_apis/build/status/kodi-pvr.pvr.vuplus?branchName=Piers)](https://dev.azure.com/teamkodi/kodi-pvr/_build/latest?definitionId=68&branchName=Piers)
+[![Build Status](https://jenkins.kodi.tv/view/Addons/job/kodi-pvr/job/pvr.vuplus/job/Piers/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/kodi-pvr%2Fpvr.vuplus/branches/)
 
 # Enigma2 PVR
 Enigma2 PVR client addon for [Kodi](https://kodi.tv). Enigma2 is a open source TV-receiver/DVR platform which Linux-based firmware (OS images) can be loaded onto many Linux-based set-top boxes (satellite, terrestrial, cable or a combination of these) from different manufacturers. This add-on leverages the [OpenWebIf project](#https://github.com/E2OpenPlugins/e2openplugin-OpenWebif) to interact with the Enigma2 device via Restful APIs.
