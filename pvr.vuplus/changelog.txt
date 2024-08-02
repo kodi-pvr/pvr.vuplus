@@ -1,3 +1,6 @@
+v22.0.0
+- Initial release for Piers (PVR Add-on API v8.4.0)
+
 v21.2.0
 - If a custom timeshift buffer path does not exist use the default instead
 - Fix special regex characters causing a crash for auto timers
