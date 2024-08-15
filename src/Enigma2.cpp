@@ -498,7 +498,7 @@ PVR_ERROR Enigma2::GetChannels(bool radio, kodi::addon::PVRChannelsResultSet& re
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& channel, std::vector<kodi::addon::PVRStreamProperty>& properties)
+PVR_ERROR Enigma2::GetChannelStreamProperties(const kodi::addon::PVRChannel& channel, PVR_SOURCE source, std::vector<kodi::addon::PVRStreamProperty>& properties)
 {
   if (!IsConnected())
     return PVR_ERROR_SERVER_ERROR;
