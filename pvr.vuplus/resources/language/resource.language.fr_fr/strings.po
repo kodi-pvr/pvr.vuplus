@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-12-12 14:11+0000\n"
-"Last-Translator: Azgar <azgar4485@gmail.com>\n"
+"PO-Revision-Date: 2024-09-18 16:53+0000\n"
+"Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.7.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -612,7 +612,7 @@ msgstr "Exclure le dernier bouquet analysé"
 #. label-group: Advanced - Misc
 msgctxt "#30115"
 msgid "Debug"
-msgstr ""
+msgstr "Déboguer"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -828,17 +828,17 @@ msgstr "Emplacements d'enregistrement"
 #. label: Channels - providermapfile
 msgctxt "#30159"
 msgid "Provider name mapping file"
-msgstr ""
+msgstr "File de correspondance des fournisseurs"
 
 #. label: Channels - defaultprovidername
 msgctxt "#30160"
 msgid "Default provider name"
-msgstr ""
+msgstr "Nom du fournisseur par défaut"
 
 #. group-label: Channels - Providers
 msgctxt "#30161"
 msgid "Providers"
-msgstr ""
+msgstr "Fournisseurs"
 
 #. ##############
 #. application #

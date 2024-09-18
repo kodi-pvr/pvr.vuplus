@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-05-02 06:49+0000\n"
+"PO-Revision-Date: 2024-09-11 09:26+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -195,7 +195,7 @@ msgstr "EPG"
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr "Estrai le informazioni su stagione, episodio e anno ove possibile"
+msgstr "Estrai informazioni su stagione, episodio e anno se possibile"
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
@@ -1174,7 +1174,7 @@ msgstr "Recupera il nome dal fornitore dal backend durante il recupero dei canal
 #. help: Channels - providermapfile
 msgctxt "#30657"
 msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
-msgstr "Il file di configurazione per mappare i nomi dei fornitori ricevuti dal STB a nomi personalizzati, icone, ecc. Il file predefinito è [I]providerMappings.xml[/I]."
+msgstr "Il file di configurazione per mappare i nomi dei fornitori ricevuti dal ricevitore a nomi personalizzati, icone, ecc. Il file predefinito è [I]providerMappings.xml[/I]."
 
 #. help: Channels - defaultprovidername
 msgctxt "#30658"
