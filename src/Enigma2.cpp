@@ -772,7 +772,7 @@ PVR_ERROR Enigma2::GetRecordingEdl(const kodi::addon::PVRRecording& recording, s
   return PVR_ERROR_NO_ERROR;
 }
 
-bool Enigma2::OpenRecordedStream(const kodi::addon::PVRRecording& recinfo)
+bool Enigma2::OpenRecordedStream(const kodi::addon::PVRRecording& recinfo, int64_t& streamId)
 {
   if (m_recordingReader)
     SafeDelete(m_recordingReader);
@@ -1117,13 +1117,13 @@ void Enigma2::PauseStream(bool paused)
   m_paused = paused;
 }
 
-void Enigma2::CloseRecordedStream()
+void Enigma2::CloseRecordedStream(int64_t streamId)
 {
   if (m_recordingReader)
     SafeDelete(m_recordingReader);
 }
 
-int Enigma2::ReadRecordedStream(unsigned char* buffer, unsigned int size)
+int Enigma2::ReadRecordedStream(int64_t streamId, unsigned char* buffer, unsigned int size)
 {
   if (!m_recordingReader)
     return 0;
@@ -1131,7 +1131,7 @@ int Enigma2::ReadRecordedStream(unsigned char* buffer, unsigned int size)
   return m_recordingReader->ReadData(buffer, size);
 }
 
-int64_t Enigma2::SeekRecordedStream(int64_t position, int whence)
+int64_t Enigma2::SeekRecordedStream(int64_t streamId, int64_t position, int whence)
 {
   if (!m_recordingReader)
     return 0;
@@ -1139,7 +1139,7 @@ int64_t Enigma2::SeekRecordedStream(int64_t position, int whence)
   return m_recordingReader->Seek(position, whence);
 }
 
-int64_t Enigma2::LengthRecordedStream()
+int64_t Enigma2::LengthRecordedStream(int64_t streamId)
 {
   if (!m_recordingReader)
     return -1;
