@@ -144,6 +144,7 @@ void InstanceSettings::ReadSettings()
   m_instance.CheckInstanceSettingBoolean("enablerecordingedls", m_enableRecordingEDLs);
   m_instance.CheckInstanceSettingInt("edlpaddingstart", m_edlStartTimePadding);
   m_instance.CheckInstanceSettingInt("edlpaddingstop", m_edlStopTimePadding);
+  m_instance.CheckInstanceSettingBoolean("enablewebifinternalmovielist", m_enableWebIfInternalMovieList);
 
   //Timers
   m_instance.CheckInstanceSettingBoolean("enablegenrepeattimers", m_enableGenRepeatTimers);
@@ -319,6 +320,8 @@ ADDON_STATUS InstanceSettings::SetSetting(const std::string& settingName, const 
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStartTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
   else if (settingName == "edlpaddingstop")
     return SetSetting<int, ADDON_STATUS>(settingName, settingValue, m_edlStopTimePadding, ADDON_STATUS_OK, ADDON_STATUS_OK);
+  else if (settingName == "enablewebifinternalmovielist")
+    return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableWebIfInternalMovieList, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   //Timers
   else if (settingName == "enablegenrepeattimers")
     return SetSetting<bool, ADDON_STATUS>(settingName, settingValue, m_enableGenRepeatTimers, ADDON_STATUS_OK, ADDON_STATUS_OK);

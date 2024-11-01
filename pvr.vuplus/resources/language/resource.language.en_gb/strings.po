@@ -136,7 +136,10 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr ""
 
-#empty string with id 30021
+#. label: Recordings - enablewebifinternalmovielist
+msgctxt "#30021"
+msgid "Enable WebIf Internal Movie List"
+msgstr ""
 
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
@@ -1310,7 +1313,12 @@ msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr ""
 
-#empty strings from id 30692 to 30699
+#. help: Recordings - enablewebifinternalmovielist
+msgctxt "#30692"
+msgid "Use internal OWF MovieList (avoids memory leak on some images). Note: this will only have an effect if OpenWebIf is of the minimum supported version (1.4.6)."
+msgstr ""
+
+#empty strings from id 30693 to 30699
 
 #. help info - Timers
 

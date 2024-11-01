@@ -759,7 +759,7 @@ void Recordings::LoadRecordings(bool deleted)
 namespace
 {
 
-std::string GetRecordingsParams(const std::string recordingLocation, bool deleted, bool getRecordingsRecursively, bool supportsMovieListRecursive, bool supportsMovieListOWFInternal)
+std::string GetRecordingsParams(const std::string recordingLocation, bool deleted, bool getRecordingsRecursively, bool supportsMovieListRecursive, bool supportsMovieListOWFInternal, bool webIfInternalMovieListEnabled)
 {
   std::string recordingsParams;
 
@@ -772,14 +772,14 @@ std::string GetRecordingsParams(const std::string recordingLocation, bool delete
 
     // &internal=true requests that openwebif uses it own OWFMovieList instead of the E2 MovieList
     // becuase the E2 MovieList causes memory leaks
-    if (supportsMovieListOWFInternal)
+    if (supportsMovieListOWFInternal && webIfInternalMovieListEnabled)
       recordingsParams += "&internal=1";
   }
   else
   {
     // &internal=true requests that openwebif uses it own OWFMovieList instead of the E2 MovieList
     // becuase the E2 MovieList causes memory leaks
-    if (supportsMovieListOWFInternal)
+    if (supportsMovieListOWFInternal && webIfInternalMovieListEnabled)
     {
       if (recordingLocation == "default")
         recordingsParams += "?internal=1";
@@ -798,7 +798,7 @@ bool Recordings::GetRecordingsFromLocation(const std::string recordingLocation, 
   std::string url;
   std::string directory;
 
-  std::string recordingsParams = GetRecordingsParams(recordingLocation, deleted, m_settings->GetRecordingsRecursively(), m_settings->SupportsMovieListRecursive(), m_settings->SupportsMovieListOWFInternal());
+  std::string recordingsParams = GetRecordingsParams(recordingLocation, deleted, m_settings->GetRecordingsRecursively(), m_settings->SupportsMovieListRecursive(), m_settings->SupportsMovieListOWFInternal(), m_settings->GetWebIfInternalMovieListEnabled());
 
   if (recordingLocation == "default")
   {
