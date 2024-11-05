@@ -29,6 +29,7 @@
 #include "enigma2/utilities/SignalStatus.h"
 
 #include <atomic>
+#include <map>
 #include <mutex>
 #include <thread>
 
@@ -128,6 +129,9 @@ public:
   int ReadRecordedStream(int64_t streamId, unsigned char* buffer, unsigned int size) override;
   int64_t SeekRecordedStream(int64_t streamId, int64_t position, int whence) override;
   int64_t LengthRecordedStream(int64_t streamId) override;
+  PVR_ERROR PauseRecordedStream(int64_t streamId, bool paused) override;
+  PVR_ERROR IsRecordedStreamRealTime(int64_t streamId, bool& isRealTime) override;
+  PVR_ERROR GetRecordedStreamTimes(int64_t streamId, kodi::addon::PVRStreamTimes& times) override;
 
 protected:
   void Process();
@@ -165,11 +169,16 @@ private:
 
   enigma2::IStreamReader* m_activeStreamReader = nullptr;
   enigma2::IStreamReader* m_timeshiftInternalStreamReader = nullptr;
-  enigma2::RecordingReader* m_recordingReader = nullptr;
+  //enigma2::RecordingReader* m_recordingReader = nullptr;
+
+  std::map<int64_t, enigma2::RecordingReader*> m_multistreamRecordingReaders;
+  mutable std::recursive_mutex m_mutexMultiRecordings;
+  int64_t m_streamCount = -1;
 
   std::atomic<bool> m_running = {false};
   std::thread m_thread;
   mutable std::mutex m_mutex;
 
   std::atomic<bool> m_paused = {false};
+  std::atomic<bool> m_recordedStreamPaused = {false};
 };
