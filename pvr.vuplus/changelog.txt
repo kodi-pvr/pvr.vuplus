@@ -1,3 +1,6 @@
+v22.4.0
+- Support multi-stream recordings
+
 v22.3.0
 - Add expert setting to toggle using OpenWebIf internal MovieList on/off
 
