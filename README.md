@@ -217,6 +217,7 @@ The following configuration is available on the Recordings tab of the addon sett
 * **Enable EDLs support**: EDLs are used to define commericals etc. in recordings. If a tool like [Comskip]() is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called ```my recording.ts``` the EDL file should be call ```my recording.edl```. Note: enabling this setting has no effect if the files are not present.
 * **EDL start time padding**: Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0.
 * **EDL stop time padding**: Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0.
+* **Enable WebIf Internal Movie List**: Use internal OWF MovieList (avoids memory leak on some images). Note: this will only have an effect if OpenWebIf is of the minimum supported version (1.4.6).
 
 ### Timers
 

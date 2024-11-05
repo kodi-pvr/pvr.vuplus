@@ -670,6 +670,11 @@
           </constraints>
           <control type="spinner" format="integer" />
         </setting>
+        <setting id="enablewebifinternalmovielist" type="boolean" label="30021" help="30692">
+          <level>3</level>
+          <default>true</default>
+          <control type="toggle" />
+        </setting>
       </group>
 
       <group id="2" label="30157">

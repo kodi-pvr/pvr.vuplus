@@ -175,6 +175,7 @@ namespace enigma2
     bool GetRecordingEDLsEnabled() const { return m_enableRecordingEDLs; }
     int GetEDLStartTimePadding() const { return m_edlStartTimePadding; }
     int GetEDLStopTimePadding() const { return m_edlStopTimePadding; }
+    bool GetWebIfInternalMovieListEnabled() const { return m_enableWebIfInternalMovieList; }
 
     //Timers
     bool GetGenRepeatTimersEnabled() const { return m_enableGenRepeatTimers; }
@@ -389,6 +390,7 @@ namespace enigma2
     bool m_enableRecordingEDLs = false;
     int m_edlStartTimePadding = 0;
     int m_edlStopTimePadding = 0;
+    bool m_enableWebIfInternalMovieList = true;
 
     //Timers
     bool m_enableGenRepeatTimers = true;
