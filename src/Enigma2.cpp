@@ -53,6 +53,19 @@ Enigma2::Enigma2(const kodi::addon::IInstanceInfo& instance)
 
 Enigma2::~Enigma2()
 {
+  {
+    std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+    if (m_multistreamRecordingReaders.size() != 0)
+    {
+      std::map<int64_t, RecordingReader*>::iterator  itr = m_multistreamRecordingReaders.begin();
+      while (itr != m_multistreamRecordingReaders.end())
+      {
+        CloseRecordedStream(itr->first);
+        itr = m_multistreamRecordingReaders.begin();
+      }
+    }
+  }
+
   if (connectionManager)
     connectionManager->Stop();
   delete connectionManager;
@@ -88,6 +101,7 @@ PVR_ERROR Enigma2::GetCapabilities(kodi::addon::PVRCapabilities& capabilities)
   capabilities.SetSupportsAsyncEPGTransfer(false);
   capabilities.SetSupportsRecordingSize(m_settings->SupportsRecordingSizes());
   capabilities.SetSupportsProviders(true);
+  capabilities.SetSupportsMultipleRecordedStreams(true);
 
   return PVR_ERROR_NO_ERROR;
 }
@@ -774,13 +788,14 @@ PVR_ERROR Enigma2::GetRecordingEdl(const kodi::addon::PVRRecording& recording, s
 
 bool Enigma2::OpenRecordedStream(const kodi::addon::PVRRecording& recinfo, int64_t& streamId)
 {
-  if (m_recordingReader)
-    SafeDelete(m_recordingReader);
+  std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+
+  if (m_multistreamRecordingReaders[streamId])
+    m_multistreamRecordingReaders.erase(streamId);
 
   if (!IsConnected())
     return false;
 
-  std::lock_guard<std::mutex> lock(m_mutex);
   std::time_t now = std::time(nullptr), start = 0, end = 0;
   std::string channelName = recinfo.GetChannelName();
   auto timer = m_timers.GetTimer([&](const Timer &timer)
@@ -793,8 +808,10 @@ bool Enigma2::OpenRecordedStream(const kodi::addon::PVRRecording& recinfo, int64
     end = timer->GetRealEndTime();
   }
 
-  m_recordingReader = new RecordingReader(m_recordings.GetRecordingURL(recinfo), start, end, recinfo.GetDuration());
-  return m_recordingReader->Start();
+  m_multistreamRecordingReaders.emplace(++m_streamCount, new RecordingReader(m_recordings.GetRecordingURL(recinfo), start, end, recinfo.GetDuration()));
+  streamId = m_streamCount;
+
+  return m_multistreamRecordingReaders[streamId]->Start();
 }
 
 bool Enigma2::HasRecordingStreamProgramNumber(const kodi::addon::PVRRecording& recording)
@@ -1086,17 +1103,8 @@ PVR_ERROR Enigma2::GetStreamTimes(kodi::addon::PVRStreamTimes& times)
 
     return PVR_ERROR_NO_ERROR;
   }
-  else if (m_recordingReader)
-  {
-    times.SetStartTime(0);
-    times.SetPTSStart(0);
-    times.SetPTSBegin(0);
-    times.SetPTSEnd(static_cast<int64_t>(m_recordingReader->CurrentDuration()) * STREAM_TIME_BASE);
 
-    return PVR_ERROR_NO_ERROR;
-  }
-
-  return PVR_ERROR_NOT_IMPLEMENTED;
+  return PVR_ERROR_INVALID_PARAMETERS;
 }
 
 void Enigma2::PauseStream(bool paused)
@@ -1119,30 +1127,72 @@ void Enigma2::PauseStream(bool paused)
 
 void Enigma2::CloseRecordedStream(int64_t streamId)
 {
-  if (m_recordingReader)
-    SafeDelete(m_recordingReader);
+  std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+
+  if (m_multistreamRecordingReaders[streamId])
+    m_multistreamRecordingReaders.erase(streamId);
 }
 
 int Enigma2::ReadRecordedStream(int64_t streamId, unsigned char* buffer, unsigned int size)
 {
-  if (!m_recordingReader)
+  std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+
+  if (!m_multistreamRecordingReaders[streamId])
     return 0;
 
-  return m_recordingReader->ReadData(buffer, size);
+  return m_multistreamRecordingReaders[streamId]->ReadData(buffer, size);
 }
 
 int64_t Enigma2::SeekRecordedStream(int64_t streamId, int64_t position, int whence)
 {
-  if (!m_recordingReader)
+  std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+
+  if (!m_multistreamRecordingReaders[streamId])
     return 0;
 
-  return m_recordingReader->Seek(position, whence);
+  return m_multistreamRecordingReaders[streamId]->Seek(position, whence);
 }
 
 int64_t Enigma2::LengthRecordedStream(int64_t streamId)
 {
-  if (!m_recordingReader)
+  std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+
+  if (!m_multistreamRecordingReaders[streamId])
     return -1;
 
-  return m_recordingReader->Length();
+  return m_multistreamRecordingReaders[streamId]->Length();
+}
+
+PVR_ERROR Enigma2::PauseRecordedStream(int64_t streamId, bool bPaused)
+{
+  if (!IsConnected())
+    return PVR_ERROR_SERVER_ERROR;
+
+  m_recordedStreamPaused = bPaused;
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::IsRecordedStreamRealTime(int64_t streamId, bool& isRealTime)
+{
+  isRealTime = false;
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+PVR_ERROR Enigma2::GetRecordedStreamTimes(int64_t streamId, kodi::addon::PVRStreamTimes& stimes)
+{
+  std::lock_guard<std::recursive_mutex> lock(m_mutexMultiRecordings);
+
+  if (m_multistreamRecordingReaders[streamId])
+  {
+    stimes.SetStartTime(0);
+    stimes.SetPTSStart(0);
+    stimes.SetPTSBegin(0);
+    stimes.SetPTSEnd(static_cast<int64_t>(m_multistreamRecordingReaders[streamId]->CurrentDuration()) * STREAM_TIME_BASE);
+
+    return PVR_ERROR_NO_ERROR;
+  }
+
+  return PVR_ERROR_UNKNOWN;
 }
