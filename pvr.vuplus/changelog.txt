@@ -1,3 +1,6 @@
+v21.3.1
+- Also test channel name when setting autotimer parents to timers
+
 v21.3.0
 - Add expert setting to toggle using OpenWebIf internal MovieList on/off
 
