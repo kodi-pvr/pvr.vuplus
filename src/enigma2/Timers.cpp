@@ -1294,7 +1294,8 @@ bool Timers::TimerUpdatesAuto()
     {
       const std::string autotimerTag = ConvertToAutoTimerTag(autoTimer.GetTitle());
 
-      if (timer.GetType() == Timer::EPG_AUTO_ONCE && timer.ContainsTag(TAG_FOR_AUTOTIMER) && timer.ContainsTag(autotimerTag))
+      if (timer.GetType() == Timer::EPG_AUTO_ONCE && timer.ContainsTag(TAG_FOR_AUTOTIMER) &&
+          timer.ContainsTag(autotimerTag) && autoTimer.GetChannelName() == timer.GetChannelName())
       {
         timer.SetParentClientIndex(autoTimer.GetClientIndex());
         continue;
