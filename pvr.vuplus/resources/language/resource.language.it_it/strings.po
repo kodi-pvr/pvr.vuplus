@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-05-02 06:49+0000\n"
+"PO-Revision-Date: 2025-01-17 23:47+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -38,6 +38,7 @@ msgid "Enigma2 hostname or IP address"
 msgstr "Nome host o indirizzo IP di Enigma2"
 
 #. format-string: For backend name %s is server name
+#, fuzzy
 msgctxt "#30001"
 msgid "Enigma2 - %s"
 msgstr "Enigma2 - %s"
@@ -136,6 +137,12 @@ msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avanzate"
 
+#. label: Recordings - enablewebifinternalmovielist
+#, fuzzy
+msgctxt "#30021"
+msgid "Enable WebIf Internal Movie List"
+msgstr "Abilita elenco interno registrazioni WebIf"
+
 # empty string with id 30021
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
@@ -195,7 +202,7 @@ msgstr "EPG"
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr "Estrai le informazioni su stagione, episodio e anno ove possibile"
+msgstr "Estrai informazioni su stagione, episodio e anno se possibile"
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
@@ -612,6 +619,7 @@ msgid "Exclude last scanned bouquet"
 msgstr "Escludi bouquet Last Scanned"
 
 #. label-group: Advanced - Misc
+#, fuzzy
 msgctxt "#30115"
 msgid "Debug"
 msgstr "Debug"
@@ -828,16 +836,19 @@ msgid "Recording Locations"
 msgstr "Posizioni di registrazione"
 
 #. label: Channels - providermapfile
+#, fuzzy
 msgctxt "#30159"
 msgid "Provider name mapping file"
 msgstr "File di mappatura del nome del fornitore"
 
 #. label: Channels - defaultprovidername
+#, fuzzy
 msgctxt "#30160"
 msgid "Default provider name"
 msgstr "Nome fornitore predefinito"
 
 #. group-label: Channels - Providers
+#, fuzzy
 msgctxt "#30161"
 msgid "Providers"
 msgstr "Fornitori"
@@ -1172,11 +1183,13 @@ msgid "Retrieve provider name from the backend when fetching channels. Default i
 msgstr "Recupera il nome dal fornitore dal backend durante il recupero dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di recupero sui dispositivi meno recenti."
 
 #. help: Channels - providermapfile
+#, fuzzy
 msgctxt "#30657"
 msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
-msgstr "Il file di configurazione per mappare i nomi dei fornitori ricevuti dal STB a nomi personalizzati, icone, ecc. Il file predefinito è [I]providerMappings.xml[/I]."
+msgstr "Il file di configurazione per mappare i nomi dei fornitori ricevuti dal ricevitore a nomi personalizzati, icone, ecc. Il file predefinito è [I]providerMappings.xml[/I]."
 
 #. help: Channels - defaultprovidername
+#, fuzzy
 msgctxt "#30658"
 msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
 msgstr "Se fornito, questo valore verrà usato come nome del fornitore del canale se non ne è stato recuperato uno dal backend. Può essere usato in combinazione con il file di mappatura del fornitore."
@@ -1290,6 +1303,12 @@ msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr "Crea una struttura virtuale che raggruppa le registrazioni con lo stesso nome in cartelle. Verrà applicato a tutte le registrazioni a meno che non si mantenga la struttura delle cartelle sul backend. In tal caso verrà applicato solo alle registrazioni nella radice di ciascuna posizione di registrazione."
 
+#. help: Recordings - enablewebifinternalmovielist
+#, fuzzy
+msgctxt "#30692"
+msgid "Use internal OWF MovieList (avoids memory leak on some images). Note: this will only have an effect if OpenWebIf is of the minimum supported version (1.4.6)."
+msgstr "Usa OWF MovieList interno (evita perdite di memoria su alcune immagini). Nota: questo avrà effetto solo se OpenWebIf è alla versione minima supportata (1.4.6)."
+
 # empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
@@ -1340,6 +1359,7 @@ msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On
 msgstr "Quale opzione di timeshift desideri: [B]Disabilitato[/B] Nessun timeshift; [B]In pausa[/B] Il timeshift inizia quando un live streaming viene messo in pausa. Per esempio. vuoi continuare da dove eri dopo la pausa; [B]In riproduzione[/B] Il timeshift inizia quando viene aperto un live streaming. Per esempio puoi andare in qualsiasi punto dello stream da quando è stato aperto."
 
 #. help: Timeshift - timeshiftbufferpath
+#, fuzzy
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
 msgstr "Il percorso usato per archiviare il buffer del timeshift. L'impostazione predefinita è la cartella \"addon_data/pvr.vuplus\" in userdata. Tieni presente che se viene specificata un'altra directory e non esiste, verrà usata quella predefinita."
