@@ -5,16 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Maltese (Malta) (http://www.transifex.com/projects/p/kodi-main/language/mt_MT/)\n"
-"Language: mt_MT\n"
+"PO-Revision-Date: 2025-01-17 23:47+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Maltese <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/mt_mt/>\n"
+"Language: mt_mt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==0 || ( n%100>1 && n%100<11) ? 1 : (n%100>10 && n%100<20 ) ? 2 : 3;\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -37,6 +38,7 @@ msgid "Enigma2 hostname or IP address"
 msgstr ""
 
 #. format-string: For backend name %s is server name
+#, fuzzy
 msgctxt "#30001"
 msgid "Enigma2 - %s"
 msgstr ""
@@ -134,6 +136,12 @@ msgstr "Stazzjonijiet"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avvanzat"
+
+#. label: Recordings - enablewebifinternalmovielist
+#, fuzzy
+msgctxt "#30021"
+msgid "Enable WebIf Internal Movie List"
+msgstr ""
 
 # empty string with id 30021
 #. label: Recordings - recordingsrecursive
@@ -611,6 +619,7 @@ msgid "Exclude last scanned bouquet"
 msgstr ""
 
 #. label-group: Advanced - Misc
+#, fuzzy
 msgctxt "#30115"
 msgid "Debug"
 msgstr ""
@@ -827,16 +836,19 @@ msgid "Recording Locations"
 msgstr ""
 
 #. label: Channels - providermapfile
+#, fuzzy
 msgctxt "#30159"
 msgid "Provider name mapping file"
 msgstr ""
 
 #. label: Channels - defaultprovidername
+#, fuzzy
 msgctxt "#30160"
 msgid "Default provider name"
 msgstr ""
 
 #. group-label: Channels - Providers
+#, fuzzy
 msgctxt "#30161"
 msgid "Providers"
 msgstr ""
@@ -1172,11 +1184,13 @@ msgid "Retrieve provider name from the backend when fetching channels. Default i
 msgstr ""
 
 #. help: Channels - providermapfile
+#, fuzzy
 msgctxt "#30657"
 msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
 msgstr ""
 
 #. help: Channels - defaultprovidername
+#, fuzzy
 msgctxt "#30658"
 msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
 msgstr ""
@@ -1290,6 +1304,12 @@ msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr ""
 
+#. help: Recordings - enablewebifinternalmovielist
+#, fuzzy
+msgctxt "#30692"
+msgid "Use internal OWF MovieList (avoids memory leak on some images). Note: this will only have an effect if OpenWebIf is of the minimum supported version (1.4.6)."
+msgstr ""
+
 # empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
@@ -1340,6 +1360,7 @@ msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On
 msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
+#, fuzzy
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
 msgstr ""

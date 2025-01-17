@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-05-05 07:44+0000\n"
-"Last-Translator: Minho Park <parkmino@gmail.com>\n"
+"PO-Revision-Date: 2025-01-17 23:47+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Korean <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ko_kr/>\n"
 "Language: ko_kr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -38,6 +38,7 @@ msgid "Enigma2 hostname or IP address"
 msgstr "Enigma2 호스트명이나 IP 주소"
 
 #. format-string: For backend name %s is server name
+#, fuzzy
 msgctxt "#30001"
 msgid "Enigma2 - %s"
 msgstr "에니그마2 - %s"
@@ -133,6 +134,12 @@ msgstr "채널"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "고급"
+
+#. label: Recordings - enablewebifinternalmovielist
+#, fuzzy
+msgctxt "#30021"
+msgid "Enable WebIf Internal Movie List"
+msgstr "WebIf 내부 영화 목록 사용"
 
 # empty string with id 30021
 #. label: Recordings - recordingsrecursive
@@ -610,6 +617,7 @@ msgid "Exclude last scanned bouquet"
 msgstr "마지막 검색 묶음 제외"
 
 #. label-group: Advanced - Misc
+#, fuzzy
 msgctxt "#30115"
 msgid "Debug"
 msgstr "디버그"
@@ -826,16 +834,19 @@ msgid "Recording Locations"
 msgstr "녹화 위치"
 
 #. label: Channels - providermapfile
+#, fuzzy
 msgctxt "#30159"
 msgid "Provider name mapping file"
 msgstr "공급자 이름 매핑 파일"
 
 #. label: Channels - defaultprovidername
+#, fuzzy
 msgctxt "#30160"
 msgid "Default provider name"
 msgstr "기본 공급자 이름"
 
 #. group-label: Channels - Providers
+#, fuzzy
 msgctxt "#30161"
 msgid "Providers"
 msgstr "공급자"
@@ -1165,11 +1176,13 @@ msgid "Retrieve provider name from the backend when fetching channels. Default i
 msgstr "채널을 가져올 때 백엔드에서 공급자 이름을 검색합니다. 기본값은 활성화되어 있지만 비활성화하면 이전 장치에서 가져오기 시간이 빨라질 수 있습니다."
 
 #. help: Channels - providermapfile
+#, fuzzy
 msgctxt "#30657"
 msgid "The config file to map provider names received from the STB to custom name, icons etc. The default file is [I]providerMappings.xml[/I]."
 msgstr "STB로부터 받은 공급자 이름을 사용자 정의 이름, 아이콘 등에 매핑하기 위한 설정 파일입니다. 기본 파일은 [I]providerMappings.xml[/I]입니다."
 
 #. help: Channels - defaultprovidername
+#, fuzzy
 msgctxt "#30658"
 msgid "If provided this value will be used as the channel provider name if one was not retrieved from the backend. It can be used in combination with the provider mapping file."
 msgstr "이 값이 주어지면 백엔드에서 검색되지 않은 채널 공급자 이름으로 사용됩니다. 공급자 매핑 파일과 함께 사용할 수 있습니다."
@@ -1281,6 +1294,12 @@ msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr "같은 이름의 녹음을 폴더로 그룹화하는 가상 구조를 만듭니다. 백엔드에서 폴더 구조를 관리하지 않는 한 모든 녹음에 적용됩니다. 이 경우 각 녹음 위치의 루트에 있는 녹음에만 적용됩니다."
 
+#. help: Recordings - enablewebifinternalmovielist
+#, fuzzy
+msgctxt "#30692"
+msgid "Use internal OWF MovieList (avoids memory leak on some images). Note: this will only have an effect if OpenWebIf is of the minimum supported version (1.4.6)."
+msgstr "내부 OWF MovieList를 사용합니다(일부 이미지에서 메모리 누수를 방지합니다). 참고: 이것은 OpenWebIf가 최소 지원 버전(1.4.6)인 경우에만 효과가 있습니다."
+
 #. help info - Timers
 #. help-category: timers
 msgctxt "#30700"
@@ -1329,6 +1348,7 @@ msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On
 msgstr "원하는 시간이동 옵션: [B]사용 안 함[/B] 시간이동 없음; [B]일시 중지 시[/B] 라이브 스트림이 일시 중지되면 시간이동이 시작됩니다. 예를 들어 일시 중지 후 있던 위치에서 계속하고 싶습니다. [B]재생 시[/B] 라이브 스트림이 열리면 시간이동이 시작됩니다. 예를 들어 스트림이 열린 이후 스트림의 어느 지점으로든 이동할 수 있습니다."
 
 #. help: Timeshift - timeshiftbufferpath
+#, fuzzy
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata. Note that if another directory is specified and it does not exist the default will be used instead."
 msgstr "타임시프트 버퍼를 저장하는 데 사용되는 경로입니다. 기본값은 userdata의 `addon_data/pvr.vuplus` 폴더입니다. 다른 디렉토리가 지정되었지만 없으면 기본값이 대신 사용됩니다."

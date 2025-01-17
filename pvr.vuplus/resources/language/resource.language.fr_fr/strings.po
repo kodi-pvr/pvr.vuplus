@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-12-12 14:11+0000\n"
+"PO-Revision-Date: 2025-01-17 23:47+0000\n"
 "Last-Translator: Azgar <azgar4485@gmail.com>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -133,6 +133,11 @@ msgstr "Chaînes"
 msgctxt "#30020"
 msgid "Advanced"
 msgstr "Avancé"
+
+#. label: Recordings - enablewebifinternalmovielist
+msgctxt "#30021"
+msgid "Enable WebIf Internal Movie List"
+msgstr ""
 
 # empty string with id 30021
 #. label: Recordings - recordingsrecursive
@@ -612,7 +617,7 @@ msgstr "Exclure le dernier bouquet analysé"
 #. label-group: Advanced - Misc
 msgctxt "#30115"
 msgid "Debug"
-msgstr ""
+msgstr "Déboguer"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
@@ -828,17 +833,17 @@ msgstr "Emplacements d'enregistrement"
 #. label: Channels - providermapfile
 msgctxt "#30159"
 msgid "Provider name mapping file"
-msgstr ""
+msgstr "File de correspondance des fournisseurs"
 
 #. label: Channels - defaultprovidername
 msgctxt "#30160"
 msgid "Default provider name"
-msgstr ""
+msgstr "Nom du fournisseur par défaut"
 
 #. group-label: Channels - Providers
 msgctxt "#30161"
 msgid "Providers"
-msgstr ""
+msgstr "Fournisseurs"
 
 #. ##############
 #. application #
@@ -1285,6 +1290,11 @@ msgstr ""
 #. help: Recordings - virtualfolders
 msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
+msgstr ""
+
+#. help: Recordings - enablewebifinternalmovielist
+msgctxt "#30692"
+msgid "Use internal OWF MovieList (avoids memory leak on some images). Note: this will only have an effect if OpenWebIf is of the minimum supported version (1.4.6)."
 msgstr ""
 
 # empty strings from id 30692 to 30699
