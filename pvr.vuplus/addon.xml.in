@@ -71,7 +71,7 @@
     <summary lang="vi_VN">Giao tiếp Kodi cho VU+ / Enigma2 dựa trên các bộ Settop Box</summary>
     <summary lang="zh_CN">基于 Enigma2 的机顶盒的 Kodi 前端</summary>
     <summary lang="zh_TW">Kodi 的前端基於 Enigma2 的機上盒</summary>
-    <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.</description>
+    <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.    </description>
     <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="bg_BG">Клиент за „VU+“. Поддържа телевизия на живо и записване, електронен програмен справочник и броячи.</description>
     <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors;    </description>
@@ -123,7 +123,7 @@
     <description lang="vi_VN">Giao tiếp cho VU+; hỗ trợ truyền phát và thu chương trình Live TV, hẹn giờ và hiển thị lịch trình chiếu (EPG)</description>
     <description lang="zh_CN">Enigma2 前端 - 支持直播电视播放和录像、电子节目单、定时器、自动定时器。[CR][CR]文档见：https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md</description>
     <description lang="zh_TW">Enigma2 前端；支援的串流媒體包括有：電視直播和節目錄影，電子節目表，定時器;    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
-    <disclaimer lang="af_ZA">Hierdie is onstabiele sagteware! Die outeurs is op geen manier verantwoordelik vir gefaalde opnames, inkorrekte tydhouers, gemorsde ure, of enige ander ongewensde effekte.</disclaimer>
+    <disclaimer lang="af_ZA">Hierdie is onstabiele sagteware! Die outeurs is op geen manier verantwoordelik vir gefaalde opnames, inkorrekte tydhouers, gemorste ure, of enige ander ongewensde effekte.</disclaimer>
     <disclaimer lang="be_BY">Гэта нестабільнае праграмнае забеспячэнне! Аўтары не нясуць адказнасці за няўдалыя запісы, хібныя таймеры, змарнаваны час і іншае.</disclaimer>
     <disclaimer lang="bg_BG">Тази програма е нестабилна! Авторите не носят отговорност за неуспешно записване, некоректни броячи, пропиляно време и други нежелани ефекти.</disclaimer>
     <disclaimer lang="ca_ES">Això és programari inestable! Els autors no són de cap manera responsables dels enregistraments que han fallat, temporitzadors incorrectes, hores perdudes, o qualssevol altres efectes no desitjats..</disclaimer>
