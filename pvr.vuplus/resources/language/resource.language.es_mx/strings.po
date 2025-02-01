@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-04-09 10:15+0000\n"
+"PO-Revision-Date: 2025-01-17 23:54+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Spanish (Mexico) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/es_mx/>\n"
 "Language: es_mx\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -606,6 +606,7 @@ msgid "Exclude last scanned bouquet"
 msgstr ""
 
 #. label: EPG - skipinitialepg
+#, fuzzy
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
 msgstr ""
@@ -1198,6 +1199,7 @@ msgid "For older Enigma2 devices EPG updates can effect streaming quality (such 
 msgstr ""
 
 #. help: EPG - skipinitialepg
+#, fuzzy
 msgctxt "#30669"
 msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
 msgstr ""
@@ -1314,6 +1316,7 @@ msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On
 msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
+#, fuzzy
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
 msgstr ""
