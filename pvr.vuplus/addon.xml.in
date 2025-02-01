@@ -112,7 +112,7 @@
     <description lang="ro_RO">Interfața VU+; suportă streaming programe TV și înregistrare, program electronic, cronometre - înregistrare programată</description>
     <description lang="ru_RU">Фронтенд Enigma2 - поддержка потокового телевидения и записей, EPG, таймеры, автотаймеры.[CR]    [CR]Документацию можно найти: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="sk_SK">Rozhranie Enigma2 – podporuje streamovanie živého vysielania a nahrávanie, televízny program EPG, časovače, automatické časovače.[CR][CR]Pre dokumentáciu navštívte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md    </description>
-    <description lang="sl_SI">Vmesnik za VU+; podpira pretakanje televizije v živo in posnetkov, EPG, časovnike.</description>
+    <description lang="sl_SI">Enigma2 frontend - podpira pretakanje TV v živo in posnetkov, EPG, časovnikov, samodejnih časovnikov.[CR]    [CR]Za dokumentacijo obiščite: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="sq_AL">VU+ frontend, përkrahën transmetimin e Live TV&apos;s &amp; Regjistrime, EPG, timer.</description>
     <description lang="sr_RS">VU+ интерфејс; подржава стримовање ТВ Уживо &amp; Снимака, EPG, Тајмере</description>
     <description lang="sr_RS@latin">VU+ interfejs; podržava strimovanje TV Uživo &amp; Snimaka, EPG, Tajmere</description>
