@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-01-17 23:55+0000\n"
+"PO-Revision-Date: 2025-09-02 17:40+0000\n"
 "Last-Translator: Alexey <signfinder@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ru_ru/>\n"
 "Language: ru_ru\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.13\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -105,7 +105,7 @@ msgstr "Интервал обновления"
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr ""
+msgstr "Использовать номера каналов с сервера"
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
@@ -138,7 +138,7 @@ msgstr "Использование рекурсивного списка для 
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr ""
+msgstr "Папка записи нового таймера по умолчанию"
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
@@ -153,7 +153,7 @@ msgstr "Режим получения ТВ-букета"
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr ""
+msgstr "Букет ТВ 1"
 
 #. label: General - onlinepicons
 msgctxt "#30027"
@@ -173,7 +173,7 @@ msgstr "Включить автоматическую настройку для 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
-msgstr ""
+msgstr "Сохранять структуру папок для записей"
 
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
@@ -318,7 +318,7 @@ msgstr "Радиоканал режим выбора мода"
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
 msgid "Radio bouquet 1"
-msgstr ""
+msgstr "Букет радио 1"
 
 #. label-category: timeshift
 #. label-group: Timeshift - Timeshift
@@ -402,7 +402,7 @@ msgstr "Все о каналах"
 #. label-option: Channels - radiogroupmode
 msgctxt "#30075"
 msgid "Some bouquets"
-msgstr ""
+msgstr "Некоторые букеты"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
@@ -420,7 +420,7 @@ msgstr "Как последний канал"
 #. label-option: Channels - radiogroupmode
 msgctxt "#30078"
 msgid "Favourites bouquet"
-msgstr ""
+msgstr "Любимый букет"
 
 #. application: ChannelGroups
 msgctxt "#30079"
@@ -451,12 +451,12 @@ msgstr "ошибка дополнения"
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
 msgid "Omit location path from recording directory"
-msgstr ""
+msgstr "Исключить путь из каталога записи"
 
 #. label: Recordings - virtualfolders
 msgctxt "#30085"
 msgid "Group recordings into folders by title"
-msgstr ""
+msgstr "Группировать по названию записи в папки"
 
 #. label-category: backend
 msgctxt "#30086"
@@ -612,7 +612,7 @@ msgstr "Пропустить начальную загрузку EPG"
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
 msgid "Channels and groups update mode"
-msgstr ""
+msgstr "Режим обновления каналов и групп"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
@@ -622,57 +622,57 @@ msgstr "Отключено"
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30118"
 msgid "Notify on UI and Log"
-msgstr ""
+msgstr "Уведомлять в интерфейсе и журнале"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30119"
 msgid "Reload Channels and Groups"
-msgstr ""
+msgstr "Перезагрузить каналы и группы"
 
 #. label: General - channelandgroupupdatehour
 msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
-msgstr ""
+msgstr "Время обновления каналов и групп (24 часа)"
 
 #. label: Connection - connectionchecktimeout
 msgctxt "#30121"
 msgid "Connection check timeout"
-msgstr ""
+msgstr "Тайм-аут проверки соединения"
 
 #. label: Connection - connectioncheckinterval
 msgctxt "#30122"
 msgid "Connection check interval"
-msgstr ""
+msgstr "Интервал проверки соединения"
 
 #. label: Timers - Autotimers
 msgctxt "#30123"
 msgid "Autotimers"
-msgstr ""
+msgstr "Автотаймеры"
 
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
 msgid "Limit 'Any Channel' autotimers to TV or Radio"
-msgstr ""
+msgstr "Ограничить автотаймеры «Любой канал» для ТВ или радио"
 
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
-msgstr ""
+msgstr "Ограничить группы исходных каналов EPG"
 
 #. label: Channels - usestandardserviceref
 msgctxt "#30126"
 msgid "Use standard channel service reference"
-msgstr ""
+msgstr "Использовать ссылку на стандартный канал обслуживания"
 
 #. label: Recordings - storeextrarecordinginfo
 msgctxt "#30127"
 msgid "Store last played/play count on the backend"
-msgstr ""
+msgstr "Сохранить последнее воспроизведение/счетчик воспроизведений на сервере"
 
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr ""
+msgstr "Поделиться последним воспроизведением:"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"

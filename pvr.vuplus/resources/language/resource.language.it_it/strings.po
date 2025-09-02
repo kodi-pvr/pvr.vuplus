@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-01-17 23:54+0000\n"
+"PO-Revision-Date: 2025-08-02 19:34+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -593,18 +593,18 @@ msgstr "Abilita registrazione eventi di debug in modalità normale"
 #. application: ChannelGroups
 msgctxt "#30112"
 msgid "Last Scanned (TV)"
-msgstr "Last Scanned (TV)"
+msgstr "Ultima scansione (TV)"
 
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr "Last Scanned (Radio)"
+msgstr "Ultima scansione (Radio)"
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
 msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
-msgstr "Escludi bouquet Last Scanned"
+msgstr "Escludi ultimo bouquet scansionato"
 
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
@@ -1295,7 +1295,7 @@ msgstr "Quando è abilitato, sono necessarie alcune impostazioni sul ricevitore 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr "Se vengono esclusi gli ultimi gruppi scansionati, prova a limitare i nuovi timer automatici alla TV o alla radio (a seconda del canale usato per creare l'autotimer). Si noti che se sono abilitati gli ultimi gruppi scansionati, questo non è possibile e l'impostazione verrà ignorata."
+msgstr "Se gli ultimi gruppi scansionati vengono esclusi, provare a limitare i nuovi timer automatici a TV o Radio (a seconda del canale utilizzato per creare il timer automatico). Si noti che se gli ultimi gruppi scansionati sono abilitati, ciò non è possibile e l'impostazione verrà ignorata."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"

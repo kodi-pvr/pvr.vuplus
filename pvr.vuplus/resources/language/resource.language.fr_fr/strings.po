@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-01-17 23:54+0000\n"
-"Last-Translator: Azgar <azgar4485@gmail.com>\n"
+"PO-Revision-Date: 2025-09-01 07:29+0000\n"
+"Last-Translator: Cutter <CutterXYZ@users.noreply.github.com>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/fr_fr/>\n"
 "Language: fr_fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.13\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -324,12 +324,12 @@ msgstr "Bouquet radio 1"
 #. label-group: Timeshift - Timeshift
 msgctxt "#30060"
 msgid "Timeshift"
-msgstr "Différé"
+msgstr "Contrôle du direct (Timeshift)"
 
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr "Activer le différé"
+msgstr "Activer le contrôle du direct"
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
@@ -605,7 +605,6 @@ msgid "Exclude last scanned bouquet"
 msgstr "Exclure le dernier bouquet analysé"
 
 #. label: EPG - skipinitialepg
-#, fuzzy
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
 msgstr "Ignorer le chargement initial du guide"
@@ -658,22 +657,22 @@ msgstr "Limiter les minuteries automatiques \"N'importe quelle chaîne\" à la t
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
-msgstr "Limiter aux groupes de la chaîne EPG d'origine"
+msgstr "Restreindre aux groupes de la chaîne du guide EPG d'origine"
 
 #. label: Channels - usestandardserviceref
 msgctxt "#30126"
 msgid "Use standard channel service reference"
-msgstr "Utiliser la référence de service de canal standard"
+msgstr "Utiliser la référence de service standard de la chaîne"
 
 #. label: Recordings - storeextrarecordinginfo
 msgctxt "#30127"
 msgid "Store last played/play count on the backend"
-msgstr "Stocker le dernier joué/le nombre de lectures sur le backend"
+msgstr "Enregistrer la dernière lecture/le nombre de lectures dans le backend"
 
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr "Partager la dernière lecture sur :"
+msgstr "Partager la dernière lecture sur :"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
@@ -774,7 +773,7 @@ msgstr "IPTV"
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr "Activer le différé pour les flux IPTV"
+msgstr "Activer le contrôle du direct pour les flux IPTV"
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
@@ -799,12 +798,12 @@ msgstr "Récupérer le nom du fournisseur pour les chaînes"
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr "Activer la limite de disque timeshift"
+msgstr "Activer la limite de disque pour le contrôle du direct"
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr "Limite de disque Timeshift"
+msgstr "Limite du disque pour le contrôle du direct"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
@@ -894,7 +893,7 @@ msgstr "Enregistrer si le titre et toutes les descriptions du guide (EPG) diffè
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr "Le chemin du tampon pour le différé n'existe pas"
+msgstr "Le chemin du tampon pour le contrôle du direct n'existe pas"
 
 #. notification: Enigma2
 msgctxt "#30515"
@@ -1083,7 +1082,7 @@ msgstr "Choisir l'un des trois modes suivants : [B]Tous les bouquets[/B] Récup�
 #. help: Channels - fivetvgroup
 msgctxt "#30644"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
-msgstr "Si l'option précédente a été réglée sur \"Certains bouquets\", vous devez spécifier un bouquet TV à extraire du décodeur. Veuillez noter qu'il s'agit du nom du bouquet tel qu'il apparaît sur le décodeur (c'est-à-dire \"Favoris (TV)\"). Ce paramètre est sensible à la casse."
+msgstr "Si l'option précédente a été réglée sur 'Certains bouquets', vous devez spécifier un bouquet TV à extraire du décodeur. Veuillez noter qu'il s'agit du nom du bouquet tel qu'il apparaît sur le décodeur (c'est-à-dire 'Favoris (TV)'). Ce paramètre est sensible à la casse."
 
 #. help: Channels - tvfavouritesmode
 msgctxt "#30645"
@@ -1093,7 +1092,7 @@ msgstr "Si le mode de récupération est 'Tous les bouquets' ou 'Certains bouque
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr "Dernier balayage est un bouquet système contenant toutes les chaînes de télévision et de radio trouvées lors du dernier balayage. Toutes les chaînes de télévision trouvées dans le bouquet Dernier balayage peuvent être affichées dans un groupe appelé \"Dernier balayage (TV)\" dans Kodi. Pour la télévision, ce groupe est exclu par défaut. Désactivez cette option pour exclure ce groupe. Notez que si aucun groupe TV n'est chargé, le groupe Dernier balayage pour la TV sera chargé par défaut, quel que soit ce paramètre."
+msgstr "Le bouquet 'Dernier balayage' contient toutes les chaînes de télévision et de radio trouvées lors du dernier balayage. Toutes les chaînes de télévision trouvées dans le bouquet 'Dernier balayage' peuvent être affichées dans un groupe appelé 'Dernier balayage (TV)' dans Kodi. Pour la télévision, ce groupe est exclu par défaut. Désactivez cette option pour exclure ce groupe. Notez que si aucun groupe TV n'est chargé, le groupe 'Dernier balayage' pour la TV sera chargé par défaut, quel que soit ce paramètre."
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
@@ -1107,7 +1106,7 @@ msgstr "Choisissez l'un des trois modes suivants : [B]Tous les bouquets[/B] Réc
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr "Si l'option précédente a été réglée sur \"Certains bouquets\", vous devez spécifier un bouquet radio à récupérer à partir du décodeur. Veuillez noter qu'il s'agit du nom du bouquet tel qu'il apparaît sur le décodeur (c'est-à-dire 'Favoris (Radio)'). Ce paramètre est sensible à la casse."
+msgstr "Si l'option précédente a été réglée sur \"Certains bouquets\", vous devez spécifier un bouquet radio à récupérer à partir du décodeur. Veuillez noter qu'il s'agit du nom du bouquet tel qu'il apparaît sur le décodeur (par exemple 'Favoris (Radio)'). Ce paramètre est sensible à la casse."
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
@@ -1132,12 +1131,12 @@ msgstr "Le fichier utilisé pour charger les bouquets radio personnalisés (grou
 #. help: Channels - numtvgroups
 msgctxt "#30653"
 msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "Le nombre de bouquets TV à charger lorsque le mode de recherche sélectionné est \"Quelques bouquets\". Vous pouvez en choisir jusqu'à 5. Si plus de 5 bouquets sont nécessaires, le mode de recherche \"Bouquets personnalisés\" doit être utilisé à la place."
+msgstr "Le nombre de bouquets TV à charger lorsque le mode de recherche sélectionné est \"Certains bouquets\". Vous pouvez en choisir jusqu'à 5. Si plus de 5 bouquets sont nécessaires, le mode de recherche \"Bouquets personnalisés\" doit être utilisé à la place."
 
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "Le nombre de bouquets radio à charger lorsque le mode de récupération sélectionné est \"Quelques bouquets\". Vous pouvez en choisir jusqu'à 5. Si plus de 5 bouquets sont nécessaires, le mode de recherche \"Bouquets personnalisés\" doit être utilisé à la place."
+msgstr "Le nombre de bouquets radio à charger lorsque le mode de récupération sélectionné est \"Certains bouquets\". Vous pouvez en choisir jusqu'à 5. Si plus de 5 bouquets sont nécessaires, le mode de recherche \"Bouquets personnalisés\" doit être utilisé à la place."
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
@@ -1147,7 +1146,7 @@ msgstr "Si cette option est activée, chaque groupe dans Kodi correspondra aux n
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr "Récupère le nom du fournisseur depuis l'application dorsale lors de la récupération des chaînes. La valeur par défaut est activée, mais la désactivation peut accélérer les temps de recherche sur les appareils plus anciens."
+msgstr "Récupère le nom du fournisseur depuis le backend lors de la récupération des chaînes. L'option est activée par défaut, mais sa désactivation peut accélérer les temps de recherche sur les appareils plus anciens."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG
@@ -1197,7 +1196,6 @@ msgid "For older Enigma2 devices EPG updates can effect streaming quality (such 
 msgstr ""
 
 #. help: EPG - skipinitialepg
-#, fuzzy
 msgctxt "#30669"
 msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
 msgstr ""
@@ -1306,7 +1304,7 @@ msgstr ""
 #. help-category: timeshift
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
-msgstr ""
+msgstr "Cette catégorie contient les paramètres du contrôle du direct. Le contrôle du direct permet de mettre en pause la télévision en direct ainsi que d'avancer et de reculer à partir de la position actuelle, comme pour la lecture d'un enregistrement. Le tampon est supprimé lors des changements de chaîne et de l'arrêt de la diffusion."
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
@@ -1314,7 +1312,6 @@ msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On
 msgstr ""
 
 #. help: Timeshift - timeshiftbufferpath
-#, fuzzy
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
 msgstr ""
