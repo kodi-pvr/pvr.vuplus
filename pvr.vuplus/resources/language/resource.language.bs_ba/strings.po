@@ -7,27 +7,27 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-01-17 23:53+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-09-01 07:29+0000\n"
+"Last-Translator: SecularSteve <fairfull.playing@gmail.com>\n"
 "Language-Team: Bosnian (Bosnia and Herzegovina) <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/bs_ba/>\n"
 "Language: bs_ba\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.13\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr ""
+msgstr "Kodijev predokraj za set-top box uređaje bazirane na Enigmi2"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
-msgstr ""
+msgstr "Enigma2 predokraj - podržava prijenos uživo TV programa i snimaka, EPG, mjerače vremena, auto-mjerače vremena.[CR] [CR]Za dokumentaciju posjetite: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects.."
-msgstr ""
+msgstr "Ovo je nestabilan softver! Autori ni na koji način nisu odgovorni za neuspjela snimanja, netačne mjerače vremena, izgubljene sate ili bilo koje druge neželjene efekte."
 
 #. ##################
 #. settings labels #
@@ -35,13 +35,13 @@ msgstr ""
 #. label: Connection - host
 msgctxt "#30000"
 msgid "Enigma2 hostname or IP address"
-msgstr ""
+msgstr "Naziv hosta ili IP adresa Enigma2"
 
 # empty string with id 30001
 #. label: Connection - streamport
 msgctxt "#30002"
 msgid "Streaming port"
-msgstr ""
+msgstr "Port za strujanje"
 
 #. label: Connection - user
 msgctxt "#30003"
@@ -56,7 +56,7 @@ msgstr "Lozinka"
 #. label-category: connection
 msgctxt "#30005"
 msgid "Connection"
-msgstr ""
+msgstr "Veza"
 
 #. label-group: General - Icons
 msgctxt "#30006"
@@ -66,53 +66,53 @@ msgstr "Ikone"
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr ""
+msgstr "Programski tokovi"
 
 #. label: General - iconpath
 msgctxt "#30008"
 msgid "Icon path"
-msgstr ""
+msgstr "Putanja ikone"
 
 #. label-group: General - Update Interval
 msgctxt "#30009"
 msgid "Update Interval"
-msgstr ""
+msgstr "Interval ažuriranja"
 
 # empty string with id 30010
 #. label: Timers - timerlistcleanup
 msgctxt "#30011"
 msgid "Automatic timerlist cleanup"
-msgstr ""
+msgstr "Automatsko čišćenje liste tajmera"
 
 #. label: Connection - webport
 msgctxt "#30012"
 msgid "Web interface port"
-msgstr ""
+msgstr "Port web sučelja"
 
 #. label: Channels - zap
 msgctxt "#30013"
 msgid "Zap before channelswitch (i.e. for single tuner boxes)"
-msgstr ""
+msgstr "Prebacivanje prije prebacivanja kanala (npr. za uređaje s jednim tunerom)"
 
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr ""
+msgstr "Postavite ID programa za kanal uživo ili snimljene streamove"
 
 #. label: General - updateint
 msgctxt "#30015"
 msgid "Update interval"
-msgstr ""
+msgstr "Interval ažuriranja"
 
 #. label: Channels - usegroupspecificnumbers
 msgctxt "#30016"
 msgid "Use bouquet specific channel numbers from backend"
-msgstr ""
+msgstr "Koristite brojeve kanala specifične za buket iz pozadine"
 
 #. label: Recordings - onlycurrent
 msgctxt "#30017"
 msgid "Only use current recording path from backend"
-msgstr ""
+msgstr "Koristi samo trenutnu putanju snimanja iz pozadine"
 
 #. label-category: general
 #. label-group: Channels
@@ -129,108 +129,108 @@ msgstr "Kanali"
 #. label-group: Connection - Advanced
 msgctxt "#30020"
 msgid "Advanced"
-msgstr ""
+msgstr "Napredno"
 
 # empty string with id 30021
 #. label: Recordings - recordingsrecursive
 msgctxt "#30022"
 msgid "Use recursive listing for recording locations"
-msgstr ""
+msgstr "Koristite rekurzivno listanje za lokacije snimanja"
 
 #. label: Timers - recordingpath
 msgctxt "#30023"
 msgid "New timer default recording folder"
-msgstr ""
+msgstr "Nova zadana mapa za snimanje tajmera"
 
 #. label: Advanced - powerstatemode
 msgctxt "#30024"
 msgid "Send powerstate mode on addon exit"
-msgstr ""
+msgstr "Pošalji PowerState mod pri izlasku iz dodatka"
 
 #. label: Channels - tvgroupmode
 msgctxt "#30025"
 msgid "TV bouquet fetch mode"
-msgstr ""
+msgstr "Način dohvaćanja TV buketa"
 
 #. label: Channels - onetvgroup
 msgctxt "#30026"
 msgid "TV bouquet 1"
-msgstr ""
+msgstr "TV buket 1"
 
 #. label: General - onlinepicons
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr ""
+msgstr "Preuzmi picone sa web interfejsa"
 
 #. label: Connection - use_secure
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
-msgstr ""
+msgstr "Koristite sigurni HTTP (https)"
 
 #. label: Connection - autoconfig
 msgctxt "#30029"
 msgid "Enable automatic configuration for live streams"
-msgstr ""
+msgstr "Omogući automatsku konfiguraciju za prijenose uživo"
 
 #. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
-msgstr ""
+msgstr "Zadrži strukturu foldera za snimke"
 
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr ""
+msgstr "Sezone i epizode"
 
 #. label-category: epg
 msgctxt "#30032"
 msgid "EPG"
-msgstr ""
+msgstr "Elektronski vodič za programe (EPG)"
 
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr ""
+msgstr "Izdvojite informacije o sezoni, epizodi i godini gdje je to moguće"
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr ""
+msgstr "Omogući automatske tajmere"
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
 msgid "Use picons.eu file format"
-msgstr ""
+msgstr "Koristite picons.eu format datoteke"
 
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
-msgstr ""
+msgstr "Omogući generiranje tajmera za ponavljanje"
 
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
 msgid "Log missing genre text mappings"
-msgstr ""
+msgstr "Zabilježi nedostajuća mapiranja žanrova teksta"
 
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
 msgid "Web Interface"
-msgstr ""
+msgstr "Web interfejs"
 
 #. label-group: Connection - Streaming
 msgctxt "#30039"
 msgid "Streaming"
-msgstr ""
+msgstr "Strimovanje"
 
 #. label: Advanced - prependoutline
 msgctxt "#30040"
 msgid "Put outline (e.g. sub-title) before plot"
-msgstr ""
+msgstr "Stavite nacrt (npr. podnaslov) prije radnje"
 
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr ""
+msgstr "Veličina bloka za čitanje toka"
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
@@ -240,12 +240,12 @@ msgstr "Nikada"
 #. label - Advanced - prependoutline
 msgctxt "#30043"
 msgid "In EPG only"
-msgstr ""
+msgstr "Samo u EPG-u"
 
 #. label - Advanced - prependoutline
 msgctxt "#30044"
 msgid "In recordings only"
-msgstr ""
+msgstr "Samo u snimcima"
 
 #. label - Advanced - prependoutline
 msgctxt "#30045"
@@ -255,52 +255,52 @@ msgstr "Uvijek"
 #. label: EPG - extractshowinfofile
 msgctxt "#30046"
 msgid "Extract show info file"
-msgstr ""
+msgstr "Izdvoji datoteku s informacijama o emisiji"
 
 #. label-group: EPG - Rytec genre text Mappings
 msgctxt "#30047"
 msgid "Rytec genre text Mappings"
-msgstr ""
+msgstr "Mapiranje teksta žanra Rytec"
 
 #. label: EPG - rytecgenretextmapenabled
 msgctxt "#30048"
 msgid "Enable Rytec genre text mappings"
-msgstr ""
+msgstr "Omogući mapiranje teksta žanra Rytec"
 
 #. label: EPG - rytecgenretextmapfile
 msgctxt "#30049"
 msgid "Rytec genre text mappings file"
-msgstr ""
+msgstr "Datoteka za mapiranje teksta žanra Rytec"
 
 #. label: Advanced - readtimeout
 msgctxt "#30050"
 msgid "Custom live TV timeout (0 to use default)"
-msgstr ""
+msgstr "Prilagođeno vrijeme čekanja za TV uživo (0 za korištenje zadanih postavki)"
 
 #. label-group: Connection - Login
 msgctxt "#30051"
 msgid "Login"
-msgstr ""
+msgstr "Prijava"
 
 #. label-group: Advanced - Misc
 msgctxt "#30052"
 msgid "Misc"
-msgstr ""
+msgstr "Razno"
 
 #. label-group: EPG - Genre ID Mappings
 msgctxt "#30053"
 msgid "Genre ID Mappings"
-msgstr ""
+msgstr "Mapiranje ID-a žanra"
 
 #. label: EPG - genreidmapenabled
 msgctxt "#30054"
 msgid "Enable genre ID Mappings"
-msgstr ""
+msgstr "Omogući mapiranje ID-ova žanra"
 
 #. label: EPG - genreidmapfile
 msgctxt "#30055"
 msgid "Genre ID mappings file"
-msgstr ""
+msgstr "Datoteka za mapiranje ID-a žanra"
 
 #. label-group: Channels - TV
 msgctxt "#30056"
@@ -315,28 +315,28 @@ msgstr "Radio"
 #. label: Channels - radiogroupmode
 msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
-msgstr ""
+msgstr "Način dohvaćanja radio buketa"
 
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
 msgid "Radio bouquet 1"
-msgstr ""
+msgstr "Radio buket 1"
 
 #. label-category: timeshift
 #. label-group: Timeshift - Timeshift
 msgctxt "#30060"
 msgid "Timeshift"
-msgstr ""
+msgstr "Vremenski pomak"
 
 #. label: Timeshift - enabletimeshift
 msgctxt "#30061"
 msgid "Enable timeshift"
-msgstr ""
+msgstr "Omogući vremenski pomak"
 
 #. label: Timeshift - timeshiftbufferpath
 msgctxt "#30062"
 msgid "Timeshift buffer path"
-msgstr ""
+msgstr "Putanja bafera vremenskog pomaka"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
@@ -346,32 +346,32 @@ msgstr "Isklj."
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30064"
 msgid "On playback"
-msgstr ""
+msgstr "Pri reprodukciji"
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30065"
 msgid "On pause"
-msgstr ""
+msgstr "Na pauzi"
 
 #. label: Connection - use_secure_stream
 msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
-msgstr ""
+msgstr "Koristite sigurni HTTP (https) za streamove"
 
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr ""
+msgstr "Koristite prijavu za streamove"
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
 msgid "Fetch TV favourites bouquet"
-msgstr ""
+msgstr "Dohvati buket omiljenih TV emisija"
 
 #. label: Channels - radiofavouritesmode
 msgctxt "#30069"
 msgid "Fetch radio favourites bouquet"
-msgstr ""
+msgstr "Dohvati buket omiljenih radio pjesama"
 
 #. label-category: recordings
 msgctxt "#30070"
@@ -387,123 +387,123 @@ msgstr "Snimci"
 #. label-group: Timers - timers
 msgctxt "#30072"
 msgid "Timers"
-msgstr ""
+msgstr "Tajmeri"
 
 #. label: Timers - numgenrepeattimers
 msgctxt "#30073"
 msgid "Number of repeat timers to generate"
-msgstr ""
+msgstr "Broj tajmera za ponavljanje koji treba generirati"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30074"
 msgid "All bouquets"
-msgstr ""
+msgstr "Svi buketi"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30075"
 msgid "Some bouquets"
-msgstr ""
+msgstr "Neki buketi"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30076"
 msgid "As first bouquet"
-msgstr ""
+msgstr "Kao prvi buket"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
 msgctxt "#30077"
 msgid "As last bouquet"
-msgstr ""
+msgstr "Kao posljednji buket"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30078"
 msgid "Favourites bouquet"
-msgstr ""
+msgstr "Buket omiljenih"
 
 #. application: ChannelGroups
 msgctxt "#30079"
 msgid "Favourites (TV)"
-msgstr ""
+msgstr "Favoriti (TV)"
 
 #. application: ChannelGroups
 msgctxt "#30080"
 msgid "Favourites (Radio)"
-msgstr ""
+msgstr "Omiljeni (Radio)"
 
 #. application: Client
 #. application: Admin
 msgctxt "#30081"
 msgid "unknown"
-msgstr ""
+msgstr "nepoznat"
 
 #. application: Client
 msgctxt "#30082"
 msgid " (Not connected!)"
-msgstr ""
+msgstr " (Nije povezano!)"
 
 #. application: Client
 msgctxt "#30083"
 msgid "addon error"
-msgstr ""
+msgstr "greška dodatka"
 
 #. label: Recordings - keepfoldersomitlocation
 msgctxt "#30084"
 msgid "Omit location path from recording directory"
-msgstr ""
+msgstr "Izostavite putanju lokacije iz direktorija za snimanje"
 
 #. label: Recordings - virtualfolders
 msgctxt "#30085"
 msgid "Group recordings into folders by title"
-msgstr ""
+msgstr "Grupirajte snimke u mape po naslovu"
 
 #. label-category: backend
 msgctxt "#30086"
 msgid "Backend"
-msgstr ""
+msgstr "Izokraj"
 
 #. label-group: Backend - Recording Padding
 msgctxt "#30087"
 msgid "Recording Padding"
-msgstr ""
+msgstr "Podloga za snimanje"
 
 #. label: Backend - globalstartpaddingstb
 msgctxt "#30088"
 msgid "Global start padding"
-msgstr ""
+msgstr "Globalni početni pad"
 
 #. label: Backend - globalendpaddingstb
 msgctxt "#30089"
 msgid "Global end padding"
-msgstr ""
+msgstr "Globalno završno punjenje"
 
 #. label-group: Backend - Device Info
 msgctxt "#30090"
 msgid "Device Info"
-msgstr ""
+msgstr "Informacije o uređaju"
 
 #. label: Backend - webifversion
 msgctxt "#30091"
 msgid "WebIf version"
-msgstr ""
+msgstr "Verzija WebIf-a"
 
 #. label: Backend - autotimertagintags
 msgctxt "#30092"
 msgid "AutoTimer tag in timer tags"
-msgstr ""
+msgstr "Oznaka AutoTimer u oznakama tajmera"
 
 #. label: Backend - autotimernameintags
 msgctxt "#30093"
 msgid "AutoTimer name in timer tags"
-msgstr ""
+msgstr "Naziv automatskog tajmera u oznakama tajmera"
 
 #. application: Admin
 msgctxt "#30094"
 msgid "N/A"
-msgstr ""
+msgstr "Nema informacija"
 
 #. application: Admin
 msgctxt "#30095"
@@ -518,103 +518,103 @@ msgstr "Netačno"
 #. label-option: Advanced - powerstatemode
 msgctxt "#30097"
 msgid "Standby"
-msgstr ""
+msgstr "Pripravnost"
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30098"
 msgid "Deep standby"
-msgstr ""
+msgstr "Duboka pripravnost"
 
 #. label-option: Advanced - powerstatemode
 msgctxt "#30099"
 msgid "Wakeup, then standby"
-msgstr ""
+msgstr "Buđenje, a zatim stanje pripravnosti"
 
 #. label: General - updatemode
 msgctxt "#30100"
 msgid "Update mode"
-msgstr ""
+msgstr "Način ažuriranja"
 
 #. label-option: General - updatemode
 msgctxt "#30101"
 msgid "Timers and recordings"
-msgstr ""
+msgstr "Tajmeri i snimci"
 
 #. label-option: General - updatemode
 msgctxt "#30102"
 msgid "Timers only"
-msgstr ""
+msgstr "Samo tajmeri"
 
 #. label: General - useopenwebifpiconpath
 msgctxt "#30103"
 msgid "Use OpenWebIf picon path"
-msgstr ""
+msgstr "Koristi OpenWebIf picon putanju"
 
 #. label: Advanced - tracedebug
 msgctxt "#30104"
 msgid "Enable trace logging in debug mode"
-msgstr ""
+msgstr "Omogući zapisivanje tragova u načinu rada za otklanjanje grešaka"
 
 #. label-group - EPG - Other
 msgctxt "#30105"
 msgid "Other"
-msgstr ""
+msgstr "Ostalo"
 
 #. label: EPG - epgdelayperchannel
 msgctxt "#30106"
 msgid "EPG update delay per channel"
-msgstr ""
+msgstr "Kašnjenje ažuriranja EPG-a po kanalu"
 
 #. label-group: Recordings - Recording EDLs (Edit Decision Lists)
 msgctxt "#30107"
 msgid "Recording EDLs (Edit Decision Lists)"
-msgstr ""
+msgstr "Snimanje EDL-ova (Uređivanje lista odluka)"
 
 #. label: Recordings - enablerecordingedls
 msgctxt "#30108"
 msgid "Enable EDLs support"
-msgstr ""
+msgstr "Omogući podršku za EDL-ove"
 
 #. label: Recordings - edlpaddingstart
 msgctxt "#30109"
 msgid "EDL start time padding"
-msgstr ""
+msgstr "Dopuna vremena početka EDL-a"
 
 #. label: Recordings - edlpaddingstop
 msgctxt "#30110"
 msgid "EDL stop time padding"
-msgstr ""
+msgstr "EDL vrijeme zaustavljanja"
 
 #. label: Advanced - debugnormal
 msgctxt "#30111"
 msgid "Enable debug logging in normal mode"
-msgstr ""
+msgstr "Omogući zapisivanje grešaka u normalnom načinu rada"
 
 #. application: ChannelGroups
 msgctxt "#30112"
 msgid "Last Scanned (TV)"
-msgstr ""
+msgstr "Posljednje skeniranje (TV)"
 
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr ""
+msgstr "Posljednje skeniranje (radio)"
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
 msgctxt "#30114"
 msgid "Exclude last scanned bouquet"
-msgstr ""
+msgstr "Isključi posljednji skenirani buket"
 
 #. label: EPG - skipinitialepg
 msgctxt "#30115"
 msgid "Skip Initial EPG Load"
-msgstr ""
+msgstr "Preskoči početno učitavanje EPG-a"
 
 #. label: General - channelandgroupupdatemode
 msgctxt "#30116"
 msgid "Channels and groups update mode"
-msgstr ""
+msgstr "Način ažuriranja kanala i grupa"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30117"
@@ -624,203 +624,203 @@ msgstr "Onemogućeno"
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30118"
 msgid "Notify on UI and Log"
-msgstr ""
+msgstr "Obavijesti na korisničkom interfejsu i prijavi"
 
 #. label-option: General - channelandgroupupdatemode
 msgctxt "#30119"
 msgid "Reload Channels and Groups"
-msgstr ""
+msgstr "Ponovno učitavanje kanala i grupa"
 
 #. label: General - channelandgroupupdatehour
 msgctxt "#30120"
 msgid "Channels and groups update hour (24h)"
-msgstr ""
+msgstr "Sat ažuriranja kanala i grupa (24 sata)"
 
 #. label: Connection - connectionchecktimeout
 msgctxt "#30121"
 msgid "Connection check timeout"
-msgstr ""
+msgstr "Vremensko ograničenje provjere veze"
 
 #. label: Connection - connectioncheckinterval
 msgctxt "#30122"
 msgid "Connection check interval"
-msgstr ""
+msgstr "Interval provjere veze"
 
 #. label: Timers - Autotimers
 msgctxt "#30123"
 msgid "Autotimers"
-msgstr ""
+msgstr "Automatski tajmeri"
 
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
 msgid "Limit 'Any Channel' autotimers to TV or Radio"
-msgstr ""
+msgstr "Ograničite automatske tajmere 'Bilo koji kanal' na TV ili radio"
 
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
 msgid "Limit to groups of original EPG channel"
-msgstr ""
+msgstr "Ograničenje na grupe originalnih EPG kanala"
 
 #. label: Channels - usestandardserviceref
 msgctxt "#30126"
 msgid "Use standard channel service reference"
-msgstr ""
+msgstr "Koristi standardnu referencu usluge kanala"
 
 #. label: Recordings - storeextrarecordinginfo
 msgctxt "#30127"
 msgid "Store last played/play count on the backend"
-msgstr ""
+msgstr "Pohrani posljednje reproducirano/broj reproduciranih sadržaja na pozadini"
 
 #. label: Recordings - sharerecordinglastplayed
 msgctxt "#30128"
 msgid "Share last played across:"
-msgstr ""
+msgstr "Podijeli posljednju reprodukciju na:"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
 msgid "Kodi instances"
-msgstr ""
+msgstr "Kodi instance"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30130"
 msgid "Kodi/E2 instances"
-msgstr ""
+msgstr "Kodi/E2 instance"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30131"
 msgid "Custom bouquets"
-msgstr ""
+msgstr "Buketi po narudžbi"
 
 #. label: Channels - customtvgroupsfile
 msgctxt "#30132"
 msgid "Custom TV bouquets file"
-msgstr ""
+msgstr "Datoteka prilagođenih TV buketa"
 
 #. label: Channels - customradiogroupsfile
 msgctxt "#30133"
 msgid "Custom Radio bouquets file"
-msgstr ""
+msgstr "Datoteka prilagođenih radio buketa"
 
 #. label: Channels - numtvgroups
 msgctxt "#30134"
 msgid "Number of TV bouquets"
-msgstr ""
+msgstr "Broj TV buketa"
 
 #. label: Channels - twotvgroup
 msgctxt "#30135"
 msgid "TV bouquet 2"
-msgstr ""
+msgstr "TV buket 2"
 
 #. label: Channels - threetvgroup
 msgctxt "#30136"
 msgid "TV bouquet 3"
-msgstr ""
+msgstr "TV buket 3"
 
 #. label: Channels - fourtvgroup
 msgctxt "#30137"
 msgid "TV bouquet 4"
-msgstr ""
+msgstr "TV buket 4"
 
 #. label: Channels - fivetvgroup
 msgctxt "#30138"
 msgid "TV bouquet 5"
-msgstr ""
+msgstr "TV buket 5"
 
 #. label: Channels - numradiogroups
 msgctxt "#30139"
 msgid "Number of radio bouquets"
-msgstr ""
+msgstr "Broj radio buketa"
 
 #. label: Channels - tworadiogroup
 msgctxt "#30140"
 msgid "Radio bouquet 2"
-msgstr ""
+msgstr "Radio buket 2"
 
 #. label: Channels - threeradiogroup
 msgctxt "#30141"
 msgid "Radio bouquet 3"
-msgstr ""
+msgstr "Radio buket 3"
 
 #. label: Channels - fourradiogroup
 msgctxt "#30142"
 msgid "Radio bouquet 4"
-msgstr ""
+msgstr "Radio buket 4"
 
 #. label: Channels - fiveradiogroup
 msgctxt "#30143"
 msgid "Radio bouquet 5"
-msgstr ""
+msgstr "Radio buket 5"
 
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
-msgstr ""
+msgstr "Nema zapisivanja grešaka u dodacima u Kodi debug modu"
 
 #. label-group: Backend - Power Settings
 msgctxt "#30145"
 msgid "Power Settings"
-msgstr ""
+msgstr "Postavke napajanja"
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30146"
 msgid "Wake On LAN MAC"
-msgstr ""
+msgstr "Buđenje putem LAN MAC-a"
 
 #. label: Timeshift - IPTV
 msgctxt "#30147"
 msgid "IPTV"
-msgstr ""
+msgstr "IPTV"
 
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr ""
+msgstr "Omogući vremenski pomak za IPTV streamove"
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr ""
+msgstr "Koristite FFmpeg http opcije za ponovno povezivanje ako je moguće"
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
 msgid "Use mpegts MIME type for unknown streams"
-msgstr ""
+msgstr "Koristite mpegts MIME tip za nepoznate streamove"
 
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
 msgid "- Modify inputstream.ffmpegdirect settings..."
-msgstr ""
+msgstr "- Izmijenite postavke inputstream.ffmpegdirect..."
 
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
 msgid "Retrieve provider name for channels"
-msgstr ""
+msgstr "Preuzmi naziv provajdera za kanale"
 
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr ""
+msgstr "Omogući ograničenje diska za vremenski pomak"
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr ""
+msgstr "Ograničenje diska za vremenski pomak"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
 msgid "{0:.1f} GiB"
-msgstr ""
+msgstr "{0:.1f} GiB"
 
 #. label-group: Recordings - Recording Paths
 msgctxt "#30157"
 msgid "Recording Paths"
-msgstr ""
+msgstr "Putanje snimanja"
 
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
-msgstr ""
+msgstr "Lokacije snimanja"
 
 # empty strings from id 30159 to 30409
 #. ##############
@@ -829,43 +829,43 @@ msgstr ""
 #. application: Timers
 msgctxt "#30410"
 msgid "Automatic"
-msgstr ""
+msgstr "Automatski"
 
 # empty strings from id 30411 to 30419
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
-msgstr ""
+msgstr "Tajmer za jednokratno isključivanje (automatski)"
 
 #. application: Timers
 msgctxt "#30421"
 msgid "Once off timer (repeating)"
-msgstr ""
+msgstr "Tajmer za jednokratno isključivanje (ponavljanje)"
 
 #. application: Timers
 msgctxt "#30422"
 msgid "Once off timer (channel)"
-msgstr ""
+msgstr "Tajmer za jednokratno isključivanje (kanal)"
 
 #. application: Timers
 msgctxt "#30423"
 msgid "Repeating time/channel based"
-msgstr ""
+msgstr "Ponavljanje na osnovu vremena/kanala"
 
 #. application: Timers
 msgctxt "#30424"
 msgid "One time guide-based"
-msgstr ""
+msgstr "Jednokratni vodič"
 
 #. application: Timers
 msgctxt "#30425"
 msgid "Repeating guide-based"
-msgstr ""
+msgstr "Ponavljanje na osnovu vodiča"
 
 #. application: Timers
 msgctxt "#30426"
 msgid "Auto guide-based"
-msgstr ""
+msgstr "Na osnovu automatskog vodiča"
 
 #. label-option: Channels - tvfavouritesmode
 #. label-option: Channels - radiofavouritesmode
@@ -878,17 +878,17 @@ msgstr "Onemogućeno"
 #. application: Timers
 msgctxt "#30431"
 msgid "Record if EPG title differs"
-msgstr ""
+msgstr "Snimi ako se EPG naslov razlikuje"
 
 #. application: Timers
 msgctxt "#30432"
 msgid "Record if EPG title and short description differs"
-msgstr ""
+msgstr "Zabilježi ako se naslov EPG-a i kratki opis razlikuju"
 
 #. application: Timers
 msgctxt "#30433"
 msgid "Record if EPG title and all descriptions differ"
-msgstr ""
+msgstr "Zabilježi ako se naslov EPG-a i svi opisi razlikuju"
 
 # empty strings from id 30434 to 30513
 #. ################
@@ -897,48 +897,48 @@ msgstr ""
 #. notification: Client
 msgctxt "#30514"
 msgid "Timeshift buffer path does not exist"
-msgstr ""
+msgstr "Putanja bafera vremenskog pomaka ne postoji"
 
 #. notification: Enigma2
 msgctxt "#30515"
 msgid "Enigma2: Could not reach web interface"
-msgstr ""
+msgstr "Enigma2: Nije moguće pristupiti web interfejsu"
 
 #. notification: Enigma2
 msgctxt "#30516"
 msgid "Enigma2: No channel groups found"
-msgstr ""
+msgstr "Enigma2: Nisu pronađene grupe kanala"
 
 #. notification: Enigma2
 msgctxt "#30517"
 msgid "Enigma2: No channels found"
-msgstr ""
+msgstr "Enigma2: Nisu pronađeni kanali"
 
 #. notification: Enigma2
 msgctxt "#30518"
 msgid "Enigma2: Channel group changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2: Otkrivene su promjene u grupi kanala, ponovo pokrenite računar da biste učitali promjene"
 
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2: Otkrivene su promjene kanala, ponovo pokrenite uređaj da biste učitali promjene"
 
 #. application: AutoTimer
 #. application: Timer
 msgctxt "#30520"
 msgid "Invalid Channel"
-msgstr ""
+msgstr "Nevažeći kanal"
 
 #. notification: Enigma2
 msgctxt "#30521"
 msgid "Enigma2: Channel group changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2: Otkrivene promjene grupe kanala, ponovno učitavanje..."
 
 #. notification: Enigma2
 msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2: Otkrivene promjene kanala, ponovno učitavanje..."
 
 # empty strings from id 30523 to 30599
 #. ############
@@ -948,136 +948,136 @@ msgstr ""
 #. help-category: connection
 msgctxt "#30600"
 msgid "This category cotains the settings for connecting to the Enigma2 device"
-msgstr ""
+msgstr "Ova kategorija sadrži postavke za povezivanje s uređajem Enigma2"
 
 #. help: Connection - host
 msgctxt "#30601"
 msgid "The IP address or hostname of your enigma2 based set-top box."
-msgstr ""
+msgstr "IP adresa ili naziv hosta vašeg set-top box uređaja baziranog na enigmi2."
 
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr ""
+msgstr "Port koji se koristi za povezivanje s web interfejsom."
 
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr ""
+msgstr "Koristite https za povezivanje na web interfejs."
 
 #. help: Connection - user
 msgctxt "#30604"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Ako je web sučelje set-top box uređaja zaštićeno kombinacijom korisničkog imena/lozinke, to je potrebno postaviti u ovoj opciji."
 
 #. help: Connection - pass
 msgctxt "#30605"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Ako je web sučelje set-top box uređaja zaštićeno kombinacijom korisničkog imena/lozinke, to je potrebno postaviti u ovoj opciji."
 
 #. help: Connection - autoconfig
 msgctxt "#30606"
 msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
-msgstr ""
+msgstr "Kada je omogućeno, URL streama će se čitati iz M3U8 datoteke. Kada je onemogućeno, konstruira se na osnovu reference usluge kanala. Ova opcija je rijetko potrebna i ne bi je trebalo omogućavati osim ako nemate poseban slučaj upotrebe. Ako gledate IPTV stream, ova opcija nema utjecaja na te kanale."
 
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr ""
+msgstr "Ova opcija definira port za streaming koji set-top box koristi za streaming TV programa uživo. Zadana vrijednost je 8001, što bi trebalo biti u redu ako korisnik nije definirao prilagođeni port unutar web sučelja."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr ""
+msgstr "Koristite https za povezivanje sa streamovima."
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
 msgid "Use the login username and password for streams."
-msgstr ""
+msgstr "Koristite korisničko ime i lozinku za prijavu na streamove."
 
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
 msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
-msgstr ""
+msgstr "Vrijednost u sekundama za čekanje završetka provjere veze prije nego što dođe do greške. Korisno za podešavanje na starijim Enigma2 uređajima. Imajte na umu da ovu postavku rijetko treba mijenjati. Vjerovatnije je da će postavka `Interval provjere veze` imati željeni efekat. Zadana vrijednost je 30 sekundi."
 
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
-msgstr ""
+msgstr "Vrijednost u sekundama čekanja između provjera veze. Korisno za podešavanje na starijim Enigma2 uređajima. Zadano je 10 sekundi."
 
 # empty strings from id 30612 to 30619
 #. help info - General
 #. help-category: general
 msgctxt "#30620"
 msgid "This category cotains the settings whivh generally need to be set by the user"
-msgstr ""
+msgstr "Ova kategorija sadrži postavke koje obično treba da podesi korisnik"
 
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr ""
+msgstr "Preuzmite pikone direktno iz Enigma 2 set-top boxa."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
 msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
-msgstr ""
+msgstr "Dohvati putanju picon-a iz OpenWebIf-a umjesto konstruiranja iz ServiceRef-a. Zahtijeva OpenWebIf 1.3.5 ili noviju verziju. Nema efekta ako se koristi na starijoj verziji OpenWebIf-a."
 
 #. help: General - usepiconseuformat
 msgctxt "#30623"
 msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
-msgstr ""
+msgstr "Pretpostavimo da sve picon datoteke preuzete sa set-top box uređaja počinju sa '1_1_1_' i završavaju sa '_0_0_0'."
 
 #. help: General - iconpath
 msgctxt "#30624"
 msgid "In order to have Kodi display channel logos you have to copy the picons from your set-top box onto your OpenELEC machine. You then need to specify this path in this property."
-msgstr ""
+msgstr "Da bi Kodi prikazivao logotipe kanala, morate kopirati ikone kanala (picones) sa vašeg set-top box uređaja na vaš OpenELEC uređaj. Zatim morate navesti ovu putanju u ovom svojstvu."
 
 #. help: General - updateint
 msgctxt "#30625"
 msgid "As the set-top box can also be used to modify timers, delete recordings etc. and the set-top box does not notify the Kodi installation, the addon needs to regularly check for updates (new channels, new/changed/deletes timers, deleted recordings, etc.) This property defines how often the addon checks for updates. Please note that updating the recordings frequently can keep your receiver and it's harddisk from entering standby automatically."
-msgstr ""
+msgstr "Budući da se set-top box može koristiti i za promjenu tajmera, brisanje snimaka itd., a set-top box ne obavještava Kodi instalaciju, dodatak treba redovno provjeravati ažuriranja (novi kanali, novi/promijenjeni/izbrisani tajmeri, izbrisani snimci itd.). Ovo svojstvo definira koliko često dodatak provjerava ažuriranja. Imajte na umu da često ažuriranje snimaka može spriječiti automatski ulazak vašeg prijemnika i njegovog tvrdog diska u stanje mirovanja."
 
 #. help: General - updatemode
 msgctxt "#30626"
 msgid "The mode used when the update interval is reached. Note that if there is any timer change detected a recordings update will always occur regardless of the update mode. Choose from one of the following two modes: [B]Timers and Recordings[/B] Update all timers and recordings; [B]Timers only[/B] Only update the timers. If it's important to not spin up the HDD on your STB use this option. The HDD should then only spin up when a timer event occurs."
-msgstr ""
+msgstr "Način rada koji se koristi kada se dostigne interval ažuriranja. Imajte na umu da ako se otkrije bilo kakva promjena tajmera, ažuriranje snimaka će se uvijek izvršiti bez obzira na način ažuriranja. Odaberite jedan od sljedeća dva načina rada: [B]Tajmeri i snimci[/B] Ažuriranje svih tajmera i snimaka; [B]Samo tajmeri[/B] Ažuriranje samo tajmera. Ako je važno da se tvrdi disk na vašem STB-u ne okreće, koristite ovu opciju. Tvrdi disk bi se tada trebao okretati samo kada se dogodi događaj tajmera."
 
 #. help: General - channelandgroupupdatemode
 msgctxt "#30627"
 msgid "The mode used when the hour in the next settings is reached. Choose from one of the following three modes: [B]Disabled[/B] Never check for channel and group changes; [B]Notify on UI and Log[/B] Display a notice in the UI and log the fact that a change was detectetd[/B]; [B]Reload Channels and Groups[/B] Disconnect and reconnect with E2 device to reload channels only if a change is detected."
-msgstr ""
+msgstr "Način rada koji se koristi kada se dostigne sat u sljedećim postavkama. Odaberite jedan od sljedeća tri načina rada: [B]Onemogućeno[/B] Nikada ne provjeravaj promjene kanala i grupa; [B]Obavijesti na korisničkom sučelju i prijavi[/B] Prikaži obavještenje na korisničkom sučelju i prijavi činjenicu da je otkrivena promjena[/B]; [B]Ponovno učitavanje kanala i grupa[/B] Isključi se i ponovo poveži s E2 uređajem da bi se kanali ponovo učitali samo ako se otkrije promjena."
 
 #. help: General - channelandgroupupdatehour
 msgctxt "#30628"
 msgid "The hour of the day when the check for new channels should occur. Default is 4h as the Auto Bouquet Maker (ABM) on the E2 device defaults to 3AM."
-msgstr ""
+msgstr "Sat u danu kada treba provjeriti nove kanale. Zadano je 4 sata jer je Auto Bouquet Maker (ABM) na E2 uređaju zadano postavljen na 3 sata ujutro."
 
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr ""
+msgstr "Neki TV provajderi (npr. Nos - Portugal) koji koriste MPTS šalju dodatne informacije o streamu programa. Postavljanje ID-a programa omogućava Kodiju da odabere ispravan stream i stoga omogućava reprodukciju kanala/snimke. Imajte na umu da je potrebno otprilike 33 sata duže da se otvori bilo koji stream kada je ova opcija omogućena."
 
 # empty strings from id 30630 to 30639
 #. help info - Channels
 #. help-category: channels
 msgctxt "#30640"
 msgid "This category cotains the settings for channels. When changing bouquets you may need to clear the channel cache to the settings to take effect. You can do this by going to the following in Kodi settings: 'Settings->PVR & Live TV->General->Clear cache'."
-msgstr ""
+msgstr "Ova kategorija sadrži postavke za kanale. Prilikom promjene buketa kanala možda ćete morati obrisati keš memoriju kanala kako bi postavke stupile na snagu. To možete učiniti tako što ćete u Kodi postavkama otići na sljedeće: 'Postavke->PVR i TV uživo->Općenito->Obriši keš memoriju'."
 
 #. help: Channels - usestandardserviceref
 msgctxt "#30641"
 msgid "Usually service reference's for the channels are in a standard format like '1:0:1:27F6:806:2:11A0000:0:0:0:'. On occasion depending on provider they can be extended with some text e.g. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' or '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. If this option is enabled then all read service reference's will be read as standard. This is default behaviour. Functionality like autotimers will always convert to a standard reference."
-msgstr ""
+msgstr "Obično su reference servisa za kanale u standardnom formatu kao što je '1:0:1:27F6:806:2:11A0000:0:0:0:'. Povremeno, ovisno o provajderu, mogu se proširiti nekim tekstom, npr. '1:0:1:27F6:806:2:11A0000:0:0:0::UTV' ili '1:0:1:27F6:806:2:11A0000:0:0:0::UTV + 1'. Ako je ova opcija omogućena, tada će se sve pročitane reference servisa čitati kao standardne. Ovo je zadano ponašanje. Funkcionalnosti poput automatskih tajmera će se uvijek pretvoriti u standardnu referencu."
 
 #. help: Channels - zap
 msgctxt "#30642"
 msgid "When using the addon with a single tuner box it may be necessary that the addon needs to be able to zap to another channel on the set-top box. If this option is enabled each channel switch in Kodi will also result in a channel switch on the set-top box. Please note that [B]allow channel switching[/B] needs to be enabled in the webinterface on the set-top box."
-msgstr ""
+msgstr "Prilikom korištenja dodatka s jednim prijemnikom, možda će biti potrebno da dodatak bude u mogućnosti prebacivati se na drugi kanal na set-top box uređaju. Ako je ova opcija omogućena, svaka promjena kanala u Kodiju će također rezultirati promjenom kanala na set-top box uređaju. Imajte na umu da opcija [B]dozvoli promjenu kanala[/B] mora biti omogućena u web sučelju na set-top box uređaju."
 
 #. help: Channels - tvgroupmode
 msgctxt "#30643"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all TV bouquets from the set-top box; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for TV favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr ""
+msgstr "Odaberite jedan od sljedeća tri načina: [B]Svi buketi[/B] Preuzmite sve TV bukete sa set-top box uređaja; [B]Neki buketi[/B] Preuzmite samo bukete navedene u sljedećim opcijama; [B]Grupa favorita[/B] Preuzmite samo sistemski buket za TV favorite; [B]Prilagođene grupe[/B] Preuzmite skup buketa sa set-top box uređaja čija su imena učitana iz XML datoteke."
 
 #. help: Channels - onetvgroup
 #. help: Channels - twotvgroup
@@ -1086,22 +1086,22 @@ msgstr ""
 #. help: Channels - fivetvgroup
 msgctxt "#30644"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a TV bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (TV)'). This setting is case-sensitive."
-msgstr ""
+msgstr "Ako je prethodna opcija postavljena na 'Neki buketi', potrebno je odrediti TV buket koji će se preuzeti sa set-top box uređaja. Imajte na umu da je ovo naziv buketa kako je prikazano na set-top box uređaju (npr. 'Omiljeni (TV)'). Ova postavka razlikuje velika i mala slova."
 
 #. help: Channels - tvfavouritesmode
 msgctxt "#30645"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch TV favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr ""
+msgstr "Ako je način dohvaćanja 'Svi buketi' ili 'Neki buketi', ovisno o vašoj Enigma2 slici, možda ćete morati eksplicitno dohvatiti favorite ako su vam potrebni. Opcije su: [B]Onemogućeno[/B] Nemoj eksplicitno dohvaćati TV favorite; [B]Kao prvi buket[/B] Eksplicitno ih dohvati kao prvi buket; [B]Kao posljednji buket[/B] Eksplicitno ih dohvati kao posljednji buket."
 
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr ""
+msgstr "\"Posljednje skenirano\" je sistemski buket koji sadrži sve TV i radio kanale pronađene u posljednjem skeniranju. Svi TV kanali pronađeni u posljednjem skeniranom buketu mogu se prikazati kao grupa pod nazivom \"Posljednje skenirano (TV)\" u Kodiju. Za TV ova grupa je isključena prema zadanim postavkama. Onemogućite ovu opciju da biste isključili ovu grupu. Imajte na umu da ako nisu učitane TV grupe, \"Posljednje skenirano\" grupa za TV će se učitati prema zadanim postavkama, bez obzira na ovu postavku."
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr ""
+msgstr "Odaberite jedan od sljedeća tri načina: [B]Svi buketi[/B] Preuzmite sve radio bukete sa set-top box uređaja[/B]; [B]Neki buketi[/B] Preuzmite samo bukete navedene u sljedećim opcijama; [B]Grupa favorita[/B] Preuzmite samo sistemski buket za radio favorite; [B]Prilagođene grupe[/B] Preuzmite skup buketa sa set-top box uređaja čija su imena učitana iz XML datoteke."
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
@@ -1110,321 +1110,321 @@ msgstr ""
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr ""
+msgstr "Ako je prethodna opcija postavljena na 'Neki buketi', potrebno je odrediti buket radio stanica koji će se preuzeti sa set-top box uređaja. Imajte na umu da je ovo naziv buketa kako je prikazano na set-top box uređaju (npr. 'Omiljeni (Radio)'). Ova postavka razlikuje velika i mala slova."
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr ""
+msgstr "Ako je način dohvaćanja 'Svi buketi' ili 'Neki buketi', ovisno o vašoj Enigma2 slici, možda ćete morati eksplicitno dohvatiti favorite ako su vam potrebni. Opcije su: [B]Onemogućeno[/B] Nemoj eksplicitno dohvaćati radio favorite; [B]Kao prvi buket[/B] Eksplicitno ih dohvati kao prvi buket; [B]Kao posljednji buket[/B] Eksplicitno ih dohvati kao posljednji buket."
 
 #. help: Channels - excludelastscannedradio
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr ""
+msgstr "\"Posljednje skenirano\" je sistemski buket koji sadrži sve TV i radio kanale pronađene u posljednjem skeniranju. Svi radio kanali pronađeni u posljednjem skeniranom buketu mogu se prikazati kao grupa pod nazivom \"Posljednje skenirano (Radio)\" u Kodiju. Za Radio ova grupa je isključena prema zadanim postavkama. Onemogućite ovu opciju da biste prikazali ovu grupu."
 
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
 msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
-msgstr ""
+msgstr "Datoteka koja se koristi za učitavanje prilagođenih TV buketa (grupa). Ako se ne mogu pronaći odgovarajuće grupe, lista kanala će se podrazumjevati na 'Posljednje skenirano (TV)'. Zadana datoteka je `customTVGroups-example.xml`."
 
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr ""
+msgstr "Datoteka koja se koristi za učitavanje prilagođenih radio buketa (grupa). Ako se ne mogu pronaći odgovarajuće grupe, lista kanala će se podrazumjevati na 'Posljednje skenirano (Radio)'. Podrazumijevana datoteka je `customRadioGroups-example.xml`."
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
 msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr ""
+msgstr "Broj TV buketa koje treba učitati kada je odabrani način dohvaćanja \"Neki buketi\". Može se odabrati do 5. Ako je potrebno više od 5, treba koristiti način dohvaćanja \"Prilagođeni buketi\"."
 
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr ""
+msgstr "Broj radio buketa koje treba učitati kada je odabrani način dohvaćanja `Neki buketi`. Može se odabrati do 5. Ako je potrebno više od 5, treba koristiti način dohvaćanja `Prilagođeni buketi`."
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
-msgstr ""
+msgstr "Ako je ova opcija omogućena, onda će svaka grupa u Kodiju odgovarati tačnim brojevima kanala koji se koriste na pozadinskim buketima. Ako je onemogućeno (zadano), svaki kanal će imati samo jedan pozadinski broj kanala (prvo pojavljivanje prilikom učitavanja)."
 
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr ""
+msgstr "Preuzmi naziv provajdera iz pozadinskog sistema prilikom preuzimanja kanala. Podrazumevano je omogućeno, ali onemogućavanje može ubrzati vrijeme preuzimanja na starijim uređajima."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
-msgstr ""
+msgstr "Ova kategorija sadrži postavke za EPG (Elektronski programski vodič). Izuzev evidentiranja nedostajućih mapiranja teksta žanrova, sve ostale opcije zahtijevat će brisanje EPG keš memorije da bi stupile na snagu. To se može učiniti tako što ćete otići na 'Postavke->PVR i TV uživo->Vodič->Očisti keš memoriju' u Kodiju nakon ponovnog pokretanja dodatka."
 
 #. help: EPG - extractshowinfoenabled
 msgctxt "#30661"
 msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info."
-msgstr ""
+msgstr "Provjerite polja opisa u EPG podacima i pokušajte izdvojiti informacije o sezoni, epizodi i godini gdje je to moguće. Osim toga, možete izdvojiti i svojstva poput informacija o novim, uživo i premijerama."
 
 #. help: EPG - extractshowinfofile
 msgctxt "#30662"
 msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
-msgstr ""
+msgstr "Konfiguracija koja se koristi za izdvajanje informacija o sezoni, epizodi i godini. Zadana datoteka je `English-ShowInfo.xml`."
 
 #. help: EPG - genreidmapenabled
 msgctxt "#30663"
 msgid "If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi."
-msgstr ""
+msgstr "Ako ID-ovi žanrova poslani s EPG podacima s vašeg set-top boxa ne koriste DVB standard, mapirajte ih na ID-ove DVB standarda. Sky UK, na primjer, koristi OpenTV, u tom slučaju bez ove opcije boje žanrova i tekst bi bili netačni u Kodiju."
 
 #. help: EPG - genreidmapfile
 msgctxt "#30664"
 msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
-msgstr ""
+msgstr "Konfiguracija koja se koristi za mapiranje ID-ova žanrova EPG prijemnika na ID-ove DVB standarda. Zadana datoteka je `Sky-UK.xml`."
 
 #. help: EPG - rytecgenretextmapenabled
 msgctxt "#30665"
 msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
-msgstr ""
+msgstr "Ako koristite Rytec XMLTV EPG podatke, ova opcija se može koristiti za mapiranje tekstualnih žanrova na DVB standardne ID-ove."
 
 #. help: EPG - rytecgenretextmapfile
 msgctxt "#30666"
 msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
-msgstr ""
+msgstr "Konfiguracija koja se koristi za mapiranje Rytec Genre Texta na DVB ID-ove. Zadana datoteka je `Rytec-UK-Ireland.xml`."
 
 #. help: EPG - logmissinggenremapping
 msgctxt "#30667"
 msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [B]TV Drama[/B], or for major, minor genres using a dot (.) to separate [B]TV Drama. Soap Opera[/B]"
-msgstr ""
+msgstr "Ako želite da se zabilježe nedostajuća mapiranja žanrova kako biste ih mogli prijaviti, omogućite ovu opciju. Napomena: svi pronađeni žanrovi koji nemaju mapiranje i dalje će biti izdvojeni i poslani Kodiju kao nizovi znakova. Trenutno se žanrovi izdvajaju traženjem teksta između uglastih zagrada, npr. [B]TV Drama[/B], ili za glavne, sporedne žanrove korištenjem tačke (.) za odvajanje [B]TV Drama. Sapunica[/B]"
 
 #. help: EPG - epgdelayperchannel
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
-msgstr ""
+msgstr "Za starije Enigma2 uređaje, ažuriranja EPG-a mogu utjecati na kvalitetu streaminga (kao što su vremenska ograničenja bafera). Može se uvesti kašnjenje između 250 ms i 5000 ms radi poboljšanja kvalitete. Preporučuje se samo za starije uređaje. Odaberite najnižu vrijednost koja izbjegava vremenska ograničenja bafera."
 
 #. help: EPG - skipinitialepg
 msgctxt "#30669"
 msgid "Ignore the intial EPG load (now and next). Enabled by default to prevent crash issues on LibreElec/CoreElec."
-msgstr ""
+msgstr "Zanemarite početno učitavanje EPG-a (sada i sljedeće). Omogućeno prema zadanim postavkama kako bi se spriječili problemi s padom programa na LibreElec/CoreElec."
 
 # empty strings from id 30670 to 30679
 #. help info - Recordings
 #. help-category: recordings
 msgctxt "#30680"
 msgid "This category cotains the settings for recordings"
-msgstr ""
+msgstr "Ova kategorija sadrži postavke za snimke"
 
 #. help: Recordings - storeextrarecordinginfo
 msgctxt "#30681"
 msgid "Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+."
-msgstr ""
+msgstr "Pohrani posljednju reproduciranu poziciju i brojač na pozadini kako bi se mogli dijeliti između Kodi instanci. Podržano samo na OpenWebIf verziji 1.3.6+."
 
 #. help: Recordings - sharerecordinglastplayed
 msgctxt "#30682"
 msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
-msgstr ""
+msgstr "Opcije su: [B]Kodi instance[/B] Koristi samo vrijednost u Kodiju i neće uticati na posljednju reprodukciju na E2 uređaju; [B]Kodi/E2 instance[/B] Koristi vrijednost na Kodiju i E2 uređaju kako bi ostali sinhronizovani. Posljednja reprodukcija će se sinhronizovati sa E2 uređajem jednom svakih 5-10 minuta po snimku ako se koriste PVR meniji. Imajte na umu da je za omogućavanje ove opcije potrebna samo jedna Kodi instanca."
 
 #. help: Timers - recordingpath
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
-msgstr ""
+msgstr "Dodatak prema zadanim postavkama ne određuje mapu za snimanje u novokreiranim tajmerima, tako da će se koristiti zadana postavka u set-top box uređaju. Ako želite odrediti drugu mapu (npr. zato što želite da se sva snimanja zakazana putem Kodija pohranjuju u zasebnu mapu), tada trebate postaviti ovu opciju."
 
 #. help: Recordings - onlycurrent
 msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
-msgstr ""
+msgstr "Ako ova opcija nije postavljena, dodatak će preuzeti sve dostupne snimke sa svih konfiguriranih putanja sa set-top box uređaja. Ako je ova opcija postavljena, prikazat će se samo snimci koji su pohranjeni unutar 'trenutne putanje snimanja' na set-top box uređaju."
 
 #. help: Recordings - keepfolders
 msgctxt "#30685"
 msgid "If enabled use the real path from the backend to dictate the folder structure."
-msgstr ""
+msgstr "Ako je omogućeno, koristite stvarnu putanju iz pozadinskog sistema za određivanje strukture foldera."
 
 #. help: Recordings - enablerecordingedls
 msgctxt "#30686"
 msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
-msgstr ""
+msgstr "EDL-ovi se koriste za definiranje reklama itd. u snimcima. Ako se alat poput Comskipa koristi za generiranje EDL datoteka, omogućavanje ove postavke će omogućiti Kodi PVR-u da ih koristi. Npr. ako postoji datoteka pod nazivom 'my recording.ts', EDL datoteka bi se trebala zvati 'my recording.edl'. Napomena: omogućavanje ove postavke nema efekta ako datoteke nisu prisutne."
 
 #. help: Recordings - edlpaddingstart
 msgctxt "#30687"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0."
-msgstr ""
+msgstr "Raspona koja se koristi na EDL zaustavljanju. Npr. koristite negativni broj za raniji početak rezanja i pozitivan za kasniji početak rezanja. Zadana vrijednost je 0."
 
 #. help: Recordings - edlpaddingstop
 msgctxt "#30688"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
-msgstr ""
+msgstr "Raspona koja se koristi na EDL zaustavljanju. Npr. koristite negativni broj za ranije zaustavljanje rezanja i pozitivan za kasnije zaustavljanje rezanja. Zadana vrijednost je 0."
 
 #. help: Recordings - recordingsrecursive
 msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
-msgstr ""
+msgstr "Podrazumevano je da će se za prikaz snimaka koristiti samo korijen lokacije. Kada je omogućeno, biće uključen i sadržaj podfascikli."
 
 #. help: Recordings - keepfoldersomitlocation
 msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
-msgstr ""
+msgstr "Kada koristite strukturu foldera iz pozadinskog sistema, izostavite putanju lokacije iz direktorija. Korisno je jer može ukloniti potrebu za pregledavanjem nekorištenih foldera svaki put kada se pristupa snimcima."
 
 #. help: Recordings - virtualfolders
 msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
-msgstr ""
+msgstr "Kreirajte virtuelnu strukturu grupirajući snimke s istim nazivom u mape. Primijenit će se na sve snimke osim ako se struktura mape ne zadrži na pozadini. U tom slučaju, primijenit će se samo na snimke u korijenu svake lokacije snimanja."
 
 # empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
 msgctxt "#30700"
 msgid "This category cotains the settings for timers (regular and auto)"
-msgstr ""
+msgstr "Ova kategorija sadrži postavke za tajmere (standardne i automatske)"
 
 #. help: Timers - enablegenrepeattimers
 msgctxt "#30701"
 msgid "Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer."
-msgstr ""
+msgstr "Tajmeri za ponavljanje će se prikazivati kao pravila tajmera. Omogućavanjem ove opcije, Kodi će generirati redovne tajmere koji odgovaraju pravilima tajmera za ponavljanje, tako da korisnički interfejs može prikazati šta je zakazano i trenutno se snima za svaki tajmer za ponavljanje."
 
 #. help: Timers - numgenrepeattimers
 msgctxt "#30702"
 msgid "The number of Kodi PVR timers to generate."
-msgstr ""
+msgstr "Broj Kodi PVR tajmera koje treba generirati."
 
 #. help: Timers - timerlistcleanup
 msgctxt "#30703"
 msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
-msgstr ""
+msgstr "Ako je ova opcija postavljena, dodatak će poslati naredbu za brisanje završenih tajmera sa set-top box uređaja nakon svakog intervala ažuriranja."
 
 #. help: Timers - enableautotimers
 msgctxt "#30704"
 msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
-msgstr ""
+msgstr "Kada je ovo omogućeno, potrebne su neke postavke na set-top box uređaju kako bi se omogućilo povezivanje AutoTimera (pravila tajmera) s tajmerima u Kodi UI-ju. Dodatak pokušava automatski postaviti ove postavke prilikom pokretanja."
 
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr ""
+msgstr "Ako su posljednje skenirane grupe isključene, pokušajte ograničiti nove automatske tajmere na TV ili Radio (ovisno o kanalu koji se koristi za kreiranje automatskog tajmera). Imajte na umu da ako su posljednje skenirane grupe omogućene, to nije moguće i postavka će biti ignorirana."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
 msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
-msgstr ""
+msgstr "Za kanal koji se koristi za kreiranje ograničenja automatskog tajmera na grupe kanala kojima ovaj kanal pripada."
 
 # empty strings from id 30707 to 30719
 #. help info - Timeshift
 #. help-category: timeshift
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
-msgstr ""
+msgstr "Ova kategorija sadrži postavke za vremenski pomak. Vremenski pomak vam omogućava pauziranje TV programa uživo, kao i kretanje naprijed-nazad s vaše trenutne pozicije, slično reprodukciji snimka. Međumemorija se briše svaki put kada se kanal promijeni ili zaustavi."
 
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
 msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
-msgstr ""
+msgstr "Koju opciju vremenskog pomaka želite: [B]Onemogućeno[/B] Bez vremenskog pomaka; [B]Pri pauzi[/B] Vremenski pomak počinje kada se prenos uživo pauzira. Npr. želite nastaviti od mjesta gdje ste bili nakon pauziranja; [B]Pri reprodukciji[/B] Vremenski pomak počinje kada se otvori prenos uživo. Npr. Možete otići na bilo koju tačku u prenosu od kada je otvoren."
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
 msgid "The path used to store the timeshift buffer. The default is the `addon_data/pvr.vuplus` folder in userdata."
-msgstr ""
+msgstr "Putanja koja se koristi za pohranjivanje međuspremnika vremenskog pomaka. Zadana je mapa `addon_data/pvr.vuplus` u korisničkim podacima."
 
 #. help: Timeshift - timeshiftEnabled
 msgctxt "#30723"
 msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
-msgstr ""
+msgstr "Omogućite funkciju vremenskog pomaka za IPTV streamove koristeći inputstream.ffmpegdirect. Imajte na umu da ova funkcija radi samo prilikom reprodukcije i ignorirat će način rada vremenskog pomaka koji se koristi za reprodukciju regularnih kanala."
 
 #. help: Timeshift - useFFmpegReconnect
 msgctxt "#30724"
 msgid "Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS)."
-msgstr ""
+msgstr "Imajte na umu da se ovo može primijeniti samo na http/https streamove koje obrađuje libavformat (npr. M3u8/HLS)."
 
 #. help: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30725"
 msgid "If the type of stream cannot be determined assume it's an MPEG TS stream."
-msgstr ""
+msgstr "Ako se tip streama ne može odrediti, pretpostavimo da se radi o MPEG TS streamu."
 
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
 msgid "Open settings dialog for inputstream.ffmpegdirect for modification of timeshift and other settings."
-msgstr ""
+msgstr "Otvorite dijalog postavki za inputstream.ffmpegdirect za modifikaciju vremenskog pomaka i drugih postavki."
 
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"
 msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
-msgstr ""
+msgstr "Za uređaje s ograničenim prostorom na disku može se postaviti ograničenje u gigabajtima pri čemu će se vremenski pomak isključiti i reprodukcija će se vratiti na prijenos uživo. Imajte na umu da za vremenski pomak prilikom reprodukcije neće biti moguće ponovno podešavanje vremenskog pomaka dok se prijenos ne ponovo pokrene nakon što se dostigne ovo ograničenje."
 
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
-msgstr ""
+msgstr "Ograničenje prostora na disku koji se koristi za bafer vremenskog pomaka u gigabajtima."
 
 # empty strings from id 30729 to 30739
 #. help info - Advanced
 #. help-category: advanced
 msgctxt "#30740"
 msgid "This category cotains advanced/expert settings"
-msgstr ""
+msgstr "Ova kategorija sadrži napredne/ekspertske postavke"
 
 #. help: Advanced - prependoutline
 msgctxt "#30741"
 msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
-msgstr ""
+msgstr "Podrazumijevano, kratki opis radnje (na Enigmi2) se ne prikazuje u korisničkom interfejsu. Može se prikazati u EPG-u, Snimcima ili oboje. Nakon promjene ove opcije, morat ćete obrisati keš memoriju EPG-a `Postavke->PVR i TV uživo->Vodič->Obriši keš memoriju` da bi promjena stupila na snagu."
 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
 msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-msgstr ""
+msgstr "Ako je ova opcija postavljena na vrijednost koja nije `Onemogućeno`, tada će dodatak poslati Powerstate naredbu set-top box uređaju kada se Kodi zatvori (ili će dodatak biti deaktiviran): [B]Onemogućeno[/B] Ne šalje se naredba kada se dodatak zatvori; [B]Pripravnost[/B] Pošalji naredbu za pripravnost pri izlasku; [B]Duboka pripravnost[/B] Pošalji naredbu za duboku pripravnost pri izlasku. Napomena: set-top box neće odgovoriti Kodiju nakon što se ova naredba pošalje; [B]Buđenje, zatim pripravnost[/B] Slično stanju pripravnosti, ali prvo šalje naredbu za buđenje. Može biti korisno ako želite biti sigurni da su svi streamovi zaustavljeni. Napomena: ako koristite CEC, ovo bi moglo uzrokovati da se vaš TV probudi."
 
 #. help: Advanced - readtimeout
 msgctxt "#30743"
 msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
-msgstr ""
+msgstr "Vremensko ograničenje koje se koristi pri pokušaju čitanja prijenosa uživo. Zadana vrijednost za prijenose uživo je 0. Zadana vrijednost za pomak vremena je 10 sekundi."
 
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr ""
+msgstr "Veličina bloka koju Kodi koristi za streamove. Zadana vrijednost je 0, što prepušta Kodiju da odluči. Može biti korisno ručno postaviti veličinu prilikom gledanja streamova na daljinu gdje može doći do međuspremnika jer je PVR optimiziran za lokalnu mrežu."
 
 #. help: Advanced - debugnormal
 msgctxt "#30745"
 msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
-msgstr ""
+msgstr "Izjave dnevnika otklanjanja grešaka će se prikazivati za dodatak čak i ako zapisivanje grešaka možda nije omogućeno u Kodiju. Imajte na umu da će se sve izjave dnevnika otklanjanja grešaka prikazivati na nivou NOTICE."
 
 #. help: Advanced - tracedebug
 msgctxt "#30746"
 msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
-msgstr ""
+msgstr "Pored standardnih naredbi za otklanjanje grešaka, prikazaće se i vrlo detaljni i opširni zapisi dnevnika. Ako je omogućeno zajedno sa opcijom `Omogući zapisivanje grešaka u normalnom režimu`, i praćenje i otklanjanje grešaka će se prikazivati bez omogućenog zapisivanja grešaka. U ovom slučaju, i naredbe za otklanjanje grešaka i zapisi dnevnika praćenja će se prikazivati na nivou NOTICE."
 
 #. help: Advanced - ignoredebug
 msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
-msgstr ""
+msgstr "Izjave dnevnika otklanjanja grešaka neće se prikazivati za dodatak iako je zapisivanje grešaka omogućeno u Kodiju. Ovo može biti korisno kada pokušavate otkloniti problem u Kodiju koji nije povezan s dodatkom."
 
 # empty strings from id 30748 to 30759
 #. help info - Backend
 #. help-category: backend
 msgctxt "#30760"
 msgid "This category contains information and settings on/about the Enigma2 STB."
-msgstr ""
+msgstr "Ova kategorija sadrži informacije i postavke o/o Enigma2 STB-u."
 
 #. help: Backend - webifversion
 msgctxt "#30761"
 msgid "webifversion"
-msgstr ""
+msgstr "webverzija"
 
 #. help: Backend - autotimertagintags
 msgctxt "#30762"
 msgid "autotimertagintags"
-msgstr ""
+msgstr "automatsko mjerenje vremena"
 
 #. help: Backend - autotimernameintags
 msgctxt "#30763"
 msgid "autotimernameintags"
-msgstr ""
+msgstr "naziv_automatskog_tajmera u_oznakama"
 
 #. help: Backend - globalstartpaddingstb
 msgctxt "#30764"
 msgid "This value reflects the backend setting [B]Margin before recording[/B]. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
-msgstr ""
+msgstr "Ova vrijednost odražava postavku pozadinskog programa [B]Margina prije snimanja[/B]. Bit će primijenjena na početak svih novih kreiranih regularnih tajmera, uključujući i one kreirane iz automatskih tajmera. Imajte na umu da ako je na automatskom tajmeru postavljen padding/margina, ona će biti prilagođena za taj automatski tajmer i nadjačat će ovu vrijednost."
 
 #. help: Backend - globalendpaddingstb
 msgctxt "#30765"
 msgid "This value reflects the backend setting [B]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
-msgstr ""
+msgstr "Ova vrijednost odražava postavku pozadinskog programa [B]Margina nakon snimanja[/B]. Bit će primijenjena na kraj svih novih kreiranih regularnih tajmera, uključujući i one kreirane iz automatskih tajmera. Imajte na umu da ako je na automatskom tajmeru postavljen padding/margina, ona će biti prilagođena za taj automatski tajmer i nadjačat će ovu vrijednost."
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
-msgstr ""
+msgstr "MAC adresa Engima2 STB-a koja će se koristiti za WoL (Wake On LAN)."
