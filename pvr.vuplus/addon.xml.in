@@ -22,6 +22,7 @@
     <summary lang="af_ZA">Kodi se voorprogram vir VU+ / Enigma2 gebasseerde &apos;set-top&apos; bokse</summary>
     <summary lang="be_BY">Kodi&apos;s frontend for VU+ / Enigma2 based settop boxes</summary>
     <summary lang="bg_BG">Клиент за устройства, базирани на VU+ / Enigma2</summary>
+    <summary lang="bs_BA">Kodijev predokraj za set-top box uređaje bazirane na Enigmi2</summary>
     <summary lang="ca_ES">Frontal de Kodi per als descodificadors basats en VU+/Enigma2</summary>
     <summary lang="cs_CZ">Rozhraní Kodi pro přijímače založené na Enigma2</summary>
     <summary lang="cy_GB">Blaen Kodi ar gyfer blychau teledu VU+ / Enigma2</summary>
@@ -74,6 +75,7 @@
     <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.</description>
     <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
     <description lang="bg_BG">Клиент за „VU+“. Поддържа телевизия на живо и записване, електронен програмен справочник и броячи.</description>
+    <description lang="bs_BA">Enigma2 predokraj - podržava prijenos uživo TV programa i snimaka, EPG, mjerače vremena, auto-mjerače vremena.[CR] [CR]Za dokumentaciju posjetite: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors;    </description>
     <description lang="cs_CZ">Rozhraní Enigma2 – podporuje streamování živého vysílání a nahrávání, televizní program, časovače, automatické časovače.[CR][CR]Pro dokumentaci navštivte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md    </description>
     <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
@@ -116,7 +118,7 @@
     <description lang="sq_AL">VU+ frontend, përkrahën transmetimin e Live TV&apos;s &amp; Regjistrime, EPG, timer.</description>
     <description lang="sr_RS">VU+ интерфејс; подржава стримовање ТВ Уживо &amp; Снимака, EPG, Тајмере</description>
     <description lang="sr_RS@latin">VU+ interfejs; podržava strimovanje TV Uživo &amp; Snimaka, EPG, Tajmere</description>
-    <description lang="sv_SE">Enigma2 frontend; stödjer strömning av Live-TV &amp; inspelningar, EPG, timers, autotimers.[CR]    [CR]För dokumentationen besök https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md[CR]  </description>
+    <description lang="sv_SE">Enigma2 frontend – stödjer streaming av live-TV och inspelningar, EPG, timers, autotimers.[CR]    [CR]För dokumentation, besök: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="szl">Klijynt telewizyjny dlŏ VU+  podpiyrŏ szpricowanie kanałōw radyjowych i telewizyjnych, nagrowanie i harmōnogram nagrań aji funkcyje EPG.</description>
     <description lang="tr_TR">Enigma2 ön ucu - Canlı TV ve Kayıtlar, EPG, Zamanlayıcılar, Otomatik Zamanlayıcıların akışını destekler[CR]    [CR]Dökümantasyon için: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="uk_UA">Накладка VU+; підтримує потоки Live TV, запис, програму передач, таймери.</description>
@@ -126,6 +128,7 @@
     <disclaimer lang="af_ZA">Hierdie is onstabiele sagteware! Die outeurs is op geen manier verantwoordelik vir gefaalde opnames, inkorrekte tydhouers, gemorsde ure, of enige ander ongewensde effekte.</disclaimer>
     <disclaimer lang="be_BY">Гэта нестабільнае праграмнае забеспячэнне! Аўтары не нясуць адказнасці за няўдалыя запісы, хібныя таймеры, змарнаваны час і іншае.</disclaimer>
     <disclaimer lang="bg_BG">Тази програма е нестабилна! Авторите не носят отговорност за неуспешно записване, некоректни броячи, пропиляно време и други нежелани ефекти.</disclaimer>
+    <disclaimer lang="bs_BA">Ovo je nestabilan softver! Autori ni na koji način nisu odgovorni za neuspjela snimanja, netačne mjerače vremena, izgubljene sate ili bilo koje druge neželjene efekte.</disclaimer>
     <disclaimer lang="ca_ES">Això és programari inestable! Els autors no són de cap manera responsables dels enregistraments que han fallat, temporitzadors incorrectes, hores perdudes, o qualssevol altres efectes no desitjats..</disclaimer>
     <disclaimer lang="cs_CZ">Tento software není stabilní! Autoři nejsou žádným způsobem zodpovědní za neúspěšná nahrávání, chybné časovače, ztracený čas nebo jakékoliv jiné nežádoucí výsledky...</disclaimer>
     <disclaimer lang="cy_GB">Mae hwn yn feddalwedd ansad! Nid yw&apos;r awduron yn gyfrifol mewn unrhyw ffordd am fethu recordio, amseru gwallus, oriau wedi eu gwastraffu nac effeithiau anymunol eraill.</disclaimer>
