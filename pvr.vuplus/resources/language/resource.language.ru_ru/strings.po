@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-09-02 17:40+0000\n"
-"Last-Translator: Alexey <signfinder@gmail.com>\n"
+"PO-Revision-Date: 2025-10-13 13:29+0000\n"
+"Last-Translator: Dmitry Petrov <dimakrm361@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ru_ru/>\n"
 "Language: ru_ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -677,113 +677,113 @@ msgstr "Поделиться последним воспроизведением
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30129"
 msgid "Kodi instances"
-msgstr ""
+msgstr "Экземпляры Kodi"
 
 #. label-option: Recordings - sharerecordinglastplayed
 msgctxt "#30130"
 msgid "Kodi/E2 instances"
-msgstr ""
+msgstr "Экземпляры Kodi/E2"
 
 #. label-option: Channels - tvgroupmode
 #. label-option: Channels - radiogroupmode
 msgctxt "#30131"
 msgid "Custom bouquets"
-msgstr ""
+msgstr "Пользовательские наборы каналов"
 
 #. label: Channels - customtvgroupsfile
 msgctxt "#30132"
 msgid "Custom TV bouquets file"
-msgstr ""
+msgstr "Файл пользовательских наборов телеканалов"
 
 #. label: Channels - customradiogroupsfile
 msgctxt "#30133"
 msgid "Custom Radio bouquets file"
-msgstr ""
+msgstr "Файл пользовательских наборов радиоканалов"
 
 #. label: Channels - numtvgroups
 msgctxt "#30134"
 msgid "Number of TV bouquets"
-msgstr ""
+msgstr "Количество наборов телеканалов"
 
 #. label: Channels - twotvgroup
 msgctxt "#30135"
 msgid "TV bouquet 2"
-msgstr ""
+msgstr "Набор телеканалов 2"
 
 #. label: Channels - threetvgroup
 msgctxt "#30136"
 msgid "TV bouquet 3"
-msgstr ""
+msgstr "Набор телеканалов 3"
 
 #. label: Channels - fourtvgroup
 msgctxt "#30137"
 msgid "TV bouquet 4"
-msgstr ""
+msgstr "Набор телеканалов 4"
 
 #. label: Channels - fivetvgroup
 msgctxt "#30138"
 msgid "TV bouquet 5"
-msgstr ""
+msgstr "Набор телеканалов 5"
 
 #. label: Channels - numradiogroups
 msgctxt "#30139"
 msgid "Number of radio bouquets"
-msgstr ""
+msgstr "Количество наборов радиоканалов"
 
 #. label: Channels - tworadiogroup
 msgctxt "#30140"
 msgid "Radio bouquet 2"
-msgstr ""
+msgstr "Набор радиоканалов 2"
 
 #. label: Channels - threeradiogroup
 msgctxt "#30141"
 msgid "Radio bouquet 3"
-msgstr ""
+msgstr "Набор радиоканалов 3"
 
 #. label: Channels - fourradiogroup
 msgctxt "#30142"
 msgid "Radio bouquet 4"
-msgstr ""
+msgstr "Набор радиоканалов 4"
 
 #. label: Channels - fiveradiogroup
 msgctxt "#30143"
 msgid "Radio bouquet 5"
-msgstr ""
+msgstr "Набор радиоканалов 5"
 
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
-msgstr ""
+msgstr "В режиме отладки Kodi не ведется журнал отладки дополнений"
 
 #. label-group: Backend - Power Settings
 msgctxt "#30145"
 msgid "Power Settings"
-msgstr ""
+msgstr "Настройки питания"
 
 #. label: Backend - wakeonlanmac
 msgctxt "#30146"
 msgid "Wake On LAN MAC"
-msgstr ""
+msgstr "MAC адрес для Wake On LAN"
 
 #. label: Timeshift - IPTV
 msgctxt "#30147"
 msgid "IPTV"
-msgstr ""
+msgstr "IPTV"
 
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr ""
+msgstr "Включить сдвиг по времени для потоков IPTV"
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
 msgid "Use FFmpeg http reconnect options if possible"
-msgstr "Использовать опцию http переподключения FFmpeg если это возможно"
+msgstr "Если возможно, использовать параметры переподключения FFmpeg http"
 
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
 msgid "Use mpegts MIME type for unknown streams"
-msgstr ""
+msgstr "Использовать тип MIME mpegts для неизвестных потоков"
 
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
@@ -793,32 +793,32 @@ msgstr "- Изменить настройки inputstream.ffmpegdirect..."
 #. label: Channels - retrieveprovidername
 msgctxt "#30152"
 msgid "Retrieve provider name for channels"
-msgstr ""
+msgstr "Получить имя провайдера для каналов"
 
 #. label: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30153"
 msgid "Enable timeshift disk limit"
-msgstr ""
+msgstr "Включить ограничение диска со сдвигом по времени"
 
 #. label: Timeshift - timeshiftdisklimit
 msgctxt "#30154"
 msgid "Timeshift disk limit"
-msgstr ""
+msgstr "Ограничение диска с сдвигом по времени"
 
 #. format-label: Timeshift - timeshiftdisklimit
 msgctxt "#30155"
 msgid "{0:.1f} GiB"
-msgstr ""
+msgstr "{0:.1f} GiB"
 
 #. label-group: Recordings - Recording Paths
 msgctxt "#30157"
 msgid "Recording Paths"
-msgstr ""
+msgstr "Пути к записям"
 
 #. label-group: Recordings - Recording Locations
 msgctxt "#30158"
 msgid "Recording Locations"
-msgstr ""
+msgstr "Места записи"
 
 #. ##############
 #. application #
@@ -832,17 +832,17 @@ msgstr "Автоматически"
 #. application: Timers
 msgctxt "#30420"
 msgid "Once off timer (auto)"
-msgstr ""
+msgstr "Таймер выключения (авто)"
 
 #. application: Timers
 msgctxt "#30421"
 msgid "Once off timer (repeating)"
-msgstr ""
+msgstr "Таймер выключения (повторяется)"
 
 #. application: Timers
 msgctxt "#30422"
 msgid "Once off timer (channel)"
-msgstr ""
+msgstr "Таймер выключения (канал)"
 
 #. application: Timers
 msgctxt "#30423"
@@ -913,28 +913,28 @@ msgstr "Enigma2: Каналы не найдены"
 #. notification: Enigma2
 msgctxt "#30518"
 msgid "Enigma2: Channel group changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2: Обнаружены изменения группы каналов, перезапустите для загрузки изменений"
 
 #. notification: Enigma2
 msgctxt "#30519"
 msgid "Enigma2: Channel changes detected, please restart to load changes"
-msgstr ""
+msgstr "Enigma2: Обнаружены изменения списка каналов, перезапустите для загрузки изменений"
 
 #. application: AutoTimer
 #. application: Timer
 msgctxt "#30520"
 msgid "Invalid Channel"
-msgstr ""
+msgstr "Неверный канал"
 
 #. notification: Enigma2
 msgctxt "#30521"
 msgid "Enigma2: Channel group changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2: Обнаружены изменения группы каналов, перезагрузка..."
 
 #. notification: Enigma2
 msgctxt "#30522"
 msgid "Enigma2: Channel changes detected, reloading..."
-msgstr ""
+msgstr "Enigma2: Обнаружены списка каналов, перезагрузка..."
 
 # empty strings from id 30523 to 30599
 #. ############
@@ -949,57 +949,57 @@ msgstr ""
 #. help: Connection - host
 msgctxt "#30601"
 msgid "The IP address or hostname of your enigma2 based set-top box."
-msgstr ""
+msgstr "IP адрес или имя хоста вашей enigma2 ТВ-приставки."
 
 #. help: Connection - webport
 msgctxt "#30602"
 msgid "The port used to connect to the web interface."
-msgstr ""
+msgstr "Порт для подключения к веб-интерфейсу."
 
 #. help: Connection - use_secure
 msgctxt "#30603"
 msgid "Use https to connect to the web interface."
-msgstr ""
+msgstr "Использовать https для подключения к веб-интерфейсу."
 
 #. help: Connection - user
 msgctxt "#30604"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Если веб-интерфейс ТВ-приставки защищён комбинацией логина и пароля, то это нужно ввести в этом параметре."
 
 #. help: Connection - pass
 msgctxt "#30605"
 msgid "If the webinterface of the set-top box is protected with a username/password combination this needs to be set in this option."
-msgstr ""
+msgstr "Если веб-интерфейс ТВ-приставки защищён комбинацией логина и пароля, то это нужно ввести в этом параметре."
 
 #. help: Connection - autoconfig
 msgctxt "#30606"
 msgid "When enabled the stream URL will be read from an M3U8 file. When disabled it is constructed based on the service reference of the channel. This option is rarely required and should not be enbaled unless you have a special use case. If viewing an IPTV Stream this option has no effect on those channels."
-msgstr ""
+msgstr "Когда включена, ссылка на поток будет прочтена из M3U8 файла. Когда выключена, ссылка строится на основе ссылки из сервиса. Этот параметр не всегда обязателен и можно не включать до особых случаев. Если смотреть IPTV поток этот параметр не влияет на эти каналы."
 
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr ""
+msgstr "Этот параметр задаёт порт потока, который используется ТВ-приставкой для трансляции ТВ. По-умолчанию - 8001 и это работает, если пользователь не задал свой порт в веб-интерфейсе."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr ""
+msgstr "Использовать https для подключения к потокам."
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
 msgid "Use the login username and password for streams."
-msgstr ""
+msgstr "Использовать логин и пароль для подключения к потоку."
 
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
 msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
-msgstr ""
+msgstr "Значение в секундах для ожидания проверки успешного соединения до провала. Полезно для регулировки старых устройств Enigma2. Эту настройку не обязательно менять так часто. Тот же эффект может быть достигнут изменением параметра `Интервал проверки соединения`. По-умолчанию - 30 секунд."
 
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
 msgid "The value in seconds to wait between connection checks. Useful for tuning on older Enigma2 devices. Default is 10 seconds."
-msgstr ""
+msgstr "Значение интервала в секундах между проверками соединения. Полезно для регулировки старых устройств Enigma2. По умолчанию - 10 секунд."
 
 # empty strings from id 30612 to 30619
 #. help info - General
@@ -1011,17 +1011,17 @@ msgstr ""
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr ""
+msgstr "Извлечь иконки напрямую из ТВ-приставки Enigma 2."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
 msgid "Fetch the picon path from OpenWebIf instead of constructing from ServiceRef. Requires OpenWebIf 1.3.5 or higher. There is no effect if used on a lower version of OpenWebIf."
-msgstr ""
+msgstr "Извлечь путь к иконкам из OpenWebIf вместо конструирования из ServiceRef. Требуется OpenWebIf версии 1.3.5 или выше. При использовании старой версии OpenWebIf эффект отсутствует."
 
 #. help: General - usepiconseuformat
 msgctxt "#30623"
 msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
-msgstr ""
+msgstr "Предположить что все файлы иконок ТВ-приставки начинаются с '1_1_1_' и заканчиваются '_0_0_0'."
 
 #. help: General - iconpath
 msgctxt "#30624"
@@ -1277,7 +1277,7 @@ msgstr ""
 #. help: Timers - numgenrepeattimers
 msgctxt "#30702"
 msgid "The number of Kodi PVR timers to generate."
-msgstr ""
+msgstr "Количество Kodi PVR таймеров для генерации."
 
 #. help: Timers - timerlistcleanup
 msgctxt "#30703"
@@ -1344,7 +1344,7 @@ msgstr ""
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
 msgid "The disk space limit to use for the timeshift buffer in Gigabytes."
-msgstr ""
+msgstr "Лимит места на диске для хранения буфера сдвига по времени в Гигабайтах."
 
 # empty strings from id 30729 to 30739
 #. help info - Advanced
@@ -1398,12 +1398,12 @@ msgstr ""
 #. help: Backend - webifversion
 msgctxt "#30761"
 msgid "webifversion"
-msgstr ""
+msgstr "webifversion"
 
 #. help: Backend - autotimertagintags
 msgctxt "#30762"
 msgid "autotimertagintags"
-msgstr ""
+msgstr "autotimertagintags"
 
 #. help: Backend - autotimernameintags
 msgctxt "#30763"
@@ -1423,7 +1423,7 @@ msgstr ""
 #. label: Backend - wakeonlanmac
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
-msgstr ""
+msgstr "MAC адрес ТВ-приставки Engima2 для работы WoL (Wake On LAN)."
 
 #~ msgctxt "#30017"
 #~ msgid "Use only the DVB boxes' current recording path"
