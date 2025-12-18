@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-07-28 01:39+0000\n"
+"PO-Revision-Date: 2025-12-18 00:13+0000\n"
 "Last-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\n"
 "Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/de_de/>\n"
 "Language: de_de\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.15\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -160,12 +160,12 @@ msgstr "TV-Bouquet 1"
 #. label: General - onlinepicons
 msgctxt "#30027"
 msgid "Fetch picons from web interface"
-msgstr ""
+msgstr "Picons von der Web-Oberfläche abrufen"
 
 #. label: Connection - use_secure
 msgctxt "#30028"
 msgid "Use secure HTTP (https)"
-msgstr ""
+msgstr "Sicheres HTTP (https) verwenden"
 
 #. label: Connection - autoconfig
 msgctxt "#30029"
@@ -175,12 +175,12 @@ msgstr "Autokonfiguration für Livestreams aktivieren"
 #. label: Recordings - keepfolders
 msgctxt "#30030"
 msgid "Keep folder structure for recordings"
-msgstr ""
+msgstr "Ordnerstruktur für Aufnahmen beibehalten"
 
 #. label-group: EPG - Seasons and Episodes
 msgctxt "#30031"
 msgid "Seasons and Episodes"
-msgstr ""
+msgstr "Staffeln und Episoden"
 
 #. label-category: epg
 msgctxt "#30032"
@@ -190,12 +190,12 @@ msgstr "Programmübersicht"
 #. label: EPG - extractshowinfoenabled
 msgctxt "#30033"
 msgid "Extract season, episode and year info where possible"
-msgstr ""
+msgstr "Wenn möglich, Information zu Staffeln, Episoden und Jahren extrahieren"
 
 #. label: Timers - enableautotimers
 msgctxt "#30034"
 msgid "Enable autotimers"
-msgstr ""
+msgstr "Auto-Timer aktivieren"
 
 #. label: General - usepiconseuformat
 msgctxt "#30035"
@@ -205,7 +205,7 @@ msgstr "Dateiformat picons.eu verwenden"
 #. label: Timers - enablegenrepeattimers
 msgctxt "#30036"
 msgid "Enable generate repeat timers"
-msgstr ""
+msgstr "Erzeugen von Wiederholungs-Timern aktivieren"
 
 #. label: EPG - logmissinggenremapping
 msgctxt "#30037"
@@ -215,7 +215,7 @@ msgstr ""
 #. label-group: Connection - Web Interface
 msgctxt "#30038"
 msgid "Web Interface"
-msgstr ""
+msgstr "Web-Oberfläche"
 
 #. label-group: Connection - Streaming
 msgctxt "#30039"
