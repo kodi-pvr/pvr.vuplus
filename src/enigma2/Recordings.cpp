@@ -160,6 +160,12 @@ bool Recordings::IsInVirtualRecordingFolder(const RecordingEntry& recordingToChe
     }
   }
 
+  if (iMatches == 1)
+  {
+    Logger::Log(LEVEL_DEBUG, "%s Found Recording title once '%s' in recordings vector!", __func__, recordingFolderToCheck.c_str());
+    return true;
+  }
+
   return false;
 }
 
