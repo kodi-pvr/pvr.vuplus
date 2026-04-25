@@ -181,7 +181,11 @@ std::string Channel::CreateIconPath(const std::string& commonServiceReference)
   std::replace(iconPath.begin(), iconPath.end(), ':', '_');
 
   if (m_settings->UseOnlinePicons())
-    iconPath = StringUtils::Format("%spicon/%s.png", m_settings->GetConnectionURL().c_str(), iconPath.c_str());
+  {
+    std::string encodedPath = iconPath;
+    StringUtils::Replace(encodedPath, " ", "%20");
+    iconPath = StringUtils::Format("%spicon/%s.png", m_settings->GetConnectionURL().c_str(), encodedPath.c_str());
+  }
   else
     iconPath = m_settings->GetIconPath().c_str() + iconPath + ".png";
 
