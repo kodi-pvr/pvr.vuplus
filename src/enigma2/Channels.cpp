@@ -345,7 +345,9 @@ int Channels::LoadChannelsExtraData(const std::shared_ptr<enigma2::data::Channel
               {
                 std::string connectionURL = m_settings->GetConnectionURL();
                 connectionURL = connectionURL.substr(0, connectionURL.size() - 1);
-                channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), jsonChannel["picon"].get<std::string>().c_str()));
+                std::string piconPath = jsonChannel["picon"].get<std::string>();
+                StringUtils::Replace(piconPath, " ", "%20");
+                channel->SetIconPath(StringUtils::Format("%s%s", connectionURL.c_str(), piconPath.c_str()));
 
                 Logger::Log(LEVEL_DEBUG, "%s For Channel %s, using OpenWebPiconPath: %s", __func__, jsonChannel["servicename"].get<std::string>().c_str(), channel->GetIconPath().c_str());
               }
