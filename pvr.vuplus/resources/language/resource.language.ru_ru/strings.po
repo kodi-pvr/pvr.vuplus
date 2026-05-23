@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-05-17 15:16+0000\n"
+"PO-Revision-Date: 2026-05-22 17:16+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ru_ru/>\n"
 "Language: ru_ru\n"
@@ -339,7 +339,7 @@ msgstr "Путь к буферу таймшифт"
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30063"
 msgid "Off"
-msgstr "Выкл."
+msgstr "Откл."
 
 #. label-option: Timeshift - enabletimeshift
 msgctxt "#30064"
@@ -596,7 +596,7 @@ msgstr "Последнее сканирование (ТВ)"
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr "Последнее сканирование (радио)"
+msgstr "Последний поиск (радио)"
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
@@ -1092,68 +1092,58 @@ msgstr "Если режим получения — «Все наборы» ил�
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr "«Последний поиск» — это системный набор, содержащий все ТВ- и радиоканалы, найденные при последнем сканировании. Любые ТВ-каналы, найденные в наборе «Последний поиск», могут отображаться в Kodi как группа «Последний поиск (ТВ)». Для ТВ эта группа по умолчанию исключена. Отключите этот параметр, чтобы исключить эту группу. Обратите внимание, что если не загружено ни одной ТВ-группы, группа «Последний поиск» для ТВ будет загружена по умолчанию, независимо от этой настройки."
+msgstr "«Последний поиск» — это системный набор, содержащий все ТВ- и радиоканалы, найденные при последнем сканировании. Любые ТВ-каналы, найденные в наборе «Последний поиск», могут отображаться в Kodi как группа «Последний поиск (ТВ)». Для ТВ эта группа по умолчанию исключена. Отключите этот параметр, чтобы исключить эту группу. Обратите внимание, что если не загружено ни одной ТВ-группы, группа «Последнее сканирование» для ТВ будет загружена по умолчанию, независимо от этой настройки."
 
 #. help: Channels - radiogroupmode
-#, fuzzy
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr "Выберите один из следующих режимов: [B]Все наборы[/B] — получить все радионаборы с приставки; [B]Некоторые наборы[/B] — получать только наборы, указанные в следующих опциях; [B]Группа избранного[/B] — получать только системный набор для радиоизбранного; [B]Пользовательские группы[/B] — получать набор наборов с приставки, имена которых загружаются из XML-файла."
+msgstr "Выберите один из следующих режимов: [B]Все наборы[/B] — получить все наборы радио с приставки; [B]Некоторые наборы[/B] — получать только наборы, указанные в следующих параметрах; [B]Группа избранного[/B] — получать только системный набор для избранного радио; [B]Пользовательские группы[/B] — получать набор наборов с приставки, имена которых загружаются из XML-файла."
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
 #. help: Channels - threeradiogroup
 #. help: Channels - fourradiogroup
 #. help: Channels - fiveradiogroup
-#, fuzzy
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr "Если предыдущий параметр был установлен в «Некоторые наборы», необходимо указать радионабор для получения с приставки. Обратите внимание, что это имя набора, как оно отображается на приставке (например, «Favourites (Radio)»). Этот параметр чувствителен к регистру."
+msgstr "Если предыдущий параметр был установлен в «Некоторые наборы», необходимо указать набор радио для получения с приставки. Обратите внимание, что это имя набора, как оно отображается на приставке (например, «Favourites (Radio)»). Этот параметр чувствителен к регистру."
 
 #. help: Channels - radiofavouritesmode
-#, fuzzy
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr "Если режим получения — «Все наборы» или «Некоторые наборы», в зависимости от вашего образа Enigma2 вам может потребоваться явно получать избранное, если оно необходимо. Доступны следующие варианты: [B]Отключено[/B] — не получать радиоизбранное явно; [B]Как первый набор[/B] — явно получать его как первый набор; [B]Как последний набор[/B] — явно получать его как последний набор."
+msgstr "Если режим получения — «Все наборы» или «Некоторые наборы», в зависимости от вашего образа Enigma2 вам может потребоваться явно получать избранное, если оно необходимо. Доступны следующие параметры: [B]Отключено[/B] — не получать избранное радио явно; [B]Как первый набор[/B] — явно получать его как первый набор; [B]Как последний набор[/B] — явно получать его как последний набор."
 
 #. help: Channels - excludelastscannedradio
-#, fuzzy
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr "«Последний поиск» — это системный набор, содержащий все ТВ- и радиоканалы, найденные при последнем сканировании. Любые радиоканалы, найденные в наборе «Последний поиск», могут отображаться в Kodi как группа «Последний поиск (Радио)». Для радио эта группа по умолчанию исключена. Отключите эту опцию, чтобы показывать эту группу."
+msgstr "«Последний поиск» — это системный набор, содержащий все ТВ- и радиоканалы, найденные при последнем сканировании. Любые радиоканалы, найденные в наборе «Последний поиск», могут отображаться в Kodi как группа «Последний поиск (Радио)». Для радио эта группа по умолчанию исключена. Отключите этот параметр, чтобы показывать эту группу."
 
 #. help: Channels - customtvgroupsfile
-#, fuzzy
 msgctxt "#30651"
 msgid "The file used to load the custom TV bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (TV)'. The default file is `customTVGroups-example.xml`."
 msgstr "Файл, используемый для загрузки пользовательских ТВ-наборов (групп). Если не найдено ни одной подходящей группы, список каналов по умолчанию будет «Последний поиск (ТВ)». Файл по умолчанию — `customTVGroups-example.xml`."
 
 #. help: Channels - customradiogroupsfile
-#, fuzzy
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr "Файл, используемый для загрузки пользовательских радионаборов (групп). Если не найдено ни одной подходящей группы, список каналов по умолчанию будет «Последний поиск (Радио)». Файл по умолчанию — `customRadioGroups-example.xml`."
+msgstr "Файл, используемый для загрузки пользовательских наборов радио(групп). Если не найдено ни одной подходящей группы, список каналов по умолчанию будет «Последний поиск (радио)». Файл по умолчанию — `customRadioGroups-example.xml`."
 
 #. help: Channels - numtvgroups
-#, fuzzy
 msgctxt "#30653"
 msgid "The number of TV bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
 msgstr "Количество ТВ-наборов для загрузки, когда выбран режим получения «Некоторые наборы». Можно выбрать до 5. Если требуется более 5, вместо этого следует использовать режим получения «Пользовательские наборы»."
 
 #. help: Channels - numradiogroups
-#, fuzzy
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "Количество радионаборов для загрузки, когда выбран режим получения «Некоторые наборы». Можно выбрать до 5. Если требуется более 5, вместо этого следует использовать режим получения «Пользовательские наборы»."
+msgstr "Количество наборов радио для загрузки, когда выбран режим получения «Некоторые наборы». Можно выбрать до 5. Если требуется более 5, вместо этого следует использовать режим получения «Пользовательские наборы»."
 
 #. help: Channels - usegroupspecificnumbers
-#, fuzzy
 msgctxt "#30655"
 msgid "If this option is enabled then each group in kodi will match the exact channel numbers used on the backend bouquets. If disabled (default) each channel will only have a single backend channel number (first occurence when loaded)."
-msgstr "Если эта опция включена, то каждая группа в kodi будет соответствовать точным номерам каналов, используемым в наборах сервера. Если отключено (по умолчанию), каждый канал будет иметь только один номер канала сервера (первое вхождение при загрузке)."
+msgstr "Если этот параметр включён, то каждая группа в Kodi будет соответствовать точным номерам каналов, используемым в наборах сервера. Если отключено (по умолчанию), каждый канал будет иметь только один номер канала сервера (первое вхождение при загрузке)."
 
 #. help: Channels - retrieveprovidername
-#, fuzzy
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
 msgstr "Получать имя провайдера с сервера при получении каналов. По умолчанию включено, но отключение может ускорить время получения на старых устройствах."
@@ -1161,55 +1151,46 @@ msgstr "Получать имя провайдера с сервера при п
 # empty strings from id 30657 to 30659
 #. help info - EPG
 #. help-category: epg
-#, fuzzy
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
 msgstr "Эта категория содержит настройки для EPG (электронной программы передач). За исключением журналирования отсутствующих сопоставлений текста жанров, все остальные параметры потребуют очистки кэша EPG для вступления в силу. Это можно сделать, перейдя в настройках Kodi по пути «Настройки->PVR и прямой эфир->Программа передач->Очистить кэш» после перезапуска дополнения."
 
 #. help: EPG - extractshowinfoenabled
-#, fuzzy
 msgctxt "#30661"
 msgid "Check the description fields in the EPG data and attempt to extract season, episode and year info where possible. In addtion can also extract properties like new, live and premiere info."
 msgstr "Проверять поля описания в данных EPG и пытаться извлекать информацию о сезоне, серии и годе, где это возможно. Кроме того, может извлекать такие свойства, как информация о новизне, прямом эфире и премьере."
 
 #. help: EPG - extractshowinfofile
-#, fuzzy
 msgctxt "#30662"
 msgid "The config used to extract season, episode and year information. The default file is `English-ShowInfo.xml`."
 msgstr "Конфигурация, используемая для извлечения информации о сезоне, серии и годе. Файл по умолчанию — `English-ShowInfo.xml`."
 
 #. help: EPG - genreidmapenabled
-#, fuzzy
 msgctxt "#30663"
 msgid "If the genre IDs sent with EPG data from your set-top box are not using the DVB standard, map from these to the DVB standard IDs. Sky UK for instance uses OpenTV, in that case without this option set the genre colouring and text would be incorrect in Kodi."
 msgstr "Если идентификаторы жанров, отправляемые с данными EPG с вашей приставки, не соответствуют стандарту DVB, сопоставлять их со стандартными идентификаторами DVB. Например, Sky UK использует OpenTV; в этом случае без установленной этой опции цветовое выделение жанров и текст в Kodi будут некорректными."
 
 #. help: EPG - genreidmapfile
-#, fuzzy
 msgctxt "#30664"
 msgid "The config used to map set-top box EPG genre IDs to DVB standard IDs. The default file is `Sky-UK.xml`."
 msgstr "Конфигурация, используемая для сопоставления идентификаторов жанров EPG приставки со стандартными идентификаторами DVB. Файл по умолчанию — `Sky-UK.xml`."
 
 #. help: EPG - rytecgenretextmapenabled
-#, fuzzy
 msgctxt "#30665"
 msgid "If you use Rytec XMLTV EPG data this option can be used to map the text genres to DVB standard IDs."
 msgstr "Если вы используете данные EPG Rytec XMLTV, эта опция может использоваться для сопоставления текстовых жанров со стандартными идентификаторами DVB."
 
 #. help: EPG - rytecgenretextmapfile
-#, fuzzy
 msgctxt "#30666"
 msgid "The config used to map Rytec Genre Text to DVB IDs. The default file is `Rytec-UK-Ireland.xml`."
 msgstr "Конфигурация, используемая для сопоставления текста жанров Rytec с идентификаторами DVB. Файл по умолчанию — `Rytec-UK-Ireland.xml`."
 
 #. help: EPG - logmissinggenremapping
-#, fuzzy
 msgctxt "#30667"
 msgid "If you would like missing genre mappings to be logged so you can report them enable this option. Note: any genres found that don't have a mapping will still be extracted and sent to Kodi as strings. Currently genres are extracted by looking for text between square brackets, e.g. [B]TV Drama[/B], or for major, minor genres using a dot (.) to separate [B]TV Drama. Soap Opera[/B]"
-msgstr "Если вы хотите, чтобы отсутствующие сопоставления жанров записывались в журнал, чтобы вы могли сообщить о них, включите эту опцию. Примечание: любые найденные жанры, для которых нет сопоставления, всё равно будут извлечены и отправлены в Kodi в виде строк. В настоящее время жанры извлекаются путём поиска текста в квадратных скобках, например [B]TV Drama[/B], или для основных и вспомогательных жанров с использованием точки (.) в качестве разделителя, например [B]TV Drama. Soap Opera[/B]"
+msgstr "Если вы хотите, чтобы отсутствующие сопоставления жанров записывались в журнал, чтобы вы могли сообщить о них, включите этот параметр. Примечание: любые найденные жанры, для которых нет сопоставления, всё равно будут извлечены и отправлены в Kodi в виде строк. В настоящее время жанры извлекаются путём поиска текста в квадратных скобках, например [B]TV Drama[/B], или для основных и вспомогательных жанров с использованием точки (.) в качестве разделителя, например [B]TV Drama. Soap Opera[/B]"
 
 #. help: EPG - epgdelayperchannel
-#, fuzzy
 msgctxt "#30668"
 msgid "For older Enigma2 devices EPG updates can effect streaming quality (such as buffer timeouts). A delay of between 250ms and 5000ms can be introduced to improve quality. Only recommended for older devices. Choose the lowest value that avoids buffer timeouts."
 msgstr "На старых устройствах Enigma2 обновления EPG могут влиять на качество потокового вещания (например, тайм-ауты буфера). Можно добавить задержку от 250 мс до 5000 мс для улучшения качества. Рекомендуется только для старых устройств. Выберите наименьшее значение, которое позволяет избежать тайм-аутов буфера."
@@ -1223,73 +1204,61 @@ msgstr "Игнорировать начальную загрузку EPG (тек
 # empty strings from id 30670 to 30679
 #. help info - Recordings
 #. help-category: recordings
-#, fuzzy
 msgctxt "#30680"
 msgid "This category cotains the settings for recordings"
 msgstr "Эта категория содержит настройки для записей"
 
 #. help: Recordings - storeextrarecordinginfo
-#, fuzzy
 msgctxt "#30681"
 msgid "Store last played position and count on the backend so they can be shared across kodi instances. Only supported on OpenWebIf version 1.3.6+."
-msgstr "Сохранять последнюю воспроизведённую позицию и счётчик на сервере, чтобы они могли быть общими для нескольких экземпляров kodi. Поддерживается только в OpenWebIf версии 1.3.6 и выше."
+msgstr "Сохранять последнюю воспроизведённую позицию и счётчик на сервере, чтобы они могли быть общими для нескольких экземпляров Kodi. Поддерживается только в OpenWebIf версии 1.3.6 и выше."
 
 #. help: Recordings - sharerecordinglastplayed
-#, fuzzy
 msgctxt "#30682"
 msgid "The options are: [B]Kodi instances[/B] Only use the value in kodi and will not affect last played on the E2 device; [B]Kodi/E2 instances[/B] Use the value across kodi and the E2 device so they stay in sync. Last played will be synced with the E2 device once every 5-10 minutes per recording if the PVR menus are in use. Note that only a single kodi instance is required to have this option enabled."
-msgstr "Доступны следующие варианты: [B]Экземпляры Kodi[/B] — использовать значение только в kodi и не влиять на последнее воспроизведение на устройстве E2; [B]Экземпляры Kodi/E2[/B] — использовать значение совместно в kodi и на устройстве E2 для синхронизации. Последнее воспроизведение будет синхронизироваться с устройством E2 примерно каждые 5–10 минут для каждой записи, если используются меню PVR. Обратите внимание, что для работы этой опции достаточно включить её только в одном экземпляре kodi."
+msgstr "Доступны следующие варианты: [B]Экземпляры Kodi[/B] — использовать значение только в Kodi и не влиять на последнее воспроизведение на устройстве E2; [B]Экземпляры Kodi/E2[/B] — использовать значение совместно в Kodi и на устройстве E2 для синхронизации. Последнее воспроизведение будет синхронизироваться с устройством E2 примерно каждые 5–10 минут для каждой записи, если используются меню PVR. Обратите внимание, что для работы этой опции достаточно включить её только в одном экземпляре Kodi."
 
 #. help: Timers - recordingpath
-#, fuzzy
 msgctxt "#30683"
 msgid "Per default the addon does not specify the recording folder in newly created timers, so the default set in the set-top box will be used. If you want to specify a different folder (i.e. because you want all recordings scheduled via Kodi to be stored in a separate folder), then you need to set this option."
-msgstr "По умолчанию дополнение не указывает папку записи в создаваемых таймерах, поэтому будет использоваться папка по умолчанию, установленная на приставке. Если вы хотите указать другую папку (например, потому что хотите, чтобы все записи, запланированные через Kodi, сохранялись в отдельную папку), вам необходимо установить эту опцию."
+msgstr "По умолчанию дополнение не указывает папку записи в создаваемых таймерах, поэтому будет использоваться папка по умолчанию, установленная на приставке. Если вы хотите указать другую папку (например, потому что хотите, чтобы все записи, запланированные через Kodi, сохранялись в отдельную папку), вам необходимо установить этот параметр."
 
 #. help: Recordings - onlycurrent
-#, fuzzy
 msgctxt "#30684"
 msgid "If this option is not set the addon will fetch all available recordings from all configured paths from the set-top box. If this option is set then it will only list recordings that are stored within the 'current recording path' on the set-top box."
-msgstr "Если эта опция не установлена, дополнение будет получать все доступные записи со всех настроенных путей с приставки. Если опция установлена, то будут отображаться только записи, хранящиеся в «текущем пути записи» на приставке."
+msgstr "Если этот параметр не установлен, дополнение будет получать все доступные записи со всех настроенных путей с приставки. Если параметр установлен, то будут отображаться только записи, хранящиеся в «текущем пути записи» на приставке."
 
 #. help: Recordings - keepfolders
-#, fuzzy
 msgctxt "#30685"
 msgid "If enabled use the real path from the backend to dictate the folder structure."
 msgstr "Если включено, использовать реальный путь с сервера для определения структуры папок."
 
 #. help: Recordings - enablerecordingedls
-#, fuzzy
 msgctxt "#30686"
 msgid "EDLs are used to define commericals etc. in recordings. If a tool like Comskip is used to generate EDL files enabling this will allow Kodi PVR to use them. E.g. if there is a file called 'my recording.ts' the EDL file should be call 'my recording.edl'. Note: enabling this setting has no effect if the files are not present."
-msgstr "EDL используются для определения рекламы и т.п. в записях. Если для создания файлов EDL используется такой инструмент, как Comskip, включение этой опции позволит Kodi PVR использовать их. Например, если есть файл с именем «my recording.ts», файл EDL должен называться «my recording.edl». Примечание: включение этой настройки не имеет эффекта, если файлы отсутствуют."
+msgstr "EDL используются для определения рекламы и т.п. в записях. Если для создания файлов EDL используется такой инструмент, как Comskip, включение этого параметр позволит записи эфира Kodi использовать их. Например, если есть файл с именем «my recording.ts», файл EDL должен называться «my recording.edl». Примечание: включение этой настройки не имеет эффекта, если файлы отсутствуют."
 
 #. help: Recordings - edlpaddingstart
-#, fuzzy
 msgctxt "#30687"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to start the cut earlier and positive to start the cut later. Default 0."
 msgstr "Отступ, используемый при остановке EDL. Например, используйте отрицательное число, чтобы начать обрезку раньше, и положительное — чтобы начать обрезку позже. По умолчанию 0."
 
 #. help: Recordings - edlpaddingstop
-#, fuzzy
 msgctxt "#30688"
 msgid "Padding to use at an EDL stop. I.e. use a negative number to stop the cut earlier and positive to stop the cut later. Default 0."
 msgstr "Отступ, используемый при остановке EDL. Например, используйте отрицательное число, чтобы закончить обрезку раньше, и положительное — чтобы закончить обрезку позже. По умолчанию 0."
 
 #. help: Recordings - recordingsrecursive
-#, fuzzy
 msgctxt "#30689"
 msgid "By default only the root of the location will be used to list recordings. When enabled the contents of child folders will be included."
 msgstr "По умолчанию для отображения записей используется только корень расположения. При включении содержимое дочерних папок также будет включено."
 
 #. help: Recordings - keepfoldersomitlocation
-#, fuzzy
 msgctxt "#30690"
 msgid "When using the folder structure from the backend omit the location path from the directory. Useful as it can remove the need to traverse unused folders each time recordings are accessed."
 msgstr "При использовании структуры папок с сервера опускать путь к расположению в каталоге. Полезно, так как может устранить необходимость обхода неиспользуемых папок при каждом доступе к записям."
 
 #. help: Recordings - virtualfolders
-#, fuzzy
 msgctxt "#30691"
 msgid "Create a virtual structure grouping recordings with the same name into folders. Will be applied to all recordings unless keeping the folder structure on the backend. In that case it will only be applied to the recordings in the root of each recording location."
 msgstr "Создавать виртуальную структуру, группирующую записи с одинаковыми именами в папки. Будет применяться ко всем записям, если только не сохраняется структура папок на сервере. В этом случае будет применяться только к записям в корне каждого расположения записей."
@@ -1297,16 +1266,14 @@ msgstr "Создавать виртуальную структуру, групп
 # empty strings from id 30692 to 30699
 #. help info - Timers
 #. help-category: timers
-#, fuzzy
 msgctxt "#30700"
 msgid "This category cotains the settings for timers (regular and auto)"
 msgstr "Эта категория содержит настройки для таймеров (обычных и автотаймеров)"
 
 #. help: Timers - enablegenrepeattimers
-#, fuzzy
 msgctxt "#30701"
 msgid "Repeat timers will display as timer rules. Enabling this will make Kodi generate regular timers to match the repeat timer rules so the UI can show what's scheduled and currently recording for each repeat timer."
-msgstr "Повторяющиеся таймеры будут отображаться как правила таймеров. Включение этой опции заставит Kodi генерировать обычные таймеры, соответствующие правилам повторяющихся таймеров, чтобы интерфейс мог показывать, что запланировано и в данный момент записывается для каждого повторяющегося таймера."
+msgstr "Повторяющиеся таймеры будут отображаться как правила таймеров. Включение этого параметра заставит Kodi создавать обычные таймеры, соответствующие правилам повторяющихся таймеров, чтобы интерфейс мог показывать, что запланировано и в данный момент записывается для каждого повторяющегося таймера."
 
 #. help: Timers - numgenrepeattimers
 msgctxt "#30702"
@@ -1314,25 +1281,21 @@ msgid "The number of Kodi PVR timers to generate."
 msgstr "Количество Kodi PVR таймеров для генерации."
 
 #. help: Timers - timerlistcleanup
-#, fuzzy
 msgctxt "#30703"
 msgid "If this option is set then the addon will send the command to delete completed timers from the set-top box after each update interval."
-msgstr "Если эта опция установлена, дополнение будет отправлять команду на удаление завершённых таймеров с приставки после каждого интервала обновления."
+msgstr "Если этот параметр установлен, дополнение будет отправлять команду на удаление завершённых таймеров с приставки после каждого интервала обновления."
 
 #. help: Timers - enableautotimers
-#, fuzzy
 msgctxt "#30704"
 msgid "When this is enabled there are some settings required on the set-top box to enable linking of AutoTimers (Timer Rules) to Timers in the Kodi UI. The addon attempts to set these automatically on boot."
-msgstr "Когда эта опция включена, на приставке требуются некоторые настройки для включения связи автотаймеров (правил таймеров) с таймерами в интерфейсе Kodi. Дополнение пытается установить их автоматически при загрузке."
+msgstr "Когда этот параметр включён, на приставке требуются некоторые настройки для включения связи автотаймеров (правил таймеров) с таймерами в интерфейсе Kodi. Дополнение пытается установить их автоматически при загрузке."
 
 #. help: Timers - limitanychannelautotimers
-#, fuzzy
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
 msgstr "Если группы «Последний поиск» исключены, пытаться ограничивать новые автотаймеры только ТВ или радио (в зависимости от канала, использованного для создания автотаймера). Обратите внимание, что если группы «Последний поиск» включены, это невозможно, и настройка будет проигнорирована."
 
 #. help: Timers - limitanychannelautotimerstogroups
-#, fuzzy
 msgctxt "#30706"
 msgid "For the channel used to create the autotimer limit to channel groups that this channel is a member of."
 msgstr "Для канала, использованного для создания автотаймера, ограничивать его группами каналов, в которые входит этот канал."
@@ -1340,13 +1303,11 @@ msgstr "Для канала, использованного для создан�
 # empty strings from id 30707 to 30719
 #. help info - Timeshift
 #. help-category: timeshift
-#, fuzzy
 msgctxt "#30720"
 msgid "This category cotains the settings for timeshift. Timeshifting allows you to pause live TV as well as move back and forward from your current position similar to playing back a recording. The buffer is deleted each time a channel is changed or stopped."
 msgstr "Эта категория содержит настройки для сдвига по времени. Сдвиг по времени позволяет ставить прямой эфир на паузу, а также перемещаться назад и вперёд относительно текущей позиции, аналогично воспроизведению записи. Буфер удаляется при каждом переключении или остановке канала."
 
 #. help: Timeshift - enabletimeshift
-#, fuzzy
 msgctxt "#30721"
 msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
 msgstr "Какой параметр сдвига по времени вы хотите: [B]Отключено[/B] — без сдвига по времени; [B]При паузе[/B] — сдвиг по времени начинается, когда прямой эфир поставлен на паузу. Например, вы хотите продолжить с того места, где остановились после паузы; [B]При воспроизведении[/B] — сдвиг по времени начинается при открытии прямого эфира. Например, вы можете перейти в любую точку потока с момента его открытия."
@@ -1358,22 +1319,19 @@ msgid "The path used to store the timeshift buffer. The default is the `addon_da
 msgstr "Путь, используемый для хранения буфера сдвига по времени. По умолчанию — папка `addon_data/pvr.vuplus` в пользовательских данных."
 
 #. help: Timeshift - timeshiftEnabled
-#, fuzzy
 msgctxt "#30723"
 msgid "Enable the timeshift feature for IPTV streams using inputstream.ffmpegdirect. Note that this feature only works on playback and will ignore the timeshift mode used for regular channel playback."
 msgstr "Включить функцию сдвига по времени для IPTV-потоков с использованием inputstream.ffmpegdirect. Обратите внимание, что эта функция работает только при воспроизведении и игнорирует режим сдвига по времени, используемый для обычного воспроизведения каналов."
 
 #. help: Timeshift - useFFmpegReconnect
-#, fuzzy
 msgctxt "#30724"
 msgid "Note this can only apply to http/https streams that are processed by libavformat (e.g. M3u8/HLS)."
-msgstr "Примечание: это может применяться только к потокам http/https, которые обрабатываются libavformat (например, M3u8/HLS)."
+msgstr "Примечание: это может применяться только к потокам http/https, которые обрабатываются libavformat (напр., M3u8/HLS)."
 
 #. help: Timeshift - useMpegtsForUnknownStreams
-#, fuzzy
 msgctxt "#30725"
 msgid "If the type of stream cannot be determined assume it's an MPEG TS stream."
-msgstr "Если тип потока не может быть определён, считать его потоком MPEG TS."
+msgstr "Если тип потока нельзя определить, считать его потоком MPEG TS."
 
 #. help: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30726"
@@ -1381,7 +1339,6 @@ msgid "Open settings dialog for inputstream.ffmpegdirect for modification of tim
 msgstr "Открыть меню настроек inputstream.ffmpegdirect для изменения timeshift и других настроек."
 
 #. help: Timeshift - enabletimeshiftdisklimit
-#, fuzzy
 msgctxt "#30727"
 msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
 msgstr "Для устройств с ограниченным дисковым пространством можно установить предел в гигабайтах, при достижении которого сдвиг по времени будет отключён, а воспроизведение вернётся к прямому эфиру. Обратите внимание, что для сдвига по времени при воспроизведении после достижения этого предела сдвиг по времени будет невозможен до перезапуска потока."
@@ -1394,49 +1351,41 @@ msgstr "Лимит места на диске для хранения буфер
 # empty strings from id 30729 to 30739
 #. help info - Advanced
 #. help-category: advanced
-#, fuzzy
 msgctxt "#30740"
 msgid "This category cotains advanced/expert settings"
 msgstr "Эта категория содержит расширенные/экспертные настройки"
 
 #. help: Advanced - prependoutline
-#, fuzzy
 msgctxt "#30741"
 msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
-msgstr "По умолчанию краткое описание (краткое описание на Enigma2) не отображается в интерфейсе. Может отображаться в EPG, записях или в обоих местах. После изменения этой опции вам потребуется очистить кэш EPG («Настройки->PVR и прямой эфир->Программа передач->Очистить кэш»), чтобы изменения вступили в силу."
+msgstr "По умолчанию краткое описание (краткое описание на Enigma2) не отображается в интерфейсе. Может отображаться в EPG, записях или в обоих местах. После изменения этой опции вам потребуется очистить кэш EPG («Настройки->Запись эфира и прямой эфир->Программа передач->Очистить кэш»), чтобы изменения вступили в силу."
 
 #. help: Advanced - powerstatemode
-#, fuzzy
 msgctxt "#30742"
 msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-msgstr "Если эта опция установлена в значение, отличное от `Disabled`, дополнение будет отправлять команду состояния питания на приставку, когда Kodi будет закрыт (или дополнение будет деактивировано): [B]Отключено[/B] — не отправлять команду при выходе из дополнения; [B]Ожидание[/B] — отправлять команду ожидания при выходе; [B]Глубокое ожидание[/B] — отправлять команду глубокого ожидания при выходе. Обратите внимание, после отправки этой команды приставка не будет отвечать на Kodi; [B]Пробуждение, затем ожидание[/B] — аналогично ожиданию, но сначала отправляет команду пробуждения. Может быть полезно, если вы хотите убедиться, что все потоки остановлены. Примечание: если вы используете CEC, это может привести к пробуждению вашего телевизора."
+msgstr "Если этот параметр установлен в значение, отличное от `Disabled`, дополнение будет отправлять команду состояния питания на приставку, когда Kodi будет закрыт (или дополнение будет деактивировано): [B]Отключено[/B] — не отправлять команду при выходе из дополнения; [B]Ожидание[/B] — отправлять команду ожидания при выходе; [B]Глубокое ожидание[/B] — отправлять команду глубокого ожидания при выходе. Обратите внимание, после отправки этой команды приставка не будет отвечать на Kodi; [B]Пробуждение, затем ожидание[/B] — аналогично ожиданию, но сначала отправляет команду пробуждения. Может быть полезно, если вы хотите убедиться, что все потоки остановлены. Примечание: если вы используете CEC, это может привести к пробуждению вашего телевизора."
 
 #. help: Advanced - readtimeout
-#, fuzzy
 msgctxt "#30743"
 msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
 msgstr "Тайм-аут, используемый при попытке чтения прямых эфиров. По умолчанию для прямых эфиров — 0. По умолчанию для сдвига по времени — 10 секунд."
 
 #. help: Advanced - streamreadchunksize
-#, fuzzy
 msgctxt "#30744"
 msgid "The chunk size used by Kodi for streams. Default at 0 to leave it to Kodi to decide. Can be useful to set manually when viewing streams remotely where buffering can occur as PVR is optimised for a local network."
-msgstr "Размер блока, используемый Kodi для потоков. По умолчанию 0 — оставить на усмотрение Kodi. Может быть полезно установить вручную при просмотре потоков удалённо, где может возникать буферизация, так как PVR оптимизирован для локальной сети."
+msgstr "Размер блока, используемый Kodi для потоков. По умолчанию 0 — оставить на усмотрение Kodi. Может быть полезно установить вручную при просмотре потоков удалённо, где может возникать буферизация, так как запись эфира оптимизирована для локальной сети."
 
 #. help: Advanced - debugnormal
-#, fuzzy
 msgctxt "#30745"
 msgid "Debug log statements will display for the addon even though debug logging may not be enabled in Kodi. Note that all debug log statements will display at NOTICE level."
 msgstr "Отладочные сообщения журнала будут отображаться для дополнения, даже если в Kodi не включено отладочное журналирование. Обратите внимание, что все отладочные сообщения журнала будут отображаться на уровне NOTICE."
 
 #. help: Advanced - tracedebug
-#, fuzzy
 msgctxt "#30746"
 msgid "Very detailed and verbose log statements will display in addition to standard debug statements. If enabled along with `Enable debug logging in normal mode` both trace and debug will display without debug logging enabled. In this case both debug and trace log statements will display at NOTICE level."
 msgstr "Очень подробные и многословные сообщения журнала будут отображаться в дополнение к стандартным отладочным сообщениям. Если включено вместе с «Включить отладочное журналирование в обычном режиме», то и трассировка, и отладка будут отображаться без включённого отладочного журналирования. В этом случае как отладочные сообщения, так и сообщения трассировки будут отображаться на уровне NOTICE."
 
 #. help: Advanced - ignoredebug
-#, fuzzy
 msgctxt "#30747"
 msgid "Debug log statements will not be displayed for the addon even though debug logging is enabled in Kodi. This can be useful when trying to debug an issue in Kodi which is not addon related."
 msgstr "Отладочные сообщения журнала не будут отображаться для дополнения, даже если в Kodi включено отладочное журналирование. Это может быть полезно при попытке отладки проблемы в Kodi, которая не связана с дополнением."
@@ -1444,7 +1393,6 @@ msgstr "Отладочные сообщения журнала не будут �
 # empty strings from id 30748 to 30759
 #. help info - Backend
 #. help-category: backend
-#, fuzzy
 msgctxt "#30760"
 msgid "This category contains information and settings on/about the Enigma2 STB."
 msgstr "Эта категория содержит информацию и настройки о приставке Enigma2."
@@ -1460,19 +1408,16 @@ msgid "autotimertagintags"
 msgstr "autotimertagintags"
 
 #. help: Backend - autotimernameintags
-#, fuzzy
 msgctxt "#30763"
 msgid "autotimernameintags"
-msgstr "имя автотаймера в тегах"
+msgstr "autotimernameintags"
 
 #. help: Backend - globalstartpaddingstb
-#, fuzzy
 msgctxt "#30764"
 msgid "This value reflects the backend setting [B]Margin before recording[/B]. It will be applied to the start of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
 msgstr "Это значение отражает настройку сервера [B]Отступ до записи[/B]. Оно будет применяться к началу всех создаваемых новых обычных таймеров, включая созданные из автотаймеров. Обратите внимание, что если для автотаймера установлен отступ/поля, он будет индивидуальным для этого автотаймера и переопределит это значение."
 
 #. help: Backend - globalendpaddingstb
-#, fuzzy
 msgctxt "#30765"
 msgid "This value reflects the backend setting [B]Margin after recording[/B]. It will be applied to the end of all new regular timers created including those created from Autotimers. Note that if a padding/margin is set on an Autotimer it will be custom for that Autotimer and will override this value."
 msgstr "Это значение отражает настройку сервера [B]Отступ после записи[/B]. Оно будет применяться к концу всех создаваемых новых обычных таймеров, включая созданные из автотаймеров. Обратите внимание, что если для автотаймера установлен отступ/поля, он будет индивидуальным для этого автотаймера и переопределит это значение."
