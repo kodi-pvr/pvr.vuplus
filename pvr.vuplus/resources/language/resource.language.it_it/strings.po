@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-08-02 19:34+0000\n"
+"PO-Revision-Date: 2026-06-01 23:16+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -1149,7 +1149,7 @@ msgstr "Se questa opzione è abilitata, ogni gruppo in Kodi corrisponderà ai nu
 #. help: Channels - retrieveprovidername
 msgctxt "#30656"
 msgid "Retrieve provider name from the backend when fetching channels. Default is enabled but disabling can speed up fetch times on older devices."
-msgstr "Recupera il nome dal fornitore dal backend durante il recupero dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di recupero sui dispositivi meno recenti."
+msgstr "Recupera il nome del fornitore dal backend durante il caricamento dei canali. L'impostazione predefinita è abilitata, ma disabilitarla può accelerare i tempi di caricamento su dispositivi più vecchi."
 
 # empty strings from id 30657 to 30659
 #. help info - EPG
