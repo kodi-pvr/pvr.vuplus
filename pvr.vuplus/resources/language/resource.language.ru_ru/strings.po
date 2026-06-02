@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-05-22 17:16+0000\n"
+"PO-Revision-Date: 2026-06-01 23:16+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ru_ru/>\n"
 "Language: ru_ru\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -979,7 +979,7 @@ msgstr "Когда включена, ссылка на поток будет п�
 #. help: Connection - streamport
 msgctxt "#30607"
 msgid "This option defines the streaming port the set-top box uses to stream live tv. The default is 8001 which should be fine if the user did not define a custom port within the webinterface."
-msgstr "Этот параметр задаёт порт потока, который используется ТВ-приставкой для трансляции ТВ. По-умолчанию - 8001 и это работает, если пользователь не задал свой порт в веб-интерфейсе."
+msgstr "Этот параметр задаёт порт потока, который используется ТВ-приставкой для трансляции ТВ. По умолчанию — 8001, и это работает, если пользователь не задал свой порт в веб-интерфейсе."
 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
@@ -994,7 +994,7 @@ msgstr "Использовать логин и пароль для подклю�
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
 msgid "The value in seconds to wait for a connection check to complete before failure. Useful for tuning on older Enigma2 devices. Note, this setting should rarely need to be changed. It's more likely the `Connection check interval` setting will have the desired effect. Default is 30 seconds."
-msgstr "Значение в секундах для ожидания проверки успешного соединения до провала. Полезно для регулировки старых устройств Enigma2. Эту настройку не обязательно менять так часто. Тот же эффект может быть достигнут изменением параметра `Интервал проверки соединения`. По-умолчанию - 30 секунд."
+msgstr "Значение в секундах для ожидания проверки успешного соединения до провала. Полезно для регулировки старых устройств Enigma2. Эту настройку не обязательно менять так часто. Тот же эффект может быть достигнут изменением параметра `Интервал проверки соединения`. По умолчанию — 30 секунд."
 
 #. help: Connection - connectioncheckinterval
 msgctxt "#30611"
