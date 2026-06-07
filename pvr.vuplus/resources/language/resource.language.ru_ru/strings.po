@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-06-01 23:16+0000\n"
+"PO-Revision-Date: 2026-06-07 17:16+0000\n"
 "Last-Translator: Andrei Stepanov <adem4ik@gmail.com>\n"
 "Language-Team: Russian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/ru_ru/>\n"
 "Language: ru_ru\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
-msgstr "Фронтэнд Kodi для тюнеров, основанных на VU+ /Enigma2"
+msgstr "Интерфейс Kodi для телевизионных приставок на базе Enigma2"
 
 msgctxt "Addon Description"
 msgid "Enigma2 frontend - supporting streaming of Live TV & Recordings, EPG, Timers, Autotimers.[CR]    [CR]For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    "
@@ -1011,7 +1011,7 @@ msgstr "Эта категория содержит настройки, кото�
 #. help: General - onlinepicons
 msgctxt "#30621"
 msgid "Fetch the picons straight from the Enigma 2 set-top box."
-msgstr "Извлечь иконки напрямую из ТВ-приставки Enigma 2."
+msgstr "Извлечь значки напрямую из ТВ-приставки Enigma 2."
 
 #. help: General - useopenwebifpiconpath
 msgctxt "#30622"
@@ -1021,7 +1021,7 @@ msgstr "Извлечь путь к иконкам из OpenWebIf вместо к
 #. help: General - usepiconseuformat
 msgctxt "#30623"
 msgid "Assume all picons files fetched from the set-top box start with '1_1_1_' and end with '_0_0_0'."
-msgstr "Предположить что все файлы иконок ТВ-приставки начинаются с '1_1_1_' и заканчиваются '_0_0_0'."
+msgstr "Предположить, что все файлы значков ТВ-приставки начинаются с '1_1_1_' и заканчиваются '_0_0_0'."
 
 #. help: General - iconpath
 msgctxt "#30624"
