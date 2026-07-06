@@ -77,7 +77,7 @@
     <description lang="bg_BG">Клиент за „VU+“. Поддържа телевизия на живо и записване, електронен програмен справочник и броячи.</description>
     <description lang="bs_BA">Enigma2 predokraj - podržava prijenos uživo TV programa i snimaka, EPG, mjerače vremena, auto-mjerače vremena.[CR] [CR]Za dokumentaciju posjetite: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors;    </description>
-    <description lang="cs_CZ">Rozhraní Enigma2 – podporuje streamování živého vysílání a nahrávání, televizní program, časovače, automatické časovače.[CR][CR]Pro dokumentaci navštivte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md    </description>
+    <description lang="cs_CZ">Rozhraní pro Enigma2 - podporuje streamování živé TV a nahrávek, EPG, časovače a automatické časovače.[CR]    [CR]Dokumentaci najdete na adrese: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md[CR]    </description>
     <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
     <description lang="da_DK">Enigma2 frontend understøtter streaming af direkte tv og optagelser, EPG, timeroptagelser og automatiske timeroptagelser.[CR][CR]Se dokumentationen: https://github.com/kodi-pvr/pvr.vuplus/blob/Matrix/README.md    </description>
     <description lang="de_DE">VU+/Enigma2-Oberfläche. Unterstützt TV, Aufnahmen, EPG und Timer.    </description>
@@ -130,7 +130,7 @@
     <disclaimer lang="bg_BG">Тази програма е нестабилна! Авторите не носят отговорност за неуспешно записване, некоректни броячи, пропиляно време и други нежелани ефекти.</disclaimer>
     <disclaimer lang="bs_BA">Ovo je nestabilan softver! Autori ni na koji način nisu odgovorni za neuspjela snimanja, netačne mjerače vremena, izgubljene sate ili bilo koje druge neželjene efekte.</disclaimer>
     <disclaimer lang="ca_ES">Això és programari inestable! Els autors no són de cap manera responsables dels enregistraments que han fallat, temporitzadors incorrectes, hores perdudes, o qualssevol altres efectes no desitjats..</disclaimer>
-    <disclaimer lang="cs_CZ">Tento software není stabilní! Autoři nejsou žádným způsobem zodpovědní za neúspěšná nahrávání, chybné časovače, ztracený čas nebo jakékoliv jiné nežádoucí výsledky...</disclaimer>
+    <disclaimer lang="cs_CZ">Toto je nestabilní software! Autoři žádným způsobem neodpovídají za neúspěšné nahrávky, nesprávné časovače, ztracený čas ani žádné jiné nežádoucí následky.</disclaimer>
     <disclaimer lang="cy_GB">Mae hwn yn feddalwedd ansad! Nid yw&apos;r awduron yn gyfrifol mewn unrhyw ffordd am fethu recordio, amseru gwallus, oriau wedi eu gwastraffu nac effeithiau anymunol eraill.</disclaimer>
     <disclaimer lang="da_DK">Dette er ustabil software! Udviklerne er på ingen måde ansvarlige for mislykkede optagelser, ukorrekte timere, spildte timer eller andre uønskede konsekvenser.</disclaimer>
     <disclaimer lang="de_DE">Dies ist instabile Software! Die Autoren sind in keiner Weise verantwortlich für fehlgeschlagene Aufnahmen, falsche Timer, verschwendete Zeit oder andere ungewünschte Effekte.</disclaimer>
