@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-07-06 15:49+0000\n"
+"PO-Revision-Date: 2026-07-26 13:16+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/cs_cz/>\n"
 "Language: cs_cz\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -308,17 +308,17 @@ msgstr "TV"
 #. label-group: Channels - Radio
 msgctxt "#30057"
 msgid "Radio"
-msgstr "Rádio"
+msgstr "Rozhlas"
 
 #. label: Channels - radiogroupmode
 msgctxt "#30058"
 msgid "Radio bouquet fetch mode"
-msgstr "Režim načítání rádiových buketů"
+msgstr "Režim načítání rozhlasových buketů"
 
 #. label: Channels - oneradiogroup
 msgctxt "#30059"
 msgid "Radio bouquet 1"
-msgstr "Rádiový buket 1"
+msgstr "Rozhlasový buket 1"
 
 #. label-category: timeshift
 #. label-group: Timeshift - Timeshift
@@ -369,7 +369,7 @@ msgstr "Načítat buket oblíbených TV kanálů"
 #. label: Channels - radiofavouritesmode
 msgctxt "#30069"
 msgid "Fetch radio favourites bouquet"
-msgstr "Načítat buket oblíbených rádiových kanálů"
+msgstr "Načítat buket oblíbených rozhlasových kanálů"
 
 #. label-category: recordings
 msgctxt "#30070"
@@ -430,7 +430,7 @@ msgstr "Oblíbené (TV)"
 #. application: ChannelGroups
 msgctxt "#30080"
 msgid "Favourites (Radio)"
-msgstr "Oblíbené (rádio)"
+msgstr "Oblíbené (rozhlas)"
 
 #. application: Client
 #. application: Admin
@@ -596,7 +596,7 @@ msgstr "Naposledy prohledané (TV)"
 #. application: ChannelGroups
 msgctxt "#30113"
 msgid "Last Scanned (Radio)"
-msgstr "Naposledy prohledané (rádio)"
+msgstr "Naposledy prohledané (rozhlas)"
 
 #. label: Channels - excludelastscannedtv
 #. label: Channels - excludelastscannedradio
@@ -652,7 +652,7 @@ msgstr "Automatické časovače"
 #. label: Timers - limitanychannelautotimers
 msgctxt "#30124"
 msgid "Limit 'Any Channel' autotimers to TV or Radio"
-msgstr "Omezit automatické časovače „Libovolný kanál“ na TV nebo rádio"
+msgstr "Omezit automatické časovače „Libovolný kanál“ na TV nebo rozhlas"
 
 #. label: Timers - limitanychannelautotimerstogroups
 msgctxt "#30125"
@@ -698,7 +698,7 @@ msgstr "Soubor vlastních TV buketů"
 #. label: Channels - customradiogroupsfile
 msgctxt "#30133"
 msgid "Custom Radio bouquets file"
-msgstr "Soubor vlastních rádiových buketů"
+msgstr "Soubor vlastních rozhlasových buketů"
 
 #. label: Channels - numtvgroups
 msgctxt "#30134"
@@ -728,27 +728,27 @@ msgstr "TV buket 5"
 #. label: Channels - numradiogroups
 msgctxt "#30139"
 msgid "Number of radio bouquets"
-msgstr "Počet rádiových buketů"
+msgstr "Počet rozhlasových buketů"
 
 #. label: Channels - tworadiogroup
 msgctxt "#30140"
 msgid "Radio bouquet 2"
-msgstr "Rádiový buket 2"
+msgstr "Rozhlasový buket 2"
 
 #. label: Channels - threeradiogroup
 msgctxt "#30141"
 msgid "Radio bouquet 3"
-msgstr "Rádiový buket 3"
+msgstr "Rozhlasový buket 3"
 
 #. label: Channels - fourradiogroup
 msgctxt "#30142"
 msgid "Radio bouquet 4"
-msgstr "Rádiový buket 4"
+msgstr "Rozhlasový buket 4"
 
 #. label: Channels - fiveradiogroup
 msgctxt "#30143"
 msgid "Radio bouquet 5"
-msgstr "Rádiový buket 5"
+msgstr "Rozhlasový buket 5"
 
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
@@ -1091,12 +1091,12 @@ msgstr "Pokud je režim načítání „Všechny bukety“ nebo „Některé buk
 #. help: Channels - excludelastscannedtv
 msgctxt "#30646"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any TV channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (TV)' in Kodi. For TV this group is excluded by default. Disable this option to exclude this group. Note that if no TV groups are loaded the Last Scanned group for TV will be loaded by default regardless of this setting."
-msgstr "Naposledy prohledané je systémový buket obsahující všechny TV a rádiové kanály nalezené při posledním prohledání. Všechny TV kanály nalezené v buketu Naposledy prohledané se mohou v Kodi zobrazit jako skupina s názvem „Naposledy prohledané (TV)“. Pro TV je tato skupina ve výchozím stavu vyloučena. Vypnutím této volby tuto skupinu vyloučíte. Pokud nejsou načteny žádné TV skupiny, skupina Naposledy prohledané pro TV se načte ve výchozím stavu bez ohledu na toto nastavení."
+msgstr "Naposledy prohledané je systémový buket obsahující všechny TV a rozhlasové kanály nalezené při posledním prohledání. Všechny TV kanály nalezené v buketu Naposledy prohledané se mohou v Kodi zobrazit jako skupina s názvem „Naposledy prohledané (TV)“. Pro TV je tato skupina ve výchozím stavu vyloučena. Vypnutím této volby tuto skupinu vyloučíte. Pokud nejsou načteny žádné TV skupiny, skupina Naposledy prohledané pro TV se načte ve výchozím stavu bez ohledu na toto nastavení."
 
 #. help: Channels - radiogroupmode
 msgctxt "#30647"
 msgid "Choose from one of the following three modes: [B]All bouquets[/B] Fetch all Radio bouquets from the set-top box[/B]; [B]Some bouquets[/B] Only fetch the bouquets specified in the next options; [B]Favourites group[/B] Only fetch the system bouquet for Radio favourites; [B]Custom groups[/B] Fetch a set of bouquets from the Set-top box whose names are loaded from an XML file."
-msgstr "Vyberte jeden z následujících režimů: [B]Všechny bukety[/B] Načíst všechny rádiové bukety ze set-top boxu; [B]Některé bukety[/B] Načíst pouze bukety uvedené v následujících volbách; [B]Buket oblíbených[/B] Načíst pouze systémový buket oblíbených rádiových kanálů; [B]Vlastní bukety[/B] Načíst sadu buketů ze set-top boxu, jejichž názvy jsou načteny ze souboru XML."
+msgstr "Vyberte jeden z následujících režimů: [B]Všechny bukety[/B] Načíst všechny rozhlasové bukety ze set-top boxu; [B]Některé bukety[/B] Načíst pouze bukety uvedené v následujících volbách; [B]Buket oblíbených[/B] Načíst pouze systémový buket oblíbených rozhlasových kanálů; [B]Vlastní bukety[/B] Načíst sadu buketů ze set-top boxu, jejichž názvy jsou načteny ze souboru XML."
 
 #. help: Channels - oneradiogroup
 #. help: Channels - tworadiogroup
@@ -1105,17 +1105,17 @@ msgstr "Vyberte jeden z následujících režimů: [B]Všechny bukety[/B] Načí
 #. help: Channels - fiveradiogroup
 msgctxt "#30648"
 msgid "If the previous option has been has been set to 'Some bouquets' you need to specify a Radio bouquet to be fetched from the set-top box. Please note that this is the bouquet-name as shown on the set-top box (i.e. 'Favourites (Radio)'). This setting is case-sensitive."
-msgstr "Pokud byla předchozí volba nastavena na „Některé bukety“, je třeba zadat rádiový buket, který se má načíst ze set-top boxu. Upozorňujeme, že jde o název buketu tak, jak je zobrazen na set-top boxu, např. „Favourites (Radio)“. Toto nastavení rozlišuje velikost písmen."
+msgstr "Pokud byla předchozí volba nastavena na „Některé bukety“, je třeba zadat rozhlasový buket, který se má načíst ze set-top boxu. Upozorňujeme, že jde o název buketu tak, jak je zobrazen na set-top boxu, např. „Favourites (Radio)“. Toto nastavení rozlišuje velikost písmen."
 
 #. help: Channels - radiofavouritesmode
 msgctxt "#30649"
 msgid "If the fetch mode is 'All bouquets' or 'Some bouquets' depending on your Enigma2 image you may need to explicitly fetch favourites if you require them. The options are: [B]Disabled[/B] Don't explicitly fetch Radio favourites; [B]As first bouquet[/B] Explicitly fetch them as the first bouquet; [B]As last bouquet[/B] Explicitly fetch them as the last bouquet."
-msgstr "Pokud je režim načítání „Všechny bukety“ nebo „Některé bukety“, může být podle vaší image Enigma2 nutné oblíbené položky načíst výslovně, pokud je požadujete. Volby jsou: [B]Zakázáno[/B] Nenačítat oblíbené rádiové kanály výslovně; [B]Jako první buket[/B] Načíst je výslovně jako první buket; [B]Jako poslední buket[/B] Načíst je výslovně jako poslední buket."
+msgstr "Pokud je režim načítání „Všechny bukety“ nebo „Některé bukety“, může být podle vaší image Enigma2 nutné oblíbené položky načíst výslovně, pokud je požadujete. Volby jsou: [B]Zakázáno[/B] Nenačítat oblíbené rozhlasové kanály výslovně; [B]Jako první buket[/B] Načíst je výslovně jako první buket; [B]Jako poslední buket[/B] Načíst je výslovně jako poslední buket."
 
 #. help: Channels - excludelastscannedradio
 msgctxt "#30650"
 msgid "Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called 'Last Scanned (Radio)' in Kodi. For Radio this group is excluded by default. Disable this option to show this group."
-msgstr "Naposledy prohledané je systémový buket obsahující všechny TV a rádiové kanály nalezené při posledním prohledání. Všechny rádiové kanály nalezené v buketu Naposledy prohledané se mohou v Kodi zobrazit jako skupina s názvem „Naposledy prohledané (rádio)“. Pro rádio je tato skupina ve výchozím stavu vyloučena. Vypnutím této volby tuto skupinu zobrazíte."
+msgstr "Naposledy prohledané je systémový buket obsahující všechny TV a rozhlasové kanály nalezené při posledním prohledání. Všechny rozhlasové kanály nalezené v buketu Naposledy prohledané se mohou v Kodi zobrazit jako skupina s názvem „Naposledy prohledané (rozhlas)“. Pro rozhlas je tato skupina ve výchozím stavu vyloučena. Vypnutím této volby tuto skupinu zobrazíte."
 
 #. help: Channels - customtvgroupsfile
 msgctxt "#30651"
@@ -1125,7 +1125,7 @@ msgstr "Soubor používaný k načtení vlastních TV buketů (skupin). Pokud se
 #. help: Channels - customradiogroupsfile
 msgctxt "#30652"
 msgid "The file used to load the custom Radio bouquets (groups). If no groups can be matched the channel list will default to 'Last Scanned (Radio)'. The default file is `customRadioGroups-example.xml`."
-msgstr "Soubor používaný k načtení vlastních rádiových buketů (skupin). Pokud se nepodaří spárovat žádné skupiny, seznam kanálů se vrátí k výchozí skupině „Naposledy prohledané (rádio)“. Výchozí soubor je `customRadioGroups-example.xml`."
+msgstr "Soubor používaný k načtení vlastních rozhlasových buketů (skupin). Pokud se nepodaří spárovat žádné skupiny, seznam kanálů se vrátí k výchozí skupině „Naposledy prohledané (rozhlas)“. Výchozí soubor je `customRadioGroups-example.xml`."
 
 #. help: Channels - numtvgroups
 msgctxt "#30653"
@@ -1135,7 +1135,7 @@ msgstr "Počet TV buketů, které se mají načíst, když je vybraným režimem
 #. help: Channels - numradiogroups
 msgctxt "#30654"
 msgid "The number of Radio bouquets to load when `Some bouquets` is the selected fetch mode. Up to 5 can be chosen. If more than 5 are required the 'Custom bouquets' fetch mode should be used instead."
-msgstr "Počet rádiových buketů, které se mají načíst, když je vybraným režimem načítání `Některé bukety`. Lze zvolit až pět. Pokud je potřeba více než pět, měl by se místo toho použít režim načítání „Vlastní bukety“."
+msgstr "Počet rozhlasových buketů, které se mají načíst, když je vybraným režimem načítání `Některé bukety`. Lze zvolit až pět. Pokud je potřeba více než pět, měl by se místo toho použít režim načítání „Vlastní bukety“."
 
 #. help: Channels - usegroupspecificnumbers
 msgctxt "#30655"
@@ -1289,7 +1289,7 @@ msgstr "Když je tato volba zapnutá, jsou na set-top boxu vyžadována někter�
 #. help: Timers - limitanychannelautotimers
 msgctxt "#30705"
 msgid "If last scanned groups are excluded attempt to limit new autotimers to either TV or Radio (dependent on channel used to create the autotimer). Note that if last scanned groups are enabled this is not possible and the setting will be ignored."
-msgstr "Pokud jsou skupiny Naposledy prohledané vyloučeny, pokusit se omezit nové automatické časovače buď na TV, nebo rádio podle kanálu použitého k vytvoření automatického časovače. Pokud jsou skupiny Naposledy prohledané povoleny, není to možné a nastavení bude ignorováno."
+msgstr "Pokud jsou skupiny Naposledy prohledané vyloučeny, pokusit se omezit nové automatické časovače buď na TV, nebo rozhlas podle kanálu použitého k vytvoření automatického časovače. Pokud jsou skupiny Naposledy prohledané povoleny, není to možné a nastavení bude ignorováno."
 
 #. help: Timers - limitanychannelautotimerstogroups
 msgctxt "#30706"
