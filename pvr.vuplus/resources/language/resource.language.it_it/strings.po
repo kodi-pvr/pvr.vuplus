@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-06-01 23:16+0000\n"
+"PO-Revision-Date: 2026-10-26 08:07+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -66,7 +66,7 @@ msgstr "Icone"
 #. label-group: General - Program Streams
 msgctxt "#30007"
 msgid "Program Streams"
-msgstr "Stream programma"
+msgstr "Flussi programma"
 
 #. label: General - iconpath
 msgctxt "#30008"
@@ -97,7 +97,7 @@ msgstr "Zap prima del cambio canale (ricevitori singolo tuner)"
 #. label: Channels - setprogramid
 msgctxt "#30014"
 msgid "Set program id for live channel or recorded streams"
-msgstr "Imposta ID programma per canale live o stream registrati"
+msgstr "Imposta ID programma per canale live o flussi registrati"
 
 #. label: General - updateint
 msgctxt "#30015"
@@ -225,12 +225,12 @@ msgstr "Streaming"
 #. label: Advanced - prependoutline
 msgctxt "#30040"
 msgid "Put outline (e.g. sub-title) before plot"
-msgstr "Metti il contorno (ad es. il sottotitolo) prima della trama"
+msgstr "Metti la sinossi (ad es. il sottotitolo) prima della trama"
 
 #. label: Advanced - streamreadchunksize
 msgctxt "#30041"
 msgid "Stream read chunk size"
-msgstr "Dimensione blocco di lettura stream"
+msgstr "Dimensione blocco di lettura flusso"
 
 #. label - Advanced - prependoutline
 msgctxt "#30042"
@@ -356,12 +356,12 @@ msgstr "In pausa"
 #. label: Connection - use_secure_stream
 msgctxt "#30066"
 msgid "Use secure HTTP (https) for streams"
-msgstr "Usa HTTP sicuro (https) per lo stream"
+msgstr "Usa HTTP sicuro (https) per il flusso"
 
 #. label: Connection - use_login_stream
 msgctxt "#30067"
 msgid "Use login for streams"
-msgstr "Usa accesso per gli streaming"
+msgstr "Usa accesso per i flussi"
 
 #. label: Channels - tvfavouritesmode
 msgctxt "#30068"
@@ -755,7 +755,7 @@ msgstr "Radio bouquet 5"
 #. label: Advanced - ignoredebug
 msgctxt "#30144"
 msgid "No addon debug logging in Kodi debug mode"
-msgstr "Nessun add-on registrazione debug nella modalità di debug di Kodi"
+msgstr "Nessuna registrazione eventi di debug dell'add-on nella modalità di debug di Kodi"
 
 #. label-group: Backend - Power Settings
 msgctxt "#30145"
@@ -775,7 +775,7 @@ msgstr "IPTV"
 #. label: Timeshift - timeshiftEnabled
 msgctxt "#30148"
 msgid "Enable timeshift for IPTV streams"
-msgstr "Abilita timeshift per stream IPTV"
+msgstr "Abilita timeshift per i flussi IPTV"
 
 #. label: Timeshift - useFFmpegReconnect
 msgctxt "#30149"
@@ -785,7 +785,7 @@ msgstr "Usa opzioni di riconnessione http di FFmpeg se possibile"
 #. label: Timeshift - useMpegtsForUnknownStreams
 msgctxt "#30150"
 msgid "Use mpegts MIME type for unknown streams"
-msgstr "Usa il tipo MIME mpegts per stream sconosciuti"
+msgstr "Usa il tipo MIME mpegts per flussi sconosciuti"
 
 #. label: Timeshift - timeshiftFFmpegdirectSettings
 msgctxt "#30151"
@@ -987,12 +987,12 @@ msgstr "Questa opzione definisce la porta di streaming usata dal ricevitore per 
 #. help: Connection - use_secure_stream
 msgctxt "#30608"
 msgid "Use https to connect to streams."
-msgstr "Usa https per connetterti agli stream."
+msgstr "Usa https per connetterti ai flussi."
 
 #. help: Connection - use_login_stream
 msgctxt "#30609"
 msgid "Use the login username and password for streams."
-msgstr "Usa nome utente e password di accesso per gli stream."
+msgstr "Usa nome utente e password di accesso per i flussi."
 
 #. help: Connection - connectionchecktimeout
 msgctxt "#30610"
@@ -1054,7 +1054,7 @@ msgstr "L'ora del giorno in cui dovrebbe verificarsi il controllo dei nuovi cana
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr "Alcuni fornitori TV (ad es. Nos - Portogallo) che utilizzano MPTS inviano informazioni aggiuntive sul flusso del programma. L'impostazione dell'id del programma consente a Kodi di selezionare lo stream corretto e quindi rende riproducibile il canale/la registrazione. Tieni presente che ci vuole circa il 33% in più per aprire qualsiasi stream con questa opzione abilitata."
+msgstr "Alcuni fornitori TV (ad es. Nos - Portogallo) che utilizzano MPTS inviano informazioni aggiuntive sul flusso del programma. L'impostazione dell'id del programma consente a Kodi di selezionare il flusso corretto e quindi rende riproducibile il canale/la registrazione. Tieni presente che ci vuole circa il 33% in più per aprire qualsiasi flusso con questa opzione abilitata."
 
 # empty strings from id 30630 to 30639
 #. help info - Channels
@@ -1156,7 +1156,7 @@ msgstr "Recupera il nome del fornitore dal backend durante il caricamento dei ca
 #. help-category: epg
 msgctxt "#30660"
 msgid "This category cotains the settings for EPG (Electronic Programme Guide). Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to 'Settings->PVR & Live TV->Guide->Clear cache' in Kodi after the addon restarts."
-msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione eventi delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e Live TV-> Guida-> Cancella cache\" in Kodi dopo il riavvio del componente aggiuntivo."
+msgstr "Questa categoria contiene le impostazioni per EPG (Guida elettronica ai programmi). Escludendo la registrazione eventi delle mappature di testo di genere mancanti, tutte le altre opzioni richiederanno la cancellazione della cache EPG per avere effetto. Questo può essere fatto andando su \"Impostazioni-> PVR e Live TV-> Guida-> Svuota cache\" in Kodi dopo il riavvio del componente aggiuntivo."
 
 #. help: EPG - extractshowinfoenabled
 msgctxt "#30661"
@@ -1312,7 +1312,7 @@ msgstr "Questa categoria contiene le impostazioni per il timeshift. Il timeshift
 #. help: Timeshift - enabletimeshift
 msgctxt "#30721"
 msgid "What timeshift option do you want: [B]Disabled[/B] No timeshifting; [B]On Pause[/B] Timeshifting starts when a live stream is paused. E.g. you want to continue from where you were at after pausing; [B]On Playback[/B] Timeshifting starts when a live stream is opened. E.g. You can go to any point in the stream since it was opened."
-msgstr "Quale opzione di timeshift desideri: [B]Disabilitato[/B] Nessun timeshift; [B]In pausa[/B] Il timeshift inizia quando un live streaming viene messo in pausa. Per esempio. vuoi continuare da dove eri dopo la pausa; [B]In riproduzione[/B] Il timeshift inizia quando viene aperto un live streaming. Per esempio puoi andare in qualsiasi punto dello stream da quando è stato aperto."
+msgstr "Quale opzione di timeshift desideri: [B]Disabilitato[/B] Nessun timeshift; [B]In pausa[/B] Il timeshift inizia quando un live streaming viene messo in pausa. Per esempio. vuoi continuare da dove eri dopo la pausa; [B]In riproduzione[/B] Il timeshift inizia quando viene aperto un live streaming. Per esempio puoi andare in qualsiasi punto del flusso da quando è stato aperto."
 
 #. help: Timeshift - timeshiftbufferpath
 msgctxt "#30722"
@@ -1342,7 +1342,7 @@ msgstr "Apri la finestra di dialogo delle impostazioni per inputstream.ffmpegdir
 #. help: Timeshift - enabletimeshiftdisklimit
 msgctxt "#30727"
 msgid "For devices with limited disk space a limit in Gigabytes can be set whereby timeshift will be switched off and playback will return to the live stream. Note that for timeshift on playback it will not be possible to timeshift again until a stream is restarted once this limit is reached."
-msgstr "Per i dispositivi con spazio su disco limitato è possibile impostare un limite in Gigabyte per cui il timeshift verrà disattivato e la riproduzione tornerà allo streaming live. Tieni presente che per il timeshift durante la riproduzione non sarà possibile eseguire nuovamente il timeshift fino a quando uno stream non viene riavviato una volta raggiunto questo limite."
+msgstr "Per i dispositivi con spazio su disco limitato è possibile impostare un limite in Gigabyte per cui il timeshift verrà disattivato e la riproduzione tornerà allo streaming live. Tieni presente che per il timeshift durante la riproduzione non sarà possibile eseguire nuovamente il timeshift fino a quando un flusso non viene riavviato una volta raggiunto questo limite."
 
 #. help: Timeshift - timeshiftdisklimit
 msgctxt "#30728"
@@ -1359,17 +1359,17 @@ msgstr "Questa categoria contiene impostazioni avanzate/esperte"
 #. help: Advanced - prependoutline
 msgctxt "#30741"
 msgid "By default plot outline (short description on Enigma2) is not displayed in the UI. Can be displayed in EPG, Recordings or both. After changing this option you will need to clear the EPG cache `Settings->PVR & Live TV->Guide->Clear cache` for it to take effect."
-msgstr "Per impostazione predefinita, il profilo della trama (breve descrizione su Enigma2) non viene visualizzato nell'interfaccia utente. Può essere visualizzato in EPG, Registrazioni o entrambi. Dopo aver modificato questa opzione, sarà necessario svuotare la cache EPG in \"Impostazioni->PVR e Live TV->Guida->Cancella cache\" affinché abbia effetto."
+msgstr "Per impostazione predefinita, la sinossi (breve descrizione su Enigma2) non viene visualizzata nell'interfaccia utente. Può essere visualizzata in EPG, Registrazioni o entrambi. Dopo aver modificato questa opzione, sarà necessario svuotare la cache EPG in \"Impostazioni->PVR e Live TV->Guida->Svuota cache\" affinché abbia effetto."
 
 #. help: Advanced - powerstatemode
 msgctxt "#30742"
 msgid "If this option is set to a value other than `Disabled` then the addon will send a Powerstate command to the set-top box when Kodi will be closed (or the addon will be deactivated): [B]Disabled[/B] No command sent when the addon exits; [B]Standby[/B] Send the standby command on exit; [B]Deep standby[/B] Send the deep standby command on exit. Note, the set-top box will not respond to Kodi after this command is sent; [B]Wakeup, then standby[/B] Similar to standby but first sends a wakeup command. Can be useful if you want to ensure all streams have stopped. Note: if you use CEC this could cause your TV to wake."
-msgstr "Se questa opzione è impostata su un valore diverso da \"Disabilitato\", l'add-on invierà un comando Powerstate al ricevitore quando Kodi verrà chiuso (o l'add-on sarà disattivato): [B]Disabilitato[/B] Nessun comando inviato all'uscita dell'add-on; [B]Standby[/B] Invia il comando di standby all'uscita; [B]Ricevitore spento[/B] Invia il comando di spegnimento all'uscita. Nota, il ricevitore non risponderà a Kodi dopo l'invio di questo comando; [B]Sveglia, quindi standby[/B] Simile allo standby ma invia prima un comando di riattivazione. Può essere utile se vuoi assicurarti che tutti gli stream siano stati interrotti. Nota: se utilizzi CEC, la TV potrebbe riattivarsi."
+msgstr "Se questa opzione è impostata su un valore diverso da \"Disabilitato\", l'add-on invierà un comando Powerstate al ricevitore quando Kodi verrà chiuso (o l'add-on sarà disattivato): [B]Disabilitato[/B] Nessun comando inviato all'uscita dell'add-on; [B]Standby[/B] Invia il comando di standby all'uscita; [B]Ricevitore spento[/B] Invia il comando di spegnimento all'uscita. Nota, il ricevitore non risponderà a Kodi dopo l'invio di questo comando; [B]Sveglia, quindi standby[/B] Simile allo standby ma invia prima un comando di riattivazione. Può essere utile se vuoi assicurarti che tutti i flussi siano stati interrotti. Nota: se utilizzi CEC, la TV potrebbe riattivarsi."
 
 #. help: Advanced - readtimeout
 msgctxt "#30743"
 msgid "The timemout to use when trying to read live streams. Default for live streams is 0. Default for for timeshifting is 10 seconds."
-msgstr "Il timeout da utilizzare quando si tenta di leggere i live streaming. Il valore predefinito per i live streaming è 0. Il valore predefinito per il timeshift è 10 secondi."
+msgstr "Il timeout da utilizzare quando si tenta di leggere i flussi live. Il valore predefinito per i flussi live è 0. Il valore predefinito per il timeshift è 10 secondi."
 
 #. help: Advanced - streamreadchunksize
 msgctxt "#30744"
