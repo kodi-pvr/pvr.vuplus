@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-09-25 17:01+0000\n"
+"PO-Revision-Date: 2026-11-02 18:30+0000\n"
 "Last-Translator: Daniel Nylander <daniel@danielnylander.se>\n"
 "Language-Team: Swedish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-vuplus/sv_se/>\n"
 "Language: sv_se\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi's frontend for Enigma2 based set-top boxes"
@@ -253,7 +253,7 @@ msgstr "Alltid"
 #. label: EPG - extractshowinfofile
 msgctxt "#30046"
 msgid "Extract show info file"
-msgstr "Extrahera show-infofil"
+msgstr "Extrahera informationsfil om programmet"
 
 #. label-group: EPG - Rytec genre text Mappings
 msgctxt "#30047"
@@ -1051,7 +1051,7 @@ msgstr "Den timme på dygnet då sökningen efter nya kanaler ska ske. Standard 
 #. help: Channels - setprogramid
 msgctxt "#30629"
 msgid "Some TV Providers (e.g. Nos - Portugal) using MPTS send extra program stream information. Setting the program id allows kodi to select the correct stream and therefore makes the channel/recording playable. Note that it takes approx 33% longer to open any stream with this option enabled."
-msgstr "Vissa TV-leverantörer (t.ex. Nos - Portugal) som använder MPTS skickar extra information om programströmmen. Genom att ställa in program-ID kan kodi välja rätt ström och därmed göra kanalen/inspelningen spelbar. Observera att det tar cirka 33% longer att öppna en ström med det här alternativet aktiverat."
+msgstr "Vissa tv-leverantörer (t.ex. NOS i Portugal) som använder MPTS skickar extra information om programströmmen. När program-ID anges kan Kodi välja rätt ström och därmed spela upp kanalen eller inspelningen. Observera att det tar cirka 33 % längre tid att öppna en ström när alternativet är aktiverat."
 
 # empty strings from id 30630 to 30639
 #. help info - Channels
