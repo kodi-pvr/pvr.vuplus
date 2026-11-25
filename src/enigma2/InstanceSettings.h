@@ -31,6 +31,7 @@ namespace enigma2
   static const int DEFAULT_UPDATE_INTERVAL = 2;
   static const int DEFAULT_CHANNEL_AND_GROUP_UPDATE_HOUR = 4;
   static const int DEFAULT_NUM_GROUPS = 1;
+  static const int MAX_NUM_SOME_GROUPS = 5;
   static const std::string ADDON_DATA_BASE_DIR = "special://userdata/addon_data/pvr.vuplus";
   static const std::string DEFAULT_PROVIDER_NAME_MAP_FILE = ADDON_DATA_BASE_DIR + "/providers/providerMappings.xml";
   static const std::string DEFAULT_SHOW_INFO_FILE = ADDON_DATA_BASE_DIR + "/showInfo/English-ShowInfo.xml";
@@ -255,6 +256,10 @@ namespace enigma2
     std::vector<std::string>& GetCustomTVChannelGroupNameList() { return m_customTVChannelGroupNameList; }
     std::vector<std::string>& GetCustomRadioChannelGroupNameList() { return m_customRadioChannelGroupNameList; }
 
+    std::vector<std::string> GetSomeChannelGroupNames(bool radio) const;
+    bool SetSomeChannelGroups(bool radio, const std::vector<std::string>& groupNames);
+    bool IsStoringChannelGroups() const { return m_storingChannelGroups; }
+
   private:
     InstanceSettings(const InstanceSettings&) = delete;
     void operator=(const InstanceSettings&) = delete;
@@ -432,6 +437,7 @@ namespace enigma2
 
     std::vector<std::string> m_customTVChannelGroupNameList;
     std::vector<std::string> m_customRadioChannelGroupNameList;
+    bool m_storingChannelGroups = false;
 
     //PVR Props
     std::string m_szUserPath = "";

@@ -36,6 +36,7 @@ namespace enigma2
     void ClearChannelGroups();
     std::vector<std::shared_ptr<enigma2::data::ChannelGroup>>& GetChannelGroupsList();
     bool LoadChannelGroups();
+    bool LoadBackendChannelGroupNames(std::vector<std::string>& groupNames, bool radio) const;
 
   private:
     bool LoadTVChannelGroups();

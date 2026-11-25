@@ -188,6 +188,9 @@ If Kodi PVR is set to use the channel numbers from the backend the numbers will 
     - `As last bouquet` - Explicitly fetch them as the last bouquet.
 * **Exclude last scanned bouquet**: Last scanned is a system bouquet containing all the TV and Radio channels found in the last scan. Any Radio channels found in the Last Scanned bouquet can be displayed as a group called ```Last Scanned (Radio)``` in Kodi. For Radio this group is excluded by default. Disable this option to show this group.
 
+#### Selecting bouquets from a list
+Instead of typing the bouquet names for the `Some bouquets` fetch mode they can be picked from a list read from the set-top box. Open the context menu of any channel, e.g. in `TV->Channels`, and choose `Select bouquets from set-top box` (TV or radio bouquets depending on the channel), or go to `Settings->PVR & Live TV->General->Client specific settings` and choose `Select TV bouquets from set-top box` or `Select radio bouquets from set-top box`. The dialog shows one entry per bouquet like the add-on settings: select an entry to replace or remove its bouquet, `[Add bouquet...]` adds one (up to 5) and `[Enter bouquet name manually...]` allows a name which is not on the list. `[Save and reload channels]` sets the fetch mode to `Some bouquets`, stores the number of bouquets and their names in the add-on settings and reloads the channels and groups without restarting the add-on.
+
 ### EPG
 Within this tab options that refer to EPG data can be set. Excluding logging missing genre text mappings all other options will require clearing the EPG cache to take effect. This can be done by going to `Settings->PVR & Live TV->Guide->Clear cache` in Kodi after the addon restarts.
 

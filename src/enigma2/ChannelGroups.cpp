@@ -13,6 +13,7 @@
 #include "utilities/WebUtils.h"
 #include "utilities/XMLUtils.h"
 
+#include <algorithm>
 #include <regex>
 
 #include <kodi/General.h>
@@ -308,6 +309,58 @@ bool ChannelGroups::LoadRadioChannelGroups()
     AddRadioLastScannedChannelGroup();
 
   Logger::Log(LEVEL_INFO, "%s Loaded %d Radio Channelgroups", __func__, m_channelGroups.size() - tempNumChannelGroups);
+  return true;
+}
+
+bool ChannelGroups::LoadBackendChannelGroupNames(std::vector<std::string>& groupNames, bool radio) const
+{
+  groupNames.clear();
+
+  std::string url;
+  if (!radio)
+    url = StringUtils::Format("%sweb/getservices", m_settings->GetConnectionURL().c_str());
+  else
+    url = StringUtils::Format("%sweb/getservices?sRef=%s", m_settings->GetConnectionURL().c_str(), WebUtils::URLEncodeInline("1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"bouquets.radio\" ORDER BY bouquet").c_str());
+
+  const std::string strXML = WebUtils::GetHttpXML(url);
+
+  TiXmlDocument xmlDoc;
+  if (!xmlDoc.Parse(strXML.c_str()))
+  {
+    Logger::Log(LEVEL_ERROR, "%s Unable to parse XML: %s at line %d", __func__, xmlDoc.ErrorDesc(), xmlDoc.ErrorRow());
+    return false;
+  }
+
+  TiXmlHandle hDoc(&xmlDoc);
+
+  TiXmlElement* pElem = hDoc.FirstChildElement("e2servicelist").Element();
+
+  if (!pElem)
+  {
+    Logger::Log(LEVEL_ERROR, "%s Could not find <e2servicelist> element!", __func__);
+    return false;
+  }
+
+  for (TiXmlElement* pNode = pElem->FirstChildElement("e2service"); pNode != nullptr; pNode = pNode->NextSiblingElement("e2service"))
+  {
+    std::string serviceReference;
+    std::string groupName;
+
+    if (!xml::GetString(pNode, "e2servicereference", serviceReference) ||
+        !xml::GetString(pNode, "e2servicename", groupName))
+      continue;
+
+    // Skip labels, hidden entries and separators, the same as when loading the channel groups
+    if (serviceReference.compare(0, 5, "1:64:") == 0 || groupName == "<n/a>" ||
+        StringUtils::EndsWith(groupName.c_str(), " - Separator"))
+      continue;
+
+    if (std::find(groupNames.begin(), groupNames.end(), groupName) == groupNames.end())
+      groupNames.emplace_back(groupName);
+  }
+
+  Logger::Log(LEVEL_DEBUG, "%s Found %d %s bouquets on the set-top box", __func__, static_cast<int>(groupNames.size()), radio ? "radio" : "TV");
+
   return true;
 }
 

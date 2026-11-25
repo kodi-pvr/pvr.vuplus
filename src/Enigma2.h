@@ -61,6 +61,10 @@ public:
   PVR_ERROR OnSystemSleep() override;
   PVR_ERROR OnSystemWake() override;
 
+  PVR_ERROR CallSettingsMenuHook(const kodi::addon::PVRMenuhook& menuhook) override;
+  PVR_ERROR CallChannelMenuHook(const kodi::addon::PVRMenuhook& menuhook,
+                                const kodi::addon::PVRChannel& item) override;
+
   PVR_ERROR GetCapabilities(kodi::addon::PVRCapabilities& capabilities) override;
   PVR_ERROR GetBackendName(std::string& name) override;
   PVR_ERROR GetBackendVersion(std::string& version) override;
@@ -137,15 +141,33 @@ private:
   static const int INITIAL_EPG_STEP_SECS = 5;
   static const int PROCESS_LOOP_WAIT_SECS = 5;
 
+  static const unsigned int MENUHOOK_SELECT_TV_BOUQUETS = 1;
+  static const unsigned int MENUHOOK_SELECT_RADIO_BOUQUETS = 2;
+  static const unsigned int MENUHOOK_CHANNEL_SELECT_BOUQUETS = 3;
+
+  enum class ChannelGroupChoice
+  {
+    CANCELLED,
+    CHOSEN,
+    REMOVED,
+  };
+
   // helper functions
   std::string GetStreamURL(const std::string& strM3uURL);
   enigma2::ChannelsChangeState CheckForChannelAndGroupChanges();
   void ReloadChannelsGroupsAndEPG();
+  PVR_ERROR SelectChannelGroups(bool radio);
+  ChannelGroupChoice ChooseChannelGroup(const std::string& heading,
+                                        const std::vector<std::string>& backendGroupNames,
+                                        const std::vector<std::string>& selectedGroupNames,
+                                        std::string& groupName,
+                                        bool canRemove);
 
   // members
   bool m_isConnected = false;
   int m_currentChannel = -1;
   std::atomic_bool m_dueRecordingUpdate{true};
+  std::atomic_bool m_dueChannelsAndGroupsReload{false};
   time_t m_lastSignalStatusUpdateSeconds;
   int m_epgMaxPastDays;
   int m_epgMaxFutureDays;

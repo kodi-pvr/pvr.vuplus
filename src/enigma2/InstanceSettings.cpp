@@ -11,6 +11,9 @@
 #include "utilities/WebUtils.h"
 #include "utilities/XMLUtils.h"
 
+#include <algorithm>
+#include <array>
+
 #include <kodi/tools/StringUtils.h>
 #include <tinyxml.h>
 
@@ -381,6 +384,67 @@ ADDON_STATUS InstanceSettings::SetSetting(const std::string& settingName, const 
 bool InstanceSettings::IsTimeshiftBufferPathValid() const
 {
   return kodi::vfs::DirectoryExists(m_timeshiftBufferPath) || kodi::vfs::DirectoryExists(ADDON_DATA_BASE_DIR);
+}
+
+std::vector<std::string> InstanceSettings::GetSomeChannelGroupNames(bool radio) const
+{
+  if (radio)
+    return m_radioChannelGroupMode == ChannelGroupMode::SOME_GROUPS ? m_customRadioChannelGroupNameList : std::vector<std::string>{};
+
+  return m_tvChannelGroupMode == ChannelGroupMode::SOME_GROUPS ? m_customTVChannelGroupNameList : std::vector<std::string>{};
+}
+
+bool InstanceSettings::SetSomeChannelGroups(bool radio, const std::vector<std::string>& groupNames)
+{
+  const std::string type = radio ? "radio" : "tv";
+  const std::array<std::string, MAX_NUM_SOME_GROUPS> slotPrefixes = {"one", "two", "three", "four", "five"};
+
+  const int newNumGroups = std::max(DEFAULT_NUM_GROUPS, std::min(static_cast<int>(groupNames.size()), MAX_NUM_SOME_GROUPS));
+  std::array<std::string, MAX_NUM_SOME_GROUPS> newSlots;
+  for (int i = 0; i < MAX_NUM_SOME_GROUPS && i < static_cast<int>(groupNames.size()); i++)
+    newSlots[i] = groupNames[i];
+
+  // Kodi stores each value, reads all settings of the instance back and transfers them to the add-on,
+  // so until the last value is stored the add-on sees a mix of old and new ones. No restart is requested
+  // for these while storing (see Enigma2::SetInstanceSetting()), the caller reloads the channels instead.
+  // The names go first, so the slots are filled before the number of bouquets and the mode make them used.
+  m_storingChannelGroups = true;
+  for (int i = 0; i < MAX_NUM_SOME_GROUPS; i++)
+    m_instance.SetInstanceSettingString(slotPrefixes[i] + type + "group", newSlots[i]);
+  m_instance.SetInstanceSettingInt("num" + type + "groups", newNumGroups);
+  m_instance.SetInstanceSettingEnum<ChannelGroupMode>(type + "groupmode", ChannelGroupMode::SOME_GROUPS);
+  m_storingChannelGroups = false;
+
+  // Kodi does not report failures, so check what it holds now
+  bool stored = m_instance.GetInstanceSettingEnum<ChannelGroupMode>(type + "groupmode") == ChannelGroupMode::SOME_GROUPS &&
+                m_instance.GetInstanceSettingInt("num" + type + "groups") == newNumGroups;
+  for (int i = 0; i < MAX_NUM_SOME_GROUPS; i++)
+    stored = stored && m_instance.GetInstanceSettingString(slotPrefixes[i] + type + "group") == newSlots[i];
+
+  // Use the selection until the next restart even if Kodi did not store all of it
+  ChannelGroupMode& groupMode = radio ? m_radioChannelGroupMode : m_tvChannelGroupMode;
+  int& numGroups = radio ? m_numRadioGroups : m_numTVGroups;
+  std::vector<std::string>& groupNameList = radio ? m_customRadioChannelGroupNameList : m_customTVChannelGroupNameList;
+  const std::array<std::string*, MAX_NUM_SOME_GROUPS> slots = radio
+      ? std::array<std::string*, MAX_NUM_SOME_GROUPS>{&m_oneRadioGroup, &m_twoRadioGroup, &m_threeRadioGroup, &m_fourRadioGroup, &m_fiveRadioGroup}
+      : std::array<std::string*, MAX_NUM_SOME_GROUPS>{&m_oneTVGroup, &m_twoTVGroup, &m_threeTVGroup, &m_fourTVGroup, &m_fiveTVGroup};
+
+  groupMode = ChannelGroupMode::SOME_GROUPS;
+  numGroups = newNumGroups;
+  groupNameList.clear();
+  for (int i = 0; i < MAX_NUM_SOME_GROUPS; i++)
+  {
+    *slots[i] = newSlots[i];
+    if (i < numGroups && !slots[i]->empty())
+      groupNameList.emplace_back(*slots[i]);
+  }
+
+  if (stored)
+    Logger::Log(LEVEL_INFO, "%s Stored %d %s bouquets selected by the user", __func__, numGroups, radio ? "radio" : "TV");
+  else
+    Logger::Log(LEVEL_ERROR, "%s Kodi did not store all of the %d %s bouquets selected by the user", __func__, numGroups, radio ? "radio" : "TV");
+
+  return stored;
 }
 
 bool InstanceSettings::LoadCustomChannelGroupFile(std::string& xmlFile, std::vector<std::string>& channelGroupNameList)
