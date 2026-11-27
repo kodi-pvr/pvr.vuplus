@@ -23,6 +23,9 @@
 #include <string>
 
 #include <kodi/General.h>
+#include <kodi/gui/dialogs/Keyboard.h>
+#include <kodi/gui/dialogs/OK.h>
+#include <kodi/gui/dialogs/Select.h>
 #include <kodi/tools/StringUtils.h>
 
 using namespace enigma2;
@@ -48,6 +51,10 @@ Enigma2::Enigma2(const kodi::addon::IInstanceInfo& instance)
 {
   m_timers.AddTimerChangeWatcher(&m_dueRecordingUpdate);
 
+  AddMenuHook(kodi::addon::PVRMenuhook(MENUHOOK_SELECT_TV_BOUQUETS, 30780, PVR_MENUHOOK_SETTING));
+  AddMenuHook(kodi::addon::PVRMenuhook(MENUHOOK_SELECT_RADIO_BOUQUETS, 30781, PVR_MENUHOOK_SETTING));
+  AddMenuHook(kodi::addon::PVRMenuhook(MENUHOOK_CHANNEL_SELECT_BOUQUETS, 30794, PVR_MENUHOOK_CHANNEL));
+
   connectionManager = new ConnectionManager(*this, m_settings);
 }
 
@@ -61,7 +68,14 @@ Enigma2::~Enigma2()
 ADDON_STATUS Enigma2::SetInstanceSetting(const std::string& settingName,
                                          const kodi::addon::CSettingValue& settingValue)
 {
-  return m_settings->SetSetting(settingName, settingValue);
+  const ADDON_STATUS status = m_settings->SetSetting(settingName, settingValue);
+
+  // Kodi transfers all settings back after each value stored for the selected bouquets,
+  // the intermediate states must not restart the client. The channels are reloaded afterwards.
+  if (status == ADDON_STATUS_NEED_RESTART && m_settings->IsStoringChannelGroups())
+    return ADDON_STATUS_OK;
+
+  return status;
 }
 
 PVR_ERROR Enigma2::GetCapabilities(kodi::addon::PVRCapabilities& capabilities)
@@ -218,6 +232,199 @@ PVR_ERROR Enigma2::OnSystemWake()
 }
 
 /***************************************************************************
+ * Menu hooks
+ **************************************************************************/
+
+PVR_ERROR Enigma2::CallSettingsMenuHook(const kodi::addon::PVRMenuhook& menuhook)
+{
+  if (menuhook.GetHookId() == MENUHOOK_SELECT_TV_BOUQUETS)
+    return SelectChannelGroups(false);
+  else if (menuhook.GetHookId() == MENUHOOK_SELECT_RADIO_BOUQUETS)
+    return SelectChannelGroups(true);
+
+  return PVR_ERROR_INVALID_PARAMETERS;
+}
+
+PVR_ERROR Enigma2::CallChannelMenuHook(const kodi::addon::PVRMenuhook& menuhook,
+                                       const kodi::addon::PVRChannel& item)
+{
+  if (menuhook.GetHookId() == MENUHOOK_CHANNEL_SELECT_BOUQUETS)
+    return SelectChannelGroups(item.GetIsRadio());
+
+  return PVR_ERROR_INVALID_PARAMETERS;
+}
+
+namespace
+{
+
+bool ContainsName(const std::vector<std::string>& names, const std::string& name)
+{
+  return std::find(names.begin(), names.end(), name) != names.end();
+}
+
+} // unnamed namespace
+
+PVR_ERROR Enigma2::SelectChannelGroups(bool radio)
+{
+  const std::string heading = kodi::addon::GetLocalizedString(radio ? 30781 : 30780);
+
+  std::vector<std::string> backendGroupNames;
+  if (!IsConnected() || !m_channelGroups.LoadBackendChannelGroupNames(backendGroupNames, radio) ||
+      backendGroupNames.empty())
+  {
+    kodi::gui::dialogs::OK::ShowAndGetInput(heading, kodi::addon::GetLocalizedString(30785)); // Unable to load the bouquets
+    return PVR_ERROR_SERVER_ERROR;
+  }
+
+  std::vector<std::string> currentGroupNames;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    currentGroupNames = m_settings->GetSomeChannelGroupNames(radio);
+  }
+
+  // One entry per bouquet slot like in the add-on settings, followed by the actions. Only single
+  // selection dialogs are used, the multi selection dialog never reports its first entry as selected.
+  std::vector<std::string> groupNames = currentGroupNames;
+  int focusedEntry = 0;
+  while (true)
+  {
+    std::vector<std::string> entries;
+    for (size_t i = 0; i < groupNames.size(); i++)
+    {
+      const std::string displayName = ContainsName(backendGroupNames, groupNames[i])
+          ? groupNames[i]
+          : StringUtils::Format(kodi::addon::GetLocalizedString(30784).c_str(), groupNames[i].c_str()); // %s (not found on set-top box)
+      entries.emplace_back(StringUtils::Format(kodi::addon::GetLocalizedString(30790).c_str(), static_cast<int>(i) + 1, displayName.c_str())); // Bouquet %d: %s
+    }
+
+    int addEntry = -1;
+    if (static_cast<int>(groupNames.size()) < MAX_NUM_SOME_GROUPS)
+    {
+      addEntry = static_cast<int>(entries.size());
+      entries.emplace_back(kodi::addon::GetLocalizedString(30791)); // [Add bouquet...]
+    }
+    const int saveEntry = static_cast<int>(entries.size());
+    entries.emplace_back(kodi::addon::GetLocalizedString(30792)); // [Save and reload channels]
+
+    if ((groupNames.empty() && addEntry >= 0) || focusedEntry > saveEntry)
+      focusedEntry = groupNames.empty() ? addEntry : saveEntry;
+
+    const int selectedEntry = kodi::gui::dialogs::Select::Show(heading, entries, focusedEntry);
+    if (selectedEntry < 0)
+      return PVR_ERROR_NO_ERROR; // cancelled, nothing changed
+
+    focusedEntry = selectedEntry;
+
+    if (selectedEntry == saveEntry)
+    {
+      if (!groupNames.empty())
+        break;
+
+      kodi::gui::dialogs::OK::ShowAndGetInput(heading, kodi::addon::GetLocalizedString(30786)); // Select at least one
+      continue;
+    }
+
+    if (selectedEntry == addEntry)
+    {
+      std::string groupName;
+      if (ChooseChannelGroup(heading, backendGroupNames, groupNames, groupName, false) == ChannelGroupChoice::CHOSEN)
+      {
+        groupNames.emplace_back(groupName);
+        focusedEntry = static_cast<int>(groupNames.size()); // the add entry again or save when all slots are used
+      }
+      continue;
+    }
+
+    if (selectedEntry < static_cast<int>(groupNames.size()))
+    {
+      std::string groupName = groupNames[selectedEntry];
+      const ChannelGroupChoice choice = ChooseChannelGroup(heading, backendGroupNames, groupNames, groupName, true);
+      if (choice == ChannelGroupChoice::CHOSEN)
+        groupNames[selectedEntry] = groupName;
+      else if (choice == ChannelGroupChoice::REMOVED)
+        groupNames.erase(groupNames.begin() + selectedEntry);
+    }
+  }
+
+  if (groupNames == currentGroupNames)
+    return PVR_ERROR_NO_ERROR;
+
+  bool stored = false;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    stored = m_settings->SetSomeChannelGroups(radio, groupNames);
+  }
+
+  if (!stored)
+    kodi::gui::dialogs::OK::ShowAndGetInput(heading, kodi::addon::GetLocalizedString(30787)); // Unable to store the bouquets
+
+  // Reload from the update thread so the GUI is not blocked while channels are loaded
+  m_dueChannelsAndGroupsReload = true;
+  kodi::QueueNotification(QUEUE_INFO, "", kodi::addon::GetLocalizedString(radio ? 30789 : 30788));
+
+  return PVR_ERROR_NO_ERROR;
+}
+
+Enigma2::ChannelGroupChoice Enigma2::ChooseChannelGroup(const std::string& heading,
+                                                        const std::vector<std::string>& backendGroupNames,
+                                                        const std::vector<std::string>& selectedGroupNames,
+                                                        std::string& groupName,
+                                                        bool canRemove)
+{
+  // Bouquets already used by another slot are not offered again
+  std::vector<std::string> entries;
+  int focusedEntry = -1;
+  for (const auto& backendGroupName : backendGroupNames)
+  {
+    if (backendGroupName != groupName && ContainsName(selectedGroupNames, backendGroupName))
+      continue;
+
+    if (backendGroupName == groupName)
+      focusedEntry = static_cast<int>(entries.size());
+    entries.emplace_back(backendGroupName);
+  }
+  const int numBackendEntries = static_cast<int>(entries.size());
+
+  const int manualEntry = static_cast<int>(entries.size());
+  entries.emplace_back(kodi::addon::GetLocalizedString(30782)); // [Enter bouquet name manually...]
+  int removeEntry = -1;
+  if (canRemove)
+  {
+    removeEntry = static_cast<int>(entries.size());
+    entries.emplace_back(kodi::addon::GetLocalizedString(30793)); // [Remove this bouquet]
+  }
+
+  const int selectedEntry = kodi::gui::dialogs::Select::Show(heading, entries, focusedEntry);
+  if (selectedEntry < 0)
+    return ChannelGroupChoice::CANCELLED;
+
+  if (selectedEntry == removeEntry)
+    return ChannelGroupChoice::REMOVED;
+
+  if (selectedEntry < numBackendEntries)
+  {
+    groupName = entries[selectedEntry];
+    return ChannelGroupChoice::CHOSEN;
+  }
+
+  if (selectedEntry == manualEntry)
+  {
+    std::string enteredName = groupName;
+    if (!kodi::gui::dialogs::Keyboard::ShowAndGetInput(enteredName, kodi::addon::GetLocalizedString(30783), false) || // Bouquet name
+        enteredName.empty())
+      return ChannelGroupChoice::CANCELLED;
+
+    if (enteredName != groupName && ContainsName(selectedGroupNames, enteredName))
+      return ChannelGroupChoice::CANCELLED; // already in another slot
+
+    groupName = enteredName;
+    return ChannelGroupChoice::CHOSEN;
+  }
+
+  return ChannelGroupChoice::CANCELLED;
+}
+
+/***************************************************************************
  * Device and helpers
  **************************************************************************/
 
@@ -246,6 +453,18 @@ void Enigma2::Process()
     std::tm timeInfo = *std::localtime(&currentUpdateTimeSeconds);
     updateTimer += static_cast<unsigned int>(currentUpdateTimeSeconds - lastUpdateTimeSeconds);
     lastUpdateTimeSeconds = currentUpdateTimeSeconds;
+
+    if (m_dueChannelsAndGroupsReload)
+    {
+      // Channel groups (bouquets) were changed from the settings menu hook
+      std::lock_guard<std::mutex> lock(m_mutex);
+      if (m_running && m_isConnected)
+      {
+        m_dueChannelsAndGroupsReload = false;
+        Logger::Log(LEVEL_INFO, "%s Bouquet selection changed, reloading channels, groups and EPG now", __func__);
+        ReloadChannelsGroupsAndEPG();
+      }
+    }
 
     if (m_dueRecordingUpdate || updateTimer >= (m_settings->GetUpdateIntervalMins() * 60))
     {

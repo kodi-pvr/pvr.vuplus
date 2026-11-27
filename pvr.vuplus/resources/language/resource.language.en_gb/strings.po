@@ -1488,3 +1488,78 @@ msgstr ""
 msgctxt "#30766"
 msgid "The MAC address of the Engima2 STB to be used for WoL (Wake On LAN)."
 msgstr ""
+
+#. label: Settings menu hook - select TV bouquets
+msgctxt "#30780"
+msgid "Select TV bouquets from set-top box"
+msgstr ""
+
+#. label: Settings menu hook - select radio bouquets
+msgctxt "#30781"
+msgid "Select radio bouquets from set-top box"
+msgstr ""
+
+#. application: Bouquet selection - list entry to enter a bouquet name manually
+msgctxt "#30782"
+msgid "[Enter bouquet name manually...]"
+msgstr ""
+
+#. application: Bouquet selection - keyboard heading
+msgctxt "#30783"
+msgid "Bouquet name (case-sensitive)"
+msgstr ""
+
+#. application: Bouquet selection - configured bouquet missing on the set-top box, %s is the bouquet name
+msgctxt "#30784"
+msgid "%s (not found on set-top box)"
+msgstr ""
+
+#. application: Bouquet selection
+msgctxt "#30785"
+msgid "Unable to load the list of bouquets from the set-top box."
+msgstr ""
+
+#. application: Bouquet selection
+msgctxt "#30786"
+msgid "Please select at least one bouquet."
+msgstr ""
+
+#. application: Bouquet selection
+msgctxt "#30787"
+msgid "Unable to store the selected bouquets, see the Kodi log for details."
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30788"
+msgid "Enigma2: TV bouquets changed, reloading..."
+msgstr ""
+
+#. notification: Enigma2
+msgctxt "#30789"
+msgid "Enigma2: Radio bouquets changed, reloading..."
+msgstr ""
+
+#. application: Bouquet selection - one entry per bouquet slot, %d is the slot number and %s the bouquet name
+msgctxt "#30790"
+msgid "Bouquet %d: %s"
+msgstr ""
+
+#. application: Bouquet selection - list entry to add a bouquet
+msgctxt "#30791"
+msgid "[Add bouquet...]"
+msgstr ""
+
+#. application: Bouquet selection - list entry to store the selection
+msgctxt "#30792"
+msgid "[Save and reload channels]"
+msgstr ""
+
+#. application: Bouquet selection - list entry to remove the bouquet from its slot
+msgctxt "#30793"
+msgid "[Remove this bouquet]"
+msgstr ""
+
+#. label: Channel menu hook - select bouquets, TV or radio depending on the channel
+msgctxt "#30794"
+msgid "Select bouquets from set-top box"
+msgstr ""
