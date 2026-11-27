@@ -252,7 +252,7 @@ ADDON_STATUS InstanceSettings::SetSetting(const std::string& settingName, const 
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_twoTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "threetvgroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_threeTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
-  else if (settingName == "twotvgroup")
+  else if (settingName == "fourtvgroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_fourTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
   else if (settingName == "fivetvgroup")
     return SetStringSetting<ADDON_STATUS>(settingName, settingValue, m_fiveTVGroup, ADDON_STATUS_NEED_RESTART, ADDON_STATUS_OK);
